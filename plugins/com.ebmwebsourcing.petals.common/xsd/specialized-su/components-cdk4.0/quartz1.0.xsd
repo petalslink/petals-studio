@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/quartz/version-1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:quartz="http://petals.ow2.org/components/quartz/version-1.0"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="QuartzInConsumes">
+		<xs:sequence>
+			<xs:element ref="quartz:cron-expression" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="quartz:content" maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="cron-expression" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+			A cron expression, e.g. "0 30 10-13 ? * WED,FRI" : trigger that fires at 10:30, 11:30, 12:30, and 13:30, on every Wednesday and Friday
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="content" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>(CDATA format) the XML document sent to the Petals Service when the trigger fires</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

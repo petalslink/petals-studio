@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://java.sun.com/xml/ns/jbi"
+	xmlns:jbi="http://java.sun.com/xml/ns/jbi"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:ejb="http://petals.ow2.org/components/ejb/version-1"
+	elementFormDefault="qualified">
+
+	<xs:import
+		namespace="http://petals.ow2.org/components/ejb/version-1"
+		schemaLocation="EJBElements.xsd" />
+
+	<xs:redefine schemaLocation="abstractCDKjbi.xsd">
+		<!-- Provides list -->
+		<xs:complexType name="Provides">
+			<xs:complexContent>
+				<xs:extension base="jbi:Provides">
+					<xs:sequence>
+						<xs:element ref="ejb:ejb.jndi.name"
+							maxOccurs="1" minOccurs="1" />
+						<xs:element
+							ref="ejb:java.naming.factory.initial" maxOccurs="1"
+							minOccurs="1" />
+                      	<xs:element
+							ref="ejb:java.naming.factory.url.pkgs" maxOccurs="1"
+							minOccurs="0" />
+						<xs:element ref="ejb:java.naming.provider.url"
+							maxOccurs="1" minOccurs="1" />
+						<xs:element ref="ejb:ejb.version" maxOccurs="1"
+							minOccurs="1" />
+						<xs:element ref="ejb:ejb.home.interface"
+							maxOccurs="1" minOccurs="0" />
+						<xs:element ref="ejb:security.name"
+							maxOccurs="1" minOccurs="0" />
+						<xs:element ref="ejb:security.principal"
+							maxOccurs="1" minOccurs="0" />
+						<xs:element ref="ejb:security.credencials"
+							maxOccurs="1" minOccurs="0" />
+						<xs:element ref="ejb:marshalling.engine"
+							maxOccurs="1" minOccurs="0" />
+						<!--
+                        <xs:element ref="ejb:xstream.alias"
+							minOccurs="0" />
+                        -->
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+
+		<xs:complexType name="Component">
+			<xs:complexContent>
+				<xs:extension base="jbi:Component"></xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:redefine>
+
+	<!-- The definition of the root element here take account of the redefined types -->
+	<xs:element name="jbi" type="jbi:Jbi" />
+</xs:schema>

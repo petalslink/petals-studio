@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests for common Petals stuff
+Bundle-SymbolicName: com.ebmwebsourcing.petals.common.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.ebmwebsourcing.petals.common.tests.Activator
+Bundle-Vendor: PetalsLink
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit,
+ com.ebmwebsourcing.petals.common;bundle-version="1.0.0",
+ org.eclipse.swtbot.eclipse.core;bundle-version="2.0.4",
+ org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.4",
+ org.eclipse.swtbot.eclipse.gef.finder;bundle-version="2.0.4",
+ org.eclipse.swtbot.forms.finder;bundle-version="2.0.4",
+ org.eclipse.swtbot.swt.finder;bundle-version="2.0.4",
+ com.ebmwebsourcing.petals.tests.common;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.15",
+ org.eclipse.wst.sse.sieditor.ui;bundle-version="1.0.0",
+ org.eclipse.core.resources;bundle-version="3.7.100"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2010-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="com.ebmwebsourcing.petals.common.views"
+            class="org.eclipse.ui.navigator.CommonNavigator"
+            icon="icons/obj16/pagesjaunes_16x16.png"
+            id="com.ebmwebsourcing.petals.repositories.view"
+            name="Petals Repositories">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+            viewerId="com.ebmwebsourcing.petals.repositories.view">
+         <includes>
+            <contentExtension
+                  isRoot="true"
+                  pattern="com.ebmwebsourcing.petals.repositories.original">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="com.ebmwebsoucing.petals.repositories.explorer.RepositoryContentProvider"
+            id="com.ebmwebsourcing.petals.repositories.original"
+            labelProvider="com.ebmwebsoucing.petals.repositories.explorer.RepositoryLabelProvider"
+            name="Native Query API"
+            priority="normal">
+         <triggerPoints>
+            <and>
+               <instanceof
+                     value="java.lang.Object">
+               </instanceof>
+            </and>
+         </triggerPoints>
+         <!-- actionProvider
+               class="com.ebmwebsourcing.petals.repositories">
+         </actionProvider>
+         <commonSorter
+               class="com.ebmwebsourcing.petals.services.explorer.CommonSorter"
+               id="com.ebmwebsourcing.petals.services.explorer.CommonSorter">
+         </commonSorter -->
+         <enablement>
+            <instanceof
+                  value="java.lang.Object">
+            </instanceof>
+         </enablement>
+         <actionProvider
+               class="com.ebmwebsoucing.petals.repositories.explorer.RepositoryExplorerActionProvider">
+         </actionProvider>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.search.searchPages">
+      <page
+            canSearchEnclosingProjects="false"
+            class="com.ebmwebsoucing.petals.repositories.search.ServiceSearchPage"
+            enabled="true"
+            extensions="*:0"
+            icon="icons/obj16/pagesjaunes_16x16.png"
+            id="com.ebmwebsoucing.petals.repositories.search"
+            label="Service Search"
+            showScopeSection="false">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+         
+      <!-- The search menu does not support commands. We have to use an action set. -->
+      <actionSet
+            description="We cannot add a contribution to the &quot;search&quot; menu without it"
+            id="com.ebmwebsoucing.petals.repositories.SearchActionSet"
+            label="Search Action Set"
+            visible="false">
+            
+        <!-- Copied from the JDT UI's plug-in. The search menu is really crappy. -->
+        <!-- See http://bugs.eclipse.org/bugs/show_bug.cgi?id=15684    			 -->
+		<!-- Note: The menu (re-) definition has to be here due to bug: 		 -->
+		<!-- =================================================================== -->
+		<!-- Search Menu                                                         -->
+		<!-- =================================================================== -->   
+          
+         <menu
+               label="Search"
+               path="navigate"
+               id="org.eclipse.search.menu">
+				<groupMarker name="internalDialogGroup"/>  
+				<groupMarker name="dialogGroup"/>         
+				<separator name="fileSearchContextMenuActionsGroup"/>
+	         	<separator name="contextMenuActionsGroup"/> 
+	         	<separator name="occurencesActionsGroup"/>
+	         	<separator name="extraSearchGroup"/> 
+         </menu>
+         
+         <!-- If we do not override the menu, it does not find the menu path. -->
+         <action
+               class="com.ebmwebsoucing.petals.repositories.search.OpenServiceSearchDialogAction"
+               enablesFor="*"
+               icon="icons/obj16/pages_jaunes_16x16_light.png"
+               id="com.ebmwebsoucing.petals.repositories.search-services"
+               label="Services..."
+               menubarPath="org.eclipse.search.menu/dialogGroup"
+               style="push">
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>

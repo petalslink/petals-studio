@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Generation API for Petals
+Bundle-SymbolicName: com.ebmwebsourcing.petals.common.generation;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EBM WebSourcing
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: com.ebmwebsourcing.commons.jbi.internal.provisional.beans,
+ com.ebmwebsourcing.commons.jbi.internal.provisional.client,
+ com.ebmwebsourcing.commons.jbi.internal.provisional.utils,
+ com.ebmwebsourcing.petals.common.generation,
+ com.ebmwebsourcing.petals.common.generation.cdk4,
+ com.ebmwebsourcing.petals.common.generation.cdk5,
+ com.ebmwebsourcing.petals.common.generation.cdk5.components,
+ com.ebmwebsourcing.petals.common.generation.cdk5.components.eip25
+Bundle-ActivationPolicy: lazy

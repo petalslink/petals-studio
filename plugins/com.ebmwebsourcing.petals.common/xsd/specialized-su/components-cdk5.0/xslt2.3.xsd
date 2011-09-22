@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/xslt/version-2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xslt="http://petals.ow2.org/components/xslt/version-2"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="XsltInProvides">
+		<xs:sequence>
+			<xs:element ref="xslt:stylesheet" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="xslt:output-attachment-name" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="xslt:xsl-parameters" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="stylesheet" type="xs:string">
+		<xs:annotation><xs:documentation>XSL style sheet: the file providing the XSL transformation</xs:documentation></xs:annotation>
+	</xs:element>
+	
+	<xs:element name="output-attachment-name" type="xs:string">
+		<xs:annotation><xs:documentation>Attachment name: if the transformation result has to be returned as an attachment</xs:documentation></xs:annotation>
+	</xs:element>
+	
+	<xs:element name="xsl-parameters">
+		<xs:annotation>
+			<xs:documentation>
+				A list of replacement variable for the XSL style sheet
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="xsl-parameter" type="xslt:XslParameter" minOccurs="1" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							The name attribute represents a variable to replace in the XSL style sheet.
+							The value is the one used as the replacement text.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:complexType name="XslParameter">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required" />
+				<xs:attribute name="overridable" type="xs:boolean" default="false" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

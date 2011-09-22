@@ -1,0 +1,37 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.sca.generated"
+imports="
+			com.ebmwebsourcing.petals.services.sca.configuration.beans.ScaWizardBean
+			com.ebmwebsourcing.petals.services.sca.configuration.beans.ScaWizardReferenceBean"
+class="DefaultServiceImpl"
+skeleton="generator.skeleton" %>
+<% ScaWizardBean bean = (ScaWizardBean) argument; %>
+package <%= bean.getPackageName() %>;
+
+<%
+boolean hasReference = bean.getReferences().size() > 0;
+if( hasReference ) {
+%>
+import org.osoa.sca.annotations.Reference;<% } %>
+import org.osoa.sca.annotations.Service;
+<% for( ScaWizardReferenceBean ref : bean.getReferences()) { %>
+import <%= ref.getInterfaceClassName() %>;<% } %>
+
+@Service(MainService.class)
+public class MainServiceImpl implements MainService {
+	<% if( hasReference ) { %>
+	//
+	// References<% } %>
+	<% 
+	for( ScaWizardReferenceBean ref : bean.getReferences()) { %>
+	private <%= ref.getSimpleInterfaceClassName() %> <%= ref.getReferenceName() %>;
+
+	@Reference
+	public void set<%= ref.getSimpleInterfaceClassName() %>( <%= ref.getSimpleInterfaceClassName() %> <%= ref.getReferenceName() %> ) {
+		this.<%= ref.getReferenceName() %> = <%= ref.getReferenceName() %>;
+	}
+	
+	<% } %>
+
+	// TODO: define the service implementation.
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="book.css" rel="stylesheet" type="text/css" />
+	<title>Creating an SCA project for Petals</title>
+</head>
+
+<body>
+<h1>Creating an SCA project for Petals</h1>
+
+<p>
+To create an SCA project for Petals, select <b>File &gt; New &gt; Other...</b> and then select
+<b>Use SCA</b> in the <b>Petals &gt; Use a technical service</b> category.
+</p><p>
+On the first page, double-click the version to target.<br />
+The most recent one is the version 1.0.
+The version 0.4 is only kept for research purpose.   
+</p>
+<img src="images/versionPage.gif" alt="The version page" />
+
+<p>
+On the second page, you are asked the minimum required information to create an SCA application for
+Petals. Both fields are required and will identify your SCA composite in the project.
+</p>
+<img src="images/scaPage.gif" alt="The SCA specific page" />
+
+<p>
+Click <b>Next</b> to move on the next page.<br />
+Eventually, specify the project properties. This information should be pre-filled with
+your preferences and the composite name. Click <b>Finish</b> to end up the wizard. 
+</p>
+<img src="images/projectPage.gif" alt="The project page" />
+
+<p>
+The generated project is an SCA Java project. It owns the Petals nature, so it can be
+used the Petals Eclipse tooling. The wizard has generated a composite file and its diagram.
+There is no jbi.xml file. This is normal. You will generate it once you have finished your
+SCA application (the jbi.xml content depends the SCA application <i>shape</i>). 
+</p>
+<img src="images/createdProject.gif" alt="A project created with this wizard" />
+<img src="images/compositeSkeleton.gif" alt="The sample of generated composite" style="margin-left: 20px" />
+
+</body>
+</html>

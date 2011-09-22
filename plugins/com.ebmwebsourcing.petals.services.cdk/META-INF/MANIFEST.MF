@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.ebmwebsourcing.petals.services.cdk;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.ebmwebsourcing.petals.services.cdk.CdkXsdManagerPlugin
+Bundle-Vendor: %pluginProvider
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Export-Package: com.ebmwebsourcing.petals.services.cdk
+Bundle-Localization: plugin
+Eclipse-LazyStart: true

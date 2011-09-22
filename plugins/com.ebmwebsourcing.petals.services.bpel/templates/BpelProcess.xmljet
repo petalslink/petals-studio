@@ -1,0 +1,52 @@
+<%@ jet
+	package="com.ebmwebsourcing.petals.services.bpel.generated"
+	class="Process"
+	skeleton="generator.skeleton" %>
+<% String processName = (String) argument; %>
+<process name="<%= processName %>"
+         targetNamespace="http://petals.ow2.org/bpel/<%= processName %>/"          
+         xmlns:tns="http://petals.ow2.org/bpel/<%= processName %>/"
+         xmlns:artifacts="http://petals.ow2.org/bpel/<%= processName %>/Artifacts"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+
+    <!-- Import the client WSDL -->
+	<import location="<%= processName %>Definition.wsdl" 
+			namespace="http://petals.ow2.org/bpel/<%= processName %>/" 
+	        importType="http://schemas.xmlsoap.org/wsdl/" />
+	        
+	<import location="<%= processName %>Artifacts.wsdl"
+			namespace="http://petals.ow2.org/bpel/<%= processName %>/Artifacts"
+			importType="http://schemas.xmlsoap.org/wsdl/" />
+	                
+    <!-- ================================================================= -->         
+    <!-- PARTNERLINKS                                                      -->
+    <!-- List of services participating in this BPEL process               -->
+    <!-- ================================================================= -->         
+    <partnerLinks>
+        <!-- The 'client' role represents the requester of this service. -->
+        <partnerLink name="<%= processName %>Partner"
+                     partnerLinkType="artifacts:<%= processName %>PLT"
+                     myRole="<%= processName %>Role" />
+    </partnerLinks>
+  
+    <!-- ================================================================= -->         
+    <!-- VARIABLES                                                         -->
+    <!-- List of messages and XML documents used within this BPEL process  -->
+    <!-- ================================================================= -->         
+    <variables>
+    	<bpel:variable 	name="<%= processName %>PartnerRequest" 
+    					messageType="tns:<%= processName %>RequestMessage" />
+    </variables>
+
+    <!-- ================================================================= -->         
+    <!-- ORCHESTRATION LOGIC                                               -->
+    <!-- Set of activities coordinating the flow of messages across the    -->
+    <!-- services integrated within this business process                  -->
+    <!-- ================================================================= -->         
+    <sequence name="MainSequence">
+    	<bpel:receive 	name="ReceiveMessage" partnerLink="<%= processName %>Partner" 
+    					operation="process" portType="tns:<%= processName %>PortType" 
+    					variable="<%= processName %>PartnerRequest" />
+    </sequence>
+</process>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	
+	targetNamespace="http://java.sun.com/xml/ns/jbi" 
+	xmlns:jbi="http://java.sun.com/xml/ns/jbi"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:pojo="http://petals.ow2.org/components/pojo/version-2"
+	elementFormDefault="qualified">
+	
+	<xs:import namespace="http://petals.ow2.org/components/pojo/version-2"
+		schemaLocation="POJOextensions.xsd" />
+		
+	<xs:redefine schemaLocation="abstractCDKjbi.xsd">
+		<xs:complexType name="Provides">
+			<xs:complexContent>
+				<xs:extension base="jbi:Provides">
+					<xs:sequence>
+						<xs:element ref="pojo:class-name" maxOccurs="1"	minOccurs="1" />
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:redefine>
+	<!--
+		The definition of the root element here takes account of the redefined
+		types
+	-->
+	<xs:element name="jbi" type="jbi:Jbi" />
+</xs:schema>

@@ -1,0 +1,49 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.jsr181.generated"
+imports="
+			java.util.Properties
+			com.ebmwebsourcing.petals.services.jsr181.Jsr181Constants"
+class="JaxWsImplementation"
+skeleton="generator.skeleton" %>
+<% Properties prop = (Properties) argument; %>
+package <%= prop.get( Jsr181Constants.PACKAGE_NAME ) %>;
+
+import javax.jws.Oneway;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+
+/**
+ * Here is a sample JAX-WS implementation.
+ * <p>
+ * For more information about JAX-WS, please visit 
+ * <b>https://jax-ws.dev.java.net/jax-ws-ea3/docs/annotations.html</b>.
+ * </p>
+ *
+ * @author <%= System.getProperty( "user.name" ) %>
+ */
+@WebService( serviceName="<%= prop.get( Jsr181Constants.SERVICE_NAME ) %>", targetNamespace="<%=
+prop.get( Jsr181Constants.TNS ) %>", portName="<%= prop.get( Jsr181Constants.PORT_NAME ) %>" )
+public class <%= prop.get( Jsr181Constants.CLASS_NAME ) %> {
+
+	/* (non-Javadoc)
+	 * @see JaxWSInterface#HelloWorld()
+	 */
+	@WebMethod( operationName="helloWorld" )
+	@WebResult( name="returnMessage" )
+	public String helloWorld() {
+		return "Hello World!";
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see toto.JaxWSInterface
+	 * #listenToTheWorld(java.lang.String)
+	 */	
+	@WebMethod( operationName="listenToTheWorld" )
+	@Oneway
+	public void listenToTheWorld( @WebParam( name="message" ) String message ) {
+		// We here illustrate a method that do not return anything.
+	}
+}

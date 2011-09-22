@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="book.css" rel="stylesheet" type="text/css" />
+	<title>Working with EIP in Petals</title>
+</head>
+
+<body>
+<h1>Working with EIP in Petals</h1>
+
+<h2>Introduction</h2>
+<p>
+The EIP component allows one to create a service chaining and invoking other services in the bus.<br />
+The EIP plug-in allows you to create a project configuring this Petals component.<br />
+It also creates an EIP configuration which references the different services to invoke and the way to chain them.<br />
+The way services are chained is called the <b>pattern</b>.
+Depending on the pattern, some parameters may have to be configured to obtain the expected behavior.
+</p>
+
+
+<h2>The main differences</h2>
+<p>
+There are slight differences between the usual wizard, as exposed in the Petals
+plug-ins overview, and the Petals EIP plug-in. This page shows these differences
+and will guide users to build their Enterprise Integration Pattern Services.
+</p><p>
+To run the EIP wizard, select <b>File &gt; New &gt; Other...</b> and then select
+<b>Use EIP</b> in the <b>Petals</b> category.
+</p><p>
+The three first pages are well known pages, common to the usual wizards.<br />
+First, you select the version of the EIP component you want to use.
+Then, you find the page expecting information related to the service you want to propose in Petals.
+The third page is the page where you define project settings.
+The fourth page is specific to the EIP plug-in. It allows you to define the EIP general configuration.
+</p>
+<img src="images/EIPconfig.gif" alt="1st: specify the EIP configuration" />
+
+<p>Depending on the pattern to use, some parameters may need to be filled.<br />
+Please, refer the EIP component documentation to better understand the meaning of the parameters.<br />
+Once you have chosen the proper configuration, click the <b>Next</b> button.</p>
+
+<p>
+Now, select the services you want to chain with your pattern.<br />
+Click on the <b>Add...</b> button, select the created entry in the list panel and click <b>Edit...</b>.
+</p>
+<img src="images/EIPconsumes.gif" alt="2nd: specify the services to chain" />
+
+<p>
+A dialog shows up. It allows you to specify the services to consume inside your pattern. 
+You can either fill in the interface, service and end-point manually, or select a project on the
+right part of the dialog, in which case the fields should be completed automatically.
+Click <b>OK</b> when the service specification is complete.
+</p>
+<img src="images/EIPconsumeedit.gif" alt="3rd: edit a service to chain" />
+
+<p>
+Repeat the process over and over until you have selected all the services you want to involve in your EIP service.<br />
+Once it is done, click <b>Next</b>. You should then find back the usual wizard elements, as described in the general documentation.</p>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-catalog  
+	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0 http://maven.apache.org/xsd/archetype-catalog-1.0.0.xsd">
+
+	<archetypes>
+		<archetype>
+			<groupId>org.ow2.petals</groupId>
+			<artifactId>maven-archetype-petals-jbi-binding-component</artifactId>
+			<version>RELEASE</version>
+			<repository>http://maven.ow2.org/maven2/</repository>
+			<description>This project is Maven 2 archetype associated with a JBI binding component project.</description>
+		</archetype>
+		
+		<archetype>
+			<groupId>org.ow2.petals</groupId>
+			<artifactId>maven-archetype-petals-jbi-service-engine</artifactId>
+			<version>RELEASE</version>
+			<repository>http://maven.ow2.org/maven2/</repository>
+			<description>This project is Maven 2 archetype associated with a JBI service engine project.</description>
+		</archetype>
+		
+		<archetype>
+			<groupId>org.ow2.petals</groupId>
+			<artifactId>maven-archetype-petals-jbi-shared-library</artifactId>
+			<version>RELEASE</version>
+			<repository>http://maven.ow2.org/maven2/</repository>
+			<description>This project is Maven 2 archetype associated with a JBI Shared Library project.</description>
+		</archetype>
+		
+		<archetype>
+			<groupId>org.ow2.petals</groupId>
+			<artifactId>maven-archetype-petals-jbi-service-assembly</artifactId>
+			<version>RELEASE</version>
+			<repository>http://maven.ow2.org/maven2/</repository>
+			<description>This project is Maven 2 archetype associated with a JBI service assembly project.</description>
+		</archetype>
+		
+		<archetype>
+			<groupId>org.ow2.petals</groupId>
+			<artifactId>maven-archetype-petals-jbi-service-unit</artifactId>
+			<version>RELEASE</version>
+			<repository>http://maven.ow2.org/maven2/</repository>
+			<description>This project is Maven 2 archetype associated with a JBI service unit project.</description>
+		</archetype>
+	</archetypes>
+</archetype-catalog>

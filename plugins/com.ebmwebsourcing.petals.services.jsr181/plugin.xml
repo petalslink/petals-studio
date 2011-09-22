@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2008-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+   <extension
+         point="com.ebmwebsourcing.petals.services.contentExtension">
+      <WizardData
+      		SuType="Jsr181"
+            ContributorDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181ContributorDescription">
+         <Version
+               CustomComponentPage="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181ProvideSpecificPage11"
+               LastActionsPerformer="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181LastActionsPerformer"
+               ProvideConfiguration="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181Configuration"
+               SuVersion="1.1">
+         </Version>
+      </WizardData>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="com.ebmwebsourcing.jbi.core.petals-category"
+            defaultHandler="com.ebmwebsourcing.petals.services.jsr181.handlers.Jsr181GenerationHandler"
+            description="Generate JSR-181 files"
+            id="com.ebmwebsourcing.petals.services.jsr181.generate-files"
+            name="Generate JSR-181 Files">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:com.ebmwebsourcing.petals.common.actiongroup?after=com.ebmwebsourcing.petals.common.group.edit">
+         <command
+               commandId="com.ebmwebsourcing.petals.services.jsr181.generate-files"
+               label="Generate WSDL(s)"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <instanceof
+                           value="org.eclipse.core.resources.IProject">
+                     </instanceof>
+                     <and>
+                        <test
+                              property="org.eclipse.core.resources.projectNature"
+                              value="com.ebmwebsourcing.petals.tools.eclipse.su.main.nature">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.projectNature"
+                              value="org.eclipse.jdt.core.javanature">
+                        </test>
+                        <test
+                              property="com.ebmwebsourcing.petals.services.component-name"
+                              value="petals-se-jsr181">
+                        </test>
+                     </and>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>

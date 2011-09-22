@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards.utilities"
+            class="com.ebmwebsourcing.petals.common.extensions.internal.wizards.WSDLtoJavaWizard"
+            hasPages="true"
+            icon="icons/obj16/wsdl_to_java.png"
+            id="com.ebmwebsourcing.petals.common.wsdlext.wsdlToJava"
+            name="From WSDL to Java"
+            project="false">
+         <description>
+            Generate Java classes from a WSDL definition
+         </description>
+      </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards.utilities"
+            class="com.ebmwebsourcing.petals.common.extensions.internal.wizards.JavaToWSDLWizard"
+            hasPages="true"
+            icon="icons/obj16/java_to_wsdl.png"
+            id="com.ebmwebsourcing.petals.common.wsdlext.javaToWsdl"
+            name="From Java to WSDL"
+            project="false">
+         <description>
+            Generate a WSDL definition from a Java interface
+         </description>
+      </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards.utilities"
+            class="com.ebmwebsourcing.petals.common.extensions.internal.wizards.WebServiceClientWizard"
+            hasPages="true"
+            icon="icons/obj16/ws_client.gif"
+            id="com.ebmwebsourcing.petals.common.wsdlext.webServiceClient"
+            name="Web Service Client"
+            project="false">
+         <description>
+            Generate a WSDL definition from a Java interface
+         </description>
+      </wizard>
+   </extension>
+
+</plugin>

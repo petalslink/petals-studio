@@ -1,0 +1,3 @@
+STEP 1: the Parsing
+
+Parse all the XSDs as XML files with an XML parser.

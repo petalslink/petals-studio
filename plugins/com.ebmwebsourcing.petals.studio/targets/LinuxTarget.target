@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.5"?>
+
+<target name="Linux Target Platform (Multi OS)">
+<locations>
+<location path="${eclipse_home}" type="Profile"/>
+<location path="/home/vzurczak/Bureau/data/Librairies/Eclipse/DeltaPack_3.5.2" type="Directory"/>
+</locations>
+<environment>
+<os>linux</os>
+<ws>gtk</ws>
+<arch>x86</arch>
+<nl>fr_FR</nl>
+</environment>
+<launcherArgs>
+<vmArgs>-Dosgi.requiredJavaVersion=1.5 -XX:MaxPermSize=256m -Xms40m -Xmx512m</vmArgs>
+</launcherArgs>
+</target>

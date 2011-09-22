@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/mail/version-3"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:mail="http://petals.ow2.org/components/mail/version-3"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="MailInProvides">
+		<xs:sequence>
+			<xs:element ref="mail:scheme" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:host" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:port" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:user" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:password" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:from" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:reply" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:to" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:subject" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:helohost" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:send-mode" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<xs:group name="MailInConsumes">
+		<xs:sequence>
+			<xs:element ref="mail:scheme" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:host" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:port" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:user" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:password" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:folder" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:delete" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:period" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:isxmlcontent" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="scheme" type="mail:Scheme">
+		<xs:annotation>
+			<xs:documentation>Scheme used to send (SMTP) ore receive (IMAP,POP3) emails</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="host" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>SMTP/IMAP/POP3 server</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="port" type="xs:int" default="25">
+		<xs:annotation>
+			<xs:documentation>Server port (standard ports are 25=SMTP, 110=POP3, 143=IMAP)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="user" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>User name to connect to the server</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Password to connect to the server</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="from" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>From address (if not specified, use the ws-addressing FROM property in the JBI message)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="reply" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>ReplyTo address (if not specified, use the ws-addressing REPLY_TO property in the JBI message)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="to" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>To address (if not specified, use the ws-addressing TO property in the JBI message)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="subject" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Subject (if not specified, use the ws-addressing ACTION property in the JBI message)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="folder" type="xs:string" default="INBOX">
+		<xs:annotation>
+			<xs:documentation>Folder (default folder is INBOX)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="delete" type="xs:boolean" default="true">
+		<xs:annotation>
+			<xs:documentation>remove messages are marked as DELETED,(default is TRUE)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="period" type="xs:int" default="60000">
+		<xs:annotation>
+			<xs:documentation>Checking for new mail period, in ms (used to send emails)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:simpleType name="Scheme">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="smtp" />
+			<xs:enumeration value="pop3" />
+			<xs:enumeration value="imap" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="SendMode">
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="content-only" />
+		<xs:enumeration value="attachments-only" />
+		<xs:enumeration value="content-and-attachments" />
+	</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="send-mode" type="mail:SendMode" default="content-and-attachments">
+		<xs:annotation>
+			<xs:documentation>Send either the source, the attachments or both of
+				the payload. Default value is : content-and-attachments.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="helohost" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>HELO host for SMTP</xs:documentation>
+		</xs:annotation>
+    </xs:element>
+    
+    <xs:element name="isxmlcontent" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Assume mail content is XML (for Consumes mode)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

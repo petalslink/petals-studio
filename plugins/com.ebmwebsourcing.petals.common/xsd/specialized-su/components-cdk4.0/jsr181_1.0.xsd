@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/jsr181/version-1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:jsr181="http://petals.ow2.org/components/jsr181/version-1.0"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="Jsr181InProvides">
+		<xs:sequence>
+			<xs:element ref="jsr181:class" maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="class" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Class of the annotated Web Service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,73 @@
+<%
+/******************************************************************************
+ * Copyright (c) 2008-2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+%><%@ jet
+	imports="
+		com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean
+		com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils"
+	package="com.ebmwebsourcing.petals.services.generated"
+	class="SuPomXml"
+	skeleton="generator.skeleton"
+ %><% 
+	MavenBean bean = (MavenBean) argument;
+%>
+<?xml version="1.0"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	<%
+	boolean commentParent = StringUtils.isEmpty( bean.getParentArtifactId())
+		|| StringUtils.isEmpty( bean.getParentGroupId())
+		|| StringUtils.isEmpty( bean.getParentVersion());
+		
+	if( commentParent ) {
+	%> <!-- <% } %>
+	<parent>
+		<artifactId><%= bean.getParentArtifactId() %></artifactId>
+		<groupId><%= bean.getParentGroupId() %></groupId>
+		<version><%= bean.getParentVersion() %></version>
+	</parent>
+	<% if( commentParent ) { %> --> <% } %>
+	
+	<name><%= bean.getName() %></name>
+	<artifactId><%= bean.getArtifactId() %></artifactId>
+	<groupId><%= bean.getGroupId() %></groupId>
+	<version><%= bean.getVersion() %></version>
+	<packaging>jbi-service-unit</packaging>
+	<description><%= bean.getDescription() %></description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.ow2.petals</groupId>
+			<artifactId><%= bean.getComponentName() %></artifactId>
+			<version><%= bean.getComponentVersion() %></version>
+			<scope>provided</scope>
+			<type>jbi-component</type>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.ow2.petals</groupId>
+				<artifactId>maven-petals-plugin</artifactId>
+				<version><%= bean.getPetalsMavenPluginVersion() %></version>
+				<extensions>true</extensions>
+				<configuration>
+					<updateJBIXml>true</updateJBIXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

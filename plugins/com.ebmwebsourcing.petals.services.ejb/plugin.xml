@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2008-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+   <extension
+         point="com.ebmwebsourcing.petals.services.contentExtension">
+      <WizardData
+            SuType="EJB"
+            ContributorDescription="com.ebmwebsourcing.petals.services.ejb.EjbContributorDescription">
+         <Version
+               LastActionsPerformer="com.ebmwebsourcing.petals.services.ejb.v12.EJBLastActionsPerformer12"
+               ProvideConfiguration="com.ebmwebsourcing.petals.services.ejb.v12.EjbWizardConfiguration12"
+               SuVersion="1.3">
+            <WizardPage
+                  WizardPageClass="com.ebmwebsourcing.petals.services.ejb.v13.EJBCustomSpecificationPage13"
+                  WizardPageMode="Provide"
+                  WizardPagePosition="beforeJbiPage">
+            </WizardPage>
+         </Version>
+      </WizardData>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="doc/tocejb.xml"
+            primary="false">
+      </toc>
+   </extension>
+
+</plugin>

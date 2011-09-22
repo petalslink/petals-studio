@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/filetransfer/version-2.1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ft="http://petals.ow2.org/components/filetransfer/version-2.1"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="FileTransferInProvides">
+		<xs:sequence>
+			<xs:element ref="ft:write-directory" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ft:copy-mode" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ft:file-pattern" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<xs:group name="FileTransferInConsumes">
+		<xs:sequence>
+			<xs:element ref="ft:read-directory" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ft:backup-directory" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:transfer-mode" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ft:polling-period" maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="read-directory" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Directory from which files are read. ${env} environment variables are supported. Format like C:\ or /home</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="polling-period" type="xs:int" default="1000">
+		<xs:annotation>
+			<xs:documentation>Polling period in milliseconds</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="backup-directory" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Directory where read files are moved. ${env} environment variables are supported. Format like C:\ or /home</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="transfer-mode" type="ft:TransferMode"
+		default="content">
+		<xs:annotation>
+			<xs:documentation>Transfer the file into Petals as an XML payload or as an attachment</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="write-directory" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Directory where files are written. ${env} environment variables are supported. Format like C:\ or /home</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="copy-mode" type="ft:CopyMode"
+		default="content-and-attachments">
+		<xs:annotation>
+			<xs:documentation>Select the elements received from the Petals message to write</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="file-pattern" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>File-pattern used to name written files from Petals, appended with date-time. If not set, the names would be the operation name or 'content.xml'.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:simpleType name="TransferMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="content" />
+			<xs:enumeration value="attachment" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="CopyMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="content-only" />
+			<xs:enumeration value="attachments-only" />
+			<xs:enumeration value="content-and-attachments" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

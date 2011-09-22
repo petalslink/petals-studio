@@ -1,0 +1,110 @@
+<%
+/**
+ * Copyright (c) 2008-2009, EBM WebSourcing
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ **/
+%><%@ jet
+	package="com.ebmwebsourcing.petals.services.eip.generated"
+	imports="
+	com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean
+	com.ebmwebsourcing.petals.services.eip.EipConsumeDataBean
+	com.ebmwebsourcing.commons.jbi.internal.provisional.utils.JbiNameFormatter
+	java.util.List
+	java.util.ArrayList
+	java.util.Map
+	"
+	class="SuJbiXml"
+	skeleton="generator.skeleton" %>
+<% 
+	EclipseSuBean suBean = (EclipseSuBean) argument;
+%>
+<?xml version="1.0" encoding="UTF-8"?>
+<jbi:jbi version="1.0" <% 
+	for( Map.Entry<String, String> namespace : suBean.getComputedNamespaces().entrySet()) { 
+		%><%= "\n\txmlns:" + namespace.getKey() + "=\"" + namespace.getValue() + "\"" %><% 
+	}
+	%>>
+	
+	<jbi:services binding-component="<%= suBean.isBc() %>">
+		<jbi:provides 		
+			interface-name="<%= (suBean.sameNsForInterfaceAndService() ? EclipseSuBean.GENERATED_NS : EclipseSuBean.INTERFACE_NS) + ":" + suBean.getInterfaceName() %>"
+			service-name="<%= (suBean.sameNsForInterfaceAndService() ? EclipseSuBean.GENERATED_NS : EclipseSuBean.SERVICE_NS) + ":" + suBean.getServiceName() %>"
+			endpoint-name="<%= suBean.getEndpointName() %>">
+	
+			<!-- CDK specific elements -->
+<%= suBean.getCdkElementsAsString() %>
+		
+			<!-- Component specific elements -->	
+<%= suBean.getSpecificsElementsAsString() %>
+		</jbi:provides><%
+		
+		
+		Object o = suBean.customObjects.get( "EipVersion22" );
+		if( o != null ) {
+			List<?> consumes = ( List<?> ) o;
+			int cpt = 1;
+			for( Object oo : consumes ) {
+				EipConsumeDataBean consumeDataBean = (EipConsumeDataBean) oo;
+				String interfaceNsUri = consumeDataBean.getInterfaceNamespace();
+				String interfaceNsPrefix = "iConsumeNsPrefix";
+				
+				String serviceNsUri = consumeDataBean.getServiceNamespace();
+				String serviceNsPrefix = "consumeNsPrefix";
+				boolean oneGeneratedNsOnly = interfaceNsUri != null && interfaceNsUri.equals( serviceNsUri );
+								
+				List<String> nsDeclarations = new ArrayList<String> ();			
+				if( oneGeneratedNsOnly && interfaceNsUri != null ) {
+					serviceNsPrefix = interfaceNsPrefix;
+					String nsDecl = "xmlns:" + interfaceNsPrefix + "=\"" + interfaceNsUri + "\"";
+					nsDeclarations.add( nsDecl );
+				}
+				else {
+					String nsDecl = "xmlns:" + interfaceNsPrefix + "=\"" + interfaceNsUri + "\"";
+					if( interfaceNsUri != null )
+						nsDeclarations.add( nsDecl );
+						
+					nsDecl = "xmlns:" + serviceNsPrefix + "=\"" + serviceNsUri + "\"";
+					if( serviceNsUri != null )
+						nsDeclarations.add( nsDecl );
+				}
+		%>
+		
+		<!-- Consumed project <%= cpt++ %> <%= consumeDataBean.getComment() %> -->
+		<jbi:consumes
+			interface-name="<%			
+				if( interfaceNsUri != null ) { %><%= interfaceNsPrefix + ":" %><% } 
+			%><%= consumeDataBean.getInterfaceName() %>"<% 
+				if( !"".equals( consumeDataBean.getServiceName())) { %>
+			service-name="<% 
+					if( serviceNsUri != null ) { %><%= serviceNsPrefix + ":" %><% } 
+			%><%= consumeDataBean.getServiceName() %>"<% } %><%
+				
+			if( ! JbiNameFormatter.PETALS_AUTO_GENERATE_ENDPOINT.equals( consumeDataBean.getEndpointName())
+					&& !"".equals( consumeDataBean.getEndpointName())) { %>
+			endpoint-name="<%= consumeDataBean.getEndpointName() %>"<% } %><%
+			
+			for( String nsDecl : nsDeclarations ) {
+				%><%= "\n\t\t\t" + nsDecl %><%
+			} 
+			%>>
+			
+			<!-- CDK specific fields for this consume -->
+			<petalsCDK:operation xmlns:op="<%= consumeDataBean.getInvokedOperation().getNamespaceURI()  %>">op:<%= consumeDataBean.getInvokedOperation().getLocalPart() %></petalsCDK:operation>
+			<petalsCDK:mep><%= consumeDataBean.getMep() %></petalsCDK:mep>
+		</jbi:consumes><% 
+			}
+		} %>
+	</jbi:services>
+</jbi:jbi>

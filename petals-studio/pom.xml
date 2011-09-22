@@ -1,0 +1,116 @@
+<project
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+		xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion> 
+	<parent>
+		<groupId>com.ebmwebsourcing.petals</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	
+	<groupId>com.ebmwebsourcing.petals</groupId>
+	<artifactId>petals-studio</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-repository</packaging>
+	
+	
+	<build>
+    <plugins>
+    
+		<!-- Publish all the artifacts -->
+		<plugin>
+			<groupId>org.eclipse.tycho</groupId>
+			<artifactId>tycho-p2-publisher-plugin</artifactId>
+			<version>${tycho-version}</version>
+			<configuration>
+				<includeAllDependencies>true</includeAllDependencies>
+			</configuration>
+        </plugin>
+    
+    	<!-- Create a zipped p2 repository -->
+    	<plugin>
+        	<groupId>org.eclipse.tycho</groupId>
+        	<artifactId>tycho-p2-repository-plugin</artifactId>
+        	<version>${tycho-version}</version>
+        	<configuration>
+          		<includeAllDependencies>true</includeAllDependencies>
+        	</configuration>
+      	</plugin>
+	
+		<!-- Create the product -->
+		<plugin>
+			<groupId>org.eclipse.tycho</groupId>
+			<artifactId>tycho-p2-director-plugin</artifactId>
+			<version>${tycho-version}</version>
+        
+			<executions>
+				<execution>
+					<id>materialize-products</id>
+					<goals>
+						<goal>materialize-products</goal>
+					</goals>
+				</execution>
+				<execution>
+					<id>archive-products</id>
+					<goals>
+						<goal>archive-products</goal>
+					</goals>
+				</execution>
+			</executions>
+			
+			<configuration>
+                <products>
+					<product>
+						<id>com.ebmwebsourcing.petals.studio.product</id>
+						<rootFolder>PetalsStudio</rootFolder>
+					</product>
+				</products>
+			</configuration> 
+		</plugin>
+		
+		<!-- ANT actions -->
+		<plugin>
+			<artifactId>maven-antrun-plugin</artifactId>
+			<version>1.6</version>
+			<executions>
+
+			
+				<!-- Rename the ZIP files -->
+				<execution>
+					<id>update-zip-files</id>
+					<phase>install</phase>
+								
+					<configuration>
+						<target>
+							
+							<!-- Rename the products -->
+							<move verbose="true" todir="${project.build.directory}/products">
+					        	<mapper type="regexp" 
+					        			from="^com\.ebmwebsourcing\.petals\.studio\.product(.*)$$" 
+					        			to="Petals-Studio--${studio-version}-\1" />
+					        			
+					        	<fileset dir="${project.build.directory}/products">
+					        		<include name="*.zip" />
+					        	</fileset>
+					        </move>
+					        
+					        <!-- Rename the update site and move it in "products", so that they are all in the same directory -->
+					        <move 	verbose="true" 
+					        		file="${project.build.directory}/petals-studio.zip" 
+					        		tofile="${project.build.directory}/products/Petals-Studio--Update-Site--${studio-version}.zip" />
+						</target>
+					</configuration>
+							
+					<goals>
+						<goal>run</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+    </plugins>
+	</build>
+	
+</project>

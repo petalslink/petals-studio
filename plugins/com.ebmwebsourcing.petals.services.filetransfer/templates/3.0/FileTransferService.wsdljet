@@ -1,0 +1,369 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.filetransfer.generated"
+imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+class="FileTransferService"
+skeleton="../generator.skeleton" %>
+<%
+EclipseSuBean data = (EclipseSuBean) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	xmlns:tns="http://petals.ow2.org/components/filetransfer/version-3"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="FileTransfer" 
+	targetNamespace="http://petals.ow2.org/components/filetransfer/version-3"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+	<wsdl:types>
+		<xsd:schema
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified"
+			targetNamespace="http://petals.ow2.org/components/filetransfer/version-3">
+
+			<xsd:element name="get" type="tns:getType"/>
+			<xsd:complexType name="getType">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:string" maxOccurs="1" minOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="getResponse" type="tns:getResponseType" />
+			<xsd:complexType name="getResponseType">
+				<xsd:sequence>
+					<xsd:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="getAsAttachment" type="tns:getType" />
+			<xsd:element name="getAsAttachmentResponse" type="tns:getAsAttachmentResponse" />
+			<xsd:complexType name="getAsAttachmentResponse">
+				<xsd:sequence>
+					<xsd:element name="attachment" type="tns:attachmentType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="mget" type="tns:mgetType"/>
+			<xsd:complexType name="mgetType">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:string" maxOccurs="unbounded" minOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="mgetResponse" type="tns:mgetResponse"/>
+			
+			<xsd:complexType name="mgetResponse">
+				<xsd:sequence>
+					<xsd:element name="attachments" type="tns:attachmentsType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="put" type="tns:putRequestType" />
+			<xsd:complexType name="putRequestType">
+				<xsd:sequence>
+					<xsd:any />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="mput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="attachments" type="tns:attachmentsType" minOccurs="1" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="dir"/>
+			
+			<xsd:element name="dirResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="filename" type="xsd:string" maxOccurs="unbounded" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="del" type="tns:delType"/>
+			<xsd:complexType name="delType">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:string" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="checkFile" type="tns:checkFileType" />
+			<xsd:complexType name="checkFileType">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:string" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="checkFileResponse" type="tns:checkFileResponse" />
+			<xsd:complexType name="checkFileResponse">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:string" maxOccurs="1" minOccurs="1" />
+					<xsd:element name="exist" maxOccurs="1" minOccurs="1" type="xsd:boolean" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- Attachments -->
+			<xsd:complexType name="attachmentsType">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:base64Binary" maxOccurs="unbounded" minOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="attachmentType">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:base64Binary" maxOccurs="1" minOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- Fault type -->
+			<xsd:element name="ioFault" type="tns:ioFaultType" />
+			<xsd:complexType name="ioFaultType">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="missingElementFault" type="tns:missingElementFaultType" />
+			<xsd:complexType name="missingElementFaultType">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- Message Part -->
+	<wsdl:message name="getRequest">
+		<wsdl:part name="getRequest" element="tns:get" />
+	</wsdl:message>
+	<wsdl:message name="getResponse">
+		<wsdl:part name="getResponse" element="tns:getResponse"/>
+	</wsdl:message>
+	<wsdl:message name="mgetRequest">
+		<wsdl:part name="mgetRequest" element="tns:mget"/>
+	</wsdl:message>
+	<wsdl:message name="mgetResponse">
+		<wsdl:part name="mgetResponse" element="tns:mgetResponse"/>
+	</wsdl:message>
+	<wsdl:message name="putRequest">
+		<wsdl:part name="putRequest" element="tns:put"/>
+	</wsdl:message>
+	<wsdl:message name="mputRequest">
+		<wsdl:part name="mputRequest" element="tns:mput"/>
+	</wsdl:message>
+	<wsdl:message name="dirRequest">
+		<wsdl:part name="dirRequest" element="tns:dir"/>
+	</wsdl:message>
+	<wsdl:message name="dirResponse">
+		<wsdl:part name="dirResponse" element="tns:dirResponse"/>
+	</wsdl:message>
+	<wsdl:message name="delRequest">
+		<wsdl:part name="delRequest" element="tns:del"/>
+	</wsdl:message>
+	<wsdl:message name="getAsAttachmentRequest">
+		<wsdl:part name="getAsAttachmentRequest" element="tns:getAsAttachment"/>
+	</wsdl:message>
+	<wsdl:message name="getAsAttachmentResponse">
+		<wsdl:part name="getAsAttachmentResponse" element="tns:getAsAttachmentResponse"/>
+	</wsdl:message>
+	<wsdl:message name="checkFileRequest">
+		<wsdl:part name="checkFileRequest" element="tns:checkFile"/>
+	</wsdl:message>
+	<wsdl:message name="checkFileResponse">
+		<wsdl:part name="checkFileResponse" element="tns:checkFileResponse"/>
+	</wsdl:message>
+
+	<!-- FAULT message section -->
+	<wsdl:message name="get_ioFaultMsg">
+		<wsdl:part name="ioFault" element="tns:ioFault"/>
+	</wsdl:message>
+	<wsdl:message name="get_MissEltFault">
+		<wsdl:part name="missingElementFault" element="tns:missingElementFault"/>
+	</wsdl:message>
+	<wsdl:message name="mGet_ioFaultMsg">
+		<wsdl:part name="ioFault" element="tns:ioFault"/>
+	</wsdl:message>
+	<wsdl:message name="mGet_MissEltFault">
+		<wsdl:part name="missingElementFault" element="tns:missingElementFault" />
+	</wsdl:message>
+	<wsdl:message name="dir_ioFault">
+		<wsdl:part name="ioFault" element="tns:ioFault"/>
+	</wsdl:message>
+	<wsdl:message name="getAsAttachment_ioFault">
+		<wsdl:part name="ioFault" element="tns:ioFault"/>
+	</wsdl:message>
+	<wsdl:message name="getAsAttachment_MissEltFault">
+		<wsdl:part name="missingElementFault" element="tns:missingElementFault" />
+	</wsdl:message>
+	<wsdl:message name="checkFileFault">
+		<wsdl:part name="ioFault" element="tns:ioFault"/>
+	</wsdl:message>
+
+	<!-- Interface Part -->
+	<wsdl:portType name="<%= data.getInterfaceName() %>">
+		<wsdl:operation name="get">
+			<wsdl:input message="tns:getRequest" />
+			<wsdl:output message="tns:getResponse" />
+			<wsdl:fault name="fault" message="tns:get_ioFaultMsg"/>
+			<wsdl:fault name="fault1" message="tns:get_MissEltFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="getAsAttachment">
+			<wsdl:input message="tns:getAsAttachmentRequest"/>
+			<wsdl:output message="tns:getAsAttachmentResponse"/>
+			<wsdl:fault name="fault" message="tns:getAsAttachment_ioFault"/>
+			<wsdl:fault name="fault1" message="tns:getAsAttachment_MissEltFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="mget">
+			<wsdl:input message="tns:mgetRequest"/>
+			<wsdl:output message="tns:mgetResponse"/>
+			<wsdl:fault name="fault" message="tns:mGet_ioFaultMsg"/>
+			<wsdl:fault name="fault1" message="tns:mGet_MissEltFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="put">
+			<wsdl:input message="tns:putRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="mput">
+			<wsdl:input message="tns:mputRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="dir">
+			<wsdl:input message="tns:dirRequest"/>
+			<wsdl:output message="tns:dirResponse"/>
+			<wsdl:fault name="fault" message="tns:dir_ioFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="del">
+			<wsdl:input message="tns:delRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="checkFile">
+			<wsdl:input message="tns:checkFileRequest"/>
+			<wsdl:output message="tns:checkFileResponse"/>
+			<wsdl:fault name="fault" message="tns:checkFileFault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!--
+		This binding section is defined only to expose this WSDL via SOAP
+		component to external service consumers
+	-->
+	<wsdl:binding name="FileTransferServiceSoapBinding"
+		type="tns:<%= data.getInterfaceName() %>">
+
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="get">
+
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/get" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+			<wsdl:fault name="fault1">
+
+				<soap:fault use="literal" name="fault1" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="mget">
+
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/mget" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+			<wsdl:fault name="fault1">
+				<soap:fault use="literal" name="fault1" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="put">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/put" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		
+		<wsdl:operation name="mput">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/mput" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		
+		<wsdl:operation name="dir">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/dir" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="del">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/del" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		
+		<wsdl:operation name="getAsAttachment">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/getAsAttachment" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+			<wsdl:fault name="fault1">
+				<soap:fault use="literal" name="fault1" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="checkFile">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/filetransfer/version-3/checkFile" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<!--
+		The service...
+	-->
+	<wsdl:service name="<%= data.getServiceName() %>">
+		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:FileTransferServiceSoapBinding">
+			<soap:address location="jbi://myFileTransferSUEndpointName" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

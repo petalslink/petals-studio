@@ -1,0 +1,1 @@
+Step 3 : build a list of abstract widgets from the graph.

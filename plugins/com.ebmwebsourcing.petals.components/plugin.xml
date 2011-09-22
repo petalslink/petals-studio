@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+<!--
+ <copyright>
+	 Copyright (c) 2009-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards"
+            class="com.ebmwebsourcing.petals.components.wizards.PetalsArtifactNewWizard:component"
+            finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
+            icon="icons/obj16/component.png"
+            id="com.ebmwebsourcing.petals.components.wizards.petalsComponent"
+            name="JBI Component"
+            project="true">
+         <description>
+            Create a JBI component based on the Petals CDK and Maven plug-in
+         </description>
+      </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards"
+            class="com.ebmwebsourcing.petals.components.wizards.PetalsArtifactNewWizard:shared-library"
+            finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
+            icon="icons/obj16/sl.png"
+            id="com.ebmwebsourcing.petals.components.wizards.petalsSharedLibrary"
+            name="Shared Library"
+            project="true">
+         <description>
+            Create a JBI Shared Library with the Petals Maven plug-in
+         </description>
+      </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards.utilities"
+            class="com.ebmwebsourcing.petals.components.drivers.ComponentConfigurationWizard"
+            hasPages="true"
+            icon="icons/obj16/configured_component.png"
+            id="com.ebmwebsourcing.petals.components.wizards.configuredComponent"
+            name="Configured Component"
+            project="false">
+         <description>
+            Update a zipped component to use one or several shared libraries
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectContentProvider"
+            id="com.ebmwebsourcing.petals.projects.components"
+            labelProvider="com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectLabelProvider"
+            name="JBI Components"
+            priority="normal">
+         <triggerPoints>
+            <test
+                  property="com.ebmwebsourcing.petals.common.project-category-id"
+                  value="petals.category.components">
+            </test></triggerPoints>
+         <commonSorter
+               class="com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectsSorter"
+               id="com.ebmwebsourcing.petals.common.projectscnf.PetalsProjectResourceSorter">
+         </commonSorter>
+         <dropAssistant
+               class="org.eclipse.ui.navigator.resources.ResourceDropAdapterAssistant"
+               id="com.ebmwebsourcing.petals.services.dropAssistant">
+            <possibleDropTargets>
+               <or>
+                  <adapt
+                        type="org.eclipse.core.resources.IProject">
+                  </adapt>
+                  <adapt
+                        type="org.eclipse.core.resources.IFolder">
+                  </adapt>
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                  </adapt>
+               </or>
+            </possibleDropTargets>
+         </dropAssistant>
+      </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectContentProvider"
+            id="com.ebmwebsourcing.petals.projects.sharedlibraries"
+            labelProvider="com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectLabelProvider"
+            name="Shared Libraries"
+            priority="normal">
+         <triggerPoints>
+            <test
+                  property="com.ebmwebsourcing.petals.common.project-category-id"
+                  value="petals.category.shared-libraries">
+            </test></triggerPoints>
+         <commonSorter
+               class="com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectsSorter"
+               id="com.ebmwebsourcing.petals.common.projectscnf.PetalsProjectResourceSorter">
+         </commonSorter>
+         <dropAssistant
+               class="org.eclipse.ui.navigator.resources.ResourceDropAdapterAssistant"
+               id="com.ebmwebsourcing.petals.services.dropAssistant">
+            <possibleDropTargets>
+               <or>
+                  <adapt
+                        type="org.eclipse.core.resources.IProject">
+                  </adapt>
+                  <adapt
+                        type="org.eclipse.core.resources.IFolder">
+                  </adapt>
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                  </adapt>
+               </or>
+            </possibleDropTargets>
+         </dropAssistant>
+      </navigatorContent>
+      <commonWizard
+            type="export"
+            wizardId="com.ebmwebsourcing.petals.components.componentExportWizard">
+         <enablement></enablement>
+      </commonWizard>
+      <commonWizard
+            type="export"
+            wizardId="com.ebmwebsourcing.petals.components.slExportWizard">
+         <enablement></enablement>
+      </commonWizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:petals.projects.new?before=petals.new.separator1">
+         <command
+               commandId="org.eclipse.ui.newWizard"
+               icon="icons/obj16/component.png"
+               label="JBI Component"
+               mnemonic="C"
+               style="push"
+               tooltip="Create a new Petals component">
+            <parameter
+                  name="newWizardId"
+                  value="com.ebmwebsourcing.petals.components.wizards.petalsComponent">
+            </parameter>
+         </command>
+         <command
+               commandId="org.eclipse.ui.newWizard"
+               icon="icons/obj16/sl.png"
+               label="Shared Library"
+               mnemonic="L"
+               style="push"
+               tooltip="Create a new Shared Library">
+            <parameter
+                  name="newWizardId"
+                  value="com.ebmwebsourcing.petals.components.wizards.petalsSharedLibrary">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:petals.projects.resource.new?after=petals.wizard.new">
+         <command
+               commandId="org.eclipse.ui.newWizard"
+               icon="icons/obj16/component.png"
+               label="JBI Component"
+               mnemonic="C"
+               style="push"
+               tooltip="Create a new Petals component">
+            <parameter
+                  name="newWizardId"
+                  value="com.ebmwebsourcing.petals.components.wizards.petalsComponent">
+            </parameter>
+         </command>
+         <command
+               commandId="org.eclipse.ui.newWizard"
+               icon="icons/obj16/sl.png"
+               label="Shared Library"
+               mnemonic="L"
+               style="push"
+               tooltip="Create a new Shared Library">
+            <parameter
+                  name="newWizardId"
+                  value="com.ebmwebsourcing.petals.components.wizards.petalsSharedLibrary">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:com.ebmwebsourcing.petals.common.petals-toolbar?after=additions">
+         <command
+               commandId="org.eclipse.ui.newWizard"
+               icon="icons/obj16/configured_component.png"
+               label="Configure a zipped component"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+            <parameter
+                  name="newWizardId"
+                  value="com.ebmwebsourcing.petals.components.wizards.configuredComponent">
+            </parameter>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.common.projectCategories">
+      <Category
+            class="com.ebmwebsourcing.petals.components.projectscnf.ComponentProjectCategory">
+      </Category>
+      <Category
+            class="com.ebmwebsourcing.petals.components.projectscnf.SharedLibraryProjectCategory">
+      </Category>
+   </extension>
+
+</plugin>

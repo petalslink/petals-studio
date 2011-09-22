@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+        targetNamespace="http://petals.ow2.org/components/eip/version-2"
+        xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+        xmlns:eip="http://petals.ow2.org/components/eip/version-2"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified">
+        
+        <xs:import namespace="http://petals.ow2.org/components/extensions/version-5"
+                schemaLocation="CDKextensions.xsd" />
+                
+        <xs:element name="eip" type="eip:EIPType">
+                <xs:annotation>
+                        <xs:documentation>Pattern applied to the message. Other parameters depends on this pattern</xs:documentation>
+                </xs:annotation>
+        </xs:element>
+        <xs:element name="test" type="xs:string">
+                <xs:annotation>
+                        <xs:documentation>NO HCI</xs:documentation>
+                        <xs:documentation>(DYNAMIC-)ROUTER pattern: XPath test. If the test successes, the corresponding 'Consumes' service is invoked.</xs:documentation>
+                </xs:annotation>
+        </xs:element>   
+        <xs:element name="wiretap-way" type="eip:WireTapEIPWay">
+                <xs:annotation>
+                        <xs:documentation>WIRE-TAP pattern: exchange way on which the message should be copied and
+                sent to the monitoring service</xs:documentation>
+                </xs:annotation>
+        </xs:element>   
+        <xs:element name="aggregator-correlation" type="xs:string">
+                <xs:annotation>
+                        <xs:documentation>AGGREGATOR pattern: XPath condition that is applied on the incoming message to correlate them</xs:documentation>
+                        <xs:documentation>NO HCI</xs:documentation>
+                </xs:annotation>
+        </xs:element>
+        <xs:element name="fault-robust" type="xs:boolean" default="false">
+                <xs:annotation>
+                        <xs:documentation>If true, a fault thrown by a target exchange don't stop the process and don't change the original exchange status to FAULT</xs:documentation>
+                </xs:annotation>
+        </xs:element>
+        <xs:element name="exception-robust" type="xs:boolean" default="false">
+                <xs:annotation>
+                        <xs:documentation>If true, an exception thrown by a target exchange don't stop the process and don't change the original exchange status to ERROR</xs:documentation>
+                </xs:annotation>
+        </xs:element>
+        <xs:element name="attachment-mode" type="xs:boolean" default="false">
+                <xs:annotation>
+                        <xs:documentation>If true,the in message is ignored and the pattern work on each file into the list of attachments into the original exchange</xs:documentation>
+                </xs:annotation>
+        </xs:element>
+        <xs:simpleType name="EIPType">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="routing-slip" />
+                        <xs:enumeration value="router" />
+                        <xs:enumeration value="dynamic-router" />
+                        <xs:enumeration value="bridge" />
+                        <xs:enumeration value="splitter" />
+                        <xs:enumeration value="aggregator" />
+                        <xs:enumeration value="dispatcher" />
+                        <xs:enumeration value="scatter-gather" />
+                        <xs:enumeration value="wire-tap" />               
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="WireTapEIPWay">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="request-on-response" />
+                        <xs:enumeration value="request-response" />
+                        <xs:enumeration value="response" />
+                        <xs:enumeration value="request" />
+                </xs:restriction>
+        </xs:simpleType>
+</xs:schema>

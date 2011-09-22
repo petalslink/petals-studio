@@ -1,0 +1,39 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.sca.generated"
+imports="
+			com.ebmwebsourcing.petals.services.sca.configuration.beans.ScaWizardBean
+			com.ebmwebsourcing.petals.services.sca.configuration.beans.ScaWizardReferenceBean"
+class="DefaultComposite"
+skeleton="generator.skeleton" %>
+<% ScaWizardBean bean = (ScaWizardBean) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite 
+	xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1" 
+	xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" 
+	name="<%= bean.getCompositeName() %>" 
+	targetNamespace="<%= bean.getCompositeTns() %>">
+	
+	<!-- The main service -->
+	<sca:service name="mainService" promote="mainComponent/mainService"/>
+	
+	<!-- The main component -->
+  	<sca:component name="mainComponent">
+    	<sca:implementation.java class="<%= bean.getPackageName() %>.<%= bean.getServiceImplName() %>"/>
+    	<sca:service name="mainService">
+      		<sca:interface.java interface="<%= bean.getPackageName() %>.<%= bean.getServiceInterfaceName() %>"/>
+    	</sca:service>
+    	<% for( ScaWizardReferenceBean ref : bean.getReferences()) { %>
+    	<sca:reference name="<%= ref.getReferenceName() %>">
+      		<sca:interface.java interface="<%= ref.getInterfaceClassName() %>"/>
+      		<frascati:binding.jbi 
+      			interfaceName="<%= ref.getInterfaceName() %>" 
+      			interfaceNamespace="<%= ref.getInterfaceNamespace() %>" 
+      			serviceName="<%= ref.getServiceName() %>" 
+      			serviceNamespace="<%= ref.getServiceNamespace() %>" 
+      			endpointName="<%= ref.getEndpointName() %>" 
+      			wsdl="<%= ref.getWsdlLocation() %>"/>
+    	</sca:reference>
+    	
+    	<% } %>
+  	</sca:component>
+</sca:composite>

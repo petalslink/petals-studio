@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2008-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+	<extension point="com.ebmwebsourcing.petals.services.contentExtension">
+		<WizardData
+        	SuType="EIP"
+        	ContributorDescription="com.ebmwebsourcing.petals.services.eip.EipContributorDescription">
+   <Version
+         CustomComponentPage="com.ebmwebsourcing.petals.services.eip.EipSpecificPage"
+         LastActionsPerformer="com.ebmwebsourcing.petals.services.eip.EipLastPerformer2x"
+         SuVersion="2.4">
+      <WizardPage
+            WizardPageClass="com.ebmwebsourcing.petals.services.eip.EipConsumesPage"
+            WizardPageMode="Provide"
+            WizardPagePosition="beforeCdkPage">
+      </WizardPage>
+   </Version>
+   <Version
+         CustomComponentPage="com.ebmwebsourcing.petals.services.eip.EipSpecificPage"
+         LastActionsPerformer="com.ebmwebsourcing.petals.services.eip.EipLastPerformer2x"
+         SuVersion="2.5">
+      <WizardPage
+            WizardPageClass="com.ebmwebsourcing.petals.services.eip.EipConsumesPage"
+            WizardPageMode="Provide"
+            WizardPagePosition="beforeCdkPage">
+      </WizardPage>
+   </Version>
+		</WizardData>
+	</extension>
+ <extension
+       point="org.eclipse.help.toc">
+    <toc
+          file="doc/toceip.xml"
+          primary="false">
+    </toc>
+ </extension>
+ <extension
+       point="org.eclipse.ui.editors">
+    <editor
+          class="com.ebmwebsourcing.petals.services.eip.designer.EipChainDiagramEditor"
+          contributorClass="com.ebmwebsourcing.petals.services.eip.designer.EipChainDiagramContributor"
+          extensions="peip"
+          icon="icons/obj16/eip_1_16x16.png"
+          id="com.ebmwebsourcing.petals.services.EipDesigner"
+          name="Petals EIP Designer">
+    </editor>
+ </extension>
+ <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor
+          contributorId="com.ebmwebsourcing.petals.services.EipDesigner">
+       <propertyCategory
+             category="com.ebmwebsourcing.eip.properties"></propertyCategory>
+    </propertyContributor>
+ </extension>
+ <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs
+          contributorId="com.ebmwebsourcing.petals.services.EipDesigner">
+       <propertyTab
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.petals.services.eip.eipInterfaceTab"
+             label="EIP Identifier">
+       </propertyTab>
+       <propertyTab
+             afterTab="com.ebmwebsourcing.petals.services.eip.eipInterfaceTab"
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.eip.properties.eipSpecificTab"
+             label="Pattern">
+       </propertyTab>
+       <propertyTab
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.petals.services.eip.EndpointTab"
+             label="Service ID">
+       </propertyTab>
+       <propertyTab
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.petals.services.eip.DiagramTab"
+             label="Diagram">
+       </propertyTab>
+       <propertyTab
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.petals.services.eip.xpathConditionTab"
+             label="Condition">
+       </propertyTab>
+       <propertyTab
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.petals.services.eip.operationConditionTab"
+             label="Condition">
+       </propertyTab>
+       <propertyTab
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.petals.services.eip.invocationTab"
+             label="Invocation">
+       </propertyTab>
+       <propertyTab
+             afterTab="com.ebmwebsourcing.eip.properties.eipSpecificTab"
+             category="com.ebmwebsourcing.eip.properties"
+             id="com.ebmwebsourcing.petals.services.eip.eipOutgoingConnectionsTab"
+             label="EIP Connections">
+       </propertyTab>
+    </propertyTabs>
+ </extension>
+ <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections
+          contributorId="com.ebmwebsourcing.petals.services.EipDesigner">
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.EipSpecificSection"
+             enablesFor="1"
+             id="com.ebmwebsourcing.eip.properties.specificSection"
+             tab="com.ebmwebsourcing.eip.properties.eipSpecificTab">
+          <input
+                type="com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipNodeEditPart">
+          </input>
+       </propertySection>
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.EipInterfaceSection"
+             enablesFor="1"
+             id="com.ebmwebsourcing.eip.properties.interfaceSection"
+             tab="com.ebmwebsourcing.petals.services.eip.eipInterfaceTab">
+          <input
+                type="com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipNodeEditPart">
+          </input>
+       </propertySection>
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.EndpointInterfaceSection"
+             enablesFor="1"
+             id="com.ebmwebsourcing.eip.properties.endpointSection"
+             tab="com.ebmwebsourcing.petals.services.eip.EndpointTab">
+          <input
+                type="com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EndpointEditPart">
+          </input>
+       </propertySection>
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.EipChainSection"
+             enablesFor="1"
+             id="com.ebmwebsourcing.eip.properties.diagramSection"
+             tab="com.ebmwebsourcing.petals.services.eip.DiagramTab">
+          <input
+                type="com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipChainEditPart">
+          </input>
+       </propertySection>
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.ConnectionXPathConditionSection"
+             enablesFor="1"
+             filter="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.filters.XPathConditionFilter"
+             id="com.ebmwebsourcing.eip.properties.xpathConditionSection"
+             tab="com.ebmwebsourcing.petals.services.eip.xpathConditionTab">
+       </propertySection>
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.ConnectionOperationConditionSection"
+             enablesFor="1"
+             filter="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.filters.OperationConditionFilter"
+             id="com.ebmwebsourcing.eip.properties.operationConditionSection"
+             tab="com.ebmwebsourcing.petals.services.eip.operationConditionTab">
+       </propertySection>
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.ConnectionConsumeSection"
+             enablesFor="1"
+             id="com.ebmwebsourcing.eip.properties.invocationSection"
+             tab="com.ebmwebsourcing.petals.services.eip.invocationTab">
+          <input
+                type="com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipConnectionEditPart">
+          </input>
+       </propertySection>
+       <propertySection
+             class="com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties.EipOutgoingConnectionsSection"
+             enablesFor="1"
+             id="com.ebmwebsourcing.eip.properties.outgoingConnectionsSection"
+             tab="com.ebmwebsourcing.petals.services.eip.eipOutgoingConnectionsTab">
+          <input
+                type="com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipNodeEditPart">
+          </input>
+       </propertySection>
+    </propertySections>
+ </extension>
+ <extension
+       id="com.ebmwebsourcing.petals.services.eip.marker"
+       name="Petals EIP Markers"
+       point="org.eclipse.core.resources.markers">
+    <persistent
+          value="true">
+    </persistent>
+    <super
+          type="org.eclipse.core.resources.problemmarker">
+    </super>
+ </extension>
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          categoryId="com.ebmwebsourcing.jbi.core.petals-category"
+          defaultHandler="com.ebmwebsourcing.petals.services.eip.designer.handlers.ExportAsPetalsProjectsHandler"
+          description="Export an EIP chain as a set of Petals Maven projects"
+          id="com.ebmwebsourcing.petals.services.eip.exportAsProjects"
+          name="Export as Maven Projects">
+    </command>
+    <command
+          categoryId="com.ebmwebsourcing.jbi.core.petals-category"
+          defaultHandler="com.ebmwebsourcing.petals.services.eip.designer.handlers.ExportAsServiceAssemblyHandler"
+          description="Export an EIP chain as a Service Assembly"
+          id="com.ebmwebsourcing.petals.services.eip.exportAsSA"
+          name="Export as Service Assembly">
+    </command>
+ </extension>
+ <extension
+       point="org.eclipse.ui.menus">
+    <menuContribution
+          allPopups="false"
+          locationURI="popup:com.ebmwebsourcing.petals.common.actiongroup?after=com.ebmwebsourcing.petals.common.group.edit">
+       <command
+             commandId="com.ebmwebsourcing.petals.services.eip.exportAsProjects"
+             icon="icons/obj16/project.gif"
+             label="Export as Maven Projects"
+             style="push"
+             tooltip="Export an EIP chain as a set of Petals Maven projects">
+          <visibleWhen
+                checkEnabled="false">
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate
+                         ifEmpty="false"
+                         operator="and">
+                      <test
+                            property="org.eclipse.core.resources.extension"
+                            value="peip">
+                      </test>
+                   </iterate>
+                </and>
+             </with>
+          </visibleWhen>
+       </command>
+       <command
+             commandId="com.ebmwebsourcing.petals.services.eip.exportAsSA"
+             icon="icons/obj16/service_assembly.png"
+             label="Export as a Service Assembly"
+             style="push"
+             tooltip="Export an EIP chain as a Service Assembly">
+          <visibleWhen
+                checkEnabled="false">
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate
+                         ifEmpty="false"
+                         operator="and">
+                      <test
+                            property="org.eclipse.core.resources.extension"
+                            value="peip">
+                      </test>
+                   </iterate>
+                </and>
+             </with>
+          </visibleWhen>
+       </command>
+    </menuContribution>
+ </extension>
+ <extension
+       point="com.ebmwebsourcing.petals.common.croquisExtension">
+    <Croquis
+          class="com.ebmwebsourcing.petals.services.eip.croquis.EipCroquis">
+    </Croquis>
+ </extension>
+</plugin>

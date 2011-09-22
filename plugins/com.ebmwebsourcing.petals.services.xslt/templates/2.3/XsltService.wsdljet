@@ -1,0 +1,67 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.xslt.generated"
+imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+class="XsltService23"
+skeleton="../generator.skeleton" %>
+<% EclipseSuBean data = (EclipseSuBean) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://petals.ow2.org/components/xslt/version-2" 
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	name="XsltService" 
+	targetNamespace="http://petals.ow2.org/components/xslt/version-2">
+	
+	<!-- Types -->
+	<wsdl:types />
+	
+	
+	<!-- Messages -->
+	<wsdl:message name="transformRequest">
+		<wsdl:part name="transformRequest" type="xsd:anyType" />
+	</wsdl:message>
+	
+	<wsdl:message name="transformResponse">
+		<wsdl:part name="transformResponse" type="xsd:anyType" />
+	</wsdl:message>
+	
+	
+	<!-- Port type -->
+	<wsdl:portType name="<%= data.getInterfaceName() %>">
+		
+		<!-- Transform -->
+		<wsdl:operation name="transform">
+			<wsdl:input message="tns:transformRequest" />
+			<wsdl:output message="tns:transformResponse" />
+		</wsdl:operation>
+		
+		<!-- Transform to Attachment -->
+		<!-- This operation cannot be declared properly in a WSDL -->
+	</wsdl:portType>
+	
+	
+	<!-- Binding -->
+	<wsdl:binding name="<%=data.getServiceName()%>Binding" type="tns:<%= data.getInterfaceName() %>">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+			
+		<wsdl:operation name="transform">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	
+	<!-- The service -->
+	<wsdl:service name="<%= data.getServiceName() %>">
+		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:<%=data.getServiceName()%>Binding">
+			<soap:address location="http://localhost:9090/<%= data.getEndpointName() %>" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

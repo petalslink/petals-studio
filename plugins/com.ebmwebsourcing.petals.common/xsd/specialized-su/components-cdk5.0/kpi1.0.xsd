@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/petals-se-kpi"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:kpi="http://petals.ow2.org/petals-se-kpi"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="KpiInConsumes">
+		<xs:sequence>
+			<xs:element name="TopicExpressionDialect" type="xs:anyURI" />
+			<xs:element name="TopicExpressionNamespace" type="xs:anyURI" />
+			<xs:element name="TopicExpressionPrefix" type="xs:NCName" />
+			<xs:element name="TopicExpressionContent" type="xs:string" />
+
+			<xs:group ref="kpi:soaGroup" minOccurs="0" />
+			<xs:group ref="kpi:xpathGroup" minOccurs="0" />
+							
+			<xs:element name="TransformPolicy" type="xs:string" />
+			
+			<xs:element name="ContextPolicyCorrelationId" type="xs:boolean" />
+			<xs:element name="ContextPolicyInterface" type="xs:boolean" default="false" />
+			<xs:element name="ContextPolicyEndpoint" type="xs:boolean" default="false" />
+			<xs:element name="ContextPolicyMeuuid" type="xs:boolean" default="false" />
+			<xs:element name="ContextPolicyNotifDate" type="xs:boolean" default="false" />
+			<xs:element name="ContextPolicyService" type="xs:boolean" default="false" />
+			<xs:element name="ContextPolicyStatus" type="xs:boolean" default="false" />
+			<xs:element name="ProcessPolicyAction" type="kpi:PolicyActionType" />
+ 		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="soaGroup">
+		<xs:sequence>
+			<xs:element name="MessageContentSOADialect" type="xs:anyURI" />
+			<xs:element name="MessageContentSOAInterfaceNamespace" type="xs:anyURI" minOccurs="0" />
+			<xs:element name="MessageContentSOAInterfaceName" type="xs:NCName" minOccurs="0" />
+			<xs:element name="MessageContentSOAServiceNamespace" type="xs:anyURI" minOccurs="0" />
+			<xs:element name="MessageContentSOAServiceName" type="xs:NCName" minOccurs="0" />
+			<xs:element name="MessageContentSOAEndpoint" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="xpathGroup">
+		<xs:sequence>
+			<xs:element name="MessageContentXpathDialect" type="xs:anyURI" />
+			<xs:element name="MessageContentXpath" type="xs:string" />
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:simpleType name="PolicyActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="create" />
+			<xs:enumeration value="reset" />
+			<xs:enumeration value="destroy" />
+			<xs:enumeration value="push" />
+			<xs:enumeration value="pop" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="EJB" link_to="../com.ebmwebsourcing.petals.tools.eclipse.su.doc.user/toc.xml#PetalsuserGuideComponentsAnchorID"> 
+	<topic label="Working with EJBs in Petals">
+    <topic href="doc/prerequisites.html" label="Pre-requisites">
+    </topic>
+    <topic href="doc/exposeEJB.html" label="Exposing an EJB into Petals">
+    </topic>
+ </topic>
+</toc>

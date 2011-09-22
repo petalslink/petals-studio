@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2009-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+   <extension
+         id="com.ebmwebsourcing.petals.studio.product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ui.ide.workbench"
+            description="An Eclipse tool set for Petals ESB"
+            name="Petals Studio">
+         <property
+               name="windowImages"
+               value="icons/prod/pstudio_16x16.png,icons/prod/pstudio_32x32.png,icons/prod/pstudio_48x48.png,icons/prod/pstudio_64x64.png,icons/prod/pstudio_128x128.png">
+         </property>
+         <property
+               name="appName"
+               value="Petals Studio">
+         </property>
+         <property
+               name="aboutText"
+               value="%aboutText">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="configuration/plugin_customization.ini">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="5,275,445,15">
+         </property>
+         <property
+               name="startupForegroundColor"
+               value="000000">
+         </property>
+         <property
+               name="startupMessageRect"
+               value="7,252,445,20">
+         </property>
+         <property
+               name="productVersion"
+               value="%productVersion">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/prod/aboutPetalsStudio.png">
+         </property>
+      </product>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="com.ebmwebsourcing.petals.studio.welcome.PetalsStudioWelcomePage"
+            icon="icons/prod/pstudio_16x16_2.png"
+            id="com.ebmwebsourcing.petals.studio.intro">
+      </intro>
+      <introProductBinding
+            introId="com.ebmwebsourcing.petals.studio.intro"
+            productId="com.ebmwebsourcing.petals.studio.product">
+      </introProductBinding>
+   </extension>
+   <!-- extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="com.ebmwebsourcing.petals.studio.actionSet"
+            label="Welcome"
+            visible="false">
+         <action
+               class="com.ebmwebsourcing.petals.studio.actions.ShowWelcomePageAction"
+               icon="icons/prod/pstudio_16x16_2.png"
+               id="com.ebmwebsourcing.petals.studio.welcomeAction"
+               label="&amp;Welcome"
+               style="push"
+               toolbarPath="org.eclipse.ui.workbench.file/show.ext"
+               tooltip="Show the Petals Studio welcome page">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.ebmwebsourcing.petals.common.mainPerspective">
+         <actionSet
+               id="com.ebmwebsourcing.petals.studio.actionSet">
+         </actionSet>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.ui.resourcePerspective">
+         <perspectiveShortcut
+               id="com.ebmwebsourcing.petals.common.mainPerspective">
+         </perspectiveShortcut>
+      </perspectiveExtension>
+   </extension-->
+   <extension
+         id="splash"
+         point="org.eclipse.ui.splashHandlers">
+      <splashHandler
+            class="com.ebmwebsourcing.petals.studio.splash.PetalsSplashHandler"
+            id="com.ebmwebsourcing.petals.studio.splashHandler">
+      </splashHandler>
+      <splashHandlerProductBinding
+            productId="com.ebmwebsourcing.petals.studio.product"
+            splashId="com.ebmwebsourcing.petals.studio.splashHandler">
+      </splashHandlerProductBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="com.ebmwebsourcing.petals.studio.PetalsStudioStartup"></startup>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.ebmwebsourcing.petals.common.mainPerspective">
+         <hiddenMenuItem
+               id="org.eclipse.ui.run">
+         </hiddenMenuItem>
+         <hiddenMenuItem
+               id="navigate">
+         </hiddenMenuItem>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=help">
+         <menu
+               id="com.ebmwebsourcing.petals.studio.weblinks"
+               label="Web">
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.ebmwebsourcing.petals.studio.weblinks?after=additions">
+         <command
+               commandId="com.ebmwebsourcing.petals.common.visitWebLink"
+               icon="icons/favicon/favicon_doc.png"
+               label="Visit Petals wiki"
+               style="push">
+            <parameter
+                  name="url"
+                  value="http://doc.petalslink.com">
+            </parameter>
+         </command>
+         <command
+               commandId="com.ebmwebsourcing.petals.common.visitWebLink"
+               label="Browse Petals Studio&apos;s docs"
+               style="push">
+            <parameter
+                  name="url"
+                  value="http://doc.petalslink.com/display/petalsstudio/Petals+Studio">
+            </parameter>
+         </command>
+         <separator
+               name="com.ebmwebsourcing.petals.studio.weblinks.separator1"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.ebmwebsourcing.petals.common.visitWebLink"
+               icon="icons/favicon/favicon_jira.png"
+               label="Report a bug"
+               style="push">
+            <parameter
+                  name="url"
+                  value="http://jira.petalslink.com/browse/PETALSSTUD">
+            </parameter>
+         </command>
+         <command
+               commandId="com.ebmwebsourcing.petals.common.visitWebLink"
+               label="Share feedback"
+               style="push">
+            <parameter
+                  name="url"
+                  value="http://www.petalslink.com/fr/feedback">
+            </parameter>
+         </command>
+         <command
+               commandId="com.ebmwebsourcing.petals.common.visitWebLink"
+               icon="icons/favicon/favicon_forum.png"
+               label="Ask community&apos;s help!"
+               style="push">
+            <parameter
+                  name="url"
+                  value="http://forum.petalslink.com">
+            </parameter>
+         </command>
+         <command
+               commandId="com.ebmwebsourcing.petals.common.visitWebLink"
+               label="Follow the Petals blogosphere"
+               style="push">
+            <parameter
+                  name="url"
+                  value="http://planet.petalslink.com">
+            </parameter>
+         </command>
+         <separator
+               name="com.ebmwebsourcing.petals.studio.weblinks.separator2"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.ebmwebsourcing.petals.common.visitWebLink"
+               icon="icons/favicon/favicon_petalslink.png"
+               label="Get professional support"
+               style="push">
+            <parameter
+                  name="url"
+                  value="http://www.petalslink.com">
+            </parameter>
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>

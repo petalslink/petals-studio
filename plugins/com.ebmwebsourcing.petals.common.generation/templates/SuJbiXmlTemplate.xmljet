@@ -1,0 +1,81 @@
+<%
+/**
+ * Copyright (c) 2008-2009, EBM WebSourcing
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ **/
+%><%@ jet
+	package="com.ebmwebsourcing.commons.jbi.internal.generated"
+	imports="
+	java.util.Map
+	com.ebmwebsourcing.commons.jbi.internal.provisional.beans.SuBean
+	com.ebmwebsourcing.commons.jbi.internal.provisional.utils.JbiNameFormatter
+	"
+	class="SuJbiXmlTemplate"
+	skeleton="generator.skeleton" %>
+<% 
+	SuBean suBean = (SuBean) argument;
+%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	JBI descriptor for the Petals' "<%= suBean.getComponentName() %>" component (<%= suBean.getSuType() %>).
+	Originally created for the version <%= suBean.getComponentVersion() %> of the component.
+ -->
+<jbi:jbi version="1.0" <% 
+	for( Map.Entry<String, String> entry : suBean.getComputedNamespaces().entrySet()) { 
+		%><%= "\n\txmlns:" + entry.getKey() + "=\"" + entry.getValue() + "\"" %><% 
+	} 
+	%>>
+	
+	<!-- Import a Service into Petals or Expose a Petals Service => use a BC. -->
+	<jbi:services binding-component="<%= suBean.isBc() %>">
+	<% 	
+	if( !suBean.isConsume()) { 
+	%>
+		<!-- Import a Service into Petals => provides a Service. -->
+		<jbi:provides 		
+			interface-name="<%= (suBean.sameNsForInterfaceAndService() ? SuBean.GENERATED_NS : SuBean.INTERFACE_NS) + ":" + suBean.getInterfaceName() %>"
+			service-name="<%= (suBean.sameNsForInterfaceAndService() ? SuBean.GENERATED_NS : SuBean.SERVICE_NS) + ":" + suBean.getServiceName() %>"
+			endpoint-name="<%= suBean.getEndpointName() %>"><%
+	} else { 
+	%>
+		<!-- Expose a Petals Service => consumes a Service. -->
+		<jbi:consumes
+			interface-name="<%= (suBean.sameNsForInterfaceAndService() ? SuBean.GENERATED_NS : SuBean.INTERFACE_NS) + ":" + suBean.getInterfaceName() %>"<% 
+			if( ! JbiNameFormatter.PETALS_AUTO_GENERATE_ENDPOINT.equals( suBean.getEndpointName())) {
+				if( suBean.getServiceName() != null && !"".equals( suBean.getServiceName())) { %>
+			service-name="<%= (suBean.sameNsForInterfaceAndService() ? SuBean.GENERATED_NS : SuBean.SERVICE_NS) + ":" + suBean.getServiceName() %>"<%
+				} 
+				if( suBean.getEndpointName() != null && !"".equals( suBean.getEndpointName())) { %>
+			endpoint-name="<%= suBean.getEndpointName() %>"<%
+				}
+			}
+		%>><%
+	}		
+	%>
+	
+			<!-- CDK specific elements -->
+<%= suBean.getCdkElementsAsString() %>
+		
+			<!-- Component specific elements -->	
+<%= suBean.getSpecificsElementsAsString() %><% 	
+	if( !suBean.isConsume()) { 
+	%>			
+		</jbi:provides><%
+	} else { 
+	%>
+		</jbi:consumes><% 
+	} %>
+	</jbi:services>
+</jbi:jbi>

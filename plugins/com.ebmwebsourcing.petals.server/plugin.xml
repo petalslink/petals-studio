@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+<!--
+ <copyright>
+	 Copyright (c) 2009-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+   <extension
+         point="org.eclipse.wst.server.core.runtimeTypes">
+      <runtimeType
+            class="com.ebmwebsourcing.petals.server.runtime.PetalsRuntime"
+            description="Interact with a Petals runtime 3.x"
+            id="com.ebmwebsourcing.petals.server.runtime.3x"
+            name="Petals runtime 3.x"
+            vendor="OW2">
+      </runtimeType>
+   </extension>
+   <extension
+         point="org.eclipse.wst.server.core.serverTypes">
+      <serverType
+            behaviourClass="com.ebmwebsourcing.petals.server.PetalsServerBehavior"
+            class="com.ebmwebsourcing.petals.server.server.PetalsServer"
+            description="Deploy JBI artifacts on a Petals server 3.x"
+            hasConfiguration="false"
+            id="com.ebmwebsourcing.petals.server.3x"
+            launchConfigId="petalsLaunchConfigurationType"
+            launchModes="run, debug"
+            name="Petals 3.x"
+            runtime="true"
+            runtimeTypeId="com.ebmwebsourcing.petals.server.runtime.3x"
+            startBeforePublish="true"
+            supportsRemoteHosts="true">
+      </serverType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="com.ebmwebsourcing.petals.server.PetalsLaunchConfigurationDelegate"
+            delegateDescription="An Eclipse launcher for Petals servers that supports running and debugging."
+            delegateName="Petals Server Launcher"
+            id="petalsLaunchConfigurationType"
+            modes="run, debug"
+            name="Petals launch configuration"
+            public="false"
+            sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
+            sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.wst.server.ui.serverImages">
+      <image
+            icon="icons/obj16/pstudio_16x16.png"
+            id="com.ebmwebsourcing.petals.server.petalsImg"
+            typeIds="com.ebmwebsourcing.petals.server.3x, com.ebmwebsourcing.petals.server.runtime.3x">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="petalsLaunchConfigurationType"
+            icon="icons/obj16/pstudio_16x16.png"
+            id="com.ebmwebsourcing.petals.server.petalsLaunchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.wst.server.ui.wizardFragments">
+      <fragment
+            class="com.ebmwebsourcing.petals.server.ui.wizards.PetalsRuntimeWizardFragment3x"
+            id="com.ebmwebsourcing.petals.runtime.fragment.3x"
+            typeIds="com.ebmwebsourcing.petals.server.runtime.3x">
+      </fragment>
+      <fragment
+            class="com.ebmwebsourcing.petals.server.ui.wizards.PetalsServerWizardFragment3x"
+            id="com.ebmwebsourcing.petals.server.fragment.3x"
+            typeIds="com.ebmwebsourcing.petals.server.3x">
+      </fragment>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="com.ebmwebsourcing.petals.server.petalsServerContribution"
+            objectClass="org.eclipse.wst.server.core.IServer">
+         <action
+               class="com.ebmwebsourcing.petals.server.actions.ShutdownPetalsServerAction"
+               enablesFor="1"
+               icon="icons/obj16/shutdown.gif"
+               id="com.ebmwebsourcing.petals.server.shutdownAction"
+               label="Shutdown"
+               menubarPath="org.eclipse.wst.server.ui.internal.cnf.controlServerSectionEnd"
+               tooltip="Shutdown the selected Petals servers">
+         </action>
+         <visibility>
+            <objectState
+                  name="serverType"
+                  value="com.ebmwebsourcing.petals.server.*">
+            </objectState>
+         </visibility>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.wst.server.core.runtimeLocators">
+      <runtimeLocator
+            class="com.ebmwebsourcing.petals.server.PetalsRuntimeLocator"
+            id="com.ebmwebsourcing.petals.server.runtimeLocator"
+            typeIds="com.ebmwebsourcing.petals.server.runtime.*">
+      </runtimeLocator>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="com.ebmwebsourcing.petals.common.preferences"
+            class="com.ebmwebsourcing.petals.server.ui.preferences.PetalsServerPreferencePage"
+            id="com.ebmwebsourcing.petals.server.serverPage"
+            name="Server">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.ebmwebsourcing.petals.server.ui.preferences.PetalsServerPreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

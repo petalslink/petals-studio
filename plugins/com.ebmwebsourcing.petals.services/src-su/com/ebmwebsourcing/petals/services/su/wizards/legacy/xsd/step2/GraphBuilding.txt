@@ -1,0 +1,3 @@
+Step 2: build the graph
+
+Build a graph from all the XML trees we got in the parsing.

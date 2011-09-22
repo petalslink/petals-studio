@@ -1,0 +1,70 @@
+<project
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+		xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion> 
+	<parent>
+		<groupId>com.ebmwebsourcing.petals</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+	
+	<groupId>com.ebmwebsourcing.petals.plugins</groupId>
+	<artifactId>com.ebmwebsourcing.petals.studio</artifactId> 
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
+	
+	<build>
+		<plugins>
+			<!-- Update the product Build ID and version in the about text -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+				
+					<!-- Change the plugin.properties -->
+					<execution>
+						<id>update-plugin-properties</id>
+						<phase>validate</phase>
+						<configuration>
+							<target>
+							
+								<copy file="${basedir}/plugin.properties" tofile="${basedir}/plugin.properties.backup" />
+	    						<tstamp>
+									<format property="TODAY" pattern="yyyyMMdd-HHmm" />
+								</tstamp>
+								<replace file="${basedir}/plugin.properties">
+									<replacefilter token="@version@" value="${studio-version} ${studio-version-qualifier}" />
+									<replacefilter token="@build-id@" value="${TODAY}" />
+								</replace>
+						  
+							</target>
+						</configuration>	
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					
+					<!-- Restore the plugin.properties -->
+					<execution>
+						<id>restore-plugin-properties</id>
+						<phase>verify</phase>
+						<configuration>
+							<target>
+								<delete file="${basedir}/plugin.properties" />
+								<move file="${basedir}/plugin.properties.backup" tofile="${basedir}/plugin.properties" />
+							</target>
+						</configuration>	
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>

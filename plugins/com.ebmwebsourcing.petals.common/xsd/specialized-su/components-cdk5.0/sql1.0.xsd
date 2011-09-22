@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/sql/version-1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:sql="http://petals.ow2.org/components/sql/version-1"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="SqlInProvides">
+		<xs:sequence>
+			<xs:element ref="sql:url" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="sql:user" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="sql:password" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="sql:driver" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="sql:maxActive" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="sql:maxIdle" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="sql:minIdle" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="sql:maxWait" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="sql:timeBetweenEvictionRunsMillis" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="sql:metadata" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="url" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>The JDBC URL of the targeted database. Required
+				for accessing the database through JDBC</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="driver" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The JDBC Driver className. The library is loaded
+				with a SharedLibrary. Automatically resolved for:
+				mysql,oracle,hsql,sqlserver,derby,postgresql,db2,sybase.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="user" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The user required by the JDBC connection.
+				Required for accessing the database through JDBC.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The password required by the JDBC connection.
+				Required for accessing the database through JDBC.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<!--
+		JDBC Pool configuration, see
+		http://commons.apache.org/dbcp/configuration.html
+	-->
+	<xs:element name="maxActive" type="xs:int" default="8">
+		<xs:annotation>
+			<xs:documentation>The maximum number of active connections that
+				can be allocated from this pool at the same time, or negative for no
+				limit.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="maxIdle" type="xs:int" default="8">
+		<xs:annotation>
+			<xs:documentation>The maximum number of connections that can
+				remain idle in the pool, without extra ones being released, or
+				negative for no limit.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="minIdle" type="xs:int" default="0">
+		<xs:annotation>
+			<xs:documentation>The minimum number of connections that can
+				remain idle in the pool, without extra ones being created, or zero
+				to create none.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="maxWait" type="xs:int" default="-1">
+		<xs:annotation>
+			<xs:documentation>The maximum amount of milliseconds that the pool
+				will wait (when there are no available connections) for a connection
+				to be returned before throwing an exception, -1 to wait
+				indefinitely.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="timeBetweenEvictionRunsMillis" type="xs:int" default="-1">
+		<xs:annotation>
+			<xs:documentation>The number of milliseconds to sleep between runs
+				of the idle object evictor thread. When non-positive, no idle object
+				evictor thread will be run. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="metadata" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>When the 'select' operation is used, the
+				response contains metadata on result elements(Row type,index...)
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BPEL Editor (Incubation)
+Bundle-SymbolicName: org.eclipse.bpel.ui; singleton:=true 
+Bundle-Version: 0.4.0.qualifier
+Bundle-Activator: org.eclipse.bpel.ui.BPELUIPlugin
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.views.properties.tabbed,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.editors,
+ org.eclipse.jface.text,
+ org.eclipse.gef,
+ org.eclipse.xsd,
+ org.eclipse.bpel.common.ui,
+ org.eclipse.wst.wsdl,
+ org.eclipse.bpel.common.ui,
+ org.eclipse.bpel.common.model,
+ org.eclipse.bpel.model,
+ org.eclipse.wst.xml.core,
+ org.eclipse.bpel.wsil.model,
+ org.eclipse.wst.sse.ui,
+ org.eclipse.wst.sse.core,
+ org.eclipse.wst.xsd.ui,
+ org.eclipse.wst.wsdl.ui,
+ org.eclipse.wst.xml.ui,
+ javax.wsdl;bundle-version="1.5.1",
+ com.ebmwebsourcing.petals.common
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.bpel.ui.details.providers,
+ org.eclipse.bpel.ui.extensions

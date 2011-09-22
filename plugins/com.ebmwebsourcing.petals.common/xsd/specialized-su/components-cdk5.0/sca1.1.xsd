@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/sca/version-1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:sca="http://petals.ow2.org/components/sca/version-1"
+	elementFormDefault="qualified">
+	
+	<xs:group name="ScaInProvides">
+		<xs:sequence>
+			<xs:element ref="sca:composite-file" maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- Elements definition for the SU -->
+	<xs:element name="composite-file" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The relative file path of the composite in the SU</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+</xs:schema>

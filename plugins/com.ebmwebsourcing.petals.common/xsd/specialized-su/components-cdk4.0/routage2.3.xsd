@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://routage.engine.components.esb.acoss.fr/2.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:routage="http://routage.engine.components.esb.acoss.fr/2.0"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="routageInProvides">
+		<xs:sequence>
+			<xs:element ref="routage:timeout-routed-svc" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="routage:timeout-ancre" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="routage:routing-classname" maxOccurs="1" minOccurs="1" />
+    		<xs:element ref="routage:output-request-namespace" maxOccurs="1" minOccurs="1" />
+      		<xs:element ref="routage:output-reply-namespace" maxOccurs="1" minOccurs="1" />
+           	<xs:element ref="routage:routed-svc-base-name" maxOccurs="1" minOccurs="1" />
+           	<xs:element ref="routage:routed-itf-name" maxOccurs="1" minOccurs="1" />
+          	<xs:element ref="routage:add-codeOrganisme" maxOccurs="1" minOccurs="0" />
+         	<xs:element ref="routage:routing-type-xpath" maxOccurs="1" minOccurs="0" />
+    		<xs:element ref="routage:routing-value-xpath" maxOccurs="1" minOccurs="0" />
+           	<xs:element ref="routage:extended-error-management" maxOccurs="1" minOccurs="0" />
+           	<xs:element ref="routage:monitoring-events-natures" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="routageComponent">
+		<xs:sequence>
+			<xs:element ref="routage:timeout-routed-svc" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="routage:timeout-ancre" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="routage:custom-mapping-url" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="routage:configuration-file" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="routage:event-send-delay" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="custom-mapping-url" type="xs:string" />
+	
+	<xs:element name="timeout-routed-svc" type="xs:string" default="60000">
+		<xs:annotation>
+			<xs:documentation>
+				Timeout des appels au service routé
+			</xs:documentation>
+			<xs:documentation xml:lang="fr">
+				Timeout des appels au service routé
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="timeout-ancre" type="xs:string"
+		default="360000">
+		<xs:annotation>
+			<xs:documentation>
+				Timeout des appels au service d'Ancre
+			</xs:documentation>
+			<xs:documentation xml:lang="fr">
+				Timeout des appels au service d'Ancre
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="routing-classname" type="xs:string" default="fr.acoss.esb.service.se_routage_ancre.routing.RoutageByXPath">
+		<xs:annotation>
+			<xs:documentation>
+				Configuration du nom de la classe définissant le routage
+				(le routeur)
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="output-reply-namespace" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Configuration du namespace à utiliser dans la request
+				pour forwarder la requete arrivant sur le SE de routage
+				vers le composant destinataire.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="output-request-namespace" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Configuration du namespace à utiliser dans la réponse à
+				envoyer à l'appelant du SE de routage.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="routed-svc-base-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Configuration du nom de base du service routé.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="routed-itf-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Configuration du nom de l'interface du service routé.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="add-codeOrganisme" type="xs:boolean" default="false">
+        <xs:annotation>
+        	<xs:documentation>
+        		Indique si le service de routage doit automatqiuement
+        		ajouté, dans le WSDL du service, le champ
+        		"CodeOrganisme" à la description de requête d'appel du
+        		service
+        	</xs:documentation>
+        </xs:annotation>
+	</xs:element>
+    
+	<xs:element name="routing-type-xpath" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Chemain XPath permettant l'accès à la balise de la
+				requête contenant le type de routage à effectuer.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="routing-value-xpath" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Chemain XPath permettant l'accès à la balise de la
+				requête contenant le valeur de la clef de routage à
+				effectuer.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="configuration-file" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Fichier de configuration contenant le centre</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="extended-error-management" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>
+				Boolean indiquant le support du mode de gestion d'erreur
+				étendu (fault typée plutôt que générique + event vers le monitoring).
+				Default value: false
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="monitoring-events-natures" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Natures des evenemet envoyés au système de monitoring si le mode
+				extended-error-maangement est actif.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="event-send-delay" type="xs:long">
+		<xs:annotation>
+			<xs:documentation>COMPONENT: Intervalle en milliseconde entre deux envois d'un même évènement périodique.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

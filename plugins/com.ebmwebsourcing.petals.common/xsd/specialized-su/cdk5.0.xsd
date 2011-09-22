@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified"
+	
+	xmlns:bpel10="http://petals.ow2.org/components/petals-bpel-engine/version-1"
+	xmlns:ejb13="http://petals.ow2.org/components/ejb/version-1"
+	xmlns:ft24="http://petals.ow2.org/components/filetransfer/version-2"
+	xmlns:ft30="http://petals.ow2.org/components/filetransfer/version-3"
+	xmlns:ftp3x="http://petals.ow2.org/components/ftp/version-3"
+	xmlns:jms31="http://petals.ow2.org/components/jms/version-3"
+	xmlns:jsr181_11="http://petals.ow2.org/components/jsr181/version-1"
+	xmlns:mail31="http://petals.ow2.org/components/mail/version-3"
+	xmlns:pojo22="http://petals.ow2.org/components/pojo/version-2"
+	xmlns:quartz11="http://petals.ow2.org/components/quartz/version-1"
+	xmlns:sftp1x="http://petals.ow2.org/components/sftp/version-1"
+	xmlns:sql10="http://petals.ow2.org/components/sql/version-1"
+	xmlns:validation11="http://petals.ow2.org/components/validation/version-1"
+	xmlns:xslt23="http://petals.ow2.org/components/xslt/version-2"
+	xmlns:soap40="http://petals.ow2.org/components/soap/version-4"
+	xmlns:eip24="http://petals.ow2.org/components/eip/version-2"
+	xmlns:kpi10="http://petals.ow2.org/petals-se-kpi"
+	xmlns:talend10="http://petals.ow2.org/components/talend/version-1"
+	xmlns:sca11="http://petals.ow2.org/components/sca/version-1">
+	
+	
+	<!-- Imports -->
+	<xs:import namespace="http://petals.ow2.org/components/petals-bpel-engine/version-1" schemaLocation="components-cdk5.0/bpel1.0.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/ejb/version-1" schemaLocation="components-cdk5.0/ejb1.3.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/filetransfer/version-2" schemaLocation="components-cdk5.0/fileTransfer2.4.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/filetransfer/version-3" schemaLocation="components-cdk5.0/fileTransfer3.0.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/ftp/version-3" schemaLocation="components-cdk5.0/ftp3.x.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/jms/version-3" schemaLocation="components-cdk5.0/jms3.1.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/jsr181/version-1" schemaLocation="components-cdk5.0/jsr181_1.1.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/mail/version-3" schemaLocation="components-cdk5.0/mail3.1.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/pojo/version-2" schemaLocation="components-cdk5.0/pojo2.2.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/quartz/version-1" schemaLocation="components-cdk5.0/quartz1.1.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/sql/version-1" schemaLocation="components-cdk5.0/sql1.0.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/validation/version-1" schemaLocation="components-cdk5.0/validation1.1.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/xslt/version-2" schemaLocation="components-cdk5.0/xslt2.3.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/soap/version-4" schemaLocation="components-cdk5.0/soap4.0.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/eip/version-2" schemaLocation="components-cdk5.0/eip2.4.xsd" />
+	<xs:import namespace="http://petals.ow2.org/petals-se-kpi" schemaLocation="components-cdk5.0/kpi1.0.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/talend/version-1" schemaLocation="components-cdk5.0/talend1.0.xsd" />
+	<xs:import namespace="http://petals.ow2.org/components/sca/version-1" schemaLocation="components-cdk5.0/sca1.1.xsd" />
+	
+	<!-- The component schema (tns included) did not change between the versions 1.0 and 1.1 -->
+	<xs:import namespace="http://petals.ow2.org/components/sftp/version-1" schemaLocation="components-cdk5.0/sftp1.x.xsd" />
+	
+	
+	<!-- Empty group -->
+	<xs:group name="EmptyGroup">
+		<xs:sequence></xs:sequence>
+	</xs:group>
+	
+	
+	<!-- CDK 5.0 // provides -->
+	<xs:group name="CdkInProvides">
+		<xs:sequence>
+			<xs:element ref="petalsCDK:timeout" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:retrypolicy" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:su-interceptors" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:exchange-properties" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:message-properties" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:validate-wsdl" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:forward-security-subject" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:forward-message-properties" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:forward-attachments" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:wsdl" maxOccurs="1" minOccurs="1" />
+			
+			<xs:choice minOccurs="0" maxOccurs="1">
+				<xs:group ref="petalsCDK:EmptyGroup" />
+				<!-- Let it be the first choice -->
+			
+				<xs:group ref="bpel10:BpelInProvides" />
+				<xs:group ref="ejb13:EjbInProvides" />
+				<xs:group ref="ft24:FileTransferInProvides" />
+				<xs:group ref="ft30:FileTransferInProvides" />
+				<xs:group ref="ftp3x:FtpInProvides" />
+				<xs:group ref="jms31:JmsInProvides" />
+				<xs:group ref="jsr181_11:Jsr181InProvides" />
+				<xs:group ref="mail31:MailInProvides" />
+				<xs:group ref="pojo22:PojoInProvides" />
+				<xs:group ref="sftp1x:SftpInProvides" />
+				<xs:group ref="sql10:SqlInProvides" />
+				<xs:group ref="validation11:ValidationInProvides" />
+				<xs:group ref="xslt23:XsltInProvides" />
+				<xs:group ref="soap40:SoapInProvides" />
+				<xs:group ref="eip24:EipInProvides" />
+				<xs:group ref="talend10:TalendInProvides" />
+				<xs:group ref="sca11:ScaInProvides" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- CDK 5.0 // consumes -->
+	<xs:group name="CdkInConsumes">
+		<xs:sequence>
+			<xs:element ref="petalsCDK:timeout" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:operation" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:su-interceptors" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:exchange-properties" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:message-properties" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:mep" maxOccurs="1" minOccurs="1" />
+			
+			<xs:choice  minOccurs="0" maxOccurs="1">
+				<xs:group ref="petalsCDK:EmptyGroup" />
+				<!-- Let it be the first choice -->
+			
+				<xs:group ref="ft24:FileTransferInConsumes" />
+				<xs:group ref="ft30:FileTransferInConsumes" />
+				<xs:group ref="jms31:JmsInConsumes" />
+				<xs:group ref="mail31:MailInConsumes" />
+				<xs:group ref="quartz11:QuartzInConsumes" />
+				<xs:group ref="soap40:SoapInConsumes" />
+				<xs:group ref="kpi10:KpiInConsumes" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- CDK 5.0 // components -->
+	<xs:group name="CdkComponents">
+		<xs:sequence>
+			<xs:element ref="petalsCDK:acceptor-pool-size" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="petalsCDK:processor-pool-size" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="petalsCDK:processor-max-pool-size" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:ignored-status" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="petalsCDK:properties-file" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:notifications" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:component-interceptors" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:external-listener-class-name" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:jbi-listener-class-name" maxOccurs="1" minOccurs="1" />
+			
+			<xs:choice minOccurs="0" maxOccurs="1">
+				<xs:group ref="petalsCDK:EmptyGroup" />
+				<!-- Let it be the first choice -->
+				
+				<xs:group ref="bpel10:BpelComponent" />
+				<xs:group ref="soap40:SoapComponent" />
+				<xs:group ref="talend10:TalendComponent" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	
+
+	<!-- Generic interceptor parameter type -->
+	<xs:complexType name="Param">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="string" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="MessageType">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="in" />
+			<xs:enumeration value="out" />
+			<xs:enumeration value="fault" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="MessageParam">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="message" type="petalsCDK:MessageType" use="required" />
+				<xs:attribute name="name" type="string" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+		
+	<!--  Component interceptor type -->
+	<xs:complexType name="ComponentInterceptor">
+		<xs:sequence>
+			<xs:element name="param" type="petalsCDK:Param" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="active" type="xs:boolean" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="ComponentInterceptors">
+		<xs:sequence>
+			<xs:element name="interceptor" type="petalsCDK:ComponentInterceptor" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	<!--  Service Unit interceptor type -->
+	<xs:complexType name="SUInterceptor">
+		<xs:sequence>
+			<xs:element name="param" type="petalsCDK:Param" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="name" type="string" />
+	</xs:complexType>
+	
+	<xs:complexType name="Send">
+		<xs:sequence>
+			<xs:element name="interceptor" type="petalsCDK:SUInterceptor" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Accept">
+		<xs:sequence>
+			<xs:element name="interceptor" type="petalsCDK:SUInterceptor" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="SendResponse">
+		<xs:sequence>
+			<xs:element name="Interceptor" type="petalsCDK:SUInterceptor" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="AcceptResponse">
+		<xs:sequence>
+			<xs:element name="Interceptor" type="petalsCDK:SUInterceptor" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="SUInterceptors">
+		<xs:sequence>
+			<xs:element name="send" type="petalsCDK:Send" maxOccurs="1" minOccurs="0" />
+			<xs:element name="accept" type="petalsCDK:Accept" maxOccurs="1" minOccurs="0" />
+			<xs:element name="send-response" type="petalsCDK:SendResponse" maxOccurs="1" minOccurs="0" />
+			<xs:element name="accept-response" type="petalsCDK:AcceptResponse" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	<!-- Simple dynamic parameter types -->
+	<!-- Settable types can be reset during the installation of the component -->
+	<!-- Runtime types can be reset at any times during the component life -->
+	<xs:complexType name="settablestring">
+		<xs:simpleContent>
+			<xs:extension base="xs:string" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="runtimestring">
+		<xs:simpleContent>
+			<xs:extension base="xs:string" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="settablelong">
+		<xs:simpleContent>
+			<xs:extension base="xs:long" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="runtimelong">
+		<xs:simpleContent>
+			<xs:extension base="xs:long" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="settableint">
+		<xs:simpleContent>
+			<xs:extension base="xs:int" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="runtimeint">
+		<xs:simpleContent>
+			<xs:extension base="xs:int" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="settableboolean">
+		<xs:simpleContent>
+			<xs:extension base="xs:boolean" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="runtimeboolean">
+		<xs:simpleContent>
+			<xs:extension base="xs:boolean" />
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="settableanyURI">
+		<xs:simpleContent>
+			<xs:extension base="xs:anyURI" />
+		</xs:simpleContent>
+	</xs:complexType>
+
+
+	<!-- Ignore status -->
+	<xs:simpleType name="IgnoreStatus">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="DONE_AND_ERROR_IGNORED" />
+			<xs:enumeration value="DONE_IGNORED" />
+			<xs:enumeration value="ERROR_IGNORED" />
+			<xs:enumeration value="NOTHING_IGNORED" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<!-- Component Extensions -->
+	<xs:element name="acceptor-pool-size" type="petalsCDK:runtimeint" default="3" />
+	<xs:element name="processor-pool-size" type="petalsCDK:runtimeint" default="10" />
+	<xs:element name="processor-max-pool-size" type="petalsCDK:runtimeint" default="50" />
+	<xs:element name="ignored-status" type="petalsCDK:IgnoreStatus" default="DONE_AND_ERROR_IGNORED" />
+	<xs:element name="jbi-listener-class-name" type="xs:string" />
+	<xs:element name="external-listener-class-name" type="xs:string" />
+	<xs:element name="component-interceptors" type="petalsCDK:ComponentInterceptors" />
+	<xs:element name="properties-file" type="petalsCDK:settableanyURI" />
+	<xs:element name="notifications" type="petalsCDK:settableboolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Notifications are now depreciated</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="forward-security-subject" type="xs:boolean" default="false" />
+	<xs:element name="forward-message-properties" type="xs:boolean" default="false" />
+	<xs:element name="forward-attachments" type="xs:boolean" default="false" />
+	
+	
+	<!-- MEP : InOnly, InOut, RobustInOut, InOptionalOut -->
+	<xs:simpleType name="MEPType">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="InOnly" />
+			<xs:enumeration value="InOut" />
+			<xs:enumeration value="RobustInOnly" />
+			<xs:enumeration value="InOptionalOut" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<!-- Services Unit Extensions -->
+	<xs:element name="su-interceptors" type="petalsCDK:SUInterceptors" />
+
+
+	<!-- Consumes Extensions -->
+	<xs:element name="operation" type="xs:QName" />
+	<xs:element name="mep" type="petalsCDK:MEPType" nillable="true" />
+	<xs:element name="timeout" type="xs:long" default="30000" />
+	
+	<xs:element name="exchange-properties">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="exchange-property" type="petalsCDK:Param" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="message-properties">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message-property" type="petalsCDK:MessageParam" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+	<!-- Provides Extensions -->
+	<xs:element name="wsdl" type="xs:string" nillable="true" />
+	<xs:element name="validate-wsdl" type="petalsCDK:settableboolean" default="true" />
+	<xs:element name="retrypolicy">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="attempts" type="xs:int" minOccurs="1" maxOccurs="1" default="1" />
+				<xs:element name="delay" type="xs:long" minOccurs="0" maxOccurs="1" default="30000" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+    <!-- PEtALS Components specific types -->
+    <!-- USed by PEtALS Eclipse plugin to generate special widgets -->
+	<xs:simpleType name="File">
+		<xs:restriction base="string"></xs:restriction>
+	</xs:simpleType>
+</xs:schema>

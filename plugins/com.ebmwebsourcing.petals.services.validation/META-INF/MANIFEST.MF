@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.ebmwebsourcing.petals.services.validation;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: %pluginProvider
+Bundle-Localization: plugin
+Require-Bundle: com.ebmwebsourcing.petals.services,
+ com.ebmwebsourcing.petals.common.generation,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ com.ebmwebsourcing.petals.common
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.ebmwebsourcing.petals.services.validation.PetalsValidationPlugin
+

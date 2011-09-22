@@ -1,0 +1,392 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.sftp.generated"
+imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+class="SftpService11"
+skeleton="../generator.skeleton" %>
+<% EclipseSuBean data = (EclipseSuBean) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://petals.ow2.org/components/sftp/version-1" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	name="SftpService" 
+	targetNamespace="http://petals.ow2.org/components/sftp/version-1">
+
+	<!-- Type definition : defines the format of the message exchanged -->
+	<wsdl:types>
+		<xsd:schema 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified" 
+			targetNamespace="http://petals.ow2.org/components/sftp/version-1">
+
+			<!-- Component's configuration format -->
+			<xsd:complexType name="ConnectionType">
+				<xsd:sequence>
+					<xsd:element name="server" type="xsd:string" />
+					<xsd:element name="port" type="xsd:string" />
+					<xsd:element name="user" type="xsd:string" />
+					<xsd:element name="password" type="xsd:string" />
+					<xsd:element name="folder" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- A list of filenames -->
+			<xsd:element name="files" type="tns:filesType" />
+			<xsd:complexType name="filesType">
+				<xsd:sequence>
+					<xsd:element name="file" type="xsd:string" maxOccurs="unbounded"
+						minOccurs="0" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- ioFault definition -->
+			<xsd:element name="ioFault" type="tns:ioFaultType" />
+			<xsd:complexType name="ioFaultType">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- configurationFault definition -->
+			<xsd:element name="configurationFault" type="tns:configurationFaultType" />
+			<xsd:complexType name="configurationFaultType">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- sftpClientPoolFault definition -->
+			<xsd:element name="sftpClientPoolFault" type="tns:sftpClientPoolFaultType" />
+			<xsd:complexType name="sftpClientPoolFaultType">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- sshAuthenticationFault definition -->
+			<xsd:element name="sshAuthenticationFault" type="tns:sshAuthenticationFaultType" />
+			<xsd:complexType name="sshAuthenticationFaultType">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- missingElementFault definition -->
+			<xsd:element name="missingElementFault" type="tns:missingElementFaultType" />
+			<xsd:complexType name="missingElementFaultType">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- Message format for the GET operation -->
+			<xsd:element name="get" type="tns:getRequestFormat" />
+			<xsd:complexType name="getRequestFormat">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:string"
+						maxOccurs="1" minOccurs="1" />
+
+					<xsd:element name="connection" type="tns:ConnectionType"
+						maxOccurs="1" minOccurs="0" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="getResponse" type="tns:getResponseType" />
+			<xsd:complexType name="getResponseType">
+				<xsd:sequence>
+					<xsd:any />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- Message format for the MGET operation -->
+			<xsd:element name="mget" type="tns:mgetRequestFormat" />
+			<xsd:complexType name="mgetRequestFormat">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:string"
+						maxOccurs="unbounded" minOccurs="1" />
+
+					<xsd:element name="connection" type="tns:ConnectionType"
+						maxOccurs="1" minOccurs="0" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="mgetResponse" type="tns:mgetResponse" />
+			<xsd:complexType name="mgetResponse">
+				<xsd:sequence>
+					<xsd:element name="attachments" type="tns:attachmentType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="attachmentType">
+				<xsd:sequence>
+					<xsd:element name="filename" type="xsd:base64Binary"
+						maxOccurs="unbounded" minOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- Message format for the PUT operation -->
+			<xsd:element name="put" type="tns:putRequestFormat" />
+			<xsd:complexType name="putRequestFormat">
+				<xsd:sequence>
+					<xsd:element name="body" type="xsd:string" maxOccurs="1"
+						minOccurs="1" />
+
+					<xsd:element name="filename" type="xsd:string"
+						maxOccurs="1" minOccurs="1" />
+
+					<xsd:element name="connection" type="tns:ConnectionType"
+						maxOccurs="1" minOccurs="0" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<!-- Message format for the MPUT operation -->
+			<xsd:element name="mput" type="tns:mputRequestFormat" />
+			<xsd:complexType name="mputRequestFormat">
+				<xsd:sequence>
+					<xsd:element name="connection" type="tns:ConnectionType"
+						maxOccurs="1" minOccurs="0" />
+
+					<xsd:element name="attachments" type="tns:attachmentsType"
+						maxOccurs="1" minOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<!-- Message format for the DIR operation -->
+			<xsd:element name="dir" type="tns:dirRequestFormat" />
+			<xsd:complexType name="dirRequestFormat">
+				<xsd:sequence>
+					<xsd:element name="connection" type="tns:ConnectionType"
+						maxOccurs="1" minOccurs="0" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="dirResponse" type="tns:dirResponseFormat" />
+			<xsd:complexType name="dirResponseFormat">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string"
+						maxOccurs="1" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="attachmentsType">
+				<xsd:sequence>
+					<xsd:element name="file" type="xsd:base64Binary"
+						maxOccurs="unbounded" minOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- Messages for the GET operation -->
+	<wsdl:message name="getRequest">
+		<wsdl:part name="getRequest" element="tns:get" />
+	</wsdl:message>
+	
+	<wsdl:message name="getResponse">
+		<wsdl:part name="getResponse" element="tns:getResponse" />
+	</wsdl:message>
+	
+	<wsdl:message name="getIoFault">
+		<wsdl:part name="ioFault" element="tns:ioFault" />
+	</wsdl:message>
+	
+	<wsdl:message name="getSftpClientPoolFault">
+		<wsdl:part name="sftpClientPoolFault" element="tns:sftpClientPoolFault" />
+	</wsdl:message>
+	
+	<wsdl:message name="getSshAuthenticationFault">
+		<wsdl:part name="sshAuthenticationFault" element="tns:sshAuthenticationFault" />
+	</wsdl:message>
+
+	<!-- Messages for the MGET operation -->
+	<wsdl:message name="mgetRequest">
+		<wsdl:part name="mgetRequest" element="tns:mget" />
+	</wsdl:message>
+	
+	<wsdl:message name="mgetResponse">
+		<wsdl:part name="mgetResponse" element="tns:mgetResponse" />
+
+	</wsdl:message>
+	<wsdl:message name="mgetIoFault">
+		<wsdl:part name="ioFault" element="tns:ioFault" />
+	</wsdl:message>
+	
+	<wsdl:message name="mgetSftpClientPoolFault">
+		<wsdl:part name="sftpClientPoolFault" element="tns:sftpClientPoolFault" />
+	</wsdl:message>
+	
+	<wsdl:message name="mgetSshAuthenticationFault">
+		<wsdl:part name="sshAuthenticationFault" element="tns:sshAuthenticationFault" />
+	</wsdl:message>
+
+	<!-- Messages for the PUT operation -->
+	<wsdl:message name="putRequest">
+		<wsdl:part name="putRequest" element="tns:put" />
+	</wsdl:message>
+
+	<!-- Messages for the MPUT operation -->
+	<wsdl:message name="mputRequest">
+		<wsdl:part name="mputRequest" element="tns:mput" />
+	</wsdl:message>
+
+	<!-- Messages for the DIR operation -->
+	<wsdl:message name="dirRequest">
+		<wsdl:part name="dirRequest" element="tns:dir" />
+	</wsdl:message>
+	
+	<wsdl:message name="dirResponse">
+		<wsdl:part name="dirResponse" element="tns:dirResponse" />
+	</wsdl:message>
+	
+	<wsdl:message name="dirIoFault">
+		<wsdl:part name="ioFault" element="tns:ioFault" />
+	</wsdl:message>
+	
+	<wsdl:message name="dirSftpClientPoolFault">
+		<wsdl:part name="sftpClientPoolFault" element="tns:sftpClientPoolFault" />
+	</wsdl:message>
+	
+	<wsdl:message name="dirSshAuthenticationFault">
+		<wsdl:part name="sshAuthenticationFault" element="tns:sshAuthenticationFault" />
+	</wsdl:message>
+
+	<!-- Port type -->
+	<wsdl:portType name="<%= data.getInterfaceName() %>">
+		<wsdl:operation name="get">
+			<wsdl:input message="tns:getRequest" />
+			<wsdl:output message="tns:getResponse" />
+			<wsdl:fault name="ioFault" message="tns:getIoFault" />
+			<wsdl:fault name="sftpClientPoolFault" message="tns:getSftpClientPoolFault" />
+			<wsdl:fault name="sshAuthenticationFault" message="tns:getSshAuthenticationFault" />
+		</wsdl:operation>
+
+		<wsdl:operation name="mget">
+			<wsdl:input message="tns:mgetRequest" />
+			<wsdl:output message="tns:mgetResponse" />
+			<wsdl:fault name="ioFault" message="tns:mgetIoFault" />
+			<wsdl:fault name="sftpClientPoolFault" message="tns:mgetSftpClientPoolFault" />
+			<wsdl:fault name="sshAuthenticationFault" message="tns:mgetSshAuthenticationFault" />
+		</wsdl:operation>
+
+		<wsdl:operation name="put">
+			<wsdl:input message="tns:putRequest" />
+		</wsdl:operation>
+
+		<wsdl:operation name="mput">
+			<wsdl:input message="tns:mputRequest" />
+		</wsdl:operation>
+
+		<wsdl:operation name="dir">
+			<wsdl:input message="tns:dirRequest" />
+			<wsdl:output message="tns:dirResponse" />
+			<wsdl:fault name="ioFault" message="tns:dirIoFault" />
+			<wsdl:fault name="sftpClientPoolFault" message="tns:dirSftpClientPoolFault" />
+			<wsdl:fault name="sshAuthenticationFault" message="tns:dirSshAuthenticationFault" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="SFTPServiceSoapBinding" type="tns:<%= data.getInterfaceName() %>">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+			
+		<wsdl:operation name="get">
+			<soap:operation soapAction="http://petals.ow2.org/components/sftp/version-1/get" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			
+			<wsdl:fault name="ioFault">
+				<soap:fault use="literal" name="ioFault" />
+			</wsdl:fault>
+			
+			<wsdl:fault name="sftpClientPoolFault">
+				<soap:fault use="literal" name="sftpClientPoolFault" />
+			</wsdl:fault>
+			
+			<wsdl:fault name="sshAuthenticationFault">
+				<soap:fault use="literal" name="sshAuthenticationFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="mget">
+			<soap:operation soapAction="http://petals.ow2.org/components/sftp/version-1/mget" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			
+			<wsdl:fault name="ioFault">
+				<soap:fault use="literal" name="ioFault" />
+			</wsdl:fault>
+			
+			<wsdl:fault name="sftpClientPoolFault">
+				<soap:fault use="literal" name="sftpClientPoolFault" />
+			</wsdl:fault>
+			
+			<wsdl:fault name="sshAuthenticationFault">
+				<soap:fault use="literal" name="sshAuthenticationFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="put">
+			<soap:operation soapAction="http://petals.ow2.org/components/sftp/version-1/put" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		
+		<wsdl:operation name="mput">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sftp/version-1/mput" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+
+		<wsdl:operation name="dir">
+			<soap:operation soapAction="http://petals.ow2.org/components/sftp/version-1/dir" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			
+			<wsdl:fault name="ioFault">
+				<soap:fault use="literal" name="ioFault" />
+			</wsdl:fault>
+			
+			<wsdl:fault name="sftpClientPoolFault">
+				<soap:fault use="literal" name="sftpClientPoolFault" />
+			</wsdl:fault>
+			
+			<wsdl:fault name="sshAuthenticationFault">
+				<soap:fault use="literal" name="sshAuthenticationFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="<%= data.getServiceName() %>">
+		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:SFTPServiceSoapBinding">
+			<soap:address location="jbi://mySFTPSUEndpointName" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

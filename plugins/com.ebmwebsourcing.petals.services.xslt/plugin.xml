@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2008-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+   <extension
+         point="com.ebmwebsourcing.petals.services.contentExtension">
+      <WizardData
+            SuType="XSLT"
+            ContributorDescription="com.ebmwebsourcing.petals.services.xslt.XsltContributorDescription">
+         <Version
+               CustomComponentPage="com.ebmwebsourcing.petals.services.xslt.wizard.XsltProvideSpecificPage"
+               LastActionsPerformer="com.ebmwebsourcing.petals.services.xslt.wizard.XsltLastActionsPerformer23"
+               ProvideConfiguration="com.ebmwebsourcing.petals.services.xslt.wizard.XsltWizardConfiguration2x"
+               SuVersion="2.3">
+         </Version>
+         <Version
+               CustomComponentPage="com.ebmwebsourcing.petals.services.xslt.wizard.XsltProvideSpecificPage"
+               LastActionsPerformer="com.ebmwebsourcing.petals.services.xslt.wizard.XsltLastActionsPerformer24"
+               ProvideConfiguration="com.ebmwebsourcing.petals.services.xslt.wizard.XsltWizardConfiguration2x"
+               SuVersion="2.4">
+         </Version>
+      </WizardData>
+   </extension>
+   <extension
+         id="nature"
+         name="Petals XSLT Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.ebmwebsourcing.petals.services.xslt.nature.PetalsXsltNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         id="marker"
+         name="Petals XSLT Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+
+</plugin>

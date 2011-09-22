@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/filetransfer/version-3"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ft="http://petals.ow2.org/components/filetransfer/version-3"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="FileTransferInProvides">
+		<xs:sequence>
+			<xs:element ref="ft:filename" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:backup-directory" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:folder" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<xs:group name="FileTransferInConsumes">
+		<xs:sequence>
+			<xs:element ref="ft:folder" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ft:backup-directory" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:transfer-mode" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:filename" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:polling-period" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:base-message" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="folder" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Working directory where files are written or retrieved. ${env} environment variables are supported. Format like C:\ or /home</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="polling-period" type="xs:int" default="1000">
+		<xs:annotation>
+			<xs:documentation>Polling period in milliseconds</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="backup-directory" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Directory where read files are moved. ${env} environment variables are supported. Format like C:\ or /home</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="transfer-mode" type="ft:TransferMode"
+		default="attachment">
+		<xs:annotation>
+			<xs:documentation>Transfer the file into PEtALS as an XML payload or as an attachment</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="filename" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>CONSUME MODE: pattern used filter files to read. PROVIDE MODE: name of the file written by PEtALS, appended with date-time (if not set, the file name is the operation name or 'content.xml').</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="base-message" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The skeleton of XML-message to send to the consumed service.
+				It may contain <b>$content</b> or <b>$attachment</b>, or none of them. 
+				This is the way the component should link the file with the returned message.
+				
+				<b>$content</b> will be replaced by the file content.
+				<b>$attachment</b> will set the file in attachment. It will be replaced by 
+				a xop:include element which references the attachment (MTOM-like).
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:simpleType name="TransferMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="content" />
+			<xs:enumeration value="attachment" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

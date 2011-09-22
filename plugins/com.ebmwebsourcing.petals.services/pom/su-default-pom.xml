@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	<!-- ${PETALS_TestParent} -->
+	<parent>
+		<artifactId>${PETALS_ParentArtifactId}</artifactId>
+		<groupId>${PETALS_ParentGroupId}</groupId>
+		<version>${PETALS_ParentVersion}</version>
+	</parent>
+	<!-- ${PETALS_TestParent} -->
+	
+	<name>${PETALS_Name}</name>
+	<artifactId>${PETALS_ArtifactId}</artifactId>
+	<groupId>${PETALS_GroupId}</groupId>
+	<version>${PETALS_Version}</version>
+	<packaging>jbi-service-unit</packaging>
+	<description>${PETALS_Description}</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.ow2.petals</groupId>
+			<artifactId>${PETALS_ComponentName}</artifactId>
+			<version>${PETALS_ComponentVersion}</version>
+			<scope>provided</scope>
+			<type>jbi-component</type>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.ow2.petals</groupId>
+				<artifactId>maven-petals-plugin</artifactId>
+				<version>${PETALS_PetalsMavenPluginVersion}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<updateJBIXml>true</updateJBIXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

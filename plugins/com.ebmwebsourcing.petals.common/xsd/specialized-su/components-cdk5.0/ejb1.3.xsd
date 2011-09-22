@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/ejb/version-1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ejb="http://petals.ow2.org/components/ejb/version-1"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="EjbInProvides">
+		<xs:sequence>
+			<xs:element ref="ejb:ejb.jndi.name" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ejb:java.naming.factory.initial" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ejb:java.naming.factory.url.pkgs" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ejb:java.naming.provider.url" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ejb:ejb.version" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="ejb:ejb.home.interface" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ejb:security.name" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ejb:security.principal" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ejb:security.credencials" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ejb:marshalling.engine" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="ejb.jndi.name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The JNDI name of the targeted EJB.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="java.naming.factory.initial" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The initial-context-factory class name, used to create an InitalContext
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+        <xs:element name="java.naming.factory.url.pkgs" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Environment property for specifying the list of package
+				prefixes to use when loading in URL context factories.
+				The value of the property should be a colon-separated
+				list of package prefixes for the class name of the
+				factory class that will create a URL context factory.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="java.naming.provider.url" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>
+				URL of the targeted JNDI Service.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="ejb.version" type="ejb:version">
+		<xs:annotation>
+			<xs:documentation>The EJB version.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="ejb.home.interface" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Used only if the ejb.version is 2.1. It's the fully
+				qualified name of the targeted EJB Home Interface
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="security.name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Security credentials : used for authentication on the EJB Container.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="security.principal" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Security principal : used for authentication on the EJB Container.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="security.credencials" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Security credentials : used for authentication on the EJB Container.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="marshalling.engine" type="ejb:xmlengine">
+		<xs:annotation>
+			<xs:documentation>The EJB version.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="xstream.alias" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				XSTREAM : aliases used to bind a class onto the component.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:simpleType name="version">
+		<xs:restriction base="xs:string">
+            <xs:enumeration value="2.0" />
+			<xs:enumeration value="2.1" />
+			<xs:enumeration value="3.0" />
+            <xs:enumeration value="3.1" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="xmlengine">
+		<xs:restriction base="xs:string">
+            <!--
+			<xs:enumeration value="xstream" />
+            -->
+			<xs:enumeration value="jaxb" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

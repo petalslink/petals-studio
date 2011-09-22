@@ -1,0 +1,28 @@
+Introduction
+The present software package, Petals Studio, is a distribution comprising several different components. The global distribution package will hereafter be called the "Distribution".
+Any and all software included in the Distribution shall be called the "Software(s)" hereafter. 
+The Distribution include programs, methods, rules and documentation related to the product Petals Studio, developed by EBM WebSourcing S.A.S. (Petals Link) or third parties.
+
+1. Petals Studio License Agreement
+Please read this document carefully. This document is a license agreement between you and EBM WebSourcing S.A.S. ("Petals Link" registered trademark holder) applying on any and all Softwares packaged in the Distribution, hereafter called "Petals Studio License". 
+By installing, duplicating or using any of the Softwares in any manner, you explicitly accept and fully agree to conform to the terms and conditions of Petals Studio License. 
+If you disagree with any portion of Petals Studio License, you are not allowed to install, duplicate or use the Softwares. Any attempt to install, duplicate or use the Softwares in a manner which does not comply with the terms and conditions of this Petals Studio License is void and will terminate your rights under this Petals Studio License. 
+
+2. Software License Agreement
+The Softwares consist of components created by different persons or entities. As such, each component is governed by terms and conditions of its own license. 
+By installing, using, duplicating or modifying any Software component, you explicitly agree to fully conform to this Software' license. 
+Thus, we encourage you to always carefully read the license agreement of any Software you are interested in, before using it. 
+Most of the Softwares comprised in the Distribution are governed by an open source license, such as GPL, EPL or LGPL, which allow you to use, duplicate, adapt or redistribute the program.
+EBM WebSourcing S.A.S. products and components are distributed under the terms and conditions or either LGPL or EPL license. Please refer to each component's license agreement for more information.
+Documentation may be governed by a different license. Please refer to the documentation for further details.
+
+3. Limited Warranty
+The Softwares and attached documentation are provided "as is", with no warranty, to the extent permitted by law. Neither EBM WebSourcing S.A.S. nor its licensors or suppliers will, in any circumstances and to the extent permitted by law, be liable or any special, incidental, direct or indirect damages whatsoever (including without limitation damages for loss of business, interruption of business, financial loss, legal fees and penalties resulting from a court judgment, or any other consequential loss) arising out of the use or inability to use the Software Products, even if EBM WebSourcing S.1. or its licensors or suppliers have been advised of the possibility or occurrence of such damages. 
+
+4. Intellectual Property Rights
+All rights to the components of the Softwares belong to their respective authors and are protected by intellectual property and copyright laws applicable to software programs. EBM WebSourcing S.A.S. and its suppliers and licensors reserves their rights to modify or adapt the Softwares, as a whole or in parts, by all means and for all purposes. "Petals", "Petals Link", other Petals products names and associated logos are trademarks of EBM WebSourcing S.A.S.
+
+5. Governing Laws
+If any portion of this agreement is held void, illegal or inapplicable by a court judgment, this portion is excluded from this contract. You remain bound by the other applicable sections of the agreement. The terms and conditions of this Petals Studio License are governed by the Laws of France. All disputes on the terms of this license will preferably be settled out of court. As a last resort, the dispute will be referred to the appropriate Courts of Law of Toulouse - France. For any question on this document, please contact EBM WebSourcing S.A.S.
+
+Warning: Free Software may not necessarily be patent free, and some Free Software included may be covered by patents in your country. If you are unsure if a patent may be applicable to you, check your local laws.

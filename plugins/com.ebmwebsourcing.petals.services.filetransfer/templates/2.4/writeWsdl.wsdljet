@@ -1,0 +1,44 @@
+<%@ jet
+	package="com.ebmwebsourcing.petals.services.filetransfer.generated"
+	imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+	class="WriteWsdl24"
+	skeleton="../generator.skeleton" %>
+<% EclipseSuBean data = (EclipseSuBean) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="<%=data.getInterfaceName()%>"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="<%=data.getInterfaceNamespaceUri()%>"
+        targetNamespace="<%=data.getInterfaceNamespaceUri()%>">
+	
+	<!-- Messages -->
+	<wsdl:message name="writeRequest">
+		<wsdl:part name="writePartRequest" type="xsd:anyType" />
+	</wsdl:message>
+	
+	<!-- Port Type -->
+	<wsdl:portType name="WriteFiles">
+		<wsdl:operation name="write">
+			<wsdl:input message="tns:writeRequest" />
+		</wsdl:operation>
+	</wsdl:portType>
+    
+    <!-- Binding -->
+	<wsdl:binding name="WriteBinding" type="tns:WriteFiles">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+			
+		<wsdl:operation name="write">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+  </wsdl:binding>
+
+  <!-- Service -->
+  <wsdl:service name="<%=data.getServiceName()%>">
+    <wsdl:port binding="tns:WriteBinding" name="<%=data.getEndpointName()%>">
+      <soap:address location="http://petals.does.not.care"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://snv2sxml.binding.components.esb.acoss.fr/1.1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:snv2sxml="http://snv2sxml.binding.components.esb.acoss.fr/1.1"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="v2InProvides">
+		<xs:sequence>
+			<xs:element ref="snv2sxml:service-name" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="snv2sxml:service-type" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="snv2sxml:inputXsl" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="snv2sxml:outputXsl" maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="v2Component">
+		<xs:sequence>
+			<xs:element ref="snv2sxml:configfilename" maxOccurs="1" minOccurs="0" />
+         	<xs:element ref="snv2sxml:jaxlogspath" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="service-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Nom du service SXML, TPRM ou Script</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="service-type"  default="sxml" type="snv2sxml:ServiceType" >
+		<xs:annotation>
+			<xs:documentation>
+				Type de service SXML, TPRM ou Script
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:simpleType name="ServiceType">
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="sxml"></xs:enumeration>
+				<xs:enumeration value="script"></xs:enumeration>
+				<xs:enumeration value="tprm"></xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+
+	<xs:element name="inputXsl" type="xs:string" default="input.xsl">
+		<xs:annotation>
+			<xs:documentation>
+				Nom de la XSL de transformation des requetes (pivot ->
+				SXML), relative au classpath
+			</xs:documentation>
+			<xs:documentation xml:lang="fr">
+				Timeout des appels au service d'Ancre
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="outputXsl" type="xs:string"
+		default="output.xsl">
+		<xs:annotation>
+			<xs:documentation>
+				Nom de la XSL de transformation des réponses (SXML -
+				pivot), relative au classpath
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="configfilename" type="xs:string"
+		default="{PetalsHome}/conf/bcv2.xml">
+		<xs:annotation>
+			<xs:documentation>
+				Nom du fichier de configuration des V2
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="jaxlogspath" type="xs:string"
+		default="{PetalsHome}/logs">
+		<xs:annotation>
+			<xs:documentation>
+				Nom du fichier de log JAX
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,23 @@
+<%@ jet
+	package="com.ebmwebsourcing.petals.services.bpel.generated"
+	class="ProcessArtifacts"
+	skeleton="generator.skeleton" %>
+<% String processName = (String) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+		xmlns="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+		xmlns:tns="http://petals.ow2.org/bpel/<%= processName %>/Artifacts"
+		xmlns:processDefinition="http://petals.ow2.org/bpel/<%= processName %>/"
+		xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		name="<%= processName %>Artifacts" 
+		targetNamespace="http://petals.ow2.org/bpel/<%= processName %>/Artifacts">
+		
+    <plnk:partnerLinkType name="<%= processName %>PLT">
+        <plnk:role name="<%= processName %>Role" portType="processDefinition:<%= processName %>PortType"/>
+    </plnk:partnerLinkType>
+  
+  	<import location="<%= processName %>Definition.wsdl" 
+  			namespace="http://petals.ow2.org/bpel/<%= processName %>/" />
+</definitions>

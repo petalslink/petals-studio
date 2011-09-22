@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="book.css" rel="stylesheet" type="text/css" />
+	<title>Completing an SCA project for Petals</title>
+</head>
+
+<body>
+<h1>Completing an SCA project for Petals</h1>
+<p>
+Completing your SCA application for Petals is almost identical to editing for any other
+SCA application.<br />The main difference is about the use of the references and the configuration 
+of the bindings.<br />This page only deals with these differences.
+</p>
+
+
+<h2>Referencing Petals services</h2>
+<p>
+This is the <i>heavy</i> part of the process.<br />
+What you need here is the interface of the Petals service. The only case where this interface 
+will be a Java interface is when you created the service yourself and that you kept the sources.
+Most of the time, this interface will be a WSDL interface.
+</p><p>The interface has two purposes.</p>
+<ol>
+	<li>
+		You need it for the implementation. Since the implementation can only be Java code, 
+		you will need a Java interface.	
+	</li>
+	<li>
+		You might optionally use it to fill in the <b>binding.jbi</b> attributes.
+	</li>
+</ol>
+<p>
+If you come with a Java interface, the first point will be easy. But you will have to
+fill in the attribute values manually for the second step. If you come with a WSDL
+interface, it's the exact opposite. You will have to generate a Java interface from the WSDL,
+so that the implementation can compile. But the second step will be easy.<br />
+The different possibilities are considered below.
+</p>
+
+<h3>Starting with a Java interface</h3>
+<p>
+The implementation part is done as usual with SCA Java projects.
+You can either add annotations on the references in the code, or reference them in the composite file.
+</p><p>
+The JBI binding attributes will have to be specified by hand.<br />
+With the SCA Composite Designer, it can be done by right-clicking on the JBI binding to edit, selecting
+<b>Show Properties View</b> and then modifying the values in the form. 
+</p>
+<img src="images/jbiBindingProperties.gif" alt="The properties view for a JBI binding" />
+
+<h3>Starting with a WSDL interface</h3>
+<p>
+Regarding the implementation, the first thing to do is creating a Java interface from this WSDL.
+There are many wsdl2java libraries. You can use any of them. However, you should know that the
+generated Java code will have dependencies to data-binding libraries (e.g. JAX-B, aegis). Therefore, 
+you will have to embed these libraries in your code and use it in the right manner (e.g. with JAX-B, 
+you have to use factories to instantiate beans, you can't use "new Bean()").
+</p><p>
+The most simple solution we have found for instance, is to use the WTP tools (WTP is the Eclipse project
+dealing with Web services and JEE). To generate a simple code, select <b>File &gt; New &gt; Other...</b>.
+Then, select <b>Web Services &gt; Web Service Client</b>.
+</p>
+<img src="images/runWtpWizard.gif" alt="Run the Web Service Client wizard" />
+
+<p>Give the location of your WSDL.</p>
+<img src="images/selectWsdl.gif" alt="Give the WSDL location" />
+
+<p>Make sure the level is set to "Develop Client".</p>
+<img src="images/developClient.gif" alt="Develop Client level" />
+
+<p>
+Specify the output location and end up the wizard by clicking <b>Finish</b>.
+The generated code has some data-binding parts, but there are really few ones and you can remove it quickly.
+The code to remove is located in the operations parameter types. You can also delete the stub, the locator and
+the proxy.
+</p><p>
+This part is an important weakness of the SCA tooling. It should be improved soon.
+Waiting for this, the easiest solution is to use the Web Service client wizard.
+</p><p>
+Unlike the implementation part, the binding part is quite easy to deal with.<br />
+Right-click on the JBI binding to edit and select <b>Edit as &gt; JBI Binding</b>. 
+</p>
+<img src="images/editAsJbiBinding.gif" alt="Right click, Edit as, JBI Binding" />
+
+<p>A dialog shows up.
+You can fill in the fields automatically by either selecting a WSDL or by selecting a Petals project
+in the workspace. When you have selected a WSDL, <b>don't forget to select the service</b>, since there may be several ones
+described in a WSDL file.
+Only the <b>additional parameters</b> may have to be completed by hand if you have
+specific needs. 
+</p>
+<img src="images/quickJbiBindingEditor.gif" alt="Quick JBI Binding editor" />
+
+
+<h2>Dealing with SCA services</h2>
+<p>
+The work to perform on SCA services is not very hard, but it has to be done.<br />
+JBI bindings associated with an SCA service must have the following fields completed:
+</p>
+<ul>
+	<li>interfaceName</li>
+	<li>interfaceNamespace</li>
+	<li>serviceName</li>
+	<li>serviceNamespace</li>
+	<li>endpointName</li>
+	<li>wsdl</li>
+</ul>
+<p>
+	Other fields are optional.<br />
+	The fastest way to proceed is to generate the WSDL first, and then use right-click action <b>Edit as &gt; JBI Binding</b>
+	to set all the fields. Also, make sure the generated WSDL is located in the 'wsdl' folder, which is at the project root.
+	The content of this folder will be copied in the deployment archive for Petals.
+</p><p>
+To generate a WSDL from a Java interface, you can use one of the java2ws(dl) libraries you can find on the internet.
+You can also use the <b>WSDL Tools</b> plug-in (see the associated documentation).
+</p>
+
+
+<h2>Check-list for a Petals SCA application</h2>
+<p>This is a summary of the elements that must be defined in your Petals SCA application.</p>
+<ul>
+	<li>Every component has a Java implementation.</li>
+	<li>Every service and reference of a component has a Java interface.</li>
+	<li>Every service and reference of the composite has a JBI binding.</li>
+	<li>
+		Every composite service has a WSDL file defined in its <b>binding.jbi 'wsdl' attribute</b>. 
+		This WSDL is located in the 'wsdl' folder of the project. The 'wsdl' attribute
+		value if the relative location of the WSDL file with respect to the root of the 'wsdl' folder.
+	</li>
+	<li>Your composite has at least one service.</li>
+</ul>
+
+</body>
+</hml>

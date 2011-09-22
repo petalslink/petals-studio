@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://petals.ow2.org/components/sftp/version-1"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:sftp="http://petals.ow2.org/components/sftp/version-1"
+	elementFormDefault="qualified">
+	
+	<xs:import 
+		namespace="http://petals.ow2.org/components/extensions/version-5"
+		schemaLocation="CDKextensions.xsd" />
+
+    <!-- Host of the SFTP server -->
+    <xs:element name="host" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>Host of the SFTP server (required but optional when using the generic <b>SFTP</b> service).</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Port used by the SFTP server -->
+    <xs:element name="port"  type="xs:int" default="22">
+        <xs:annotation>
+            <xs:documentation>SFTP port (default = 22).</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Username used for the authentication on the SFTP server -->
+    <xs:element name="user" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>SFTP user (required but optional when using the generic <b>SFTP</b> service).</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Password used for the authentication on the SFTP server -->
+    <xs:element name="password" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>SFTP password (optional when using a private key file or when using the generic <b>SFTP</b> service).</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Path to the private key used for the authentication on the SFTP server -->
+    <xs:element name="privatekey" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>Path to the private key (optional when using a password or when using the generic <b>SFTP</b> service).</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Passphrase used for the authentication on the SFTP server -->
+    <xs:element name="passphrase" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>Passphrase that match the given private key (optional when using a password or when using the generic <b>SFTP</b> service).</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Read / write folder -->
+    <xs:element name="folder" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Folder on the SFTP server to read/write (optional when using the generic <b>Sftp</b> service)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+    <!-- max idle connection time -->
+    <xs:element name="max-idle-time" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Max idle connection time (minutes)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="overwrite" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Defined if the component have to overwrite the existing remote file. If "false", the file is not copied and a fault is returned to the caller saying "The file already exists"</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+    <!-- TODO : more to come about compression -->
+</xs:schema>

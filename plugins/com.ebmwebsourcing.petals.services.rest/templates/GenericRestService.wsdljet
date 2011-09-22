@@ -1,0 +1,172 @@
+<%@ jet
+	package="com.ebmwebsourcing.petals.services.rest.generated"
+	imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+	class="GenericRestWsdl"
+	skeleton="generator.skeleton" %>
+<% EclipseSuBean data = (EclipseSuBean) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+   name="RestService"
+   targetNamespace="http://petals.ow2.org/GenericREST/"
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:tns="http://petals.ow2.org/GenericREST/"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+   
+   <wsdl:types>
+      <xs:schema
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:tns="http://petals.ow2.org/GenericREST/"
+         elementFormDefault="qualified"
+         targetNamespace="http://petals.ow2.org/GenericREST/"
+         version="1.0">
+         
+         <xs:element name="delete" type="tns:delete" />
+         <xs:element name="deleteResponse" type="tns:deleteResponse" />
+         <xs:element name="get" type="tns:get" />
+         <xs:element name="getResponse" type="tns:getResponse" />
+         <xs:element name="post" type="tns:post" />
+         <xs:element name="postResponse" type="tns:postResponse" />
+         <xs:element name="put" type="tns:put" />
+         <xs:element name="putResponse" type="tns:putResponse" />
+         
+         <xs:complexType name="delete">
+            <xs:sequence />
+         </xs:complexType>
+         <xs:complexType name="deleteResponse">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="DeleteOutParam" type="xs:anyType" />
+            </xs:sequence>
+         </xs:complexType>
+         
+         <xs:complexType name="get">
+            <xs:sequence />
+         </xs:complexType>
+         <xs:complexType name="getResponse">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="GetOutParam" type="xs:anyType" />
+            </xs:sequence>
+         </xs:complexType>
+         
+         <xs:complexType name="put">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="PutInParam" type="xs:anyType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="putResponse">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="PutOutParam" type="xs:anyType" />
+            </xs:sequence>
+         </xs:complexType>
+         
+         <xs:complexType name="post">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="PostInParam" type="xs:anyType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="postResponse">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="PostOutParam" type="xs:anyType" />
+            </xs:sequence>
+         </xs:complexType>
+      </xs:schema>
+   </wsdl:types>
+   
+   <wsdl:message name="get">
+      <wsdl:part name="parameters" element="tns:get" />
+   </wsdl:message>
+   <wsdl:message name="putResponse">
+      <wsdl:part name="parameters" element="tns:putResponse" />
+   </wsdl:message>
+   <wsdl:message name="deleteResponse">
+      <wsdl:part name="parameters" element="tns:deleteResponse" />
+   </wsdl:message>
+   <wsdl:message name="post">
+      <wsdl:part name="parameters" element="tns:post" />
+   </wsdl:message>
+   <wsdl:message name="put">
+      <wsdl:part name="parameters" element="tns:put" />
+   </wsdl:message>
+   <wsdl:message name="postResponse">
+      <wsdl:part name="parameters" element="tns:postResponse" />
+   </wsdl:message>
+   <wsdl:message name="delete">
+      <wsdl:part name="parameters" element="tns:delete" />
+   </wsdl:message>
+   <wsdl:message name="getResponse">
+      <wsdl:part name="parameters" element="tns:getResponse" />
+   </wsdl:message>
+   
+   <wsdl:portType name="<%= data.getInterfaceName() %>">
+      <wsdl:operation name="delete">
+         <wsdl:input name="delete" message="tns:delete" />
+         <wsdl:output name="deleteResponse" message="tns:deleteResponse" />
+      </wsdl:operation>
+      
+      <wsdl:operation name="get">
+         <wsdl:input name="get" message="tns:get" />
+         <wsdl:output name="getResponse" message="tns:getResponse" />
+      </wsdl:operation>
+      
+      <wsdl:operation name="put">
+         <wsdl:input name="put" message="tns:put" />
+         <wsdl:output name="putResponse" message="tns:putResponse" />
+      </wsdl:operation>
+      
+      <wsdl:operation name="post">
+         <wsdl:input name="post" message="tns:post" />
+         <wsdl:output name="postResponse" message="tns:postResponse" />
+      </wsdl:operation>
+   </wsdl:portType>
+   
+   <wsdl:binding name="GenericRestServiceSoapBinding" type="tns:<%= data.getInterfaceName() %>">
+      <soap:binding style="document"
+         transport="http://schemas.xmlsoap.org/soap/http" />
+         
+      <wsdl:operation name="delete">
+         <soap:operation soapAction="" style="document" />
+         <wsdl:input name="delete">
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="deleteResponse">
+            <soap:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="get">
+         <soap:operation soapAction="" style="document" />
+         <wsdl:input name="get">
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="getResponse">
+            <soap:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="put">
+         <soap:operation soapAction="" style="document" />
+         <wsdl:input name="put">
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="putResponse">
+            <soap:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="post">
+         <soap:operation soapAction="" style="document" />
+         <wsdl:input name="post">
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="postResponse">
+            <soap:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   
+   <wsdl:service name="<%= data.getServiceName() %>">
+      <wsdl:port name="<%= data.getEndpointName() %>" binding="tns:GenericRestServiceSoapBinding">
+         <soap:address location="http://localhost:9090/GenericRestEndpoint" />
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions> 

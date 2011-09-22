@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2008-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+	<extension point="com.ebmwebsourcing.petals.services.contentExtension">
+		<WizardData
+        	SuType="File Transfer"
+        	ContributorDescription="com.ebmwebsourcing.petals.services.filetransfer.FileTransferContributorDescription">
+   <Version
+         ConsumeConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferWizardConfigurationConsume24"
+         CustomComponentPage="com.ebmwebsourcing.petals.services.filetransfer.v24.FTComponentPage"
+         LastActionsPerformer="com.ebmwebsourcing.petals.services.filetransfer.v24.FiletransferLastActionsPerformer24"
+         ProvideConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferWizardConfigurationProvide24"
+         SuVersion="2.4">
+   </Version>
+   <!-- Version
+         ConsumeConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferWizardConfigurationConsume30"
+         LastActionsPerformer="com.ebmwebsourcing.petals.services.filetransfer.v30.FiletransferLastActionsPerformer30"
+         ProvideConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferWizardConfigurationProvide30"
+         SuVersion="3.0">
+   </Version -->
+		</WizardData>
+	</extension>
+</plugin>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="book.css" rel="stylesheet" type="text/css" />
+	<title>Petals SCA applications</title>
+</head>
+
+<body>
+<h1>Petals SCA applications</h1>
+
+
+<h2>Why would you use SCA in Petals?</h2>
+<p>
+That may be the first question to go through your mind. What is the interest of
+running SCA applications inside Petals?
+</p><p>
+In fact, there are several points of view. The two main ones are about a <i>usual
+SCA user</i> and a <i>usual Petals user</i>.<br />In the scope of this document, we will limit 
+our explanation to the second case since this is the main user target for instance.
+</p><p>
+So, what can SCA bring to a Petals user?<br />
+Well, the Petals SCA component should be seen as a powerful alternative to the BPEL and EIP components.
+</p><p>
+An SCA application, once deployed into Petals, exposes its services as Petals services (i.e.
+they are accessible as JBI end-points). Such an application can also easily call other Petals
+services at runtime. This is achieved by the reference mechanism of SCA. Or said differently, 
+it means the composite references target Petals services. Thus, you can easily manipulate 
+them in the composite implementation. With a Java implementation, you can call a Petals service 
+as a Java method, check conditions on call results with the "if... else..." syntax and so on...
+</p><p>
+In Petals, SCA services and references are either Petals services or point to Petals services. 
+Thus, you can combine SCA capabilities with Petals features, reinforce loosely-coupling (e.g. with
+routing strategies) or combine SCA with service registries. You could also imagine calling an SCA service within a
+BPEL orchestration or with any other Petals component. The integration of an SCA application inside Petals
+is transparent for the bus. You can then use it as any other Petals service. The difference is inside the component
+and in the way you create your service.
+</p>
+<img src="images/introduction.gif" alt="A fast overview of Petals SCA applications" />
+
+<p>
+The contrast with the BPEL and EIP components is quite obvious at first glance.
+With these two components, it is all about XML: the assembly itself is an XML document, conditions are 
+defined with XPath, transformations must be made using XSL style sheets within the XSLT component...
+With SCA, you do all of this with the implementation language used in your SCA application, e.g. Java.
+Besides, you are not limited to pre-defined patterns. This freedom is enjoyable but also implies
+some discipline to avoid messy applications. It is up to you to decide when you should use SCA, BPEL 
+or EIP in Petals. 
+</p><p>
+Some may also think about using the SCA component as an alternative to the POJO and JSR-181 components.
+Although it is indeed possible (it consists in creating an SCA application with no reference), we do not
+recommend to proceed this way. At least, for the moment. However, this Petals component being very young, 
+feel free to experiment it and bring feedback to the Petals community.  
+</p>
+
+
+<h2>Requirements for Petals SCA applications</h2>
+<p>
+Running an SCA application within Petals requires your application to respect some constraints.<br />
+For some of them, it is due to the SCA component youth. In which case they should disappear later on.  
+</p><p>Here are these constraints:</p>
+<ul>
+	<li>SCA Component implementations are limited to the Java language.</li>
+	<li>
+		Service and reference bindings have to be JBI bindings, and nothing else.
+		This binding is defined inside the STP FraSCAti domain model extension.
+		The presence of other bindings may result in errors on deployment.
+	</li>
+	<li>
+		For very SCA service, you have to provide the WSDL file associated with the service interface.
+		This WSDL can be generated from a Java interface using the WSDL Tools plug-in.
+	</li>
+	<li>
+		When you provide a WSDL for an SCA service or reference, it should be placed in a folder called 'wsdl'.
+		This folder should be located at the root of your SCA project. The tooling will introspect this folder and
+		copy its content into the Petals deployment archive.
+	</li>
+	<li>SCA applications must be successfully validated by the STP SCA tooling to be deployed into Petals.</li>
+</ul>
+<img src="images/bindingJBI.gif" alt="JBI binding in the palet of the SCA Composite Designer" />
+
+</body> 
+</html>

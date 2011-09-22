@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://petals.ow2.org/components/jms/version-3"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:jms="http://petals.ow2.org/components/jms/version-3"
+	elementFormDefault="qualified">
+	
+	<xs:import namespace="http://petals.ow2.org/components/extensions/version-5"
+		schemaLocation="CDKextensions.xsd" />
+	
+	<xs:element name="jndi-provider-url" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>Location of the JNDI server in an URl form. This JNDI server is necessary to identify the JMS destination and the Connection Factory class to use in order to reach the JMS provider server.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="jndi-initial-context-factory" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The JNDI initial-context-factory class name, used to create an JNDI InitalContext instance</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="jndi-connection-factory" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The JNDI name of the JMS Connection Factory to create JMS connections with the JMS Provider server</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="jndi-destination-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The JNDI destination name (Queue or Topic) to interact with</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="user" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>User name to access the JMS Destination</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Password to access the JMS Destination</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="transacted" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>JMS communication transacted mode</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="max-active" type="xs:int" default="10">
+		<xs:annotation>
+			<xs:documentation>Controls the maximum number of JMS connections that can be borrowed from the pool at one time. When non-positive, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="max-idle" type="xs:int" default="5">
+		<xs:annotation>
+			<xs:documentation>Controls the maximum number of JMS connections that can sit idle in the pool at any time. When negative, there is no limit to the number of connections that may be idle at one time.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="max-wait" type="xs:long" default="10000">
+		<xs:annotation>
+			<xs:documentation>If a positive maxWait value is supplied, the JMS component will wait for at most that duration in milliseconds to retrieve an available JMS connection. If maxWait is non-positive, the component will wait indefinitely.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="time-between-eviction-runs-millis" type="xs:long" default="30000">
+		<xs:annotation>
+			<xs:documentation>Indicates how long the eviction thread should sleep before "runs" of examining idle connections. When non-positive, no eviction thread will be launched.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="min-evictable-idle-time-millis" type="xs:long" default="600000">
+		<xs:annotation>
+			<xs:documentation>Specifies the minimum amount of time that a connection may sit idle in the pool before it is eligable for eviction due to idle time. When non-positive, no connections will be dropped from the pool due to idle time alone.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="test-while-idle" type="xs:boolean" default="true">
+		<xs:annotation>
+			<xs:documentation>Indicates whether or not idle connections should be validated. Connections that fail to validate will be dropped from the pool.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+</xs:schema>

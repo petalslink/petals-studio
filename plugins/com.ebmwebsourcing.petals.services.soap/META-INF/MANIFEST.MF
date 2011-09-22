@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.ebmwebsourcing.petals.services.soap;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: %pluginProvider
+Bundle-Localization: plugin
+Require-Bundle: com.ebmwebsourcing.petals.services
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

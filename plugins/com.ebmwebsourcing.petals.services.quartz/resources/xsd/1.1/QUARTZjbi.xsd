@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="http://java.sun.com/xml/ns/jbi" 
+	xmlns:jbi="http://java.sun.com/xml/ns/jbi"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:quartz="http://petals.ow2.org/components/quartz/version-1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<xs:import namespace="http://petals.ow2.org/components/quartz/version-1"
+		schemaLocation="QUARTZextensions.xsd" />
+
+	<xs:redefine schemaLocation="abstractCDKjbi.xsd">
+		<xs:complexType name="Provides">
+			<xs:complexContent>
+				<xs:extension base="jbi:Provides">
+					<xs:sequence>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+
+		<xs:complexType name="Consumes">
+			<xs:complexContent>
+				<xs:extension base="jbi:Consumes">
+					<xs:sequence>
+						<xs:element ref="quartz:cron-expression" maxOccurs="1"
+							minOccurs="1" />
+						<xs:element ref="quartz:content"
+							maxOccurs="1" minOccurs="1" />
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+
+		</xs:complexType>
+
+		<xs:complexType name="Component">
+			<xs:complexContent>
+				<xs:extension base="jbi:Component"></xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+
+	</xs:redefine>
+
+	<!--
+		The definition of the root element here take account of the redefined
+		types
+	-->
+	<xs:element name="jbi" type="jbi:Jbi" />
+</xs:schema>

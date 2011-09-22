@@ -1,0 +1,60 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.mail.generated"
+imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+class="MailService"
+skeleton="../generator.skeleton" %>
+<% EclipseSuBean data = (EclipseSuBean) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://petals.ow2.org/components/mail/version-3"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="MailService" 
+	targetNamespace="http://petals.ow2.org/components/mail/version-3">
+
+	<!-- ======== XML Types ========== -->
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://petals.ow2.org/components/mail/version-3">
+			<xsd:element name="SendMail">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:any />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- ======== Messages ========== -->
+	<wsdl:message name="SendMailRequest1">
+		<wsdl:part name="mail" element="tns:SendMail" />
+	</wsdl:message>
+	
+	<!-- ======== Port Types ========== -->
+	<wsdl:portType name="<%= data.getInterfaceName() %>">
+		<wsdl:operation name="SendMail">
+			<wsdl:input message="tns:SendMailRequest1" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ======== BINDING ========== -->
+	<wsdl:binding name="MailServiceSoapBinding" type="tns:<%= data.getInterfaceName() %>">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="SendMail">
+			<soap:operation soapAction="http://petals.ow2.org/components/mail/version-3/SendMail" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<!-- ======== SERVICE ========== -->
+	<wsdl:service name="<%= data.getServiceName() %>">
+		<wsdl:port binding="tns:MailServiceSoapBinding" name="<%= data.getEndpointName() %>">
+			<soap:address location="jbi://myMailSUEndpointName" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

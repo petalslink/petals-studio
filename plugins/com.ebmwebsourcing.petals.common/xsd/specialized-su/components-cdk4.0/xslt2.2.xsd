@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/xslt/version-2.2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xslt="http://petals.ow2.org/components/xslt/version-2.2"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="XsltInProvides">
+		<xs:sequence>
+			<xs:element ref="xslt:stylesheet" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="xslt:output-attachment-name" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="stylesheet" type="xs:string">
+		<xs:annotation><xs:documentation>XSL stylesheet: the file providing the XSL transformation</xs:documentation></xs:annotation>
+	</xs:element>
+	
+	<xs:element name="output-attachment-name" type="xs:string">
+		<xs:annotation><xs:documentation>Attachment name: if the transformation result has to be returned as an attachment</xs:documentation></xs:annotation>
+	</xs:element>
+</xs:schema>

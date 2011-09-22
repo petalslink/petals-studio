@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/soap/version-3.1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://petals.ow2.org/components/soap/version-3.1"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="SoapInProvides">
+		<xs:sequence>
+			<xs:element ref="soap:address" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:soap-version" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:add-root" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:chunked-mode" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:synchronous-timeout" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:cleanup-transport" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:mode" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:rest-http-method" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:proxy-host" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:proxy-port" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:proxy-user" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:proxy-password" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:proxy-domain" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<xs:group name="SoapInConsumes">
+		<xs:sequence>
+			<xs:element ref="soap:address" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:soap-action" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:remove-root" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:synchronous-timeout" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:mode" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:rest-add-namespace-uri" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:rest-add-namespace-prefix" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:rest-remove-prefix-on-response" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:modules" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:service-parameters" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="http-port" type="xs:int" default="8084">
+		<xs:annotation>
+			<xs:documentation>Port of the embedded Jetty HTTP server</xs:documentation>
+			<xs:documentation xml:lang="fr">Port du serveur HTTP Jetty embarqué</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-host" type="xs:string" default="localhost">
+		<xs:annotation>
+			<xs:documentation>Local Hostname to be used, can be hostname or host IP address</xs:documentation>
+			<xs:documentation xml:lang="fr">Nom de l'hote local ou addresse IP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-service-list" type="xs:boolean" default="true">
+		<xs:annotation>
+			<xs:documentation>Display the available Web Service list</xs:documentation>
+			<xs:documentation xml:lang="fr">Affiche la liste des Web Services disponibles</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-service-context" type="xs:string" default="petals">
+		<xs:annotation>
+			<xs:documentation>The URL context</xs:documentation>
+			<xs:documentation xml:lang="fr">L'URL du contexte</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-service-mapping" type="xs:string" default="services">
+		<xs:annotation>
+			<xs:documentation>The URL service mapping</xs:documentation>
+			<xs:documentation xml:lang="fr">L'URL des services</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-thread-pool-size-max" type="xs:int"
+		default="255">
+		<xs:annotation>
+			<xs:documentation>The maximum size of the HTTP thread pool</xs:documentation>
+			<xs:documentation xml:lang="fr">Taille maximum du pool de threads HTTP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-thread-pool-size-min" type="xs:int" default="2">
+		<xs:annotation>
+			<xs:documentation>The minimum size of the HTTP thread pool</xs:documentation>
+			<xs:documentation xml:lang="fr">Taille minimum du pool de thread HTTP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-acceptors" type="xs:int" default="4">
+		<xs:annotation>
+			<xs:documentation>Number of HTTP acceptors</xs:documentation>
+			<xs:documentation xml:lang="fr">Nombre d'accepteurs HTTP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="address" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Address of the external Web Service (provides mode) or Web Service name to expose (consumes mode)</xs:documentation>
+			<xs:documentation xml:lang="fr">Adresse du Web Service externe (mode provides) ou nom du Web Service à exposer (mode consumes)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="soap-version" type="soap:SoapVersion" default="1.1">
+		<xs:annotation>
+			<xs:documentation>The SOAP version to be used</xs:documentation>
+			<xs:documentation xml:lang="fr">Version de SOAP utilisée</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="soap-action" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The SOAP action QName to be used for the Web Service, will override the JBI message operation</xs:documentation>
+			<xs:documentation xml:lang="fr">La SOAP action a utiliser pour l'appel du Web Service, surcharge l'operation du message JBI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="add-root" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Add a root element to build the SOAP body, the root element name is the SOAP action (outgoing mode)</xs:documentation>
+			<xs:documentation xml:lang="fr">Ajout d'un élément racine lors de la construction du SOAP body, le nom de l'élément est la SOAP action (mode sortant)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="remove-root" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Remove the root element of the SOAP body to build the JBI message (incoming mode)</xs:documentation>
+			<xs:documentation xml:lang="fr">Supprimer l'élément racine du SOAP body lors de la construction du message JBI (mode entrant)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="chunked-mode" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Activate the HTTP chunked mode on Web Service calls</xs:documentation>
+			<xs:documentation xml:lang="fr">Activer le mode chunk HTTP lors de l'appel de Web Service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="synchronous-timeout" type="xs:long">
+		<xs:annotation>
+			<xs:documentation>The timout value (in ms) to be used when sending JBI message in the bus (incoming mode)</xs:documentation>
+			<xs:documentation xml:lang="fr">Le timeout (en ms) utilisé lors de l'envoi d'un message JBI dans le bus (mode entrant)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="cleanup-transport" type="xs:boolean" default="true">
+		<xs:annotation>
+			<xs:documentation>Cleanup the HTTP transport layer after each Web Service call in order to avoid</xs:documentation>
+			<xs:documentation xml:lang="fr">Nettoyer le transport HTTP après chaque appel de Web Service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="mode" type="soap:Mode" default="SOAP">
+		<xs:annotation>
+			<xs:documentation>The Web Service mode to use</xs:documentation>
+			<xs:documentation xml:lang="fr">Le mode du Web Service à utiliser</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="rest-add-namespace-uri" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>The namespace URI to be used in the the generated JBI message payload</xs:documentation>
+			<xs:documentation xml:lang="fr">Le namespace URI à utiliser lors de la construction du message JBI depuis la requête REST</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="rest-add-namespace-prefix" type="xs:string" default="soapbc">
+		<xs:annotation>
+			<xs:documentation>The namespace prefix to be used in the the generated JBI message payload (used when NS URI is defined)</xs:documentation>
+			<xs:documentation xml:lang="fr">Le prefixe du namespace à utiliser lors de la construction du message JBI (utile lorsque le NS URI est précisé)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="rest-remove-prefix-on-response" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A list of NS prefixes to remove from the JBI message response (Coma Separated Values)</xs:documentation>
+			<xs:documentation xml:lang="fr">Liste des prefixes de namespaces a supprimer du message de réponse JBI (Coma Separated Values)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="rest-http-method" type="soap:HTTPMethod">
+		<xs:annotation>
+			<xs:documentation>The HTTP method to be used in REST mode</xs:documentation>
+			<xs:documentation xml:lang="fr">La méthode HTTP à utiliser en mode REST</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="modules" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A list of Axis2 modules names to engage (separated by comas)</xs:documentation>
+			<xs:documentation xml:lang="fr">Une liste de noms de modules Axis2 à engager, séparés par des virgules</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="service-parameters" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Additional XML configuration for created Axis2 service as CDATA, same as the Axis2 services.xml file one</xs:documentation>
+			<xs:documentation xml:lang="fr">Configuration XML additionnelle pour le service créé sous forme de CDATA, identique au fichier services.xml d'Axis2</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="proxy-host" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Proxy host name (proxy mode disabled if empty)</xs:documentation>
+			<xs:documentation xml:lang="fr">Nom d'hôte du proxy (mode proxy désactivé si laissé vide)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="proxy-port" type="xs:int">
+		<xs:annotation>
+			<xs:documentation>Proxy host port</xs:documentation>
+			<xs:documentation xml:lang="fr">Numéro de port du proxy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="proxy-user" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Username for the proxy</xs:documentation>
+			<xs:documentation xml:lang="fr">Nom d'utilisateur pour le proxy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="proxy-password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Password for the proxy</xs:documentation>
+			<xs:documentation xml:lang="fr">Mode de passe pour le proxy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="proxy-domain" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Proxy domain</xs:documentation>
+			<xs:documentation xml:lang="fr">Domaine du proxy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:simpleType name="SoapVersion">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1.1" />
+			<xs:enumeration value="1.2" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Mode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SOAP">
+				<xs:annotation>
+					<xs:documentation>Use Web Services in basic SOAP mode, the address field will be the name of the exposed Web Service or the URL of the Web Service to consume</xs:documentation>
+					<xs:documentation xml:lang="fr">Utiliser les Web Services en mode SOAP, le champ 'address' sera le nom du Web Service exposé ou l'URL du Web Service à consommer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REST">
+				<xs:annotation>
+					<xs:documentation>Use the Web Service in REST mode, the address field will be the name of the REST Service or the REST Service to consume</xs:documentation>
+					<xs:documentation xml:lang="fr">Utiliser les Web Services en mode REST, le champ 'address' sera le nom du service REST exposé ou l'URL du service REST à consommer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TOPIC">
+				<xs:annotation>
+					<xs:documentation>Use the Web Service in TOPIC mode, the address field will be the name of the WSN topic to create</xs:documentation>
+					<xs:documentation xml:lang="fr">Utiliser les Web Service en mode TOPIC, le champ 'address' sera le nom de la topic WSN à créer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="HTTPMethod">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GET" />
+			<xs:enumeration value="POST" />
+			<xs:enumeration value="PUT" />
+			<xs:enumeration value="DELETE" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

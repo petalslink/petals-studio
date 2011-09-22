@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Specific Petals CDK Types -->
+<xs:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<!-- Generic interceptor parameter type -->
+	<xs:complexType name="Param">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="string" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="MessageType">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="in" />
+			<xs:enumeration value="out" />
+			<xs:enumeration value="fault" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MessageParam">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="message" type="petalsCDK:MessageType" use="required"></xs:attribute>
+				<xs:attribute name="name" type="string" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+		
+	<!--  Component interceptor type -->
+	<xs:complexType name="ComponentInterceptor">
+		<xs:sequence>
+			<xs:element name="param" type="petalsCDK:Param" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="active" type="xs:boolean" use="required" />
+	</xs:complexType>
+	<xs:complexType name="ComponentInterceptors">
+		<xs:sequence>
+			<xs:element name="interceptor" type="petalsCDK:ComponentInterceptor"
+				maxOccurs="unbounded" minOccurs="0">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!--  Service Unit interceptor type -->
+	<xs:complexType name="SUInterceptor">
+		<xs:sequence>
+			<xs:element name="param" type="petalsCDK:Param" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="string" />
+	</xs:complexType>
+	<xs:complexType name="Send">
+		<xs:sequence>
+			<xs:element name="interceptor" type="petalsCDK:SUInterceptor"
+				maxOccurs="unbounded" minOccurs="0">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Accept">
+		<xs:sequence>
+			<xs:element name="interceptor" type="petalsCDK:SUInterceptor"
+				maxOccurs="unbounded" minOccurs="0">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SendResponse">
+		<xs:sequence>
+			<xs:element name="Interceptor" type="petalsCDK:SUInterceptor"
+				maxOccurs="unbounded" minOccurs="0"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AcceptResponse">
+		<xs:sequence>
+			<xs:element name="Interceptor" type="petalsCDK:SUInterceptor"
+				maxOccurs="unbounded" minOccurs="0"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SUInterceptors">
+		<xs:sequence>
+			<xs:element name="send" type="petalsCDK:Send" maxOccurs="1"
+				minOccurs="0">
+			</xs:element>
+			<xs:element name="accept" type="petalsCDK:Accept"
+				maxOccurs="1" minOccurs="0">
+			</xs:element>
+			<xs:element name="send-response" type="petalsCDK:SendResponse"
+				maxOccurs="1" minOccurs="0">
+			</xs:element>
+			<xs:element name="accept-response" type="petalsCDK:AcceptResponse"
+				maxOccurs="1" minOccurs="0">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- Simple dynamic parameter types -->
+	<!-- Settable types can be reset during the installation of the component -->
+	<!-- Runtime types can be reset at any times during the component life -->
+	<xs:complexType name="settablestring">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="runtimestring">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="settablelong">
+		<xs:simpleContent>
+			<xs:extension base="xs:long">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="runtimelong">
+		<xs:simpleContent>
+			<xs:extension base="xs:long">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="settableint">
+		<xs:simpleContent>
+			<xs:extension base="xs:int">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="runtimeint">
+		<xs:simpleContent>
+			<xs:extension base="xs:int">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="settableboolean">
+		<xs:simpleContent>
+			<xs:extension base="xs:boolean">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="runtimeboolean">
+		<xs:simpleContent>
+			<xs:extension base="xs:boolean">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="settableanyURI">
+		<xs:simpleContent>
+			<xs:extension base="xs:anyURI">
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- Ignore status -->
+	<xs:simpleType name="IgnoreStatus">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="DONE_AND_ERROR_IGNORED" />
+			<xs:enumeration value="DONE_IGNORED" />
+			<xs:enumeration value="ERROR_IGNORED" />
+			<xs:enumeration value="NOTHING_IGNORED" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Component Extensions -->
+	<xs:element name="acceptor-pool-size" type="petalsCDK:runtimeint"
+		default="3" />
+	<xs:element name="processor-pool-size" type="petalsCDK:runtimeint"
+		default="10" />
+	<xs:element name="processor-max-pool-size" type="petalsCDK:runtimeint"
+		default="50" />
+	<xs:element name="ignored-status" type="petalsCDK:IgnoreStatus"
+		default="DONE_AND_ERROR_IGNORED" />
+	<xs:element name="jbi-listener-class-name" type="xs:string" />
+	<xs:element name="external-listener-class-name" type="xs:string" />
+	<xs:element name="component-interceptors" type="petalsCDK:ComponentInterceptors" />
+	<xs:element name="properties-file" type="petalsCDK:settableanyURI" />
+	<xs:element name="notifications" type="petalsCDK:settableboolean"
+		default="false" />
+	<xs:element name="forward-security-subject" type="xs:boolean" default="false" />
+	<xs:element name="forward-message-properties" type="xs:boolean" default="false" />
+	<xs:element name="forward-attachments" type="xs:boolean" default="false" />
+	
+	<!-- MEP : InOnly, InOut, RobustInOut, InOptionalOut -->
+	<xs:simpleType name="MEPType">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="InOnly" />
+			<xs:enumeration value="InOut" />
+			<xs:enumeration value="RobustInOnly" />
+			<xs:enumeration value="InOptionalOut" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Services Unit Extensions -->
+	<xs:element name="su-interceptors" type="petalsCDK:SUInterceptors" />
+
+	<!-- Consumes Extensions -->
+	<xs:element name="operation" type="xs:QName">
+		<xs:annotation>
+			<xs:documentation>Operation to call</xs:documentation>
+			<xs:documentation>NO HCI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="timeout" type="xs:long" default="30000">
+		<xs:annotation>
+			<xs:documentation>Timeout for synchronous calls. When reached, the service is considered as not responding</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="exchange-properties">
+		<xs:annotation>
+			<xs:documentation>Exchange Properties. Defines list of exchange properties to set on each processing request</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="exchange-property" type="petalsCDK:Param"
+					minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="message-properties">
+		<xs:annotation>
+			<xs:documentation>Message Properties. Defines list of message properties to set on each processing request</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message-property" type="petalsCDK:MessageParam"
+					minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="mep" type="petalsCDK:MEPType" nillable="true">
+		<xs:annotation>
+			<xs:documentation>Message Exchange Pattern. Defines the interaction mode with the service provider</xs:documentation>
+			<xs:documentation>NO HCI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+
+	<!-- Provides Extensions -->
+	<xs:element name="wsdl" type="xs:string" nillable="true">
+		<xs:annotation>
+			<xs:documentation>Service description. Local file or URI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="validate-wsdl" type="petalsCDK:settableboolean" default="true">
+		<xs:annotation>
+			<xs:documentation>Validate the WSDL descriptor with the Provides fragment</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="retrypolicy">
+		<xs:annotation>
+			<xs:documentation>Retry Policy. A complex element that defines the number of tentatives and waiting time</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="attempts" type="xs:int" minOccurs="1" maxOccurs="1" default="1">
+					<xs:annotation><xs:documentation>The number of tentatives</xs:documentation></xs:annotation>
+				</xs:element>
+				<xs:element name="delay" type="xs:long" minOccurs="0" maxOccurs="1" default="30000">
+					<xs:annotation><xs:documentation>The delay between each tentative (ms)</xs:documentation></xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+    <!-- PEtALS Components specific types -->
+    <!-- USed by PEtALS Eclipse plugin to generate special widgets -->
+	<xs:simpleType name="File">
+		<xs:restriction base="string"></xs:restriction>
+	</xs:simpleType>
+</xs:schema>

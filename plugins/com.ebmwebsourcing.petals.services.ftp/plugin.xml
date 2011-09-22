@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+
+<!--
+ <copyright>
+	 Copyright (c) 2008-2011, EBM WebSourcing
+	  
+	 This source code is available under agreement available at
+	 http://www.petalslink.com/legal/licenses/petals-studio
+	  
+	 You should have received a copy of the agreement along with this program.
+	 If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ </copyright>
+-->
+
+<plugin>
+   <extension
+         point="com.ebmwebsourcing.petals.services.contentExtension">
+      <WizardData
+            SuType="FTP"
+            ContributorDescription="com.ebmwebsourcing.petals.services.ftp.FtpContributorDescription">
+               <Version
+                     LastActionsPerformer="com.ebmwebsourcing.petals.services.ftp.FTPLastActionsPerformer31"
+                     ProvideConfiguration="com.ebmwebsourcing.petals.services.ftp.FTPWizardConfiguration31"
+                     SuVersion="3.1">
+               </Version>
+               <Version
+                     LastActionsPerformer="com.ebmwebsourcing.petals.services.ftp.FTPLastActionsPerformer32"
+                     ProvideConfiguration="com.ebmwebsourcing.petals.services.ftp.FTPWizardConfiguration31"
+                     SuVersion="3.2">
+               </Version>
+               <Version
+                     LastActionsPerformer="com.ebmwebsourcing.petals.services.ftp.FTPLastActionsPerformer33"
+                     ProvideConfiguration="com.ebmwebsourcing.petals.services.ftp.FTPWizardConfiguration31"
+                     SuVersion="3.3">
+               </Version>
+      </WizardData>
+   </extension>
+</plugin>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://petals.ow2.org/components/ftp/version-3"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:ftp="http://petals.ow2.org/components/ftp/version-3"
+	elementFormDefault="qualified">
+	
+	<xs:import 
+		namespace="http://petals.ow2.org/components/extensions/version-5"
+		schemaLocation="CDKextensions.xsd" />
+	
+	<xs:element name="server" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>FTP server (optional when using the generic <b>FTP</b> service)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="port" type="xs:int" default="21">
+		<xs:annotation>
+			<xs:documentation>FTP port (optional when using the generic <b>FTP</b> service)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="user" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>FTP user (optional when using the generic <b>FTP</b> service)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>FTP password (optional when using the generic <b>FTP</b> service)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="folder" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>folder on the FTP server to read/write (optional when using the generic <b>FTP</b> service)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="filename" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>used for PUT operation : file-name for the payload to write. Used for GET operation, when the request does not define the file to get.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="transfer-type" type="ftp:TransferType" default="auto">
+		<xs:annotation>
+			<xs:documentation>transfer mode used for put or get files (default is AUTO, but not safe)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="connection-mode" type="ftp:ConnectionType" default="active">
+		<xs:annotation>
+			<xs:documentation>in Active mode, the connection port is set by the client . In Passive mode, it is set by the server. (default is Active)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="overwrite" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Defined if the component have to overwrite the existing remote file. If "false", the file is not copied and a fault is returned to the caller saying "The file already exists"</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:simpleType name="TransferType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="auto" />
+			<xs:enumeration value="ascii" />
+			<xs:enumeration value="binary" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="ConnectionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="active" />
+			<xs:enumeration value="passive" />
+		</xs:restriction>
+	</xs:simpleType>
+
+    <xs:element name="delete-processed-files" type="xs:boolean" default="false">
+    	<xs:annotation>
+    		<xs:documentation>If true, the service delete the files processed by operation get or mget</xs:documentation>
+    	</xs:annotation>
+    </xs:element>
+</xs:schema>

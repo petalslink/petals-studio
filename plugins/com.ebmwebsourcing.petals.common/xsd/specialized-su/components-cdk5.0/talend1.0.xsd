@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/talend/version-1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:talend="http://petals.ow2.org/components/talend/version-1"
+	elementFormDefault="qualified">
+	
+	<xs:group name="TalendInProvides">
+		<xs:sequence>
+			<xs:element ref="talend:name" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="talend:class-name" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="talend:context" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="talend:singleton" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="talend:validate-exchange-by-wsdl" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="talend:output-attachment" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="TalendComponent">
+		<xs:sequence>
+			<xs:element ref="talend:validate-exchange-by-wsdl" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- Elements definition for the SU -->
+	<xs:element name="name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The job name (used for reporting)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="class-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The job class name (cannot be null or empty)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="context" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The job context (if invalid, default will be used)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="singleton" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>The singleton property. 
+			Set to true to run only one instance of the job at once.
+			Set to false to allow concurrent executions of a same job.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="validate-exchange-by-wsdl" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>
+			The WSDL-based validation for exchanges checks that the called operation,
+			the MEP and the input message are valid with respect to the WSDL.<br />
+			Set this property to true to enable it, false to disable it. Default is false.
+			Beware, performances are impacted if this property is enabled.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="output-attachment" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+			A such element declares an attachment to set on the returned exchange.
+			The value is a string which match the regular expression "(file|string)_contextName",
+			where contextName is a job context that will be required by the component once the
+			job was executed. File and string indicate the way this attachment will be loaded
+			(by content for string, from a file for file).
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+</xs:schema>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://petals.ow2.org/components/petals-bpel-engine/version-1"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:bpel-engine="http://petals.ow2.org/components/petals-bpel-engine/version-1"
+	elementFormDefault="qualified">
+
+	<xs:import namespace="http://petals.ow2.org/components/extensions/version-5"
+		schemaLocation="CDKextensions.xsd" />
+
+	<!-- Elements definition for the SU -->
+	<xs:element name="bpel" type="petalsCDK:File">
+		<xs:annotation>
+			<xs:documentation>Process definition file</xs:documentation>
+			<xs:documentation>NO HCI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="poolsize" type="xs:int" nillable="true" default="1">
+		<xs:annotation>
+			<xs:documentation>Set the size of Pool of instances</xs:documentation>
+			<xs:documentation>NO HCI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<!-- Elements definition for the component -->
+	<xs:element name="explorer" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>Set Fractal Explorer</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="internal-logger" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>Active internal logger</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="force-uninstall" type="xs:boolean" nillable="true" default="true">
+		<xs:annotation>
+			<xs:documentation>Force uninstallation of all BPEL instances of the SU</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="autoFlushMessage-frequency" type="xs:int" nillable="true" default="5000">
+		<xs:annotation>
+			<xs:documentation>time in millisecond before flush all messages not used</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="autoTrashProcess-frequency" type="xs:int" nillable="true" default="5000">
+		<xs:annotation>
+			<xs:documentation>time in millisecond before clean all unstable process instances</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

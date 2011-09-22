@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='org.eclipse.update.feature' id='com.ebmwebsourcing.petals.studio.source.feature' version='1.2.0.201106231712'>
+    <properties size='7'>
+      <property name='artifact.size' value='2851'/>
+      <property name='download.size' value='2851'/>
+      <property name='download.md5' value='22fca909764ed42164aa6a9ef7dc2e0b'/>
+      <property name='maven-groupId' value='com.ebmwebsourcing.petals.features'/>
+      <property name='maven-artifactId' value='com.ebmwebsourcing.petals.studio.source.feature'/>
+      <property name='maven-version' value='1.2.0-SNAPSHOT'/>
+      <property name='download.contentType' value='application/zip'/>
+    </properties>
+  </artifact>
+</artifacts>

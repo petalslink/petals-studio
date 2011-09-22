@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/eip/version-2.2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:eip="http://petals.ow2.org/components/eip/version-2.2"
+	elementFormDefault="qualified">
+	
+	
+	<xs:group name="EipInProvides">
+		<xs:sequence>
+			<xs:element ref="eip:eip" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="eip:router-condition" maxOccurs="unbounded" minOccurs="0" />
+			<xs:element ref="eip:dynamic-router-condition" maxOccurs="unbounded" minOccurs="0" />
+			<xs:element ref="eip:wiretap-way" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="eip:aggregator-complete" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="eip:aggregator-correlation" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="eip:aggregator-root-element" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="eip:scattergather-root-element" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- SU extensions -->
+	<xs:element name="eip" type="eip:EIPType">
+		<xs:annotation>
+			<xs:documentation>Pattern applied to the message. Other parameters depends on this pattern</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="router-condition" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>NO HCI</xs:documentation>
+			<xs:documentation>ROUTER pattern: XPath condition. If the condition is matched, the bound 'Consumes' service is invoked. The last 'Consumes' service is invoked by default</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="dynamic-router-condition" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>NO HCI</xs:documentation>
+			<xs:documentation>ROUTER-DYNAMIC pattern: XPath condition. If the condition is matched, the bound 'Consumes' service is invoked. The last 'Consumes' service is invoked by default</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="wiretap-way" type="eip:WireTapEIPWay">
+		<xs:annotation>
+			<xs:documentation>WIRE-TAP pattern: exchange way on which the message should be copied and
+                sent to the monitoring service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="aggregator-complete" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>AGGREGATOR pattern: XPath condition  applied to complete the sequence so that the process continue</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="aggregator-correlation" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>AGGREGATOR pattern: XPath condition that is applied on the incoming message to correlate them</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="aggregator-root-element" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>AGGREGATOR pattern: The value which will be used as root element name of the DOM tree</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="scattergather-root-element" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>SCATTER GATHER pattern: The value which will be used as root element name of the DOM tree</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:simpleType name="EIPType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="aggregator" />
+			<xs:enumeration value="dispatcher" />
+			<xs:enumeration value="router" />
+			<xs:enumeration value="dynamic-router" />
+			<xs:enumeration value="routing-slip" />
+			<xs:enumeration value="bridge" />
+			<xs:enumeration value="wire-tap" />
+			<xs:enumeration value="scatter-gather" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="WireTapEIPWay">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="request-response" />
+			<xs:enumeration value="response" />
+			<xs:enumeration value="request" />
+			<xs:enumeration value="" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

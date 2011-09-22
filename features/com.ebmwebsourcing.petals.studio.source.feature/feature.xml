@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.ebmwebsourcing.petals.studio.source.feature"
+      label="Petals Studio - Source Feature"
+      version="1.2.0.qualifier"
+      provider-name="EBM WebSourcing"
+      plugin="com.ebmwebsourcing.petals.common">
+
+   <description url="http://www.petalslink.com">
+      The source plug-ins for Petals Studio.
+   </description>
+
+   <copyright url="http://www.petalslink.com">
+      Copyright (c) Petals Link - 2010-2011
+Petals Link is a registered trademark of EBM WebSourcing
+   </copyright>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      This feature is licensed under the terms of the Eclipse Public License (EPL).
+   </license>
+
+   <plugin
+         id="com.ebmwebsourcing.jbi.core.metamodel.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.jbi.core.metamodel.edit.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.common.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.common.generation.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.common.wsdlext.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.common.xpath.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.components.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.server.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.bpel.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.cdk.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.eip.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.ejb.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.filetransfer.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.ftp.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.jms.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.jsr181.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.mail.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.pojo.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.quartz.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.rest.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.sca.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.sftp.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.soap.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.sql.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.validation.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.services.xslt.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.studio.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

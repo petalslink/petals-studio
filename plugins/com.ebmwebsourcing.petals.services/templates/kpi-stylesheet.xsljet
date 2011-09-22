@@ -1,0 +1,31 @@
+<%
+/******************************************************************************
+ * Copyright (c) 2010-2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+%><%@ jet
+	package="com.ebmwebsourcing.petals.services.generated"
+	class="KpiStylesheet"
+	skeleton="generator.skeleton"
+%><%
+	int processType = (Integer) argument;
+ %><xsl:stylesheet version='1.0'
+	xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
+	<xsl:output method="xml" indent="yes"/>
+	<xsl:template match="/">
+		<wsnebm:NotifyContent xmlns:wsnebm="http://www.ebmwebsourcing.com/WS-BaseNotification/NotifyContent" processType="<%= processType %>">
+			<wsnebm:params>	
+				<!-- Add filtering parameters -->
+				<!--
+				<wsnebm:param><xsl:value-of select="//*[local-name()='include']/text()"/></wsnebm:param>			
+				-->
+			</wsnebm:params>
+		</wsnebm:NotifyContent>
+	</xsl:template>
+</xsl:stylesheet> 

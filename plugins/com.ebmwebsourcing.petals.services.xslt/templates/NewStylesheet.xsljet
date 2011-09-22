@@ -1,0 +1,28 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.xslt.generated"
+class="XsltStyleSheet"
+skeleton="generator.skeleton" %>
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+	<!-- Transform operation -->
+	<!-- Replace the root "transformRequest" elements and copy their children and attributes. -->
+	<!-- This XSL style sheet is synchronized with the generated WSDL! -->
+	<xsl:template match="*[count(parent::*) = 0 and local-name() = 'transformRequest']">
+		<xsl:element name="transformResponse" namespace="{namespace-uri()}">
+			<xsl:copy-of select="@* | namespace::*" />
+			<xsl:copy-of select="./*" />
+		</xsl:element>
+	</xsl:template>	
+	
+	<!-- TransformToMtomAttachment operation -->
+	<!-- Replace the root "attachedTransformRequest" elements and copy their children and attributes. -->
+	<!-- This XSL style sheet is synchronized with the generated WSDL! -->
+	<xsl:template match="*[count(parent::*) = 0 and local-name() = 'attachedTransformRequest']">
+		<xsl:element name="attachedTransformResponse" namespace="{namespace-uri()}">
+			<xsl:copy-of select="@* | namespace::*" />
+			<xsl:copy-of select="./*" />
+		</xsl:element>
+	</xsl:template>
+
+</xsl:stylesheet>

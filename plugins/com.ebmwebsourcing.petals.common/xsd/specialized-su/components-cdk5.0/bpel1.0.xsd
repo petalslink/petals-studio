@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="http://petals.ow2.org/components/petals-bpel-engine/version-1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bpel-engine="http://petals.ow2.org/components/petals-bpel-engine/version-1"
+	elementFormDefault="qualified">
+	
+	<xs:group name="BpelInProvides">
+		<xs:sequence>
+			<xs:element ref="bpel-engine:bpel" maxOccurs="1" minOccurs="1" />
+            <xs:element ref="bpel-engine:poolsize" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="BpelComponent">
+		<xs:sequence>
+			<xs:element ref="bpel-engine:explorer" maxOccurs="1" minOccurs="0" />
+            <xs:element ref="bpel-engine:internal-logger" maxOccurs="1" minOccurs="0" />
+            <xs:element ref="bpel-engine:force-uninstall" maxOccurs="1" minOccurs="0" />
+            <xs:element ref="bpel-engine:autoFlushMessage-frequency" maxOccurs="1" minOccurs="0" />
+           	<xs:element ref="bpel-engine:autoTrashProcess-frequency" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:group>
+	
+	
+	<!-- Elements definition for the SU -->
+	<xs:element name="bpel" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Process definition file</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="poolsize" type="xs:int" nillable="true" default="0">
+		<xs:annotation>
+			<xs:documentation>Set the size of the pool of instances</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+
+	<!-- Elements definition for the component -->
+	<xs:element name="explorer" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>Set Fractal Explorer</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="internal-logger" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>Active internal logger</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="force-uninstall" type="xs:boolean" nillable="true" default="true">
+		<xs:annotation>
+			<xs:documentation>Force uninstallation of all BPEL instances of the SU</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="autoFlushMessage-frequency" type="xs:int" nillable="true" default="5000">
+		<xs:annotation>
+			<xs:documentation>time in millisecond before flush all messages not used</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="autoTrashProcess-frequency" type="xs:int" nillable="true" default="5000">
+		<xs:annotation>
+			<xs:documentation>time in millisecond before clean all unstable process instances</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
