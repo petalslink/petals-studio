@@ -39,7 +39,7 @@ import com.sun.java.xml.ns.jbi.ServiceUnit;
  * @generated
  */
 public class ServiceUnitItemProvider
-extends ItemProviderAdapter
+extends AbstractExtensibleElementItemProvider
 implements
 IEditingDomainItemProvider,
 IStructuredItemContentProvider,
@@ -51,7 +51,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ServiceUnitItemProvider(AdapterFactory adapterFactory) {
@@ -66,11 +65,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -83,13 +82,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICE_UNIT__IDENTIFICATION);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICE_UNIT__TARGET);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICE_UNIT__GROUP);
+			childrenFeatures.add(JbiPackage.Literals.SERVICE_UNIT__IDENTIFICATION);
+			childrenFeatures.add(JbiPackage.Literals.SERVICE_UNIT__TARGET);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -139,11 +137,10 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ServiceUnit.class)) {
-		case JbiPackage.SERVICE_UNIT__IDENTIFICATION:
-		case JbiPackage.SERVICE_UNIT__TARGET:
-		case JbiPackage.SERVICE_UNIT__GROUP:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.SERVICE_UNIT__IDENTIFICATION:
+			case JbiPackage.SERVICE_UNIT__TARGET:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -160,25 +157,14 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SERVICE_UNIT__IDENTIFICATION,
-								JbiFactory.eINSTANCE.createIdentification()));
+			(createChildParameter
+				(JbiPackage.Literals.SERVICE_UNIT__IDENTIFICATION,
+				 JbiFactory.eINSTANCE.createIdentification()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SERVICE_UNIT__TARGET,
-								JbiFactory.eINSTANCE.createTarget()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return JbiEditPlugin.INSTANCE;
+			(createChildParameter
+				(JbiPackage.Literals.SERVICE_UNIT__TARGET,
+				 JbiFactory.eINSTANCE.createTarget()));
 	}
 
 }

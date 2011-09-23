@@ -47,9 +47,6 @@ import com.sun.java.xml.ns.jbi.SharedLibraryType1;
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getBootstrapClassPath <em>Bootstrap Class Path</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getSharedLibraryList <em>Shared Library List</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getSharedLibrary <em>Shared Library</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getGroup <em>Group</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getAny <em>Any</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getAny1 <em>Any1</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getBootstrapClassLoaderDelegation <em>Bootstrap Class Loader Delegation</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getComponentClassLoaderDelegation <em>Component Class Loader Delegation</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getType <em>Type</em>}</li>
@@ -58,7 +55,7 @@ import com.sun.java.xml.ns.jbi.SharedLibraryType1;
  *
  * @generated
  */
-public class ComponentImpl extends EObjectImpl implements Component {
+public class ComponentImpl extends AbstractExtensibleElementImpl implements Component {
 	/**
 	 * The cached value of the '{@link #getIdentification() <em>Identification</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -128,16 +125,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @ordered
 	 */
 	protected FeatureMap sharedLibraryList;
-
-	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGroup()
-	 * @generated
-	 * @ordered
-	 */
-	protected FeatureMap group;
 
 	/**
 	 * The default value of the '{@link #getBootstrapClassLoaderDelegation() <em>Bootstrap Class Loader Delegation</em>}' attribute.
@@ -251,20 +238,17 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public Identification getIdentification() {
-		return this.identification;
+		return identification;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newIdentification
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetIdentification(Identification newIdentification, NotificationChain msgs) {
-		Identification oldIdentification = this.identification;
-		this.identification = newIdentification;
+		Identification oldIdentification = identification;
+		identification = newIdentification;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__IDENTIFICATION, oldIdentification, newIdentification);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -278,10 +262,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setIdentification(Identification newIdentification) {
-		if (newIdentification != this.identification) {
+		if (newIdentification != identification) {
 			NotificationChain msgs = null;
-			if (this.identification != null)
-				msgs = ((InternalEObject)this.identification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__IDENTIFICATION, null, msgs);
+			if (identification != null)
+				msgs = ((InternalEObject)identification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__IDENTIFICATION, null, msgs);
 			if (newIdentification != null)
 				msgs = ((InternalEObject)newIdentification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__IDENTIFICATION, null, msgs);
 			msgs = basicSetIdentification(newIdentification, msgs);
@@ -297,20 +281,17 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public ComponentClassName getComponentClassName() {
-		return this.componentClassName;
+		return componentClassName;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newComponentClassName
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetComponentClassName(ComponentClassName newComponentClassName, NotificationChain msgs) {
-		ComponentClassName oldComponentClassName = this.componentClassName;
-		this.componentClassName = newComponentClassName;
+		ComponentClassName oldComponentClassName = componentClassName;
+		componentClassName = newComponentClassName;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__COMPONENT_CLASS_NAME, oldComponentClassName, newComponentClassName);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -324,10 +305,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setComponentClassName(ComponentClassName newComponentClassName) {
-		if (newComponentClassName != this.componentClassName) {
+		if (newComponentClassName != componentClassName) {
 			NotificationChain msgs = null;
-			if (this.componentClassName != null)
-				msgs = ((InternalEObject)this.componentClassName).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__COMPONENT_CLASS_NAME, null, msgs);
+			if (componentClassName != null)
+				msgs = ((InternalEObject)componentClassName).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__COMPONENT_CLASS_NAME, null, msgs);
 			if (newComponentClassName != null)
 				msgs = ((InternalEObject)newComponentClassName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__COMPONENT_CLASS_NAME, null, msgs);
 			msgs = basicSetComponentClassName(newComponentClassName, msgs);
@@ -343,20 +324,17 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public ClassPath getComponentClassPath() {
-		return this.componentClassPath;
+		return componentClassPath;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newComponentClassPath
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetComponentClassPath(ClassPath newComponentClassPath, NotificationChain msgs) {
-		ClassPath oldComponentClassPath = this.componentClassPath;
-		this.componentClassPath = newComponentClassPath;
+		ClassPath oldComponentClassPath = componentClassPath;
+		componentClassPath = newComponentClassPath;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__COMPONENT_CLASS_PATH, oldComponentClassPath, newComponentClassPath);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -370,10 +348,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setComponentClassPath(ClassPath newComponentClassPath) {
-		if (newComponentClassPath != this.componentClassPath) {
+		if (newComponentClassPath != componentClassPath) {
 			NotificationChain msgs = null;
-			if (this.componentClassPath != null)
-				msgs = ((InternalEObject)this.componentClassPath).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__COMPONENT_CLASS_PATH, null, msgs);
+			if (componentClassPath != null)
+				msgs = ((InternalEObject)componentClassPath).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__COMPONENT_CLASS_PATH, null, msgs);
 			if (newComponentClassPath != null)
 				msgs = ((InternalEObject)newComponentClassPath).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__COMPONENT_CLASS_PATH, null, msgs);
 			msgs = basicSetComponentClassPath(newComponentClassPath, msgs);
@@ -389,7 +367,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public String getBootstrapClassName() {
-		return this.bootstrapClassName;
+		return bootstrapClassName;
 	}
 
 	/**
@@ -398,10 +376,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setBootstrapClassName(String newBootstrapClassName) {
-		String oldBootstrapClassName = this.bootstrapClassName;
-		this.bootstrapClassName = newBootstrapClassName;
+		String oldBootstrapClassName = bootstrapClassName;
+		bootstrapClassName = newBootstrapClassName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME, oldBootstrapClassName, this.bootstrapClassName));
+			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME, oldBootstrapClassName, bootstrapClassName));
 	}
 
 	/**
@@ -410,20 +388,17 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public ClassPath getBootstrapClassPath() {
-		return this.bootstrapClassPath;
+		return bootstrapClassPath;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newBootstrapClassPath
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetBootstrapClassPath(ClassPath newBootstrapClassPath, NotificationChain msgs) {
-		ClassPath oldBootstrapClassPath = this.bootstrapClassPath;
-		this.bootstrapClassPath = newBootstrapClassPath;
+		ClassPath oldBootstrapClassPath = bootstrapClassPath;
+		bootstrapClassPath = newBootstrapClassPath;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH, oldBootstrapClassPath, newBootstrapClassPath);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -437,10 +412,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setBootstrapClassPath(ClassPath newBootstrapClassPath) {
-		if (newBootstrapClassPath != this.bootstrapClassPath) {
+		if (newBootstrapClassPath != bootstrapClassPath) {
 			NotificationChain msgs = null;
-			if (this.bootstrapClassPath != null)
-				msgs = ((InternalEObject)this.bootstrapClassPath).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH, null, msgs);
+			if (bootstrapClassPath != null)
+				msgs = ((InternalEObject)bootstrapClassPath).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH, null, msgs);
 			if (newBootstrapClassPath != null)
 				msgs = ((InternalEObject)newBootstrapClassPath).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH, null, msgs);
 			msgs = basicSetBootstrapClassPath(newBootstrapClassPath, msgs);
@@ -456,10 +431,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public FeatureMap getSharedLibraryList() {
-		if (this.sharedLibraryList == null) {
-			this.sharedLibraryList = new BasicFeatureMap(this, JbiPackage.COMPONENT__SHARED_LIBRARY_LIST);
+		if (sharedLibraryList == null) {
+			sharedLibraryList = new BasicFeatureMap(this, JbiPackage.COMPONENT__SHARED_LIBRARY_LIST);
 		}
-		return this.sharedLibraryList;
+		return sharedLibraryList;
 	}
 
 	/**
@@ -476,38 +451,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getGroup() {
-		if (this.group == null) {
-			this.group = new BasicFeatureMap(this, JbiPackage.COMPONENT__GROUP);
-		}
-		return this.group;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getAny() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.COMPONENT__ANY);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getAny1() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.COMPONENT__ANY1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ClassLoaderDelegationType getBootstrapClassLoaderDelegation() {
-		return this.bootstrapClassLoaderDelegation;
+		return bootstrapClassLoaderDelegation;
 	}
 
 	/**
@@ -516,12 +461,12 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setBootstrapClassLoaderDelegation(ClassLoaderDelegationType newBootstrapClassLoaderDelegation) {
-		ClassLoaderDelegationType oldBootstrapClassLoaderDelegation = this.bootstrapClassLoaderDelegation;
-		this.bootstrapClassLoaderDelegation = newBootstrapClassLoaderDelegation == null ? BOOTSTRAP_CLASS_LOADER_DELEGATION_EDEFAULT : newBootstrapClassLoaderDelegation;
-		boolean oldBootstrapClassLoaderDelegationESet = this.bootstrapClassLoaderDelegationESet;
-		this.bootstrapClassLoaderDelegationESet = true;
+		ClassLoaderDelegationType oldBootstrapClassLoaderDelegation = bootstrapClassLoaderDelegation;
+		bootstrapClassLoaderDelegation = newBootstrapClassLoaderDelegation == null ? BOOTSTRAP_CLASS_LOADER_DELEGATION_EDEFAULT : newBootstrapClassLoaderDelegation;
+		boolean oldBootstrapClassLoaderDelegationESet = bootstrapClassLoaderDelegationESet;
+		bootstrapClassLoaderDelegationESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION, oldBootstrapClassLoaderDelegation, this.bootstrapClassLoaderDelegation, !oldBootstrapClassLoaderDelegationESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION, oldBootstrapClassLoaderDelegation, bootstrapClassLoaderDelegation, !oldBootstrapClassLoaderDelegationESet));
 	}
 
 	/**
@@ -530,10 +475,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void unsetBootstrapClassLoaderDelegation() {
-		ClassLoaderDelegationType oldBootstrapClassLoaderDelegation = this.bootstrapClassLoaderDelegation;
-		boolean oldBootstrapClassLoaderDelegationESet = this.bootstrapClassLoaderDelegationESet;
-		this.bootstrapClassLoaderDelegation = BOOTSTRAP_CLASS_LOADER_DELEGATION_EDEFAULT;
-		this.bootstrapClassLoaderDelegationESet = false;
+		ClassLoaderDelegationType oldBootstrapClassLoaderDelegation = bootstrapClassLoaderDelegation;
+		boolean oldBootstrapClassLoaderDelegationESet = bootstrapClassLoaderDelegationESet;
+		bootstrapClassLoaderDelegation = BOOTSTRAP_CLASS_LOADER_DELEGATION_EDEFAULT;
+		bootstrapClassLoaderDelegationESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION, oldBootstrapClassLoaderDelegation, BOOTSTRAP_CLASS_LOADER_DELEGATION_EDEFAULT, oldBootstrapClassLoaderDelegationESet));
 	}
@@ -544,7 +489,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public boolean isSetBootstrapClassLoaderDelegation() {
-		return this.bootstrapClassLoaderDelegationESet;
+		return bootstrapClassLoaderDelegationESet;
 	}
 
 	/**
@@ -553,7 +498,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public ClassLoaderDelegationType getComponentClassLoaderDelegation() {
-		return this.componentClassLoaderDelegation;
+		return componentClassLoaderDelegation;
 	}
 
 	/**
@@ -562,12 +507,12 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setComponentClassLoaderDelegation(ClassLoaderDelegationType newComponentClassLoaderDelegation) {
-		ClassLoaderDelegationType oldComponentClassLoaderDelegation = this.componentClassLoaderDelegation;
-		this.componentClassLoaderDelegation = newComponentClassLoaderDelegation == null ? COMPONENT_CLASS_LOADER_DELEGATION_EDEFAULT : newComponentClassLoaderDelegation;
-		boolean oldComponentClassLoaderDelegationESet = this.componentClassLoaderDelegationESet;
-		this.componentClassLoaderDelegationESet = true;
+		ClassLoaderDelegationType oldComponentClassLoaderDelegation = componentClassLoaderDelegation;
+		componentClassLoaderDelegation = newComponentClassLoaderDelegation == null ? COMPONENT_CLASS_LOADER_DELEGATION_EDEFAULT : newComponentClassLoaderDelegation;
+		boolean oldComponentClassLoaderDelegationESet = componentClassLoaderDelegationESet;
+		componentClassLoaderDelegationESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION, oldComponentClassLoaderDelegation, this.componentClassLoaderDelegation, !oldComponentClassLoaderDelegationESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION, oldComponentClassLoaderDelegation, componentClassLoaderDelegation, !oldComponentClassLoaderDelegationESet));
 	}
 
 	/**
@@ -576,10 +521,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void unsetComponentClassLoaderDelegation() {
-		ClassLoaderDelegationType oldComponentClassLoaderDelegation = this.componentClassLoaderDelegation;
-		boolean oldComponentClassLoaderDelegationESet = this.componentClassLoaderDelegationESet;
-		this.componentClassLoaderDelegation = COMPONENT_CLASS_LOADER_DELEGATION_EDEFAULT;
-		this.componentClassLoaderDelegationESet = false;
+		ClassLoaderDelegationType oldComponentClassLoaderDelegation = componentClassLoaderDelegation;
+		boolean oldComponentClassLoaderDelegationESet = componentClassLoaderDelegationESet;
+		componentClassLoaderDelegation = COMPONENT_CLASS_LOADER_DELEGATION_EDEFAULT;
+		componentClassLoaderDelegationESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION, oldComponentClassLoaderDelegation, COMPONENT_CLASS_LOADER_DELEGATION_EDEFAULT, oldComponentClassLoaderDelegationESet));
 	}
@@ -590,7 +535,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public boolean isSetComponentClassLoaderDelegation() {
-		return this.componentClassLoaderDelegationESet;
+		return componentClassLoaderDelegationESet;
 	}
 
 	/**
@@ -599,7 +544,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public ComponentType getType() {
-		return this.type;
+		return type;
 	}
 
 	/**
@@ -608,12 +553,12 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void setType(ComponentType newType) {
-		ComponentType oldType = this.type;
-		this.type = newType == null ? TYPE_EDEFAULT : newType;
-		boolean oldTypeESet = this.typeESet;
-		this.typeESet = true;
+		ComponentType oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
+		boolean oldTypeESet = typeESet;
+		typeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__TYPE, oldType, this.type, !oldTypeESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.COMPONENT__TYPE, oldType, type, !oldTypeESet));
 	}
 
 	/**
@@ -622,10 +567,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public void unsetType() {
-		ComponentType oldType = this.type;
-		boolean oldTypeESet = this.typeESet;
-		this.type = TYPE_EDEFAULT;
-		this.typeESet = false;
+		ComponentType oldType = type;
+		boolean oldTypeESet = typeESet;
+		type = TYPE_EDEFAULT;
+		typeESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, JbiPackage.COMPONENT__TYPE, oldType, TYPE_EDEFAULT, oldTypeESet));
 	}
@@ -636,7 +581,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	 * @generated
 	 */
 	public boolean isSetType() {
-		return this.typeESet;
+		return typeESet;
 	}
 
 	/**
@@ -647,24 +592,18 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case JbiPackage.COMPONENT__IDENTIFICATION:
-			return basicSetIdentification(null, msgs);
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
-			return basicSetComponentClassName(null, msgs);
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
-			return basicSetComponentClassPath(null, msgs);
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
-			return basicSetBootstrapClassPath(null, msgs);
-		case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
-			return ((InternalEList<?>)getSharedLibraryList()).basicRemove(otherEnd, msgs);
-		case JbiPackage.COMPONENT__SHARED_LIBRARY:
-			return ((InternalEList<?>)getSharedLibrary()).basicRemove(otherEnd, msgs);
-		case JbiPackage.COMPONENT__GROUP:
-			return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
-		case JbiPackage.COMPONENT__ANY:
-			return ((InternalEList<?>)getAny()).basicRemove(otherEnd, msgs);
-		case JbiPackage.COMPONENT__ANY1:
-			return ((InternalEList<?>)getAny1()).basicRemove(otherEnd, msgs);
+			case JbiPackage.COMPONENT__IDENTIFICATION:
+				return basicSetIdentification(null, msgs);
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
+				return basicSetComponentClassName(null, msgs);
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
+				return basicSetComponentClassPath(null, msgs);
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
+				return basicSetBootstrapClassPath(null, msgs);
+			case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
+				return ((InternalEList<?>)getSharedLibraryList()).basicRemove(otherEnd, msgs);
+			case JbiPackage.COMPONENT__SHARED_LIBRARY:
+				return ((InternalEList<?>)getSharedLibrary()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -677,36 +616,27 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case JbiPackage.COMPONENT__IDENTIFICATION:
-			return getIdentification();
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
-			return getComponentClassName();
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
-			return getComponentClassPath();
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
-			return getBootstrapClassName();
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
-			return getBootstrapClassPath();
-		case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
-			if (coreType) return getSharedLibraryList();
-			return ((FeatureMap.Internal)getSharedLibraryList()).getWrapper();
-		case JbiPackage.COMPONENT__SHARED_LIBRARY:
-			return getSharedLibrary();
-		case JbiPackage.COMPONENT__GROUP:
-			if (coreType) return getGroup();
-			return ((FeatureMap.Internal)getGroup()).getWrapper();
-		case JbiPackage.COMPONENT__ANY:
-			if (coreType) return getAny();
-			return ((FeatureMap.Internal)getAny()).getWrapper();
-		case JbiPackage.COMPONENT__ANY1:
-			if (coreType) return getAny1();
-			return ((FeatureMap.Internal)getAny1()).getWrapper();
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
-			return getBootstrapClassLoaderDelegation();
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
-			return getComponentClassLoaderDelegation();
-		case JbiPackage.COMPONENT__TYPE:
-			return getType();
+			case JbiPackage.COMPONENT__IDENTIFICATION:
+				return getIdentification();
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
+				return getComponentClassName();
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
+				return getComponentClassPath();
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
+				return getBootstrapClassName();
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
+				return getBootstrapClassPath();
+			case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
+				if (coreType) return getSharedLibraryList();
+				return ((FeatureMap.Internal)getSharedLibraryList()).getWrapper();
+			case JbiPackage.COMPONENT__SHARED_LIBRARY:
+				return getSharedLibrary();
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
+				return getBootstrapClassLoaderDelegation();
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
+				return getComponentClassLoaderDelegation();
+			case JbiPackage.COMPONENT__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -720,46 +650,37 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case JbiPackage.COMPONENT__IDENTIFICATION:
-			setIdentification((Identification)newValue);
-			return;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
-			setComponentClassName((ComponentClassName)newValue);
-			return;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
-			setComponentClassPath((ClassPath)newValue);
-			return;
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
-			setBootstrapClassName((String)newValue);
-			return;
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
-			setBootstrapClassPath((ClassPath)newValue);
-			return;
-		case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
-			((FeatureMap.Internal)getSharedLibraryList()).set(newValue);
-			return;
-		case JbiPackage.COMPONENT__SHARED_LIBRARY:
-			getSharedLibrary().clear();
-			getSharedLibrary().addAll((Collection<? extends SharedLibraryType1>)newValue);
-			return;
-		case JbiPackage.COMPONENT__GROUP:
-			((FeatureMap.Internal)getGroup()).set(newValue);
-			return;
-		case JbiPackage.COMPONENT__ANY:
-			((FeatureMap.Internal)getAny()).set(newValue);
-			return;
-		case JbiPackage.COMPONENT__ANY1:
-			((FeatureMap.Internal)getAny1()).set(newValue);
-			return;
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
-			setBootstrapClassLoaderDelegation((ClassLoaderDelegationType)newValue);
-			return;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
-			setComponentClassLoaderDelegation((ClassLoaderDelegationType)newValue);
-			return;
-		case JbiPackage.COMPONENT__TYPE:
-			setType((ComponentType)newValue);
-			return;
+			case JbiPackage.COMPONENT__IDENTIFICATION:
+				setIdentification((Identification)newValue);
+				return;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
+				setComponentClassName((ComponentClassName)newValue);
+				return;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
+				setComponentClassPath((ClassPath)newValue);
+				return;
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
+				setBootstrapClassName((String)newValue);
+				return;
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
+				setBootstrapClassPath((ClassPath)newValue);
+				return;
+			case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
+				((FeatureMap.Internal)getSharedLibraryList()).set(newValue);
+				return;
+			case JbiPackage.COMPONENT__SHARED_LIBRARY:
+				getSharedLibrary().clear();
+				getSharedLibrary().addAll((Collection<? extends SharedLibraryType1>)newValue);
+				return;
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
+				setBootstrapClassLoaderDelegation((ClassLoaderDelegationType)newValue);
+				return;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
+				setComponentClassLoaderDelegation((ClassLoaderDelegationType)newValue);
+				return;
+			case JbiPackage.COMPONENT__TYPE:
+				setType((ComponentType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -772,45 +693,36 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case JbiPackage.COMPONENT__IDENTIFICATION:
-			setIdentification((Identification)null);
-			return;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
-			setComponentClassName((ComponentClassName)null);
-			return;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
-			setComponentClassPath((ClassPath)null);
-			return;
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
-			setBootstrapClassName(BOOTSTRAP_CLASS_NAME_EDEFAULT);
-			return;
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
-			setBootstrapClassPath((ClassPath)null);
-			return;
-		case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
-			getSharedLibraryList().clear();
-			return;
-		case JbiPackage.COMPONENT__SHARED_LIBRARY:
-			getSharedLibrary().clear();
-			return;
-		case JbiPackage.COMPONENT__GROUP:
-			getGroup().clear();
-			return;
-		case JbiPackage.COMPONENT__ANY:
-			getAny().clear();
-			return;
-		case JbiPackage.COMPONENT__ANY1:
-			getAny1().clear();
-			return;
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
-			unsetBootstrapClassLoaderDelegation();
-			return;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
-			unsetComponentClassLoaderDelegation();
-			return;
-		case JbiPackage.COMPONENT__TYPE:
-			unsetType();
-			return;
+			case JbiPackage.COMPONENT__IDENTIFICATION:
+				setIdentification((Identification)null);
+				return;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
+				setComponentClassName((ComponentClassName)null);
+				return;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
+				setComponentClassPath((ClassPath)null);
+				return;
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
+				setBootstrapClassName(BOOTSTRAP_CLASS_NAME_EDEFAULT);
+				return;
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
+				setBootstrapClassPath((ClassPath)null);
+				return;
+			case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
+				getSharedLibraryList().clear();
+				return;
+			case JbiPackage.COMPONENT__SHARED_LIBRARY:
+				getSharedLibrary().clear();
+				return;
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
+				unsetBootstrapClassLoaderDelegation();
+				return;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
+				unsetComponentClassLoaderDelegation();
+				return;
+			case JbiPackage.COMPONENT__TYPE:
+				unsetType();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -823,32 +735,26 @@ public class ComponentImpl extends EObjectImpl implements Component {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case JbiPackage.COMPONENT__IDENTIFICATION:
-			return this.identification != null;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
-			return this.componentClassName != null;
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
-			return this.componentClassPath != null;
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
-			return BOOTSTRAP_CLASS_NAME_EDEFAULT == null ? this.bootstrapClassName != null : !BOOTSTRAP_CLASS_NAME_EDEFAULT.equals(this.bootstrapClassName);
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
-			return this.bootstrapClassPath != null;
-		case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
-			return this.sharedLibraryList != null && !this.sharedLibraryList.isEmpty();
-		case JbiPackage.COMPONENT__SHARED_LIBRARY:
-			return !getSharedLibrary().isEmpty();
-		case JbiPackage.COMPONENT__GROUP:
-			return this.group != null && !this.group.isEmpty();
-		case JbiPackage.COMPONENT__ANY:
-			return !getAny().isEmpty();
-		case JbiPackage.COMPONENT__ANY1:
-			return !getAny1().isEmpty();
-		case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
-			return isSetBootstrapClassLoaderDelegation();
-		case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
-			return isSetComponentClassLoaderDelegation();
-		case JbiPackage.COMPONENT__TYPE:
-			return isSetType();
+			case JbiPackage.COMPONENT__IDENTIFICATION:
+				return identification != null;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_NAME:
+				return componentClassName != null;
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
+				return componentClassPath != null;
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_NAME:
+				return BOOTSTRAP_CLASS_NAME_EDEFAULT == null ? bootstrapClassName != null : !BOOTSTRAP_CLASS_NAME_EDEFAULT.equals(bootstrapClassName);
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
+				return bootstrapClassPath != null;
+			case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
+				return sharedLibraryList != null && !sharedLibraryList.isEmpty();
+			case JbiPackage.COMPONENT__SHARED_LIBRARY:
+				return !getSharedLibrary().isEmpty();
+			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
+				return isSetBootstrapClassLoaderDelegation();
+			case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
+				return isSetComponentClassLoaderDelegation();
+			case JbiPackage.COMPONENT__TYPE:
+				return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -864,17 +770,15 @@ public class ComponentImpl extends EObjectImpl implements Component {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (bootstrapClassName: ");
-		result.append(this.bootstrapClassName);
+		result.append(bootstrapClassName);
 		result.append(", sharedLibraryList: ");
-		result.append(this.sharedLibraryList);
-		result.append(", group: ");
-		result.append(this.group);
+		result.append(sharedLibraryList);
 		result.append(", bootstrapClassLoaderDelegation: ");
-		if (this.bootstrapClassLoaderDelegationESet) result.append(this.bootstrapClassLoaderDelegation); else result.append("<unset>");
+		if (bootstrapClassLoaderDelegationESet) result.append(bootstrapClassLoaderDelegation); else result.append("<unset>");
 		result.append(", componentClassLoaderDelegation: ");
-		if (this.componentClassLoaderDelegationESet) result.append(this.componentClassLoaderDelegation); else result.append("<unset>");
+		if (componentClassLoaderDelegationESet) result.append(componentClassLoaderDelegation); else result.append("<unset>");
 		result.append(", type: ");
-		if (this.typeESet) result.append(this.type); else result.append("<unset>");
+		if (typeESet) result.append(type); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

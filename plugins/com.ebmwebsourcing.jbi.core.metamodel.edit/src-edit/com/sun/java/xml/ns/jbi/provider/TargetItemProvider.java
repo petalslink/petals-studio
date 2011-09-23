@@ -51,7 +51,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public TargetItemProvider(AdapterFactory adapterFactory) {
@@ -66,13 +65,13 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addArtifactsZipPropertyDescriptor(object);
 			addComponentNamePropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -82,19 +81,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addArtifactsZipPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Target_artifactsZip_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Target_artifactsZip_feature", "_UI_Target_type"),
-								JbiPackage.Literals.TARGET__ARTIFACTS_ZIP,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Target_artifactsZip_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Target_artifactsZip_feature", "_UI_Target_type"),
+				 JbiPackage.Literals.TARGET__ARTIFACTS_ZIP,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -104,19 +103,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addComponentNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Target_componentName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Target_componentName_feature", "_UI_Target_type"),
-								JbiPackage.Literals.TARGET__COMPONENT_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Target_componentName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Target_componentName_feature", "_UI_Target_type"),
+				 JbiPackage.Literals.TARGET__COMPONENT_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -140,8 +139,8 @@ IItemPropertySource {
 	public String getText(Object object) {
 		String label = ((Target)object).getComponentName();
 		return label == null || label.length() == 0 ?
-					getString("_UI_Target_type") :
-						getString("_UI_Target_type") + " " + label;
+			getString("_UI_Target_type") :
+			getString("_UI_Target_type") + " " + label;
 	}
 
 	/**
@@ -156,10 +155,10 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Target.class)) {
-		case JbiPackage.TARGET__ARTIFACTS_ZIP:
-		case JbiPackage.TARGET__COMPONENT_NAME:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
+			case JbiPackage.TARGET__ARTIFACTS_ZIP:
+			case JbiPackage.TARGET__COMPONENT_NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 		}
 		super.notifyChanged(notification);
 	}

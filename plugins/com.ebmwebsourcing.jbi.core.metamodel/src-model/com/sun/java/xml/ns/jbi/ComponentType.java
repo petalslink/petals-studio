@@ -85,9 +85,9 @@ public enum ComponentType implements Enumerator {
 	 */
 	private static final ComponentType[] VALUES_ARRAY =
 		new ComponentType[] {
-		SERVICE_ENGINE,
-		BINDING_COMPONENT,
-	};
+			SERVICE_ENGINE,
+			BINDING_COMPONENT,
+		};
 
 	/**
 	 * A public read-only list of all the '<em><b>Component Type</b></em>' enumerators.
@@ -101,8 +101,6 @@ public enum ComponentType implements Enumerator {
 	 * Returns the '<em><b>Component Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param literal
-	 * @return
 	 * @generated
 	 */
 	public static ComponentType get(String literal) {
@@ -119,8 +117,6 @@ public enum ComponentType implements Enumerator {
 	 * Returns the '<em><b>Component Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param name
-	 * @return
 	 * @generated
 	 */
 	public static ComponentType getByName(String name) {
@@ -137,14 +133,12 @@ public enum ComponentType implements Enumerator {
 	 * Returns the '<em><b>Component Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value
-	 * @return
 	 * @generated
 	 */
 	public static ComponentType get(int value) {
 		switch (value) {
-		case SERVICE_ENGINE_VALUE: return SERVICE_ENGINE;
-		case BINDING_COMPONENT_VALUE: return BINDING_COMPONENT;
+			case SERVICE_ENGINE_VALUE: return SERVICE_ENGINE;
+			case BINDING_COMPONENT_VALUE: return BINDING_COMPONENT;
 		}
 		return null;
 	}
@@ -188,7 +182,7 @@ public enum ComponentType implements Enumerator {
 	 * @generated
 	 */
 	public int getValue() {
-		return this.value;
+	  return value;
 	}
 
 	/**
@@ -197,7 +191,7 @@ public enum ComponentType implements Enumerator {
 	 * @generated
 	 */
 	public String getName() {
-		return this.name;
+	  return name;
 	}
 
 	/**
@@ -206,7 +200,7 @@ public enum ComponentType implements Enumerator {
 	 * @generated
 	 */
 	public String getLiteral() {
-		return this.literal;
+	  return literal;
 	}
 
 	/**
@@ -217,7 +211,7 @@ public enum ComponentType implements Enumerator {
 	 */
 	@Override
 	public String toString() {
-		return this.literal;
+		return literal;
 	}
 
 } //ComponentType

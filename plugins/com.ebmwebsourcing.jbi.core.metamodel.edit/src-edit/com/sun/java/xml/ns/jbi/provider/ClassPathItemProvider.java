@@ -51,7 +51,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ClassPathItemProvider(AdapterFactory adapterFactory) {
@@ -66,12 +65,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addPathElementPropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -81,19 +80,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addPathElementPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_ClassPath_pathElement_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_ClassPath_pathElement_feature", "_UI_ClassPath_type"),
-								JbiPackage.Literals.CLASS_PATH__PATH_ELEMENT,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ClassPath_pathElement_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ClassPath_pathElement_feature", "_UI_ClassPath_type"),
+				 JbiPackage.Literals.CLASS_PATH__PATH_ELEMENT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -115,7 +114,10 @@ IItemPropertySource {
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ClassPath_type");
+		String label = ((ClassPath)object).getPathElement();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ClassPath_type") :
+			getString("_UI_ClassPath_type") + " " + label;
 	}
 
 	/**
@@ -130,9 +132,9 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ClassPath.class)) {
-		case JbiPackage.CLASS_PATH__PATH_ELEMENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
+			case JbiPackage.CLASS_PATH__PATH_ELEMENT:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 		}
 		super.notifyChanged(notification);
 	}

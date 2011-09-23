@@ -85,9 +85,9 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 */
 	private static final ClassLoaderDelegationType[] VALUES_ARRAY =
 		new ClassLoaderDelegationType[] {
-		PARENT_FIRST,
-		SELF_FIRST,
-	};
+			PARENT_FIRST,
+			SELF_FIRST,
+		};
 
 	/**
 	 * A public read-only list of all the '<em><b>Class Loader Delegation Type</b></em>' enumerators.
@@ -101,8 +101,6 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 * Returns the '<em><b>Class Loader Delegation Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param literal
-	 * @return
 	 * @generated
 	 */
 	public static ClassLoaderDelegationType get(String literal) {
@@ -119,8 +117,6 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 * Returns the '<em><b>Class Loader Delegation Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param name
-	 * @return
 	 * @generated
 	 */
 	public static ClassLoaderDelegationType getByName(String name) {
@@ -137,14 +133,12 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 * Returns the '<em><b>Class Loader Delegation Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value
-	 * @return
 	 * @generated
 	 */
 	public static ClassLoaderDelegationType get(int value) {
 		switch (value) {
-		case PARENT_FIRST_VALUE: return PARENT_FIRST;
-		case SELF_FIRST_VALUE: return SELF_FIRST;
+			case PARENT_FIRST_VALUE: return PARENT_FIRST;
+			case SELF_FIRST_VALUE: return SELF_FIRST;
 		}
 		return null;
 	}
@@ -188,7 +182,7 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 * @generated
 	 */
 	public int getValue() {
-		return this.value;
+	  return value;
 	}
 
 	/**
@@ -197,7 +191,7 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 * @generated
 	 */
 	public String getName() {
-		return this.name;
+	  return name;
 	}
 
 	/**
@@ -206,7 +200,7 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 * @generated
 	 */
 	public String getLiteral() {
-		return this.literal;
+	  return literal;
 	}
 
 	/**
@@ -217,7 +211,7 @@ public enum ClassLoaderDelegationType implements Enumerator {
 	 */
 	@Override
 	public String toString() {
-		return this.literal;
+		return literal;
 	}
 
 } //ClassLoaderDelegationType

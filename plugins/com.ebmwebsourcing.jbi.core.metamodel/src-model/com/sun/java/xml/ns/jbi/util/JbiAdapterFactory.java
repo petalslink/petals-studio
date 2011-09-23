@@ -77,6 +77,10 @@ public class JbiAdapterFactory extends AdapterFactoryImpl {
 	protected JbiSwitch<Adapter> modelSwitch =
 		new JbiSwitch<Adapter>() {
 			@Override
+			public Adapter caseAbstractExtensibleElement(AbstractExtensibleElement object) {
+				return createAbstractExtensibleElementAdapter();
+			}
+			@Override
 			public Adapter caseClassPath(ClassPath object) {
 				return createClassPathAdapter();
 			}
@@ -101,10 +105,6 @@ public class JbiAdapterFactory extends AdapterFactoryImpl {
 				return createConsumerAdapter();
 			}
 			@Override
-			public Adapter caseConsumes(Consumes object) {
-				return createConsumesAdapter();
-			}
-			@Override
 			public Adapter caseDocumentRoot(DocumentRoot object) {
 				return createDocumentRootAdapter();
 			}
@@ -117,20 +117,28 @@ public class JbiAdapterFactory extends AdapterFactoryImpl {
 				return createJbiAdapter();
 			}
 			@Override
-			public Adapter caseProvider(Provider object) {
-				return createProviderAdapter();
+			public Adapter caseServices(Services object) {
+				return createServicesAdapter();
+			}
+			@Override
+			public Adapter caseAbstractEndpoint(AbstractEndpoint object) {
+				return createAbstractEndpointAdapter();
+			}
+			@Override
+			public Adapter caseConsumes(Consumes object) {
+				return createConsumesAdapter();
 			}
 			@Override
 			public Adapter caseProvides(Provides object) {
 				return createProvidesAdapter();
 			}
 			@Override
-			public Adapter caseServiceAssembly(ServiceAssembly object) {
-				return createServiceAssemblyAdapter();
+			public Adapter caseProvider(Provider object) {
+				return createProviderAdapter();
 			}
 			@Override
-			public Adapter caseServices(Services object) {
-				return createServicesAdapter();
+			public Adapter caseServiceAssembly(ServiceAssembly object) {
+				return createServiceAssemblyAdapter();
 			}
 			@Override
 			public Adapter caseServiceUnit(ServiceUnit object) {
@@ -167,6 +175,20 @@ public class JbiAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.sun.java.xml.ns.jbi.AbstractExtensibleElement <em>Abstract Extensible Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.sun.java.xml.ns.jbi.AbstractExtensibleElement
+	 * @generated
+	 */
+	public Adapter createAbstractExtensibleElementAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.sun.java.xml.ns.jbi.ClassPath <em>Class Path</em>}'.
@@ -361,6 +383,20 @@ public class JbiAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createServicesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.sun.java.xml.ns.jbi.AbstractEndpoint <em>Abstract Endpoint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.sun.java.xml.ns.jbi.AbstractEndpoint
+	 * @generated
+	 */
+	public Adapter createAbstractEndpointAdapter() {
 		return null;
 	}
 

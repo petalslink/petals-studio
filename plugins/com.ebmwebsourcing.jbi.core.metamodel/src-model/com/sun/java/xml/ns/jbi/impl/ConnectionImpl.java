@@ -83,20 +83,17 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * @generated
 	 */
 	public Consumer getConsumer() {
-		return this.consumer;
+		return consumer;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newConsumer
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetConsumer(Consumer newConsumer, NotificationChain msgs) {
-		Consumer oldConsumer = this.consumer;
-		this.consumer = newConsumer;
+		Consumer oldConsumer = consumer;
+		consumer = newConsumer;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.CONNECTION__CONSUMER, oldConsumer, newConsumer);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -110,10 +107,10 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * @generated
 	 */
 	public void setConsumer(Consumer newConsumer) {
-		if (newConsumer != this.consumer) {
+		if (newConsumer != consumer) {
 			NotificationChain msgs = null;
-			if (this.consumer != null)
-				msgs = ((InternalEObject)this.consumer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.CONNECTION__CONSUMER, null, msgs);
+			if (consumer != null)
+				msgs = ((InternalEObject)consumer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.CONNECTION__CONSUMER, null, msgs);
 			if (newConsumer != null)
 				msgs = ((InternalEObject)newConsumer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.CONNECTION__CONSUMER, null, msgs);
 			msgs = basicSetConsumer(newConsumer, msgs);
@@ -129,20 +126,17 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * @generated
 	 */
 	public Provider getProvider() {
-		return this.provider;
+		return provider;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newProvider
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetProvider(Provider newProvider, NotificationChain msgs) {
-		Provider oldProvider = this.provider;
-		this.provider = newProvider;
+		Provider oldProvider = provider;
+		provider = newProvider;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.CONNECTION__PROVIDER, oldProvider, newProvider);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -156,10 +150,10 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * @generated
 	 */
 	public void setProvider(Provider newProvider) {
-		if (newProvider != this.provider) {
+		if (newProvider != provider) {
 			NotificationChain msgs = null;
-			if (this.provider != null)
-				msgs = ((InternalEObject)this.provider).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.CONNECTION__PROVIDER, null, msgs);
+			if (provider != null)
+				msgs = ((InternalEObject)provider).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.CONNECTION__PROVIDER, null, msgs);
 			if (newProvider != null)
 				msgs = ((InternalEObject)newProvider).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.CONNECTION__PROVIDER, null, msgs);
 			msgs = basicSetProvider(newProvider, msgs);
@@ -177,10 +171,10 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case JbiPackage.CONNECTION__CONSUMER:
-			return basicSetConsumer(null, msgs);
-		case JbiPackage.CONNECTION__PROVIDER:
-			return basicSetProvider(null, msgs);
+			case JbiPackage.CONNECTION__CONSUMER:
+				return basicSetConsumer(null, msgs);
+			case JbiPackage.CONNECTION__PROVIDER:
+				return basicSetProvider(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -193,10 +187,10 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case JbiPackage.CONNECTION__CONSUMER:
-			return getConsumer();
-		case JbiPackage.CONNECTION__PROVIDER:
-			return getProvider();
+			case JbiPackage.CONNECTION__CONSUMER:
+				return getConsumer();
+			case JbiPackage.CONNECTION__PROVIDER:
+				return getProvider();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -209,12 +203,12 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case JbiPackage.CONNECTION__CONSUMER:
-			setConsumer((Consumer)newValue);
-			return;
-		case JbiPackage.CONNECTION__PROVIDER:
-			setProvider((Provider)newValue);
-			return;
+			case JbiPackage.CONNECTION__CONSUMER:
+				setConsumer((Consumer)newValue);
+				return;
+			case JbiPackage.CONNECTION__PROVIDER:
+				setProvider((Provider)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -227,12 +221,12 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case JbiPackage.CONNECTION__CONSUMER:
-			setConsumer((Consumer)null);
-			return;
-		case JbiPackage.CONNECTION__PROVIDER:
-			setProvider((Provider)null);
-			return;
+			case JbiPackage.CONNECTION__CONSUMER:
+				setConsumer((Consumer)null);
+				return;
+			case JbiPackage.CONNECTION__PROVIDER:
+				setProvider((Provider)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -245,10 +239,10 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case JbiPackage.CONNECTION__CONSUMER:
-			return this.consumer != null;
-		case JbiPackage.CONNECTION__PROVIDER:
-			return this.provider != null;
+			case JbiPackage.CONNECTION__CONSUMER:
+				return consumer != null;
+			case JbiPackage.CONNECTION__PROVIDER:
+				return provider != null;
 		}
 		return super.eIsSet(featureID);
 	}

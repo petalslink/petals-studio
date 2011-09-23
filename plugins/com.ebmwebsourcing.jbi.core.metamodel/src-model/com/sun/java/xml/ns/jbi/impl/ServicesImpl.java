@@ -43,16 +43,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl#getProvides <em>Provides</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl#getConsumes <em>Consumes</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl#getGroup <em>Group</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl#getAny <em>Any</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl#getAny1 <em>Any1</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl#isBindingComponent <em>Binding Component</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ServicesImpl extends EObjectImpl implements Services {
+public class ServicesImpl extends AbstractExtensibleElementImpl implements Services {
 	/**
 	 * The cached value of the '{@link #getProvides() <em>Provides</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -72,16 +69,6 @@ public class ServicesImpl extends EObjectImpl implements Services {
 	 * @ordered
 	 */
 	protected EList<Consumes> consumes;
-
-	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGroup()
-	 * @generated
-	 * @ordered
-	 */
-	protected FeatureMap group;
 
 	/**
 	 * The default value of the '{@link #isBindingComponent() <em>Binding Component</em>}' attribute.
@@ -160,36 +147,6 @@ public class ServicesImpl extends EObjectImpl implements Services {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getGroup() {
-		if (group == null) {
-			group = new BasicFeatureMap(this, JbiPackage.SERVICES__GROUP);
-		}
-		return group;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getAny() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.SERVICES__ANY);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getAny1() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.SERVICES__ANY1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isBindingComponent() {
 		return bindingComponent;
 	}
@@ -243,12 +200,6 @@ public class ServicesImpl extends EObjectImpl implements Services {
 				return ((InternalEList<?>)getProvides()).basicRemove(otherEnd, msgs);
 			case JbiPackage.SERVICES__CONSUMES:
 				return ((InternalEList<?>)getConsumes()).basicRemove(otherEnd, msgs);
-			case JbiPackage.SERVICES__GROUP:
-				return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
-			case JbiPackage.SERVICES__ANY:
-				return ((InternalEList<?>)getAny()).basicRemove(otherEnd, msgs);
-			case JbiPackage.SERVICES__ANY1:
-				return ((InternalEList<?>)getAny1()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -265,15 +216,6 @@ public class ServicesImpl extends EObjectImpl implements Services {
 				return getProvides();
 			case JbiPackage.SERVICES__CONSUMES:
 				return getConsumes();
-			case JbiPackage.SERVICES__GROUP:
-				if (coreType) return getGroup();
-				return ((FeatureMap.Internal)getGroup()).getWrapper();
-			case JbiPackage.SERVICES__ANY:
-				if (coreType) return getAny();
-				return ((FeatureMap.Internal)getAny()).getWrapper();
-			case JbiPackage.SERVICES__ANY1:
-				if (coreType) return getAny1();
-				return ((FeatureMap.Internal)getAny1()).getWrapper();
 			case JbiPackage.SERVICES__BINDING_COMPONENT:
 				return isBindingComponent();
 		}
@@ -297,15 +239,6 @@ public class ServicesImpl extends EObjectImpl implements Services {
 				getConsumes().clear();
 				getConsumes().addAll((Collection<? extends Consumes>)newValue);
 				return;
-			case JbiPackage.SERVICES__GROUP:
-				((FeatureMap.Internal)getGroup()).set(newValue);
-				return;
-			case JbiPackage.SERVICES__ANY:
-				((FeatureMap.Internal)getAny()).set(newValue);
-				return;
-			case JbiPackage.SERVICES__ANY1:
-				((FeatureMap.Internal)getAny1()).set(newValue);
-				return;
 			case JbiPackage.SERVICES__BINDING_COMPONENT:
 				setBindingComponent((Boolean)newValue);
 				return;
@@ -327,15 +260,6 @@ public class ServicesImpl extends EObjectImpl implements Services {
 			case JbiPackage.SERVICES__CONSUMES:
 				getConsumes().clear();
 				return;
-			case JbiPackage.SERVICES__GROUP:
-				getGroup().clear();
-				return;
-			case JbiPackage.SERVICES__ANY:
-				getAny().clear();
-				return;
-			case JbiPackage.SERVICES__ANY1:
-				getAny1().clear();
-				return;
 			case JbiPackage.SERVICES__BINDING_COMPONENT:
 				unsetBindingComponent();
 				return;
@@ -355,12 +279,6 @@ public class ServicesImpl extends EObjectImpl implements Services {
 				return provides != null && !provides.isEmpty();
 			case JbiPackage.SERVICES__CONSUMES:
 				return consumes != null && !consumes.isEmpty();
-			case JbiPackage.SERVICES__GROUP:
-				return group != null && !group.isEmpty();
-			case JbiPackage.SERVICES__ANY:
-				return !getAny().isEmpty();
-			case JbiPackage.SERVICES__ANY1:
-				return !getAny1().isEmpty();
 			case JbiPackage.SERVICES__BINDING_COMPONENT:
 				return isSetBindingComponent();
 		}
@@ -377,9 +295,7 @@ public class ServicesImpl extends EObjectImpl implements Services {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (group: ");
-		result.append(group);
-		result.append(", bindingComponent: ");
+		result.append(" (bindingComponent: ");
 		if (bindingComponentESet) result.append(bindingComponent); else result.append("<unset>");
 		result.append(')');
 		return result.toString();

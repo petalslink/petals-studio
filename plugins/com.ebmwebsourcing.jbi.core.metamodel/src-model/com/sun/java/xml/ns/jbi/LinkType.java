@@ -110,10 +110,10 @@ public enum LinkType implements Enumerator {
 	 */
 	private static final LinkType[] VALUES_ARRAY =
 		new LinkType[] {
-		STANDARD,
-		HARD,
-		SOFT,
-	};
+			STANDARD,
+			HARD,
+			SOFT,
+		};
 
 	/**
 	 * A public read-only list of all the '<em><b>Link Type</b></em>' enumerators.
@@ -127,8 +127,6 @@ public enum LinkType implements Enumerator {
 	 * Returns the '<em><b>Link Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param literal
-	 * @return
 	 * @generated
 	 */
 	public static LinkType get(String literal) {
@@ -145,8 +143,6 @@ public enum LinkType implements Enumerator {
 	 * Returns the '<em><b>Link Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param name
-	 * @return
 	 * @generated
 	 */
 	public static LinkType getByName(String name) {
@@ -163,15 +159,13 @@ public enum LinkType implements Enumerator {
 	 * Returns the '<em><b>Link Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value
-	 * @return
 	 * @generated
 	 */
 	public static LinkType get(int value) {
 		switch (value) {
-		case STANDARD_VALUE: return STANDARD;
-		case HARD_VALUE: return HARD;
-		case SOFT_VALUE: return SOFT;
+			case STANDARD_VALUE: return STANDARD;
+			case HARD_VALUE: return HARD;
+			case SOFT_VALUE: return SOFT;
 		}
 		return null;
 	}
@@ -215,7 +209,7 @@ public enum LinkType implements Enumerator {
 	 * @generated
 	 */
 	public int getValue() {
-		return this.value;
+	  return value;
 	}
 
 	/**
@@ -224,7 +218,7 @@ public enum LinkType implements Enumerator {
 	 * @generated
 	 */
 	public String getName() {
-		return this.name;
+	  return name;
 	}
 
 	/**
@@ -233,7 +227,7 @@ public enum LinkType implements Enumerator {
 	 * @generated
 	 */
 	public String getLiteral() {
-		return this.literal;
+	  return literal;
 	}
 
 	/**
@@ -244,7 +238,7 @@ public enum LinkType implements Enumerator {
 	 */
 	@Override
 	public String toString() {
-		return this.literal;
+		return literal;
 	}
 
 } //LinkType

@@ -11,6 +11,7 @@
  */
 package com.sun.java.xml.ns.jbi.impl;
 
+import com.sun.java.xml.ns.jbi.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -53,12 +54,11 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return
 	 * @generated
 	 */
 	public static JbiFactory init() {
 		try {
-			JbiFactory theJbiFactory = (JbiFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/jbi");
+			JbiFactory theJbiFactory = (JbiFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/jbi"); 
 			if (theJbiFactory != null) {
 				return theJbiFactory;
 			}
@@ -87,26 +87,26 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case JbiPackage.CLASS_PATH: return createClassPath();
-		case JbiPackage.COMPONENT: return createComponent();
-		case JbiPackage.COMPONENT_CLASS_NAME: return createComponentClassName();
-		case JbiPackage.CONNECTION: return createConnection();
-		case JbiPackage.CONNECTIONS: return createConnections();
-		case JbiPackage.CONSUMER: return createConsumer();
-		case JbiPackage.CONSUMES: return createConsumes();
-		case JbiPackage.DOCUMENT_ROOT: return createDocumentRoot();
-		case JbiPackage.IDENTIFICATION: return createIdentification();
-		case JbiPackage.JBI: return createJbi();
-		case JbiPackage.PROVIDER: return createProvider();
-		case JbiPackage.PROVIDES: return createProvides();
-		case JbiPackage.SERVICE_ASSEMBLY: return createServiceAssembly();
-		case JbiPackage.SERVICES: return createServices();
-		case JbiPackage.SERVICE_UNIT: return createServiceUnit();
-		case JbiPackage.SHARED_LIBRARY_TYPE: return createSharedLibraryType();
-		case JbiPackage.SHARED_LIBRARY_TYPE1: return createSharedLibraryType1();
-		case JbiPackage.TARGET: return createTarget();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case JbiPackage.CLASS_PATH: return createClassPath();
+			case JbiPackage.COMPONENT: return createComponent();
+			case JbiPackage.COMPONENT_CLASS_NAME: return createComponentClassName();
+			case JbiPackage.CONNECTION: return createConnection();
+			case JbiPackage.CONNECTIONS: return createConnections();
+			case JbiPackage.CONSUMER: return createConsumer();
+			case JbiPackage.DOCUMENT_ROOT: return createDocumentRoot();
+			case JbiPackage.IDENTIFICATION: return createIdentification();
+			case JbiPackage.JBI: return createJbi();
+			case JbiPackage.SERVICES: return createServices();
+			case JbiPackage.CONSUMES: return createConsumes();
+			case JbiPackage.PROVIDES: return createProvides();
+			case JbiPackage.PROVIDER: return createProvider();
+			case JbiPackage.SERVICE_ASSEMBLY: return createServiceAssembly();
+			case JbiPackage.SERVICE_UNIT: return createServiceUnit();
+			case JbiPackage.SHARED_LIBRARY_TYPE: return createSharedLibraryType();
+			case JbiPackage.SHARED_LIBRARY_TYPE1: return createSharedLibraryType1();
+			case JbiPackage.TARGET: return createTarget();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -118,20 +118,20 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case JbiPackage.CLASS_LOADER_DELEGATION_TYPE:
-			return createClassLoaderDelegationTypeFromString(eDataType, initialValue);
-		case JbiPackage.COMPONENT_TYPE:
-			return createComponentTypeFromString(eDataType, initialValue);
-		case JbiPackage.LINK_TYPE:
-			return createLinkTypeFromString(eDataType, initialValue);
-		case JbiPackage.CLASS_LOADER_DELEGATION_TYPE_OBJECT:
-			return createClassLoaderDelegationTypeObjectFromString(eDataType, initialValue);
-		case JbiPackage.COMPONENT_TYPE_OBJECT:
-			return createComponentTypeObjectFromString(eDataType, initialValue);
-		case JbiPackage.LINK_TYPE_OBJECT:
-			return createLinkTypeObjectFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case JbiPackage.CLASS_LOADER_DELEGATION_TYPE:
+				return createClassLoaderDelegationTypeFromString(eDataType, initialValue);
+			case JbiPackage.COMPONENT_TYPE:
+				return createComponentTypeFromString(eDataType, initialValue);
+			case JbiPackage.LINK_TYPE:
+				return createLinkTypeFromString(eDataType, initialValue);
+			case JbiPackage.CLASS_LOADER_DELEGATION_TYPE_OBJECT:
+				return createClassLoaderDelegationTypeObjectFromString(eDataType, initialValue);
+			case JbiPackage.COMPONENT_TYPE_OBJECT:
+				return createComponentTypeObjectFromString(eDataType, initialValue);
+			case JbiPackage.LINK_TYPE_OBJECT:
+				return createLinkTypeObjectFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -143,20 +143,20 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case JbiPackage.CLASS_LOADER_DELEGATION_TYPE:
-			return convertClassLoaderDelegationTypeToString(eDataType, instanceValue);
-		case JbiPackage.COMPONENT_TYPE:
-			return convertComponentTypeToString(eDataType, instanceValue);
-		case JbiPackage.LINK_TYPE:
-			return convertLinkTypeToString(eDataType, instanceValue);
-		case JbiPackage.CLASS_LOADER_DELEGATION_TYPE_OBJECT:
-			return convertClassLoaderDelegationTypeObjectToString(eDataType, instanceValue);
-		case JbiPackage.COMPONENT_TYPE_OBJECT:
-			return convertComponentTypeObjectToString(eDataType, instanceValue);
-		case JbiPackage.LINK_TYPE_OBJECT:
-			return convertLinkTypeObjectToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case JbiPackage.CLASS_LOADER_DELEGATION_TYPE:
+				return convertClassLoaderDelegationTypeToString(eDataType, instanceValue);
+			case JbiPackage.COMPONENT_TYPE:
+				return convertComponentTypeToString(eDataType, instanceValue);
+			case JbiPackage.LINK_TYPE:
+				return convertLinkTypeToString(eDataType, instanceValue);
+			case JbiPackage.CLASS_LOADER_DELEGATION_TYPE_OBJECT:
+				return convertClassLoaderDelegationTypeObjectToString(eDataType, instanceValue);
+			case JbiPackage.COMPONENT_TYPE_OBJECT:
+				return convertComponentTypeObjectToString(eDataType, instanceValue);
+			case JbiPackage.LINK_TYPE_OBJECT:
+				return convertLinkTypeObjectToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -343,9 +343,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param initialValue
-	 * @return
 	 * @generated
 	 */
 	public ClassLoaderDelegationType createClassLoaderDelegationTypeFromString(EDataType eDataType, String initialValue) {
@@ -357,9 +354,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param instanceValue
-	 * @return
 	 * @generated
 	 */
 	public String convertClassLoaderDelegationTypeToString(EDataType eDataType, Object instanceValue) {
@@ -369,9 +363,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param initialValue
-	 * @return
 	 * @generated
 	 */
 	public ComponentType createComponentTypeFromString(EDataType eDataType, String initialValue) {
@@ -383,9 +374,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param instanceValue
-	 * @return
 	 * @generated
 	 */
 	public String convertComponentTypeToString(EDataType eDataType, Object instanceValue) {
@@ -395,9 +383,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param initialValue
-	 * @return
 	 * @generated
 	 */
 	public LinkType createLinkTypeFromString(EDataType eDataType, String initialValue) {
@@ -409,9 +394,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param instanceValue
-	 * @return
 	 * @generated
 	 */
 	public String convertLinkTypeToString(EDataType eDataType, Object instanceValue) {
@@ -421,9 +403,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param initialValue
-	 * @return
 	 * @generated
 	 */
 	public ClassLoaderDelegationType createClassLoaderDelegationTypeObjectFromString(EDataType eDataType, String initialValue) {
@@ -433,9 +412,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param instanceValue
-	 * @return
 	 * @generated
 	 */
 	public String convertClassLoaderDelegationTypeObjectToString(EDataType eDataType, Object instanceValue) {
@@ -445,9 +421,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param initialValue
-	 * @return
 	 * @generated
 	 */
 	public ComponentType createComponentTypeObjectFromString(EDataType eDataType, String initialValue) {
@@ -457,9 +430,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param instanceValue
-	 * @return
 	 * @generated
 	 */
 	public String convertComponentTypeObjectToString(EDataType eDataType, Object instanceValue) {
@@ -469,9 +439,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param initialValue
-	 * @return
 	 * @generated
 	 */
 	public LinkType createLinkTypeObjectFromString(EDataType eDataType, String initialValue) {
@@ -481,9 +448,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eDataType
-	 * @param instanceValue
-	 * @return
 	 * @generated
 	 */
 	public String convertLinkTypeObjectToString(EDataType eDataType, Object instanceValue) {
@@ -502,7 +466,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return
 	 * @deprecated
 	 * @generated
 	 */

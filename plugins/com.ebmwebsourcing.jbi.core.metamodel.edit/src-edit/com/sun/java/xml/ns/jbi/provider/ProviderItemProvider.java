@@ -51,7 +51,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ProviderItemProvider(AdapterFactory adapterFactory) {
@@ -66,13 +65,13 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addEndpointNamePropertyDescriptor(object);
 			addServiceNamePropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -82,19 +81,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addEndpointNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Provider_endpointName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Provider_endpointName_feature", "_UI_Provider_type"),
-								JbiPackage.Literals.PROVIDER__ENDPOINT_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Provider_endpointName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Provider_endpointName_feature", "_UI_Provider_type"),
+				 JbiPackage.Literals.PROVIDER__ENDPOINT_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -104,19 +103,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addServiceNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Provider_serviceName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Provider_serviceName_feature", "_UI_Provider_type"),
-								JbiPackage.Literals.PROVIDER__SERVICE_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Provider_serviceName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Provider_serviceName_feature", "_UI_Provider_type"),
+				 JbiPackage.Literals.PROVIDER__SERVICE_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -140,8 +139,8 @@ IItemPropertySource {
 	public String getText(Object object) {
 		String label = ((Provider)object).getEndpointName();
 		return label == null || label.length() == 0 ?
-					getString("_UI_Provider_type") :
-						getString("_UI_Provider_type") + " " + label;
+			getString("_UI_Provider_type") :
+			getString("_UI_Provider_type") + " " + label;
 	}
 
 	/**
@@ -156,10 +155,10 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Provider.class)) {
-		case JbiPackage.PROVIDER__ENDPOINT_NAME:
-		case JbiPackage.PROVIDER__SERVICE_NAME:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
+			case JbiPackage.PROVIDER__ENDPOINT_NAME:
+			case JbiPackage.PROVIDER__SERVICE_NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 		}
 		super.notifyChanged(notification);
 	}

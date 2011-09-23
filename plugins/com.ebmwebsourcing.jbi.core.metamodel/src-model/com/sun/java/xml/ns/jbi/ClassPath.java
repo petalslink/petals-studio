@@ -33,20 +33,30 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ClassPath extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Path Element</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
+	 * Returns the value of the '<em><b>Path Element</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Path Element</em>' attribute list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Path Element</em>' attribute list.
+	 * @return the value of the '<em>Path Element</em>' attribute.
+	 * @see #setPathElement(String)
 	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getClassPath_PathElement()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
 	 *        extendedMetaData="kind='element' name='path-element' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	EList<String> getPathElement();
+	String getPathElement();
+
+	/**
+	 * Sets the value of the '{@link com.sun.java.xml.ns.jbi.ClassPath#getPathElement <em>Path Element</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Path Element</em>' attribute.
+	 * @see #getPathElement()
+	 * @generated
+	 */
+	void setPathElement(String value);
 
 } // ClassPath

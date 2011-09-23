@@ -32,9 +32,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link com.sun.java.xml.ns.jbi.Component#getBootstrapClassPath <em>Bootstrap Class Path</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.Component#getSharedLibraryList <em>Shared Library List</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.Component#getSharedLibrary <em>Shared Library</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.Component#getGroup <em>Group</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.Component#getAny <em>Any</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.Component#getAny1 <em>Any1</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.Component#getBootstrapClassLoaderDelegation <em>Bootstrap Class Loader Delegation</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.Component#getComponentClassLoaderDelegation <em>Component Class Loader Delegation</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.Component#getType <em>Type</em>}</li>
@@ -45,7 +42,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @model extendedMetaData="name='Component' kind='elementOnly'"
  * @generated
  */
-public interface Component extends EObject {
+public interface Component extends AbstractExtensibleElement {
 	/**
 	 * Returns the value of the '<em><b>Identification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -214,57 +211,6 @@ public interface Component extends EObject {
 	 * @generated
 	 */
 	EList<SharedLibraryType1> getSharedLibrary();
-
-	/**
-	 * Returns the value of the '<em><b>Group</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Group</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Group</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getComponent_Group()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-	 *        extendedMetaData="kind='group' name='group:7'"
-	 * @generated
-	 */
-	FeatureMap getGroup();
-
-	/**
-	 * Returns the value of the '<em><b>Any</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Any</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Any</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getComponent_Any()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='elementWildcard' wildcards='##other' name=':8' processing='skip' group='#group:7'"
-	 * @generated
-	 */
-	FeatureMap getAny();
-
-	/**
-	 * Returns the value of the '<em><b>Any1</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Any1</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Any1</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getComponent_Any1()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='elementWildcard' wildcards='##local' name=':9' processing='skip' group='#group:7'"
-	 * @generated
-	 */
-	FeatureMap getAny1();
 
 	/**
 	 * Returns the value of the '<em><b>Bootstrap Class Loader Delegation</b></em>' attribute.

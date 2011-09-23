@@ -135,20 +135,17 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public Identification getIdentification() {
-		return this.identification;
+		return identification;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newIdentification
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetIdentification(Identification newIdentification, NotificationChain msgs) {
-		Identification oldIdentification = this.identification;
-		this.identification = newIdentification;
+		Identification oldIdentification = identification;
+		identification = newIdentification;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION, oldIdentification, newIdentification);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -162,10 +159,10 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public void setIdentification(Identification newIdentification) {
-		if (newIdentification != this.identification) {
+		if (newIdentification != identification) {
 			NotificationChain msgs = null;
-			if (this.identification != null)
-				msgs = ((InternalEObject)this.identification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION, null, msgs);
+			if (identification != null)
+				msgs = ((InternalEObject)identification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION, null, msgs);
 			if (newIdentification != null)
 				msgs = ((InternalEObject)newIdentification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION, null, msgs);
 			msgs = basicSetIdentification(newIdentification, msgs);
@@ -181,20 +178,17 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public ClassPath getSharedLibraryClassPath() {
-		return this.sharedLibraryClassPath;
+		return sharedLibraryClassPath;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newSharedLibraryClassPath
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetSharedLibraryClassPath(ClassPath newSharedLibraryClassPath, NotificationChain msgs) {
-		ClassPath oldSharedLibraryClassPath = this.sharedLibraryClassPath;
-		this.sharedLibraryClassPath = newSharedLibraryClassPath;
+		ClassPath oldSharedLibraryClassPath = sharedLibraryClassPath;
+		sharedLibraryClassPath = newSharedLibraryClassPath;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH, oldSharedLibraryClassPath, newSharedLibraryClassPath);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -208,10 +202,10 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public void setSharedLibraryClassPath(ClassPath newSharedLibraryClassPath) {
-		if (newSharedLibraryClassPath != this.sharedLibraryClassPath) {
+		if (newSharedLibraryClassPath != sharedLibraryClassPath) {
 			NotificationChain msgs = null;
-			if (this.sharedLibraryClassPath != null)
-				msgs = ((InternalEObject)this.sharedLibraryClassPath).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH, null, msgs);
+			if (sharedLibraryClassPath != null)
+				msgs = ((InternalEObject)sharedLibraryClassPath).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH, null, msgs);
 			if (newSharedLibraryClassPath != null)
 				msgs = ((InternalEObject)newSharedLibraryClassPath).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH, null, msgs);
 			msgs = basicSetSharedLibraryClassPath(newSharedLibraryClassPath, msgs);
@@ -227,7 +221,7 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public ClassLoaderDelegationType getClassLoaderDelegation() {
-		return this.classLoaderDelegation;
+		return classLoaderDelegation;
 	}
 
 	/**
@@ -236,12 +230,12 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public void setClassLoaderDelegation(ClassLoaderDelegationType newClassLoaderDelegation) {
-		ClassLoaderDelegationType oldClassLoaderDelegation = this.classLoaderDelegation;
-		this.classLoaderDelegation = newClassLoaderDelegation == null ? CLASS_LOADER_DELEGATION_EDEFAULT : newClassLoaderDelegation;
-		boolean oldClassLoaderDelegationESet = this.classLoaderDelegationESet;
-		this.classLoaderDelegationESet = true;
+		ClassLoaderDelegationType oldClassLoaderDelegation = classLoaderDelegation;
+		classLoaderDelegation = newClassLoaderDelegation == null ? CLASS_LOADER_DELEGATION_EDEFAULT : newClassLoaderDelegation;
+		boolean oldClassLoaderDelegationESet = classLoaderDelegationESet;
+		classLoaderDelegationESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION, oldClassLoaderDelegation, this.classLoaderDelegation, !oldClassLoaderDelegationESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION, oldClassLoaderDelegation, classLoaderDelegation, !oldClassLoaderDelegationESet));
 	}
 
 	/**
@@ -250,10 +244,10 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public void unsetClassLoaderDelegation() {
-		ClassLoaderDelegationType oldClassLoaderDelegation = this.classLoaderDelegation;
-		boolean oldClassLoaderDelegationESet = this.classLoaderDelegationESet;
-		this.classLoaderDelegation = CLASS_LOADER_DELEGATION_EDEFAULT;
-		this.classLoaderDelegationESet = false;
+		ClassLoaderDelegationType oldClassLoaderDelegation = classLoaderDelegation;
+		boolean oldClassLoaderDelegationESet = classLoaderDelegationESet;
+		classLoaderDelegation = CLASS_LOADER_DELEGATION_EDEFAULT;
+		classLoaderDelegationESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION, oldClassLoaderDelegation, CLASS_LOADER_DELEGATION_EDEFAULT, oldClassLoaderDelegationESet));
 	}
@@ -264,7 +258,7 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public boolean isSetClassLoaderDelegation() {
-		return this.classLoaderDelegationESet;
+		return classLoaderDelegationESet;
 	}
 
 	/**
@@ -273,7 +267,7 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public Object getVersion() {
-		return this.version;
+		return version;
 	}
 
 	/**
@@ -282,10 +276,10 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	 * @generated
 	 */
 	public void setVersion(Object newVersion) {
-		Object oldVersion = this.version;
-		this.version = newVersion;
+		Object oldVersion = version;
+		version = newVersion;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.SHARED_LIBRARY_TYPE__VERSION, oldVersion, this.version));
+			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.SHARED_LIBRARY_TYPE__VERSION, oldVersion, version));
 	}
 
 	/**
@@ -296,10 +290,10 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
-			return basicSetIdentification(null, msgs);
-		case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
-			return basicSetSharedLibraryClassPath(null, msgs);
+			case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
+				return basicSetIdentification(null, msgs);
+			case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
+				return basicSetSharedLibraryClassPath(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -312,14 +306,14 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
-			return getIdentification();
-		case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
-			return getSharedLibraryClassPath();
-		case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
-			return getClassLoaderDelegation();
-		case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
-			return getVersion();
+			case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
+				return getIdentification();
+			case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
+				return getSharedLibraryClassPath();
+			case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
+				return getClassLoaderDelegation();
+			case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
+				return getVersion();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -332,18 +326,18 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
-			setIdentification((Identification)newValue);
-			return;
-		case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
-			setSharedLibraryClassPath((ClassPath)newValue);
-			return;
-		case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
-			setClassLoaderDelegation((ClassLoaderDelegationType)newValue);
-			return;
-		case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
-			setVersion(newValue);
-			return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
+				setIdentification((Identification)newValue);
+				return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
+				setSharedLibraryClassPath((ClassPath)newValue);
+				return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
+				setClassLoaderDelegation((ClassLoaderDelegationType)newValue);
+				return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
+				setVersion(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -356,18 +350,18 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
-			setIdentification((Identification)null);
-			return;
-		case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
-			setSharedLibraryClassPath((ClassPath)null);
-			return;
-		case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
-			unsetClassLoaderDelegation();
-			return;
-		case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
-			setVersion(VERSION_EDEFAULT);
-			return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
+				setIdentification((Identification)null);
+				return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
+				setSharedLibraryClassPath((ClassPath)null);
+				return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
+				unsetClassLoaderDelegation();
+				return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
+				setVersion(VERSION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -380,14 +374,14 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
-			return this.identification != null;
-		case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
-			return this.sharedLibraryClassPath != null;
-		case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
-			return isSetClassLoaderDelegation();
-		case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
-			return VERSION_EDEFAULT == null ? this.version != null : !VERSION_EDEFAULT.equals(this.version);
+			case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
+				return identification != null;
+			case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
+				return sharedLibraryClassPath != null;
+			case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
+				return isSetClassLoaderDelegation();
+			case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -403,9 +397,9 @@ public class SharedLibraryTypeImpl extends EObjectImpl implements SharedLibraryT
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (classLoaderDelegation: ");
-		if (this.classLoaderDelegationESet) result.append(this.classLoaderDelegation); else result.append("<unset>");
+		if (classLoaderDelegationESet) result.append(classLoaderDelegation); else result.append("<unset>");
 		result.append(", version: ");
-		result.append(this.version);
+		result.append(version);
 		result.append(')');
 		return result.toString();
 	}

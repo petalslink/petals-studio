@@ -130,20 +130,17 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public Component getComponent() {
-		return this.component;
+		return component;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newComponent
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetComponent(Component newComponent, NotificationChain msgs) {
-		Component oldComponent = this.component;
-		this.component = newComponent;
+		Component oldComponent = component;
+		component = newComponent;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.JBI__COMPONENT, oldComponent, newComponent);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -157,10 +154,10 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public void setComponent(Component newComponent) {
-		if (newComponent != this.component) {
+		if (newComponent != component) {
 			NotificationChain msgs = null;
-			if (this.component != null)
-				msgs = ((InternalEObject)this.component).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__COMPONENT, null, msgs);
+			if (component != null)
+				msgs = ((InternalEObject)component).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__COMPONENT, null, msgs);
 			if (newComponent != null)
 				msgs = ((InternalEObject)newComponent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__COMPONENT, null, msgs);
 			msgs = basicSetComponent(newComponent, msgs);
@@ -176,20 +173,17 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public SharedLibraryType getSharedLibrary() {
-		return this.sharedLibrary;
+		return sharedLibrary;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newSharedLibrary
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetSharedLibrary(SharedLibraryType newSharedLibrary, NotificationChain msgs) {
-		SharedLibraryType oldSharedLibrary = this.sharedLibrary;
-		this.sharedLibrary = newSharedLibrary;
+		SharedLibraryType oldSharedLibrary = sharedLibrary;
+		sharedLibrary = newSharedLibrary;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.JBI__SHARED_LIBRARY, oldSharedLibrary, newSharedLibrary);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -203,10 +197,10 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public void setSharedLibrary(SharedLibraryType newSharedLibrary) {
-		if (newSharedLibrary != this.sharedLibrary) {
+		if (newSharedLibrary != sharedLibrary) {
 			NotificationChain msgs = null;
-			if (this.sharedLibrary != null)
-				msgs = ((InternalEObject)this.sharedLibrary).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SHARED_LIBRARY, null, msgs);
+			if (sharedLibrary != null)
+				msgs = ((InternalEObject)sharedLibrary).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SHARED_LIBRARY, null, msgs);
 			if (newSharedLibrary != null)
 				msgs = ((InternalEObject)newSharedLibrary).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SHARED_LIBRARY, null, msgs);
 			msgs = basicSetSharedLibrary(newSharedLibrary, msgs);
@@ -222,20 +216,17 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public ServiceAssembly getServiceAssembly() {
-		return this.serviceAssembly;
+		return serviceAssembly;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newServiceAssembly
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetServiceAssembly(ServiceAssembly newServiceAssembly, NotificationChain msgs) {
-		ServiceAssembly oldServiceAssembly = this.serviceAssembly;
-		this.serviceAssembly = newServiceAssembly;
+		ServiceAssembly oldServiceAssembly = serviceAssembly;
+		serviceAssembly = newServiceAssembly;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.JBI__SERVICE_ASSEMBLY, oldServiceAssembly, newServiceAssembly);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -249,10 +240,10 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public void setServiceAssembly(ServiceAssembly newServiceAssembly) {
-		if (newServiceAssembly != this.serviceAssembly) {
+		if (newServiceAssembly != serviceAssembly) {
 			NotificationChain msgs = null;
-			if (this.serviceAssembly != null)
-				msgs = ((InternalEObject)this.serviceAssembly).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SERVICE_ASSEMBLY, null, msgs);
+			if (serviceAssembly != null)
+				msgs = ((InternalEObject)serviceAssembly).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SERVICE_ASSEMBLY, null, msgs);
 			if (newServiceAssembly != null)
 				msgs = ((InternalEObject)newServiceAssembly).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SERVICE_ASSEMBLY, null, msgs);
 			msgs = basicSetServiceAssembly(newServiceAssembly, msgs);
@@ -268,20 +259,17 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public Services getServices() {
-		return this.services;
+		return services;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param newServices
-	 * @param msgs
-	 * @return
 	 * @generated
 	 */
 	public NotificationChain basicSetServices(Services newServices, NotificationChain msgs) {
-		Services oldServices = this.services;
-		this.services = newServices;
+		Services oldServices = services;
+		services = newServices;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JbiPackage.JBI__SERVICES, oldServices, newServices);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
@@ -295,10 +283,10 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public void setServices(Services newServices) {
-		if (newServices != this.services) {
+		if (newServices != services) {
 			NotificationChain msgs = null;
-			if (this.services != null)
-				msgs = ((InternalEObject)this.services).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SERVICES, null, msgs);
+			if (services != null)
+				msgs = ((InternalEObject)services).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SERVICES, null, msgs);
 			if (newServices != null)
 				msgs = ((InternalEObject)newServices).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JbiPackage.JBI__SERVICES, null, msgs);
 			msgs = basicSetServices(newServices, msgs);
@@ -314,7 +302,7 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public BigDecimal getVersion() {
-		return this.version;
+		return version;
 	}
 
 	/**
@@ -323,10 +311,10 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	 * @generated
 	 */
 	public void setVersion(BigDecimal newVersion) {
-		BigDecimal oldVersion = this.version;
-		this.version = newVersion;
+		BigDecimal oldVersion = version;
+		version = newVersion;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.JBI__VERSION, oldVersion, this.version));
+			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.JBI__VERSION, oldVersion, version));
 	}
 
 	/**
@@ -337,14 +325,14 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case JbiPackage.JBI__COMPONENT:
-			return basicSetComponent(null, msgs);
-		case JbiPackage.JBI__SHARED_LIBRARY:
-			return basicSetSharedLibrary(null, msgs);
-		case JbiPackage.JBI__SERVICE_ASSEMBLY:
-			return basicSetServiceAssembly(null, msgs);
-		case JbiPackage.JBI__SERVICES:
-			return basicSetServices(null, msgs);
+			case JbiPackage.JBI__COMPONENT:
+				return basicSetComponent(null, msgs);
+			case JbiPackage.JBI__SHARED_LIBRARY:
+				return basicSetSharedLibrary(null, msgs);
+			case JbiPackage.JBI__SERVICE_ASSEMBLY:
+				return basicSetServiceAssembly(null, msgs);
+			case JbiPackage.JBI__SERVICES:
+				return basicSetServices(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -357,16 +345,16 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case JbiPackage.JBI__COMPONENT:
-			return getComponent();
-		case JbiPackage.JBI__SHARED_LIBRARY:
-			return getSharedLibrary();
-		case JbiPackage.JBI__SERVICE_ASSEMBLY:
-			return getServiceAssembly();
-		case JbiPackage.JBI__SERVICES:
-			return getServices();
-		case JbiPackage.JBI__VERSION:
-			return getVersion();
+			case JbiPackage.JBI__COMPONENT:
+				return getComponent();
+			case JbiPackage.JBI__SHARED_LIBRARY:
+				return getSharedLibrary();
+			case JbiPackage.JBI__SERVICE_ASSEMBLY:
+				return getServiceAssembly();
+			case JbiPackage.JBI__SERVICES:
+				return getServices();
+			case JbiPackage.JBI__VERSION:
+				return getVersion();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -379,21 +367,21 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case JbiPackage.JBI__COMPONENT:
-			setComponent((Component)newValue);
-			return;
-		case JbiPackage.JBI__SHARED_LIBRARY:
-			setSharedLibrary((SharedLibraryType)newValue);
-			return;
-		case JbiPackage.JBI__SERVICE_ASSEMBLY:
-			setServiceAssembly((ServiceAssembly)newValue);
-			return;
-		case JbiPackage.JBI__SERVICES:
-			setServices((Services)newValue);
-			return;
-		case JbiPackage.JBI__VERSION:
-			setVersion((BigDecimal)newValue);
-			return;
+			case JbiPackage.JBI__COMPONENT:
+				setComponent((Component)newValue);
+				return;
+			case JbiPackage.JBI__SHARED_LIBRARY:
+				setSharedLibrary((SharedLibraryType)newValue);
+				return;
+			case JbiPackage.JBI__SERVICE_ASSEMBLY:
+				setServiceAssembly((ServiceAssembly)newValue);
+				return;
+			case JbiPackage.JBI__SERVICES:
+				setServices((Services)newValue);
+				return;
+			case JbiPackage.JBI__VERSION:
+				setVersion((BigDecimal)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -406,21 +394,21 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case JbiPackage.JBI__COMPONENT:
-			setComponent((Component)null);
-			return;
-		case JbiPackage.JBI__SHARED_LIBRARY:
-			setSharedLibrary((SharedLibraryType)null);
-			return;
-		case JbiPackage.JBI__SERVICE_ASSEMBLY:
-			setServiceAssembly((ServiceAssembly)null);
-			return;
-		case JbiPackage.JBI__SERVICES:
-			setServices((Services)null);
-			return;
-		case JbiPackage.JBI__VERSION:
-			setVersion(VERSION_EDEFAULT);
-			return;
+			case JbiPackage.JBI__COMPONENT:
+				setComponent((Component)null);
+				return;
+			case JbiPackage.JBI__SHARED_LIBRARY:
+				setSharedLibrary((SharedLibraryType)null);
+				return;
+			case JbiPackage.JBI__SERVICE_ASSEMBLY:
+				setServiceAssembly((ServiceAssembly)null);
+				return;
+			case JbiPackage.JBI__SERVICES:
+				setServices((Services)null);
+				return;
+			case JbiPackage.JBI__VERSION:
+				setVersion(VERSION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -433,16 +421,16 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case JbiPackage.JBI__COMPONENT:
-			return this.component != null;
-		case JbiPackage.JBI__SHARED_LIBRARY:
-			return this.sharedLibrary != null;
-		case JbiPackage.JBI__SERVICE_ASSEMBLY:
-			return this.serviceAssembly != null;
-		case JbiPackage.JBI__SERVICES:
-			return this.services != null;
-		case JbiPackage.JBI__VERSION:
-			return VERSION_EDEFAULT == null ? this.version != null : !VERSION_EDEFAULT.equals(this.version);
+			case JbiPackage.JBI__COMPONENT:
+				return component != null;
+			case JbiPackage.JBI__SHARED_LIBRARY:
+				return sharedLibrary != null;
+			case JbiPackage.JBI__SERVICE_ASSEMBLY:
+				return serviceAssembly != null;
+			case JbiPackage.JBI__SERVICES:
+				return services != null;
+			case JbiPackage.JBI__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -458,7 +446,7 @@ public class JbiImpl extends EObjectImpl implements Jbi {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (version: ");
-		result.append(this.version);
+		result.append(version);
 		result.append(')');
 		return result.toString();
 	}

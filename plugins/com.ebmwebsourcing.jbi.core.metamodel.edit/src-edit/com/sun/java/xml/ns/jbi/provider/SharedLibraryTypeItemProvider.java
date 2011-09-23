@@ -54,7 +54,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public SharedLibraryTypeItemProvider(AdapterFactory adapterFactory) {
@@ -69,13 +68,13 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addClassLoaderDelegationPropertyDescriptor(object);
 			addVersionPropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -85,19 +84,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addClassLoaderDelegationPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_SharedLibraryType_classLoaderDelegation_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_SharedLibraryType_classLoaderDelegation_feature", "_UI_SharedLibraryType_type"),
-								JbiPackage.Literals.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SharedLibraryType_classLoaderDelegation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SharedLibraryType_classLoaderDelegation_feature", "_UI_SharedLibraryType_type"),
+				 JbiPackage.Literals.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -107,19 +106,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addVersionPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_SharedLibraryType_version_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_SharedLibraryType_version_feature", "_UI_SharedLibraryType_type"),
-								JbiPackage.Literals.SHARED_LIBRARY_TYPE__VERSION,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SharedLibraryType_version_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SharedLibraryType_version_feature", "_UI_SharedLibraryType_type"),
+				 JbiPackage.Literals.SHARED_LIBRARY_TYPE__VERSION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -132,12 +131,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.SHARED_LIBRARY_TYPE__IDENTIFICATION);
-			this.childrenFeatures.add(JbiPackage.Literals.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH);
+			childrenFeatures.add(JbiPackage.Literals.SHARED_LIBRARY_TYPE__IDENTIFICATION);
+			childrenFeatures.add(JbiPackage.Literals.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -175,8 +174,8 @@ IItemPropertySource {
 		ClassLoaderDelegationType labelValue = ((SharedLibraryType)object).getClassLoaderDelegation();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
-					getString("_UI_SharedLibraryType_type") :
-						getString("_UI_SharedLibraryType_type") + " " + label;
+			getString("_UI_SharedLibraryType_type") :
+			getString("_UI_SharedLibraryType_type") + " " + label;
 	}
 
 	/**
@@ -191,14 +190,14 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(SharedLibraryType.class)) {
-		case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
-		case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
-		case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__CLASS_LOADER_DELEGATION:
+			case JbiPackage.SHARED_LIBRARY_TYPE__VERSION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case JbiPackage.SHARED_LIBRARY_TYPE__IDENTIFICATION:
+			case JbiPackage.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -215,14 +214,14 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SHARED_LIBRARY_TYPE__IDENTIFICATION,
-								JbiFactory.eINSTANCE.createIdentification()));
+			(createChildParameter
+				(JbiPackage.Literals.SHARED_LIBRARY_TYPE__IDENTIFICATION,
+				 JbiFactory.eINSTANCE.createIdentification()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH,
-								JbiFactory.eINSTANCE.createClassPath()));
+			(createChildParameter
+				(JbiPackage.Literals.SHARED_LIBRARY_TYPE__SHARED_LIBRARY_CLASS_PATH,
+				 JbiFactory.eINSTANCE.createClassPath()));
 	}
 
 	/**

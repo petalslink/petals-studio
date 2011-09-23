@@ -39,7 +39,7 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
  * @generated
  */
 public class ConnectionsItemProvider
-extends ItemProviderAdapter
+extends AbstractExtensibleElementItemProvider
 implements
 IEditingDomainItemProvider,
 IStructuredItemContentProvider,
@@ -51,7 +51,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ConnectionsItemProvider(AdapterFactory adapterFactory) {
@@ -66,11 +65,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -83,12 +82,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.CONNECTIONS__CONNECTION);
-			this.childrenFeatures.add(JbiPackage.Literals.CONNECTIONS__GROUP);
+			childrenFeatures.add(JbiPackage.Literals.CONNECTIONS__CONNECTION);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -138,10 +136,9 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Connections.class)) {
-		case JbiPackage.CONNECTIONS__CONNECTION:
-		case JbiPackage.CONNECTIONS__GROUP:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.CONNECTIONS__CONNECTION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -158,20 +155,9 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.CONNECTIONS__CONNECTION,
-								JbiFactory.eINSTANCE.createConnection()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return JbiEditPlugin.INSTANCE;
+			(createChildParameter
+				(JbiPackage.Literals.CONNECTIONS__CONNECTION,
+				 JbiFactory.eINSTANCE.createConnection()));
 	}
 
 }

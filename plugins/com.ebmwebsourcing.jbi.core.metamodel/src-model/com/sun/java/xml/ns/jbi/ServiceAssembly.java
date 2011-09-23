@@ -28,9 +28,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getIdentification <em>Identification</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getServiceUnit <em>Service Unit</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getConnections <em>Connections</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getGroup <em>Group</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getAny <em>Any</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getAny1 <em>Any1</em>}</li>
  * </ul>
  * </p>
  *
@@ -38,7 +35,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @model extendedMetaData="name='ServiceAssembly' kind='elementOnly'"
  * @generated
  */
-public interface ServiceAssembly extends EObject {
+public interface ServiceAssembly extends AbstractExtensibleElement {
 	/**
 	 * Returns the value of the '<em><b>Identification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -109,56 +106,5 @@ public interface ServiceAssembly extends EObject {
 	 * @generated
 	 */
 	void setConnections(Connections value);
-
-	/**
-	 * Returns the value of the '<em><b>Group</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Group</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Group</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getServiceAssembly_Group()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-	 *        extendedMetaData="kind='group' name='group:3'"
-	 * @generated
-	 */
-	FeatureMap getGroup();
-
-	/**
-	 * Returns the value of the '<em><b>Any</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Any</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Any</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getServiceAssembly_Any()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='elementWildcard' wildcards='##other' name=':4' processing='skip' group='#group:3'"
-	 * @generated
-	 */
-	FeatureMap getAny();
-
-	/**
-	 * Returns the value of the '<em><b>Any1</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Any1</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Any1</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getServiceAssembly_Any1()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='elementWildcard' wildcards='##local' name=':5' processing='skip' group='#group:3'"
-	 * @generated
-	 */
-	FeatureMap getAny1();
 
 } // ServiceAssembly

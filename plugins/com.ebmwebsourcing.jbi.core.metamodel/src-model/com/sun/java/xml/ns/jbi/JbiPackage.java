@@ -67,6 +67,52 @@ public interface JbiPackage extends EPackage {
 	JbiPackage eINSTANCE = com.sun.java.xml.ns.jbi.impl.JbiPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.AbstractExtensibleElementImpl <em>Abstract Extensible Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.sun.java.xml.ns.jbi.impl.AbstractExtensibleElementImpl
+	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getAbstractExtensibleElement()
+	 * @generated
+	 */
+	int ABSTRACT_EXTENSIBLE_ELEMENT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_EXTENSIBLE_ELEMENT__GROUP = 0;
+
+	/**
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_EXTENSIBLE_ELEMENT__OTHER = 1;
+
+	/**
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL = 2;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Extensible Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ClassPathImpl <em>Class Path</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,10 +120,10 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getClassPath()
 	 * @generated
 	 */
-	int CLASS_PATH = 0;
+	int CLASS_PATH = 1;
 
 	/**
-	 * The feature id for the '<em><b>Path Element</b></em>' attribute list.
+	 * The feature id for the '<em><b>Path Element</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -102,70 +148,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getComponent()
 	 * @generated
 	 */
-	int COMPONENT = 1;
-
-	/**
-	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__IDENTIFICATION = 0;
-
-	/**
-	 * The feature id for the '<em><b>Component Class Name</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__COMPONENT_CLASS_NAME = 1;
-
-	/**
-	 * The feature id for the '<em><b>Component Class Path</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__COMPONENT_CLASS_PATH = 2;
-
-	/**
-	 * The feature id for the '<em><b>Bootstrap Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__BOOTSTRAP_CLASS_NAME = 3;
-
-	/**
-	 * The feature id for the '<em><b>Bootstrap Class Path</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__BOOTSTRAP_CLASS_PATH = 4;
-
-	/**
-	 * The feature id for the '<em><b>Shared Library List</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__SHARED_LIBRARY_LIST = 5;
-
-	/**
-	 * The feature id for the '<em><b>Shared Library</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__SHARED_LIBRARY = 6;
+	int COMPONENT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' attribute list.
@@ -174,25 +157,88 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__GROUP = 7;
+	int COMPONENT__GROUP = ABSTRACT_EXTENSIBLE_ELEMENT__GROUP;
 
 	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__ANY = 8;
+	int COMPONENT__OTHER = ABSTRACT_EXTENSIBLE_ELEMENT__OTHER;
 
 	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__ANY1 = 9;
+	int COMPONENT__LOCAL = ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
+
+	/**
+	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__IDENTIFICATION = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Component Class Name</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__COMPONENT_CLASS_NAME = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Component Class Path</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__COMPONENT_CLASS_PATH = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Bootstrap Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__BOOTSTRAP_CLASS_NAME = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Bootstrap Class Path</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__BOOTSTRAP_CLASS_PATH = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Shared Library List</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__SHARED_LIBRARY_LIST = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Shared Library</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__SHARED_LIBRARY = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Bootstrap Class Loader Delegation</b></em>' attribute.
@@ -201,7 +247,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION = 10;
+	int COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Component Class Loader Delegation</b></em>' attribute.
@@ -210,7 +256,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION = 11;
+	int COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -219,7 +265,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__TYPE = 12;
+	int COMPONENT__TYPE = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Component</em>' class.
@@ -228,7 +274,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_FEATURE_COUNT = 13;
+	int COMPONENT_FEATURE_COUNT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ComponentClassNameImpl <em>Component Class Name</em>}' class.
@@ -238,7 +284,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getComponentClassName()
 	 * @generated
 	 */
-	int COMPONENT_CLASS_NAME = 2;
+	int COMPONENT_CLASS_NAME = 3;
 
 	/**
 	 * The feature id for the '<em><b>Mixed</b></em>' attribute list.
@@ -275,7 +321,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getConnection()
 	 * @generated
 	 */
-	int CONNECTION = 3;
+	int CONNECTION = 4;
 
 	/**
 	 * The feature id for the '<em><b>Consumer</b></em>' containment reference.
@@ -312,16 +358,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getConnections()
 	 * @generated
 	 */
-	int CONNECTIONS = 4;
-
-	/**
-	 * The feature id for the '<em><b>Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTIONS__CONNECTION = 0;
+	int CONNECTIONS = 5;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' attribute list.
@@ -330,25 +367,34 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTIONS__GROUP = 1;
+	int CONNECTIONS__GROUP = ABSTRACT_EXTENSIBLE_ELEMENT__GROUP;
 
 	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTIONS__ANY = 2;
+	int CONNECTIONS__OTHER = ABSTRACT_EXTENSIBLE_ELEMENT__OTHER;
 
 	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTIONS__ANY1 = 3;
+	int CONNECTIONS__LOCAL = ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
+
+	/**
+	 * The feature id for the '<em><b>Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTIONS__CONNECTION = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Connections</em>' class.
@@ -357,7 +403,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTIONS_FEATURE_COUNT = 4;
+	int CONNECTIONS_FEATURE_COUNT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ConsumerImpl <em>Consumer</em>}' class.
@@ -367,7 +413,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getConsumer()
 	 * @generated
 	 */
-	int CONSUMER = 5;
+	int CONSUMER = 6;
 
 	/**
 	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
@@ -413,79 +459,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getConsumes()
 	 * @generated
 	 */
-	int CONSUMES = 6;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES__GROUP = 0;
-
-	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES__ANY = 1;
-
-	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES__ANY1 = 2;
-
-	/**
-	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES__ENDPOINT_NAME = 3;
-
-	/**
-	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES__INTERFACE_NAME = 4;
-
-	/**
-	 * The feature id for the '<em><b>Link Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES__LINK_TYPE = 5;
-
-	/**
-	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES__SERVICE_NAME = 6;
-
-	/**
-	 * The number of structural features of the '<em>Consumes</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSUMES_FEATURE_COUNT = 7;
+	int CONSUMES = 12;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.DocumentRootImpl <em>Document Root</em>}' class.
@@ -525,211 +499,13 @@ public interface JbiPackage extends EPackage {
 	int DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = 2;
 
 	/**
-	 * The feature id for the '<em><b>Artifacts Zip</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__ARTIFACTS_ZIP = 3;
-
-	/**
-	 * The feature id for the '<em><b>Bootstrap Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__BOOTSTRAP_CLASS_NAME = 4;
-
-	/**
-	 * The feature id for the '<em><b>Bootstrap Class Path</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__BOOTSTRAP_CLASS_PATH = 5;
-
-	/**
-	 * The feature id for the '<em><b>Component</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__COMPONENT = 6;
-
-	/**
-	 * The feature id for the '<em><b>Component Class Name</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__COMPONENT_CLASS_NAME = 7;
-
-	/**
-	 * The feature id for the '<em><b>Component Class Path</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__COMPONENT_CLASS_PATH = 8;
-
-	/**
-	 * The feature id for the '<em><b>Component Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__COMPONENT_NAME = 9;
-
-	/**
-	 * The feature id for the '<em><b>Connection</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__CONNECTION = 10;
-
-	/**
-	 * The feature id for the '<em><b>Connections</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__CONNECTIONS = 11;
-
-	/**
-	 * The feature id for the '<em><b>Consumer</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__CONSUMER = 12;
-
-	/**
-	 * The feature id for the '<em><b>Consumes</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__CONSUMES = 13;
-
-	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__DESCRIPTION = 14;
-
-	/**
-	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__IDENTIFICATION = 15;
-
-	/**
 	 * The feature id for the '<em><b>Jbi</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DOCUMENT_ROOT__JBI = 16;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__NAME = 17;
-
-	/**
-	 * The feature id for the '<em><b>Path Element</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__PATH_ELEMENT = 18;
-
-	/**
-	 * The feature id for the '<em><b>Provider</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__PROVIDER = 19;
-
-	/**
-	 * The feature id for the '<em><b>Provides</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__PROVIDES = 20;
-
-	/**
-	 * The feature id for the '<em><b>Service Assembly</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__SERVICE_ASSEMBLY = 21;
-
-	/**
-	 * The feature id for the '<em><b>Services</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__SERVICES = 22;
-
-	/**
-	 * The feature id for the '<em><b>Service Unit</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__SERVICE_UNIT = 23;
-
-	/**
-	 * The feature id for the '<em><b>Shared Library Class Path</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__SHARED_LIBRARY_CLASS_PATH = 24;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOCUMENT_ROOT__TARGET = 25;
+	int DOCUMENT_ROOT__JBI = 3;
 
 	/**
 	 * The number of structural features of the '<em>Document Root</em>' class.
@@ -738,7 +514,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOCUMENT_ROOT_FEATURE_COUNT = 26;
+	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.IdentificationImpl <em>Identification</em>}' class.
@@ -751,13 +527,40 @@ public interface JbiPackage extends EPackage {
 	int IDENTIFICATION = 8;
 
 	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDENTIFICATION__GROUP = ABSTRACT_EXTENSIBLE_ELEMENT__GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDENTIFICATION__OTHER = ABSTRACT_EXTENSIBLE_ELEMENT__OTHER;
+
+	/**
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDENTIFICATION__LOCAL = ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFICATION__NAME = 0;
+	int IDENTIFICATION__NAME = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -766,34 +569,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFICATION__DESCRIPTION = 1;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IDENTIFICATION__GROUP = 2;
-
-	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IDENTIFICATION__ANY = 3;
-
-	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IDENTIFICATION__ANY1 = 4;
+	int IDENTIFICATION__DESCRIPTION = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Identification</em>' class.
@@ -802,7 +578,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFICATION_FEATURE_COUNT = 5;
+	int IDENTIFICATION_FEATURE_COUNT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.JbiImpl <em>Jbi</em>}' class.
@@ -876,7 +652,299 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getProvider()
 	 * @generated
 	 */
-	int PROVIDER = 10;
+	int PROVIDER = 14;
+
+	/**
+	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ProvidesImpl <em>Provides</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.sun.java.xml.ns.jbi.impl.ProvidesImpl
+	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getProvides()
+	 * @generated
+	 */
+	int PROVIDES = 13;
+
+	/**
+	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ServiceAssemblyImpl <em>Service Assembly</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.sun.java.xml.ns.jbi.impl.ServiceAssemblyImpl
+	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getServiceAssembly()
+	 * @generated
+	 */
+	int SERVICE_ASSEMBLY = 15;
+
+	/**
+	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl <em>Services</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.sun.java.xml.ns.jbi.impl.ServicesImpl
+	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getServices()
+	 * @generated
+	 */
+	int SERVICES = 10;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICES__GROUP = ABSTRACT_EXTENSIBLE_ELEMENT__GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICES__OTHER = ABSTRACT_EXTENSIBLE_ELEMENT__OTHER;
+
+	/**
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICES__LOCAL = ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
+
+	/**
+	 * The feature id for the '<em><b>Provides</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICES__PROVIDES = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Consumes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICES__CONSUMES = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Binding Component</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICES__BINDING_COMPONENT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Services</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICES_FEATURE_COUNT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.AbstractEndpointImpl <em>Abstract Endpoint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.sun.java.xml.ns.jbi.impl.AbstractEndpointImpl
+	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getAbstractEndpoint()
+	 * @generated
+	 */
+	int ABSTRACT_ENDPOINT = 11;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ENDPOINT__GROUP = ABSTRACT_EXTENSIBLE_ELEMENT__GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ENDPOINT__OTHER = ABSTRACT_EXTENSIBLE_ELEMENT__OTHER;
+
+	/**
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ENDPOINT__LOCAL = ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
+
+	/**
+	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ENDPOINT__ENDPOINT_NAME = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ENDPOINT__INTERFACE_NAME = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ENDPOINT__SERVICE_NAME = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Endpoint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ENDPOINT_FEATURE_COUNT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSUMES__GROUP = ABSTRACT_ENDPOINT__GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSUMES__OTHER = ABSTRACT_ENDPOINT__OTHER;
+
+	/**
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSUMES__LOCAL = ABSTRACT_ENDPOINT__LOCAL;
+
+	/**
+	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSUMES__ENDPOINT_NAME = ABSTRACT_ENDPOINT__ENDPOINT_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSUMES__INTERFACE_NAME = ABSTRACT_ENDPOINT__INTERFACE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSUMES__SERVICE_NAME = ABSTRACT_ENDPOINT__SERVICE_NAME;
+
+	/**
+	 * The number of structural features of the '<em>Consumes</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSUMES_FEATURE_COUNT = ABSTRACT_ENDPOINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROVIDES__GROUP = ABSTRACT_ENDPOINT__GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROVIDES__OTHER = ABSTRACT_ENDPOINT__OTHER;
+
+	/**
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROVIDES__LOCAL = ABSTRACT_ENDPOINT__LOCAL;
+
+	/**
+	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROVIDES__ENDPOINT_NAME = ABSTRACT_ENDPOINT__ENDPOINT_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROVIDES__INTERFACE_NAME = ABSTRACT_ENDPOINT__INTERFACE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROVIDES__SERVICE_NAME = ABSTRACT_ENDPOINT__SERVICE_NAME;
+
+	/**
+	 * The number of structural features of the '<em>Provides</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROVIDES_FEATURE_COUNT = ABSTRACT_ENDPOINT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
@@ -906,87 +974,31 @@ public interface JbiPackage extends EPackage {
 	int PROVIDER_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ProvidesImpl <em>Provides</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.sun.java.xml.ns.jbi.impl.ProvidesImpl
-	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getProvides()
-	 * @generated
-	 */
-	int PROVIDES = 11;
-
-	/**
 	 * The feature id for the '<em><b>Group</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROVIDES__GROUP = 0;
+	int SERVICE_ASSEMBLY__GROUP = ABSTRACT_EXTENSIBLE_ELEMENT__GROUP;
 
 	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROVIDES__ANY = 1;
+	int SERVICE_ASSEMBLY__OTHER = ABSTRACT_EXTENSIBLE_ELEMENT__OTHER;
 
 	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROVIDES__ANY1 = 2;
-
-	/**
-	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROVIDES__ENDPOINT_NAME = 3;
-
-	/**
-	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROVIDES__INTERFACE_NAME = 4;
-
-	/**
-	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROVIDES__SERVICE_NAME = 5;
-
-	/**
-	 * The number of structural features of the '<em>Provides</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROVIDES_FEATURE_COUNT = 6;
-
-	/**
-	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ServiceAssemblyImpl <em>Service Assembly</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.sun.java.xml.ns.jbi.impl.ServiceAssemblyImpl
-	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getServiceAssembly()
-	 * @generated
-	 */
-	int SERVICE_ASSEMBLY = 12;
+	int SERVICE_ASSEMBLY__LOCAL = ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
 
 	/**
 	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
@@ -995,7 +1007,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_ASSEMBLY__IDENTIFICATION = 0;
+	int SERVICE_ASSEMBLY__IDENTIFICATION = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Service Unit</b></em>' containment reference list.
@@ -1004,7 +1016,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_ASSEMBLY__SERVICE_UNIT = 1;
+	int SERVICE_ASSEMBLY__SERVICE_UNIT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Connections</b></em>' containment reference.
@@ -1013,34 +1025,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_ASSEMBLY__CONNECTIONS = 2;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICE_ASSEMBLY__GROUP = 3;
-
-	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICE_ASSEMBLY__ANY = 4;
-
-	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICE_ASSEMBLY__ANY1 = 5;
+	int SERVICE_ASSEMBLY__CONNECTIONS = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Service Assembly</em>' class.
@@ -1049,80 +1034,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_ASSEMBLY_FEATURE_COUNT = 6;
-
-	/**
-	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl <em>Services</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.sun.java.xml.ns.jbi.impl.ServicesImpl
-	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getServices()
-	 * @generated
-	 */
-	int SERVICES = 13;
-
-	/**
-	 * The feature id for the '<em><b>Provides</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICES__PROVIDES = 0;
-
-	/**
-	 * The feature id for the '<em><b>Consumes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICES__CONSUMES = 1;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICES__GROUP = 2;
-
-	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICES__ANY = 3;
-
-	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICES__ANY1 = 4;
-
-	/**
-	 * The feature id for the '<em><b>Binding Component</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICES__BINDING_COMPONENT = 5;
-
-	/**
-	 * The number of structural features of the '<em>Services</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICES_FEATURE_COUNT = 6;
+	int SERVICE_ASSEMBLY_FEATURE_COUNT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.ServiceUnitImpl <em>Service Unit</em>}' class.
@@ -1132,25 +1044,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getServiceUnit()
 	 * @generated
 	 */
-	int SERVICE_UNIT = 14;
-
-	/**
-	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICE_UNIT__IDENTIFICATION = 0;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SERVICE_UNIT__TARGET = 1;
+	int SERVICE_UNIT = 16;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' attribute list.
@@ -1159,25 +1053,43 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_UNIT__GROUP = 2;
+	int SERVICE_UNIT__GROUP = ABSTRACT_EXTENSIBLE_ELEMENT__GROUP;
 
 	/**
-	 * The feature id for the '<em><b>Any</b></em>' attribute list.
+	 * The feature id for the '<em><b>Other</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_UNIT__ANY = 3;
+	int SERVICE_UNIT__OTHER = ABSTRACT_EXTENSIBLE_ELEMENT__OTHER;
 
 	/**
-	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
+	 * The feature id for the '<em><b>Local</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_UNIT__ANY1 = 4;
+	int SERVICE_UNIT__LOCAL = ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
+
+	/**
+	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_UNIT__IDENTIFICATION = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_UNIT__TARGET = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Service Unit</em>' class.
@@ -1186,7 +1098,7 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_UNIT_FEATURE_COUNT = 5;
+	int SERVICE_UNIT_FEATURE_COUNT = ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.impl.SharedLibraryTypeImpl <em>Shared Library Type</em>}' class.
@@ -1196,7 +1108,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getSharedLibraryType()
 	 * @generated
 	 */
-	int SHARED_LIBRARY_TYPE = 15;
+	int SHARED_LIBRARY_TYPE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
@@ -1251,7 +1163,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getSharedLibraryType1()
 	 * @generated
 	 */
-	int SHARED_LIBRARY_TYPE1 = 16;
+	int SHARED_LIBRARY_TYPE1 = 18;
 
 	/**
 	 * The feature id for the '<em><b>Mixed</b></em>' attribute list.
@@ -1288,7 +1200,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getTarget()
 	 * @generated
 	 */
-	int TARGET = 17;
+	int TARGET = 19;
 
 	/**
 	 * The feature id for the '<em><b>Artifacts Zip</b></em>' attribute.
@@ -1325,7 +1237,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getClassLoaderDelegationType()
 	 * @generated
 	 */
-	int CLASS_LOADER_DELEGATION_TYPE = 18;
+	int CLASS_LOADER_DELEGATION_TYPE = 20;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.ComponentType <em>Component Type</em>}' enum.
@@ -1335,7 +1247,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getComponentType()
 	 * @generated
 	 */
-	int COMPONENT_TYPE = 19;
+	int COMPONENT_TYPE = 21;
 
 	/**
 	 * The meta object id for the '{@link com.sun.java.xml.ns.jbi.LinkType <em>Link Type</em>}' enum.
@@ -1345,7 +1257,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getLinkType()
 	 * @generated
 	 */
-	int LINK_TYPE = 20;
+	int LINK_TYPE = 22;
 
 	/**
 	 * The meta object id for the '<em>Class Loader Delegation Type Object</em>' data type.
@@ -1355,7 +1267,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getClassLoaderDelegationTypeObject()
 	 * @generated
 	 */
-	int CLASS_LOADER_DELEGATION_TYPE_OBJECT = 21;
+	int CLASS_LOADER_DELEGATION_TYPE_OBJECT = 23;
 
 	/**
 	 * The meta object id for the '<em>Component Type Object</em>' data type.
@@ -1365,7 +1277,7 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getComponentTypeObject()
 	 * @generated
 	 */
-	int COMPONENT_TYPE_OBJECT = 22;
+	int COMPONENT_TYPE_OBJECT = 24;
 
 	/**
 	 * The meta object id for the '<em>Link Type Object</em>' data type.
@@ -1375,8 +1287,51 @@ public interface JbiPackage extends EPackage {
 	 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getLinkTypeObject()
 	 * @generated
 	 */
-	int LINK_TYPE_OBJECT = 23;
+	int LINK_TYPE_OBJECT = 25;
 
+
+	/**
+	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.AbstractExtensibleElement <em>Abstract Extensible Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Extensible Element</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractExtensibleElement
+	 * @generated
+	 */
+	EClass getAbstractExtensibleElement();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.AbstractExtensibleElement#getGroup <em>Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Group</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractExtensibleElement#getGroup()
+	 * @see #getAbstractExtensibleElement()
+	 * @generated
+	 */
+	EAttribute getAbstractExtensibleElement_Group();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.AbstractExtensibleElement#getOther <em>Other</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Other</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractExtensibleElement#getOther()
+	 * @see #getAbstractExtensibleElement()
+	 * @generated
+	 */
+	EAttribute getAbstractExtensibleElement_Other();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.AbstractExtensibleElement#getLocal <em>Local</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Local</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractExtensibleElement#getLocal()
+	 * @see #getAbstractExtensibleElement()
+	 * @generated
+	 */
+	EAttribute getAbstractExtensibleElement_Local();
 
 	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.ClassPath <em>Class Path</em>}'.
@@ -1389,10 +1344,10 @@ public interface JbiPackage extends EPackage {
 	EClass getClassPath();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.ClassPath#getPathElement <em>Path Element</em>}'.
+	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.ClassPath#getPathElement <em>Path Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Path Element</em>'.
+	 * @return the meta object for the attribute '<em>Path Element</em>'.
 	 * @see com.sun.java.xml.ns.jbi.ClassPath#getPathElement()
 	 * @see #getClassPath()
 	 * @generated
@@ -1485,39 +1440,6 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getComponent_SharedLibrary();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Component#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Component#getGroup()
-	 * @see #getComponent()
-	 * @generated
-	 */
-	EAttribute getComponent_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Component#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Component#getAny()
-	 * @see #getComponent()
-	 * @generated
-	 */
-	EAttribute getComponent_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Component#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Component#getAny1()
-	 * @see #getComponent()
-	 * @generated
-	 */
-	EAttribute getComponent_Any1();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Component#getBootstrapClassLoaderDelegation <em>Bootstrap Class Loader Delegation</em>}'.
@@ -1638,39 +1560,6 @@ public interface JbiPackage extends EPackage {
 	EReference getConnections_Connection();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Connections#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Connections#getGroup()
-	 * @see #getConnections()
-	 * @generated
-	 */
-	EAttribute getConnections_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Connections#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Connections#getAny()
-	 * @see #getConnections()
-	 * @generated
-	 */
-	EAttribute getConnections_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Connections#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Connections#getAny1()
-	 * @see #getConnections()
-	 * @generated
-	 */
-	EAttribute getConnections_Any1();
-
-	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.Consumer <em>Consumer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1724,83 +1613,6 @@ public interface JbiPackage extends EPackage {
 	EClass getConsumes();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Consumes#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Consumes#getGroup()
-	 * @see #getConsumes()
-	 * @generated
-	 */
-	EAttribute getConsumes_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Consumes#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Consumes#getAny()
-	 * @see #getConsumes()
-	 * @generated
-	 */
-	EAttribute getConsumes_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Consumes#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Consumes#getAny1()
-	 * @see #getConsumes()
-	 * @generated
-	 */
-	EAttribute getConsumes_Any1();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Consumes#getEndpointName <em>Endpoint Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Endpoint Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Consumes#getEndpointName()
-	 * @see #getConsumes()
-	 * @generated
-	 */
-	EAttribute getConsumes_EndpointName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Consumes#getInterfaceName <em>Interface Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Interface Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Consumes#getInterfaceName()
-	 * @see #getConsumes()
-	 * @generated
-	 */
-	EAttribute getConsumes_InterfaceName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Consumes#getLinkType <em>Link Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Link Type</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Consumes#getLinkType()
-	 * @see #getConsumes()
-	 * @generated
-	 */
-	EAttribute getConsumes_LinkType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Consumes#getServiceName <em>Service Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Service Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Consumes#getServiceName()
-	 * @see #getConsumes()
-	 * @generated
-	 */
-	EAttribute getConsumes_ServiceName();
-
-	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.DocumentRoot <em>Document Root</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1844,149 +1656,6 @@ public interface JbiPackage extends EPackage {
 	EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getArtifactsZip <em>Artifacts Zip</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Artifacts Zip</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getArtifactsZip()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EAttribute getDocumentRoot_ArtifactsZip();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getBootstrapClassName <em>Bootstrap Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Bootstrap Class Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getBootstrapClassName()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EAttribute getDocumentRoot_BootstrapClassName();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getBootstrapClassPath <em>Bootstrap Class Path</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Bootstrap Class Path</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getBootstrapClassPath()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_BootstrapClassPath();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getComponent <em>Component</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Component</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getComponent()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Component();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getComponentClassName <em>Component Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Component Class Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getComponentClassName()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_ComponentClassName();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getComponentClassPath <em>Component Class Path</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Component Class Path</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getComponentClassPath()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_ComponentClassPath();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getComponentName <em>Component Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Component Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getComponentName()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EAttribute getDocumentRoot_ComponentName();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getConnection <em>Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Connection</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getConnection()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Connection();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getConnections <em>Connections</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Connections</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getConnections()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Connections();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getConsumer <em>Consumer</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Consumer</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getConsumer()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Consumer();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getConsumes <em>Consumes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Consumes</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getConsumes()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Consumes();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getDescription <em>Description</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getDescription()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EAttribute getDocumentRoot_Description();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getIdentification <em>Identification</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Identification</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getIdentification()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Identification();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getJbi <em>Jbi</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1996,105 +1665,6 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDocumentRoot_Jbi();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getName()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EAttribute getDocumentRoot_Name();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getPathElement <em>Path Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Path Element</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getPathElement()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EAttribute getDocumentRoot_PathElement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getProvider <em>Provider</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Provider</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getProvider()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Provider();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getProvides <em>Provides</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Provides</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getProvides()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Provides();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getServiceAssembly <em>Service Assembly</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Service Assembly</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getServiceAssembly()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_ServiceAssembly();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getServices <em>Services</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Services</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getServices()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Services();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getServiceUnit <em>Service Unit</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Service Unit</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getServiceUnit()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_ServiceUnit();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getSharedLibraryClassPath <em>Shared Library Class Path</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Shared Library Class Path</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getSharedLibraryClassPath()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_SharedLibraryClassPath();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link com.sun.java.xml.ns.jbi.DocumentRoot#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Target</em>'.
-	 * @see com.sun.java.xml.ns.jbi.DocumentRoot#getTarget()
-	 * @see #getDocumentRoot()
-	 * @generated
-	 */
-	EReference getDocumentRoot_Target();
 
 	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.Identification <em>Identification</em>}'.
@@ -2127,39 +1697,6 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getIdentification_Description();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Identification#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Identification#getGroup()
-	 * @see #getIdentification()
-	 * @generated
-	 */
-	EAttribute getIdentification_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Identification#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Identification#getAny()
-	 * @see #getIdentification()
-	 * @generated
-	 */
-	EAttribute getIdentification_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Identification#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Identification#getAny1()
-	 * @see #getIdentification()
-	 * @generated
-	 */
-	EAttribute getIdentification_Any1();
 
 	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.Jbi <em>Jbi</em>}'.
@@ -2269,72 +1806,6 @@ public interface JbiPackage extends EPackage {
 	EClass getProvides();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Provides#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Provides#getGroup()
-	 * @see #getProvides()
-	 * @generated
-	 */
-	EAttribute getProvides_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Provides#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Provides#getAny()
-	 * @see #getProvides()
-	 * @generated
-	 */
-	EAttribute getProvides_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Provides#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Provides#getAny1()
-	 * @see #getProvides()
-	 * @generated
-	 */
-	EAttribute getProvides_Any1();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Provides#getEndpointName <em>Endpoint Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Endpoint Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Provides#getEndpointName()
-	 * @see #getProvides()
-	 * @generated
-	 */
-	EAttribute getProvides_EndpointName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Provides#getInterfaceName <em>Interface Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Interface Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Provides#getInterfaceName()
-	 * @see #getProvides()
-	 * @generated
-	 */
-	EAttribute getProvides_InterfaceName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Provides#getServiceName <em>Service Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Service Name</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Provides#getServiceName()
-	 * @see #getProvides()
-	 * @generated
-	 */
-	EAttribute getProvides_ServiceName();
-
-	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.ServiceAssembly <em>Service Assembly</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2378,39 +1849,6 @@ public interface JbiPackage extends EPackage {
 	EReference getServiceAssembly_Connections();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.ServiceAssembly#getGroup()
-	 * @see #getServiceAssembly()
-	 * @generated
-	 */
-	EAttribute getServiceAssembly_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.ServiceAssembly#getAny()
-	 * @see #getServiceAssembly()
-	 * @generated
-	 */
-	EAttribute getServiceAssembly_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.ServiceAssembly#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.ServiceAssembly#getAny1()
-	 * @see #getServiceAssembly()
-	 * @generated
-	 */
-	EAttribute getServiceAssembly_Any1();
-
-	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.Services <em>Services</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2443,39 +1881,6 @@ public interface JbiPackage extends EPackage {
 	EReference getServices_Consumes();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Services#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Services#getGroup()
-	 * @see #getServices()
-	 * @generated
-	 */
-	EAttribute getServices_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Services#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Services#getAny()
-	 * @see #getServices()
-	 * @generated
-	 */
-	EAttribute getServices_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.Services#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.Services#getAny1()
-	 * @see #getServices()
-	 * @generated
-	 */
-	EAttribute getServices_Any1();
-
-	/**
 	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.Services#isBindingComponent <em>Binding Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2485,6 +1890,49 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getServices_BindingComponent();
+
+	/**
+	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.AbstractEndpoint <em>Abstract Endpoint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Endpoint</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractEndpoint
+	 * @generated
+	 */
+	EClass getAbstractEndpoint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.AbstractEndpoint#getEndpointName <em>Endpoint Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Endpoint Name</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractEndpoint#getEndpointName()
+	 * @see #getAbstractEndpoint()
+	 * @generated
+	 */
+	EAttribute getAbstractEndpoint_EndpointName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.AbstractEndpoint#getInterfaceName <em>Interface Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Interface Name</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractEndpoint#getInterfaceName()
+	 * @see #getAbstractEndpoint()
+	 * @generated
+	 */
+	EAttribute getAbstractEndpoint_InterfaceName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.sun.java.xml.ns.jbi.AbstractEndpoint#getServiceName <em>Service Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Service Name</em>'.
+	 * @see com.sun.java.xml.ns.jbi.AbstractEndpoint#getServiceName()
+	 * @see #getAbstractEndpoint()
+	 * @generated
+	 */
+	EAttribute getAbstractEndpoint_ServiceName();
 
 	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.ServiceUnit <em>Service Unit</em>}'.
@@ -2517,39 +1965,6 @@ public interface JbiPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getServiceUnit_Target();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.ServiceUnit#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Group</em>'.
-	 * @see com.sun.java.xml.ns.jbi.ServiceUnit#getGroup()
-	 * @see #getServiceUnit()
-	 * @generated
-	 */
-	EAttribute getServiceUnit_Group();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.ServiceUnit#getAny <em>Any</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any</em>'.
-	 * @see com.sun.java.xml.ns.jbi.ServiceUnit#getAny()
-	 * @see #getServiceUnit()
-	 * @generated
-	 */
-	EAttribute getServiceUnit_Any();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.sun.java.xml.ns.jbi.ServiceUnit#getAny1 <em>Any1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Any1</em>'.
-	 * @see com.sun.java.xml.ns.jbi.ServiceUnit#getAny1()
-	 * @see #getServiceUnit()
-	 * @generated
-	 */
-	EAttribute getServiceUnit_Any1();
 
 	/**
 	 * Returns the meta object for class '{@link com.sun.java.xml.ns.jbi.SharedLibraryType <em>Shared Library Type</em>}'.
@@ -2758,6 +2173,40 @@ public interface JbiPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
+		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.AbstractExtensibleElementImpl <em>Abstract Extensible Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.sun.java.xml.ns.jbi.impl.AbstractExtensibleElementImpl
+		 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getAbstractExtensibleElement()
+		 * @generated
+		 */
+		EClass ABSTRACT_EXTENSIBLE_ELEMENT = eINSTANCE.getAbstractExtensibleElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_EXTENSIBLE_ELEMENT__GROUP = eINSTANCE.getAbstractExtensibleElement_Group();
+
+		/**
+		 * The meta object literal for the '<em><b>Other</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_EXTENSIBLE_ELEMENT__OTHER = eINSTANCE.getAbstractExtensibleElement_Other();
+
+		/**
+		 * The meta object literal for the '<em><b>Local</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL = eINSTANCE.getAbstractExtensibleElement_Local();
+
+		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.ClassPathImpl <em>Class Path</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2768,7 +2217,7 @@ public interface JbiPackage extends EPackage {
 		EClass CLASS_PATH = eINSTANCE.getClassPath();
 
 		/**
-		 * The meta object literal for the '<em><b>Path Element</b></em>' attribute list feature.
+		 * The meta object literal for the '<em><b>Path Element</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2840,30 +2289,6 @@ public interface JbiPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPONENT__SHARED_LIBRARY = eINSTANCE.getComponent_SharedLibrary();
-
-		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute COMPONENT__GROUP = eINSTANCE.getComponent_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute COMPONENT__ANY = eINSTANCE.getComponent_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute COMPONENT__ANY1 = eINSTANCE.getComponent_Any1();
 
 		/**
 		 * The meta object literal for the '<em><b>Bootstrap Class Loader Delegation</b></em>' attribute feature.
@@ -2960,30 +2385,6 @@ public interface JbiPackage extends EPackage {
 		EReference CONNECTIONS__CONNECTION = eINSTANCE.getConnections_Connection();
 
 		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONNECTIONS__GROUP = eINSTANCE.getConnections_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONNECTIONS__ANY = eINSTANCE.getConnections_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONNECTIONS__ANY1 = eINSTANCE.getConnections_Any1();
-
-		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.ConsumerImpl <em>Consumer</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3028,62 +2429,6 @@ public interface JbiPackage extends EPackage {
 		EClass CONSUMES = eINSTANCE.getConsumes();
 
 		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSUMES__GROUP = eINSTANCE.getConsumes_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSUMES__ANY = eINSTANCE.getConsumes_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSUMES__ANY1 = eINSTANCE.getConsumes_Any1();
-
-		/**
-		 * The meta object literal for the '<em><b>Endpoint Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSUMES__ENDPOINT_NAME = eINSTANCE.getConsumes_EndpointName();
-
-		/**
-		 * The meta object literal for the '<em><b>Interface Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSUMES__INTERFACE_NAME = eINSTANCE.getConsumes_InterfaceName();
-
-		/**
-		 * The meta object literal for the '<em><b>Link Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSUMES__LINK_TYPE = eINSTANCE.getConsumes_LinkType();
-
-		/**
-		 * The meta object literal for the '<em><b>Service Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSUMES__SERVICE_NAME = eINSTANCE.getConsumes_ServiceName();
-
-		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.DocumentRootImpl <em>Document Root</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3118,188 +2463,12 @@ public interface JbiPackage extends EPackage {
 		EReference DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = eINSTANCE.getDocumentRoot_XSISchemaLocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Artifacts Zip</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DOCUMENT_ROOT__ARTIFACTS_ZIP = eINSTANCE.getDocumentRoot_ArtifactsZip();
-
-		/**
-		 * The meta object literal for the '<em><b>Bootstrap Class Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DOCUMENT_ROOT__BOOTSTRAP_CLASS_NAME = eINSTANCE.getDocumentRoot_BootstrapClassName();
-
-		/**
-		 * The meta object literal for the '<em><b>Bootstrap Class Path</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__BOOTSTRAP_CLASS_PATH = eINSTANCE.getDocumentRoot_BootstrapClassPath();
-
-		/**
-		 * The meta object literal for the '<em><b>Component</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__COMPONENT = eINSTANCE.getDocumentRoot_Component();
-
-		/**
-		 * The meta object literal for the '<em><b>Component Class Name</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__COMPONENT_CLASS_NAME = eINSTANCE.getDocumentRoot_ComponentClassName();
-
-		/**
-		 * The meta object literal for the '<em><b>Component Class Path</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__COMPONENT_CLASS_PATH = eINSTANCE.getDocumentRoot_ComponentClassPath();
-
-		/**
-		 * The meta object literal for the '<em><b>Component Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DOCUMENT_ROOT__COMPONENT_NAME = eINSTANCE.getDocumentRoot_ComponentName();
-
-		/**
-		 * The meta object literal for the '<em><b>Connection</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__CONNECTION = eINSTANCE.getDocumentRoot_Connection();
-
-		/**
-		 * The meta object literal for the '<em><b>Connections</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__CONNECTIONS = eINSTANCE.getDocumentRoot_Connections();
-
-		/**
-		 * The meta object literal for the '<em><b>Consumer</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__CONSUMER = eINSTANCE.getDocumentRoot_Consumer();
-
-		/**
-		 * The meta object literal for the '<em><b>Consumes</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__CONSUMES = eINSTANCE.getDocumentRoot_Consumes();
-
-		/**
-		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DOCUMENT_ROOT__DESCRIPTION = eINSTANCE.getDocumentRoot_Description();
-
-		/**
-		 * The meta object literal for the '<em><b>Identification</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__IDENTIFICATION = eINSTANCE.getDocumentRoot_Identification();
-
-		/**
 		 * The meta object literal for the '<em><b>Jbi</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference DOCUMENT_ROOT__JBI = eINSTANCE.getDocumentRoot_Jbi();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DOCUMENT_ROOT__NAME = eINSTANCE.getDocumentRoot_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Path Element</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DOCUMENT_ROOT__PATH_ELEMENT = eINSTANCE.getDocumentRoot_PathElement();
-
-		/**
-		 * The meta object literal for the '<em><b>Provider</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__PROVIDER = eINSTANCE.getDocumentRoot_Provider();
-
-		/**
-		 * The meta object literal for the '<em><b>Provides</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__PROVIDES = eINSTANCE.getDocumentRoot_Provides();
-
-		/**
-		 * The meta object literal for the '<em><b>Service Assembly</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__SERVICE_ASSEMBLY = eINSTANCE.getDocumentRoot_ServiceAssembly();
-
-		/**
-		 * The meta object literal for the '<em><b>Services</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__SERVICES = eINSTANCE.getDocumentRoot_Services();
-
-		/**
-		 * The meta object literal for the '<em><b>Service Unit</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__SERVICE_UNIT = eINSTANCE.getDocumentRoot_ServiceUnit();
-
-		/**
-		 * The meta object literal for the '<em><b>Shared Library Class Path</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__SHARED_LIBRARY_CLASS_PATH = eINSTANCE.getDocumentRoot_SharedLibraryClassPath();
-
-		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DOCUMENT_ROOT__TARGET = eINSTANCE.getDocumentRoot_Target();
 
 		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.IdentificationImpl <em>Identification</em>}' class.
@@ -3326,30 +2495,6 @@ public interface JbiPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute IDENTIFICATION__DESCRIPTION = eINSTANCE.getIdentification_Description();
-
-		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute IDENTIFICATION__GROUP = eINSTANCE.getIdentification_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute IDENTIFICATION__ANY = eINSTANCE.getIdentification_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute IDENTIFICATION__ANY1 = eINSTANCE.getIdentification_Any1();
 
 		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.JbiImpl <em>Jbi</em>}' class.
@@ -3438,54 +2583,6 @@ public interface JbiPackage extends EPackage {
 		EClass PROVIDES = eINSTANCE.getProvides();
 
 		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PROVIDES__GROUP = eINSTANCE.getProvides_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PROVIDES__ANY = eINSTANCE.getProvides_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PROVIDES__ANY1 = eINSTANCE.getProvides_Any1();
-
-		/**
-		 * The meta object literal for the '<em><b>Endpoint Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PROVIDES__ENDPOINT_NAME = eINSTANCE.getProvides_EndpointName();
-
-		/**
-		 * The meta object literal for the '<em><b>Interface Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PROVIDES__INTERFACE_NAME = eINSTANCE.getProvides_InterfaceName();
-
-		/**
-		 * The meta object literal for the '<em><b>Service Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PROVIDES__SERVICE_NAME = eINSTANCE.getProvides_ServiceName();
-
-		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.ServiceAssemblyImpl <em>Service Assembly</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3520,30 +2617,6 @@ public interface JbiPackage extends EPackage {
 		EReference SERVICE_ASSEMBLY__CONNECTIONS = eINSTANCE.getServiceAssembly_Connections();
 
 		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICE_ASSEMBLY__GROUP = eINSTANCE.getServiceAssembly_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICE_ASSEMBLY__ANY = eINSTANCE.getServiceAssembly_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICE_ASSEMBLY__ANY1 = eINSTANCE.getServiceAssembly_Any1();
-
-		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.ServicesImpl <em>Services</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3570,36 +2643,46 @@ public interface JbiPackage extends EPackage {
 		EReference SERVICES__CONSUMES = eINSTANCE.getServices_Consumes();
 
 		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICES__GROUP = eINSTANCE.getServices_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICES__ANY = eINSTANCE.getServices_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICES__ANY1 = eINSTANCE.getServices_Any1();
-
-		/**
 		 * The meta object literal for the '<em><b>Binding Component</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute SERVICES__BINDING_COMPONENT = eINSTANCE.getServices_BindingComponent();
+
+		/**
+		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.AbstractEndpointImpl <em>Abstract Endpoint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.sun.java.xml.ns.jbi.impl.AbstractEndpointImpl
+		 * @see com.sun.java.xml.ns.jbi.impl.JbiPackageImpl#getAbstractEndpoint()
+		 * @generated
+		 */
+		EClass ABSTRACT_ENDPOINT = eINSTANCE.getAbstractEndpoint();
+
+		/**
+		 * The meta object literal for the '<em><b>Endpoint Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_ENDPOINT__ENDPOINT_NAME = eINSTANCE.getAbstractEndpoint_EndpointName();
+
+		/**
+		 * The meta object literal for the '<em><b>Interface Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_ENDPOINT__INTERFACE_NAME = eINSTANCE.getAbstractEndpoint_InterfaceName();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_ENDPOINT__SERVICE_NAME = eINSTANCE.getAbstractEndpoint_ServiceName();
 
 		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.ServiceUnitImpl <em>Service Unit</em>}' class.
@@ -3626,30 +2709,6 @@ public interface JbiPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SERVICE_UNIT__TARGET = eINSTANCE.getServiceUnit_Target();
-
-		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICE_UNIT__GROUP = eINSTANCE.getServiceUnit_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Any</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICE_UNIT__ANY = eINSTANCE.getServiceUnit_Any();
-
-		/**
-		 * The meta object literal for the '<em><b>Any1</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SERVICE_UNIT__ANY1 = eINSTANCE.getServiceUnit_Any1();
 
 		/**
 		 * The meta object literal for the '{@link com.sun.java.xml.ns.jbi.impl.SharedLibraryTypeImpl <em>Shared Library Type</em>}' class.

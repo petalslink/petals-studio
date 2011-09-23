@@ -40,7 +40,7 @@ import com.sun.java.xml.ns.jbi.Provides;
  * @generated
  */
 public class ProvidesItemProvider
-extends ItemProviderAdapter
+extends AbstractEndpointItemProvider
 implements
 IEditingDomainItemProvider,
 IStructuredItemContentProvider,
@@ -52,7 +52,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ProvidesItemProvider(AdapterFactory adapterFactory) {
@@ -67,110 +66,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addEndpointNamePropertyDescriptor(object);
-			addInterfaceNamePropertyDescriptor(object);
-			addServiceNamePropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Endpoint Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEndpointNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Provides_endpointName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Provides_endpointName_feature", "_UI_Provides_type"),
-								JbiPackage.Literals.PROVIDES__ENDPOINT_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Interface Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInterfaceNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Provides_interfaceName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Provides_interfaceName_feature", "_UI_Provides_type"),
-								JbiPackage.Literals.PROVIDES__INTERFACE_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Service Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addServiceNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Provides_serviceName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Provides_serviceName_feature", "_UI_Provides_type"),
-								JbiPackage.Literals.PROVIDES__SERVICE_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.PROVIDES__GROUP);
-		}
-		return this.childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -194,8 +94,8 @@ IItemPropertySource {
 	public String getText(Object object) {
 		String label = ((Provides)object).getEndpointName();
 		return label == null || label.length() == 0 ?
-					getString("_UI_Provides_type") :
-						getString("_UI_Provides_type") + " " + label;
+			getString("_UI_Provides_type") :
+			getString("_UI_Provides_type") + " " + label;
 	}
 
 	/**
@@ -208,17 +108,6 @@ IItemPropertySource {
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(Provides.class)) {
-		case JbiPackage.PROVIDES__ENDPOINT_NAME:
-		case JbiPackage.PROVIDES__INTERFACE_NAME:
-		case JbiPackage.PROVIDES__SERVICE_NAME:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case JbiPackage.PROVIDES__GROUP:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -232,17 +121,6 @@ IItemPropertySource {
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return JbiEditPlugin.INSTANCE;
 	}
 
 }

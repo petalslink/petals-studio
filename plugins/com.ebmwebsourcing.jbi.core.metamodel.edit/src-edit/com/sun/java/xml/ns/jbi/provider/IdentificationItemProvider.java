@@ -40,7 +40,7 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
  * @generated
  */
 public class IdentificationItemProvider
-extends ItemProviderAdapter
+extends AbstractExtensibleElementItemProvider
 implements
 IEditingDomainItemProvider,
 IStructuredItemContentProvider,
@@ -52,7 +52,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public IdentificationItemProvider(AdapterFactory adapterFactory) {
@@ -67,13 +66,13 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -83,19 +82,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Identification_name_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Identification_name_feature", "_UI_Identification_type"),
-								JbiPackage.Literals.IDENTIFICATION__NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Identification_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Identification_name_feature", "_UI_Identification_type"),
+				 JbiPackage.Literals.IDENTIFICATION__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -105,49 +104,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addDescriptionPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Identification_description_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Identification_description_feature", "_UI_Identification_type"),
-								JbiPackage.Literals.IDENTIFICATION__DESCRIPTION,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.IDENTIFICATION__GROUP);
-		}
-		return this.childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Identification_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Identification_description_feature", "_UI_Identification_type"),
+				 JbiPackage.Literals.IDENTIFICATION__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -171,8 +140,8 @@ IItemPropertySource {
 	public String getText(Object object) {
 		String label = ((Identification)object).getName();
 		return label == null || label.length() == 0 ?
-					getString("_UI_Identification_type") :
-						getString("_UI_Identification_type") + " " + label;
+			getString("_UI_Identification_type") :
+			getString("_UI_Identification_type") + " " + label;
 	}
 
 	/**
@@ -187,13 +156,10 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Identification.class)) {
-		case JbiPackage.IDENTIFICATION__NAME:
-		case JbiPackage.IDENTIFICATION__DESCRIPTION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case JbiPackage.IDENTIFICATION__GROUP:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.IDENTIFICATION__NAME:
+			case JbiPackage.IDENTIFICATION__DESCRIPTION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -208,17 +174,6 @@ IItemPropertySource {
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return JbiEditPlugin.INSTANCE;
 	}
 
 }

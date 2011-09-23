@@ -26,9 +26,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.sun.java.xml.ns.jbi.Connections#getConnection <em>Connection</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.Connections#getGroup <em>Group</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.Connections#getAny <em>Any</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.Connections#getAny1 <em>Any1</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,7 +33,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @model extendedMetaData="name='Connections' kind='elementOnly'"
  * @generated
  */
-public interface Connections extends EObject {
+public interface Connections extends AbstractExtensibleElement {
 	/**
 	 * Returns the value of the '<em><b>Connection</b></em>' containment reference list.
 	 * The list contents are of type {@link com.sun.java.xml.ns.jbi.Connection}.
@@ -53,56 +50,5 @@ public interface Connections extends EObject {
 	 * @generated
 	 */
 	EList<Connection> getConnection();
-
-	/**
-	 * Returns the value of the '<em><b>Group</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Group</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Group</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getConnections_Group()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-	 *        extendedMetaData="kind='group' name='group:1'"
-	 * @generated
-	 */
-	FeatureMap getGroup();
-
-	/**
-	 * Returns the value of the '<em><b>Any</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Any</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Any</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getConnections_Any()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='elementWildcard' wildcards='##other' name=':2' processing='skip' group='#group:1'"
-	 * @generated
-	 */
-	FeatureMap getAny();
-
-	/**
-	 * Returns the value of the '<em><b>Any1</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Any1</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Any1</em>' attribute list.
-	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getConnections_Any1()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='elementWildcard' wildcards='##local' name=':3' processing='skip' group='#group:1'"
-	 * @generated
-	 */
-	FeatureMap getAny1();
 
 } // Connections

@@ -39,7 +39,7 @@ import com.sun.java.xml.ns.jbi.ServiceAssembly;
  * @generated
  */
 public class ServiceAssemblyItemProvider
-extends ItemProviderAdapter
+extends AbstractExtensibleElementItemProvider
 implements
 IEditingDomainItemProvider,
 IStructuredItemContentProvider,
@@ -51,7 +51,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ServiceAssemblyItemProvider(AdapterFactory adapterFactory) {
@@ -66,11 +65,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -83,14 +82,13 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICE_ASSEMBLY__IDENTIFICATION);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICE_ASSEMBLY__SERVICE_UNIT);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICE_ASSEMBLY__CONNECTIONS);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICE_ASSEMBLY__GROUP);
+			childrenFeatures.add(JbiPackage.Literals.SERVICE_ASSEMBLY__IDENTIFICATION);
+			childrenFeatures.add(JbiPackage.Literals.SERVICE_ASSEMBLY__SERVICE_UNIT);
+			childrenFeatures.add(JbiPackage.Literals.SERVICE_ASSEMBLY__CONNECTIONS);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -140,12 +138,11 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ServiceAssembly.class)) {
-		case JbiPackage.SERVICE_ASSEMBLY__IDENTIFICATION:
-		case JbiPackage.SERVICE_ASSEMBLY__SERVICE_UNIT:
-		case JbiPackage.SERVICE_ASSEMBLY__CONNECTIONS:
-		case JbiPackage.SERVICE_ASSEMBLY__GROUP:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.SERVICE_ASSEMBLY__IDENTIFICATION:
+			case JbiPackage.SERVICE_ASSEMBLY__SERVICE_UNIT:
+			case JbiPackage.SERVICE_ASSEMBLY__CONNECTIONS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -162,30 +159,19 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SERVICE_ASSEMBLY__IDENTIFICATION,
-								JbiFactory.eINSTANCE.createIdentification()));
+			(createChildParameter
+				(JbiPackage.Literals.SERVICE_ASSEMBLY__IDENTIFICATION,
+				 JbiFactory.eINSTANCE.createIdentification()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SERVICE_ASSEMBLY__SERVICE_UNIT,
-								JbiFactory.eINSTANCE.createServiceUnit()));
+			(createChildParameter
+				(JbiPackage.Literals.SERVICE_ASSEMBLY__SERVICE_UNIT,
+				 JbiFactory.eINSTANCE.createServiceUnit()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SERVICE_ASSEMBLY__CONNECTIONS,
-								JbiFactory.eINSTANCE.createConnections()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return JbiEditPlugin.INSTANCE;
+			(createChildParameter
+				(JbiPackage.Literals.SERVICE_ASSEMBLY__CONNECTIONS,
+				 JbiFactory.eINSTANCE.createConnections()));
 	}
 
 }

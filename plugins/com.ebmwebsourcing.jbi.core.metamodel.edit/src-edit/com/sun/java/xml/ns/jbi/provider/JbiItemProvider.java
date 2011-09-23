@@ -54,7 +54,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public JbiItemProvider(AdapterFactory adapterFactory) {
@@ -69,12 +68,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addVersionPropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -84,19 +83,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addVersionPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Jbi_version_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Jbi_version_feature", "_UI_Jbi_type"),
-								JbiPackage.Literals.JBI__VERSION,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Jbi_version_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Jbi_version_feature", "_UI_Jbi_type"),
+				 JbiPackage.Literals.JBI__VERSION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -109,14 +108,14 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.JBI__COMPONENT);
-			this.childrenFeatures.add(JbiPackage.Literals.JBI__SHARED_LIBRARY);
-			this.childrenFeatures.add(JbiPackage.Literals.JBI__SERVICE_ASSEMBLY);
-			this.childrenFeatures.add(JbiPackage.Literals.JBI__SERVICES);
+			childrenFeatures.add(JbiPackage.Literals.JBI__COMPONENT);
+			childrenFeatures.add(JbiPackage.Literals.JBI__SHARED_LIBRARY);
+			childrenFeatures.add(JbiPackage.Literals.JBI__SERVICE_ASSEMBLY);
+			childrenFeatures.add(JbiPackage.Literals.JBI__SERVICES);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -154,8 +153,8 @@ IItemPropertySource {
 		BigDecimal labelValue = ((Jbi)object).getVersion();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
-					getString("_UI_Jbi_type") :
-						getString("_UI_Jbi_type") + " " + label;
+			getString("_UI_Jbi_type") :
+			getString("_UI_Jbi_type") + " " + label;
 	}
 
 	/**
@@ -170,15 +169,15 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Jbi.class)) {
-		case JbiPackage.JBI__VERSION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case JbiPackage.JBI__COMPONENT:
-		case JbiPackage.JBI__SHARED_LIBRARY:
-		case JbiPackage.JBI__SERVICE_ASSEMBLY:
-		case JbiPackage.JBI__SERVICES:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.JBI__VERSION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case JbiPackage.JBI__COMPONENT:
+			case JbiPackage.JBI__SHARED_LIBRARY:
+			case JbiPackage.JBI__SERVICE_ASSEMBLY:
+			case JbiPackage.JBI__SERVICES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -195,24 +194,24 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.JBI__COMPONENT,
-								JbiFactory.eINSTANCE.createComponent()));
+			(createChildParameter
+				(JbiPackage.Literals.JBI__COMPONENT,
+				 JbiFactory.eINSTANCE.createComponent()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.JBI__SHARED_LIBRARY,
-								JbiFactory.eINSTANCE.createSharedLibraryType()));
+			(createChildParameter
+				(JbiPackage.Literals.JBI__SHARED_LIBRARY,
+				 JbiFactory.eINSTANCE.createSharedLibraryType()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.JBI__SERVICE_ASSEMBLY,
-								JbiFactory.eINSTANCE.createServiceAssembly()));
+			(createChildParameter
+				(JbiPackage.Literals.JBI__SERVICE_ASSEMBLY,
+				 JbiFactory.eINSTANCE.createServiceAssembly()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.JBI__SERVICES,
-								JbiFactory.eINSTANCE.createServices()));
+			(createChildParameter
+				(JbiPackage.Literals.JBI__SERVICES,
+				 JbiFactory.eINSTANCE.createServices()));
 	}
 
 	/**

@@ -41,7 +41,7 @@ import com.sun.java.xml.ns.jbi.Services;
  * @generated
  */
 public class ServicesItemProvider
-extends ItemProviderAdapter
+extends AbstractExtensibleElementItemProvider
 implements
 IEditingDomainItemProvider,
 IStructuredItemContentProvider,
@@ -53,7 +53,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ServicesItemProvider(AdapterFactory adapterFactory) {
@@ -68,12 +67,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addBindingComponentPropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -83,19 +82,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addBindingComponentPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_Services_bindingComponent_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_Services_bindingComponent_feature", "_UI_Services_type"),
-								JbiPackage.Literals.SERVICES__BINDING_COMPONENT,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Services_bindingComponent_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Services_bindingComponent_feature", "_UI_Services_type"),
+				 JbiPackage.Literals.SERVICES__BINDING_COMPONENT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -108,13 +107,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICES__PROVIDES);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICES__CONSUMES);
-			this.childrenFeatures.add(JbiPackage.Literals.SERVICES__GROUP);
+			childrenFeatures.add(JbiPackage.Literals.SERVICES__PROVIDES);
+			childrenFeatures.add(JbiPackage.Literals.SERVICES__CONSUMES);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -168,14 +166,13 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Services.class)) {
-		case JbiPackage.SERVICES__BINDING_COMPONENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case JbiPackage.SERVICES__PROVIDES:
-		case JbiPackage.SERVICES__CONSUMES:
-		case JbiPackage.SERVICES__GROUP:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.SERVICES__BINDING_COMPONENT:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case JbiPackage.SERVICES__PROVIDES:
+			case JbiPackage.SERVICES__CONSUMES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -192,25 +189,14 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SERVICES__PROVIDES,
-								JbiFactory.eINSTANCE.createProvides()));
+			(createChildParameter
+				(JbiPackage.Literals.SERVICES__PROVIDES,
+				 JbiFactory.eINSTANCE.createProvides()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.SERVICES__CONSUMES,
-								JbiFactory.eINSTANCE.createConsumes()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return JbiEditPlugin.INSTANCE;
+			(createChildParameter
+				(JbiPackage.Literals.SERVICES__CONSUMES,
+				 JbiFactory.eINSTANCE.createConsumes()));
 	}
 
 }

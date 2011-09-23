@@ -36,15 +36,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.IdentificationImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.IdentificationImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.IdentificationImpl#getGroup <em>Group</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.IdentificationImpl#getAny <em>Any</em>}</li>
- *   <li>{@link com.sun.java.xml.ns.jbi.impl.IdentificationImpl#getAny1 <em>Any1</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class IdentificationImpl extends EObjectImpl implements Identification {
+public class IdentificationImpl extends AbstractExtensibleElementImpl implements Identification {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -84,16 +81,6 @@ public class IdentificationImpl extends EObjectImpl implements Identification {
 	 * @ordered
 	 */
 	protected String description = DESCRIPTION_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGroup()
-	 * @generated
-	 * @ordered
-	 */
-	protected FeatureMap group;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -161,54 +148,6 @@ public class IdentificationImpl extends EObjectImpl implements Identification {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getGroup() {
-		if (group == null) {
-			group = new BasicFeatureMap(this, JbiPackage.IDENTIFICATION__GROUP);
-		}
-		return group;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getAny() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.IDENTIFICATION__ANY);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getAny1() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.IDENTIFICATION__ANY1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case JbiPackage.IDENTIFICATION__GROUP:
-				return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
-			case JbiPackage.IDENTIFICATION__ANY:
-				return ((InternalEList<?>)getAny()).basicRemove(otherEnd, msgs);
-			case JbiPackage.IDENTIFICATION__ANY1:
-				return ((InternalEList<?>)getAny1()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -216,15 +155,6 @@ public class IdentificationImpl extends EObjectImpl implements Identification {
 				return getName();
 			case JbiPackage.IDENTIFICATION__DESCRIPTION:
 				return getDescription();
-			case JbiPackage.IDENTIFICATION__GROUP:
-				if (coreType) return getGroup();
-				return ((FeatureMap.Internal)getGroup()).getWrapper();
-			case JbiPackage.IDENTIFICATION__ANY:
-				if (coreType) return getAny();
-				return ((FeatureMap.Internal)getAny()).getWrapper();
-			case JbiPackage.IDENTIFICATION__ANY1:
-				if (coreType) return getAny1();
-				return ((FeatureMap.Internal)getAny1()).getWrapper();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -242,15 +172,6 @@ public class IdentificationImpl extends EObjectImpl implements Identification {
 				return;
 			case JbiPackage.IDENTIFICATION__DESCRIPTION:
 				setDescription((String)newValue);
-				return;
-			case JbiPackage.IDENTIFICATION__GROUP:
-				((FeatureMap.Internal)getGroup()).set(newValue);
-				return;
-			case JbiPackage.IDENTIFICATION__ANY:
-				((FeatureMap.Internal)getAny()).set(newValue);
-				return;
-			case JbiPackage.IDENTIFICATION__ANY1:
-				((FeatureMap.Internal)getAny1()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -270,15 +191,6 @@ public class IdentificationImpl extends EObjectImpl implements Identification {
 			case JbiPackage.IDENTIFICATION__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
-			case JbiPackage.IDENTIFICATION__GROUP:
-				getGroup().clear();
-				return;
-			case JbiPackage.IDENTIFICATION__ANY:
-				getAny().clear();
-				return;
-			case JbiPackage.IDENTIFICATION__ANY1:
-				getAny1().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -295,12 +207,6 @@ public class IdentificationImpl extends EObjectImpl implements Identification {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case JbiPackage.IDENTIFICATION__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case JbiPackage.IDENTIFICATION__GROUP:
-				return group != null && !group.isEmpty();
-			case JbiPackage.IDENTIFICATION__ANY:
-				return !getAny().isEmpty();
-			case JbiPackage.IDENTIFICATION__ANY1:
-				return !getAny1().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -319,8 +225,6 @@ public class IdentificationImpl extends EObjectImpl implements Identification {
 		result.append(name);
 		result.append(", description: ");
 		result.append(description);
-		result.append(", group: ");
-		result.append(group);
 		result.append(')');
 		return result.toString();
 	}

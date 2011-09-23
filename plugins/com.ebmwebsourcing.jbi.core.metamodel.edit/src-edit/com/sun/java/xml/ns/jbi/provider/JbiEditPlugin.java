@@ -13,6 +13,7 @@ package com.sun.java.xml.ns.jbi.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 
 /**
  * This is the central singleton for the Jbi edit plugin.
@@ -45,8 +46,9 @@ public final class JbiEditPlugin extends EMFPlugin {
 	 */
 	public JbiEditPlugin() {
 		super
-		(new ResourceLocator [] {
-		});
+		  (new ResourceLocator [] {
+		     EcoreEditPlugin.INSTANCE,
+		   });
 	}
 
 	/**

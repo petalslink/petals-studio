@@ -55,7 +55,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ComponentClassNameItemProvider(AdapterFactory adapterFactory) {
@@ -70,12 +69,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addDescriptionPropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -85,19 +84,19 @@ IItemPropertySource {
 	 * @generated
 	 */
 	protected void addDescriptionPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_ComponentClassName_description_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_ComponentClassName_description_feature", "_UI_ComponentClassName_type"),
-								JbiPackage.Literals.COMPONENT_CLASS_NAME__DESCRIPTION,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComponentClassName_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComponentClassName_description_feature", "_UI_ComponentClassName_type"),
+				 JbiPackage.Literals.COMPONENT_CLASS_NAME__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -110,11 +109,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED);
+			childrenFeatures.add(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -152,8 +151,8 @@ IItemPropertySource {
 		Object labelValue = ((ComponentClassName)object).getDescription();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
-					getString("_UI_ComponentClassName_type") :
-						getString("_UI_ComponentClassName_type") + " " + label;
+			getString("_UI_ComponentClassName_type") :
+			getString("_UI_ComponentClassName_type") + " " + label;
 	}
 
 	/**
@@ -168,12 +167,12 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ComponentClassName.class)) {
-		case JbiPackage.COMPONENT_CLASS_NAME__DESCRIPTION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case JbiPackage.COMPONENT_CLASS_NAME__MIXED:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.COMPONENT_CLASS_NAME__DESCRIPTION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case JbiPackage.COMPONENT_CLASS_NAME__MIXED:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -190,32 +189,32 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
-								FeatureMapUtil.createEntry
-								(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__COMMENT,
-								"")));
+			(createChildParameter
+				(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
+				 FeatureMapUtil.createEntry
+					(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__COMMENT,
+					 "")));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
-								FeatureMapUtil.createEntry
-								(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__TEXT,
-								"")));
+			(createChildParameter
+				(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
+				 FeatureMapUtil.createEntry
+					(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__TEXT,
+					 "")));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
-								FeatureMapUtil.createEntry
-								(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__PROCESSING_INSTRUCTION,
-											XMLTypeFactory.eINSTANCE.createProcessingInstruction())));
+			(createChildParameter
+				(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
+				 FeatureMapUtil.createEntry
+					(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__PROCESSING_INSTRUCTION,
+					 XMLTypeFactory.eINSTANCE.createProcessingInstruction())));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
-								FeatureMapUtil.createEntry
-								(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__CDATA,
-								"")));
+			(createChildParameter
+				(JbiPackage.Literals.COMPONENT_CLASS_NAME__MIXED,
+				 FeatureMapUtil.createEntry
+					(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__CDATA,
+					 "")));
 	}
 
 	/**

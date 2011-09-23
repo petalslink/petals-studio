@@ -53,7 +53,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public DocumentRootItemProvider(AdapterFactory adapterFactory) {
@@ -68,149 +67,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addArtifactsZipPropertyDescriptor(object);
-			addBootstrapClassNamePropertyDescriptor(object);
-			addComponentNamePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
-			addNamePropertyDescriptor(object);
-			addPathElementPropertyDescriptor(object);
 		}
-		return this.itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Artifacts Zip feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addArtifactsZipPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_DocumentRoot_artifactsZip_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_DocumentRoot_artifactsZip_feature", "_UI_DocumentRoot_type"),
-								JbiPackage.Literals.DOCUMENT_ROOT__ARTIFACTS_ZIP,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Bootstrap Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addBootstrapClassNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_DocumentRoot_bootstrapClassName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_DocumentRoot_bootstrapClassName_feature", "_UI_DocumentRoot_type"),
-								JbiPackage.Literals.DOCUMENT_ROOT__BOOTSTRAP_CLASS_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Component Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addComponentNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_DocumentRoot_componentName_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_DocumentRoot_componentName_feature", "_UI_DocumentRoot_type"),
-								JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT_NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Description feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDescriptionPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_DocumentRoot_description_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_DocumentRoot_description_feature", "_UI_DocumentRoot_type"),
-								JbiPackage.Literals.DOCUMENT_ROOT__DESCRIPTION,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_DocumentRoot_name_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_DocumentRoot_name_feature", "_UI_DocumentRoot_type"),
-								JbiPackage.Literals.DOCUMENT_ROOT__NAME,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Path Element feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPathElementPropertyDescriptor(Object object) {
-		this.itemPropertyDescriptors.add
-		(createItemPropertyDescriptor
-					(((ComposeableAdapterFactory)this.adapterFactory).getRootAdapterFactory(),
-								getResourceLocator(),
-								getString("_UI_DocumentRoot_pathElement_feature"),
-								getString("_UI_PropertyDescriptor_description", "_UI_DocumentRoot_pathElement_feature", "_UI_DocumentRoot_type"),
-								JbiPackage.Literals.DOCUMENT_ROOT__PATH_ELEMENT,
-								true,
-								false,
-								false,
-								ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-								null,
-								null));
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -223,27 +84,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__BOOTSTRAP_CLASS_PATH);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT_CLASS_NAME);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT_CLASS_PATH);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__CONNECTION);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__CONNECTIONS);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__CONSUMER);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__CONSUMES);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__IDENTIFICATION);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__JBI);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__PROVIDER);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__PROVIDES);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__SERVICE_ASSEMBLY);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__SERVICES);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__SERVICE_UNIT);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__SHARED_LIBRARY_CLASS_PATH);
-			this.childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__TARGET);
+			childrenFeatures.add(JbiPackage.Literals.DOCUMENT_ROOT__JBI);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -278,10 +123,7 @@ IItemPropertySource {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((DocumentRoot)object).getName();
-		return label == null || label.length() == 0 ?
-					getString("_UI_DocumentRoot_type") :
-						getString("_UI_DocumentRoot_type") + " " + label;
+		return getString("_UI_DocumentRoot_type");
 	}
 
 	/**
@@ -296,33 +138,9 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DocumentRoot.class)) {
-		case JbiPackage.DOCUMENT_ROOT__ARTIFACTS_ZIP:
-		case JbiPackage.DOCUMENT_ROOT__BOOTSTRAP_CLASS_NAME:
-		case JbiPackage.DOCUMENT_ROOT__COMPONENT_NAME:
-		case JbiPackage.DOCUMENT_ROOT__DESCRIPTION:
-		case JbiPackage.DOCUMENT_ROOT__NAME:
-		case JbiPackage.DOCUMENT_ROOT__PATH_ELEMENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case JbiPackage.DOCUMENT_ROOT__BOOTSTRAP_CLASS_PATH:
-		case JbiPackage.DOCUMENT_ROOT__COMPONENT:
-		case JbiPackage.DOCUMENT_ROOT__COMPONENT_CLASS_NAME:
-		case JbiPackage.DOCUMENT_ROOT__COMPONENT_CLASS_PATH:
-		case JbiPackage.DOCUMENT_ROOT__CONNECTION:
-		case JbiPackage.DOCUMENT_ROOT__CONNECTIONS:
-		case JbiPackage.DOCUMENT_ROOT__CONSUMER:
-		case JbiPackage.DOCUMENT_ROOT__CONSUMES:
-		case JbiPackage.DOCUMENT_ROOT__IDENTIFICATION:
-		case JbiPackage.DOCUMENT_ROOT__JBI:
-		case JbiPackage.DOCUMENT_ROOT__PROVIDER:
-		case JbiPackage.DOCUMENT_ROOT__PROVIDES:
-		case JbiPackage.DOCUMENT_ROOT__SERVICE_ASSEMBLY:
-		case JbiPackage.DOCUMENT_ROOT__SERVICES:
-		case JbiPackage.DOCUMENT_ROOT__SERVICE_UNIT:
-		case JbiPackage.DOCUMENT_ROOT__SHARED_LIBRARY_CLASS_PATH:
-		case JbiPackage.DOCUMENT_ROOT__TARGET:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.DOCUMENT_ROOT__JBI:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -339,113 +157,9 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__BOOTSTRAP_CLASS_PATH,
-								JbiFactory.eINSTANCE.createClassPath()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT,
-								JbiFactory.eINSTANCE.createComponent()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT_CLASS_NAME,
-								JbiFactory.eINSTANCE.createComponentClassName()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT_CLASS_PATH,
-								JbiFactory.eINSTANCE.createClassPath()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__CONNECTION,
-								JbiFactory.eINSTANCE.createConnection()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__CONNECTIONS,
-								JbiFactory.eINSTANCE.createConnections()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__CONSUMER,
-								JbiFactory.eINSTANCE.createConsumer()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__CONSUMES,
-								JbiFactory.eINSTANCE.createConsumes()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__IDENTIFICATION,
-								JbiFactory.eINSTANCE.createIdentification()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__JBI,
-								JbiFactory.eINSTANCE.createJbi()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__PROVIDER,
-								JbiFactory.eINSTANCE.createProvider()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__PROVIDES,
-								JbiFactory.eINSTANCE.createProvides()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__SERVICE_ASSEMBLY,
-								JbiFactory.eINSTANCE.createServiceAssembly()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__SERVICES,
-								JbiFactory.eINSTANCE.createServices()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__SERVICE_UNIT,
-								JbiFactory.eINSTANCE.createServiceUnit()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__SHARED_LIBRARY_CLASS_PATH,
-								JbiFactory.eINSTANCE.createClassPath()));
-
-		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.DOCUMENT_ROOT__TARGET,
-								JbiFactory.eINSTANCE.createTarget()));
-	}
-
-	/**
-	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-		Object childFeature = feature;
-		Object childObject = child;
-
-		boolean qualify =
-			childFeature == JbiPackage.Literals.DOCUMENT_ROOT__BOOTSTRAP_CLASS_PATH ||
-			childFeature == JbiPackage.Literals.DOCUMENT_ROOT__COMPONENT_CLASS_PATH ||
-			childFeature == JbiPackage.Literals.DOCUMENT_ROOT__SHARED_LIBRARY_CLASS_PATH;
-
-		if (qualify) {
-			return getString
-			("_UI_CreateChild_text2",
-						new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-		}
-		return super.getCreateChildText(owner, feature, child, selection);
+			(createChildParameter
+				(JbiPackage.Literals.DOCUMENT_ROOT__JBI,
+				 JbiFactory.eINSTANCE.createJbi()));
 	}
 
 	/**

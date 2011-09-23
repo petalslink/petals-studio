@@ -51,7 +51,6 @@ IItemPropertySource {
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param adapterFactory
 	 * @generated
 	 */
 	public ConnectionItemProvider(AdapterFactory adapterFactory) {
@@ -66,11 +65,11 @@ IItemPropertySource {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (this.itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 		}
-		return this.itemPropertyDescriptors;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -83,12 +82,12 @@ IItemPropertySource {
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (this.childrenFeatures == null) {
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			this.childrenFeatures.add(JbiPackage.Literals.CONNECTION__CONSUMER);
-			this.childrenFeatures.add(JbiPackage.Literals.CONNECTION__PROVIDER);
+			childrenFeatures.add(JbiPackage.Literals.CONNECTION__CONSUMER);
+			childrenFeatures.add(JbiPackage.Literals.CONNECTION__PROVIDER);
 		}
-		return this.childrenFeatures;
+		return childrenFeatures;
 	}
 
 	/**
@@ -138,10 +137,10 @@ IItemPropertySource {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Connection.class)) {
-		case JbiPackage.CONNECTION__CONSUMER:
-		case JbiPackage.CONNECTION__PROVIDER:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case JbiPackage.CONNECTION__CONSUMER:
+			case JbiPackage.CONNECTION__PROVIDER:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -158,14 +157,14 @@ IItemPropertySource {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.CONNECTION__CONSUMER,
-								JbiFactory.eINSTANCE.createConsumer()));
+			(createChildParameter
+				(JbiPackage.Literals.CONNECTION__CONSUMER,
+				 JbiFactory.eINSTANCE.createConsumer()));
 
 		newChildDescriptors.add
-		(createChildParameter
-					(JbiPackage.Literals.CONNECTION__PROVIDER,
-								JbiFactory.eINSTANCE.createProvider()));
+			(createChildParameter
+				(JbiPackage.Literals.CONNECTION__PROVIDER,
+				 JbiFactory.eINSTANCE.createProvider()));
 	}
 
 	/**

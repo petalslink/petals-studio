@@ -72,11 +72,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 * @generated
 	 */
 	public JbiItemProviderAdapterFactory() {
-		this.supportedTypes.add(IEditingDomainItemProvider.class);
-		this.supportedTypes.add(IStructuredItemContentProvider.class);
-		this.supportedTypes.add(ITreeItemContentProvider.class);
-		this.supportedTypes.add(IItemLabelProvider.class);
-		this.supportedTypes.add(IItemPropertySource.class);
+		supportedTypes.add(IEditingDomainItemProvider.class);
+		supportedTypes.add(IStructuredItemContentProvider.class);
+		supportedTypes.add(ITreeItemContentProvider.class);
+		supportedTypes.add(IItemLabelProvider.class);
+		supportedTypes.add(IItemPropertySource.class);
 	}
 
 	/**
@@ -95,11 +95,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createClassPathAdapter() {
-		if (this.classPathItemProvider == null) {
-			this.classPathItemProvider = new ClassPathItemProvider(this);
+		if (classPathItemProvider == null) {
+			classPathItemProvider = new ClassPathItemProvider(this);
 		}
 
-		return this.classPathItemProvider;
+		return classPathItemProvider;
 	}
 
 	/**
@@ -118,11 +118,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createComponentAdapter() {
-		if (this.componentItemProvider == null) {
-			this.componentItemProvider = new ComponentItemProvider(this);
+		if (componentItemProvider == null) {
+			componentItemProvider = new ComponentItemProvider(this);
 		}
 
-		return this.componentItemProvider;
+		return componentItemProvider;
 	}
 
 	/**
@@ -141,11 +141,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createComponentClassNameAdapter() {
-		if (this.componentClassNameItemProvider == null) {
-			this.componentClassNameItemProvider = new ComponentClassNameItemProvider(this);
+		if (componentClassNameItemProvider == null) {
+			componentClassNameItemProvider = new ComponentClassNameItemProvider(this);
 		}
 
-		return this.componentClassNameItemProvider;
+		return componentClassNameItemProvider;
 	}
 
 	/**
@@ -164,11 +164,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createConnectionAdapter() {
-		if (this.connectionItemProvider == null) {
-			this.connectionItemProvider = new ConnectionItemProvider(this);
+		if (connectionItemProvider == null) {
+			connectionItemProvider = new ConnectionItemProvider(this);
 		}
 
-		return this.connectionItemProvider;
+		return connectionItemProvider;
 	}
 
 	/**
@@ -187,11 +187,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createConnectionsAdapter() {
-		if (this.connectionsItemProvider == null) {
-			this.connectionsItemProvider = new ConnectionsItemProvider(this);
+		if (connectionsItemProvider == null) {
+			connectionsItemProvider = new ConnectionsItemProvider(this);
 		}
 
-		return this.connectionsItemProvider;
+		return connectionsItemProvider;
 	}
 
 	/**
@@ -210,11 +210,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createConsumerAdapter() {
-		if (this.consumerItemProvider == null) {
-			this.consumerItemProvider = new ConsumerItemProvider(this);
+		if (consumerItemProvider == null) {
+			consumerItemProvider = new ConsumerItemProvider(this);
 		}
 
-		return this.consumerItemProvider;
+		return consumerItemProvider;
 	}
 
 	/**
@@ -233,11 +233,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createConsumesAdapter() {
-		if (this.consumesItemProvider == null) {
-			this.consumesItemProvider = new ConsumesItemProvider(this);
+		if (consumesItemProvider == null) {
+			consumesItemProvider = new ConsumesItemProvider(this);
 		}
 
-		return this.consumesItemProvider;
+		return consumesItemProvider;
 	}
 
 	/**
@@ -256,11 +256,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createDocumentRootAdapter() {
-		if (this.documentRootItemProvider == null) {
-			this.documentRootItemProvider = new DocumentRootItemProvider(this);
+		if (documentRootItemProvider == null) {
+			documentRootItemProvider = new DocumentRootItemProvider(this);
 		}
 
-		return this.documentRootItemProvider;
+		return documentRootItemProvider;
 	}
 
 	/**
@@ -279,11 +279,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createIdentificationAdapter() {
-		if (this.identificationItemProvider == null) {
-			this.identificationItemProvider = new IdentificationItemProvider(this);
+		if (identificationItemProvider == null) {
+			identificationItemProvider = new IdentificationItemProvider(this);
 		}
 
-		return this.identificationItemProvider;
+		return identificationItemProvider;
 	}
 
 	/**
@@ -302,11 +302,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createJbiAdapter() {
-		if (this.jbiItemProvider == null) {
-			this.jbiItemProvider = new JbiItemProvider(this);
+		if (jbiItemProvider == null) {
+			jbiItemProvider = new JbiItemProvider(this);
 		}
 
-		return this.jbiItemProvider;
+		return jbiItemProvider;
 	}
 
 	/**
@@ -325,11 +325,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createProviderAdapter() {
-		if (this.providerItemProvider == null) {
-			this.providerItemProvider = new ProviderItemProvider(this);
+		if (providerItemProvider == null) {
+			providerItemProvider = new ProviderItemProvider(this);
 		}
 
-		return this.providerItemProvider;
+		return providerItemProvider;
 	}
 
 	/**
@@ -348,11 +348,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createProvidesAdapter() {
-		if (this.providesItemProvider == null) {
-			this.providesItemProvider = new ProvidesItemProvider(this);
+		if (providesItemProvider == null) {
+			providesItemProvider = new ProvidesItemProvider(this);
 		}
 
-		return this.providesItemProvider;
+		return providesItemProvider;
 	}
 
 	/**
@@ -371,11 +371,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createServiceAssemblyAdapter() {
-		if (this.serviceAssemblyItemProvider == null) {
-			this.serviceAssemblyItemProvider = new ServiceAssemblyItemProvider(this);
+		if (serviceAssemblyItemProvider == null) {
+			serviceAssemblyItemProvider = new ServiceAssemblyItemProvider(this);
 		}
 
-		return this.serviceAssemblyItemProvider;
+		return serviceAssemblyItemProvider;
 	}
 
 	/**
@@ -394,11 +394,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createServicesAdapter() {
-		if (this.servicesItemProvider == null) {
-			this.servicesItemProvider = new ServicesItemProvider(this);
+		if (servicesItemProvider == null) {
+			servicesItemProvider = new ServicesItemProvider(this);
 		}
 
-		return this.servicesItemProvider;
+		return servicesItemProvider;
 	}
 
 	/**
@@ -417,11 +417,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createServiceUnitAdapter() {
-		if (this.serviceUnitItemProvider == null) {
-			this.serviceUnitItemProvider = new ServiceUnitItemProvider(this);
+		if (serviceUnitItemProvider == null) {
+			serviceUnitItemProvider = new ServiceUnitItemProvider(this);
 		}
 
-		return this.serviceUnitItemProvider;
+		return serviceUnitItemProvider;
 	}
 
 	/**
@@ -440,11 +440,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createSharedLibraryTypeAdapter() {
-		if (this.sharedLibraryTypeItemProvider == null) {
-			this.sharedLibraryTypeItemProvider = new SharedLibraryTypeItemProvider(this);
+		if (sharedLibraryTypeItemProvider == null) {
+			sharedLibraryTypeItemProvider = new SharedLibraryTypeItemProvider(this);
 		}
 
-		return this.sharedLibraryTypeItemProvider;
+		return sharedLibraryTypeItemProvider;
 	}
 
 	/**
@@ -463,11 +463,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createSharedLibraryType1Adapter() {
-		if (this.sharedLibraryType1ItemProvider == null) {
-			this.sharedLibraryType1ItemProvider = new SharedLibraryType1ItemProvider(this);
+		if (sharedLibraryType1ItemProvider == null) {
+			sharedLibraryType1ItemProvider = new SharedLibraryType1ItemProvider(this);
 		}
 
-		return this.sharedLibraryType1ItemProvider;
+		return sharedLibraryType1ItemProvider;
 	}
 
 	/**
@@ -486,11 +486,11 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public Adapter createTargetAdapter() {
-		if (this.targetItemProvider == null) {
-			this.targetItemProvider = new TargetItemProvider(this);
+		if (targetItemProvider == null) {
+			targetItemProvider = new TargetItemProvider(this);
 		}
 
-		return this.targetItemProvider;
+		return targetItemProvider;
 	}
 
 	/**
@@ -500,7 +500,7 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 * @generated
 	 */
 	public ComposeableAdapterFactory getRootAdapterFactory() {
-		return this.parentAdapterFactory == null ? this : this.parentAdapterFactory.getRootAdapterFactory();
+		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
 	/**
@@ -520,7 +520,7 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 */
 	@Override
 	public boolean isFactoryForType(Object type) {
-		return this.supportedTypes.contains(type) || super.isFactoryForType(type);
+		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
 
 	/**
@@ -558,7 +558,7 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 * @generated
 	 */
 	public void addListener(INotifyChangedListener notifyChangedListener) {
-		this.changeNotifier.addListener(notifyChangedListener);
+		changeNotifier.addListener(notifyChangedListener);
 	}
 
 	/**
@@ -568,7 +568,7 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 * @generated
 	 */
 	public void removeListener(INotifyChangedListener notifyChangedListener) {
-		this.changeNotifier.removeListener(notifyChangedListener);
+		changeNotifier.removeListener(notifyChangedListener);
 	}
 
 	/**
@@ -578,38 +578,38 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	 * @generated
 	 */
 	public void fireNotifyChanged(Notification notification) {
-		this.changeNotifier.fireNotifyChanged(notification);
+		changeNotifier.fireNotifyChanged(notification);
 
-		if (this.parentAdapterFactory != null) {
-			this.parentAdapterFactory.fireNotifyChanged(notification);
+		if (parentAdapterFactory != null) {
+			parentAdapterFactory.fireNotifyChanged(notification);
 		}
 	}
 
 	/**
-	 * This disposes all of the item providers created by this factory.
+	 * This disposes all of the item providers created by this factory. 
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void dispose() {
-		if (this.classPathItemProvider != null) this.classPathItemProvider.dispose();
-		if (this.componentItemProvider != null) this.componentItemProvider.dispose();
-		if (this.componentClassNameItemProvider != null) this.componentClassNameItemProvider.dispose();
-		if (this.connectionItemProvider != null) this.connectionItemProvider.dispose();
-		if (this.connectionsItemProvider != null) this.connectionsItemProvider.dispose();
-		if (this.consumerItemProvider != null) this.consumerItemProvider.dispose();
-		if (this.consumesItemProvider != null) this.consumesItemProvider.dispose();
-		if (this.documentRootItemProvider != null) this.documentRootItemProvider.dispose();
-		if (this.identificationItemProvider != null) this.identificationItemProvider.dispose();
-		if (this.jbiItemProvider != null) this.jbiItemProvider.dispose();
-		if (this.providerItemProvider != null) this.providerItemProvider.dispose();
-		if (this.providesItemProvider != null) this.providesItemProvider.dispose();
-		if (this.serviceAssemblyItemProvider != null) this.serviceAssemblyItemProvider.dispose();
-		if (this.servicesItemProvider != null) this.servicesItemProvider.dispose();
-		if (this.serviceUnitItemProvider != null) this.serviceUnitItemProvider.dispose();
-		if (this.sharedLibraryTypeItemProvider != null) this.sharedLibraryTypeItemProvider.dispose();
-		if (this.sharedLibraryType1ItemProvider != null) this.sharedLibraryType1ItemProvider.dispose();
-		if (this.targetItemProvider != null) this.targetItemProvider.dispose();
+		if (classPathItemProvider != null) classPathItemProvider.dispose();
+		if (componentItemProvider != null) componentItemProvider.dispose();
+		if (componentClassNameItemProvider != null) componentClassNameItemProvider.dispose();
+		if (connectionItemProvider != null) connectionItemProvider.dispose();
+		if (connectionsItemProvider != null) connectionsItemProvider.dispose();
+		if (consumerItemProvider != null) consumerItemProvider.dispose();
+		if (documentRootItemProvider != null) documentRootItemProvider.dispose();
+		if (identificationItemProvider != null) identificationItemProvider.dispose();
+		if (jbiItemProvider != null) jbiItemProvider.dispose();
+		if (servicesItemProvider != null) servicesItemProvider.dispose();
+		if (consumesItemProvider != null) consumesItemProvider.dispose();
+		if (providesItemProvider != null) providesItemProvider.dispose();
+		if (providerItemProvider != null) providerItemProvider.dispose();
+		if (serviceAssemblyItemProvider != null) serviceAssemblyItemProvider.dispose();
+		if (serviceUnitItemProvider != null) serviceUnitItemProvider.dispose();
+		if (sharedLibraryTypeItemProvider != null) sharedLibraryTypeItemProvider.dispose();
+		if (sharedLibraryType1ItemProvider != null) sharedLibraryType1ItemProvider.dispose();
+		if (targetItemProvider != null) targetItemProvider.dispose();
 	}
 
 }
