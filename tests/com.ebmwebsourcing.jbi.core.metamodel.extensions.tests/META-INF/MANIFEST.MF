@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests for parsing of XML with EMF
+Bundle-SymbolicName: com.ebmwebsourcing.jbi.core.metamodel.extensions.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EBMWEBSOURCING
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit;bundle-version="4.8.0",
+ com.ebmwebsourcing.jbi.core.metamodel;bundle-version="1.0.0",
+ com.ebmwebsourcing.petals.jbi.editor.form.cdk5;bundle-version="1.0.0",
+ com.ebmwebsourcing.petals.services.filetransfer;bundle-version="1.0.0",
+ com.ebmwebsourcing.petals.jbi.filetransfer;bundle-version="1.0.0",
+ com.ebmwebsourcing.petals.jbi.editor.form;bundle-version="1.0.0"

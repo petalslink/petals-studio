@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	JBI descriptor for the Petals' "petals-bc-filetransfer" component (File Transfer).
+	Originally created for the version 2.4 of the component.
+ -->
+<jbi:jbi version="1.0" 
+	xmlns:filetransfer="http://petals.ow2.org/components/filetransfer/version-2"
+	xmlns:interfaceNs="test"
+	xmlns:jbi="http://java.sun.com/xml/ns/jbi"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<!-- Import a Service into Petals or Expose a Petals Service => use a BC. -->
+	<jbi:services binding-component="true">
+	
+		<!-- Expose a Petals Service => consumes a Service. -->
+		<jbi:consumes
+			interface-name="interfaceNs:test">
+	
+			<!-- CDK specific elements -->
+			<petalsCDK:timeout>30000</petalsCDK:timeout>
+			<petalsCDK:mep>InOnly</petalsCDK:mep>
+		
+			<!-- Component specific elements -->	
+			<filetransfer:read-directory>test</filetransfer:read-directory>
+			<filetransfer:backup-directory>test</filetransfer:backup-directory>
+			<filetransfer:transfer-mode>content</filetransfer:transfer-mode>
+			<filetransfer:file-pattern>test</filetransfer:file-pattern>
+			<filetransfer:polling-period>1000</filetransfer:polling-period>
+		</jbi:consumes>
+	</jbi:services>
+</jbi:jbi>

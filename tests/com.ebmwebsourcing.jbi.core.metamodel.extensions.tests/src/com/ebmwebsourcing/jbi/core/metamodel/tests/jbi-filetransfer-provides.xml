@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	JBI descriptor for the Petals' "petals-bc-filetransfer" component (File Transfer).
+	Originally created for the version 2.4 of the component.
+ -->
+<jbi:jbi version="1.0" 
+	xmlns:filetransfer="http://petals.ow2.org/components/filetransfer/version-2"
+	xmlns:generatedNs="http://petals.ow2.org/components/filetransfer/version-2"
+	xmlns:jbi="http://java.sun.com/xml/ns/jbi"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<!-- Import a Service into Petals or Expose a Petals Service => use a BC. -->
+	<jbi:services binding-component="true">
+	
+		<!-- Import a Service into Petals => provides a Service. -->
+		<jbi:provides 		
+			interface-name="generatedNs:GetFiles"
+			service-name="generatedNs:test"
+			endpoint-name="testEndpoint">
+	
+			<!-- CDK specific elements -->
+			<petalsCDK:timeout>30000</petalsCDK:timeout>
+			<petalsCDK:validate-wsdl>true</petalsCDK:validate-wsdl>
+			<petalsCDK:forward-security-subject>false</petalsCDK:forward-security-subject>
+			<petalsCDK:forward-message-properties>false</petalsCDK:forward-message-properties>
+			<petalsCDK:forward-attachments>false</petalsCDK:forward-attachments>
+			<petalsCDK:wsdl>getFiles.wsdl</petalsCDK:wsdl>
+		
+			<!-- Component specific elements -->	
+			<filetransfer:write-directory>a</filetransfer:write-directory>
+			<filetransfer:copy-mode>content-and-attachments</filetransfer:copy-mode>
+			<filetransfer:file-pattern>a</filetransfer:file-pattern>
+			<filetransfer:read-directory>a</filetransfer:read-directory>
+			<filetransfer:backup-directory>a</filetransfer:backup-directory>			
+		</jbi:provides>
+	</jbi:services>
+</jbi:jbi>
