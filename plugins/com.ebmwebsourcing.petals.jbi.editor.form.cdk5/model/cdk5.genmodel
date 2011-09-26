@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.ebmwebsourcing.petals.jbi.editor.form.cdk5/src"
+    modelPluginID="com.ebmwebsourcing.petals.jbi.editor.form.cdk5" modelName="Cdk5"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.ecore/model/XMLType.genmodel#//type ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.genmodel#//jbi">
+  <foreignModel>@model</foreignModel>
+  <genPackages prefix="Cdk5" basePackage="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model"
+      resource="XML" disposableProviderFactory="true" ecorePackage="cdk5.ecore#/">
+    <genClasses image="false" ecoreClass="cdk5.ecore#//CDKService">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDKService/timeout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDKService/suInterceptors"/>
+    </genClasses>
+    <genClasses ecoreClass="cdk5.ecore#//CDK5Provides">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Provides/validateWsdl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Provides/forwardSecuritySubject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Provides/forwardMessageProperties"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Provides/forwardAttachments"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Provides/wsdl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Provides/retryPolicy"/>
+    </genClasses>
+    <genClasses ecoreClass="cdk5.ecore#//CDK5Consumes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Consumes/operation"/>
+    </genClasses>
+    <genClasses ecoreClass="cdk5.ecore#//CDK5Component">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDK5Component/timeout"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

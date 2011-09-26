@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	JBI descriptor for the Petals' "petals-bc-ejb" component (EJB).
+	Originally created for the version 1.3 of the component.
+ -->
+<jbi:jbi version="1.0" 
+	xmlns:ejb="http://petals.ow2.org/components/ejb/version-1"
+	xmlns:generatedNs="http://addorder.ejb.examples.petals.ow2.org/"
+	xmlns:jbi="http://java.sun.com/xml/ns/jbi"
+	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<!-- Import a Service into Petals or Expose a Petals Service => use a BC. -->
+	<jbi:services binding-component="true">
+	
+		<!-- Import a Service into Petals => provides a Service. -->
+		<jbi:provides 		
+			interface-name="generatedNs:AddOrderRemotePortType"
+			service-name="generatedNs:AddOrderRemote"
+			endpoint-name="AddOrderRemotePort">
+	
+			<!-- CDK specific elements -->
+			<petalsCDK:timeout>30000</petalsCDK:timeout>
+			<petalsCDK:validate-wsdl>true</petalsCDK:validate-wsdl>
+			<petalsCDK:forward-security-subject>false</petalsCDK:forward-security-subject>
+			<petalsCDK:forward-message-properties>false</petalsCDK:forward-message-properties>
+			<petalsCDK:forward-attachments>false</petalsCDK:forward-attachments>
+			<petalsCDK:wsdl>AddOrderRemote.wsdl</petalsCDK:wsdl>
+		
+			<!-- Component specific elements -->	
+			<ejb:ejb.jndi.name>a</ejb:ejb.jndi.name>
+			<ejb:java.naming.factory.initial>a</ejb:java.naming.factory.initial>
+			<ejb:java.naming.provider.url>a</ejb:java.naming.provider.url>
+			<ejb:ejb.version>2.1</ejb:ejb.version>
+			<ejb:marshalling.engine>jaxb</ejb:marshalling.engine>			
+		</jbi:provides>
+	</jbi:services>
+</jbi:jbi>
