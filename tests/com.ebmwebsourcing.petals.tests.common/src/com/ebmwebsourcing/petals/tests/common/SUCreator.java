@@ -18,7 +18,6 @@ public class SUCreator {
 		bot.button("Next >"); // wait for button to appear.
 		SWTBotCombo componentCombo = bot.comboBox(1);
 		componentCombo.setSelection("File Transfer  //  petals-bc-filetransfer");
-		su.setWsdlName("getFiles.wsdl");
 		bot.button("Next >").click();
 		bot.ccomboBox(3).setText(su.getServiceName());
 		su.setEndpoint(su.getServiceName() + "Endpoint");
@@ -26,7 +25,9 @@ public class SUCreator {
 		bot.button("Next >").click();
 		su.setProjectName(bot.text().getText());
 		bot.button("Next >").click();
-		bot.text(2).setText("testFolder");
+		bot.comboBox().setSelection(1);
+		su.setWsdlName("GetFiles.wsdl");
+		bot.text(0).setText("testFolder");
 		bot.button("Next >").click();
 		bot.button("Finish").click();
 		bot.waitUntil(new ICondition() {
