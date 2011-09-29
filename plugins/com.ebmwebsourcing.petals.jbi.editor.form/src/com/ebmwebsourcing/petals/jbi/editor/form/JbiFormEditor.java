@@ -14,6 +14,8 @@ package com.ebmwebsourcing.petals.jbi.editor.form;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,13 +29,19 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.action.IStatusLineManager;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -49,10 +57,10 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.part.FileEditorInput;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.jbi.editor.form.sa.SaPersonality;
 import com.ebmwebsourcing.petals.jbi.editor.form.su.SuPersonality;
 import com.sun.java.xml.ns.jbi.DocumentRoot;
@@ -64,7 +72,7 @@ import com.sun.java.xml.ns.jbi.Jbi;
  * Let in *.services for historical reasons, but may be moved in *.common.
  * </p>
  */
-public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPartListener2 {
+public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPartListener2, IEditingDomainProvider {
 
 	private static final String JBI_FORM_EDITOR_ID = "com.ebmwebsourcing.petals.services.formeditor"; //$NON-NLS-1$
 
@@ -79,8 +87,8 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 
 	private ResourceSet resourceSet;
 	private TransactionalEditingDomain editDomain;
-	private boolean realCommandExecuted;
-
+	protected Collection<Resource> savedResources = new ArrayList<Resource>();
+	
 	private ISelection selection;
 
 	/**
@@ -132,7 +140,7 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 				addPage( page );
 				this.pages.put( page.getId(), page );
 			}
-
+			
 			// Always add the page with the source editor
 			/*this.srcEditor = new StructuredTextEditor();
 			int index = addPage( this.srcEditor, getEditorInput());
@@ -200,14 +208,15 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 			model = ((DocumentRoot)resource.getContents().get(0)).getJbi();
 			
 			editDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
-				@Override
-				public void commandStackChanged(EventObject arg0) {
-					if (! (editDomain.getCommandStack().getMostRecentCommand() instanceof InitializeModelExtensionCommand)) {
-						realCommandExecuted = true;
-						firePropertyChange(IEditorPart.PROP_DIRTY);
-					}
-				}
+				 public void commandStackChanged(final EventObject event) {
+					 getContainer().getDisplay().asyncExec(new Runnable() {
+							  public void run() {
+								  firePropertyChange(IEditorPart.PROP_DIRTY);
+							  }
+					 });
+				 }
 			});
+
 		} catch( CoreException e ) {
 			JbiFormEditorPlugin.log( e, IStatus.WARNING );
 		}
@@ -282,14 +291,45 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	public void doSave( IProgressMonitor monitor ) {
 
 		try {
-			//if( this.model != null ) {
-			this.model.eResource().save(null);
-			realCommandExecuted = false;
-			firePropertyChange(IEditorPart.PROP_DIRTY);
-			/*} else {
-				this.srcEditor.doSave( monitor );
-				// TODO refresh model
-			}*/
+			// Save only resources that have actually changed.
+			//
+			final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
+			saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+
+			// Do the work within an operation because this is a long running activity that modifies the workbench.
+			//
+			WorkspaceModifyOperation operation =
+				new WorkspaceModifyOperation() {
+					// This is the method that gets invoked when the operation runs.
+					//
+					@Override
+					public void execute(IProgressMonitor monitor) {
+						// Save the resources to the file system.
+						//
+						for (Resource resource : getEditingDomain().getResourceSet().getResources()) {
+							try {
+								long timeStamp = resource.getTimeStamp();
+								resource.save(saveOptions);
+								if (resource.getTimeStamp() != timeStamp) {
+									savedResources.add(resource);
+								}
+							}
+							catch (Exception exception) {
+								JbiFormEditorPlugin.log(exception, IStatus.ERROR);
+							}
+						}
+					}
+				};
+
+			try {
+				new ProgressMonitorDialog(getSite().getShell()).run(true, false, operation);
+
+				((BasicCommandStack)getEditingDomain().getCommandStack()).saveIsDone();
+				firePropertyChange(IEditorPart.PROP_DIRTY);
+			}
+			catch (Exception exception) {
+				JbiFormEditorPlugin.log(exception, IStatus.ERROR);
+			}
 
 		} catch( Exception e ) {
 			JbiFormEditorPlugin.log( e, IStatus.ERROR);
@@ -419,7 +459,11 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	 * #partActivated(org.eclipse.ui.IWorkbenchPartReference)
 	 */
 	public void partActivated( IWorkbenchPartReference partRef ) {
-		// nothing
+		getActionBarContributor().setActiveEditor(this);
+	}
+	
+	public EditingDomainActionBarContributor getActionBarContributor() {
+		return (EditingDomainActionBarContributor)getEditorSite().getActionBarContributor();
 	}
 
 
@@ -514,6 +558,17 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	
 	@Override
 	public boolean isDirty() {
-		return realCommandExecuted;
+		CommandStack commandStack = getEditingDomain().getCommandStack();
+		if (commandStack != null) {
+			return ((BasicCommandStack)commandStack).isSaveNeeded();
+		} else {
+			return false;
+		}
+	}
+
+
+	@Override
+	public EditingDomain getEditingDomain() {
+		return editDomain;
 	}
 }

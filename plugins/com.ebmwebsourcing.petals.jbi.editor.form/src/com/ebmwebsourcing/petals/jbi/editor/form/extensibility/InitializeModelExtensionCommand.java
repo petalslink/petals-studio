@@ -126,5 +126,10 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	public void redo() {
 		execute();
 	}
+	
+	@Override
+	public boolean canUndo() {
+		return false;
+	}
 
 }

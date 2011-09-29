@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.ui,
  com.ebmwebsourcing.petals.services;bundle-version="1.0.0",
  org.eclipse.emf.databinding;bundle-version="1.2.0",
  org.eclipse.emf.databinding.edit;bundle-version="1.2.0",
- org.eclipse.jface.databinding;bundle-version="1.5.0"
+ org.eclipse.jface.databinding;bundle-version="1.5.0",
+ org.eclipse.emf.edit.ui;bundle-version="2.7.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.ebmwebsourcing.petals.jbi.editor.form,
