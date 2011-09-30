@@ -483,7 +483,9 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	 * #partClosed(org.eclipse.ui.IWorkbenchPartReference)
 	 */
 	public void partClosed( IWorkbenchPartReference partRef ) {
-		editDomain.dispose();
+		if (editDomain != null) {
+			editDomain.dispose();
+		}
 		// Remove the listeners
 		if( partRef instanceof IEditorReference ) {
 			try {
