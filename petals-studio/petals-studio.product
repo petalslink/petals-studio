@@ -80,10 +80,9 @@ Warning: Free Software may not necessarily be patent free, and some Free Softwar
    </plugins>
 
    <features>
-      <feature id="com.ebmwebsourcing.petals.studio.bpel.feature" version="1.2.0.qualifier"/>
-      <feature id="com.ebmwebsourcing.petals.studio.core.feature" version="1.2.0.qualifier"/>
-      <feature id="com.ebmwebsourcing.petals.studio.sca.feature" version="1.2.0.qualifier"/>
-      <feature id="com.ebmwebsourcing.petals.studio.rcp.feature" version="1.2.0.qualifier"/>
+      <feature id="com.ebmwebsourcing.petals.studio.bpel.feature" version="1.3.0.qualifier"/>
+      <feature id="com.ebmwebsourcing.petals.studio.core.feature" version="1.3.0.qualifier"/>
+      <feature id="com.ebmwebsourcing.petals.studio.rcp.feature" version="1.3.0.qualifier"/>
    </features>
 
    <configurations>
