@@ -491,7 +491,7 @@ public class BcConsumeCdkPage extends XsdBasedAbstractSuPage {
 
 		// Get the list of operations
 		final Map<QName,Mep> _opNameToMep = ConsumeUtils.getOperations(
-					wsdlUri != null ? this.wsdlUri.toString() : null,
+					wsdlUri,
 					getDialogSettings().get( SettingConstants.ITF_NAME_VALUE ),
 					getDialogSettings().get( SettingConstants.ITF_NS_VALUE ),
 					getDialogSettings().get( SettingConstants.SRV_NAME_VALUE ),

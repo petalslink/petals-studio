@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TuxDroid" targetNamespace="http://tuxdroid.ebmwebsourcing.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://tuxdroid.ebmwebsourcing.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tuxdroid.ebmwebsourcing.com/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://tuxdroid.ebmwebsourcing.com/">
+<xsd:element name="speak" type="tns:speak"/>
+<xsd:complexType name="speak">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="arg0" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="speakResponse" type="tns:speakResponse"/>
+<xsd:complexType name="speakResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="flippersUp" type="tns:flippersUp"/>
+<xsd:complexType name="flippersUp">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="flippersUpResponse" type="tns:flippersUpResponse"/>
+<xsd:complexType name="flippersUpResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="openMouth" type="tns:openMouth"/>
+<xsd:complexType name="openMouth">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="openMouthResponse" type="tns:openMouthResponse"/>
+<xsd:complexType name="openMouthResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="start" type="tns:start"/>
+<xsd:complexType name="start">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="startResponse" type="tns:startResponse"/>
+<xsd:complexType name="startResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="flippersDown" type="tns:flippersDown"/>
+<xsd:complexType name="flippersDown">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="flippersDownResponse" type="tns:flippersDownResponse"/>
+<xsd:complexType name="flippersDownResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="closeMouth" type="tns:closeMouth"/>
+<xsd:complexType name="closeMouth">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="closeMouthResponse" type="tns:closeMouthResponse"/>
+<xsd:complexType name="closeMouthResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="closeEyes" type="tns:closeEyes"/>
+<xsd:complexType name="closeEyes">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="closeEyesResponse" type="tns:closeEyesResponse"/>
+<xsd:complexType name="closeEyesResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="openEyes" type="tns:openEyes"/>
+<xsd:complexType name="openEyes">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="openEyesResponse" type="tns:openEyesResponse"/>
+<xsd:complexType name="openEyesResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="goRight" type="tns:goRight"/>
+<xsd:complexType name="goRight">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="goRightResponse" type="tns:goRightResponse"/>
+<xsd:complexType name="goRightResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="goLeft" type="tns:goLeft"/>
+<xsd:complexType name="goLeft">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="goLeftResponse" type="tns:goLeftResponse"/>
+<xsd:complexType name="goLeftResponse">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="stop" type="tns:stop"/>
+<xsd:complexType name="stop">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="stopResponse" type="tns:stopResponse"/>
+<xsd:complexType name="stopResponse">
+<xsd:sequence/>
+</xsd:complexType>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="stopResponse">
+    <wsdl:part name="parameters" element="tns:stopResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="speakResponse">
+    <wsdl:part name="parameters" element="tns:speakResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="stop">
+    <wsdl:part name="parameters" element="tns:stop">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="closeEyesResponse">
+    <wsdl:part name="parameters" element="tns:closeEyesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="flippersUpResponse">
+    <wsdl:part name="parameters" element="tns:flippersUpResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="speak">
+    <wsdl:part name="parameters" element="tns:speak">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="openMouth">
+    <wsdl:part name="parameters" element="tns:openMouth">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="startResponse">
+    <wsdl:part name="parameters" element="tns:startResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="openMouthResponse">
+    <wsdl:part name="parameters" element="tns:openMouthResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="closeMouthResponse">
+    <wsdl:part name="parameters" element="tns:closeMouthResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="goRight">
+    <wsdl:part name="parameters" element="tns:goRight">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="goLeft">
+    <wsdl:part name="parameters" element="tns:goLeft">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="goRightResponse">
+    <wsdl:part name="parameters" element="tns:goRightResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="closeEyes">
+    <wsdl:part name="parameters" element="tns:closeEyes">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="start">
+    <wsdl:part name="parameters" element="tns:start">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="openEyesResponse">
+    <wsdl:part name="parameters" element="tns:openEyesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="flippersUp">
+    <wsdl:part name="parameters" element="tns:flippersUp">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="closeMouth">
+    <wsdl:part name="parameters" element="tns:closeMouth">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="flippersDownResponse">
+    <wsdl:part name="parameters" element="tns:flippersDownResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="openEyes">
+    <wsdl:part name="parameters" element="tns:openEyes">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="goLeftResponse">
+    <wsdl:part name="parameters" element="tns:goLeftResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="flippersDown">
+    <wsdl:part name="parameters" element="tns:flippersDown">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TuxDroidPortType">
+    <wsdl:operation name="speak">
+      <wsdl:input name="speak" message="tns:speak">
+    </wsdl:input>
+      <wsdl:output name="speakResponse" message="tns:speakResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="flippersUp">
+      <wsdl:input name="flippersUp" message="tns:flippersUp">
+    </wsdl:input>
+      <wsdl:output name="flippersUpResponse" message="tns:flippersUpResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="openMouth">
+      <wsdl:input name="openMouth" message="tns:openMouth">
+    </wsdl:input>
+      <wsdl:output name="openMouthResponse" message="tns:openMouthResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="start">
+      <wsdl:input name="start" message="tns:start">
+    </wsdl:input>
+      <wsdl:output name="startResponse" message="tns:startResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="flippersDown">
+      <wsdl:input name="flippersDown" message="tns:flippersDown">
+    </wsdl:input>
+      <wsdl:output name="flippersDownResponse" message="tns:flippersDownResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeMouth">
+      <wsdl:input name="closeMouth" message="tns:closeMouth">
+    </wsdl:input>
+      <wsdl:output name="closeMouthResponse" message="tns:closeMouthResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeEyes">
+      <wsdl:input name="closeEyes" message="tns:closeEyes">
+    </wsdl:input>
+      <wsdl:output name="closeEyesResponse" message="tns:closeEyesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="openEyes">
+      <wsdl:input name="openEyes" message="tns:openEyes">
+    </wsdl:input>
+      <wsdl:output name="openEyesResponse" message="tns:openEyesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="goRight">
+      <wsdl:input name="goRight" message="tns:goRight">
+    </wsdl:input>
+      <wsdl:output name="goRightResponse" message="tns:goRightResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="goLeft">
+      <wsdl:input name="goLeft" message="tns:goLeft">
+    </wsdl:input>
+      <wsdl:output name="goLeftResponse" message="tns:goLeftResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="stop">
+      <wsdl:input name="stop" message="tns:stop">
+    </wsdl:input>
+      <wsdl:output name="stopResponse" message="tns:stopResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TuxDroidSoapBinding" type="tns:TuxDroidPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="speak">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="speak">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="speakResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="flippersUp">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="flippersUp">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="flippersUpResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="openMouth">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="openMouth">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="openMouthResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="start">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="start">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="startResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeMouth">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="closeMouth">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="closeMouthResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="flippersDown">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="flippersDown">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="flippersDownResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeEyes">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="closeEyes">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="closeEyesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="openEyes">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="openEyes">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="openEyesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="goRight">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="goRight">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="goRightResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="goLeft">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="goLeft">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="goLeftResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="stop">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="stop">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="stopResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TuxDroid">
+    <wsdl:port name="TuxDroidPort" binding="tns:TuxDroidSoapBinding">
+      <soap:address location="http://localhost:9090/TuxDroidPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

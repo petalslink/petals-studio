@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.sca.tabbedproperties;
 
@@ -78,8 +78,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.wizards.WsdlImportWizard;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 import com.ebmwebsourcing.petals.services.sca.PetalsScaPlugin;
@@ -123,6 +123,7 @@ public class PetalsSingleSection extends AbstractPropertySection {
 		container.setLayout( new GridLayout( 4, false ));
 
 		ModifyListener modifyListener = new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				if( PetalsSingleSection.this.enableListener )
 					updateJbiBinding();
@@ -311,10 +312,12 @@ public class PetalsSingleSection extends AbstractPropertySection {
 
 		Button browseButton = getWidgetFactory().createButton( subSubContainer, "Browse...", SWT.PUSH );
 		browseButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				widgetSelected( e );
 			}
 
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
 				File compositeFile = getCompositeFile();
@@ -397,7 +400,7 @@ public class PetalsSingleSection extends AbstractPropertySection {
 		List<JbiBasicBean> wsdlBeans = new ArrayList<JbiBasicBean> ();
 		List<JbiBasicBean> _beans = null;
 		try {
-			_beans = WsdlParser.getInstance().parse( getWsdlFile().toURI().toString());
+			_beans = WsdlUtils.INSTANCE.parse( getWsdlFile().toURI());
 
 		} catch( IllegalArgumentException e ) {
 			// nothing
@@ -489,6 +492,7 @@ public class PetalsSingleSection extends AbstractPropertySection {
 
 					// Open a dialog to ask the WSDL name
 					IInputValidator validator = new IInputValidator() {
+						@Override
 						public String isValid( String newText ) {
 							String msg = null;
 							if( newText.trim().length() == 0 )

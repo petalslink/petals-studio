@@ -64,9 +64,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.NamespaceUtil
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUpdater;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.wizards.WsdlImportWizard;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.editor.AbstractServicesFormPage;
@@ -364,14 +363,10 @@ implements WsdlParsingListener {
 							GeneralProvidesDetails.this.srvNsText.getText(),
 							GeneralProvidesDetails.this.srvNameText.getText());
 
-				QName interfaceName = new QName(
-						GeneralProvidesDetails.this.itfNsText.getText(),
-						GeneralProvidesDetails.this.itfNameText.getText());
-
 				String edptName = GeneralProvidesDetails.this.generateEdptButton.getSelection()
 				? PetalsConstants.AUTO_GENERATE : GeneralProvidesDetails.this.edptNameText.getText();
 
-				if( ! WsdlUpdater.getInstance().update( f, serviceName, interfaceName, edptName )) {
+				if( ! WsdlUtils.INSTANCE.updateEndpointNameInWsdl( f, serviceName, edptName )) {
 					MessageDialog.openError(
 								GeneralProvidesDetails.this.wsdlText.getShell(),
 								"End-point Update Failure",
@@ -556,7 +551,7 @@ implements WsdlParsingListener {
 			if( uri != null ) {
 				List<JbiBasicBean> _beans = null;
 				try {
-					_beans = WsdlParser.getInstance().parse( uri.toString());
+					_beans = WsdlUtils.INSTANCE.parse( uri );
 				} catch( IllegalArgumentException e ) {
 					// nothing
 				}

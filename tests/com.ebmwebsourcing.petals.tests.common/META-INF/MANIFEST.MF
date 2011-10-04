@@ -3,8 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Common APIs and Utils for tests
 Bundle-SymbolicName: com.ebmwebsourcing.petals.tests.common
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: com.ebmwebsourcing.petals.tests.common.Activator
-Bundle-Vendor: PetalsLink
+Bundle-Vendor: EBM WebSourcing
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.draw2d;bundle-version="3.7.0",

@@ -1,3 +1,14 @@
+/******************************************************************************
+ * Copyright (c) 2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.tests.common;
 
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
@@ -31,16 +42,16 @@ public class SUCreator {
 		bot.button("Next >").click();
 		bot.button("Finish").click();
 		bot.waitUntil(new ICondition() {
-			
+
 			@Override
 			public boolean test() throws Exception {
 				return bot.activeEditor() != currentEditor;
 			}
-			
+
 			@Override
 			public void init(SWTBot bot) {
 			}
-			
+
 			@Override
 			public String getFailureMessage() {
 				return null;
@@ -66,7 +77,7 @@ public class SUCreator {
 			public String getFailureMessage() {
 				return "SU not accessible in Petals Navigator view";
 			}
-			
+
 		});
 		return su;
 	}
@@ -78,5 +89,5 @@ public class SUCreator {
 			return null;
 		}
 	}
-	
+
 }
