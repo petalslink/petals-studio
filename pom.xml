@@ -16,7 +16,7 @@
 		<module>plugins</module>
 		<module>features</module>
 		<module>target-definition</module>
-		<!-- module>tests</module -->
+		<module>tests</module>
 	</modules>
 	
 	<properties>
