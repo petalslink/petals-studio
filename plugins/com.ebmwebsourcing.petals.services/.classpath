@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="src-su"/>
 	<classpathentry kind="src" path="src-sa"/>
 	<classpathentry kind="src" path="src-kpi"/>
+	<classpathentry kind="src" path="src-su-editor"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

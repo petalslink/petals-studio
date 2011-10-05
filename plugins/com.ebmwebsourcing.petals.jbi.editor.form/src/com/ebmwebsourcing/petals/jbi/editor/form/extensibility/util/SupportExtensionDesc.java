@@ -9,21 +9,21 @@ import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.ContributionSuppo
 class SupportExtensionDesc {
 	private static final String PRIORITY_ELEMENT = "priority";
 	private static final String NAMESPACE_ELEMENT = "namespace";
-	private static final String CDK_SUPPORT_CLASS_ELEMENT = "jbiExtensionSupportClass";
-	
-	private IConfigurationElement element;
+	private static final String CDK_SUPPORT_CLASS_ELEMENT = "jbiEditorSupportClass";
+
+	private final IConfigurationElement element;
 	private int priority;
-	private String namespace;
-	
+	private final String namespace;
+
 	public SupportExtensionDesc(IConfigurationElement ext) {
 		this.element = ext;
 		try {
-			this.priority = Integer.parseInt(element.getAttribute(PRIORITY_ELEMENT));
+			this.priority = Integer.parseInt(this.element.getAttribute(PRIORITY_ELEMENT));
 		} catch (Exception ex) {
 			this.priority = 0;
 			JbiFormEditorPlugin.log(ex, IStatus.WARNING);
 		}
-		this.namespace = element.getAttribute(NAMESPACE_ELEMENT);
+		this.namespace = this.element.getAttribute(NAMESPACE_ELEMENT);
 	}
 
 	public String getNamespace() {
@@ -36,12 +36,12 @@ class SupportExtensionDesc {
 
 	public ContributionSupport createNewExtensionSupport() {
 		try {
-			return (ContributionSupport) element.createExecutableExtension(CDK_SUPPORT_CLASS_ELEMENT);
+			return (ContributionSupport) this.element.createExecutableExtension(CDK_SUPPORT_CLASS_ELEMENT);
 		} catch (Exception ex) {
 			JbiFormEditorPlugin.log(ex, IStatus.ERROR);
 			return null;
 		}
 	}
-	
-	
+
+
 }
