@@ -6,14 +6,12 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->

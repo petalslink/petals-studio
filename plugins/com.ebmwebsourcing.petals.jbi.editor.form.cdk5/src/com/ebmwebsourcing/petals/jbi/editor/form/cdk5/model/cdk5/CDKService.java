@@ -6,9 +6,9 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5;
 
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-
 import org.eclipse.emf.ecore.util.FeatureMap;
+
+import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * <!-- begin-user-doc -->

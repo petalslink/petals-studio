@@ -11,11 +11,11 @@
 <plugin>
 
  <extension
-       point="com.ebmwebsourcing.petals.jbi.editor.form.componentSupport">
+       point="com.ebmwebsourcing.petals.services.componentSupport">
     <componentSupport
           cdkNamespace="http://petals.ow2.org/components/extensions/version-5"
           id="filetransfer-2"
-          jbiExtensionSupportClass="com.ebmwebsourcing.petals.jbi.filetransfer.editor.FileTransferContributionSupport"
+          jbiEditorSupportClass="com.ebmwebsourcing.petals.jbi.filetransfer.editor.FileTransferContributionSupport"
           namespace="http://petals.ow2.org/components/filetransfer/version-2"
           priority="1">
     </componentSupport>

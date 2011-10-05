@@ -43,18 +43,17 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
-import com.ebmwebsourcing.petals.jbi.editor.form.AbstractServicesFormPage;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.common.databinding.StringToMepConverter;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.jbi.editor.form.common.databinding.ToStringConverter;
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.InitializeModelExtensionCommand;
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.jbi.editor.form.su.CompounedSUDetailsPage;
-import com.ebmwebsourcing.petals.jbi.editor.form.su.PetalsHyperlinkListener;
+import com.ebmwebsourcing.petals.services.jbi.editor.AbstractServicesFormPage;
+import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.ToStringConverter;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.jbi.editor.su.CompounedSUDetailsPage;
+import com.ebmwebsourcing.petals.services.jbi.editor.su.PetalsHyperlinkListener;
 import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.JbiPackage;
-import com.sun.java.xml.ns.jbi.Provides;
 
 
 /**

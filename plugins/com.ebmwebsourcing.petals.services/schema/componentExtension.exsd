@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ebmwebsourcing..petals.services" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="com.ebmwebsourcing.petals.services" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="com.ebmwebsourcing..petals.services" id="componentExtension" name="Extension for supporting a component in Petals Studio"/>
+         <meta.schema plugin="com.ebmwebsourcing.petals.services" id="componentExtension" name="Extension for supporting a component in Petals Studio"/>
       </appinfo>
       <documentation>
          

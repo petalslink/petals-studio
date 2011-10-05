@@ -1,10 +1,10 @@
 package com.ebmwebsourcing.petals.jbi.filetransfer.editor;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.ContributionSupport;
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.defaultpages.DefaultJbiEditorContribution;
-import com.ebmwebsourcing.petals.jbi.editor.form.su.CompounedSUDetailsPage;
 import com.ebmwebsourcing.petals.jbi.filetransfer.model.filetransfer.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ContributionSupport;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
+import com.ebmwebsourcing.petals.services.jbi.editor.su.CompounedSUDetailsPage;
 
 
 public class FileTransferContributionSupport extends ContributionSupport {

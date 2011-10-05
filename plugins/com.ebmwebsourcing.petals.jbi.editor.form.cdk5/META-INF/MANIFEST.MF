@@ -7,7 +7,6 @@ Bundle-Activator: com.ebmwebsourcing.petals.jbi.editor.form.cdk5.Activator
 Bundle-Vendor: EBMWEBSOURCING
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui;bundle-version="3.7.0",
- com.ebmwebsourcing.petals.jbi.editor.form;bundle-version="1.0.0",
  com.ebmwebsourcing.jbi.core.metamodel;bundle-version="1.0.0",
  org.eclipse.ui.forms;bundle-version="3.5.100",
  com.ebmwebsourcing.petals.common;bundle-version="1.0.0",
@@ -22,7 +21,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.databinding;bundle-version="1.4.0",
  org.eclipse.emf.databinding;bundle-version="1.2.0",
  org.eclipse.emf.databinding.edit;bundle-version="1.2.0",
- org.eclipse.jface.databinding;bundle-version="1.5.0"
+ org.eclipse.jface.databinding;bundle-version="1.5.0",
+ com.ebmwebsourcing.petals.services;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Import-Package: com.ebmwebsourcing.petals.services.su.ui,

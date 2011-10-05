@@ -1,8 +1,8 @@
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.ContributionSupport;
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.jbi.editor.form.su.CompounedSUDetailsPage;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ContributionSupport;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.jbi.editor.su.CompounedSUDetailsPage;
 
 public class CDK5Support extends ContributionSupport {
 

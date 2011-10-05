@@ -6,21 +6,17 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService;
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-
-import com.sun.java.xml.ns.jbi.impl.AbstractEndpointImpl;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.sun.java.xml.ns.jbi.impl.AbstractEndpointImpl;
 
 /**
  * <!-- begin-user-doc -->

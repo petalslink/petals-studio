@@ -6,11 +6,11 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5;
 
-import com.sun.java.xml.ns.jbi.JbiPackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+
+import com.sun.java.xml.ns.jbi.JbiPackage;
 
 /**
  * <!-- begin-user-doc -->

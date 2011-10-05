@@ -6,19 +6,19 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.util;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.*;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+import org.eclipse.emf.ecore.EObject;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Consumes;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
-
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notifier;
-
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->

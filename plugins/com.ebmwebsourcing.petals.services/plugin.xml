@@ -795,5 +795,24 @@
          </Version>
       </WizardData>
    </extension>
+   
+   
+   <extension-point id="componentSupport" name="Support for components for JBI edition" schema="schema/componentSupport.exsd"/>
+   <extension-point id="cdkSupport" name="Support for a CDK" schema="schema/cdkSupport.exsd"/>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor"
+            contributorClass="org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor"
+            default="true"
+            filenames="jbi.xml"
+            icon="icons/obj16/jbi_descriptor.png"
+            id="com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor"
+            name="Petals Form Editor (EMF)">
+         <contentTypeBinding
+               contentTypeId="com.ebmwebsourcing.petals.common.jbiContentType">
+         </contentTypeBinding>
+      </editor>
+   </extension>
 
 </plugin>

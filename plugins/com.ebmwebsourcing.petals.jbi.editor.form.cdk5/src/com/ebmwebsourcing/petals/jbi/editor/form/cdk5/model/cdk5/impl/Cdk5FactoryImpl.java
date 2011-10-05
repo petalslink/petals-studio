@@ -6,15 +6,16 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.*;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Consumes;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Factory;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 
 /**
  * <!-- begin-user-doc -->

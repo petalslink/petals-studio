@@ -72,13 +72,13 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUpdater;
 import com.ebmwebsourcing.petals.common.internal.provisional.wizards.WsdlImportWizard;
-import com.ebmwebsourcing.petals.jbi.editor.form.AbstractServicesFormPage;
-import com.ebmwebsourcing.petals.jbi.editor.form.JbiFormEditorPlugin;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.InitializeModelExtensionCommand;
-import com.ebmwebsourcing.petals.jbi.editor.form.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.jbi.editor.form.su.CompounedSUDetailsPage;
-import com.ebmwebsourcing.petals.jbi.editor.form.su.PetalsHyperlinkListener;
+import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+import com.ebmwebsourcing.petals.services.jbi.editor.AbstractServicesFormPage;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.jbi.editor.su.CompounedSUDetailsPage;
+import com.ebmwebsourcing.petals.services.jbi.editor.su.PetalsHyperlinkListener;
 import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager;
 import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager.WsdlParsingListener;
 import com.ebmwebsourcing.petals.services.utils.PCStyledLabelProvider;
@@ -344,7 +344,7 @@ public class CDK5ProvidesDetails implements WsdlParsingListener, JbiEditorDetail
 						IDE.openEditor( page, f, true );
 
 					} catch( PartInitException exception ) {
-						JbiFormEditorPlugin.log( exception, IStatus.ERROR );
+						PetalsServicesPlugin.log( exception, IStatus.ERROR );
 					}
 				}
 			}
@@ -381,7 +381,7 @@ public class CDK5ProvidesDetails implements WsdlParsingListener, JbiEditorDetail
 						CDK5ProvidesDetails.this.editedFile.touch( null );
 
 					} catch( CoreException e1 ) {
-						JbiFormEditorPlugin.log( e1, IStatus.WARNING );
+						PetalsServicesPlugin.log( e1, IStatus.WARNING );
 					}
 				}
 			}

@@ -6,22 +6,19 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Factory;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-
 import com.sun.java.xml.ns.jbi.JbiPackage;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc -->

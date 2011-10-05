@@ -6,15 +6,13 @@
  */
 package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.util;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
+
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 
 /**
  * This class contains helper methods to serialize and deserialize XML documents
