@@ -49,6 +49,13 @@
 
    <element name="componentSupport">
       <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="namespace" type="string" use="required">
             <annotation>
                <documentation>
@@ -63,7 +70,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="jbiExtensionSupportClass" type="string" use="required">
+         <attribute name="jbiEditorSupportClass" type="string" use="required">
             <annotation>
                <documentation>
                   

@@ -4,6 +4,7 @@
    <extension
          point="com.ebmwebsourcing.petals.jbi.editor.form.cdkSupport">
       <cdkSupport
+            id="cdk5"
             jbiExtensionSupportClass="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.CDK5Support"
             namespace="http://petals.ow2.org/components/extensions/version-5"
             priority="1">
