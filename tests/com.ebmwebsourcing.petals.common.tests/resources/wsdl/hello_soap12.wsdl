@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+   <definitions
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:tns="http://www.example.com/Example"
+     xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+     targetNamespace="http://www.example.com/Example"
+     name="Example"
+     >
+   
+     <types>
+       <xsd:schema
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         targetNamespace="http://www.example.com/Example"
+         elementFormDefault="qualified"
+         >
+   
+         <xsd:element name="Echo">
+           <xsd:complexType>
+             <xsd:sequence>
+               <xsd:element name="value" type="xsd:string"
+                 minOccurs="1" maxOccurs="1"
+                 />
+             </xsd:sequence>
+           </xsd:complexType>
+         </xsd:element>
+   
+         <xsd:element name="EchoResponse">
+           <xsd:complexType>
+             <xsd:sequence>
+               <xsd:element name="result" type="xsd:string"
+                 minOccurs="1" maxOccurs="1"
+                 />
+             </xsd:sequence>
+           </xsd:complexType>
+         </xsd:element>
+   
+       </xsd:schema>
+     </types>
+   
+     <message name="EchoInMsg">
+       <part name="echo" element="tns:Echo"/>
+     </message>
+   
+     <message name="EchoOutMsg">
+       <part name="echo" element="tns:EchoResponse"/>
+     </message>
+   
+     <portType name="ExamplePort">
+       <operation name="Echo">
+         <input message="tns:EchoInMsg"/>
+         <output message="tns:EchoOutMsg"/>
+       </operation>
+     </portType>
+   
+     <binding name="ExampleBinding" type="tns:ExamplePort">
+       <soap:binding style="document"
+         transport="http://schemas.xmlsoap.org/soap/http"/>
+       <operation name="Echo">
+         <soap:operation style="document"
+           soapAction="http://www.example.com/Example/Echo"/>
+         <input>
+           <soap:body use="literal"/>
+         </input>
+         <output>
+           <soap:body use="literal"/>
+         </output>
+       </operation>
+     </binding>
+   
+     <service name="ExampleService">
+       <port name="ExamplePort" binding="tns:ExampleBinding">
+         <soap:address location="http://REPLACE_WITH_ACTUAL_URL" />
+       </port>
+     </service>
+   
+   </definitions>

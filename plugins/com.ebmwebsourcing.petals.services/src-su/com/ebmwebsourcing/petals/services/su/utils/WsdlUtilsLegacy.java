@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IStatus;
 import com.ebmwebsourcing.commons.jbi.internal.provisional.beans.XmlElement;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUpdater;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.su.wizards.ErrorReporter;
 import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 
@@ -99,14 +99,9 @@ public class WsdlUtilsLegacy {
 						eclipseSuBean.getServiceNamespaceUri(),
 						eclipseSuBean.getServiceName());
 
-			QName interfaceName = new QName(
-					eclipseSuBean.getInterfaceNamespaceUri(),
-					eclipseSuBean.getInterfaceName());
-
-			updateWorked = WsdlUpdater.getInstance().update(
+			updateWorked = WsdlUtils.INSTANCE.updateEndpointNameInWsdl(
 						wsdlFilePath.toFile(),
 						serviceName,
-						interfaceName,
 						eclipseSuBean.getEndpointName());
 		}
 

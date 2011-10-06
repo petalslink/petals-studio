@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.jsr181.handlers;
 
@@ -15,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,8 +49,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils.JaxWsException;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
 
@@ -63,6 +64,7 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.AbstractHandler
 	 * #execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
+	@Override
 	public Object execute( final ExecutionEvent event ) throws ExecutionException {
 
 		final IJavaProject javaProject = getSelectedJavaProject();
@@ -154,7 +156,7 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 	 * 3. For each annotated class, a WSDL is generated in the "jbi" directory.<br />
 	 * 4. Eventually, if the option is activated, a jbi.xml is generated from all the WSDL.
 	 * </p>
-	 * 
+	 *
 	 * @param javaProject
 	 * @param generateJbiXml
 	 * @param monitor
@@ -229,14 +231,14 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 
 	/**
 	 * Generates the jbi.xml from the WSDL in the project.
-	 * 
+	 *
 	 * @param project the SU project
 	 * @param classNameToWsdlName map that associated a class name and a WSDL
 	 * <p>
 	 * Key = the qualified name of the annotated class<br />
 	 * Value = the WSDL file name
 	 * </p>
-	 * 
+	 *
 	 * @param monitor the progress monitor
 	 * @throws CoreException if the project resources could not be manipulated
 	 */
@@ -250,8 +252,8 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 			IFile wsdlFile = project.getFolder( PetalsConstants.LOC_RES_FOLDER ).getFile( entry.getValue());
 			if( wsdlFile.exists()) {
 
-				String uri = wsdlFile.getLocation().toFile().toURI().toString();
-				List<JbiBasicBean> beans = WsdlParser.getInstance().parse( uri );
+				URI uri = wsdlFile.getLocation().toFile().toURI();
+				List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( uri );
 				for( JbiBasicBean bean : beans ) {
 
 					Jsr181Provides1x jsr181Bean = new Jsr181Provides1x();

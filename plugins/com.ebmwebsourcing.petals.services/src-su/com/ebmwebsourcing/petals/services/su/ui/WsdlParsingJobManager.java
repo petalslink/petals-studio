@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.su.ui;
@@ -22,8 +22,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.progress.WorkbenchJob;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 
 /**
  * A job that parses WSDLs.
@@ -149,8 +149,7 @@ public class WsdlParsingJobManager {
 			WsdlParsingJobManager.this.beans.clear();
 			List<JbiBasicBean> _beans = null;
 			try {
-				_beans = WsdlParser.getInstance().parse(
-							WsdlParsingJobManager.this.wsdlUri.toString());
+				_beans = WsdlUtils.INSTANCE.parse( WsdlParsingJobManager.this.wsdlUri );
 
 			} catch( IllegalArgumentException e ) {
 				// nothing

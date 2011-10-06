@@ -11,6 +11,7 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.utils;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,7 +29,7 @@ import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.StyledElementListSelectionDialog;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.explorer.SourceManager;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 import com.ebmwebsourcing.petals.services.explorer.model.ServiceUnitBean;
@@ -228,7 +229,7 @@ public class ConsumeUtils {
 	 * the same name but with different MEP).
 	 * </p>
 	 *
-	 * @param wsdlUri the WSDL URI, as a string (can be null)
+	 * @param wsdlUri the WSDL URI (can be null)
 	 * @param itfName the interface name
 	 * @param itfNs the interface name space
 	 * @param srvName the service name
@@ -238,7 +239,7 @@ public class ConsumeUtils {
 	 * @return a non-null map of operations - MEP
 	 */
 	public static Map<QName,Mep> getOperations(
-			String wsdlUri,
+			URI wsdlUri,
 			String itfName, String itfNs,
 			String srvName, String srvNs,
 			String edptName, String targetComponent ) {
@@ -247,7 +248,7 @@ public class ConsumeUtils {
 
 		// WSDL operations
 		if( wsdlUri != null ) {
-			result.putAll( WsdlParser.getInstance().getOperations(
+			result.putAll( WsdlUtils.INSTANCE.getOperations(
 					wsdlUri,
 					itfName, itfNs,
 					srvName, srvNs,

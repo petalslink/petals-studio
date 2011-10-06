@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Tests for BPEL Designer
 Bundle-SymbolicName: org.eclipse.bpel.ui.tests;singleton:=true
 Bundle-Version: 0.5.0.qualifier
-Bundle-Activator: org.eclipse.bpel.ui.tests.Activator
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

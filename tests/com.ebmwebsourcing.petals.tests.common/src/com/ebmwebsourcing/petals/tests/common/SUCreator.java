@@ -1,3 +1,14 @@
+/******************************************************************************
+ * Copyright (c) 2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.tests.common;
 
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
@@ -18,7 +29,6 @@ public class SUCreator {
 		bot.button("Next >"); // wait for button to appear.
 		SWTBotCombo componentCombo = bot.comboBox(1);
 		componentCombo.setSelection("File Transfer  //  petals-bc-filetransfer");
-		su.setWsdlName("getFiles.wsdl");
 		bot.button("Next >").click();
 		bot.ccomboBox(3).setText(su.getServiceName());
 		su.setEndpoint(su.getServiceName() + "Endpoint");
@@ -26,20 +36,22 @@ public class SUCreator {
 		bot.button("Next >").click();
 		su.setProjectName(bot.text().getText());
 		bot.button("Next >").click();
-		bot.text(2).setText("testFolder");
+		bot.comboBox().setSelection(1);
+		su.setWsdlName("GetFiles.wsdl");
+		bot.text(0).setText("testFolder");
 		bot.button("Next >").click();
 		bot.button("Finish").click();
 		bot.waitUntil(new ICondition() {
-			
+
 			@Override
 			public boolean test() throws Exception {
 				return bot.activeEditor() != currentEditor;
 			}
-			
+
 			@Override
 			public void init(SWTBot bot) {
 			}
-			
+
 			@Override
 			public String getFailureMessage() {
 				return null;
@@ -65,7 +77,7 @@ public class SUCreator {
 			public String getFailureMessage() {
 				return "SU not accessible in Petals Navigator view";
 			}
-			
+
 		});
 		return su;
 	}
@@ -77,5 +89,5 @@ public class SUCreator {
 			return null;
 		}
 	}
-	
+
 }

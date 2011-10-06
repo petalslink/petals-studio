@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties;
 
@@ -56,8 +56,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.ui.StyledElementLis
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.eip.PetalsEipPlugin;
 import com.ebmwebsourcing.petals.services.eip.designer.edit.commands.EipNodeSetAttributeCommand;
 import com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipNodeEditPart;
@@ -407,7 +407,8 @@ public class EipInterfaceSection extends AbstractPropertySection implements Prop
 		List<JbiBasicBean> _beans = null;
 		try {
 			if( ! StringUtils.isEmpty( this.wsdlText.getText())) {
-				_beans = WsdlParser.getInstance().parse( this.wsdlText.getText());
+				_beans = WsdlUtils.INSTANCE.parse( this.wsdlText.getText());
+
 				if( _beans != null ) {
 					wsdlBeans.addAll( _beans );
 				} else {

@@ -12,69 +12,67 @@
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.wsdl.Definition;
 import javax.wsdl.Operation;
 import javax.wsdl.Port;
 import javax.wsdl.PortType;
+import javax.wsdl.Service;
+import javax.wsdl.WSDLException;
 import javax.wsdl.extensions.soap.SOAPAddress;
+import javax.wsdl.extensions.soap.SOAPBinding;
 import javax.wsdl.extensions.soap12.SOAP12Address;
+import javax.wsdl.extensions.soap12.SOAP12Binding;
+import javax.wsdl.xml.WSDLWriter;
 import javax.xml.namespace.QName;
 
-import org.apache.woden.wsdl20.Description;
-import org.apache.woden.wsdl20.Endpoint;
-import org.apache.woden.wsdl20.Interface;
-import org.apache.woden.wsdl20.InterfaceOperation;
-import org.apache.woden.wsdl20.Service;
-import org.apache.woden.wsdl20.extensions.ComponentExtensions;
-import org.apache.woden.wsdl20.extensions.soap.SOAPBindingExtensions;
 import org.eclipse.core.runtime.IStatus;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 /**
- * A WSDL parser for versions 1.1 and 2.0 of the WSDL specification.
- * <p>
- * This parser looks to fill in a data structure storing the name, the end-point and the interface of a service.
- * Since we could not find any WSDL parsing library managing both versions, this parser used two different
- * parsers sequentially to parse a WSDL. It first uses WSDL4j to parse WSDL 1.1.
- * If the parsing fails, it tries to parse it with Apache Woden for WSDL 2.0.
- * If it also fails, then we conclude to a parsing error.
- * </p>
- *
+ * A WSDL parser for the version 1.1 of the WSDL specification.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class WsdlParser {
+public class WsdlUtils {
 
-	/** The unique instance of this parser. */
-	private static WsdlParser instance = new WsdlParser();
+	/**
+	 * The unique instance of this parser.
+	 */
+	public static WsdlUtils INSTANCE = new WsdlUtils();
 
-	/** The instance of the WSDL parser for the version 2.0 of WSDL. */
-	private org.apache.woden.WSDLReader wsdlReader20;
-
-	/** The instance of the WSDL parser for the version 1.1 of WSDL. */
+	/**
+	 * The instance of the WSDL parser for the version 1.1 of WSDL.
+	 */
 	private javax.wsdl.xml.WSDLReader wsdlReader11;
+
+	/**
+	 * The factory to write WSDL files.
+	 */
+	private javax.wsdl.factory.WSDLFactory wsdlFactory11;
 
 
 
 	/**
 	 * The constructor initializes the two parsers.
 	 */
-	private WsdlParser() {
+	private WsdlUtils() {
+
 		try {
-			this.wsdlReader20 = org.apache.woden.WSDLFactory.newInstance().newWSDLReader();
+			this.wsdlFactory11 = javax.wsdl.factory.WSDLFactory.newInstance();
 			this.wsdlReader11 = javax.wsdl.factory.WSDLFactory.newInstance().newWSDLReader();
 			this.wsdlReader11.setFeature( "javax.wsdl.verbose", false ); //$NON-NLS-1$
-
-		} catch( org.apache.woden.WSDLException e ) {
-			PetalsCommonPlugin.log( e, IStatus.WARNING );
 
 		} catch( javax.wsdl.WSDLException e ) {
 			PetalsCommonPlugin.log( e, IStatus.WARNING );
@@ -83,26 +81,30 @@ public class WsdlParser {
 
 
 	/**
-	 * @return the unique instance of this class.
+	 * Parses a WSDL URL, given as a string (WSDL 1.1 only).
+	 * @param wsdlUri the URI of the WSDL to parse (not null).
+	 * @return a list of beans containing easily accessible data
+	 * @throws IllegalArgumentException if the URI is invalid
 	 */
-	public static WsdlParser getInstance () {
-		return instance;
+	public List<JbiBasicBean> parse( String wsdlUrlAsString ) throws IllegalArgumentException {
+		URI uri = UriUtils.urlToUri( wsdlUrlAsString );
+		return parse( uri );
 	}
 
 
 	/**
-	 * Parses a WSDL URL.
+	 * Parses a WSDL URL (WSDL 1.1 only).
 	 * @param wsdlUri the URI of the WSDL to parse.
 	 * @return a bean containing required data to generate a SU for Petals. Null if the parsing failed.
 	 * @throws IllegalArgumentException thrown when more than one service is described by the parsed WSDL (yes, that's possible).
 	 */
-	public List<JbiBasicBean> parse( String wsdlUri ) throws IllegalArgumentException {
+	public List<JbiBasicBean> parse( URI wsdlUri ) {
 
 		List<JbiBasicBean> result = new ArrayList<JbiBasicBean> ();
 
-		// Try parsing for WSDL 1.1
-		try {
-			Definition def = this.wsdlReader11.readWSDL( wsdlUri );
+	    // Read WSDL 1.1 definitions from the URL
+	    try {
+	    	Definition def = this.wsdlReader11.readWSDL( wsdlUri.toString());
 			for( Iterator<?> itService = def.getServices().keySet().iterator(); itService.hasNext(); ) {
 
 				QName serviceName = (QName) itService.next();
@@ -110,7 +112,7 @@ public class WsdlParser {
 				if( !( value instanceof javax.wsdl.Service ))
 					continue;
 
-				javax.wsdl.Service service = (javax.wsdl.Service) value;
+				Service service = (javax.wsdl.Service) value;
 				Map<?,?> ports = service.getPorts();
 				for( Map.Entry<?,?> entry : ports.entrySet()) {
 					String portName = (String) entry.getKey();
@@ -173,68 +175,89 @@ public class WsdlParser {
 				}
 			}
 
-			return result;
-
-		} catch( javax.wsdl.WSDLException e ) {
-			// nothing
-		}
-
-
-		// Try parsing for WSDL 2.0
-		try {
-			result.clear();
-			Description desc = this.wsdlReader20.readWSDL( wsdlUri );
-			for( Service service : desc.getServices()) {
-				for( Endpoint endpoint : service.getEndpoints()) {
-
-					ComponentExtensions ext = endpoint.getBinding().
-					getComponentExtensionsForNamespace( ComponentExtensions.URI_NS_SOAP );
-
-					if( ext != null && ext instanceof SOAPBindingExtensions ) {
-
-						JbiBasicBean bean = new JbiBasicBean();
-						bean.setServiceName( service.getName().getLocalPart());
-						bean.setServiceNs( service.getName().getNamespaceURI());
-						bean.setInterfaceName( service.getInterface().getName().getLocalPart());
-						bean.setInterfaceNs( service.getInterface().getName().getNamespaceURI());
-						bean.setSoapAddress( endpoint.getAddress().toString());
-						bean.setEndpointName( endpoint.getName().toString());
-
-						// Bug PETALSSTUD-71: make sure the referenced port type really exists in the WSDL
-						Interface itf = desc.getInterface( service.getInterface().getName());
-						bean.setPortTypeExists( itf != null );
-						// Bug PETALSSTUD-71
-
-						// Get the operations
-						if( itf != null
-								&& itf.getInterfaceOperations() != null ) {
-							for( InterfaceOperation op : itf.getInterfaceOperations()) {
-
-								Mep mep = Mep.UNKNOWN;
-								URI mepUri = op.getMessageExchangePattern();
-								if( "http://www.w3.org/2004/03/wsdl/in-only".equals( mepUri.toString()))
-									mep = Mep.IN_ONLY;
-								else if( "http://www.w3.org/2004/03/wsdl/robust-in-only".equals( mepUri.toString()))
-									mep = Mep.ROBUST_IN_ONLY;
-								else if( "http://www.w3.org/2004/03/wsdl/in-out".equals( mepUri.toString()))
-									mep = Mep.IN_OUT;
-
-								bean.addOperation( op.getName(), mep );
-							}
-						}
-
-						result.add( bean );
-					}
-				}
-			}
-
-			return result;
-
-		} catch( Exception e ) {
+		} catch( WSDLException e ) {
 			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
 		return result;
+	}
+
+
+	/**
+	 * Updates a WSDL file by changing the end-point (port name).
+     *
+	 * @param file the WSDL file to parse
+	 * @param serviceName the name of the service whose end-point (port name) must be updated
+	 * @param newEndpoint the new end-point
+	 * @return true if the update worked, false otherwise
+	 */
+	public boolean updateEndpointNameInWsdl( File wsdlFile, QName serviceName, String newEndpoint ) {
+		return updateEndpointAndServiceNamesInWsdl( wsdlFile, serviceName, null, newEndpoint );
+	}
+
+
+	/**
+	 * Updates a WSDL file by changing the end-point (port name) and service name.
+     *
+	 * @param file the WSDL file to parse
+	 * @param serviceName the name of the service whose end-point (port name) and name must be updated
+	 * @param newServiceName the new service name
+	 * @param newEndpoint the new end-point
+	 * @return true if the update worked, false otherwise
+	 */
+	public boolean updateEndpointAndServiceNamesInWsdl( java.io.File wsdlFile, QName serviceName, QName newServiceName, String newEndpoint ) {
+
+		boolean updated = false;
+		try {
+			// Parse the WSDL to update
+			Definition def = this.wsdlReader11.readWSDL( wsdlFile.toURI().toString());
+			Object value = def.getServices().get( serviceName );
+			if( !( value instanceof Service ))
+				throw new IOException( "Invalid service properties (not found or invalid class)." );
+
+			Service service = (Service) value;
+			Map<?,?> ports = service.getPorts();
+			Set<?> keyPorts = ports.keySet();
+
+			// Find the elements to update
+			Port rightPort = null;
+			portsLoop: for( Object name : keyPorts ) {
+				String portName = (String) name;
+				Port port = (Port) ports.get( portName );
+
+				for( Object o : port.getBinding().getExtensibilityElements()) {
+					if( o instanceof SOAPBinding && rightPort == null ) {
+						rightPort = port;
+						break portsLoop;
+					}
+					else if( o instanceof SOAP12Binding && rightPort == null ) {
+						rightPort = port;
+						break portsLoop;
+					}
+				}
+			}
+
+			// Update the end-point and service
+			if( rightPort != null ) {
+				rightPort.setName( newEndpoint );
+				if( newServiceName != null )
+					service.setQName( newServiceName );
+
+				WSDLWriter writer = this.wsdlFactory11.newWSDLWriter();
+				FileOutputStream fos = new FileOutputStream( wsdlFile );
+				writer.writeWSDL( def, fos );
+				fos.close();
+				updated = true;
+			}
+
+		} catch( WSDLException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+		} catch( IOException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
+
+		return updated;
 	}
 
 
@@ -249,7 +272,7 @@ public class WsdlParser {
 	 * @return a map (operation name = operation MEP), never null
 	 */
 	public Map<QName, Mep> getOperations(
-				String wsdlUri,
+				URI wsdlUri,
 				String itfName,
 				String itfNs,
 				String srvName,
@@ -313,6 +336,20 @@ public class WsdlParser {
 		 */
 		public String getInterfaceNs() {
 			return this.interfaceNs;
+		}
+
+		/**
+		 * @return the portTypeExists
+		 */
+		public boolean isPortTypeExists() {
+			return this.portTypeExists;
+		}
+
+		/**
+		 * @param portTypeExists the portTypeExists to set
+		 */
+		public void setPortTypeExists( boolean portTypeExists ) {
+			this.portTypeExists = portTypeExists;
 		}
 
 		/**
@@ -380,20 +417,6 @@ public class WsdlParser {
 		 */
 		public void setSoapVersion( SoapVersion soapVersion ) {
 			this.soapVersion = soapVersion;
-		}
-
-		/**
-		 * @return the portTypeExists
-		 */
-		public boolean isPortTypeExists() {
-			return this.portTypeExists;
-		}
-
-		/**
-		 * @param portTypeExists the portTypeExists to set
-		 */
-		public void setPortTypeExists( boolean portTypeExists ) {
-			this.portTypeExists = portTypeExists;
 		}
 
 		/**

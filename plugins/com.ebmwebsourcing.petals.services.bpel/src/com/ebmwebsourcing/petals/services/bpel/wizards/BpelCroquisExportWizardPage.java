@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.bpel.wizards;
 
@@ -50,8 +50,8 @@ import org.eclipse.ui.progress.IProgressService;
 import com.ebmwebsourcing.petals.common.generation.JbiUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.bpel.PetalsBpelPlugin;
 import com.ebmwebsourcing.petals.services.bpel.designer.builder.PetalsBpelBuilder;
 import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules;
@@ -243,7 +243,16 @@ public class BpelCroquisExportWizardPage extends AbstractPetalsServiceCreationWi
 
 						// One SOAP project per remote import
 						for( String import_ : imports ) {
-							List<JbiBasicBean> jbiBeans = WsdlParser.getInstance().parse( import_ );
+
+							List<JbiBasicBean> jbiBeans;
+							try {
+								jbiBeans = WsdlUtils.INSTANCE.parse( import_ );
+
+							} catch( IllegalArgumentException e ) {
+								PetalsBpelPlugin.log( e, IStatus.ERROR );
+								continue;
+							}
+
 							for( JbiBasicBean jbiBean : jbiBeans ) {
 
 								SuImportBean suBean = new SuImportBean();

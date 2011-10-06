@@ -1,3 +1,14 @@
+/******************************************************************************
+ * Copyright (c) 2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.tests.common;
 
 public class SUDesc {
@@ -6,21 +17,21 @@ public class SUDesc {
 	private String endpoint;
 	private String projectName;
 	private String wsdlName;
-	
+
 	public String getServiceName() {
-		return serviceName;
+		return this.serviceName;
 	}
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
 	public String getEndpoint() {
-		return endpoint;
+		return this.endpoint;
 	}
 	public void setEndpoint(String endpoint) {
 		this.endpoint = endpoint;
 	}
 	public String getProjectName() {
-		return projectName;
+		return this.projectName;
 	}
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;

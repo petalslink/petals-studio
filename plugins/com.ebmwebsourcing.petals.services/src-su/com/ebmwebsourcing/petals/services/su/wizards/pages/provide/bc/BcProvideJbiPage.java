@@ -50,8 +50,8 @@ import org.eclipse.ui.PlatformUI;
 import com.ebmwebsourcing.commons.jbi.internal.provisional.utils.JbiNameFormatter;
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.Messages;
 import com.ebmwebsourcing.petals.services.su.wizards.SettingConstants;
@@ -292,7 +292,7 @@ public class BcProvideJbiPage extends AbstractJbiPage {
 				monitor.beginTask( Messages.ProvideJbiPage_24, 2 );
 				monitor.worked( 1 );
 				try {
-					List<JbiBasicBean> newWsdlBeans = WsdlParser.getInstance().parse( wsdlUrl );
+					List<JbiBasicBean> newWsdlBeans = WsdlUtils.INSTANCE.parse( wsdlUrl );
 					if( newWsdlBeans == null )
 						newWsdlBeans = new ArrayList<JbiBasicBean> ();
 
