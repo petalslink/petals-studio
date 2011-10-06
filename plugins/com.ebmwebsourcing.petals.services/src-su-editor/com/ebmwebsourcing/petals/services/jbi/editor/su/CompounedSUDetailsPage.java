@@ -40,8 +40,8 @@ import com.ebmwebsourcing.petals.services.jbi.editor.AbstractServicesFormPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.QNameToStringConverter;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringIsQNameValidator;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringToQNameConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ContributionSupport;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -81,11 +81,13 @@ public class CompounedSUDetailsPage implements IDetailsPage {
 	public CompounedSUDetailsPage( AbstractServicesFormPage page, AbstractEndpoint selectedEndpoint ) {
 		this.page = page;
 		this.jbi = page.getJbi();
-		this.cdkContributions = SupportsUtil.getInstance().getCDKSupportFor(selectedEndpoint).createJbiEditorContribution(this);
-		ContributionSupport componentSupport = SupportsUtil.getInstance().getComponentSupportFor(selectedEndpoint);
-		if (componentSupport != null) { 
-			this.componentContributions = componentSupport.createJbiEditorContribution(this);
-		}
+		ComponentSupportExtensionDesc componentExtensionDesc = SupportsUtil.getInstance().getComponentExtensionDesc(selectedEndpoint);
+		if (componentExtensionDesc != null) {
+			this.componentContributions = componentExtensionDesc.createNewExtensionSupport().createJbiEditorContribution(selectedEndpoint, this);
+			this.cdkContributions = componentExtensionDesc.getCDKSupportExtensionDesc().createNewExtensionSupport().createJbiEditorContribution(selectedEndpoint, this);
+	    } /*else {
+	    	this.cdkContributions = SupportsUtil.getInstance().getDefaultCDKSupportExtensionDesc().createNewExtensionSupport().createJbiEditorContribution(this);
+	    }*/
 		this.selectedEndpoint = selectedEndpoint;
 	}
 
@@ -113,8 +115,12 @@ public class CompounedSUDetailsPage implements IDetailsPage {
 
 		section.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		section.clientVerticalSpacing = 10;
-		section.setText( this.sectionTitle );
-		section.setDescription( this.sectionDescription );
+		if (this.sectionTitle != null) {
+			section.setText( this.sectionTitle );
+		}
+		if (this.sectionDescription != null) {
+			section.setDescription( this.sectionDescription );
+		}
 
 		Composite container = toolkit.createComposite( section, SWT.NONE );
 		layout = new GridLayout( 2, false );

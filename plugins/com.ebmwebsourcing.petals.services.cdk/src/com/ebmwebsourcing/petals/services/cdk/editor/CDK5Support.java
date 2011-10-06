@@ -1,10 +1,10 @@
 package com.ebmwebsourcing.petals.services.cdk.editor;
 
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ContributionSupport;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.jbi.editor.su.CompounedSUDetailsPage;
 
-public class CDK5Support extends ContributionSupport {
+public class CDK5Support extends EditorContributionSupport {
 
 	@Override
 	protected JbiEditorDetailsContribution getProvidesContribution(CompounedSUDetailsPage hostDetailsPage) {

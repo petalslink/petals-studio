@@ -5,29 +5,21 @@ import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
 
-public abstract class ContributionSupport {
+public abstract class EditorContributionSupport {
 	
 	private AbstractExtensibleElement element;
 	
 	protected abstract JbiEditorDetailsContribution getProvidesContribution(CompounedSUDetailsPage hostDetailsPage);
 	protected abstract JbiEditorDetailsContribution getConsumesContribution(CompounedSUDetailsPage hostDetailsPage);
 	
-	public JbiEditorDetailsContribution createJbiEditorContribution(CompounedSUDetailsPage hostDetailsPage) {
-		if (element instanceof Provides) {
+	public JbiEditorDetailsContribution createJbiEditorContribution(AbstractExtensibleElement initialElement, CompounedSUDetailsPage hostDetailsPage) {
+		if (initialElement instanceof Provides) {
 			return getProvidesContribution(hostDetailsPage);
-		} else if (element instanceof Consumes) {
+		} else if (initialElement instanceof Consumes) {
 			return getConsumesContribution(hostDetailsPage);
 		} else {
 			return null;
 		}
-	}
-	
-	public AbstractExtensibleElement getElement() {
-		return this.element;
-	}
-	
-	public void setElement(AbstractExtensibleElement element) {
-		this.element = element;
 	}
 
 }

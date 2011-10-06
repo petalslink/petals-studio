@@ -11,14 +11,13 @@ import org.eclipse.emf.ecore.util.BasicExtendedMetaData.EStructuralFeatureExtend
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ContributionSupport;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 
 public class SupportsUtil {
 	
 	// KEYS
 	private static final String CDK_SUPPORT_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".cdkSupport";
-	private static final String COMPONENT_SUPPORT_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".componentSupport";
+	private static final String COMPONENT_SUPPORT_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".componentExtension";
 	
 	// Singleton
 	private static SupportsUtil INSTANCE;
@@ -34,7 +33,7 @@ public class SupportsUtil {
 	
 	private Map<String, SupportExtensionDesc> cdkSupportExtensions;
 	private SupportExtensionDesc defaultCDKSupport;
-	private Map<String, SupportExtensionDesc> componentSupportExtensions;
+	private Map<String, ComponentSupportExtensionDesc> componentSupportExtensions;
 	
 	private SupportsUtil() {
 		loadCDKSupports();
@@ -50,58 +49,74 @@ public class SupportsUtil {
 				PetalsServicesPlugin.log("Several CDKSupport extensions for NS: " + namespace, IStatus.WARNING);
 			}
 			cdkSupportExtensions.put(namespace, ext);
-			if (defaultCDKSupport == null || defaultCDKSupport.getPriority() < ext.getPriority()) {
+			if (defaultCDKSupport == null) {
 				defaultCDKSupport = ext;
 			}
 		}
 	}
 	
 	private void loadComponentSupports() {
-		componentSupportExtensions = new HashMap<String, SupportExtensionDesc>();
+		componentSupportExtensions = new HashMap<String, ComponentSupportExtensionDesc>();
 		for (IConfigurationElement elt : Platform.getExtensionRegistry().getConfigurationElementsFor(COMPONENT_SUPPORT_EXTENSION_POINT)) {
-			SupportExtensionDesc ext = new SupportExtensionDesc(elt);
-			String namespace = ext.getNamespace();
-			if (componentSupportExtensions.containsKey(namespace)) {
-				PetalsServicesPlugin.log("Several ComponentSupports extensions for NS: " + namespace, IStatus.WARNING);
+			for (IConfigurationElement child : elt.getChildren("ComponentVersionSupport")) {
+				ComponentSupportExtensionDesc ext = new ComponentSupportExtensionDesc(child);
+				String namespace = ext.getNamespace();
+				if (componentSupportExtensions.containsKey(namespace)) {
+					PetalsServicesPlugin.log("Several ComponentSupports extensions for NS: " + namespace, IStatus.WARNING);
+				}
+				componentSupportExtensions.put(namespace, ext);
 			}
-			componentSupportExtensions.put(namespace, ext);
 		}
 	}
 
+//	
+//	public ContributionSupport getCDKSupportFor(AbstractExtensibleElement element) {
+//		ContributionSupport res = null;
+//		SupportExtensionDesc cdkSupportDesc = null;
+//		for (FeatureMap.Entry entry : element.getGroup()) {
+//			EStructuralFeature feature = entry.getEStructuralFeature();
+//			if (feature instanceof Holder) {
+//				SupportExtensionDesc ext = cdkSupportExtensions.get(((Holder)feature).getExtendedMetaData().getNamespace());
+//				if (ext != null) {
+//					cdkSupportDesc = ext;
+//				}	
+//			}
+//		}
+//		if (cdkSupportDesc != null) {
+//			res = cdkSupportDesc.createNewExtensionSupport();
+//		}
+//		if (res == null) {
+//			res = getComponentSupportFor(element).createNewExtensionSupport();
+//		}
+//		res.setElement(element);
+//		return res;
+//	}
 	
-	public ContributionSupport getCDKSupportFor(AbstractExtensibleElement element) {
-		ContributionSupport res = null;
+//	public EditorContributionSupport getComponentSupportFor(AbstractExtensibleElement element) {
+//		EditorContributionSupport res = null;
+//		ComponentSupportExtensionDesc componentExtensionDesc = getComponentExtensionDesc(element);
+//		
+//		if (componentExtensionDesc != null) {
+//			res = componentExtensionDesc.createNewExtensionSupport();
+//		}
+//		if (res != null) {
+//			res.setElement(element);
+//		}
+//		return res;
+//	}
+
+	public ComponentSupportExtensionDesc getComponentExtensionDesc(AbstractExtensibleElement element) {
+		ComponentSupportExtensionDesc componentExtensionDesc = null;
 		for (FeatureMap.Entry entry : element.getGroup()) {
 			EStructuralFeature feature = entry.getEStructuralFeature();
 			if (feature instanceof Holder) {
-				SupportExtensionDesc ext = cdkSupportExtensions.get(((Holder)feature).getExtendedMetaData().getNamespace());
+				ComponentSupportExtensionDesc ext = componentSupportExtensions.get(((Holder)feature).getExtendedMetaData().getNamespace());
 				if (ext != null) {
-					res = ext.createNewExtensionSupport();
-				}	
-			}
-		}
-		if (res == null) {
-			res = defaultCDKSupport.createNewExtensionSupport();
-		}
-		res.setElement(element);
-		return res;
-	}
-	
-	public ContributionSupport getComponentSupportFor(AbstractExtensibleElement element) {
-		ContributionSupport res = null;
-		for (FeatureMap.Entry entry : element.getGroup()) {
-			EStructuralFeature feature = entry.getEStructuralFeature();
-			if (feature instanceof Holder) {
-				SupportExtensionDesc ext = componentSupportExtensions.get(((Holder)feature).getExtendedMetaData().getNamespace());
-				if (ext != null) {
-					res = ext.createNewExtensionSupport();
+					componentExtensionDesc = ext;
 				}
 			}
 		}
-		if (res != null) {
-			res.setElement(element);
-		}
-		return res;
+		return componentExtensionDesc;
 	}
 
 	public SupportExtensionDesc getCDKSupport(String cdkSupportNamespace) {

@@ -121,7 +121,8 @@ public class DefaultJbiEditorContribution implements JbiEditorDetailsContributio
 		section.setClient(container);
 		
 		for (EStructuralFeature feature : extensionClass.getEAllStructuralFeatures()) {
-			if (isInPackage(feature) && feature instanceof EAttribute) {
+			if (isInPackage(feature) && feature instanceof EAttribute
+				&& !feature.getEType().equals(EcorePackage.Literals.EFEATURE_MAP_ENTRY)) {
 				Object widget = null;
 				EAttribute attr = (EAttribute)feature;
 				toolkit.createLabel(container, attr.getName());

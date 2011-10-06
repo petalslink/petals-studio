@@ -63,7 +63,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="jbiEditorSupportClass" type="string" use="required">
+         <attribute name="editorExtension" type="string" use="required">
             <annotation>
                <documentation>
                   

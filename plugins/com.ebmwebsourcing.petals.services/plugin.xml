@@ -797,8 +797,8 @@
    </extension>
    
    
-   <extension-point id="componentSupport" name="Support for components for JBI edition" schema="schema/componentSupport.exsd"/>
    <extension-point id="cdkSupport" name="Support for a CDK" schema="schema/cdkSupport.exsd"/>
+   <extension-point id="componentExtension" name="Extension to support component" schema="schema/componentExtension.exsd"/>
    <extension
          point="org.eclipse.ui.editors">
       <editor

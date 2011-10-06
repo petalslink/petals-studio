@@ -27,7 +27,7 @@
          point="com.ebmwebsourcing.petals.services.cdkSupport">
       <cdkSupport
             id="cdk5"
-            jbiEditorSupportClass="com.ebmwebsourcing.petals.services.cdk.editor.CDK5Support"
+            editorExtension="com.ebmwebsourcing.petals.services.cdk.editor.CDK5Support"
             namespace="http://petals.ow2.org/components/extensions/version-5"
             priority="1">
       </cdkSupport>

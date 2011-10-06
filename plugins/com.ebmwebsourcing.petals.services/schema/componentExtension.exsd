@@ -74,7 +74,21 @@
 
    <element name="ComponentVersionSupport">
       <complexType>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="namespace" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="cdkNamespace" type="string" use="required">
             <annotation>
                <documentation>
                   
@@ -97,7 +111,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport:"/>
                </appinfo>
             </annotation>
          </attribute>
