@@ -32,10 +32,10 @@ public class TestJavaToWsdl extends SWTBotGefTestCase {
 	private File jeeFile;
 
 	public void initFiles() throws Exception {
-		URL url = TestJavaToWsdl.class.getResource("addorder.jar");
+		URL url = TestJavaToWsdl.class.getResource("/addorder.jar");
 		url = FileLocator.toFileURL(url);
 		this.businessFile = new File(url.getFile());
-		url = TestJavaToWsdl.class.getResource("easybeans-all-1.0.2.jar");
+		url = TestJavaToWsdl.class.getResource("/easybeans-all-1.0.2.jar");
 		url = FileLocator.toFileURL(url);
 		this.jeeFile = new File(url.getFile());
 	}
