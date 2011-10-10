@@ -1,24 +1,32 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.eclipse.core.runtime.IStatus;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
@@ -79,5 +87,25 @@ public class XPathUtils {
 		}
 
 		return msg;
+	}
+
+
+	/**
+	 * @param xPathExpression the XPath expression
+	 * @param rootNode the root node, or null for the entire document
+	 * @param returnType the return type (see XPathConstants)
+	 * @return the result of the evaluated expression
+	 * @throws ParserConfigurationException
+	 * @throws IOException if the file cannot be parsed
+	 * @throws SAXException if the file could not be parsed
+	 */
+	public static synchronized Object evaluateXPathExpression(
+				String xPathExpression,
+				File xmlFile,
+				QName returnType ) throws ParserConfigurationException, SAXException, IOException {
+
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		Document document = builder.parse( xmlFile );
+		return evaluateXPathExpression( xPathExpression, document, returnType );
 	}
 }
