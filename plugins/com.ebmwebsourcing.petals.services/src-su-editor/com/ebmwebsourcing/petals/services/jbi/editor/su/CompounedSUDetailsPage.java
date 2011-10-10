@@ -85,9 +85,7 @@ public class CompounedSUDetailsPage implements IDetailsPage {
 		if (componentExtensionDesc != null) {
 			this.componentContributions = componentExtensionDesc.createNewExtensionSupport().createJbiEditorContribution(selectedEndpoint, this);
 			this.cdkContributions = componentExtensionDesc.getCDKSupportExtensionDesc().createNewExtensionSupport().createJbiEditorContribution(selectedEndpoint, this);
-	    } /*else {
-	    	this.cdkContributions = SupportsUtil.getInstance().getDefaultCDKSupportExtensionDesc().createNewExtensionSupport().createJbiEditorContribution(this);
-	    }*/
+	    }
 		this.selectedEndpoint = selectedEndpoint;
 	}
 
