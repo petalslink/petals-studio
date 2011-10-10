@@ -45,7 +45,7 @@ public class TestWsdlUtils extends TestCase {
 	@Test
 	public void testWsdlParsing1() throws Exception {
 
-		URL url = getClass().getResource( "tuxDroid.wsdl" );
+		URL url = getClass().getResource( "/wsdl/tuxDroid.wsdl" );
 		List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( url.toString());
 		Assert.assertTrue( beans.size() == 1 );
 
@@ -69,7 +69,7 @@ public class TestWsdlUtils extends TestCase {
 	@Test
 	public void testWsdlParsing2() throws Exception {
 
-		URL url = getClass().getResource( "hello_soap12.wsdl" );
+		URL url = getClass().getResource( "/wsdl/hello_soap12.wsdl" );
 		List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( url.toString());
 		Assert.assertTrue( beans.size() == 1 );
 
@@ -93,20 +93,22 @@ public class TestWsdlUtils extends TestCase {
 	@Test
 	public void testWsdlParsing3() throws Exception {
 
-		URL url = getClass().getResource( "tuxDroid_WithTwoPorts.wsdl" );
+		URL url = getClass().getResource( "/wsdl/tuxDroid_WithTwoPorts.wsdl" );
 		List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( url.toString());
-		Assert.assertTrue( beans.size() == 1 );
+		Assert.assertEquals(2, beans.size());
 
 		for( JbiBasicBean bean : beans ) {
-			Assert.assertEquals( bean.getInterfaceName(), "TuxDroidPortType" );
-			Assert.assertEquals( bean.getServiceName(), "TuxDroid" );
-			Assert.assertEquals( bean.getEndpointName(), "TuxDroidPort" );
-			Assert.assertTrue( bean.getOperations().size() == 11 );
+			Assert.assertEquals("TuxDroidPortType", bean.getInterfaceName());
+			Assert.assertEquals("TuxDroid", bean.getServiceName());
+			Assert.assertEquals(11, bean.getOperations().size());
 
-			if( bean.getSoapVersion() == SoapVersion.v11 )
+			if( bean.getSoapVersion() == SoapVersion.v11 ) {
 				Assert.assertEquals( bean.getSoapAddress(), "http://localhost:9090/TuxDroidPort" );
-			else
+				Assert.assertEquals("TuxDroidPort", bean.getEndpointName());
+			} else {
 				Assert.assertEquals( bean.getSoapAddress(), "http://www.example.org/" );
+				Assert.assertEquals("TuxDroidPort_Soap12", bean.getEndpointName());
+			}
 		}
 	}
 
@@ -119,7 +121,7 @@ public class TestWsdlUtils extends TestCase {
 	public void testWsdlUpdate1() throws Exception {
 
 		// Copy the WSDL
-		URL url = getClass().getResource( "tuxDroid.wsdl" );
+		URL url = getClass().getResource( "/wsdl/tuxDroid.wsdl" );
 		InputStream in =  url.openStream();
 		File tempFile = File.createTempFile( "petals_test_", ".wsdl" );
 		IoUtils.copyStream( in, tempFile );
@@ -146,7 +148,7 @@ public class TestWsdlUtils extends TestCase {
 	public void testWsdlUpdate2() throws Exception {
 
 		// Copy the WSDL
-		URL url = getClass().getResource( "tuxDroid.wsdl" );
+		URL url = getClass().getResource( "/wsdl/tuxDroid.wsdl" );
 		InputStream in =  url.openStream();
 		File tempFile = File.createTempFile( "petals_test_", ".wsdl" );
 		IoUtils.copyStream( in, tempFile );
