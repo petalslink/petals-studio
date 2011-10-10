@@ -1,0 +1,4 @@
+The src directory is required by the PDE.
+But Git does not like empty directories.
+
+So, keep this file here.

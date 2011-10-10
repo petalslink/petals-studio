@@ -33,4 +33,18 @@
    </Version -->
 		</WizardData>
 	</extension>
+	
+<extension
+      point="com.ebmwebsourcing.petals.services.componentExtension">
+   <ComponentSupport
+         componentDescription="TODO"
+         id="filetransfer">
+      <ComponentVersionSupport
+            cdkNamespace="http://petals.ow2.org/components/extensions/version-5"
+            editorExtension="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferContributionSupport"
+            id="version-2"
+            namespace="http://petals.ow2.org/components/filetransfer/version-2">
+      </ComponentVersionSupport>
+   </ComponentSupport>
+</extension>
 </plugin>

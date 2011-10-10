@@ -1,5 +1,15 @@
-package com.ebmwebsourcing.petals.common.tests;
+/******************************************************************************
+ * Copyright (c) 2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
 
+package com.ebmwebsourcing.petals.common.tests;
 
 import junit.framework.Assert;
 
@@ -17,19 +27,19 @@ public class TestProjectsActions extends SWTBotEclipseTestCase {
 
 	@Test
 	public void testConfigureBuildPath() {
-		SUDesc su = SUCreator.createFileTransferEndpoint(bot);
-		SWTBotView view = bot.viewById("com.ebmwebsourcing.petals.common.projects");
+		SUDesc su = SUCreator.createFileTransferEndpoint(this.bot);
+		SWTBotView view = this.bot.viewById("com.ebmwebsourcing.petals.common.projects");
 		view.show();
 		view.setFocus();
-		SWTBotTree tree = bot.tree(1);
+		SWTBotTree tree = this.bot.tree(1);
 		final SWTBotTreeItem item = tree.getTreeItem("Service Units").getNode(su.getProjectName());
 		item.select();
 		ContextMenuHelper.clickContextMenu(tree, "Petals", "Add Java Nature");
 		ContextMenuHelper.clickContextMenu(tree, "Configure Build Path...");
-		bot.shell("Properties for " + su.getProjectName());
-		Assert.assertEquals("Java Build Path", bot.tree().selection().get(0).get(0));
-		bot.button("Cancel").click();
-		bot.activeEditor().close();
+		this.bot.shell("Properties for " + su.getProjectName());
+		Assert.assertEquals("Java Build Path", this.bot.tree().selection().get(0).get(0));
+		this.bot.button("Cancel").click();
+		this.bot.activeEditor().close();
 	}
 
 }

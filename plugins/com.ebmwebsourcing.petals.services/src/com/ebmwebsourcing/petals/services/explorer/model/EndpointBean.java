@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.explorer.model;
@@ -177,7 +177,7 @@ public class EndpointBean implements IServiceCardId {
 	 * Two end-points are similar if they have the same interface, service, end-point and
 	 * service-unit names.
 	 * </p>
-	 * 
+	 *
 	 * @param bean
 	 * @return true if these end-point beans can be considered equal, false otherwise
 	 */
@@ -257,7 +257,7 @@ public class EndpointBean implements IServiceCardId {
 	 * store this information in the model rather than computing it each time. Notice however
 	 * that this computation is only performed at the first invocation and not when the object is created.
 	 * </p>
-	 * 
+	 *
 	 * @return the operationNameToMep a non-null map that associates an operation name with a MEP
 	 * @see ConsumeUtils#getOperations(String, String, String, String, String, String, String)
 	 */
@@ -266,13 +266,13 @@ public class EndpointBean implements IServiceCardId {
 		if( this.operationNameToMep == null ) {
 			URI uri = getWsdlUri();
 			this.operationNameToMep = ConsumeUtils.getOperations(
-						uri != null ? uri.toString() : null,
-									this.interfaceName.getLocalPart(),
-									this.interfaceName.getNamespaceURI(),
-									this.serviceName.getLocalPart(),
-									this.serviceName.getNamespaceURI(),
-									this.endpointName,
-									this.getComponentName());
+						uri,
+						this.interfaceName.getLocalPart(),
+						this.interfaceName.getNamespaceURI(),
+						this.serviceName.getLocalPart(),
+						this.serviceName.getNamespaceURI(),
+						this.endpointName,
+						this.getComponentName());
 		}
 
 		return this.operationNameToMep;

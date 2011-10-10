@@ -63,8 +63,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.NamespaceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.XPathUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
@@ -498,7 +498,7 @@ public class SuBuilder extends JbiXmlBuilder {
 									String itfNs = p.getServiceName() != null ? p.getInterfaceName().getNamespaceURI() : null;
 									String edpt = p.getEndpointName();
 
-									List<JbiBasicBean> beans = WsdlParser.getInstance().parse( entry.getValue().toString());
+									List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( entry.getValue());
 									if( beans == null ) {
 										markerBeans.add( new MarkerBean(
 												IMarker.SEVERITY_ERROR,
@@ -522,7 +522,7 @@ public class SuBuilder extends JbiXmlBuilder {
 									// Find interface name first
 									List<JbiBasicBean> filteredBeans = new ArrayList<JbiBasicBean> ();
 									for( JbiBasicBean bean : beans ) {
-
+										
 										if( ! bean.isPortTypeExists()) {
 											markerBeans.add( new MarkerBean(
 													IMarker.SEVERITY_ERROR,
@@ -530,7 +530,7 @@ public class SuBuilder extends JbiXmlBuilder {
 													EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
 													jbiXmlFile ));
 										}
-
+										
 										if( bean.getInterfaceName().equals( itfName )
 												&& bean.getInterfaceNs().equals( itfNs )) {
 											filteredBeans.add( bean );

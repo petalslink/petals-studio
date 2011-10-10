@@ -59,8 +59,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstan
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.bpel.PetalsBpelPlugin;
 import com.ebmwebsourcing.petals.services.bpel.designer.builder.PetalsBpelNature;
 import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules;
@@ -458,7 +458,7 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 			sp.setValidateWsdl( true );
 			sp.setWsdl( importedWsdlFile.getName());
 			sp.setServiceAddress( jbiBean.getSoapAddress());
-			if( jbiBean.getSoapVersion() == WsdlParser.SoapVersion.v11 )
+			if( jbiBean.getSoapVersion() == WsdlUtils.SoapVersion.v11 )
 				sp.setSoapVersion( SoapVersion.v11 );
 			else
 				sp.setSoapVersion( SoapVersion.v12 );

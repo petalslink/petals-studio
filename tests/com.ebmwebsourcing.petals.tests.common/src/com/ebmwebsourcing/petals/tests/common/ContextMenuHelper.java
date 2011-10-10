@@ -27,28 +27,26 @@ public class ContextMenuHelper {
 
     /**
      * Clicks the context menu matching the text.
-     *      * @param text
-     *            the text on the context menu.
-     * @throws WidgetNotFoundException
-     *             if the widget is not found.
+     * @param text the text on the context menu.
+     * @throws WidgetNotFoundException if the widget is not found.
      */
-    public static void clickContextMenu(final AbstractSWTBot<?> bot,
-            final String... texts) {
+    public static void clickContextMenu(final AbstractSWTBot<?> bot, final String... texts) {
 
         // show
         final MenuItem menuItem = UIThreadRunnable
                 .syncExec(new WidgetResult<MenuItem>() {
-                    public MenuItem run() {
+                    @Override
+					public MenuItem run() {
                         MenuItem menuItem = null;
                         Control control = (Control) bot.widget;
-                       
+
                         //MenuDetectEvent added by Stefan Schaefer
                         Event event = new Event();
                         control.notifyListeners(SWT.MenuDetect, event);
                         if (!event.doit) {
                             return null;
                         }
-                       
+
                         Menu menu = control.getMenu();
                         for (String text : texts) {
                             @SuppressWarnings("unchecked")
@@ -77,7 +75,8 @@ public class ContextMenuHelper {
 
         // hide
         UIThreadRunnable.syncExec(new VoidResult() {
-            public void run() {
+            @Override
+			public void run() {
                 hide(menuItem.getParent());
             }
         });
@@ -105,7 +104,8 @@ public class ContextMenuHelper {
         event.type = SWT.Selection;
 
         UIThreadRunnable.asyncExec(menuItem.getDisplay(), new VoidResult() {
-            public void run() {
+            @Override
+			public void run() {
                 menuItem.notifyListeners(SWT.Selection, event);
             }
         });

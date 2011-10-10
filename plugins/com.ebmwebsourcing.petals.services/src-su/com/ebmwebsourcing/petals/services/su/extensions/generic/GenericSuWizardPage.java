@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.services.cdk.CdkXsdManager;
 import com.ebmwebsourcing.petals.services.su.extensions.WizardConfiguration;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
@@ -246,7 +245,8 @@ public class GenericSuWizardPage extends AbstractSuPage {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				String version = ((Combo) e.widget).getText();
-				GenericSuWizardPage.this.cdkNamespaceUri = CdkXsdManager.getInstance().resolveCdkVersion( version.replace( 'x', '0' ));
+				// TODO : commented to remove deps on editor to CDK
+				// GenericSuWizardPage.this.cdkNamespaceUri = CdkXsdManager.getInstance().resolveCdkVersion( version.replace( 'x', '0' ));
 				validate();
 			}
 		});

@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.sca.handlers;
 
@@ -63,8 +63,8 @@ import com.ebmwebsourcing.petals.common.generation.JbiXmlGenerationHelper;
 import com.ebmwebsourcing.petals.common.generation.cdk5.components.ScaProvides11;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.sca.PetalsScaPlugin;
 import com.ebmwebsourcing.petals.services.sca.transformation.FrascatiModelUtils;
 
@@ -78,6 +78,7 @@ public class ScaGenerationHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.AbstractHandler
 	 * #execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
+	@Override
 	public Object execute( final ExecutionEvent event ) throws ExecutionException {
 
 		final IFile compositeFile = getSelectedComposite();
@@ -162,7 +163,7 @@ public class ScaGenerationHandler extends AbstractHandler {
 
 	/**
 	 * Generates the jbi.xml from the JBI bindings in the selected composites.
-	 * 
+	 *
 	 * @param generateJbiXml true to generate a new jbi.xml, false otherwise
 	 * @param compositeFile the selected composite
 	 * @param monitor the progress monitor
@@ -188,7 +189,7 @@ public class ScaGenerationHandler extends AbstractHandler {
 
 	/**
 	 * Creates the missing JBI bindings.
-	 * 
+	 *
 	 * @param compositeFile the composite file
 	 * @param c the loaded composite
 	 * @param scaModelUtils the model utilities
@@ -265,7 +266,7 @@ public class ScaGenerationHandler extends AbstractHandler {
 
 			// Create a JBI binding
 			jbiBinding = FrascatiFactory.eINSTANCE.createJBIBinding();
-			List<JbiBasicBean> jbiBeans = WsdlParser.getInstance().parse( wsdlFile.toURI().toString());
+			List<JbiBasicBean> jbiBeans = WsdlUtils.INSTANCE.parse( wsdlFile.toURI());
 			if( jbiBeans.size() > 0 ) {
 				jbiBinding.setEndpointName( jbiBeans.get( 0 ).getEndpointName());
 				jbiBinding.setInterfaceName( jbiBeans.get( 0 ).getInterfaceName());
@@ -310,7 +311,7 @@ public class ScaGenerationHandler extends AbstractHandler {
 
 	/**
 	 * Generates a new jbi.xml
-	 * 
+	 *
 	 * @param compositeFile the composite file
 	 * @param c the loaded composite
 	 * @param scaModelUtils the model utilities

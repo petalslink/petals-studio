@@ -42,7 +42,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlEx
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUpdater;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.jbiproperties.PetalsSPPropertiesManager;
 import com.ebmwebsourcing.petals.services.utils.ExportUtils;
@@ -283,9 +283,9 @@ public class SuBulkExportWizard extends Wizard implements IExportWizard {
 
 						// Update the WSDL...
 						if( newSrv != null )
-							WsdlUpdater.getInstance().updateEndpointAndService( wsdlFile, srv, newSrv, edpt );
+							WsdlUtils.INSTANCE.updateEndpointAndServiceNamesInWsdl( wsdlFile, srv, newSrv, edpt );
 						else
-							WsdlUpdater.getInstance().update( wsdlFile, srv, provides.getInterfaceName(), edpt );
+							WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, srv, edpt );
 					}
 
 					// Write the new jbi.xml file

@@ -1,0 +1,452 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2008-2011, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
+package com.ebmwebsourcing.petals.common.internal.provisional.utils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+
+import org.eclipse.core.runtime.IStatus;
+
+import com.ebmwebsourcing.easybox.api.XmlContext;
+import com.ebmwebsourcing.easybox.api.XmlContextFactory;
+import com.ebmwebsourcing.easybox.api.XmlObject;
+import com.ebmwebsourcing.easybox.api.XmlObjectReadException;
+import com.ebmwebsourcing.easybox.api.XmlObjectReader;
+import com.ebmwebsourcing.easybox.api.XmlObjectWriteException;
+import com.ebmwebsourcing.easybox.api.XmlObjectWriter;
+import com.ebmwebsourcing.easywsdl11.api.element.Binding;
+import com.ebmwebsourcing.easywsdl11.api.element.Definitions;
+import com.ebmwebsourcing.easywsdl11.api.element.Operation;
+import com.ebmwebsourcing.easywsdl11.api.element.Port;
+import com.ebmwebsourcing.easywsdl11.api.element.PortType;
+import com.ebmwebsourcing.easywsdl11.api.element.Service;
+import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
+
+/**
+ * A WSDL parser for the version 1.1 of the WSDL specification.
+ * @author Vincent Zurczak - EBM WebSourcing
+ */
+public class WsdlUtils {
+
+	/**
+	 * The unique instance of this parser.
+	 */
+	public static WsdlUtils INSTANCE = new WsdlUtils();
+
+	/**
+	 * The XML context to create readers.
+	 */
+	private final XmlContext xmlContext;
+
+
+
+	/**
+	 * The constructor initializes the two parsers.
+	 */
+	private WsdlUtils() {
+
+		// Create a factory: can be static
+	    XmlContextFactory xmlContextFactory = new XmlContextFactory();
+
+	    // Create the XML context: can be static
+	    this.xmlContext = xmlContextFactory.newContext();
+	}
+
+
+	/**
+	 * Parses a WSDL URL, given as a string (WSDL 1.1 only).
+	 * @param wsdlUri the URI of the WSDL to parse (not null).
+	 * @return a list of beans containing easily accessible data
+	 * @throws IllegalArgumentException if the URI is invalid
+	 */
+	public List<JbiBasicBean> parse( String wsdlUrlAsString ) throws IllegalArgumentException {
+		URI uri = UriUtils.urlToUri( wsdlUrlAsString );
+		return parse( uri );
+	}
+
+
+	/**
+	 * Parses a WSDL URL (WSDL 1.1 only).
+	 * @param wsdlUri the URI of the WSDL to parse.
+	 * @return a bean containing required data to generate a SU for Petals. Null if the parsing failed.
+	 * @throws IllegalArgumentException thrown when more than one service is described by the parsed WSDL (yes, that's possible).
+	 */
+	public List<JbiBasicBean> parse( URI wsdlUri ) {
+
+		List<JbiBasicBean> result = new ArrayList<JbiBasicBean> ();
+
+		// Create a generic reader: cannot be static (not thread safe)
+	    XmlObjectReader reader = this.xmlContext.createReader();
+
+	    // Define the qualified name of the SOAP ports
+	    QName soap11 = new QName( "http://schemas.xmlsoap.org/wsdl/soap/", "address" );
+		QName soap12 = new QName( "http://schemas.xmlsoap.org/wsdl/soap12/", "address" );
+
+	    // Read WSDL 1.1 definitions from the URL
+	    try {
+	    	URL url = wsdlUri.toURL();
+			Definitions def = reader.readDocument( url, Definitions.class );
+			for( Service service : def.getServices()) {
+
+				for( Port port : service.getPorts()) {
+					Binding binding = port.findBinding();
+					if( binding == null )
+						continue;
+
+					PortType portType = binding.findPortType();
+					if( portType == null )
+						continue;
+
+					// Basic fields
+					JbiBasicBean bean = new JbiBasicBean();
+					bean.interfaceName = portType.getName();
+					bean.interfaceNs = def.getTargetNamespace();
+					bean.serviceName = service.getName();
+					bean.serviceNs = def.getTargetNamespace();
+					bean.endpointName = port.getName();
+
+					// SOAP address
+					SoapVersion soapVersion = SoapVersion.v11;
+					XmlObject[] soapPorts = port.getAnyXmlObjects( soap11 );
+					if( soapPorts == null || soapPorts.length == 0 ) {
+						soapPorts = port.getAnyXmlObjects( soap12 );
+						soapVersion = SoapVersion.v12;
+					}
+
+					if( soapPorts != null ) {
+						if( soapPorts.length == 1 ) {
+							Object o = soapPorts[ 0 ].getXmlObjectAttributes().get( new QName( "location" ));
+							if( o != null ) {
+								bean.soapAddress = o.toString().trim();
+								bean.soapVersion = soapVersion;
+							}
+						}
+					}
+
+					// No SOAP address? Move on...
+					if( bean.soapAddress == null )
+						continue;
+
+					// Operations
+					for( Operation operation : portType.getOperations()) {
+						QName operationName = new QName( def.getTargetNamespace(), operation.getName());
+						Mep mep = Mep.IN_ONLY;
+						if( operation.hasOutput())
+							mep = Mep.IN_OUT;
+
+						bean.addOperation( operationName, mep );
+					}
+
+					// Store this bean
+					result.add( bean );
+				}
+			}
+
+		} catch( XmlObjectReadException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+		} catch( MalformedURLException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Updates a WSDL file by changing the end-point (port name).
+     *
+	 * @param file the WSDL file to parse
+	 * @param serviceName the name of the service whose end-point (port name) must be updated
+	 * @param newEndpoint the new end-point
+	 * @return true if the update worked, false otherwise
+	 */
+	public boolean updateEndpointNameInWsdl( File wsdlFile, QName serviceName, String newEndpoint ) {
+		return updateEndpointAndServiceNamesInWsdl( wsdlFile, serviceName, null, newEndpoint );
+	}
+
+
+	/**
+	 * Updates a WSDL file by changing the end-point (port name) and service name.
+     *
+	 * @param file the WSDL file to parse
+	 * @param serviceName the name of the service whose end-point (port name) and name must be updated
+	 * @param newServiceName the new service name
+	 * @param newEndpoint the new end-point
+	 * @return true if the update worked, false otherwise
+	 */
+	public boolean updateEndpointAndServiceNamesInWsdl( java.io.File wsdlFile, QName serviceName, QName newServiceName, String newEndpoint ) {
+
+		// Create a generic reader: cannot be static (not thread safe)
+	    XmlObjectReader reader = this.xmlContext.createReader();
+
+	    // Define the qualified name of the SOAP ports
+	    QName soap11 = new QName( "http://schemas.xmlsoap.org/wsdl/soap/", "address" );
+		QName soap12 = new QName( "http://schemas.xmlsoap.org/wsdl/soap12/", "address" );
+
+		boolean updated = false;
+	    try {
+
+	    	// Update the WSDL
+	    	Definitions def = reader.readDocument( wsdlFile.toURI().toURL(), Definitions.class );
+	    	Service service = def.getServiceByName( serviceName.getLocalPart());
+	    	if( service != null ) {
+
+	    		for( Port port : service.getPorts()) {
+					XmlObject[] soapPorts = port.getAnyXmlObjects( soap11 );
+					if( soapPorts == null || soapPorts.length == 0 )
+						soapPorts = port.getAnyXmlObjects( soap12 );
+
+					if( soapPorts != null && soapPorts.length == 1 ) {
+						port.setName( newEndpoint );
+						if( newServiceName != null )
+							service.setName( newServiceName.getLocalPart());
+
+						updated = true;
+						break;
+					}
+	    		}
+	    	}
+
+	    	// Write the WSDL
+		    if( updated ) {
+		    	XmlObjectWriter writer = this.xmlContext.createWriter();
+		    	FileOutputStream os = new FileOutputStream( wsdlFile );
+		    	writer.writeDocument( def, os );
+		    	os.close();
+		    }
+
+	    } catch( XmlObjectReadException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+	    } catch( MalformedURLException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+		} catch( XmlObjectWriteException e ) {
+			updated = false;
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+		} catch( IOException e ) {
+			updated = false;
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
+
+		return updated;
+	}
+
+
+	/**
+	 * Gets the operations of the WSDL service identified by the parameters.
+	 * @param wsdlUri the URI of the WSDL to parse
+	 * @param itfName the interface name
+	 * @param itfNs
+	 * @param srvName the service name
+	 * @param srvNs
+	 * @param edptName the end-point name
+	 * @return a map (operation name = operation MEP), never null
+	 */
+	public Map<QName, Mep> getOperations(
+				URI wsdlUri,
+				String itfName,
+				String itfNs,
+				String srvName,
+				String srvNs,
+				String edptName ) {
+
+		Map<QName,Mep> result = new HashMap<QName,Mep> ();
+		try {
+			List<JbiBasicBean> beans = parse( wsdlUri );
+			if( beans != null ) {
+				for( JbiBasicBean bean : beans ) {
+					if( bean.haveSameIdentifiers( itfName, itfNs, srvName, srvNs, edptName )) {
+						result.putAll( bean.getOperations());
+						break;
+					}
+				}
+			}
+
+		} catch( IllegalArgumentException e ) {
+			// nothing
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * A class use to store WSDL parsing results.
+	 */
+	public static class JbiBasicBean {
+
+		private String serviceName, serviceNs;
+		private String interfaceName, interfaceNs;
+		private String endpointName;
+		private String soapAddress;
+		private SoapVersion soapVersion = SoapVersion.v11;
+		private final Map<QName, Mep> operations = new HashMap<QName,Mep> ();
+
+
+		/**
+		 * @return the serviceName
+		 */
+		public String getServiceName() {
+			return this.serviceName;
+		}
+		/**
+		 * @return the interfaceName
+		 */
+		public String getInterfaceName() {
+			return this.interfaceName;
+		}
+		/**
+		 * @return the serviceNs
+		 */
+		public String getServiceNs() {
+			return this.serviceNs;
+		}
+		/**
+		 * @return the interfaceNs
+		 */
+		public String getInterfaceNs() {
+			return this.interfaceNs;
+		}
+
+		/**
+		 * @param serviceName the serviceName to set
+		 */
+		public void setServiceName( String serviceName ) {
+			this.serviceName = serviceName;
+		}
+		/**
+		 * @param serviceNs the serviceNs to set
+		 */
+		public void setServiceNs( String serviceNs ) {
+			this.serviceNs = serviceNs;
+		}
+		/**
+		 * @param interfaceName the interfaceName to set
+		 */
+		public void setInterfaceName( String interfaceName ) {
+			this.interfaceName = interfaceName;
+		}
+		/**
+		 * @param interfaceNs the interfaceNs to set
+		 */
+		public void setInterfaceNs( String interfaceNs ) {
+			this.interfaceNs = interfaceNs;
+		}
+
+		/**
+		 * @return the endpointName
+		 */
+		public String getEndpointName() {
+			return this.endpointName;
+		}
+
+		/**
+		 * @param endpointName the endpointName to set
+		 */
+		public void setEndpointName( String endpointName ) {
+			this.endpointName = endpointName;
+		}
+
+		/**
+		 * @return the soapAddress
+		 */
+		public String getSoapAddress() {
+			return this.soapAddress;
+		}
+
+		/**
+		 * @param soapAddress the soapAddress to set
+		 */
+		public void setSoapAddress( String soapAddress ) {
+			this.soapAddress = soapAddress;
+		}
+
+		/**
+		 * @return the soapVersion
+		 */
+		public SoapVersion getSoapVersion() {
+			return this.soapVersion;
+		}
+
+		/**
+		 * @param soapVersion the soapVersion to set
+		 */
+		public void setSoapVersion( SoapVersion soapVersion ) {
+			this.soapVersion = soapVersion;
+		}
+
+		/**
+		 * @return the operations
+		 */
+		public Map<QName,Mep> getOperations() {
+			return this.operations;
+		}
+
+		/**
+		 * @param operation an operation name
+		 * @param mep the operation's MEP
+		 * @see java.util.List#add(java.lang.Object)
+		 */
+		public void addOperation( QName operation, Mep mep ) {
+			this.operations.put( operation, mep );
+		}
+
+		/**
+		 * @param itfName
+		 * @param itfNs
+		 * @param srvName
+		 * @param srvNs
+		 * @param edptName
+		 * @return true only if this bean has the same identifiers than those given in parameters
+		 */
+		public boolean haveSameIdentifiers( String itfName, String itfNs, String srvName, String srvNs, String edptName ) {
+
+			return StringUtils.areEqual( itfName, this.interfaceName )
+			&& StringUtils.areEqual( itfNs, this.interfaceNs )
+			&& StringUtils.areEqual( srvName, this.serviceName )
+			&& StringUtils.areEqual( srvNs, this.serviceNs )
+			&& StringUtils.areEqual( edptName, this.endpointName );
+		}
+	}
+
+
+	/**
+	 * The SOAP version.
+	 */
+	public static enum SoapVersion {
+		v11, v12;
+
+		@Override
+		public String toString() {
+
+			switch( this ) {
+			case v11: return "1.1";
+			default: return "1.2";
+			}
+		};
+	}
+}

@@ -1,3 +1,14 @@
+/******************************************************************************
+ * Copyright (c) 2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.tests.common;
 
 import java.io.BufferedReader;
@@ -8,8 +19,16 @@ import java.io.RandomAccessFile;
 
 import org.eclipse.core.runtime.Platform;
 
+/**
+ * Utilities related to files.
+ */
 public class FileTestUtil {
-	
+
+	/**
+	 * Checks whether a file is open or not.
+	 * @param f the file to check
+	 * @return true if the file is open, false otherwise
+	 */
 	public static boolean fileOpen(File f) {
 		if (Platform.getOS().equals(Platform.OS_WIN32)) {
 			RandomAccessFile rf;

@@ -24,7 +24,6 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.ebmwebsourcing.commons.jbi.internal.provisional.utils.JbiNameFormatter;
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
-import com.ebmwebsourcing.petals.services.cdk.CdkXsdManager;
 import com.ebmwebsourcing.petals.services.su.extensions.WizardConfiguration;
 import com.ebmwebsourcing.petals.services.su.utils.HciSerialization;
 import com.ebmwebsourcing.petals.services.su.utils.XsdUtils;
@@ -351,7 +350,7 @@ public abstract class XsdBasedAbstractSuPage extends AbstractSuPage implements W
 		if( cacheItem == null ) {
 			// Resolve the folder containing the right XSDs.
 			Map<String, String> registeredNs = namespaceStore.getNamespaces();
-			String cdkXsdFolder = CdkXsdManager.getInstance().resolveCdkNamespace( registeredNs.values());
+			String cdkXsdFolder = null; // TODO: Removed "CdkXsdManager.getInstance().resolveCdkNamespace( registeredNs.values());" to remove dep on .cdk
 			if( cdkXsdFolder == null )
 				return null;
 

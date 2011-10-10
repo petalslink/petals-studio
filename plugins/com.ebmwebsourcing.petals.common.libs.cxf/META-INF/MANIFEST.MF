@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CXF libs container bundle
+Bundle-Name: Petals Studio - CXF Bundle
 Bundle-SymbolicName: com.ebmwebsourcing.petals.common.libs.cxf
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: EBMWEBSOURCING
+Bundle-Vendor: EBM WebSourcing
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: lib/antlr-2.7.7.jar,
  lib/aopalliance-1.0.jar,
