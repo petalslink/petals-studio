@@ -38,6 +38,7 @@ public class NewServiceWizard extends Wizard {
 		service.setEndpointName("endpointName");
 		service.setInterfaceName(new QName(component.getNamespace(), "interfaceName"));
 		service.setServiceName(new QName(component.getNamespace(), "serviceName"));
+		component.createServiceInitializer().initializeService(service);
 		AddCommand addCommand = null;
 		if (service instanceof Provides) {
 			addCommand = new AddCommand(editingDomain, jbi.getServices().getProvides(), service);

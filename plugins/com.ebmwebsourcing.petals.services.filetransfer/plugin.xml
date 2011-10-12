@@ -44,7 +44,8 @@
       <ComponentVersionSupport
             editorExtension="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferContributionSupport"
             id="version-2"
-            namespace="http://petals.ow2.org/components/filetransfer/version-2">
+            namespace="http://petals.ow2.org/components/filetransfer/version-2"
+            serviceInitializer="com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferInitializer">
       </ComponentVersionSupport>
    </ComponentSupport>
 </extension>

@@ -132,6 +132,16 @@
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="serviceInitializer" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Class that is in charge of initializing the minimal set of attributes for this component. The attributes that are set are then be used to guess the component in the editor
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ServiceInitializer:"/>
+               </appinfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
