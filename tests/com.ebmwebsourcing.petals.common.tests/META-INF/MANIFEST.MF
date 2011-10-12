@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: EBM WebSourcing
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.junit,
+ org.junit;bundle-version="4.8.0",
  com.ebmwebsourcing.petals.common,
  org.eclipse.swtbot.eclipse.core;bundle-version="2.0.4",
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.4",

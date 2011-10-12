@@ -23,14 +23,5 @@
             class="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.util.Cdk5ResourceFactoryImpl"/>
    </extension>
    
-   <extension
-         point="com.ebmwebsourcing.petals.services.cdkSupport">
-      <cdkSupport
-            id="cdk5"
-            editorExtension="com.ebmwebsourcing.petals.services.cdk.editor.CDK5Support"
-            namespace="http://petals.ow2.org/components/extensions/version-5"
-            priority="1">
-      </cdkSupport>
-   </extension>
 
 </plugin>

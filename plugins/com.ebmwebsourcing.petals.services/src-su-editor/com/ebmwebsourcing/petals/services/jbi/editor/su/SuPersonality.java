@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.jbi.editor.su;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.ILabelProvider;
 
-import com.ebmwebsourcing.petals.services.jbi.editor.AbstractServicesFormPage;
+import com.ebmwebsourcing.petals.services.jbi.editor.AbstractJBIFormPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.IJbiEditorPersonality;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
 import com.ebmwebsourcing.petals.services.jbi.editor.ServicesLabelProvider;
@@ -62,9 +62,9 @@ public class SuPersonality implements IJbiEditorPersonality {
 	 * @see com.ebmwebsourcing.petals.services.editor.IJbiEditorPersonality
 	 * #getGeneralMasterPage(com.ebmwebsourcing.petals.services.editor.AbstractServicesFormEditor)
 	 */
-	public AbstractServicesFormPage getGeneralMasterPage( JbiFormEditor editor ) {
+	public AbstractJBIFormPage getGeneralMasterPage( JbiFormEditor editor ) {
 
-		SuGeneralPage saPage = new SuGeneralPage( editor, "petals-su-general-page", "General" );
+		SUEditorPage saPage = new SUEditorPage( editor, "petals-su-general-page", "General" );
 		return saPage;
 	}
 

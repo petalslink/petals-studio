@@ -69,6 +69,20 @@
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="supportProvides" type="boolean" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="supportConsumes" type="boolean" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
@@ -82,13 +96,6 @@
             </annotation>
          </attribute>
          <attribute name="namespace" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="cdkNamespace" type="string" use="required">
             <annotation>
                <documentation>
                   
