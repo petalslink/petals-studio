@@ -53,18 +53,18 @@ public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 		
 		Label serviceNameLabel = new Label(composite, SWT.NONE);
 		serviceNameLabel.setText(Messages.serviceName);
-		final Text serviceNameText = new Text(composite, SWT.NONE);
+		final Text serviceNameText = new Text(composite, SWT.BORDER);
 		serviceNameText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		
 		Label lblServiceMode = new Label(composite, SWT.NONE);
 		lblServiceMode.setText(Messages.serviceMode);
 		
 		final Button provideButton = new Button(composite, SWT.RADIO);
-		provideButton.setText(Messages.provideDescription/*"a PROVIDE imports an external system or application as a service into the bus"*/);
+		provideButton.setText(Messages.provideDescription);
 		new Label(composite, SWT.NONE);
 		
 		final Button consumeButton = new Button(composite, SWT.RADIO);
-		consumeButton.setText(Messages.consumeDescription/*"a CONSUME exposes a service from inside the bus to another system or application"*/);
+		consumeButton.setText(Messages.consumeDescription);
 		
 		Label lblAvailableServices = new Label(control, SWT.NONE);
 		lblAvailableServices.setText(Messages.selectComponent);
@@ -123,15 +123,21 @@ public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				component = (ComponentVersionSupportExtensionDesc) ((IStructuredSelection)event.getSelection()).getFirstElement();
+				setPageComplete(isPageComplete());
 			}
 		});
 		serviceNameText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
 				serviceName = serviceNameText.getText();
-				setPageComplete(serviceName != null && !serviceName.isEmpty());
+				setPageComplete(NewServiceWizardPage.this.isPageComplete());
 			}
 		});
+		
+		provideButton.setSelection(true);
+		filteredTree.getViewer().setInput(SupportsUtil.getInstance().getAllProvides());
+		filteredTree.getViewer().refresh();
+		service = JbiFactory.eINSTANCE.createProvides();
 		
 	}
 
@@ -145,6 +151,11 @@ public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 	
 	public String getServiceName() {
 		return this.serviceName;
+	}
+
+	@Override
+	public boolean isPageComplete() {
+		return serviceName != null && !serviceName.isEmpty() && component != null;
 	}
 
 }

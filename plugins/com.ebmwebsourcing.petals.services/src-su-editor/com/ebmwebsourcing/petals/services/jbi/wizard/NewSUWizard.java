@@ -18,6 +18,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
 
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
@@ -55,7 +57,7 @@ public class NewSUWizard extends Wizard implements IWorkbenchWizard {
 		service.setEndpointName("endpointName");
 		service.setInterfaceName(new QName(version.getNamespace(), "interfaceName"));
 		service.setServiceName(new QName(version.getNamespace(), page.getServiceName()));
-		service.setEndpointName(page.getService() + "Endpoint");
+		service.setEndpointName(page.getServiceName() + "Endpoint");
 		version.createServiceInitializer().initializeService(service);
 		if (service instanceof Provides) {
 			jbi.getServices().getProvides().add((Provides)service);
@@ -87,9 +89,10 @@ public class NewSUWizard extends Wizard implements IWorkbenchWizard {
 			IFolder targetFolder = project.getFolder("src").getFolder("main").getFolder("jbi");
 			IFile jbiFile = targetFolder.getFile("jbi.xml");
 			ResourceSet resourceSet = new ResourceSetImpl();	
-			Resource res = resourceSet.createResource(URI.createPlatformResourceURI(jbiFile.getFullPath().toString()));
+			Resource res = resourceSet.createResource(URI.createPlatformResourceURI(jbiFile.getFullPath().toString(), true));
 			res.getContents().add(jbi);
 			res.save(Collections.EMPTY_MAP);
+			IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), jbiFile);
 			return true;
 		} catch (Exception ex) {
 			PetalsServicesPlugin.log(ex, IStatus.ERROR);

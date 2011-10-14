@@ -14,9 +14,16 @@ package com.ebmwebsourcing.petals.services;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -47,6 +54,13 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		// Initialize feature Ids
+		for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
+			for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
+				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(version.getNamespace());
+				new InitializeModelExtensionCommand(extensionPackage, null).initializeFeatures();
+			}
+		}
 	}
 
 	/*
