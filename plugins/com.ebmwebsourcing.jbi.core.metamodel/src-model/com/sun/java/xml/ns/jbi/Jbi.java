@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see com.sun.java.xml.ns.jbi.JbiPackage#getJbi()
- * @model extendedMetaData="name='Jbi' kind='elementOnly'"
+ * @model extendedMetaData="name='jbi' kind='elementOnly'"
  * @generated
  */
 public interface Jbi extends EObject {

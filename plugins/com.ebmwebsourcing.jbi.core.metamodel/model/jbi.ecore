@@ -271,7 +271,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Jbi">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-      <details key="name" value="Jbi"/>
+      <details key="name" value="jbi"/>
       <details key="kind" value="elementOnly"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"
