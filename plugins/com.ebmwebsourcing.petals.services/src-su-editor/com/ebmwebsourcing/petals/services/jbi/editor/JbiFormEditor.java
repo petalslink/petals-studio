@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -88,6 +89,7 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	private ResourceSet resourceSet;
 	private TransactionalEditingDomain editDomain;
 	protected Collection<Resource> savedResources = new ArrayList<Resource>();
+	private DataBindingContext dbc;
 	
 	private ISelection selection;
 
@@ -96,6 +98,7 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	 */
 	public JbiFormEditor() {
 		super();
+		dbc = new DataBindingContext();
 	}
 
 
@@ -482,6 +485,9 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	 * #partClosed(org.eclipse.ui.IWorkbenchPartReference)
 	 */
 	public void partClosed( IWorkbenchPartReference partRef ) {
+		if (dbc != null) {
+			dbc.dispose();
+		}
 		if (editDomain != null) {
 			editDomain.dispose();
 		}
@@ -575,5 +581,9 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	
 	public Jbi getJbiModel() {
 		return this.model;
+	}
+	
+	public DataBindingContext getDataBindingContext() {
+		return this.dbc;
 	}
 }

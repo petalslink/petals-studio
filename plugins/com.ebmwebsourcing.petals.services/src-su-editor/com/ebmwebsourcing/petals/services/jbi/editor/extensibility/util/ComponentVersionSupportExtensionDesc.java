@@ -16,11 +16,13 @@ public class ComponentVersionSupportExtensionDesc {
 	private final IConfigurationElement element;
 	private final String namespace;
 	private final String id;
+	private ComponentSupportExtensionDesc component;
 
-	public ComponentVersionSupportExtensionDesc(IConfigurationElement ext) {
+	public ComponentVersionSupportExtensionDesc(IConfigurationElement ext, ComponentSupportExtensionDesc component) {
 		this.element = ext;
 		this.namespace = this.element.getAttribute(NAMESPACE_ELEMENT);
 		this.id = this.element.getAttribute("id");
+		this.component = component;
 	}
 
 	public String getNamespace() {
@@ -47,6 +49,10 @@ public class ComponentVersionSupportExtensionDesc {
 
 	public String getVersion() {
 		return this.id;
+	}
+
+	public ComponentSupportExtensionDesc getComponent() {
+		return this.component;
 	}
 	
 }

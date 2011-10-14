@@ -13,7 +13,7 @@ public class FileTransferContributionSupport extends EditorContributionSupport {
 
 	@Override
 	protected JbiEditorDetailsContribution getProvidesContribution() {
-		return new DefaultJbiEditorContribution(new EClass[] { Cdk5Package.Literals.CDK5_PROVIDES, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES });
+		return new FileTransferProvidesJbiEditorContribution();
 	}
 
 	@Override

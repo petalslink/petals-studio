@@ -1,6 +1,5 @@
 package com.ebmwebsourcing.petals.services.jbi.editor.extensibility;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
@@ -9,7 +8,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 public interface JbiEditorDetailsContribution {
 
-	public void addMainSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite generalDetails, JbiFormEditor editor, DataBindingContext dbc);
-	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor, DataBindingContext dbc);
+	public void addMainSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite generalDetails, JbiFormEditor editor);
+	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor);
 	
 }

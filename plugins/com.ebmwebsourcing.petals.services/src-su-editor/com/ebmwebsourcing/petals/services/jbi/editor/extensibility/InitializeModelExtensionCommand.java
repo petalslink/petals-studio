@@ -46,7 +46,7 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	
 	@Override
 	public boolean prepare() {
-		initializeFeatures(extensionPackage);
+		initializeFeatures();
 		return needsAdditionalAttributes();
 	}
 
@@ -77,7 +77,7 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 		}
 	}
 
-	public void initializeFeatures(EPackage extensionPackage) {
+	public void initializeFeatures() {
 		if (targetFeatures == null) {
 			targetFeatures = new HashSet<EStructuralFeature>();
 			for (EClassifier classifier : extensionPackage.getEClassifiers()) {

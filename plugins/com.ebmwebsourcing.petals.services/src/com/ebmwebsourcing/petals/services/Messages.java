@@ -12,6 +12,9 @@ public class Messages extends NLS {
 	public static String confimeRemoveEndpointTitle;
 	public static String version;
 	public static String addService;
+	public static String serviceName;
+	public static String serviceMode;
+	public static String selectComponent;
 
 	static {
 		initializeMessages("messages", Messages.class);

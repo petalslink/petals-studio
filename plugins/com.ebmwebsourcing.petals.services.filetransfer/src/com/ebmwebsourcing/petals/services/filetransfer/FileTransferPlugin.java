@@ -18,6 +18,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+
 /**
  * The activator class controls the plug-in life cycle
  * @author Vincent Zurczak - EBM WebSourcing

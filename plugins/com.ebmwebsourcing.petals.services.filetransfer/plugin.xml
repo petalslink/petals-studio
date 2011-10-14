@@ -45,8 +45,16 @@
             editorExtension="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferContributionSupport"
             id="version-2"
             namespace="http://petals.ow2.org/components/filetransfer/version-2"
-            serviceInitializer="com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferInitializer">
+            serviceInitializer="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferInitializer">
       </ComponentVersionSupport>
    </ComponentSupport>
+</extension>
+<extension
+      point="org.eclipse.emf.ecore.generated_package">
+   <package
+         class="com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage"
+         genModel="model/filetransfer.genmodel"
+         uri="http://petals.ow2.org/components/filetransfer/version-2">
+   </package>
 </extension>
 </plugin>

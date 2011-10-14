@@ -9,7 +9,6 @@
  */
 package com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -35,13 +34,13 @@ public class DefaultJbiEditorContribution implements JbiEditorDetailsContributio
 	}
 	
 	@Override
-	public void addMainSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite generalDetails, JbiFormEditor editor, DataBindingContext dbc) {
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor, dbc);
+	public void addMainSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite generalDetails, JbiFormEditor editor) {
+		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor);
 	}
 
 	@Override
-	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor, DataBindingContext dbc) {
-		JBIEndpointUIHelpers.createDefaultWidgetByEIntrospection(endpoint, toolkit, advancedDetails,	editor, dbc, extensionClasses);
+	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor) {
+		JBIEndpointUIHelpers.createDefaultWidgetByEIntrospection(endpoint, toolkit, advancedDetails, editor, extensionClasses);
 	}
 
 }

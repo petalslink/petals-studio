@@ -282,6 +282,16 @@
             Create KPI configurations to monitor message flows in Petals ESB
          </description>
       </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards"
+            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewSUWizard"
+            icon="icons/obj16/service_unit.png"
+            id="com.ebmwebsourcing.petals.services.su.project2"
+            name="%serviceUnit">
+         <description>
+            Create a Service Unit project compatible with the Petals Maven plug-in
+         </description>
+      </wizard>
    </extension>
    <extension
          id="com.ebmwebsourcing.petals.services.saNature"

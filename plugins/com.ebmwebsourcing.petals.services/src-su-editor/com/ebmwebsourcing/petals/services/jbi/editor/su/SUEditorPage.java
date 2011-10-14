@@ -12,8 +12,10 @@
 
 package com.ebmwebsourcing.petals.services.jbi.editor.su;
 
-import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.emf.edit.command.MoveCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.jface.dialogs.Dialog;
@@ -37,6 +39,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
@@ -45,11 +49,14 @@ import org.eclipse.ui.forms.widgets.Section;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.jbi.editor.AbstractJBIFormPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
 import com.ebmwebsourcing.petals.services.jbi.editor.su.wizard.NewServiceWizard;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
 
 /**
@@ -61,7 +68,6 @@ public class SUEditorPage extends AbstractJBIFormPage {
 	private AbstractEndpoint selectedEndpoint;
 	private EList<? extends AbstractEndpoint> containmentList;
 	
-	private DataBindingContext dbc;
 	private JbiEditorDetailsContribution componentContributions;
 	private FormToolkit toolkit;
 	private Composite mainDetails;
@@ -77,6 +83,24 @@ public class SUEditorPage extends AbstractJBIFormPage {
 	public SUEditorPage( JbiFormEditor editor, String id, String title ) {
 		super( editor, id, title );
 	}
+	
+	@Override
+	public void init(IEditorSite site, IEditorInput input) {
+		super.init(site, input);
+		CompoundCommand initializeCommand = new CompoundCommand();
+		for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
+			for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
+				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(version.getNamespace());
+				for (Provides provide : getEditor().getJbiModel().getServices().getProvides()) {
+					initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, provide));
+				}
+				for (Consumes consume : getEditor().getJbiModel().getServices().getConsumes()) {
+					initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, consume));
+				}
+			}
+		}
+		getEditor().getEditingDomain().getCommandStack().execute(initializeCommand);
+	}
 
 
 	/*
@@ -86,7 +110,6 @@ public class SUEditorPage extends AbstractJBIFormPage {
 	 */
 	@Override
 	protected void createFormContent( IManagedForm managedForm ) {
-
 		toolkit = managedForm.getToolkit();
 		ScrolledForm form = managedForm.getForm();
 		form.setText("Service Unit");
@@ -170,7 +193,6 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		tabFolder.setSelection(tbtmGeneral);
 		
 		// dynamics
-		dbc = new DataBindingContext();
 		servicesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
@@ -235,6 +257,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		
 		// init state
 		servicesViewer.setInput(getEditor().getJbiModel());
+		servicesViewer.expandAll();
 		removeButton.setEnabled(false);
 		upButton.setEnabled(false);
 		downButton.setEnabled(false);
@@ -246,7 +269,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		}
 		
 		if (componentContributions != null) {
-			componentContributions.addMainSUContent(selectedEndpoint, toolkit, generalDetails, getEditor(), dbc);
+			componentContributions.addMainSUContent(selectedEndpoint, toolkit, generalDetails, getEditor());
 		} else if (selectedTreeItem == ServicesContentProvider.CONSUME) {
 			toolkit.createLabel(generalDetails, Messages.consumeDescription, SWT.WRAP).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 		} else if (selectedTreeItem == ServicesContentProvider.PROVIDE) {
@@ -262,7 +285,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		}
 		
 		if (componentContributions != null) {
-			componentContributions.addAdvancedSUContent(selectedEndpoint, toolkit, advancedDetails, getEditor(), dbc);
+			componentContributions.addAdvancedSUContent(selectedEndpoint, toolkit, advancedDetails, getEditor());
 		}
 		
 		advancedDetails.layout(true);

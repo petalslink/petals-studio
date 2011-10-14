@@ -21,7 +21,7 @@ public class ComponentSupportExtensionDesc {
 		this.supportConsumes = Boolean.parseBoolean(elt.getAttribute(SUPPORT_CONSUMES));
 		versions = new ArrayList<ComponentVersionSupportExtensionDesc>();
 		for (IConfigurationElement versionExt : elt.getChildren("ComponentVersionSupport")) {
-			ComponentVersionSupportExtensionDesc versionSupport = new ComponentVersionSupportExtensionDesc(versionExt);
+			ComponentVersionSupportExtensionDesc versionSupport = new ComponentVersionSupportExtensionDesc(versionExt, this);
 			versions.add(versionSupport);
 		}
 	}

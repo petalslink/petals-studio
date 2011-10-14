@@ -15,21 +15,24 @@ package com.ebmwebsourcing.petals.services.cdk;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+
 /**
  * The activator class controls the plug-in life cycle
  */
-public class CdkXsdManagerPlugin extends Plugin {
+public class CdkPlugin extends Plugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "com.ebmwebsourcing.petals.services.cdk";
 
 	// The shared instance
-	private static CdkXsdManagerPlugin plugin;
+	private static CdkPlugin plugin;
 
 	/**
 	 * The constructor
 	 */
-	public CdkXsdManagerPlugin() {
+	public CdkPlugin() {
 	}
 
 	/*
@@ -57,7 +60,7 @@ public class CdkXsdManagerPlugin extends Plugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static CdkXsdManagerPlugin getDefault() {
+	public static CdkPlugin getDefault() {
 		return plugin;
 	}
 }

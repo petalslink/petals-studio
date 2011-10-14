@@ -45,13 +45,8 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
 
 public class CDK5JBIEndpointUIHelper {
 
-	public void createConsumetUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor, final DataBindingContext dbc) {
-		InitializeModelExtensionCommand fixExtensionCommand = new InitializeModelExtensionCommand(Cdk5Package.eINSTANCE, endpoint);
-		if (fixExtensionCommand.canExecute()) {
-			editor.getEditingDomain().getCommandStack().execute(fixExtensionCommand);
-		}
-		
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor, dbc);
+	public static void createConsumetUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
+		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor);
 		
 		// The edition fields
 		Label label = toolkit.createLabel( generalDetails, "Operation name:" );
@@ -124,14 +119,14 @@ public class CDK5JBIEndpointUIHelper {
 		});
 				
 		// Operation
-		dbc.bindValue(
+		editor.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(300, SWTObservables.observeText(operationNameText, SWT.Modify)),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION),
 				new UpdateValueStrategy().setConverter(new StringToQNameConverter()).setBeforeSetValidator(new StringIsQNameValidator()),
 				new UpdateValueStrategy().setConverter(new QNameToStringConverter()));
 
 		// MEP
-		dbc.bindValue(
+		editor.getDataBindingContext().bindValue(
 				ViewersObservables.observeSingleSelection(mepViewer),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP),
 				new UpdateValueStrategy().setConverter(new StringToMepConverter()),
