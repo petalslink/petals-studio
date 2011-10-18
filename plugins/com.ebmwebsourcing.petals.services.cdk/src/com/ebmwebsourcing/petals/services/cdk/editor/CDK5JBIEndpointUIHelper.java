@@ -45,9 +45,10 @@ import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
 import com.ebmwebsourcing.petals.services.su.ui.PetalsHyperlinkListener;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
+import com.sun.java.xml.ns.jbi.Provides;
 
 public class CDK5JBIEndpointUIHelper {
-
+	
 	public static void createConsumesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
 		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor);
 		
@@ -138,7 +139,7 @@ public class CDK5JBIEndpointUIHelper {
 	
 	
 	public static void createProvidesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
-		Label wsdlLabel = toolkit.createLabel(generalDetails, Messages.wsdlLocation);
+		toolkit.createLabel(generalDetails, Messages.wsdlLocation);
 		Composite composite = toolkit.createComposite(generalDetails);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		composite.setLayout(new GridLayout(2, false));
@@ -148,7 +149,14 @@ public class CDK5JBIEndpointUIHelper {
 		browse.setImage(PetalsImages.getSearchWSDL());
 		Link link = new Link(composite, SWT.NONE);
 		link.setText("<A>" + Messages.wsdlTools + "</A>");
-		ToolTip tooltip = new WSDLHelperTooltip(link);
+		ToolTip tooltip = new WSDLHelperTooltip(link, toolkit, (Provides)endpoint, editor);
+		tooltip.setHideDelay(0);
+		tooltip.setHideOnMouseDown(false);
+		
+		editor.getDataBindingContext().bindValue(
+				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(wsdlLocationText, SWT.Modify)),
+				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL));
 		
 	}
+
 }

@@ -8,6 +8,7 @@ public class Messages extends NLS {
 	public static String browse;
 	public static String wsdlTools;
 	public static String select;
+	public static String invalidWSDLLocation;
 
 	static {
 		initializeMessages("messages", Messages.class);

@@ -43,6 +43,7 @@ public class CdkPlugin extends Plugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		new InitializeModelExtensionCommand(Cdk5Package.eINSTANCE, null).initializeFeatures();
 	}
 
 	/*

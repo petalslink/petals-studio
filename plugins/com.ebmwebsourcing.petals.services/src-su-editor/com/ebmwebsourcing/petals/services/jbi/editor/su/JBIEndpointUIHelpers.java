@@ -35,8 +35,26 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 public class JBIEndpointUIHelpers {
+	
+	public static class CommonEndpointControls {
+		private Composite interfaceComposite;
+		private Composite serviceComposite;
+		
+		public CommonEndpointControls(Composite itf, Composite service) {
+			this.interfaceComposite = itf;
+			this.serviceComposite = service;
+		}
+		
+		public Composite getInterfaceComposite() {
+			return this.interfaceComposite;
+		}
+		
+		public Composite getServiceComposite() {
+			return this.serviceComposite;
+		}
+	}
 
-	public static void createCommonEndpointUI(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
+	public static CommonEndpointControls createCommonEndpointUI(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
 		Label label = toolkit.createLabel( generalDetails, Messages.interfaceQName );
 		//label.setToolTipText( "The Qualified Name '{namespace}element' of the interface (must match an interface declared in the WSDL)" );
 
@@ -57,7 +75,7 @@ public class JBIEndpointUIHelpers {
 		label = toolkit.createLabel( generalDetails,Messages.serviceQName );
 		//label.setToolTipText( "The Qualified Name '{namespace}element' of the service (must match a service declared in the WSDL)" );
 
-		Composite serviceComposite = toolkit.createComposite(generalDetails);
+		final Composite serviceComposite = toolkit.createComposite(generalDetails);
 		serviceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		serviceComposite.setLayout(new GridLayout(5, false));
 		toolkit.createLabel(serviceComposite, "{");
@@ -111,6 +129,7 @@ public class JBIEndpointUIHelpers {
 				if (qnameEditor.open() == QNameEditor.OK) {
 					SetCommand command = new SetCommand(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, qnameEditor.getQName());
 					editor.getEditingDomain().getCommandStack().execute(command);
+					interfaceComposite.layout(true);
 				}
 			}
 		});
@@ -121,10 +140,12 @@ public class JBIEndpointUIHelpers {
 				if (qnameEditor.open() == QNameEditor.OK) {
 					SetCommand command = new SetCommand(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, qnameEditor.getQName());
 					editor.getEditingDomain().getCommandStack().execute(command);
+					serviceComposite.layout(true);
 				}
 			}
 		});
 		
+		return new CommonEndpointControls(interfaceComposite, serviceComposite);
 	}
 	
 	public static void createDefaultWidgetsByEIntrospection(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor, EClass[] extensionClasses) {

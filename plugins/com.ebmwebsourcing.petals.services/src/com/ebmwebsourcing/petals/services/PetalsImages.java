@@ -40,7 +40,7 @@ public class PetalsImages {
 	
 	public synchronized static Image getSearchWSDL() {
 		if (searchWSDL == null) {
-			searchWSDL = PetalsServicesPlugin.getImageDescriptor("icons/obj16/interface_explore.gif").createImage();
+			searchWSDL = PetalsServicesPlugin.getImageDescriptor("icons/obj16/Interface_explore.gif").createImage();
 		}
 		return searchWSDL;
 	}

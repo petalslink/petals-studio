@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
+import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.Messages;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
@@ -40,13 +41,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		identificationSection.setClient(identificationComposite);
 		
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, identificationComposite, editor);
-		toolkit.createLabel(identificationComposite, Messages.contractType);
-		Combo contractCombo = new Combo(identificationComposite, SWT.READ_ONLY);
-		contractCombo.add(Messages.getFiles);
-		contractCombo.add(Messages.writeFiles);
-
 		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, identificationComposite, editor);
-		
 		
 		Section filetransferSection = toolkit.createSection(generalDetails, Section.EXPANDED | Section.TITLE_BAR);
 		filetransferSection.setText(Messages.fileTransfer);
@@ -54,6 +49,11 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		Composite fileTransferComposite = toolkit.createComposite(filetransferSection);
 		fileTransferComposite.setLayout(new GridLayout(2, false));
 		filetransferSection.setClient(fileTransferComposite);
+		
+		toolkit.createLabel(fileTransferComposite, Messages.contractType);
+		Combo contractCombo = new Combo(fileTransferComposite, SWT.READ_ONLY);
+		contractCombo.add(Messages.getFiles);
+		contractCombo.add(Messages.writeFiles);
 		
 		toolkit.createLabel(fileTransferComposite, Messages.writeDirectory);
 		Composite writeDirectoryComposite = toolkit.createComposite(fileTransferComposite);
@@ -63,7 +63,8 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		Text writeDirectoryText = new Text(writeDirectoryComposite, SWT.BORDER);
 		writeDirectoryText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		Button browseWriteButton = toolkit.createButton(writeDirectoryComposite, Messages.browse, SWT.PUSH);
-
+		browseWriteButton.setImage(PetalsImages.getBrowse());
+		
 		// Mode
 		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editor, new EStructuralFeature[] {
 			FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE
@@ -76,6 +77,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		Text readDirectoryText = new Text(readDirectoryComposite, SWT.BORDER);
 		readDirectoryText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		Button browseReadButton = toolkit.createButton(readDirectoryComposite, Messages.browse, SWT.PUSH);
+		browseReadButton.setImage(PetalsImages.getBrowse());
 		
 		editor.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(readDirectoryText)),
@@ -93,6 +95,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 				if (directory != null) {
 					SetCommand setCommand = new SetCommand(editor.getEditingDomain(), endpoint, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, directory);
 					editor.getEditingDomain().getCommandStack().execute(setCommand);
+					
 				}
 			}
 		});
