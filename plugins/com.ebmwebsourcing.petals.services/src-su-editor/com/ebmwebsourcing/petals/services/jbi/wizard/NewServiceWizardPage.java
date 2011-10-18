@@ -1,5 +1,7 @@
 package com.ebmwebsourcing.petals.services.jbi.wizard;
 
+import java.util.ArrayList;
+
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -11,11 +13,8 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -23,22 +22,37 @@ import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 
 import com.ebmwebsourcing.petals.services.Messages;
+import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
+import com.ebmwebsourcing.petals.services.jbi.wizard.ComponentSupportTreeContentProvider.SUType;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiFactory;
 
 public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 	
+
 	private AbstractEndpoint service;
 	private ComponentVersionSupportExtensionDesc component;
 	private String serviceName;
+	private SUType suType;
 	
-	public NewServiceWizardPage() {
+	protected NewServiceWizardPage(SUType suType) {
 		super("NewServiceWizardPage");
+		this.suType = suType;
+		if (suType == SUType.PROVIDES) {
+			service = JbiFactory.eINSTANCE.createProvides();
+			setTitle(Messages.createProvidesSU);
+			setDescription(Messages.createProvidesSUDescription);
+			setImageDescriptor(PetalsServicesPlugin.getImageDescriptor("icons/others/fleche.png"));
+		} else {
+			service = JbiFactory.eINSTANCE.createConsumes();
+			setTitle(Messages.createConsumesSU);
+			setDescription(Messages.createConsumesSUDescription);
+			setImageDescriptor(PetalsServicesPlugin.getImageDescriptor("icons/others/fleche.png"));
+		}
 	}
-
+	
 	@Override
 	public void createControl(Composite parent) {
 		Composite control = new Composite(parent, SWT.NONE);
@@ -55,16 +69,6 @@ public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 		serviceNameLabel.setText(Messages.serviceName);
 		final Text serviceNameText = new Text(composite, SWT.BORDER);
 		serviceNameText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-		
-		Label lblServiceMode = new Label(composite, SWT.NONE);
-		lblServiceMode.setText(Messages.serviceMode);
-		
-		final Button provideButton = new Button(composite, SWT.RADIO);
-		provideButton.setText(Messages.provideDescription);
-		new Label(composite, SWT.NONE);
-		
-		final Button consumeButton = new Button(composite, SWT.RADIO);
-		consumeButton.setText(Messages.consumeDescription);
 		
 		Label lblAvailableServices = new Label(control, SWT.NONE);
 		lblAvailableServices.setText(Messages.selectComponent);
@@ -90,33 +94,20 @@ public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 		versionViewer.getControl().setLayoutData(gd);
 		
 		setPageComplete(false);
-		consumeButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				filteredTree.getViewer().setInput(SupportsUtil.getInstance().getAllConsumes());
-				filteredTree.getViewer().refresh();
-				service = JbiFactory.eINSTANCE.createConsumes();
-			}
-		});
-		provideButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				filteredTree.getViewer().setInput(SupportsUtil.getInstance().getAllProvides());
-				filteredTree.getViewer().refresh();
-				service = JbiFactory.eINSTANCE.createProvides();
-			}
-		});
 		filteredTree.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				Object item = ((IStructuredSelection)event.getSelection()).getFirstElement();
 				if (item instanceof ComponentSupportExtensionDesc) {
 					versionViewer.setInput(((ComponentSupportExtensionDesc) item).getVersionSupports());
+					versionViewer.refresh();
+					versionViewer.setSelection(new StructuredSelection(versionViewer.getElementAt(0)));
 				} else {
-					// TODO clean
+					versionViewer.setInput(new ArrayList<ComponentSupportExtensionDesc>());
+					versionViewer.refresh();
+					versionViewer.setSelection(new StructuredSelection());
 				}
-				versionViewer.refresh();
-				versionViewer.setSelection(new StructuredSelection(versionViewer.getElementAt(0)));
+				setPageComplete(isPageComplete());
 			}
 		});
 		versionViewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -133,12 +124,11 @@ public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 				setPageComplete(NewServiceWizardPage.this.isPageComplete());
 			}
 		});
+
+		filteredTree.getViewer().setInput(suType);
 		
-		provideButton.setSelection(true);
-		filteredTree.getViewer().setInput(SupportsUtil.getInstance().getAllProvides());
 		filteredTree.getViewer().refresh();
-		service = JbiFactory.eINSTANCE.createProvides();
-		
+		filteredTree.getViewer().expandAll();
 	}
 
 	public AbstractEndpoint getService() {

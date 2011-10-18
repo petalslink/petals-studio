@@ -9,38 +9,68 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.ebmwebsourcing.petals.services.Messages;
+import com.ebmwebsourcing.petals.services.PetalsColors;
+import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.QNameToStringConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringIsQNameValidator;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringToQNameConverter;
+import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.LocalQNameToStringConverter;
+import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.NamespaceQNameToStringConverter;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.emf.EObjecttUIHelper;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+import com.ebmwebsourcing.petals.services.jbi.editor.su.wizard.QNameEditor;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 public class JBIEndpointUIHelpers {
 
-	public static void createCommonEndpointUI(AbstractEndpoint endpoint, FormToolkit toolkit, Composite generalDetails, JbiFormEditor editor) {
-		Label label = toolkit.createLabel( generalDetails, "Interface qname:" );
-		label.setToolTipText( "The Qualified Name '{namespace}element' of the interface (must match an interface declared in the WSDL)" );
+	public static void createCommonEndpointUI(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
+		Label label = toolkit.createLabel( generalDetails, Messages.interfaceQName );
+		//label.setToolTipText( "The Qualified Name '{namespace}element' of the interface (must match an interface declared in the WSDL)" );
 
-		Text interfaceText = toolkit.createText(generalDetails, "", SWT.SINGLE | SWT.BORDER);
-		interfaceText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		final Composite interfaceComposite = toolkit.createComposite(generalDetails);
+		interfaceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		interfaceComposite.setLayout(new GridLayout(5, false));
+		toolkit.createLabel(interfaceComposite, "{");
+		final StyledText interfaceNSText = new StyledText(interfaceComposite, SWT.SINGLE);
+		interfaceNSText.setEditable(false);
+		interfaceNSText.setForeground(PetalsColors.getLightPurple());
+		toolkit.createLabel(interfaceComposite, "}");
+		StyledText interfaceLocalText = new StyledText(interfaceComposite, SWT.SINGLE);
+		interfaceLocalText.setForeground(PetalsColors.getDarkPurple());
+		Button editInterfaceButton = toolkit.createButton(interfaceComposite, Messages.edit, SWT.PUSH);
+		editInterfaceButton.setImage(PetalsImages.getPencil());
+		editInterfaceButton.setLayoutData(new GridData(SWT.END, SWT.DEFAULT, true, false));
 		
-		label = toolkit.createLabel( generalDetails, "Service qname:" );
-		label.setToolTipText( "The Qualified Name '{namespace}element' of the service (must match a service declared in the WSDL)" );
+		label = toolkit.createLabel( generalDetails,Messages.serviceQName );
+		//label.setToolTipText( "The Qualified Name '{namespace}element' of the service (must match a service declared in the WSDL)" );
 
-		Text serviceText = toolkit.createText( generalDetails, "", SWT.SINGLE | SWT.BORDER );
-		serviceText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-
+		Composite serviceComposite = toolkit.createComposite(generalDetails);
+		serviceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		serviceComposite.setLayout(new GridLayout(5, false));
+		toolkit.createLabel(serviceComposite, "{");
+		final StyledText serviceNSText = new StyledText(serviceComposite, SWT.SINGLE);
+		serviceNSText.setEditable(false);
+		serviceNSText.setForeground(PetalsColors.getLightPurple());
+		toolkit.createLabel(serviceComposite, "}");
+		StyledText serviceLocalText = new StyledText(serviceComposite, SWT.SINGLE);
+		serviceLocalText.setForeground(PetalsColors.getDarkPurple());
+		Button editServiceButton = toolkit.createButton(serviceComposite, Messages.edit, SWT.PUSH);
+		editServiceButton.setImage(PetalsImages.getPencil());
+		editServiceButton.setLayoutData(new GridData(SWT.END, SWT.DEFAULT, true, false));
+		
 		Label edptNameLabel = toolkit.createLabel( generalDetails, "End-point name:" );
 		edptNameLabel.setToolTipText( "The end-point name, meaning the service location (must match the one declared in the WSDL)" );
 
@@ -49,30 +79,55 @@ public class JBIEndpointUIHelpers {
 
 		
 		editor.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(interfaceText, SWT.Modify)),
+				SWTObservables.observeText(interfaceLocalText),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME),
-				new UpdateValueStrategy().setConverter(new StringToQNameConverter()).setBeforeSetValidator(new StringIsQNameValidator()),
-				new UpdateValueStrategy().setConverter(new QNameToStringConverter()));
+				null,
+				new UpdateValueStrategy().setConverter(new LocalQNameToStringConverter()));
+		editor.getDataBindingContext().bindValue(
+				SWTObservables.observeText(interfaceNSText),
+				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME),
+				null,
+				new UpdateValueStrategy().setConverter(new NamespaceQNameToStringConverter()));
 
 		editor.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(serviceText, SWT.Modify)),
+				SWTObservables.observeText(serviceLocalText),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME),
-				new UpdateValueStrategy().setConverter(new StringToQNameConverter()).setBeforeSetValidator(new StringIsQNameValidator()),
-				new UpdateValueStrategy().setConverter(new QNameToStringConverter()));
+				null,
+				new UpdateValueStrategy().setConverter(new LocalQNameToStringConverter()));
+		editor.getDataBindingContext().bindValue(
+				SWTObservables.observeText(serviceNSText),
+				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME),
+				null,
+				new UpdateValueStrategy().setConverter(new NamespaceQNameToStringConverter()));
 		
 		editor.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(edptNameText, SWT.Modify)),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME));
+		
+		editInterfaceButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				QNameEditor qnameEditor = new QNameEditor(generalDetails.getShell(), endpoint.getInterfaceName());
+				if (qnameEditor.open() == QNameEditor.OK) {
+					SetCommand command = new SetCommand(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, qnameEditor.getQName());
+					editor.getEditingDomain().getCommandStack().execute(command);
+				}
+			}
+		});
+		editServiceButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				QNameEditor qnameEditor = new QNameEditor(generalDetails.getShell(), endpoint.getServiceName());
+				if (qnameEditor.open() == QNameEditor.OK) {
+					SetCommand command = new SetCommand(editor.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, qnameEditor.getQName());
+					editor.getEditingDomain().getCommandStack().execute(command);
+				}
+			}
+		});
+		
 	}
 	
-	public static void createDefaultWidgetByEIntrospection(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor, EClass[] extensionClasses) {
-		for (EClass extensionClass : extensionClasses) {
-			InitializeModelExtensionCommand fixExtensionCommand = new InitializeModelExtensionCommand(extensionClass.getEPackage(), endpoint);
-			if (fixExtensionCommand.canExecute()) {
-				editor.getEditingDomain().getCommandStack().execute(fixExtensionCommand);
-			}
-		}
-		
+	public static void createDefaultWidgetsByEIntrospection(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor, EClass[] extensionClasses) {
 		List<EStructuralFeature> toProcessFeaturesList = new ArrayList<EStructuralFeature>();
 		for (EClass extensionClass : extensionClasses) {
 			for (EStructuralFeature feature : extensionClass.getEAllStructuralFeatures()) {

@@ -284,10 +284,22 @@
       </wizard>
       <wizard
             category="com.ebmwebsourcing.petals.common.wizards"
-            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewSUWizard"
+            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewProvidesWizard"
             icon="icons/obj16/service_unit.png"
-            id="com.ebmwebsourcing.petals.services.su.project2"
-            name="%serviceUnit">
+            id="com.ebmwebsourcing.petals.services.su.provides"
+            name="%newProvidesSU"
+            project="true">
+         <description>
+            Create a Service Unit project compatible with the Petals Maven plug-in
+         </description>
+      </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards"
+            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewConsumesWizard"
+            icon="icons/obj16/service_unit.png"
+            id="com.ebmwebsourcing.petals.services.su.consumes"
+            name="%newConsumesSU"
+            project="true">
          <description>
             Create a Service Unit project compatible with the Petals Maven plug-in
          </description>
@@ -808,6 +820,7 @@
    
    
    <extension-point id="componentExtension" name="Extension to support component" schema="schema/componentExtension.exsd"/>
+   <extension-point id="componentCategory" name="Category for components" schema="schema/componentCategory.exsd"/>
    <extension
          point="org.eclipse.ui.editors">
       <editor
@@ -822,6 +835,39 @@
                contentTypeId="com.ebmwebsourcing.petals.common.jbiContentType">
          </contentTypeBinding>
       </editor>
+   </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.componentCategory">
+      <ComponentCategory
+            description="%communicationCategoryDescription"
+            id="communication"
+            label="%communicationCategoryLabel">
+      </ComponentCategory>
+      <ComponentCategory
+            description="%orchestrationCategoryDescription"
+            id="orchestration"
+            label="%orchestrationCategoryLabel">
+      </ComponentCategory>
+      <ComponentCategory
+            description="%javaCategoryDescription"
+            id="java"
+            label="%javaCategoryLabel">
+      </ComponentCategory>
+      <ComponentCategory
+            description="%miscCategoryDescription"
+            id="miscanellous"
+            label="%miscCategoryLabel">
+      </ComponentCategory>
+      <ComponentCategory
+            description="%integrationCategoryDescription"
+            id="integration"
+            label="%integrationCategoryLabel">
+      </ComponentCategory>
+      <ComponentCategory
+            description="%soaCategoryDescription"
+            id="soa"
+            label="%soaCategoryLabel">
+      </ComponentCategory>
    </extension>
 
 </plugin>

@@ -3,7 +3,6 @@ package com.ebmwebsourcing.petals.services.cdk.editor;
 import javax.swing.event.HyperlinkEvent;
 import javax.xml.namespace.QName;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
@@ -15,13 +14,16 @@ import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.window.ToolTip;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -30,13 +32,14 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.PetalsImages;
+import com.ebmwebsourcing.petals.services.cdk.Messages;
 import com.ebmwebsourcing.petals.services.cdk.editor.databinding.StringToMepConverter;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.QNameToStringConverter;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringIsQNameValidator;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringToQNameConverter;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.ToStringConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.jbi.editor.su.JBIEndpointUIHelpers;
 import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
 import com.ebmwebsourcing.petals.services.su.ui.PetalsHyperlinkListener;
@@ -45,7 +48,7 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
 
 public class CDK5JBIEndpointUIHelper {
 
-	public static void createConsumetUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
+	public static void createConsumesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
 		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor);
 		
 		// The edition fields
@@ -131,5 +134,21 @@ public class CDK5JBIEndpointUIHelper {
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP),
 				new UpdateValueStrategy().setConverter(new StringToMepConverter()),
 				new UpdateValueStrategy().setConverter(new ToStringConverter()));
-	}	
+	}
+	
+	
+	public static void createProvidesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
+		Label wsdlLabel = toolkit.createLabel(generalDetails, Messages.wsdlLocation);
+		Composite composite = toolkit.createComposite(generalDetails);
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		composite.setLayout(new GridLayout(2, false));
+		Text wsdlLocationText = toolkit.createText(composite, "", SWT.BORDER);
+		wsdlLocationText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+		Button browse = toolkit.createButton(composite, Messages.select, SWT.PUSH);
+		browse.setImage(PetalsImages.getSearchWSDL());
+		Link link = new Link(composite, SWT.NONE);
+		link.setText("<A>" + Messages.wsdlTools + "</A>");
+		ToolTip tooltip = new WSDLHelperTooltip(link);
+		
+	}
 }

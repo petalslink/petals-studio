@@ -24,6 +24,7 @@ import org.eclipse.ui.ide.IDE;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
+import com.ebmwebsourcing.petals.services.jbi.wizard.ComponentSupportTreeContentProvider.SUType;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Consumes;
@@ -35,16 +36,18 @@ public class NewSUWizard extends Wizard implements IWorkbenchWizard {
 
 	private NewServiceWizardPage page;
 	private Jbi jbi;
+	private SUType suType;
 
-	public NewSUWizard() {
-		setWindowTitle(Messages.addService);
+	public NewSUWizard(SUType suType) {
+		setWindowTitle(Messages.createProvidesSU);
 		this.jbi = JbiFactory.eINSTANCE.createJbi();
+		this.suType = suType;
 		jbi.setServices(JbiFactory.eINSTANCE.createServices());
 	}
 	
 	@Override
 	public void addPages() {
-		page = new NewServiceWizardPage();
+		page = new NewServiceWizardPage(suType);
 		addPage(page);
 	}
 

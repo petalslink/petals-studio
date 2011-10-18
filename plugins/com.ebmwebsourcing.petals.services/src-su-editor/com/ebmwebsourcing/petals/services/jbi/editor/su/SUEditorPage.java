@@ -47,6 +47,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.ebmwebsourcing.petals.services.Messages;
+import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.jbi.editor.AbstractJBIFormPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
@@ -123,7 +124,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		managedForm.getToolkit().adapt(sashForm);
 		managedForm.getToolkit().paintBordersFor(sashForm);
 		
-		Section servicesSection = managedForm.getToolkit().createSection(sashForm, Section.TWISTIE | Section.TITLE_BAR | Section.EXPANDED);
+		Section servicesSection = managedForm.getToolkit().createSection(sashForm, Section.TITLE_BAR | Section.EXPANDED);
 		managedForm.getToolkit().paintBordersFor(servicesSection);
 		servicesSection.setText("Services");
 		servicesSection.setExpanded(true);
@@ -145,29 +146,22 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		managedForm.getToolkit().paintBordersFor(servicesButtonComposite);
 		servicesButtonComposite.setLayout(new GridLayout(2, false));
 		
-		Button newButton = managedForm.getToolkit().createButton(servicesButtonComposite, "New...", SWT.NONE);
+		Button newButton = managedForm.getToolkit().createButton(servicesButtonComposite, "New...", SWT.DEFAULT);
 		newButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		newButton.setBounds(0, 0, 92, 29);
+		newButton.setImage(PetalsImages.getAdd());
 		
 		final Button upButton = managedForm.getToolkit().createButton(servicesButtonComposite, "", SWT.UP | SWT.ARROW);
 		upButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		upButton.setBounds(0, 0, 92, 29);
 		
-		final Button removeButton = managedForm.getToolkit().createButton(servicesButtonComposite, "Remove", SWT.NONE);
+		final Button removeButton = managedForm.getToolkit().createButton(servicesButtonComposite, "Remove", SWT.DEFAULT);
 		removeButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		removeButton.setBounds(0, 0, 92, 29);
+		removeButton.setImage(PetalsImages.getDelete());
 		
 		final Button downButton = managedForm.getToolkit().createButton(servicesButtonComposite, "", SWT.DOWN | SWT.ARROW);
-		downButton.setBounds(0, 0, 92, 29);
 		
-		Section sctnNewSection = managedForm.getToolkit().createSection(sashForm, Section.TWISTIE | Section.TITLE_BAR | Section.EXPANDED);
-		managedForm.getToolkit().paintBordersFor(sctnNewSection);
-		sctnNewSection.setText("New Section");
-		sctnNewSection.setExpanded(true);
-		
-		CTabFolder tabFolder = new CTabFolder(sctnNewSection, SWT.BORDER);
+		CTabFolder tabFolder = new CTabFolder(sashForm, SWT.BORDER);
+		managedForm.getToolkit().adapt(tabFolder);
 		managedForm.getToolkit().paintBordersFor(tabFolder);
-		sctnNewSection.setClient(tabFolder);
 		tabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 		
 		CTabItem tbtmGeneral = new CTabItem(tabFolder, SWT.NONE);
@@ -188,7 +182,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		
 		CTabItem tbtmSource = new CTabItem(tabFolder, SWT.NONE);
 		tbtmSource.setText("Source");
-		sashForm.setWeights(new int[] {1, 1});
+		sashForm.setWeights(new int[] {1, 2});
 		
 		tabFolder.setSelection(tbtmGeneral);
 		

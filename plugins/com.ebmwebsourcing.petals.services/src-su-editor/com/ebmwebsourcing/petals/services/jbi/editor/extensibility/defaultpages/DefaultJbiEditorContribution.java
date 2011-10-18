@@ -40,7 +40,7 @@ public class DefaultJbiEditorContribution implements JbiEditorDetailsContributio
 
 	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor) {
-		JBIEndpointUIHelpers.createDefaultWidgetByEIntrospection(endpoint, toolkit, advancedDetails, editor, extensionClasses);
+		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, advancedDetails, editor, extensionClasses);
 	}
 
 }

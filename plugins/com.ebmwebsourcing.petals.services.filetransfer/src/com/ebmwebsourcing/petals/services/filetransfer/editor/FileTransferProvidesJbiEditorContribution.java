@@ -15,7 +15,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
 
+import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.Messages;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
@@ -27,15 +29,34 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetailsContribution {
 
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
-		toolkit.createLabel(generalDetails, Messages.contractType);
-		Combo contractCombo = new Combo(generalDetails, SWT.READ_ONLY);
+		generalDetails.setLayout(new GridLayout(1, false));
+		generalDetails.setLayoutData(new GridData(GridData.FILL_BOTH));
+		
+		Section identificationSection = toolkit.createSection(generalDetails, Section.EXPANDED | Section.TITLE_BAR);
+		identificationSection.setText(Messages.identification);
+		identificationSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Composite identificationComposite = toolkit.createComposite(identificationSection);
+		identificationComposite.setLayout(new GridLayout(2, false));
+		identificationSection.setClient(identificationComposite);
+		
+		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, identificationComposite, editor);
+		toolkit.createLabel(identificationComposite, Messages.contractType);
+		Combo contractCombo = new Combo(identificationComposite, SWT.READ_ONLY);
 		contractCombo.add(Messages.getFiles);
 		contractCombo.add(Messages.writeFiles);
+
+		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, identificationComposite, editor);
 		
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor);
-		toolkit.createLabel(generalDetails, Messages.fileTransfer).setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, false, 2, 1));
-		toolkit.createLabel(generalDetails, Messages.writeDirectory);
-		Composite writeDirectoryComposite = toolkit.createComposite(generalDetails);
+		
+		Section filetransferSection = toolkit.createSection(generalDetails, Section.EXPANDED | Section.TITLE_BAR);
+		filetransferSection.setText(Messages.fileTransfer);
+		filetransferSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Composite fileTransferComposite = toolkit.createComposite(filetransferSection);
+		fileTransferComposite.setLayout(new GridLayout(2, false));
+		filetransferSection.setClient(fileTransferComposite);
+		
+		toolkit.createLabel(fileTransferComposite, Messages.writeDirectory);
+		Composite writeDirectoryComposite = toolkit.createComposite(fileTransferComposite);
 		// write
 		writeDirectoryComposite.setLayout(new GridLayout(2, false));
 		writeDirectoryComposite.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
@@ -44,12 +65,12 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		Button browseWriteButton = toolkit.createButton(writeDirectoryComposite, Messages.browse, SWT.PUSH);
 
 		// Mode
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, generalDetails, editor, new EStructuralFeature[] {
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editor, new EStructuralFeature[] {
 			FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE
 		});
 		// read
-		toolkit.createLabel(generalDetails, Messages.readDirectory);
-		Composite readDirectoryComposite = toolkit.createComposite(generalDetails);
+		toolkit.createLabel(fileTransferComposite, Messages.readDirectory);
+		Composite readDirectoryComposite = toolkit.createComposite(fileTransferComposite);
 		readDirectoryComposite.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		readDirectoryComposite.setLayout(new GridLayout(2, false));
 		Text readDirectoryText = new Text(readDirectoryComposite, SWT.BORDER);

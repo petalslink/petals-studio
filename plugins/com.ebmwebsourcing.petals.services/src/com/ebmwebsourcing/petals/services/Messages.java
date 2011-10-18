@@ -15,6 +15,13 @@ public class Messages extends NLS {
 	public static String serviceName;
 	public static String serviceMode;
 	public static String selectComponent;
+	public static String createProvidesSU;
+	public static String createProvidesSUDescription;
+	public static String createConsumesSU;
+	public static String createConsumesSUDescription;
+	public static String edit;
+	public static String interfaceQName;
+	public static String serviceQName;
 
 	static {
 		initializeMessages("messages", Messages.class);

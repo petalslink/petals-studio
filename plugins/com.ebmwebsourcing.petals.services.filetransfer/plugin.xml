@@ -38,9 +38,13 @@
       point="com.ebmwebsourcing.petals.services.componentExtension">
    <ComponentSupport
          componentDescription="TODO"
-         id="filetransfer"
+         id="petals-bc-filetransfer"
+         label="%fileTransfer"
          supportConsumes="true"
          supportProvides="true">
+      <category
+            id="communication">
+      </category>
       <ComponentVersionSupport
             editorExtension="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferContributionSupport"
             id="version-2"

@@ -35,7 +35,7 @@ public class SupportsUtil {
 	
 	// logic
 	private Map<String, ComponentVersionSupportExtensionDesc> namespaceToVersionSupport;
-	private Set<ComponentSupportExtensionDesc> components; 
+	private Set<ComponentSupportExtensionDesc> components;
 	
 	private SupportsUtil() {
 		namespaceToVersionSupport = new HashMap<String, ComponentVersionSupportExtensionDesc>();
@@ -57,7 +57,6 @@ public class SupportsUtil {
 			}
 		}
 	}
-
 
 	public ComponentVersionSupportExtensionDesc getComponentExtensionDesc(AbstractExtensibleElement element) {
 		ComponentVersionSupportExtensionDesc componentExtensionDesc = null;
