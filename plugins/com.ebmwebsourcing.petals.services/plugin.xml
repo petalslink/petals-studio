@@ -821,6 +821,7 @@
    
    <extension-point id="componentExtension" name="Extension to support component" schema="schema/componentExtension.exsd"/>
    <extension-point id="componentCategory" name="Category for components" schema="schema/componentCategory.exsd"/>
+   <extension-point id="jbiExtensionPackage" name="To register EPackages that are extensions to JBI" schema="schema/jbiExtensionPackage.exsd"/>
    <extension
          point="org.eclipse.ui.editors">
       <editor

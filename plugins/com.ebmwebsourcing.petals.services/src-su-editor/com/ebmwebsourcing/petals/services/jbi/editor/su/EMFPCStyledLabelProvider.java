@@ -242,13 +242,7 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 	 */
 	public StyledString getStyledText( Object element ) {
 		StyledString styledString;
-		if (element == ServicesContentProvider.CONSUME) {
-			styledString = new StyledString();
-			styledString.append("CONSUME", categoryStyle);
-		} else if (element == ServicesContentProvider.PROVIDE) {
-			styledString = new StyledString();
-			styledString.append("PROVIDE", categoryStyle);
-		} else if (element instanceof AbstractEndpoint) {
+		if (element instanceof AbstractEndpoint) {
 			styledString = getStyledText((AbstractEndpoint)element);
 		} else if (element instanceof Element)
 			styledString = getStyledText((Element) element);

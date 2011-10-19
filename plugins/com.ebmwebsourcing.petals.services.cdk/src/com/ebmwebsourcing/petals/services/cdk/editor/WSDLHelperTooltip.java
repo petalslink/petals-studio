@@ -23,6 +23,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -57,17 +58,19 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 	private FormToolkit toolkit;
 	private Provides service;
 	private JbiFormEditor editor;
+	private Shell shell;
 	
-	public WSDLHelperTooltip(Control control, FormToolkit tk, Provides service, JbiFormEditor editor) {
+	public WSDLHelperTooltip(Control control, FormToolkit tk, Provides service, JbiFormEditor editor, Shell shell) {
 		super(control, NO_RECREATE, false);
 		this.toolkit = tk;
 		this.service = service;
 		this.editor = editor;
 		this.wsdlParsingJob = new WsdlParsingJobManager();
+		this.shell = shell;
 	}
 
 	@Override
-	protected Composite createToolTipContentArea(Event event, final Composite parent) {
+	protected Composite createToolTipContentArea(Event event, Composite parent) {
 		final File wsdlFile = getWSDL();
 		Form res = toolkit.createForm(parent); 
 		res.setText(Messages.wsdlTools);
@@ -82,6 +85,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		importLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
+				hide();
 				URI wsdlURI = wsdlFile.toURI();
 				if( wsdlURI != null ) {
 					WsdlImportWizard wiz = new WsdlImportWizard();
@@ -108,8 +112,9 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		selectServiceLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
-				EMFPCStyledLabelProvider lp = new EMFPCStyledLabelProvider(parent);
-				StyledElementListSelectionDialog dlg = new StyledElementListSelectionDialog(parent.getShell(), lp );
+				hide();
+				EMFPCStyledLabelProvider lp = new EMFPCStyledLabelProvider(shell);
+				StyledElementListSelectionDialog dlg = new StyledElementListSelectionDialog(shell, lp );
 
 				dlg.setFilter( "*" );
 				dlg.setSize( 120, 20 );
@@ -150,6 +155,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		openLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
+				hide();
 				IFile f = ResourceUtils.getIFile( wsdlFile );
 				if( f != null ) {
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -169,14 +175,14 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		updateLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
-
+				hide();
 				// Enabled only when the WSDL points to an existing file
 				QName serviceName = service.getServiceName();
 				String edptName = service.getEndpointName();
 
 				if( ! WsdlUtils.INSTANCE.updateEndpointNameInWsdl(wsdlFile, serviceName, edptName )) {
 					MessageDialog.openError(
-								parent.getShell(),
+								shell,
 								"End-point Update Failure",
 								"The end-point could not be updated in the WSDL." );
 				} else {

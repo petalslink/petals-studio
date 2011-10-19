@@ -13,6 +13,8 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -56,7 +58,7 @@ public class JBIEndpointUIHelpers {
 
 	public static CommonEndpointControls createCommonEndpointUI(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
 		Label label = toolkit.createLabel( generalDetails, Messages.interfaceQName );
-		//label.setToolTipText( "The Qualified Name '{namespace}element' of the interface (must match an interface declared in the WSDL)" );
+		label.setToolTipText( "The Qualified Name '{namespace}element' of the interface (must match an interface declared in the WSDL)" );
 
 		final Composite interfaceComposite = toolkit.createComposite(generalDetails);
 		interfaceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -71,6 +73,19 @@ public class JBIEndpointUIHelpers {
 		Button editInterfaceButton = toolkit.createButton(interfaceComposite, Messages.edit, SWT.PUSH);
 		editInterfaceButton.setImage(PetalsImages.getPencil());
 		editInterfaceButton.setLayoutData(new GridData(SWT.END, SWT.DEFAULT, true, false));
+		
+		interfaceNSText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				interfaceComposite.layout(true);
+			}
+		});
+		interfaceLocalText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				interfaceComposite.layout(true);
+			}
+		});
 		
 		label = toolkit.createLabel( generalDetails,Messages.serviceQName );
 		//label.setToolTipText( "The Qualified Name '{namespace}element' of the service (must match a service declared in the WSDL)" );
@@ -88,6 +103,19 @@ public class JBIEndpointUIHelpers {
 		Button editServiceButton = toolkit.createButton(serviceComposite, Messages.edit, SWT.PUSH);
 		editServiceButton.setImage(PetalsImages.getPencil());
 		editServiceButton.setLayoutData(new GridData(SWT.END, SWT.DEFAULT, true, false));
+		
+		serviceNSText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				serviceComposite.layout(true);
+			}
+		});
+		serviceLocalText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				serviceComposite.layout(true);
+			}
+		});
 		
 		Label edptNameLabel = toolkit.createLabel( generalDetails, "End-point name:" );
 		edptNameLabel.setToolTipText( "The end-point name, meaning the service location (must match the one declared in the WSDL)" );

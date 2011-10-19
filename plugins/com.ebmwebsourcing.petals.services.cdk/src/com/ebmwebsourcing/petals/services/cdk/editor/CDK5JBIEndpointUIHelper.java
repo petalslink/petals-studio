@@ -149,7 +149,7 @@ public class CDK5JBIEndpointUIHelper {
 		browse.setImage(PetalsImages.getSearchWSDL());
 		Link link = new Link(composite, SWT.NONE);
 		link.setText("<A>" + Messages.wsdlTools + "</A>");
-		ToolTip tooltip = new WSDLHelperTooltip(link, toolkit, (Provides)endpoint, editor);
+		ToolTip tooltip = new WSDLHelperTooltip(link, toolkit, (Provides)endpoint, editor, link.getShell());
 		tooltip.setHideDelay(0);
 		tooltip.setHideOnMouseDown(false);
 		

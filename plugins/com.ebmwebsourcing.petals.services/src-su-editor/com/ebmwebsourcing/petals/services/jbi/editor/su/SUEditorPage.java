@@ -14,16 +14,21 @@ package com.ebmwebsourcing.petals.services.jbi.editor.su;
 
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.emf.edit.command.MoveCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
@@ -38,10 +43,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
@@ -56,8 +61,10 @@ import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.Componen
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
 import com.ebmwebsourcing.petals.services.jbi.editor.su.wizard.NewServiceWizard;
+import com.ebmwebsourcing.petals.services.jbi.wizard.ComponentSupportTreeContentProvider.SUType;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Consumes;
+import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
 
 /**
@@ -65,7 +72,39 @@ import com.sun.java.xml.ns.jbi.Provides;
  */
 public class SUEditorPage extends AbstractJBIFormPage {
 
-	private Object selectedTreeItem; // Can be PROVIDE or CONSUME
+	private final class EListRemoveSelectionListener extends SelectionAdapter {
+		private final Viewer servicesViewer;
+
+		private EListRemoveSelectionListener(Viewer servicesViewer) {
+			this.servicesViewer = servicesViewer;
+		}
+
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			if (MessageDialog.openConfirm(getSite().getShell(), Messages.confimeRemoveEndpointTitle, Messages.confimeRemoveEndpointMessage)) {
+				RemoveCommand deleteCommand = new RemoveCommand(getEditor().getEditingDomain(), containmentList, selectedEndpoint);
+				getEditor().getEditingDomain().getCommandStack().execute(deleteCommand);
+				servicesViewer.refresh();
+			}
+		}
+	}
+
+	private final class EListDownSelectionListener extends SelectionAdapter {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			MoveCommand moveCommand = new MoveCommand(getEditor().getEditingDomain(), containmentList, selectedEndpoint, containmentList.indexOf(selectedEndpoint) + 1);
+			getEditor().getEditingDomain().getCommandStack().execute(moveCommand);
+		}
+	}
+
+	private final class EListUpSelectionListener extends SelectionAdapter {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			MoveCommand moveCommand = new MoveCommand(getEditor().getEditingDomain(), containmentList, selectedEndpoint, containmentList.indexOf(selectedEndpoint) - 1);
+			getEditor().getEditingDomain().getCommandStack().execute(moveCommand);
+		}
+	}
+
 	private AbstractEndpoint selectedEndpoint;
 	private EList<? extends AbstractEndpoint> containmentList;
 	
@@ -73,6 +112,8 @@ public class SUEditorPage extends AbstractJBIFormPage {
 	private FormToolkit toolkit;
 	private Composite mainDetails;
 	private Composite advancedDetails;
+	private TableViewer providesViewer;
+	private TableViewer consumesViewer;
 	
 	/**
 	 * Constructor.
@@ -89,6 +130,15 @@ public class SUEditorPage extends AbstractJBIFormPage {
 	public void init(IEditorSite site, IEditorInput input) {
 		super.init(site, input);
 		CompoundCommand initializeCommand = new CompoundCommand();
+		for (String ePackageNS : SupportsUtil.getInstance().getJBIExtensionEPackage()) {
+			EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(ePackageNS);
+			for (Provides provide : getEditor().getJbiModel().getServices().getProvides()) {
+				initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, provide));
+			}
+			for (Consumes consume : getEditor().getJbiModel().getServices().getConsumes()) {
+				initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, consume));
+			}
+		}
 		for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
 			for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
 				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(version.getNamespace());
@@ -124,40 +174,151 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		managedForm.getToolkit().adapt(sashForm);
 		managedForm.getToolkit().paintBordersFor(sashForm);
 		
+		
+		//
+		// MASTER
+		//
+		
+		
 		Section servicesSection = managedForm.getToolkit().createSection(sashForm, Section.TITLE_BAR | Section.EXPANDED);
 		managedForm.getToolkit().paintBordersFor(servicesSection);
 		servicesSection.setText("Services");
-		servicesSection.setExpanded(true);
 		
 		Composite servicesComposite = managedForm.getToolkit().createComposite(servicesSection, SWT.NONE);
 		managedForm.getToolkit().paintBordersFor(servicesComposite);
 		servicesSection.setClient(servicesComposite);
 		servicesComposite.setLayout(new GridLayout(1, false));
+
+		// PROVIDES
+		Form providesForm = managedForm.getToolkit().createForm(servicesComposite);
+		providesForm.setLayoutData(new GridData(GridData.FILL_BOTH));
+		providesForm.setText(Messages.provides);
+		providesForm.getBody().setLayout(new GridLayout(2, false));
+		providesViewer = new TableViewer(providesForm.getBody());
+		providesViewer.setLabelProvider(new EMFPCStyledLabelProvider(providesViewer.getControl()));
+		providesViewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+		providesViewer.setContentProvider(new ArrayContentProvider());
 		
-		Tree tree = managedForm.getToolkit().createTree(servicesComposite, SWT.NONE);
-		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		managedForm.getToolkit().paintBordersFor(tree);
-		final TreeViewer servicesViewer = new TreeViewer(tree);
-		servicesViewer.setContentProvider(new ServicesContentProvider());
-		servicesViewer.setLabelProvider(new EMFPCStyledLabelProvider(tree));
+		Composite providesButtons = managedForm.getToolkit().createComposite(providesForm.getBody());
+		providesButtons.setLayout(new GridLayout(1, false));
+		Button newProvidesButton = managedForm.getToolkit().createButton(providesButtons, "New...", SWT.DEFAULT);
+		newProvidesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		newProvidesButton.setImage(PetalsImages.getAdd());
+		final Button removeProvidesButton = managedForm.getToolkit().createButton(providesButtons, "Remove", SWT.DEFAULT);
+		removeProvidesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		removeProvidesButton.setImage(PetalsImages.getDelete());
+		final Button upProvidesButton = managedForm.getToolkit().createButton(providesButtons, "", SWT.UP | SWT.ARROW);
+		upProvidesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		final Button downProvidesButton = managedForm.getToolkit().createButton(providesButtons, "", SWT.DOWN | SWT.ARROW);
+		downProvidesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		
-		Composite servicesButtonComposite = managedForm.getToolkit().createComposite(servicesComposite, SWT.NONE);
-		servicesButtonComposite.setBounds(0, 0, 64, 64);
-		managedForm.getToolkit().paintBordersFor(servicesButtonComposite);
-		servicesButtonComposite.setLayout(new GridLayout(2, false));
+		// dynamics
+		getEditor().getDataBindingContext().bindValue(
+				ViewersObservables.observeInput(providesViewer),
+				EMFEditObservables.observeValue(getEditor().getEditingDomain(), getEditor().getJbiModel().getServices(), JbiPackage.Literals.SERVICES__PROVIDES));
 		
-		Button newButton = managedForm.getToolkit().createButton(servicesButtonComposite, "New...", SWT.DEFAULT);
-		newButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		newButton.setImage(PetalsImages.getAdd());
+		upProvidesButton.addSelectionListener(new EListUpSelectionListener());
+		downProvidesButton.addSelectionListener(new EListDownSelectionListener());
+		removeProvidesButton.addSelectionListener(new EListRemoveSelectionListener(providesViewer));
+		newProvidesButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				IWizard createEndpointWizard = new NewServiceWizard(getEditor().getJbiModel(), getEditor().getEditingDomain(), SUType.PROVIDES);
+				if (new WizardDialog(getSite().getShell(), createEndpointWizard).open() == Dialog.OK) {
+					providesViewer.refresh();
+				}
+			}
+		});
 		
-		final Button upButton = managedForm.getToolkit().createButton(servicesButtonComposite, "", SWT.UP | SWT.ARROW);
-		upButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		// CONSUMES
+		Form consumesForm = managedForm.getToolkit().createForm(servicesComposite);
+		consumesForm.setLayoutData(new GridData(GridData.FILL_BOTH));
+		consumesForm.setText(Messages.consumes);
+		consumesForm.getBody().setLayout(new GridLayout(2, false));
+		consumesViewer = new TableViewer(consumesForm.getBody());
+		consumesViewer.setLabelProvider(new EMFPCStyledLabelProvider(consumesViewer.getControl()));
+		consumesViewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+		consumesViewer.setContentProvider(new ArrayContentProvider());
 		
-		final Button removeButton = managedForm.getToolkit().createButton(servicesButtonComposite, "Remove", SWT.DEFAULT);
-		removeButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		removeButton.setImage(PetalsImages.getDelete());
+		Composite consumesButtons = managedForm.getToolkit().createComposite(consumesForm.getBody());
+		consumesButtons.setLayout(new GridLayout(1, false));
+		Button newConsumesButton = managedForm.getToolkit().createButton(consumesButtons, "New...", SWT.DEFAULT);
+		newConsumesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		newConsumesButton.setImage(PetalsImages.getAdd());
+		final Button removeConsumesButton = managedForm.getToolkit().createButton(consumesButtons, "Remove", SWT.DEFAULT);
+		removeConsumesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		removeConsumesButton.setImage(PetalsImages.getDelete());
+		final Button upConsumesButton = managedForm.getToolkit().createButton(consumesButtons, "", SWT.UP | SWT.ARROW);
+		upConsumesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		final Button downConsumesButton = managedForm.getToolkit().createButton(consumesButtons, "", SWT.DOWN | SWT.ARROW);
+		downConsumesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		
-		final Button downButton = managedForm.getToolkit().createButton(servicesButtonComposite, "", SWT.DOWN | SWT.ARROW);
+		// dynamics
+		getEditor().getDataBindingContext().bindValue(
+				ViewersObservables.observeInput(consumesViewer),
+				EMFEditObservables.observeValue(getEditor().getEditingDomain(), getEditor().getJbiModel().getServices(), JbiPackage.Literals.SERVICES__CONSUMES));
+		upConsumesButton.addSelectionListener(new EListUpSelectionListener());
+		downConsumesButton.addSelectionListener(new EListDownSelectionListener());
+		removeConsumesButton.addSelectionListener(new EListRemoveSelectionListener(consumesViewer));
+		newConsumesButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				IWizard createEndpointWizard = new NewServiceWizard(getEditor().getJbiModel(), getEditor().getEditingDomain(), SUType.CONSUMES);
+				if (new WizardDialog(getSite().getShell(), createEndpointWizard).open() == Dialog.OK) {
+					consumesViewer.refresh();
+				}
+			}
+		});
+		
+		
+		providesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = ((IStructuredSelection)event.getSelection());
+				if (selection.isEmpty()) {
+					selectedEndpoint = null;
+					upProvidesButton.setEnabled(false);
+					downProvidesButton.setEnabled(false);
+				} else {
+					consumesViewer.setSelection(new StructuredSelection());
+					selectedEndpoint = (Provides)selection.getFirstElement();
+					containmentList = getEditor().getJbiModel().getServices().getProvides();
+					upProvidesButton.setEnabled(containmentList.indexOf(selectedEndpoint) > 0);
+					downProvidesButton.setEnabled(containmentList.indexOf(selectedEndpoint) != containmentList.size() - 1);
+					refreshDetails();
+				}
+				removeProvidesButton.setEnabled(selectedEndpoint != null);
+			}
+		});
+		consumesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = ((IStructuredSelection)event.getSelection());
+				if (selection.isEmpty()) {
+					selectedEndpoint = null;
+					upConsumesButton.setEnabled(false);
+					downConsumesButton.setEnabled(false);
+				} else {
+					providesViewer.setSelection(new StructuredSelection());
+					selectedEndpoint = (Consumes)selection.getFirstElement();
+					containmentList = getEditor().getJbiModel().getServices().getConsumes();
+					upConsumesButton.setEnabled(containmentList.indexOf(selectedEndpoint) > 0);
+					downConsumesButton.setEnabled(containmentList.indexOf(selectedEndpoint) != containmentList.size() - 1);
+					refreshDetails();
+				}
+				removeConsumesButton.setEnabled(selectedEndpoint != null);
+			}
+		});
+		
+		
+		providesViewer.setSelection(new StructuredSelection());
+		consumesViewer.setSelection(new StructuredSelection());
+		
+		
+		//
+		// DETAILS
+		//
+		
 		
 		CTabFolder tabFolder = new CTabFolder(sashForm, SWT.BORDER);
 		managedForm.getToolkit().adapt(tabFolder);
@@ -186,75 +347,6 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		
 		tabFolder.setSelection(tbtmGeneral);
 		
-		// dynamics
-		servicesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				selectedTreeItem = ((IStructuredSelection)event.getSelection()).getFirstElement();
-				if (selectedTreeItem instanceof AbstractEndpoint) {
-					selectedEndpoint = (AbstractEndpoint)selectedTreeItem;
-					if (selectedEndpoint instanceof Provides) {
-						containmentList = getEditor().getJbiModel().getServices().getProvides();
-					} else {
-						containmentList = getEditor().getJbiModel().getServices().getConsumes();
-					}
-					upButton.setEnabled(containmentList.indexOf(selectedEndpoint) > 0);
-					downButton.setEnabled(containmentList.indexOf(selectedEndpoint) != containmentList.size() - 1);
-				} else {
-					selectedEndpoint = null;
-					upButton.setEnabled(false);
-					downButton.setEnabled(false);
-				}
-				removeButton.setEnabled(selectedEndpoint != null);
-			}
-		});
-		servicesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				refreshDetails();
-			}
-		});
-		
-		upButton.addSelectionListener(new SelectionAdapter() {			
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				MoveCommand moveCommand = new MoveCommand(getEditor().getEditingDomain(), containmentList, selectedEndpoint, containmentList.indexOf(selectedEndpoint) - 1);
-				getEditor().getEditingDomain().getCommandStack().execute(moveCommand);
-			}
-		});
-		downButton.addSelectionListener(new SelectionAdapter() {			
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				MoveCommand moveCommand = new MoveCommand(getEditor().getEditingDomain(), containmentList, selectedEndpoint, containmentList.indexOf(selectedEndpoint) + 1);
-				getEditor().getEditingDomain().getCommandStack().execute(moveCommand);
-			}
-		});
-		removeButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (MessageDialog.openConfirm(getSite().getShell(), Messages.confimeRemoveEndpointTitle, Messages.confimeRemoveEndpointMessage)) {
-					RemoveCommand deleteCommand = new RemoveCommand(getEditor().getEditingDomain(), containmentList, selectedEndpoint);
-					getEditor().getEditingDomain().getCommandStack().execute(deleteCommand);
-					servicesViewer.refresh();
-				}
-			}
-		});
-		newButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				IWizard createEndpointWizard = new NewServiceWizard(getEditor().getJbiModel(), getEditor().getEditingDomain());
-				if (new WizardDialog(getSite().getShell(), createEndpointWizard).open() == Dialog.OK) {
-					servicesViewer.refresh();
-				}
-			}
-		});
-		
-		// init state
-		servicesViewer.setInput(getEditor().getJbiModel());
-		servicesViewer.expandAll();
-		removeButton.setEnabled(false);
-		upButton.setEnabled(false);
-		downButton.setEnabled(false);
 	}
 	
 	private void re_fillMainDetailsContainer(FormToolkit toolkit, Composite generalDetails) {
@@ -264,10 +356,6 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		
 		if (componentContributions != null) {
 			componentContributions.addMainSUContent(selectedEndpoint, toolkit, generalDetails, getEditor());
-		} else if (selectedTreeItem == ServicesContentProvider.CONSUME) {
-			toolkit.createLabel(generalDetails, Messages.consumeDescription, SWT.WRAP).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		} else if (selectedTreeItem == ServicesContentProvider.PROVIDE) {
-			toolkit.createLabel(generalDetails, Messages.provideDescription, SWT.WRAP).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 		}
 		
 		generalDetails.layout(true);

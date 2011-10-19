@@ -24,6 +24,8 @@ public class Messages extends NLS {
 	public static String serviceQName;
 	public static String namespace;
 	public static String localPart;
+	public static String provides;
+	public static String consumes;
 
 	static {
 		initializeMessages("messages", Messages.class);

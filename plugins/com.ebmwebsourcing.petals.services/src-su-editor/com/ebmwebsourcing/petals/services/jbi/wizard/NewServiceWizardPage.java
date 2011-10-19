@@ -37,7 +37,7 @@ public class NewServiceWizardPage extends WizardPage implements IWizardPage {
 	private String serviceName;
 	private SUType suType;
 	
-	protected NewServiceWizardPage(SUType suType) {
+	public NewServiceWizardPage(SUType suType) {
 		super("NewServiceWizardPage");
 		this.suType = suType;
 		if (suType == SUType.PROVIDES) {

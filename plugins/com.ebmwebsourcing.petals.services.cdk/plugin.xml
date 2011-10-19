@@ -22,6 +22,12 @@
             type="cdk5"
             class="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.util.Cdk5ResourceFactoryImpl"/>
    </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.jbiExtensionPackage">
+      <jbiExtensionPackage
+            ePackageURI="http://petals.ow2.org/components/extensions/version-5">
+      </jbiExtensionPackage>
+   </extension>
    
 
 </plugin>
