@@ -26,6 +26,7 @@ public class SUCreator {
 		final SWTBotEditor currentEditor = getCurrentEditor(bot);
 		su.setServiceName("TestFileTransferService" + System.currentTimeMillis());
 		bot.menu("File").menu("New").menu("Service Unit").click();
+		bot.shell("New Service Unit").activate();
 		bot.button("Next >"); // wait for button to appear.
 		SWTBotCombo componentCombo = bot.comboBox(1);
 		componentCombo.setSelection("File Transfer  //  petals-bc-filetransfer");

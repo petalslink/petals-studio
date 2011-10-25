@@ -40,6 +40,8 @@ public class TestFileEditorAssociation extends SWTBotEclipseTestCase {
 	@Test
 	public void testNewWSDLFile() throws Exception {
 		this.bot.menu("New").menu("WSDL File").click();
+		bot.shell("New WSDL File").activate();
+		bot.shell("New WSDL File").setFocus();
 		this.bot.tree().select("Petals-Croquis");
 		String fileName = "test" + System.currentTimeMillis() + ".wsdl";
 		this.bot.text(1).setText(fileName);
@@ -51,6 +53,8 @@ public class TestFileEditorAssociation extends SWTBotEclipseTestCase {
 	@Test
 	public void testXSDEditor() throws Exception {
 		this.bot.menu("New").menu("File").click();
+		bot.shell("New File").activate();
+		bot.shell("New File").setFocus();
 		this.bot.tree().select("Petals-Croquis");
 		String fileName = "test" + System.currentTimeMillis() + ".xsd";
 		this.bot.text(1).setText(fileName);
