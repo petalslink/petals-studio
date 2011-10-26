@@ -40,7 +40,6 @@ public class SUCreator {
 		bot.comboBox().setSelection(1);
 		su.setWsdlName("GetFiles.wsdl");
 		bot.text(0).setText("testFolder");
-		bot.button("Next >").click();
 		bot.button("Finish").click();
 		bot.waitUntil(new ICondition() {
 
