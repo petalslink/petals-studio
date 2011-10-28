@@ -82,7 +82,6 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 		this.bot.text(1).setText("jndiFactory");
 		this.bot.text(3).setText("jndiUrl");
 		this.bot.comboBox().setSelection(0);
-		this.bot.button("Next >").click();
 		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
 		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
 		this.bot.button("Finish").click();
