@@ -51,8 +51,8 @@ import org.ow2.easywsdl.wsdl.api.WSDLReader;
 import com.ebmwebsourcing.commons.jbi.internal.provisional.beans.XmlElement;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules;
+import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.utils.FileImportManager;
-import com.ebmwebsourcing.petals.services.su.wizards.SettingConstants;
 import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 import com.ebmwebsourcing.petals.services.su.wizards.legacy.swt.AbstractWizardListener;
 import com.ebmwebsourcing.petals.services.su.wizards.legacy.swt.FileUriBrowser;
@@ -179,8 +179,8 @@ public class BpelFirstPage10 extends AbstractSuPage {
 				String wsdlName = new Path( this.bpelName ).removeFileExtension().toString() + ".wsdl";
 
 				// Update the other fields in the JBI page
-				getWizard().getDialogSettings().put( SettingConstants.PROVIDED_WSDL_URI, this.wsdlLocation.toString());
-				getWizard().getDialogSettings().put( SettingConstants.WSDL_HIDDEN_VALUE, wsdlName );
+				getWizard().getDialogSettings().put( SuWizardSettings.PROVIDED_WSDL_URI, this.wsdlLocation.toString());
+				getWizard().getDialogSettings().put( SuWizardSettings.WSDL_HIDDEN_VALUE, wsdlName );
 
 			} catch( Exception e1 ) {
 				updateStatus( "You must provide a valid WSDL URL." );
@@ -205,7 +205,7 @@ public class BpelFirstPage10 extends AbstractSuPage {
 			}
 
 			// Get the process' WSDL
-			getWizard().getDialogSettings().put( SettingConstants.WSDL_HIDDEN_VALUE, "" );
+			getWizard().getDialogSettings().put( SuWizardSettings.WSDL_HIDDEN_VALUE, "" );
 			IRunnableWithProgress wsdlParsingOperation = new IRunnableWithProgress() {
 				public void run( IProgressMonitor monitor ) throws InvocationTargetException {
 					try {
@@ -215,11 +215,11 @@ public class BpelFirstPage10 extends AbstractSuPage {
 						List<URI> wsdlUris = PetalsBpelModules.getProcessWsdl( url );
 						if( wsdlUris.size() > 0 ) {
 							String wsdlUrl = wsdlUris.get( 0 ).toString();
-							getWizard().getDialogSettings().put( SettingConstants.PROVIDED_WSDL_URI, wsdlUrl );
+							getWizard().getDialogSettings().put( SuWizardSettings.PROVIDED_WSDL_URI, wsdlUrl );
 						}
 
 					} catch( MalformedURLException e ) {
-						getWizard().getDialogSettings().put( SettingConstants.PROVIDED_WSDL_URI, "" );
+						getWizard().getDialogSettings().put( SuWizardSettings.PROVIDED_WSDL_URI, "" );
 						PetalsBpelPlugin.log( e, IStatus.ERROR );
 
 					} finally {
@@ -239,14 +239,14 @@ public class BpelFirstPage10 extends AbstractSuPage {
 		// Generate everything from zero
 		else {
 			this.bpelName = "NewProcess.bpel";
-			getWizard().getDialogSettings().put( SettingConstants.PROVIDED_WSDL_URI, "" );
-			getWizard().getDialogSettings().put( SettingConstants.WSDL_HIDDEN_VALUE, "NewProcessDefinition.wsdl" );
+			getWizard().getDialogSettings().put( SuWizardSettings.PROVIDED_WSDL_URI, "" );
+			getWizard().getDialogSettings().put( SuWizardSettings.WSDL_HIDDEN_VALUE, "NewProcessDefinition.wsdl" );
 		}
 
 		// Save values
 		this.bpelUrl = this.bpelBrowser.getValue();
 		String name = this.bpelName.substring( 0, this.bpelName.length() - 5 );
-		getWizard().getDialogSettings().put( SettingConstants.SRV_NAME_VALUE, name );
+		getWizard().getDialogSettings().put( SuWizardSettings.SRV_NAME_VALUE, name );
 
 		updateStatus( null );
 		return true;

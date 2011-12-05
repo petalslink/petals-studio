@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
@@ -50,7 +50,8 @@ public class IoUtils {
 			if( file.exists()) {
 				if( file.isDirectory())
 					deleteFilesRecursively( file.listFiles());
-				else if( ! file.delete())
+
+				if( ! file.delete())
 					throw new IOException( file.getAbsolutePath() + " could not be deleted." );
 			}
 		}
@@ -63,7 +64,7 @@ public class IoUtils {
 	 * Neither <i>in</i> nor <i>os</i> are closed by this method.<br />
 	 * They must be explicitly closed after this method is called.
 	 * </p>
-	 * 
+	 *
 	 * @param in
 	 * @param os
 	 * @throws IOException
@@ -84,7 +85,7 @@ public class IoUtils {
 	 * <i>in</i> is not closed by this method.<br />
 	 * It must be explicitly closed after this method is called.
 	 * </p>
-	 * 
+	 *
 	 * @param in
 	 * @param outputFile will be created if it does not exist
 	 * @throws IOException
@@ -102,7 +103,7 @@ public class IoUtils {
 
 	/**
 	 * Copies the content from inputFile into outputFile.
-	 * 
+	 *
 	 * @param inputFile
 	 * @param outputFile will be created if it does not exist
 	 * @throws IOException
@@ -117,7 +118,7 @@ public class IoUtils {
 
 	/**
 	 * Copies the content from inputFile into an output stream.
-	 * 
+	 *
 	 * @param inputFile
 	 * @param os the output stream
 	 * @throws IOException
@@ -136,7 +137,7 @@ public class IoUtils {
 	 * The file is tried to be read with UTF-8 encoding.
 	 * If it fails, the default system encoding is used.
 	 * </p>
-	 * 
+	 *
 	 * @param file the file whose content must be loaded
 	 * @return the file content
 	 * @throws IOException if the file content could not be read
@@ -158,7 +159,7 @@ public class IoUtils {
 
 	/**
 	 * Reads a text file content and returns it as a string.
-	 * 
+	 *
 	 * @param file the file whose content must be loaded
 	 * @return the file content
 	 * @throws IOException if the file content could not be read
@@ -173,7 +174,7 @@ public class IoUtils {
 	 * <p>
 	 * The string argument corresponds to a file name or a file path.
 	 * </p>
-	 * 
+	 *
 	 * @param filePath
 	 * @return a file name with no special character
 	 */
@@ -281,7 +282,7 @@ public class IoUtils {
 	 * <p>
 	 * Legacy and more complete than {@link #getBasicRelativePath(File, File)}.
 	 * </p>
-	 * 
+	 *
 	 * @param originFile the absolute file which acts as the <i>origin</i>.
 	 * @param file the file whose relative path must be computed with respect to originFile.
 	 * @return the relative path of <code>file</code> with respect to originFile.
@@ -305,12 +306,12 @@ public class IoUtils {
 
 	/**
 	 * Copies a file (or a directory) in a directory.
-	 * 
+	 *
 	 * @param source a file or a directory
 	 * <p>
 	 * If source is a directory, this directory will be copied in the target directory.
 	 * </p>
-	 * 
+	 *
 	 * @param targetDirectory the directory in which the file must be copied
 	 * @param deleteSourceAfter true to delete the source file after the copy is done
 	 * @throws IOException if something went wrong
@@ -325,12 +326,12 @@ public class IoUtils {
 
 	/**
 	 * Copies a source file in a target file.
-	 * 
+	 *
 	 * @param source a file or a directory
 	 * <p>
 	 * If source is a directory, only its content is copied in the target directory.
 	 * </p>
-	 * 
+	 *
 	 * @param target a file or a directory (must have the same type than the source: file or directory)
 	 * @param deleteSourceAfter true to delete the source file after the copy is done
 	 * @throws IOException
@@ -377,7 +378,7 @@ public class IoUtils {
 	 * Files are tried to be moved using {@link File#renameTo(File)}.<br />
 	 * If it fails, it copies the source file in the target file, before deleting the source.
 	 * </p>
-	 * 
+	 *
 	 * @param source the source file (or directory)
 	 * @param target the target file (or directory)
 	 * @param overwrite true to overwrite the target file
@@ -386,7 +387,7 @@ public class IoUtils {
 	 * If the target is a directory, the directory is deleted before being replaced
 	 * by the moved directory.
 	 * </p>
-	 * 
+	 *
 	 * @throws IOException if something went wrong
 	 */
 	public static void moveFileRobustly( File source, File target, boolean overwrite ) throws IOException {

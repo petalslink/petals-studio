@@ -36,7 +36,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
@@ -44,9 +43,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.model.WorkbenchContentProvider;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.part.FileEditorInput;
 
@@ -491,54 +487,5 @@ public class ResourceUtils {
 		}
 
 		return result;
-	}
-
-
-	/**
-	 * Creates a dialog to select a file with a given extension in a given container.
-	 * <p>
-	 * If you want to select any file in the container, the best solution is to
-	 * directly use {@link ElementTreeSelectionDialog} with a {@link WorkbenchContentProvider}
-	 * and a {@link WorkbenchLabelProvider}. With respect to this solution, this method
-	 * adds filtering capabilities.
-	 * </p>
-	 *
-	 * @param parent the shell
-	 * @param container the parent container (can be the work space root)
-	 * @param fileExtension the file extension (without the dot)
-	 * @return a selection dialog (the title and the description are not set by this method)
-	 */
-	public static ElementTreeSelectionDialog createWorkspaceFileSelectionDialog(
-				Shell parent, IContainer container, final String fileExtension ) {
-
-		ElementTreeSelectionDialog dlg = new ElementTreeSelectionDialog(
-					parent,
-					new WorkbenchLabelProvider(),
-					new WorkbenchContentProvider() {
-
-						@Override
-						public Object[] getChildren( Object element ) {
-
-							Object[] result = super.getChildren( element );
-							if( result == null )
-								result = new Object[ 0 ];
-
-							List<Object> filteredResult = new ArrayList<Object>();
-							for( Object o : result ) {
-								if( o instanceof IFile
-											&& fileExtension.equalsIgnoreCase(((IFile) o).getFileExtension()))
-									filteredResult.add( o );
-
-								else if( o instanceof IContainer
-											&& ! getFiles( fileExtension, Arrays.asList((IContainer) o)).isEmpty())
-									filteredResult.add( o );
-							}
-
-							return filteredResult.toArray();
-						}
-					});
-
-		dlg.setInput( container );
-		return dlg;
 	}
 }

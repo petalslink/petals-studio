@@ -39,7 +39,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.ImageRegistry
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.MarkerUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.NamespaceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -197,9 +197,9 @@ implements IStyledLabelProvider {
 
 			ImageDescriptor imageDesc = null;
 			if (endpoint instanceof Consumes) {
-				imageDesc = consumesDesc;
+				imageDesc = this.consumesDesc;
 			} else if (endpoint instanceof Provides) {
-				imageDesc = providesDesc;
+				imageDesc = this.providesDesc;
 			}
 			if( level == IStatus.ERROR )
 				image = this.imageRegistry.getErrorImage(imageDesc);
@@ -223,6 +223,7 @@ implements IStyledLabelProvider {
 	 * @see org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 	 * #getStyledText(java.lang.Object)
 	 */
+	@Override
 	public StyledString getStyledText( Object element ) {
 
 		StyledString styledString;
@@ -231,7 +232,7 @@ implements IStyledLabelProvider {
 		} else if (element instanceof Element)
 			styledString = getStyledText((Element) element);
 		else if( element instanceof JbiBasicBean )
-			styledString = getStyledText((JbiBasicBean) element);
+			styledString = getStyledText(element);
 		else
 			styledString = new StyledString( "" );
 
@@ -347,37 +348,4 @@ implements IStyledLabelProvider {
 //		return styledString;
 //	}
 
-
-	/**
-	 * Gets the styled string from a {@link JbiBasicBean} instance.
-	 * @param bean
-	 * @return
-	 */
-	protected StyledString getStyledText( JbiBasicBean bean ) {
-
-		StyledString styledString = new StyledString( "" );
-		String srvName = null;
-		if( bean.getServiceName() != null )
-			srvName = bean.getServiceName();
-		if( srvName == null || srvName.trim().length() == 0 )
-			srvName = "?";
-
-		String itfName = null;
-		if( bean.getInterfaceName() != null )
-			itfName = bean.getInterfaceName();
-		if( itfName == null || itfName.trim().length() == 0 )
-			itfName = "?";
-
-		String edptName = bean.getEndpointName();
-		if( edptName == null || edptName.trim().length() == 0 )
-			edptName = "?";
-
-		styledString.append( srvName.length() > 0 ? srvName : "?", this.propertiesStyle );
-		styledString.append( " implements ", this.providesKeyWordsStyle );
-		styledString.append( itfName.length() > 0 ? itfName : "?", this.propertiesStyle );
-		styledString.append( " @ ", this.providesKeyWordsStyle );
-		styledString.append( edptName.length() > 0 ? edptName : "?", this.propertiesStyle );
-
-		return styledString;
-	}
 }

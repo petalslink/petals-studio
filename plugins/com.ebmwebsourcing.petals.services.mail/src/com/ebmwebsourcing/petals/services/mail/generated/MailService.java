@@ -1,6 +1,6 @@
 package com.ebmwebsourcing.petals.services.mail.generated;
 
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
+import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /****************************************************************************
  * 
@@ -41,7 +41,7 @@ public class MailService {
 	 public String generate( Object argument )
   {
     final StringBuffer stringBuffer = new StringBuffer();
-     EclipseSuBean data = (EclipseSuBean) argument; 
+     AbstractEndpoint data = (AbstractEndpoint) argument; 
     stringBuffer.append(TEXT_1);
     stringBuffer.append( data.getInterfaceName() );
     stringBuffer.append(TEXT_2);

@@ -7,6 +7,7 @@ Bundle-Vendor: %pluginProvider
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- com.ebmwebsourcing.petals.common.generation,
- com.ebmwebsourcing.petals.services
+ com.ebmwebsourcing.petals.services,
+ com.ebmwebsourcing.jbi.core.metamodel,
+ com.ebmwebsourcing.petals.common.generation
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

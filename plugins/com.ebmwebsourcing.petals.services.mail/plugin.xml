@@ -14,16 +14,16 @@
 -->
 
 <plugin>
-	<extension point="com.ebmwebsourcing.petals.services.contentExtension">
-		<WizardData
-        		SuType="Mail"
-        		ContributorDescription="com.ebmwebsourcing.petals.services.mail.MailContributorDescription">
-			<Version
-         ConsumeConfiguration="com.ebmwebsourcing.petals.services.mail.MailWizardConfigurationConsumes"
-         LastActionsPerformer="com.ebmwebsourcing.petals.services.mail.MailLastActionsPerformer"
-         ProvideConfiguration="com.ebmwebsourcing.petals.services.mail.MailWizardConfigurationProvides"
-         SuVersion="3.1">
-			</Version>
-		</WizardData>
-	</extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="mail">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.mail.MailDescription31"
+               id="Mail 3.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.mail.MailWizard31">
+         </ComponentVersionSupport>
+      </ComponentSupport>
+   </extension>
 </plugin>

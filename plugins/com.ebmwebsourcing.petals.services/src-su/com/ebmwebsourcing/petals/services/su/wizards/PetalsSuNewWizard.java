@@ -14,6 +14,7 @@ package com.ebmwebsourcing.petals.services.su.wizards;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,60 +23,61 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.DialogSettings;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.ide.IDE;
 
-import com.ebmwebsourcing.commons.jbi.internal.provisional.client.JbiArchiveGenerator;
-import com.ebmwebsourcing.commons.jbi.internal.provisional.utils.FileImporter.FileImportsException;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.su.Messages;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors.CustomPagePosition;
-import com.ebmwebsourcing.petals.services.su.extensions.WizardConfiguration;
-import com.ebmwebsourcing.petals.services.su.utils.FileImportManager;
-import com.ebmwebsourcing.petals.services.su.utils.WsdlUtilsLegacy;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.LastActionsPerformer;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler.CustomPagePosition;
+import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ChoicePage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiAbstractPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiConsumePage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiProvidePage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ProjectPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.consume.bc.BcConsumeCdkPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.consume.bc.BcConsumeJbiPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.consume.bc.BcConsumeSpecificPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.consume.se.SeConsumeCdkPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.consume.se.SeConsumeJbiPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.consume.se.SeConsumeSpecificPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.provide.bc.BcProvideCdkPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.provide.bc.BcProvideJbiPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.provide.bc.BcProvideSpecificPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.provide.se.SeProvideCdkPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.provide.se.SeProvideJbiPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.provide.se.SeProvideSpecificPage;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
+import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Consumes;
+import com.sun.java.xml.ns.jbi.Jbi;
+import com.sun.java.xml.ns.jbi.JbiFactory;
+import com.sun.java.xml.ns.jbi.Provides;
+import com.sun.java.xml.ns.jbi.Services;
 
 /**
- * The specialized wizard for the SU's.
+ * The specialized wizard for the Petals service units.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PetalsSuNewWizard extends Wizard implements INewWizard {
+public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutableExtension {
+
+	/**
+	 * The Petals mode associated with this instance of the wizard.
+	 */
+	private PetalsMode petalsMode;
 
 	/**
 	 * The object which manages the pages.
@@ -83,24 +85,15 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 	private final PageManager pageManager = new PageManager();
 
 	/**
-	 * The created project.
+	 * The instance of the JBI object model.
 	 */
-	private IProject createdProject;
+	private Jbi jbiInstance;
 
 	/**
-	 * The wizard configuration.
+	 * The wizard handler for the selected component version.
 	 */
-	protected WizardConfiguration wc;
+	private ComponentWizardHandler wizardHandler;
 
-	/**
-	 * The choice page.
-	 */
-	private ChoicePage page;
-
-	/**
-	 * A list of elements to select in the Petals projects view at the end of the wizard.
-	 */
-	private final List<Object> elementsToSelect = new ArrayList<Object> ();
 
 
 	/**
@@ -110,9 +103,31 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 		super();
 		setNeedsProgressMonitor( true );
 		setForcePreviousAndNextButtons( true );
-
-		setWindowTitle( Messages.AbstractSuWizard_0 );
 		setDefaultPageImageDescriptor( PetalsServicesPlugin.getImageDescriptor( "icons/wizban/wiz_service_unit.png" ));
+	}
+
+
+	/**
+	 * @return the jbiInstance
+	 */
+	public Jbi getJbiInstance() {
+		return this.jbiInstance;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.core.runtime.IExecutableExtension
+	 * #setInitializationData(org.eclipse.core.runtime.IConfigurationElement, java.lang.String, java.lang.Object)
+	 */
+	@Override
+	public void setInitializationData( IConfigurationElement config, String propertyName, Object data )
+	throws CoreException {
+		this.petalsMode = "provides".equalsIgnoreCase( String.valueOf( data )) ? PetalsMode.provides : PetalsMode.consumes;
+		setWindowTitle( isProvides() ? "Petals Service" : "Petals Service Consumer" );
+
+		this.jbiInstance = JbiFactory.eINSTANCE.createJbi();
+		this.jbiInstance.setServices( JbiFactory.eINSTANCE.createServices());
 	}
 
 
@@ -121,8 +136,7 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public void addPages() {
-		this.page = new ChoicePage();
-		addPage( this.page );
+		addPage( new ChoicePage( this.petalsMode ));
 	}
 
 
@@ -135,11 +149,14 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 	public void addPage( IWizardPage page ) {
 
 		if( page != null ) {
-			if( page != this.page)
-				page.setTitle( this.page.getSuType() + " Service Unit" );
+			String title = getWindowTitle();
+			if( this.wizardHandler != null )
+				title += " (" + this.wizardHandler.getComponentVersionDescription().getComponentAlias() + ")";
 
+			page.setTitle( title );
 			if( page instanceof AbstractSuPage )
 				this.pageManager.addPage((AbstractSuPage) page );
+
 			super.addPage( page );
 		}
 	}
@@ -173,10 +190,12 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 	}
 
 
-	/**
-	 * See later on if it required (Petals view).
-	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.ui.IWorkbenchWizard
+	 * #init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init( IWorkbench workbench, IStructuredSelection selection ) {
 		// nothing
 	}
@@ -190,13 +209,14 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean canFinish() {
 
+		boolean canFinish = false;
 		if( this.getContainer().getCurrentPage() != null ) {
 			boolean isLastPage = getNextPage( getContainer().getCurrentPage()) == null;
 			boolean isComplete = this.getContainer().getCurrentPage().isPageComplete();
-			return isComplete && isLastPage;
+			canFinish = isComplete && isLastPage;
 		}
 
-		return false;
+		return canFinish;
 	}
 
 
@@ -205,212 +225,82 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 	 * <p>
 	 * This method should be called by the version page each time a version is chosen.
 	 * </p>
-	 *
-	 * @param suType
-	 * @param suTypeVersion
 	 */
-	public void registerPagesAfterVersionPage( String suType, String suTypeVersion ) {
+	private void registerPagesAfterChoicePage() {
 
-		clearAllPagesExcept( "ChoicePage" );
-		setDialogSettings( null );
-		boolean isConsume = ! this.page.isProvides();
-		boolean isBc = this.page.isBc();
+		// Clear all the pages, except the choice page
+		this.pageManager.clearAllPagesExcept( ChoicePage.PAGE_NAME );
 
-		initializeSettings( suType, suTypeVersion, isConsume );
+		// Update the dialog settings: default < component override < context override
+		IDialogSettings settings = SuWizardSettings.createDefaultSettings();
+		for( Map.Entry<String,String> entry : this.wizardHandler.getOverridenWizardSettings().entrySet()) {
+			settings.put( entry.getKey(), entry.getValue());
+		}
 
-		//
-		// JBI pages.
-		registerCustomPages( suType, suTypeVersion, isConsume, CustomPagePosition.beforeJbiPage );
-		boolean displayJbiPage = getDialogSettings().getBoolean( SettingConstants.SHOW_JBI_PAGE );
+		setDialogSettings( settings );
+
+		// JBI page
+		registerCustomPages( CustomPagePosition.beforeJbiPage );
+		boolean displayJbiPage = getDialogSettings().getBoolean( SuWizardSettings.SHOW_JBI_PAGE );
 		if( displayJbiPage ) {
 			IWizardPage page;
-			if( isBc ) {
-				if( isConsume )
-					page = new BcConsumeJbiPage( suType, suTypeVersion );
-				else
-					page = new BcProvideJbiPage( suType, suTypeVersion );
-			}
-			else {
-				if( isConsume )
-					page = new SeConsumeJbiPage( suType, suTypeVersion );
-				else
-					page = new SeProvideJbiPage( suType, suTypeVersion );
-			}
+			if( isProvides())
+				page = new JbiProvidePage();
+			else
+				page = new JbiConsumePage();
 
 			addPage( page );
 		}
 
-
-		//
-		// Project page.
-		ProjectPage projectPage = new ProjectPage( suType, suTypeVersion, isConsume );
-		addPage( projectPage );
-
-		boolean displayOtherPages = getDialogSettings().getBoolean( SettingConstants.SHOW_PAGES_AFTER_PROJECT_PAGE );
-		if( displayOtherPages ) {
-
-			//
-			// Specific pages.
-			registerCustomPages( suType, suTypeVersion, isConsume, CustomPagePosition.beforeSpecificPage );
-			String pluginId = RegisteredContributors.getInstance().getPluginId( suType );
-			AbstractSuPage specificPage =
-				RegisteredContributors.getInstance().getCustomPage( suType, suTypeVersion, false );
-
-			if( specificPage == null ) {
-				if( isBc ) {
-					if( isConsume )
-						specificPage = new BcConsumeSpecificPage( suType, suTypeVersion, pluginId );
-					else
-						specificPage = new BcProvideSpecificPage( suType, suTypeVersion, pluginId );
-				}
-				else {
-					if( isConsume )
-						specificPage = new SeConsumeSpecificPage( suType, suTypeVersion, pluginId );
-					else
-						specificPage = new SeProvideSpecificPage( suType, suTypeVersion, pluginId );
-				}
-
-				if( specificPage.hasSomethingToDisplay())
-					addPage( specificPage );
-			}
-			else {
-				specificPage.setBasicFields( suType, suTypeVersion, pluginId );
-				String desc;
-				if( isConsume )
-					desc = RegisteredContributors.getInstance().getConsumeDescription( suType, suTypeVersion );
-				else
-					desc = RegisteredContributors.getInstance().getProvideDescription( suType, suTypeVersion );
-
-				specificPage.setDescription( desc );
-				addPage( specificPage );
-			}
-
-
-			//
-			// CDK pages.
-			registerCustomPages( suType, suTypeVersion, isConsume, CustomPagePosition.beforeCdkPage );
-			AbstractSuPage cdkPage =
-				RegisteredContributors.getInstance().getCustomPage( suType, suTypeVersion, true );
-
-			if( cdkPage == null ) {
-				if( isBc ) {
-					if( isConsume )
-						cdkPage = new BcConsumeCdkPage( suType, suTypeVersion );
-					else
-						cdkPage = new BcProvideCdkPage( suType, suTypeVersion );
-				}
-				else {
-					if( isConsume )
-						cdkPage = new SeConsumeCdkPage( suType, suTypeVersion );
-					else
-						cdkPage = new SeProvideCdkPage( suType, suTypeVersion );
-				}
-
-				if( cdkPage.hasSomethingToDisplay())
-					addPage( cdkPage );
-			}
-			else {
-				cdkPage.setBasicFields( suType, suTypeVersion, pluginId );
-				String desc;
-				if( isConsume )
-					desc = RegisteredContributors.getInstance().getConsumeDescription( suType, suTypeVersion );
-				else
-					desc = RegisteredContributors.getInstance().getProvideDescription( suType, suTypeVersion );
-
-				cdkPage.setDescription( desc );
-				addPage( cdkPage );
-			}
-
-			registerCustomPages( suType, suTypeVersion, isConsume, CustomPagePosition.afterCdkPage );
-		}
+		// Project page
+		registerCustomPages( CustomPagePosition.beforeProjectPage );
+		addPage( new ProjectPage());
+		registerCustomPages( CustomPagePosition.afterProjectPage );
 	}
 
 
 	/**
-	 * Should be called by {@link #registerPagesAfterVersionPage(String, String)}.
-	 *
-	 * @param suType
-	 * @param suVersion
-	 * @param inConsumeMode
+	 * Should be called by {@link #registerPagesAfterChoicePage()}.
 	 * @param customPagePosition
 	 */
-	protected void registerCustomPages(
-				String suType, String suVersion,
-				boolean inConsumeMode, CustomPagePosition customPagePosition ) {
+	protected void registerCustomPages( CustomPagePosition customPagePosition ) {
 
-		List<AbstractSuPage> pages = null;
-		switch( customPagePosition ) {
-		case afterCdkPage:
-			pages = RegisteredContributors.getInstance().getCustomWizardPages(
-						suType, suVersion, inConsumeMode, CustomPagePosition.afterCdkPage );
-			break;
-		case beforeJbiPage:
-			pages = RegisteredContributors.getInstance().getCustomWizardPages(
-						suType, suVersion, inConsumeMode, CustomPagePosition.beforeJbiPage );
-			break;
-		case beforeSpecificPage:
-			pages = RegisteredContributors.getInstance().getCustomWizardPages(
-						suType, suVersion, inConsumeMode, CustomPagePosition.beforeSpecificPage );
-			break;
-		case beforeCdkPage:
-			pages = RegisteredContributors.getInstance().getCustomWizardPages(
-						suType, suVersion, inConsumeMode, CustomPagePosition.beforeCdkPage );
-			break;
-		}
-
-		if( pages == null )
-			return;
-
+		List<AbstractSuPage> pages = new ArrayList<AbstractSuPage> ();
+		getWizardHandler().registerCustomWizardPages( customPagePosition, pages );
 		for( AbstractSuPage page : pages )
 			addPage( page );
 	}
 
 
 	/**
-	 * @param versionPageName the version page name
-	 * @see PageManager#clearAllPagesExcept(String)
-	 */
-	public void clearAllPagesExcept( String versionPageName ) {
-		this.pageManager.clearAllPagesExcept( versionPageName );
-	}
-
-
-	/**
-	 * This method is called when 'Finish' button is pressed in the wizard.
-	 * Consists in creating a SU project, a jbi.xml file and add on them the required properties and elements.
+	 * Creates the Petals project and selects and open the required elements.
 	 */
 	@Override
 	public boolean performFinish() {
 
-		// Get the bean for the processing.
-		final EclipseSuBean eclipseSuBean = this.pageManager.retrieveWizardData();
+		ProjectPage projectPage = (ProjectPage) this.pageManager.getPage( ProjectPage.PAGE_NAME );
+		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject( projectPage.getProjectName());
+		final List<Object> elementsToSelect = new ArrayList<Object> ();
 
-		// Add hook for the WSDL.
-		WsdlUtilsLegacy.addHookForWsdlUrl( eclipseSuBean, FileImportManager.getFileImportManager());
-
-		// Define the wizard completion process.
+		// Define the wizard completion process
 		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
 			@Override
 			protected void execute( IProgressMonitor monitor )
 			throws CoreException, InterruptedException {
 				try {
-					doFinish( eclipseSuBean, monitor );
-
-				} catch( InterruptedException e ) {
-					// nothing
+					doFinish( elementsToSelect, monitor );
 
 				} catch( Exception e ) {
-					String errorMsg = e.getMessage();
-					errorMsg = errorMsg != null ? errorMsg : "A problem occurred during wizard completion.";
-					ErrorReporter.INSTANCE.registerError( "WIZARD-problem", errorMsg, IStatus.ERROR, e );
+					PetalsServicesPlugin.log( e, IStatus.ERROR );
 
 				} finally {
-					PetalsSuNewWizard.this.createdProject.refreshLocal( IResource.DEPTH_INFINITE, monitor );
+					project.refreshLocal( IResource.DEPTH_INFINITE, null );
 					monitor.done();
 				}
 			}
 		};
 
+		// Run it and perform the UI actions
 		try {
 			// Run the operation.
 			getContainer().run( true, false, op );
@@ -418,42 +308,26 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 			// Open the jbi.xml?
 			// Do not open it in the WorkspaceModifyOperation
 			// The project viewer must be updated before selecting anything in it
-			final IFile jbiXmlFile = this.createdProject.getFile( PetalsConstants.LOC_JBI_FILE );
-			if( getDialogSettings().getBoolean( SettingConstants.FILL_AND_OPEN_JBI_XML )
-						&& getDialogSettings().getBoolean( SettingConstants.OPEN_JBI_XML )) {
+			final IFile jbiXmlFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
+			if( getDialogSettings().getBoolean( SuWizardSettings.OPEN_JBI_XML )) {
 				try {
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 					IDE.openEditor( page, jbiXmlFile );
-					this.elementsToSelect.add( jbiXmlFile );
+					elementsToSelect.add( jbiXmlFile );
 
 				} catch( PartInitException e ) {
 					PetalsServicesPlugin.log( e, IStatus.ERROR );
 				}
 			}
 
-			// Refresh the project
-			this.createdProject.refreshLocal( IResource.DEPTH_INFINITE, null );
-
 			// Update the selection
-			ResourceUtils.selectResourceInPetalsExplorer( true, this.elementsToSelect );
+			ResourceUtils.selectResourceInPetalsExplorer( true, elementsToSelect );
 
 		} catch( InterruptedException e ) {
 			// nothing
 
 		} catch( Exception e ) {
-			String errorMsg = e.getMessage();
-			errorMsg = errorMsg != null ? errorMsg : "A problem occurred during wizard completion.";
-			ErrorReporter.INSTANCE.registerError( "WIZARD-problem", errorMsg, IStatus.ERROR, e );
-
-		} finally {
-			boolean thereWereErrors = ErrorReporter.INSTANCE.errorsOccured();
-
-			ErrorReporter.INSTANCE.generateLog();
-			if( thereWereErrors ) {
-				getShell().setVisible( false );
-				MessageDialog.openError( getShell(), Messages.AbstractSuWizard_19,
-				"Errors occurred in the wizard. Check the log for more details." );
-			}
+			PetalsServicesPlugin.log( e, IStatus.ERROR );
 		}
 
 		return true;
@@ -461,232 +335,172 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard {
 
 
 	/**
-	 * This worker method finds the container, creates the skeleton of the SU project and creates and opens the jbi.xml file.
-	 *
-	 * @param eclipseSuBean the information retrieved from the wizard.
-	 * @param monitor the monitor used to provide some interaction during the wizard ending.
+	 * Creates the project.
+	 * @param elementsToSelect the elements to select (not null)
+	 * @param monitor the progress monitor
 	 * @throws CoreException
-	 * @throws FileImportsException
 	 * @throws IOException
-	 * @throws IllegalArgumentException
-	 * @throws Exception if the created project has an invalid structure.
-	 * If thrown here, it means an error in the program. Appearing somewhere else may mean
-	 * the user modified the project structure.
 	 */
-	private void doFinish( final EclipseSuBean eclipseSuBean, final IProgressMonitor monitor )
-	throws CoreException, IllegalArgumentException, IOException, FileImportsException, Exception {
+	private void doFinish( final List<Object> elementsToSelect, final IProgressMonitor monitor )
+	throws CoreException, IOException {
 
-		//
-		// Create the SU project skeleton.
-		String projectName = eclipseSuBean.getProjectName();
-		monitor.beginTask( "[ " + projectName + " ]", 11 );
+		// Create the SU project
+		monitor.beginTask( "", IProgressMonitor.UNKNOWN );
 		monitor.subTask( "Creating the project structure..." );
-		this.createdProject = PetalsServicesProjectUtils.createSuProject( eclipseSuBean, monitor );
-		// From now, project cannot be null.
 
-		//
-		// Import files before generating jbi.xml.
-		monitor.subTask( "Importing files..." );
-		FileImportManager.getFileImportManager().importFiles( this.createdProject );
-		monitor.worked( 1 );
+		ProjectPage projectPage = (ProjectPage) this.pageManager.getPage( ProjectPage.PAGE_NAME );
+		URI locationURI = projectPage.isAtDefaultlocation() ? null : projectPage.computeProjectLocation().toURI();
+		IProject project = PetalsServicesProjectUtils.createSuProject(
+				projectPage.getProjectName(),
+				locationURI,
+				this.wizardHandler.getComponentVersionDescription().getComponentName(),
+				this.wizardHandler.getComponentVersionDescription().getComponentVersion(),
+				this.wizardHandler.getComponentVersionDescription().getComponentAlias(),
+				this.wizardHandler.isJavaProject(),
+				monitor );
 
-		// Update the end-point in the WSDL file.
-		monitor.subTask( "Updating WSDL end-point..." );
-		WsdlUtilsLegacy.updateWsdlEndpoint( eclipseSuBean, this.createdProject );
-		monitor.worked( 1 );
 
-		//
-		// Update the value of the WSDL mark-up (if required).
-		WsdlUtilsLegacy.addHookForWsdlMarkUp( eclipseSuBean );
+		// Import the WSDL and update the jbi.xml file in consequence
+		final IFolder resourceDirectory = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
+		final File jbiXmlFile = project.getFile( PetalsConstants.LOC_JBI_FILE ).getLocation().toFile();
+		File wsdlFile = null;
+		if( isProvides()) {
+			monitor.subTask( "Importing the WSDL..." );
+			JbiProvidePage jbiPage = (JbiProvidePage) this.pageManager.getPage( JbiAbstractPage.PAGE_NAME );
 
-		//
-		// Create the jbi.xml file?
-		if( getDialogSettings().getBoolean( SettingConstants.FILL_AND_OPEN_JBI_XML )) {
+			String wsdlFileLocation = jbiPage.getWsdlUrl();
+			if( jbiPage.isImportWsdl() && wsdlFileLocation != null ) {
+				WsdlImportUtils wsdlImportUtils = new WsdlImportUtils();
+				Map<String,File> fileToUrl = wsdlImportUtils.importWsdlOrXsdAndDependencies( resourceDirectory.getLocation().toFile(), jbiPage.getWsdlUrl());
+				wsdlFile = fileToUrl.get( jbiPage.getWsdlUrl());
+				wsdlFileLocation = IoUtils.getRelativeLocationToFile( jbiXmlFile, wsdlFile );
+			}
 
-			// Create the content of the SU project and refresh the workspace.
-			IPath metaInfPath = this.createdProject.getLocation();
-			metaInfPath = metaInfPath.append( PetalsConstants.LOC_RES_FOLDER );
-			File projectFolder = metaInfPath.toFile();
-
-			JbiArchiveGenerator.getInstance().
-			createJbiSuContent( eclipseSuBean, null, projectFolder );
+			// TODO: set the WSDL URL
+			monitor.worked( 1 );
 		}
 
+
+		// Import the files that need to be imported - done by the contributor
+		monitor.subTask( "Importing files..." );
+		this.wizardHandler.performActionsBeforeWrittingJbiXml( resourceDirectory, this.jbiInstance, monitor );
 		monitor.worked( 1 );
 
 
-		//
-		// Perform extra-actions contributed by component plug-ins.
-		monitor.subTask( "Performing extra-actions..." );
-		final LastActionsPerformer performer =
-			RegisteredContributors.getInstance().getLastActionsPerformerClass(
-						eclipseSuBean.getSuType(),
-						eclipseSuBean.getComponentVersion());
+		// Update the end-point in the WSDL file?
+		if( isProvides()) {
+			if( wsdlFile == null ) {
+				PetalsServicesPlugin.log( "A WSDL file was expected but none was found.", IStatus.WARNING );
 
-		try {
-			if( performer != null ) {
-				getShell().getDisplay().syncExec( new Runnable() {
-					public void run() {
-
-						IFolder resourceFolder = PetalsSuNewWizard.this.createdProject.getFolder( PetalsConstants.LOC_RES_FOLDER );
-						try {
-							resourceFolder.refreshLocal( IResource.DEPTH_INFINITE, monitor );
-							performer.performLastActions( resourceFolder, eclipseSuBean, PetalsSuNewWizard.this.elementsToSelect, monitor );
-
-						} catch( CoreException e ) {
-							PetalsServicesPlugin.log( e, IStatus.WARNING );
-						}
-					}
-				});
+			} else {
+				monitor.subTask( "Updating the WSDL..." );
+				AbstractEndpoint ae = getFirstProvideOrConsume();
+				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, ae.getServiceName(), ae.getEndpointName());
+				monitor.worked( 1 );
 			}
+		}
+
+
+		// Create the jbi.xml file
+		monitor.subTask( "Creating the jbi.xml..." );
+		ResourceSet resourceSet = new ResourceSetImpl();
+		org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createFileURI( jbiXmlFile.getAbsolutePath());
+
+		Resource resource = resourceSet.createResource( emfUri );
+		resource.getContents().add( this.jbiInstance );
+		resource.save( null );
+		monitor.worked( 1 );
+
+
+		// Perform the last actions
+		monitor.subTask( "Performing extra-actions..." );
+		try {
+			getShell().getDisplay().syncExec( new Runnable() {
+				@Override
+				public void run() {
+
+					try {
+						resourceDirectory.refreshLocal( IResource.DEPTH_INFINITE, monitor );
+						PetalsSuNewWizard.this.wizardHandler.performLastActions(
+								 resourceDirectory, getFirstProvideOrConsume(),
+								 monitor, elementsToSelect );
+
+					} catch( CoreException e ) {
+						PetalsServicesPlugin.log( e, IStatus.ERROR );
+					}
+				}
+			});
 
 		} catch( Exception e ) {
 			PetalsServicesPlugin.log( e, IStatus.ERROR );
 
 		} finally {
-			this.createdProject.refreshLocal( IResource.DEPTH_INFINITE, monitor );
+			project.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 			monitor.worked( 1 );
 		}
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.Wizard#performCancel()
-	 */
-	@Override
-	public boolean performCancel() {
-		ErrorReporter.INSTANCE.generateLog();
-		return super.performCancel();
-	}
-
-
 	/**
-	 * @return the wizard configuration
-	 */
-	public WizardConfiguration getWizardConfiguration() {
-		return this.wc;
-	}
-
-
-	/**
-	 * Initializes the dialog settings from the wizard configuration provided by component plug-ins.
-	 * @param suType
-	 * @param suTypeVersion
-	 * @param isConsume
-	 */
-	protected void initializeSettings( String suType, String suTypeVersion, boolean isConsume ) {
-
-		this.wc = RegisteredContributors.getInstance().getWizardConfigurationClass( suType, suTypeVersion, isConsume );
-		IDialogSettings settings = new DialogSettings( "PetalsSection" );
-
-		// Set default values
-		settings.put( SettingConstants.ITF_NAME_ACTIVATE, "true" );
-		settings.put( SettingConstants.ITF_NAME_VALUE, "" );
-		settings.put( SettingConstants.ITF_NS_ACTIVATE, "true" );
-		settings.put( SettingConstants.ITF_NS_VALUE, "" );
-		settings.put( SettingConstants.ITF_VALIDATE, "true" );
-
-		settings.put( SettingConstants.SRV_NAME_ACTIVATE, "true" );
-		settings.put( SettingConstants.SRV_NAME_VALUE, "" );
-		settings.put( SettingConstants.SRV_NS_ACTIVATE, "true" );
-		settings.put( SettingConstants.SRV_NS_VALUE, "" );
-		settings.put( SettingConstants.SRV_VALIDATE, "true" );
-
-		settings.put( SettingConstants.EDPT_NAME_ACTIVATE, "true" );
-		settings.put( SettingConstants.EDPT_NAME_VALUE, "" );
-		settings.put( SettingConstants.EDPT_VALIDATE, "true" );
-		settings.put( SettingConstants.EDPT_NAME_GEN_ACTIVATE, "true" );
-		settings.put( SettingConstants.EDPT_NAME_GEN_VALUE, "false" );
-
-		settings.put( SettingConstants.CREATE_JAVA_PROJECT, "false" );
-		settings.put( SettingConstants.SHOW_JBI_PAGE, "true" );
-		settings.put( SettingConstants.SHOW_PAGES_AFTER_PROJECT_PAGE, "true" );
-		settings.put( SettingConstants.FILL_AND_OPEN_JBI_XML, "true" );
-		settings.put( SettingConstants.OPEN_JBI_XML, "true" );
-		settings.put( SettingConstants.SOAP_ADDRESS_VALUE, "" );
-		settings.put( SettingConstants.SOAP_VERSION_VALUE, "" );
-		settings.put( SettingConstants.SOAP_SERVICE_NAME, "" );
-
-		settings.put( SettingConstants.WSDL_ACTIVATE, "true" );
-		settings.put( SettingConstants.WSDL_HIDDEN_VALUE, "" );
-		settings.put( SettingConstants.WSDL_SHOW, "true" );
-		settings.put( SettingConstants.WSDL_TOOLTIP_VALUE, (String) null);
-		settings.put( SettingConstants.PROVIDED_WSDL_URI, "" );
-		settings.put( SettingConstants.CONSUMED_WSDL_URI, "" );
-
-
-		// Use the configuration provided by the component plug-in
-		for( Map.Entry<String,String> entry : this.wc.getWizardSettings().entrySet()) {
-			settings.put( entry.getKey(), entry.getValue());
-		}
-
-		// Override values provided to the wizard - if launched manually
-		IDialogSettings s = getDialogSettings();
-		if( s != null ) {
-			String value = null;
-
-			if(( value = s.get( SettingConstants.ITF_NAME_ACTIVATE )) != null )
-				settings.put( SettingConstants.ITF_NAME_ACTIVATE, value );
-			if(( value = s.get( SettingConstants.ITF_NAME_VALUE )) != null )
-				settings.put( SettingConstants.ITF_NAME_VALUE, value );
-			if(( value = s.get( SettingConstants.ITF_NS_ACTIVATE )) != null )
-				settings.put( SettingConstants.ITF_NS_ACTIVATE, value );
-			if(( value = s.get( SettingConstants.ITF_NS_VALUE )) != null )
-				settings.put( SettingConstants.ITF_NS_VALUE, value );
-			if(( value = s.get( SettingConstants.ITF_VALIDATE )) != null )
-				settings.put( SettingConstants.ITF_VALIDATE, value );
-
-			if(( value = s.get( SettingConstants.SRV_NAME_ACTIVATE )) != null )
-				settings.put( SettingConstants.SRV_NAME_ACTIVATE, value );
-			if(( value = s.get( SettingConstants.SRV_NAME_VALUE )) != null )
-				settings.put( SettingConstants.SRV_NAME_VALUE, value );
-			if(( value = s.get( SettingConstants.SRV_NS_ACTIVATE )) != null )
-				settings.put( SettingConstants.SRV_NS_ACTIVATE, value );
-			if(( value = s.get( SettingConstants.SRV_NS_VALUE )) != null )
-				settings.put( SettingConstants.SRV_NS_VALUE, value );
-			if(( value = s.get( SettingConstants.SRV_VALIDATE )) != null )
-				settings.put( SettingConstants.SRV_VALIDATE, value );
-
-			if(( value = s.get( SettingConstants.EDPT_NAME_ACTIVATE )) != null )
-				settings.put( SettingConstants.EDPT_NAME_ACTIVATE, value );
-			if(( value = s.get( SettingConstants.EDPT_NAME_VALUE )) != null )
-				settings.put( SettingConstants.EDPT_NAME_VALUE, value );
-			if(( value = s.get( SettingConstants.EDPT_VALIDATE )) != null )
-				settings.put( SettingConstants.EDPT_VALIDATE, value );
-
-			if(( value = s.get( SettingConstants.CREATE_JAVA_PROJECT )) != null )
-				settings.put( SettingConstants.CREATE_JAVA_PROJECT, value );
-			if(( value = s.get( SettingConstants.SHOW_JBI_PAGE )) != null )
-				settings.put( SettingConstants.SHOW_JBI_PAGE, value );
-			if(( value = s.get( SettingConstants.FILL_AND_OPEN_JBI_XML )) != null )
-				settings.put( SettingConstants.FILL_AND_OPEN_JBI_XML, value );
-			if(( value = s.get( SettingConstants.SOAP_ADDRESS_VALUE )) != null )
-				settings.put( SettingConstants.SOAP_ADDRESS_VALUE, value );
-
-			if(( value = s.get( SettingConstants.WSDL_ACTIVATE )) != null )
-				settings.put( SettingConstants.WSDL_ACTIVATE, value );
-			if(( value = s.get( SettingConstants.WSDL_HIDDEN_VALUE )) != null )
-				settings.put( SettingConstants.WSDL_HIDDEN_VALUE, value );
-			if(( value = s.get( SettingConstants.WSDL_SHOW )) != null )
-				settings.put( SettingConstants.WSDL_SHOW, value );
-			if(( value = s.get( SettingConstants.WSDL_TOOLTIP_VALUE )) != null )
-				settings.put( SettingConstants.WSDL_TOOLTIP_VALUE, value );
-
-			if(( value = s.get( SettingConstants.PROVIDED_WSDL_URI )) != null )
-				settings.put( SettingConstants.PROVIDED_WSDL_URI, value );
-			if(( value = s.get( SettingConstants.CONSUMED_WSDL_URI )) != null )
-				settings.put( SettingConstants.CONSUMED_WSDL_URI, value );
-		}
-
-		setDialogSettings( settings );
-	}
-
-
-	/**
-	 * @return
+	 * @return true if this wizard defines a service provider, false for a consumer
 	 */
 	public boolean isProvides() {
-		return this.page != null ? this.page.isProvides() : false;
+		return this.petalsMode == PetalsMode.provides;
+	}
+
+
+	/**
+	 * @return the componentVersionDescription
+	 */
+	public ComponentWizardHandler getWizardHandler() {
+		return this.wizardHandler;
+	}
+
+
+	/**
+	 * @return the first provides or consumes block (not null)
+	 */
+	public AbstractEndpoint getFirstProvideOrConsume() {
+		Services services = this.jbiInstance.getServices();
+		AbstractEndpoint result = isProvides() ? services.getProvides().get( 0 ) : services.getConsumes().get( 0 );
+
+		// Should not be null, the wizard should set the required intermediate structures
+		Assert.isNotNull( result );
+		return result;
+	}
+
+
+	/**
+	 * Sets the wizard handler.
+	 * <p>
+	 * Only instances of {@link ChoicePage} should invoke this method.
+	 * </p>
+	 * @param wizardHandler the wizardHandler to set
+	 */
+	public void setWizardHandler( ComponentWizardHandler wizardHandler ) {
+
+		// Set the wizard handler
+		this.wizardHandler = wizardHandler;
+		this.wizardHandler.setServiceProvider( isProvides());
+
+		// Update the services part
+		this.jbiInstance.getServices().setBindingComponent( wizardHandler.getComponentVersionDescription().isBc());
+
+		// Refresh the model and predefine values
+		this.jbiInstance.getServices().getProvides().clear();
+		this.jbiInstance.getServices().getConsumes().clear();
+		if( isProvides()) {
+			Provides provides = JbiFactory.eINSTANCE.createProvides();
+			this.jbiInstance.getServices().getProvides().add( provides );
+			wizardHandler.predefineJbiValues( provides );
+
+		} else {
+			Consumes consumes = JbiFactory.eINSTANCE.createConsumes();
+			this.jbiInstance.getServices().getConsumes().add( consumes );
+			wizardHandler.predefineJbiValues( consumes );
+		}
+
+		// Register new pages
+		registerPagesAfterChoicePage();
 	}
 }

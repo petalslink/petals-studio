@@ -1,16 +1,16 @@
 <%@ jet
 	package="com.ebmwebsourcing.petals.services.filetransfer.generated"
-	imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+	imports="com.sun.java.xml.ns.jbi.AbstractEndpoint"
 	class="WriteWsdl24"
 	skeleton="../generator.skeleton" %>
-<% EclipseSuBean data = (EclipseSuBean) argument; %>
+<% AbstractEndpoint data = (AbstractEndpoint) argument; %>
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="<%=data.getInterfaceName()%>"
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:tns="<%=data.getInterfaceNamespaceUri()%>"
-        targetNamespace="<%=data.getInterfaceNamespaceUri()%>">
+        xmlns:tns="<%=data.getInterfaceName().getNamespaceURI() %>"
+        targetNamespace="<%=data.getInterfaceName().getNamespaceURI() %>">
 	
 	<!-- Messages -->
 	<wsdl:message name="writeRequest">
@@ -36,7 +36,7 @@
   </wsdl:binding>
 
   <!-- Service -->
-  <wsdl:service name="<%=data.getServiceName()%>">
+  <wsdl:service name="<%=data.getServiceName().getLocalPart() %>">
     <wsdl:port binding="tns:WriteBinding" name="<%=data.getEndpointName()%>">
       <soap:address location="http://petals.does.not.care"/>
     </wsdl:port>

@@ -12,12 +12,13 @@
 
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.SortedSet;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.Dialog;
@@ -25,9 +26,12 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -38,7 +42,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -54,11 +57,14 @@ import com.ebmwebsourcing.petals.common.internal.provisional.ui.FixedShellToolti
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.su.extensions.PetalsUseCase;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
+import com.ebmwebsourcing.petals.services.su.extensions.IComponentDescription;
+import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
+import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 
 /**
  * Choose the kind of SU to create.
@@ -66,95 +72,29 @@ import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
  */
 public class ChoicePage extends AbstractSuPage {
 
-	private boolean isProvides;
-	private Image busImg, descImg, serviceImg, consumeImg, wheelsImg, arrowImg, helpImg;
+	public static final String PAGE_NAME = "ChoicePage";
+
+	private final Image busImg, descImg, serviceImg, consumeImg, wheelsImg, arrowImg;
+	private Image helpImg;
 	private Font boldFont;
 	private FixedShellTooltip helpTooltip;
-
-
-	enum PetalsMode {
-		provides, consumes;
-
-		/*
-		 * (non-Javadoc)
-		 * @see java.lang.Enum#toString()
-		 */
-		@Override
-		public String toString() {
-
-			String result;
-			switch( this ) {
-			case provides:
-				result = "Provide or Import a service in Petals ESB";
-				break;
-			case consumes:
-				result = "Consume a Petals service (or Expose it outside the bus)";
-				break;
-			default:
-				result = "";
-			}
-
-			return result;
-		};
-
-
-		/**
-		 * Resolves a mode from its string value.
-		 * @param s a string
-		 * @return a Petals mode, or null if the string does not match anything
-		 */
-		public static PetalsMode resolveString( String s ) {
-
-			PetalsMode result = null;
-			for( PetalsMode mode : values()) {
-				if( mode.toString().equals( s )) {
-					result = mode;
-					break;
-				}
-			}
-
-			return result;
-		}
-	}
+	private final PetalsMode petalsMode;
 
 
 	/**
 	 * Constructor.
 	 */
-	public ChoicePage() {
+	public ChoicePage( PetalsMode petalsMode ) {
+		super( PAGE_NAME );
+		this.petalsMode = petalsMode;
+		setDescription( "Select the Petals component to configure and its version." );
 
-		super( "ChoicePage", null, null );
-		setTitle( "Service Unit" );
-		setDescription( "Select the kind of service unit to create." );
-
-		try {
-			ImageDescriptor desc = PetalsServicesPlugin.getImageDescriptor( "icons/others/descriptor_3.png" );
-			if( desc != null )
-				this.descImg = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/others/rouage_3.0.png" );
-			if( desc != null )
-				this.wheelsImg = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/others/wsdl.png" );
-			if( desc != null )
-				this.serviceImg = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/others/connect_3.0.png" );
-			if( desc != null )
-				this.consumeImg = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/others/petals_esb.png" );
-			if( desc != null )
-				this.busImg = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/others/fleche_2.0.png" );
-			if( desc != null )
-				this.arrowImg = desc.createImage();
-
-		} catch( Exception e ) {
-			PetalsServicesPlugin.log( e, IStatus.WARNING );
-		}
+		this.descImg = PetalsServicesPlugin.loadImage( "icons/others/descriptor_3.png" );
+		this.wheelsImg = PetalsServicesPlugin.loadImage( "icons/others/rouage_3.0.png" );
+		this.serviceImg = PetalsServicesPlugin.loadImage( "icons/others/wsdl.png" );
+		this.consumeImg = PetalsServicesPlugin.loadImage( "icons/others/connect_3.0.png" );
+		this.busImg = PetalsServicesPlugin.loadImage( "icons/others/petals_esb.png" );
+		this.arrowImg = PetalsServicesPlugin.loadImage( "icons/others/fleche_2.0.png" );
 	}
 
 
@@ -163,20 +103,14 @@ public class ChoicePage extends AbstractSuPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
-		/* Create the composite container and define its layout */
-		final Composite container = new Composite( parent, SWT.NONE );
+		// Create the composite container and define its layout
+		final Composite container = SwtFactory.createComposite( parent );
 		setControl( container );
-
-		// Set help link for documentation page.
-		setHelpContextId( container );
-
-		GridLayout layout = new GridLayout( 2, false );
-		layout.marginLeft = 15;
-		layout.marginTop = 15;
-		container.setLayout( layout );
-		container.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		SwtFactory.applyNewGridLayout( container, 2, false, 15, 0, 0, 15 );
+		SwtFactory.applyHorizontalGridData( container );
 
 
 		// Add a tool tip to display in case of problem
@@ -240,10 +174,12 @@ public class ChoicePage extends AbstractSuPage {
 
 				link.addSelectionListener( new SelectionListener() {
 
+					@Override
 					public void widgetSelected( SelectionEvent e ) {
 						widgetDefaultSelected( e );
 					}
 
+					@Override
 					public void widgetDefaultSelected( SelectionEvent e ) {
 						try {
 							Dialog dlg = PreferencesUtil.createPreferenceDialogOn(
@@ -262,54 +198,57 @@ public class ChoicePage extends AbstractSuPage {
 			}
 		};
 
-		this.helpTooltip.hide();
+
+		// Show the key words
+		new Label( container, SWT.NONE ).setText( "Key Words:" );
+		final ComboViewer keyWordCombo = new ComboViewer( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
+		keyWordCombo.getCombo().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		keyWordCombo.setContentProvider( new ArrayContentProvider());
+		keyWordCombo.setLabelProvider( new LabelProvider());
+		keyWordCombo.setSorter( new ViewerSorter() {
+			@Override
+			public int compare( Viewer viewer, Object e1, Object e2 ) {
+				String s1 = ((PetalsKeyWords) e1).toString();
+				String s2 = ((PetalsKeyWords) e2).toString();
+				return s1.compareTo( s2 );
+			}
+		});
 
 
-		// Show the use cases
-		new Label( container, SWT.NONE ).setText( "Use case:" );
-		final ComboViewer useCaseCombo = new ComboViewer( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
-		useCaseCombo.getCombo().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		useCaseCombo.setContentProvider( new ArrayContentProvider());
-		useCaseCombo.setLabelProvider( new LabelProvider());
+		// List the associated Petals components
+		new Label( container, SWT.NONE ).setText( "Petals Component:" );
+		final ComboViewer componentCombo = new ComboViewer( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
+		componentCombo.getCombo().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		componentCombo.setContentProvider( new ArrayContentProvider());
 
-		final RegisteredContributors contributorRegistry = RegisteredContributors.getInstance();
-		final Map<PetalsUseCase, List<String>> useCaseToSuTypes = contributorRegistry.getUseCaseToSuTypes();
-		List<PetalsUseCase> useCases = new ArrayList<PetalsUseCase>( useCaseToSuTypes.keySet());
-		Collections.sort( useCases );
-		useCaseCombo.setInput( useCases );
-		useCaseCombo.getCombo().setVisibleItemCount( useCases.size());
 
-		// The combo to show the available components
-		new Label( container, SWT.NONE ).setText( "Petals component:" );
-		final Combo componentCombo = new Combo( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
-		componentCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-
-		// The combo to select the usage (provides or consumes)
-		new Label( container, SWT.NONE ).setText( "Component usage:" );
-		final ComboViewer usageCombo = new ComboViewer( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
-		usageCombo.getCombo().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		usageCombo.setContentProvider( new ArrayContentProvider());
-		usageCombo.setLabelProvider( new LabelProvider());
-
-		// The combo to show the available versions
-		new Label( container, SWT.NONE ).setText( "Component version:" );
-		final Combo versionCombo = new Combo( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
+		// Display the available versions
+		new Label( container, SWT.NONE ).setText( "Component Version:" );
+		final ComboViewer versionCombo = new ComboViewer( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
 		GridData layoutData = new GridData();
 		layoutData.widthHint = 130;
-		versionCombo.setLayoutData( layoutData );
+		versionCombo.getCombo().setLayoutData( layoutData );
+		versionCombo.setContentProvider( new ArrayContentProvider());
+		versionCombo.setLabelProvider( new LabelProvider() {
+			@Override
+			public String getText( Object element ) {
+				return ((ComponentWizardHandler) element).getComponentVersionDescription().getComponentVersion();
+			}
+		});
 
 
 		// Explanation labels
 		Composite labelContainer = new Composite( container, SWT.BORDER );
 		labelContainer.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ));
-		layout = new GridLayout( 5, false );
-		layout.verticalSpacing = 25;
+		GridLayout layout = new GridLayout( 5, false );
+		layout.verticalSpacing = 20;
 		layout.marginRight = 15;
 		labelContainer.setLayout( layout );
 
 		layoutData = new GridData( GridData.FILL_HORIZONTAL );
 		layoutData.horizontalSpan = 2;
-		layoutData.verticalIndent = 70;
+		layoutData.verticalIndent = 30;
+		layoutData.heightHint = 150;
 		labelContainer.setLayoutData( layoutData );
 
 		final Text middleText = new Text( labelContainer, SWT.MULTI | SWT.READ_ONLY );
@@ -338,177 +277,141 @@ public class ChoicePage extends AbstractSuPage {
 		rightLabel.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ));
 
 
-		// Listener: use case
-		useCaseCombo.addSelectionChangedListener( new ISelectionChangedListener() {
+		// Prepare the input
+		Comparator<ComponentWizardHandler> comparator = new Comparator<ComponentWizardHandler>() {
+			@Override
+			public int compare( ComponentWizardHandler o1, ComponentWizardHandler o2 ) {
+				String v1 = o1.getComponentVersionDescription().getComponentVersion();
+				String v2 = o2.getComponentVersionDescription().getComponentVersion();
+				return v1.compareTo( v2 );
+			}
+		};
+
+		final Map<String,Collection<ComponentWizardHandler>> componentNameToHandler = new TreeMap<String,Collection<ComponentWizardHandler>> ();
+		final Map<PetalsKeyWords,Set<String>> keywordToComponentName = new HashMap<PetalsKeyWords,Set<String>> ();
+		for( ComponentWizardHandler handler : ExtensionManager.INSTANCE.findWizardandlers()) {
+			for( PetalsKeyWords keyword : handler.getComponentVersionDescription().getKeyWords()) {
+				Set<String> list = keywordToComponentName.get( keyword );
+				if( list == null )
+					list = new TreeSet<String> ();
+
+				String componentName = handler.getComponentVersionDescription().getComponentName();
+				list.add( componentName );
+				keywordToComponentName.put( keyword, list );
+
+				Collection<ComponentWizardHandler> handlers = componentNameToHandler.get( componentName );
+				if( handlers == null )
+					handlers = new TreeSet<ComponentWizardHandler>( comparator );
+
+				handlers.add( handler );
+				componentNameToHandler.put( componentName, handlers );
+			}
+		}
+
+		keyWordCombo.setInput( keywordToComponentName.keySet());
+		keyWordCombo.getCombo().setVisibleItemCount( keywordToComponentName.size());
+
+
+		// Update some label providers
+		componentCombo.setLabelProvider( new LabelProvider() {
+			@Override
+			public String getText( Object element ) {
+
+				IComponentDescription desc = componentNameToHandler.get( element ).iterator().next().getComponentVersionDescription();
+				String componentName = desc.getComponentName();
+				String componentAlias = desc.getComponentAlias();
+				String annotation = desc.getComponentAnnotation();
+
+				StringBuilder sb = new StringBuilder();
+				if( StringUtils.isEmpty( componentName ))
+					sb.append( componentAlias );	// Generic component
+				else
+					sb.append( componentAlias + "    //  " + componentName );
+
+				if( ! StringUtils.isEmpty( annotation ))
+					sb.append( "    ( " + annotation + " )" );
+
+				return sb.toString();
+			}
+		});
+
+
+		// Listener: key word
+		keyWordCombo.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				// Get the selection
-				String key = useCaseCombo.getCombo().getText();
-				PetalsUseCase useCase = PetalsUseCase.resolveString( key );
+				String key = keyWordCombo.getCombo().getText();
+				PetalsKeyWords keyword = PetalsKeyWords.resolveString( key );
+				Set<String> componentNames = keywordToComponentName.get( keyword );
+				componentCombo.setInput( componentNames );
 
-				// Update the component combo
-				List<String> suTypes = new ArrayList<String> ();
-				for( String suType : useCaseToSuTypes.get( useCase )) {
-					String componentName = contributorRegistry.getComponentName( suType );
-					String annotation = contributorRegistry.getAnnotation( suType );
-
-					StringBuilder sb = new StringBuilder();
-					if( StringUtils.isEmpty( componentName ))
-						sb.append( suType );	// Generic component
-					else
-						sb.append( suType + "  //  " + componentName );
-
-					if( ! StringUtils.isEmpty( annotation ))
-						sb.append( "    ( " + annotation + " )" );
-
-					suTypes.add( sb.toString());
-				}
-
-				Collections.sort( suTypes );
-				componentCombo.setItems( suTypes.toArray( new String[ suTypes.size()]));
-
-				// Default selection
-				if( componentCombo.getItemCount() > 0 ) {
-					componentCombo.setVisibleItemCount( componentCombo.getItemCount());
-					componentCombo.select( 0 );
-					componentCombo.notifyListeners( SWT.Selection, new Event());
-				}
-				else {
-					ChoicePage.this.suType = null;
-				}
+				// Default selection - there is always one, guaranteed by the preliminary filtering
+				componentCombo.getCombo().setVisibleItemCount( componentNames.size());
+				componentCombo.setSelection( new StructuredSelection( componentNames.iterator().next()));
+				componentCombo.getCombo().notifyListeners( SWT.Selection, new Event());
 			}
 		});
 
 
 		// Listener: component
-		componentCombo.addSelectionListener( new SelectionListener() {
-			public void widgetSelected( SelectionEvent e ) {
-				widgetDefaultSelected( e );
-			}
-
-			public void widgetDefaultSelected( SelectionEvent e ) {
+		componentCombo.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged( SelectionChangedEvent event ) {
 
 				// Get the selection
-				int index = componentCombo.getSelectionIndex();
-				String type = componentCombo.getItem( index );
-				int pos = type.indexOf( "//" );
-				if( pos >= 0 )
-					ChoicePage.this.suType = type.substring( 0, pos ).trim();
-				else
-					ChoicePage.this.suType = type;
+				String componentName = (String) ((IStructuredSelection) event.getSelection()).getFirstElement();
+				Collection<ComponentWizardHandler> handlers = componentNameToHandler.get( componentName );
+				versionCombo.setInput( handlers );
 
-				// Update the version combo
-				SortedSet<String> versions = contributorRegistry.getSupportedVersions( ChoicePage.this.suType );
-				List<String> displayOrder = new ArrayList<String> ( versions );
-				Collections.reverse( displayOrder );
-				versionCombo.setItems( displayOrder.toArray( new String[ displayOrder.size()]));
-
-				// Update the usage combo
-				boolean supportProvides = contributorRegistry.worksInProvides( ChoicePage.this.suType, null );
-				boolean supportConsumes = contributorRegistry.worksInConsumes( ChoicePage.this.suType, null );
-				PetalsMode[] modes;
-				if( supportProvides ) {
-					if( supportConsumes )
-						modes = new PetalsMode[] { PetalsMode.provides, PetalsMode.consumes };
-					else
-						modes = new PetalsMode[] { PetalsMode.provides };
-				} else {
-					modes = new PetalsMode[] { PetalsMode.consumes };
-				}
-
-				// ... but keep the current selection, when possible
-				String key = usageCombo.getCombo().getText();
-				PetalsMode currentMode = (PetalsMode) usageCombo.getCombo().getData( key );
-				usageCombo.setInput( modes );
-				usageCombo.refresh();
-				if( Arrays.asList( modes ).contains( currentMode ))
-					usageCombo.setSelection( new StructuredSelection( currentMode ));
-				else
-					usageCombo.getCombo().select( 0 );
-				usageCombo.getCombo().notifyListeners( SWT.Selection, null );
-
-				// Default selection for the version( must be made after the "mode")
-				if( versionCombo.getItemCount() > 0 ) {
-					versionCombo.setVisibleItemCount( versionCombo.getItemCount());
-					versionCombo.select( 0 );
-					versionCombo.notifyListeners( SWT.Selection, new Event());
-				}
-				else {
-					ChoicePage.this.suTypeVersion = null;
-				}
+				// Default selection - there is always one
+				versionCombo.getCombo().setVisibleItemCount( handlers.size());
+				versionCombo.setSelection( new StructuredSelection( handlers.iterator().next()));
+				versionCombo.getCombo().notifyListeners( SWT.Selection, new Event());
 			}
 		});
 
 
 		// Listener: version
-		versionCombo.addSelectionListener( new SelectionListener() {
-			public void widgetSelected( SelectionEvent e ) {
-				widgetDefaultSelected( e );
-			}
-
-			public void widgetDefaultSelected( SelectionEvent e ) {
-				int index = versionCombo.getSelectionIndex();
-				ChoicePage.this.suTypeVersion = versionCombo.getItem( index );
-
-				// Update the labels
-				String desc;
-				if( ChoicePage.this.isProvides)
-					desc = contributorRegistry.getProvideDescription( ChoicePage.this.suType, ChoicePage.this.suTypeVersion );
-				else
-					desc = contributorRegistry.getConsumeDescription( ChoicePage.this.suType, ChoicePage.this.suTypeVersion );
-
-				middleText.setText( desc == null ? "Missing description" : desc );
-				middleText.getParent().layout();
-
-				// Flush stored data and validate
-				getNamespaceStore().clear();
-				getFileImportManager().clear();
-				validate();
-			}
-		});
-
-
-		// Listener: usage
-		usageCombo.addSelectionChangedListener( new ISelectionChangedListener() {
+		versionCombo.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				// Get the selection
-				String key = usageCombo.getCombo().getText();
-				PetalsMode mode = PetalsMode.resolveString( key );
-				ChoicePage.this.isProvides = mode == PetalsMode.provides;
+				ComponentWizardHandler handler = (ComponentWizardHandler) ((IStructuredSelection) event.getSelection()).getFirstElement();
+				((PetalsSuNewWizard) getWizard()).setWizardHandler( handler );
 
-				// Update the labels
-				String desc;
-				if( ChoicePage.this.isProvides)
-					desc = contributorRegistry.getProvideDescription( ChoicePage.this.suType, ChoicePage.this.suTypeVersion );
+				// Update the right image
+				Image newImg;
+				if( handler.getComponentVersionDescription().isBc())
+					newImg = ChoicePage.this.petalsMode == PetalsMode.provides ? ChoicePage.this.serviceImg : ChoicePage.this.consumeImg;
 				else
-					desc = contributorRegistry.getConsumeDescription( ChoicePage.this.suType, ChoicePage.this.suTypeVersion );
+					newImg = ChoicePage.this.wheelsImg;
 
-				middleText.setText( desc == null ? "Missing description" : desc );
+				// Update the description label
+				String txt;
+				if( ChoicePage.this.petalsMode == PetalsMode.provides )
+					txt = handler.getComponentVersionDescription().getProvideDescription();
+				else
+					txt = handler.getComponentVersionDescription().getConsumeDescription();
+
+				// Refresh the UI
+				rightLabel.setImage( newImg );
+				middleText.setText( txt );
 				middleText.getParent().layout();
 
-				// Update the UI
-				if( contributorRegistry.isBc( ChoicePage.this.suType )) {
-					if( mode == PetalsMode.provides )
-						rightLabel.setImage( ChoicePage.this.serviceImg );
-					else
-						rightLabel.setImage( ChoicePage.this.consumeImg );
-
-				} else {
-					rightLabel.setImage( ChoicePage.this.wheelsImg );
-				}
-
-				rightLabel.update();
-				rightLabel.getParent().layout();
+				// Validate
 				validate();
 			}
 		});
 
 
 		// Initialize
-		useCaseCombo.getCombo().select( 0 );
-		useCaseCombo.getCombo().notifyListeners( SWT.Selection, new Event());
-		setPageComplete( this.suTypeVersion != null && PreferencesManager.isMavenTemplateConfigurationValid());
+		this.helpTooltip.hide();
+		keyWordCombo.getCombo().select( 0 );
+		keyWordCombo.getCombo().notifyListeners( SWT.Selection, new Event());
+		setPageComplete( PreferencesManager.isMavenTemplateConfigurationValid());
 	}
 
 
@@ -526,14 +429,6 @@ public class ChoicePage extends AbstractSuPage {
 			msg = "There is an error in your preferences about custom POM templates.";
 			showTooltip = true;
 		}
-		else if( this.suTypeVersion == null )
-			msg = "No component is available for this use case.";
-		else if(( msg = RegisteredContributors.getInstance().getWizardEnablement( this.suType )) != null )
-			((PetalsSuNewWizard) getWizard()).clearAllPagesExcept( "ChoicePage" );
-		else
-			((PetalsSuNewWizard) getWizard()).registerPagesAfterVersionPage(
-						ChoicePage.this.suType,
-						ChoicePage.this.suTypeVersion );
 
 		if( showTooltip )
 			this.helpTooltip.show();
@@ -547,50 +442,12 @@ public class ChoicePage extends AbstractSuPage {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
+	 * @see org.eclipse.jface.wizard.WizardPage
+	 * #canFlipToNextPage()
 	 */
 	@Override
 	public boolean canFlipToNextPage() {
-		return this.suTypeVersion != null && super.canFlipToNextPage();
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #fillInData(com.ebmwebsourcing.petals.tools.eclipse.su.main.wizards.generation.EclipseSuBean)
-	 */
-	@Override
-	public void fillInData( EclipseSuBean suBean ) {
-		// Nothing to store.
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #setHelpContextId(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
-	protected void setHelpContextId( Composite container ) {
-		// nothing
-	}
-
-
-	/**
-	 * @return the isProvides
-	 */
-	@Override
-	public boolean isProvides() {
-		return this.isProvides;
-	}
-
-
-	/**
-	 * @return the isBc
-	 */
-	public boolean isBc() {
-		return RegisteredContributors.getInstance().isBc( ChoicePage.this.suType );
+		return getWizardHandler() != null;
 	}
 
 

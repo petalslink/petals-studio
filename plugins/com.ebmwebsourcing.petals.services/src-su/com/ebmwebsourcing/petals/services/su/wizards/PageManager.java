@@ -15,9 +15,6 @@ package com.ebmwebsourcing.petals.services.su.wizards;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
-import com.ebmwebsourcing.petals.services.su.wizards.legacy.xsd.XsdNamespaceStore;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 
 /**
@@ -41,49 +38,6 @@ public class PageManager {
 	 */
 	public PageManager() {
 		// nothing
-	}
-
-	/**
-	 * Retrieves <b>every</b> information filled in by the user into the wizard.
-	 * Create a WizardData object and ask to every page to register its information in it.
-	 *
-	 * @return a bean containing all the information filled in by the user in the wizard.
-	 */
-	public EclipseSuBean retrieveWizardData() {
-		EclipseSuBean result = new EclipseSuBean();
-
-		// Set SU type
-		String suType = getPage( "ChoicePage" ).getSuType();
-		result.setSuType( suType );
-
-		// Component name
-		String componentName = RegisteredContributors.getInstance().getComponentName( suType );
-		result.setComponentName( componentName );
-
-		// Define if it is a BC or not
-		boolean isBC = RegisteredContributors.getInstance().isBc( suType );
-		result.setBc( isBC );
-
-		// Get the contributor id.
-		String contributorId = RegisteredContributors.getInstance().getPluginId( suType );
-		result.setContributorId( contributorId );
-
-		// For every stored page, ask it to fill in the bean.
-		// Note: be careful, pages with only non-visible elements cannot be initialized.
-		// Example: BPEL. No Component page, and the 'bpel-process' mark-up cannot be set from a WizardConfiguration
-		// Solution: override the fillInData method of a wizard page
-		for( AbstractSuPage page : this.pages.values()) {
-			if( page != null )
-				page.fillInData( result );
-		}
-
-		// Get registered name spaces in last position
-		// QName values can register additional name spaces when #fillInData is called
-		Map<String, String> namespaces = XsdNamespaceStore.getNamespaceStore().getNamespaces();
-		if( namespaces != null )
-			result.addNamespaces( namespaces );
-
-		return result;
 	}
 
 	/**
@@ -127,25 +81,21 @@ public class PageManager {
 	 */
 	public AbstractSuPage getNextPage( AbstractSuPage suPage ) {
 
+		AbstractSuPage nextPage = null;
 		boolean found = false;
 		for( Map.Entry<String,AbstractSuPage> entry : this.pages.entrySet()) {
 
 			String pageName = entry.getKey();
-			AbstractSuPage nextPage = entry.getValue();
-
-			if( found
-						&& nextPage != null
-						&& nextPage.displayPage()) {
-				AbstractSuPage page = this.pages.get( pageName );
-				page.reloadDataFromConfiguration();
-				return page;
+			if( found ) {
+				nextPage = entry.getValue();
+				break;
 			}
 
 			if( pageName.equals( suPage.getName()))
 				found = true;
 		}
 
-		return null;
+		return nextPage;
 	}
 
 	/**

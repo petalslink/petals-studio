@@ -68,12 +68,11 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.JbiBasicBean;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUpdater;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.wizards.WsdlImportWizard;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+import com.ebmwebsourcing.petals.services.cdk.PetalsCdkPlugin;
 import com.ebmwebsourcing.petals.services.jbi.editor.AbstractServicesFormPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
@@ -341,7 +340,7 @@ public class CDK5ProvidesDetails implements WsdlParsingListener, JbiEditorDetail
 						IDE.openEditor( page, f, true );
 
 					} catch( PartInitException exception ) {
-						PetalsServicesPlugin.log( exception, IStatus.ERROR );
+						PetalsCdkPlugin.log( exception, IStatus.ERROR );
 					}
 				}
 			}
@@ -364,7 +363,7 @@ public class CDK5ProvidesDetails implements WsdlParsingListener, JbiEditorDetail
 
 				String edptName = CDK5ProvidesDetails.this.generateEdptButton.getSelection() ? PetalsConstants.AUTO_GENERATE : CDK5ProvidesDetails.this.selectedEndpoint.getEndpointName();
 
-				if( ! WsdlUpdater.getInstance().update( f, serviceName, CDK5ProvidesDetails.this.selectedEndpoint.getInterfaceName(), edptName )) {
+				if( ! WsdlUtils.INSTANCE.updateEndpointNameInWsdl( f, serviceName, edptName )) {
 					MessageDialog.openError(
 								CDK5ProvidesDetails.this.wsdlText.getShell(),
 								"End-point Update Failure",
@@ -376,7 +375,7 @@ public class CDK5ProvidesDetails implements WsdlParsingListener, JbiEditorDetail
 						CDK5ProvidesDetails.this.editedFile.touch( null );
 
 					} catch( CoreException e1 ) {
-						PetalsServicesPlugin.log( e1, IStatus.WARNING );
+						PetalsCdkPlugin.log( e1, IStatus.WARNING );
 					}
 				}
 			}
@@ -518,7 +517,7 @@ public class CDK5ProvidesDetails implements WsdlParsingListener, JbiEditorDetail
 			if( uri != null ) {
 				List<JbiBasicBean> _beans = null;
 				try {
-					_beans = WsdlParser.getInstance().parse( uri.toString());
+					_beans = WsdlUtils.INSTANCE.parse( uri.toString());
 				} catch( IllegalArgumentException e ) {
 					// nothing
 				}

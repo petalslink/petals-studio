@@ -1,9 +1,9 @@
 <%@ jet
 package="com.ebmwebsourcing.petals.services.sql.generated"
-imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+imports="com.sun.java.xml.ns.jbi.AbstractEndpoint"
 class="SqlService"
 skeleton="generator.skeleton" %>
-<% EclipseSuBean data = (EclipseSuBean) argument; %>
+<% AbstractEndpoint data = (AbstractEndpoint) argument; %>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <wsdl:definitions 
 	xmlns:tns="http://petals.ow2.org/components/sql/version-1"

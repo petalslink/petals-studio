@@ -15,23 +15,6 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-      		SuType="BPEL"
-            ContributorDescription="com.ebmwebsourcing.petals.services.bpel.BpelContributorDescription">
-         <Version
-               LastActionsPerformer="com.ebmwebsourcing.petals.services.bpel.BpelLastActionsPerformer"
-               ProvideConfiguration="com.ebmwebsourcing.petals.services.bpel.BpelWizardConfiguration10"
-               SuVersion="1.0">
-            <WizardPage
-                  WizardPageClass="com.ebmwebsourcing.petals.services.bpel.BpelFirstPage10"
-                  WizardPageMode="Provide"
-                  WizardPagePosition="beforeJbiPage">
-            </WizardPage>
-         </Version>
-      </WizardData>
-   </extension>
-   <extension
          id="com.ebmwebsourcing.petals.extension.bpeldesigner.petalsBpelBuilder"
          name="Petals BPEL Builder"
          point="org.eclipse.core.resources.builders">
@@ -209,5 +192,17 @@
             Create a set of Petals projects from a BPEL process file
          </description>
       </wizard>
+   </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="bpel">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.bpel.BpelDescription10"
+               id="BPEL 1.0"
+               wizardExtension="com.ebmwebsourcing.petals.services.bpel.BpelWizard10">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 </plugin>

@@ -14,21 +14,22 @@
 -->
 
 <plugin>
-   <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-            SuType="SFTP"
-            ContributorDescription="com.ebmwebsourcing.petals.services.sftp.SftpContributorDescription">
-               <Version
-                     LastActionsPerformer="com.ebmwebsourcing.petals.services.sftp.SFTPLastActionsPerformer11"
-                     ProvideConfiguration="com.ebmwebsourcing.petals.services.sftp.SFTPWizardConfiguration11"
-                     SuVersion="1.1">
-               </Version>
-               <Version
-                     LastActionsPerformer="com.ebmwebsourcing.petals.services.sftp.SFTPLastActionsPerformer12"
-                     ProvideConfiguration="com.ebmwebsourcing.petals.services.sftp.SFTPWizardConfiguration11"
-                     SuVersion="1.2">
-               </Version>
-      </WizardData>
+	<extension
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="ftp">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sftp.SftpDescription11"
+               id="SFTP 1.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.sftp.SftpWizard11">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sftp.SftpDescription12"
+               id="SFTP 1.2"
+               wizardExtension="com.ebmwebsourcing.petals.services.sftp.SftpWizard12">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 </plugin>

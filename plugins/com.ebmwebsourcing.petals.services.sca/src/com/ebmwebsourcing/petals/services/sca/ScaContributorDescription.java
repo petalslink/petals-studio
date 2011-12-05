@@ -16,14 +16,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils;
-import com.ebmwebsourcing.petals.services.su.extensions.PetalsUseCase;
-import com.ebmwebsourcing.petals.services.su.extensions.SuContributorDescription;
+import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
 import com.ebmwebsourcing.petals.services.su.extensions.ValidationRule;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ScaContributorDescription extends SuContributorDescription {
+public class ScaContributorDescription extends ComponentWizardHandler {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.SuContributorDescription
@@ -141,7 +141,7 @@ public class ScaContributorDescription extends SuContributorDescription {
 	 * #getUsesCases()
 	 */
 	@Override
-	public PetalsUseCase[] getUsesCases() {
-		return new PetalsUseCase[] { PetalsUseCase.soa, PetalsUseCase.code, PetalsUseCase.composition };
+	public PetalsKeyWords[] getKeyWords() {
+		return new PetalsKeyWords[] { PetalsKeyWords.soa, PetalsKeyWords.code, PetalsKeyWords.composition };
 	}
 }

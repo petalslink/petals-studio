@@ -45,8 +45,10 @@ Export-Package: com.ebmwebsourcing.petals.common.croquis.internal.provisional,
  com.ebmwebsourcing.petals.common.internal.provisional.projectscnf,
  com.ebmwebsourcing.petals.common.internal.provisional.refactoring,
  com.ebmwebsourcing.petals.common.internal.provisional.sse,
+ com.ebmwebsourcing.petals.common.internal.provisional.swt,
  com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties,
  com.ebmwebsourcing.petals.common.internal.provisional.ui,
  com.ebmwebsourcing.petals.common.internal.provisional.ui.jdt,
  com.ebmwebsourcing.petals.common.internal.provisional.utils,
- com.ebmwebsourcing.petals.common.internal.provisional.wizards
+ com.ebmwebsourcing.petals.common.internal.provisional.wizards,
+ javax.wsdl

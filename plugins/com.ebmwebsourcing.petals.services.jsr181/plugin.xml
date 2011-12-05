@@ -15,19 +15,6 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-      		SuType="Jsr181"
-            ContributorDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181ContributorDescription">
-         <Version
-               CustomComponentPage="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181ProvideSpecificPage11"
-               LastActionsPerformer="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181LastActionsPerformer"
-               ProvideConfiguration="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181Configuration"
-               SuVersion="1.1">
-         </Version>
-      </WizardData>
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <command
             categoryId="com.ebmwebsourcing.jbi.core.petals-category"
@@ -77,6 +64,18 @@
             </visibleWhen>
          </command>
       </menuContribution>
+   </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="jsr181">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11"
+               id="Jsr181 1.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.jsr181.Jsr181Wizard11">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 
 </plugin>

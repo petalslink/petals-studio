@@ -11,13 +11,13 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.rest;
 
-import com.ebmwebsourcing.petals.services.su.extensions.PetalsUseCase;
-import com.ebmwebsourcing.petals.services.su.extensions.SuContributorDescription;
+import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class RestContributorDescription extends SuContributorDescription {
+public class RestContributorDescription extends ComponentWizardHandler {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.SuContributorDescription
@@ -95,7 +95,7 @@ public class RestContributorDescription extends SuContributorDescription {
 	 * #getUsesCases()
 	 */
 	@Override
-	public PetalsUseCase[] getUsesCases() {
-		return new PetalsUseCase[] { PetalsUseCase.communication };
+	public PetalsKeyWords[] getKeyWords() {
+		return new PetalsKeyWords[] { PetalsKeyWords.communication };
 	}
 }

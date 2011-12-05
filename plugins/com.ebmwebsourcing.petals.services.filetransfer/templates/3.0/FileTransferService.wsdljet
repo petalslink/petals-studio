@@ -1,10 +1,9 @@
 <%@ jet
 package="com.ebmwebsourcing.petals.services.filetransfer.generated"
-imports="com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean"
+imports="com.sun.java.xml.ns.jbi.AbstractEndpoint"
 class="FileTransferService"
 skeleton="../generator.skeleton" %>
-<%
-EclipseSuBean data = (EclipseSuBean) argument; %>
+<% AbstractEndpoint data = (AbstractEndpoint) argument; %>
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions
 	xmlns:tns="http://petals.ow2.org/components/filetransfer/version-3"
@@ -200,7 +199,7 @@ EclipseSuBean data = (EclipseSuBean) argument; %>
 	</wsdl:message>
 
 	<!-- Interface Part -->
-	<wsdl:portType name="<%= data.getInterfaceName() %>">
+	<wsdl:portType name="<%= data.getInterfaceName().getLocalPart() %>">
 		<wsdl:operation name="get">
 			<wsdl:input message="tns:getRequest" />
 			<wsdl:output message="tns:getResponse" />
@@ -245,7 +244,7 @@ EclipseSuBean data = (EclipseSuBean) argument; %>
 		component to external service consumers
 	-->
 	<wsdl:binding name="FileTransferServiceSoapBinding"
-		type="tns:<%= data.getInterfaceName() %>">
+		type="tns:<%= data.getInterfaceName().getLocalPart() %>">
 
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
@@ -361,7 +360,7 @@ EclipseSuBean data = (EclipseSuBean) argument; %>
 	<!--
 		The service...
 	-->
-	<wsdl:service name="<%= data.getServiceName() %>">
+	<wsdl:service name="<%= data.getServiceName().getLocalPart() %>">
 		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:FileTransferServiceSoapBinding">
 			<soap:address location="jbi://myFileTransferSUEndpointName" />
 		</wsdl:port>

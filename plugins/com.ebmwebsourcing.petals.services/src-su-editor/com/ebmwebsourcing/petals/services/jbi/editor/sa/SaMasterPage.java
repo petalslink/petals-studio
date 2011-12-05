@@ -17,13 +17,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.DeleteCommand;
-import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -53,7 +53,6 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -61,13 +60,17 @@ import org.w3c.dom.Node;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.MarkerUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.jbi.editor.AbstractServicesFormPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.IServiceMasterPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.ServicesLabelProvider;
+import com.ebmwebsourcing.petals.services.su.jbiproperties.PetalsSPPropertiesManager;
 import com.ebmwebsourcing.petals.services.utils.ServiceProjectRelationUtils;
+import com.sun.java.xml.ns.jbi.Identification;
 import com.sun.java.xml.ns.jbi.JbiFactory;
 import com.sun.java.xml.ns.jbi.ServiceAssembly;
 import com.sun.java.xml.ns.jbi.ServiceUnit;
+import com.sun.java.xml.ns.jbi.Target;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -100,6 +103,7 @@ implements IServiceMasterPage {
 	/**
 	 * Disposes the resources.
 	 */
+	@Override
 	public void dispose() {
 
 		if( this.labelProvider != null )
@@ -125,6 +129,7 @@ implements IServiceMasterPage {
 	/**
 	 * Updates the viewer.
 	 */
+	@Override
 	public void update() {
 		updateViewerInput();
 		this.viewer.refresh( true );
@@ -219,16 +224,19 @@ implements IServiceMasterPage {
 
 		// Listeners
 		addProvidesButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				addServiceUnit();
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				addServiceUnit();
 			}
 		});
 
 		Listener removeListener = new Listener() {
+			@Override
 			public void handleEvent( Event event ) {
 
 				// Keyboard event? Check the key...
@@ -249,8 +257,8 @@ implements IServiceMasterPage {
 						toRemove.add((EObject)o);
 					}
 				}
-				DeleteCommand deleteCommand = new DeleteCommand(saFormPage.getEditDomain(), toRemove);
-				saFormPage.getEditDomain().getCommandStack().execute(deleteCommand);
+				DeleteCommand deleteCommand = new DeleteCommand(SaMasterPage.this.saFormPage.getEditDomain(), toRemove);
+				SaMasterPage.this.saFormPage.getEditDomain().getCommandStack().execute(deleteCommand);
 				updateViewerInput();
 				SaMasterPage.this.viewer.refresh();
 				SaMasterPage.this.viewer.expandAll();
@@ -274,20 +282,24 @@ implements IServiceMasterPage {
 
 		// Add the listeners
 		upButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				moveSelection( true );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				moveSelection( true );
 			}
 		});
 
 		downButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				moveSelection( false );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				moveSelection( false );
 			}
@@ -316,6 +328,7 @@ implements IServiceMasterPage {
 		});
 
 		this.viewer.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				SaMasterPage.this.saFormPage.getSite().getSelectionProvider().setSelection( event.getSelection());
@@ -369,54 +382,37 @@ implements IServiceMasterPage {
 	 */
 	private void addServiceUnit() {
 
-		List<IProject> suProjects = ServiceProjectRelationUtils.getAllSuProjects();
-		ListDialog dlg = new ListDialog( new Shell());
-		dlg.setAddCancelButton( true );
-		dlg.setContentProvider( new ArrayContentProvider());
-		dlg.setLabelProvider( new WorkbenchLabelProvider());
-		dlg.setInput( suProjects );
-		dlg.setTitle( "Service Unit Selection" );
-		dlg.setMessage( "Select a Service Unit project." );
-
+		ListDialog dlg = SwtFactory.createListDialog( new Shell(), "Service Unit Selection", "Select a Service Unit project." );
+		dlg.setInput( ServiceProjectRelationUtils.getAllSuProjects());
 		if( dlg.open() == Window.OK ) {
+
+			// Create the SU
 			IProject selectedProject = (IProject) dlg.getResult()[ 0 ];
-			String expr = "/*[local-name()='jbi']/*[local-name()='service-assembly']";
-			ServiceAssembly sa = saFormPage.getJbi().getServiceAssembly();
-
+			ServiceAssembly sa = this.saFormPage.getJbi().getServiceAssembly();
 			ServiceUnit newElt = JbiFactory.eINSTANCE.createServiceUnit();
-			
-			// TODO populate service unit
-//				Element identificationElement = DomUtils.getChildElement( newElt, "identification" );
-//				Element editedElement = DomUtils.getChildElement( identificationElement, "name" );
-//				if( editedElement != null )
-//					StructuredModelHelper.setElementSimpleValue( editedElement, selectedProject.getName());
-//
-//				editedElement = DomUtils.getChildElement( identificationElement, "description" );
-//				if( editedElement != null )
-//					StructuredModelHelper.setElementSimpleValue( editedElement, "" );
-//
-//				Element targetElement = DomUtils.getChildElement( newElt, "target" );
-//				editedElement = DomUtils.getChildElement( targetElement, "artifacts-zip" );
-//				if( editedElement != null )
-//					StructuredModelHelper.setElementSimpleValue( editedElement, selectedProject.getName() + ".zip" );
-//
-//				Properties properties = PetalsSPPropertiesManager.getProperties( selectedProject );
-//				String componentName = properties.getProperty( PetalsSPPropertiesManager.COMPONENT_DEPLOYMENT_ID, "" );
-//				properties = null;
-//
-//				editedElement = DomUtils.getChildElement( targetElement, "component-name" );
-//				if( editedElement != null )
-//					StructuredModelHelper.setElementSimpleValue( editedElement, componentName );
 
-				AddCommand addCommand = new AddCommand(saFormPage.getEditDomain(), sa.getServiceUnit(), newElt);
-				saFormPage.getEditDomain().getCommandStack().execute(addCommand);
+			Identification id = JbiFactory.eINSTANCE.createIdentification();
+			id.setName( selectedProject.getName());
+			id.setDescription( "" );
+			newElt.setIdentification( id );
 
-				// Update the viewers
-				updateViewerInput();
-				this.viewer.refresh();
-				this.viewer.expandAll();
-				this.viewer.setSelection( new StructuredSelection( newElt ));
-				this.viewer.getTree().setFocus();
+			Target target = JbiFactory.eINSTANCE.createTarget();
+			Properties properties = PetalsSPPropertiesManager.getProperties( selectedProject );
+			String componentName = properties.getProperty( PetalsSPPropertiesManager.COMPONENT_DEPLOYMENT_ID, "" );
+			target.setComponentName( componentName );
+			target.setArtifactsZip( selectedProject.getName() + ".zip" );
+			newElt.setTarget( target );
+
+			// Add it in the document
+			AddCommand addCommand = new AddCommand( this.saFormPage.getEditDomain(), sa.getServiceUnit(), newElt );
+			this.saFormPage.getEditDomain().getCommandStack().execute( addCommand );
+
+			// Update the viewers
+			updateViewerInput();
+			this.viewer.refresh();
+			this.viewer.expandAll();
+			this.viewer.setSelection( new StructuredSelection( newElt ));
+			this.viewer.getTree().setFocus();
 		}
 	}
 
@@ -468,6 +464,7 @@ implements IServiceMasterPage {
 	 * Updates the markers in the viewers.
 	 * @param markerToNode
 	 */
+	@Override
 	public void updateMarkers( Map<IMarker,Node> markerToNode ) {
 
 		// Build a new map associating provides / consumes and markers
@@ -521,6 +518,7 @@ implements IServiceMasterPage {
 	 * @param elt
 	 * @return a list of markers (possibly null)
 	 */
+	@Override
 	public List<IMarker> getMarkersForDetails( Element elt ) {
 		return this.elementToMarkers.get( elt );
 	}
@@ -532,6 +530,7 @@ implements IServiceMasterPage {
 	 * @param xPathLocation
 	 * @return true if a matching widget could be found, false otherwise
 	 */
+	@Override
 	public boolean gotoMarker( Node node, String xPathLocation ) {
 
 		boolean result = false;

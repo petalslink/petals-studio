@@ -14,8 +14,9 @@
 -->
 
 <plugin>
-	<extension-point id="com.ebmwebsourcing.petals.services.contentExtension"
-		name="Content extension for Petals services" schema="schema/com.ebmwebsourcing.petals.services.contentExtension.exsd" />
+
+   <extension-point id="cdkSupport" name="Support for a CDK" schema="schema/cdkSupport.exsd"/>
+   <extension-point id="componentExtension" name="Extension to support component" schema="schema/componentExtension.exsd"/>
 
    <extension
          point="org.eclipse.ui.views">
@@ -257,29 +258,28 @@
       </wizard>
       <wizard
             category="com.ebmwebsourcing.petals.common.wizards"
-            class="com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard"
+            class="com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard:provides"
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             hasPages="true"
-            icon="icons/obj16/service_unit.png"
-            id="com.ebmwebsourcing.petals.services.su.project"
-            name="Service Unit"
+            icon="icons/obj16/petals_service.png"
+            id="com.ebmwebsourcing.petals.services.service-provider.project"
+            name="Petals Service"
             project="true">
          <description>
-            Create a Service Unit project compatible with the Petals Maven plug-in
+            Create a Service Unit project to define a new Petals service
          </description>
       </wizard>
       <wizard
-            canFinishEarly="false"
-            category="com.ebmwebsourcing.petals.common.wizards.attic"
-            class="com.ebmwebsourcing.petals.services.monitoring.wizard.KpiNewWizard"
+            category="com.ebmwebsourcing.petals.common.wizards"
+            class="com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard:consumes"
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             hasPages="true"
-            icon="icons/obj16/monitoring_3.2.png"
-            id="com.ebmwebsourcing.petals.services.kpiWizard"
-            name="KPI Configuration"
+            icon="icons/obj16/consumes_3.0.png"
+            id="com.ebmwebsourcing.petals.services.service-consumer.project"
+            name="Petals Service Consumer"
             project="true">
          <description>
-            Create KPI configurations to monitor message flows in Petals ESB
+            Create a Service Unit project to define a new Petals service
          </description>
       </wizard>
    </extension>
@@ -326,14 +326,14 @@
          </command>
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="icons/obj16/service_unit.png"
-               label="Service Unit"
+               icon="icons/obj16/petals_service.png"
+               label="Petals Service"
                mnemonic="U"
                style="push"
                tooltip="Create a new Service Unit project">
             <parameter
                   name="newWizardId"
-                  value="com.ebmwebsourcing.petals.services.su.project">
+                  value="com.ebmwebsourcing.petals.services.service-provider.project">
             </parameter>
          </command>
       </menuContribution>
@@ -353,14 +353,14 @@
          </command>
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="icons/obj16/service_unit.png"
-               label="Service Unit"
+               icon="icons/obj16/petals_service.png"
+               label="Petals Service"
                mnemonic="U"
                style="push"
                tooltip="Create a new Service Unit project">
             <parameter
                   name="newWizardId"
-                  value="com.ebmwebsourcing.petals.services.su.project">
+                  value="com.ebmwebsourcing.petals.services.service-provider.project">
             </parameter>
          </command>
       </menuContribution>
@@ -780,25 +780,7 @@
             class="com.ebmwebsourcing.petals.services.sa.projectscnf.SaProjectCategory">
       </Category>
    </extension>
-   <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-            ContributorDescription="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericContributorDescription"
-            SuType="Generic">
-         <Version
-               SuVersion="Not set (Yet)">
-            <WizardPage
-                  WizardPageClass="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericSuWizardPage"
-                  WizardPageMode="Both"
-                  WizardPagePosition="beforeJbiPage">
-            </WizardPage>
-         </Version>
-      </WizardData>
-   </extension>
-   
-   
-   <extension-point id="cdkSupport" name="Support for a CDK" schema="schema/cdkSupport.exsd"/>
-   <extension-point id="componentExtension" name="Extension to support component" schema="schema/componentExtension.exsd"/>
+     
    <extension
          point="org.eclipse.ui.editors">
       <editor
@@ -813,6 +795,17 @@
                contentTypeId="com.ebmwebsourcing.petals.common.jbiContentType">
          </contentTypeBinding>
       </editor>
+   </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="Generic">
+         <ComponentVersionSupport
+               cdkNamespace="&quot;we-do-not-care-for-this-component&quot;"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentDescription"
+               wizardExtension="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentWizardHandler">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 
 </plugin>

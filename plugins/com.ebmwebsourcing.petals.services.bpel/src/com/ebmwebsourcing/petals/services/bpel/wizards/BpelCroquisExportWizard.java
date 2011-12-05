@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.bpel.wizards;
 
@@ -424,11 +424,11 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 		if( consume ) {
 			SoapConsumes40 sp = new SoapConsumes40();
 			sp.setEndpointName( jbiBean.getEndpointName());
-			sp.setInterfaceName( jbiBean.getInterfaceName());
-			sp.setInterfaceNamespace( jbiBean.getInterfaceNs());
-			sp.setServiceName( jbiBean.getServiceName());
-			sp.setServiceNamespace( jbiBean.getServiceNs());
-			sp.setAddress( jbiBean.getServiceName());
+			sp.setInterfaceName( jbiBean.getInterfaceName().getLocalPart());
+			sp.setInterfaceNamespace( jbiBean.getInterfaceName().getNamespaceURI());
+			sp.setServiceName( jbiBean.getServiceName().getLocalPart());
+			sp.setServiceNamespace( jbiBean.getServiceName().getNamespaceURI());
+			sp.setAddress( jbiBean.getSoapAddress());
 
 			// No MEP and operation
 			// The builder will signal a problem
@@ -450,10 +450,10 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 			// Create the jbi.xml
 			SoapProvides40 sp = new SoapProvides40();
 			sp.setEndpointName( jbiBean.getEndpointName());
-			sp.setInterfaceName( jbiBean.getInterfaceName());
-			sp.setInterfaceNamespace( jbiBean.getInterfaceNs());
-			sp.setServiceName( jbiBean.getServiceName());
-			sp.setServiceNamespace( jbiBean.getServiceNs());
+			sp.setInterfaceName( jbiBean.getInterfaceName().getLocalPart());
+			sp.setInterfaceNamespace( jbiBean.getInterfaceName().getNamespaceURI());
+			sp.setServiceName( jbiBean.getServiceName().getLocalPart());
+			sp.setServiceNamespace( jbiBean.getServiceName().getNamespaceURI());
 
 			sp.setValidateWsdl( true );
 			sp.setWsdl( importedWsdlFile.getName());

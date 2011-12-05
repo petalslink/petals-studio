@@ -13,6 +13,7 @@
 package com.ebmwebsourcing.petals.services.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Properties;
@@ -36,7 +37,6 @@ import com.ebmwebsourcing.petals.services.sa.nature.SaNature;
 import com.ebmwebsourcing.petals.services.su.Messages;
 import com.ebmwebsourcing.petals.services.su.jbiproperties.PetalsSPPropertiesManager;
 import com.ebmwebsourcing.petals.services.su.nature.SuNature;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 
 /**
  * Utility methods related to Petals service projects.
@@ -45,84 +45,50 @@ import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 public class PetalsServicesProjectUtils {
 
 	/**
-	 * Creates a SU project and its structure.
+	 * Creates a SU project with its structure and its properties set (natures, comments, source folders).
 	 *
-	 * @param eclipseSuBean the data retrieved from the wizard
-	 * @param monitor the monitor used to interact with the user during this operation
+	 * @param projectName the project name
+	 * @param projectLocationURI the project's location URI (null to create in the workspace)
+	 * @param componentName the component's name
+	 * @param componentVersion the component's version
+	 * @param componentAlias the component's alias (e.g. SOAP)
+	 * @param isJavaProject true to create a Java project, false otherwise
+	 * @param monitor the progress monitor
 	 * @return the created project
 	 * @throws CoreException
-	 * @throws Exception
-	 */
-	public static IProject createSuProject(
-				EclipseSuBean eclipseSuBean,
-				IProgressMonitor monitor )
-	throws CoreException, Exception {
-
-		return createSuProject(
-					eclipseSuBean.getProjectName(),
-					eclipseSuBean.getProjectLocation(),
-					eclipseSuBean.getComponentName(),
-					eclipseSuBean.getComponentVersion(),
-					eclipseSuBean.getSuType(),
-					eclipseSuBean.isCreateJavaProject(),
-					monitor );
-	}
-
-
-	/**
-	 * Creates a SU project and its structure, and sets its properties (natures, comments, source folders).
-	 * <p>
-	 * Makes the monitor progress increase of 5 units.
-	 * </p>
-	 *
-	 * @param projectName
-	 * @param projectLocationURI
-	 * @param componentName
-	 * @param componentVersion
-	 * @param suType
-	 * @param createJavaProject
-	 * @param monitor the monitor used to interact with the user during this operation
-	 * @return the created project
-	 * @throws CoreException
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public static IProject createSuProject(
 				String projectName,
 				URI projectLocationURI,
 				String componentName,
 				String componentVersion,
-				String suType,
-				boolean createJavaProject,
+				String componentAlias,
+				boolean isJavaProject,
 				IProgressMonitor monitor )
-	throws CoreException, Exception {
+	throws CoreException, IOException {
 
-		IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
+		// Create the project
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject( projectName );
 
-		// Project
-		IProject newProject = wsRoot.getProject( projectName );
-		if( ! newProject.exists()) {
-
-			if( projectLocationURI != null ) {
-				IProjectDescription projectDescription = ResourcesPlugin.getWorkspace().newProjectDescription( projectName );
-				projectDescription.setLocationURI( projectLocationURI );
-				newProject.create( projectDescription, monitor );
-			}
-			else	// ProjectLocation = null => create it in the workspace
-				newProject.create( monitor );
+		// ProjectLocation = null => create it in the workspace
+		if( projectLocationURI != null ) {
+			IProjectDescription projectDescription = ResourcesPlugin.getWorkspace().newProjectDescription( projectName );
+			projectDescription.setLocationURI( projectLocationURI );
+			project.create( projectDescription, monitor );
 		}
-
-		newProject.open( monitor );
+		else
+			project.create( monitor );
+		project.open( monitor );
 		monitor.worked( 1 );
 
 
-		//
-		// Add the SU nature and set project properties.
+		// Add the required natures
 		monitor.subTask( Messages.AbstractSuWizard_12 );
-		IProjectDescription description = newProject.getDescription();
+		IProjectDescription description = project.getDescription();
 		String[] natures = description.getNatureIds();
-
 		String[] newNatures;
-		if( createJavaProject )
+		if( isJavaProject )
 			newNatures = new String[ natures.length + 2 ];
 		else
 			newNatures = new String[ natures.length + 1 ];
@@ -132,79 +98,46 @@ public class PetalsServicesProjectUtils {
 		if( newNatures.length > natures.length + 1 )
 			newNatures[ natures.length + 1 ] = JavaCore.NATURE_ID;
 		description.setNatureIds( newNatures );
-		newProject.setDescription( description, monitor );
+		project.setDescription( description, monitor );
 		monitor.worked( 1 );
 
-		// Register some properties in project
+
+		// Register some properties in the project
 		Properties projectProperties = new Properties();
-		projectProperties.put( PetalsSPPropertiesManager.COMPONENT_FUNCTION, suType );
+		projectProperties.put( PetalsSPPropertiesManager.COMPONENT_FUNCTION, componentAlias );
 		projectProperties.put( PetalsSPPropertiesManager.COMPONENT_NAME, componentName );
 		projectProperties.put( PetalsSPPropertiesManager.COMPONENT_VERSION, componentVersion );
-		PetalsSPPropertiesManager.saveProperties( projectProperties, newProject );
+		PetalsSPPropertiesManager.saveProperties( projectProperties, project );
 
 
-		//
-		// Set Java properties
-		if( createJavaProject ) {
+		// Set the Java properties
+		if( isJavaProject ) {
 			monitor.subTask( "Setting up Java project properties..." );
-			JavaUtils.createJavaProject( newProject );
+			JavaUtils.createJavaProject( project );
 		}
 
 		monitor.worked( 1 );
-		createPetalsSuProjectStructure(
-					createJavaProject, componentName,
-					componentVersion, newProject, monitor );
-
-		return newProject;
-	}
 
 
-	/**
-	 * Creates the file and directory structure for a Petals project.
-	 * <p>
-	 * Makes the monitor progress increase of 2 units.
-	 * </p>
-	 *
-	 * @param createJavaProject
-	 * @param componentName
-	 * @param componentVersion
-	 * @param project
-	 * @param monitor
-	 * @throws CoreException
-	 */
-	public static void createPetalsSuProjectStructure(
-				boolean createJavaProject,
-				String componentName,
-				String componentVersion,
-				IProject project,
-				IProgressMonitor monitor ) throws CoreException {
-
-		//
-		// Possible project structures
+		// Create the directories
 		monitor.subTask( "Creating directories..." );
 		String[] javaMavenProj = new String[] {
-					"src",
-					"src/main",
-					PetalsConstants.LOC_JAVA_RES_FOLDER,
-					PetalsConstants.LOC_SRC_FOLDER,
-					PetalsConstants.LOC_RES_FOLDER,
-					PetalsConstants.LOC_BIN_FOLDER
+				"src",
+				"src/main",
+				PetalsConstants.LOC_JAVA_RES_FOLDER,
+				PetalsConstants.LOC_SRC_FOLDER,
+				PetalsConstants.LOC_RES_FOLDER,
+				PetalsConstants.LOC_BIN_FOLDER
 		};
 
 		String[] basicMavenProj = new String[] {
-					"src",
-					"src/main",
-					PetalsConstants.LOC_JAVA_RES_FOLDER,
-					PetalsConstants.LOC_RES_FOLDER
+				"src",
+				"src/main",
+				PetalsConstants.LOC_JAVA_RES_FOLDER,
+				PetalsConstants.LOC_RES_FOLDER
 		};
 
-		// 1st-level folder.
-		String[] folderNames;
-		if( createJavaProject )
-			folderNames = javaMavenProj;
-		else
-			folderNames = basicMavenProj;
-
+		String[] folderNames = isJavaProject ? javaMavenProj : basicMavenProj;
 		for( String folderName : folderNames ) {
 			IFolder folder = project.getFolder( folderName );
 			if( ! folder.exists())
@@ -213,8 +146,8 @@ public class PetalsServicesProjectUtils {
 
 		monitor.worked( 1 );
 
-		//
-		// pom.xml ?
+
+		// Create the POM
 		monitor.subTask( "Creating Maven files..." );
 		IFile pomXml = project.getFile( "pom.xml" );
 		MavenBean bean = MavenUtils.getPomParentElements();
@@ -231,6 +164,7 @@ public class PetalsServicesProjectUtils {
 			pomXml.setContents( is, true, true, monitor );
 
 		monitor.worked( 1 );
+		return project;
 	}
 
 

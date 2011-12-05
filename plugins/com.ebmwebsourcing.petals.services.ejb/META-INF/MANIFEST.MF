@@ -14,7 +14,8 @@ Require-Bundle: org.eclipse.ui,
  com.ebmwebsourcing.petals.services,
  org.eclipse.ui.forms,
  org.eclipse.jdt.core,
- com.ebmwebsourcing.petals.common.wsdlext
+ com.ebmwebsourcing.petals.common.wsdlext,
+ com.ebmwebsourcing.jbi.core.metamodel
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: com.ebmwebsourcing.petals.services.ejb.PetalsEjbPlugin
 Bundle-ActivationPolicy: lazy

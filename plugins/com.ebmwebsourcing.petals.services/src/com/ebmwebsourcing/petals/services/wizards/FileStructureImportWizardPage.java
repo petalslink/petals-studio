@@ -12,7 +12,6 @@
 package com.ebmwebsourcing.petals.services.wizards;
 
 import java.io.File;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.SortedSet;
@@ -48,7 +47,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstan
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.sa.nature.SaNature;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.jbiproperties.PetalsSPPropertiesManager;
 import com.ebmwebsourcing.petals.services.su.nature.SuNature;
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -127,6 +126,7 @@ public class FileStructureImportWizardPage extends WizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		Composite container = new Composite( parent, SWT.NONE );
@@ -170,6 +170,7 @@ public class FileStructureImportWizardPage extends WizardPage {
 		layoutData.horizontalSpan = 2;
 		projectNameText.setLayoutData( layoutData );
 		projectNameText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				FileStructureImportWizardPage.this.projectName = projectNameText.getText();
 				validate();
@@ -181,10 +182,12 @@ public class FileStructureImportWizardPage extends WizardPage {
 		final Button copyDirectoryButton = new Button( container, SWT.CHECK );
 		copyDirectoryButton.setText( "Copy the directory in the workspace as a new project" );
 		copyDirectoryButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				widgetDefaultSelected( e );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				FileStructureImportWizardPage.this.copyProject = copyDirectoryButton.getSelection();
 				validate();
@@ -194,10 +197,12 @@ public class FileStructureImportWizardPage extends WizardPage {
 		final Button addJavaNatureButton = new Button( container, SWT.CHECK );
 		addJavaNatureButton.setText( "Add the Java nature to the project" );
 		addJavaNatureButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				widgetDefaultSelected( e );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				FileStructureImportWizardPage.this.addJavaNature = addJavaNatureButton.getSelection();
 			}
@@ -225,13 +230,14 @@ public class FileStructureImportWizardPage extends WizardPage {
 		final Combo nameCombo = new Combo( subContainer, SWT.BORDER | SWT.DROP_DOWN );
 		nameCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		nameCombo.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				FileStructureImportWizardPage.this.componentName = nameCombo.getText();
 				validate();
 			}
 		});
 
-		Set<String> componentNames = RegisteredContributors.getInstance().getAllComponentNames();
+		Set<String> componentNames = ExtensionManager.INSTANCE.findAllComponentNames();
 		String[] _componentNames = new String[ componentNames.size()];
 		nameCombo.setItems( componentNames.toArray( _componentNames ));
 		nameCombo.setVisibleItemCount( componentNames.size());
@@ -240,6 +246,7 @@ public class FileStructureImportWizardPage extends WizardPage {
 		final Combo functionCombo = new Combo( subContainer, SWT.BORDER | SWT.DROP_DOWN );
 		functionCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		functionCombo.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				FileStructureImportWizardPage.this.componentFunction = functionCombo.getText();
 				validate();
@@ -250,6 +257,7 @@ public class FileStructureImportWizardPage extends WizardPage {
 		final Combo versionCombo = new Combo( subContainer, SWT.BORDER | SWT.DROP_DOWN );
 		versionCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		versionCombo.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				FileStructureImportWizardPage.this.componentVersion = versionCombo.getText();
 				validate();
@@ -266,15 +274,12 @@ public class FileStructureImportWizardPage extends WizardPage {
 			public void widgetSelected( SelectionEvent e ) {
 
 				String componentName = nameCombo.getText();
-
-				List<String> suTypes = RegisteredContributors.getInstance().getSuType( componentName );
-				String[] _suTypes = new String[ suTypes.size()];
-				functionCombo.setItems( suTypes.toArray( _suTypes ));
-				functionCombo.setVisibleItemCount( suTypes.size() > 1 ? suTypes.size() : 1 );
+				functionCombo.add( ExtensionManager.INSTANCE.findComponentAlias( componentName ));
+				functionCombo.setVisibleItemCount( 1 );
 				if( functionCombo.getItemCount() > 0 )
 					functionCombo.select( 0 );
 
-				SortedSet<String> versions = RegisteredContributors.getInstance().getComponentVersions( componentName );
+				SortedSet<String> versions = ExtensionManager.INSTANCE.findComponentVersions( componentName );
 				String[] _versions = new String[ versions.size()];
 				versionCombo.setItems( versions.toArray( _versions ));
 				versionCombo.setVisibleItemCount( versions.size() > 1 ? versions.size() : 1 );
@@ -290,10 +295,12 @@ public class FileStructureImportWizardPage extends WizardPage {
 		addOtherNatureButton.setVisible( false );
 		subContainer.setVisible( false );
 		addOtherNatureButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				widgetDefaultSelected( e );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				FileStructureImportWizardPage.this.addOtherNature = addOtherNatureButton.getSelection();
 				nameCombo.getParent().setVisible( FileStructureImportWizardPage.this.addOtherNature
@@ -304,10 +311,12 @@ public class FileStructureImportWizardPage extends WizardPage {
 		});
 
 		browseButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				widgetDefaultSelected( e );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				DirectoryDialog dlg = new DirectoryDialog( getShell());
 				dlg.setText( "Directory Selection" );

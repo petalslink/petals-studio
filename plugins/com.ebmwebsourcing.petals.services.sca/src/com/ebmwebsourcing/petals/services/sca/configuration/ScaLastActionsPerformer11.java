@@ -57,8 +57,8 @@ import com.ebmwebsourcing.petals.services.sca.configuration.beans.ScaWizardRefer
 import com.ebmwebsourcing.petals.services.sca.generated.DefaultComposite;
 import com.ebmwebsourcing.petals.services.sca.generated.DefaultServiceImpl;
 import com.ebmwebsourcing.petals.services.sca.generated.DefaultServiceInterface;
+import com.ebmwebsourcing.petals.services.su.extensions.LastActionsPerformer;
 import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.LastActionsPerformer;
 
 /**
  * The class called at the end of the wizard to perform additional processing (version 1.1 of the SCA component).

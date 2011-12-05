@@ -19,8 +19,8 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.ebmwebsourcing.petals.services.rest.generated.GenericRestWsdl;
+import com.ebmwebsourcing.petals.services.su.extensions.LastActionsPerformer;
 import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.LastActionsPerformer;
 
 /**
  * Perform actions after the project has been created.

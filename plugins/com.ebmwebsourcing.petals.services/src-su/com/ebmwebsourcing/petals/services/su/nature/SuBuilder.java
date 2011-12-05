@@ -14,6 +14,7 @@ package com.ebmwebsourcing.petals.services.su.nature;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPath;
@@ -39,12 +39,8 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
-import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -67,7 +63,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.XPathUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.extensions.ValidationRule;
 import com.ebmwebsourcing.petals.services.su.jbiproperties.PetalsSPPropertiesManager;
 import com.ebmwebsourcing.petals.services.utils.ConsumeUtils;
@@ -140,6 +137,7 @@ public class SuBuilder extends JbiXmlBuilder {
 		 * @see org.eclipse.core.resources.IResourceDeltaVisitor
 		 * #visit(org.eclipse.core.resources.IResourceDelta)
 		 */
+		@Override
 		public boolean visit( IResourceDelta delta ) throws CoreException {
 
 			// Already validated?
@@ -199,6 +197,7 @@ public class SuBuilder extends JbiXmlBuilder {
 		 * @see org.eclipse.core.resources.IResourceVisitor
 		 * #visit(org.eclipse.core.resources.IResource)
 		 */
+		@Override
 		public boolean visit( IResource resource ) {
 
 			// Check for cancellation.
@@ -271,58 +270,65 @@ public class SuBuilder extends JbiXmlBuilder {
 						&& jbi.getServices().getConsumes().size() > 0;
 
 						Properties projectProperties = PetalsSPPropertiesManager.getProperties( jbiXmlFile.getProject());
-						String suType = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_FUNCTION, "" );
 						String suTypeVersion = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_VERSION, "" );
 						String componentName = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_NAME, "" );
 
-						boolean isKnown = RegisteredContributors.getInstance().isKnownComponent( componentName, suTypeVersion );
-						if(  ! isKnown
-								&& suTypeVersion != null
-								&& suTypeVersion.toLowerCase().endsWith( "-snapshot" )) {
+						ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findComponentDescription( componentName, null );
+						if( componentDesc != null ) {
 
-							String newV = suTypeVersion.substring( 0, suTypeVersion.length() - 9 );
-							if( RegisteredContributors.getInstance().isKnownComponent( componentName, newV )) {
-								suTypeVersion = newV;
-								isKnown = true;
-							}
-						}
-
-						if( RegisteredContributors.getInstance().isKnownComponent( componentName, null )) {
-							boolean isBc = RegisteredContributors.getInstance().componentIsBc( componentName );
-							boolean worksInProvide = RegisteredContributors.getInstance().componentWorksInProvides( componentName, suTypeVersion );
-							boolean worksInConsume = RegisteredContributors.getInstance().componentWorksInConsumes( componentName, suTypeVersion );
-
-							if( jbi.getServices().isBindingComponent() != isBc ) {
+							// General properties of the component
+							if( jbi.getServices().isBindingComponent() != componentDesc.isBc()) {
 								markerBeans.add( new MarkerBean(
 										IMarker.SEVERITY_ERROR,
 										"The 'binding-component' attribute does not match the target component type. "
-												+ componentName + " is a " + (isBc ? "binding-component." : "service engine." ),
+												+ componentName + " is a " + (componentDesc.isBc() ? "binding-component." : "service engine." ),
 												jbi.getServices(),
 												jbiXmlFile ));
 							}
 
-							if( isKnown ) {
-								if( hasProvides && ! worksInProvide ) {
+							// Version properties
+							componentDesc = ExtensionManager.INSTANCE.findComponentDescription( componentName, suTypeVersion );
+							if( componentDesc == null
+									&& suTypeVersion != null
+									&& suTypeVersion.toLowerCase().endsWith( "-snapshot" )) {
+
+								String newV = suTypeVersion.substring( 0, suTypeVersion.length() - 9 );
+								componentDesc = ExtensionManager.INSTANCE.findComponentDescription( componentName, newV );
+								if( componentDesc != null )
+									suTypeVersion = newV;
+							}
+
+							if( componentDesc != null ) {
+								if( hasProvides && componentDesc.isConsume()) {
 									markerBeans.add( new MarkerBean(
 											IMarker.SEVERITY_ERROR,
-											"The target component (" + componentName + ") does not allow 'provides' sections." ,
+											"The target component (" + componentName + ") does not allow 'provides' sections.",
 											jbi.getServices(),
 											jbiXmlFile ));
 								}
 
-								if( hasConsumes && ! worksInConsume && ! "petals-se-eip".equals( componentName )) {
+								if( hasConsumes && componentDesc.isProvide()) {
 									markerBeans.add( new MarkerBean(
 											IMarker.SEVERITY_ERROR,
 											"The target component (" + componentName + ") does not allow 'consumes' sections." ,
 											jbi.getServices(),
 											jbiXmlFile ));
 								}
+
 							} else {
-								// The version is not known: do nothing
+								markerBeans.add( new MarkerBean(
+										IMarker.SEVERITY_WARNING,
+										"Validation is not possible: the component " + componentName + " " + suTypeVersion + " is not known by the tooling." ,
+										jbi.getServices(),
+										jbiXmlFile ));
 							}
 
 						} else {
-							// The component is not known: do nothing
+							markerBeans.add( new MarkerBean(
+									IMarker.SEVERITY_WARNING,
+									"Validation is not possible: the component " + componentName + " is not known by the tooling." ,
+									jbi.getServices(),
+									jbiXmlFile ));
 						}
 
 						if( MarkerBean.containsCriticalError( markerBeans ))
@@ -491,18 +497,17 @@ public class SuBuilder extends JbiXmlBuilder {
 							for( Map.Entry<Provides,URI> entry : providesToWsdlUri.entrySet()) {
 								try {
 									Provides p = entry.getKey();
-									String srvName = p.getServiceName() != null ? p.getServiceName().getLocalPart() : null;
-									String srvNs = p.getServiceName() != null ? p.getServiceName().getNamespaceURI() : null;
+									List<JbiBasicBean> beans = null;
+									try {
+										beans = WsdlUtils.INSTANCE.parse( entry.getValue());
+									} catch( InvocationTargetException e ) {
+										// nothing
+									}
 
-									String itfName = p.getServiceName() != null ? p.getInterfaceName().getLocalPart() : null;
-									String itfNs = p.getServiceName() != null ? p.getInterfaceName().getNamespaceURI() : null;
-									String edpt = p.getEndpointName();
-
-									List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( entry.getValue());
 									if( beans == null ) {
 										markerBeans.add( new MarkerBean(
 												IMarker.SEVERITY_ERROR,
-												"The WSDL associated with the service " + srvName + " is invalid.",
+												"The WSDL associated with the service " + p.getServiceName().getLocalPart() + " is invalid.",
 												EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
 												jbiXmlFile ));
 
@@ -512,7 +517,7 @@ public class SuBuilder extends JbiXmlBuilder {
 									if( beans.isEmpty()) {
 										markerBeans.add( new MarkerBean(
 												IMarker.SEVERITY_WARNING,
-												"The WSDL associated with the service " + srvName + " does not seem to contain any data. It may be invalid.",
+												"The WSDL associated with the service " + p.getServiceName().getLocalPart() + " does not seem to contain any data. It may be invalid.",
 												EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
 												jbiXmlFile ));
 
@@ -522,7 +527,7 @@ public class SuBuilder extends JbiXmlBuilder {
 									// Find interface name first
 									List<JbiBasicBean> filteredBeans = new ArrayList<JbiBasicBean> ();
 									for( JbiBasicBean bean : beans ) {
-										
+
 										if( ! bean.isPortTypeExists()) {
 											markerBeans.add( new MarkerBean(
 													IMarker.SEVERITY_ERROR,
@@ -530,17 +535,15 @@ public class SuBuilder extends JbiXmlBuilder {
 													EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
 													jbiXmlFile ));
 										}
-										
-										if( bean.getInterfaceName().equals( itfName )
-												&& bean.getInterfaceNs().equals( itfNs )) {
+
+										if( bean.getInterfaceName().equals( p.getInterfaceName()))
 											filteredBeans.add( bean );
-										}
 									}
 
 									if( filteredBeans.isEmpty()) {
 										markerBeans.add( new MarkerBean(
 												IMarker.SEVERITY_ERROR,
-												"The interface name " + itfName + " defined in the jbi.xml does not match the declared WSDL.",
+												"The interface name " + p.getInterfaceName().getLocalPart() + " defined in the jbi.xml does not match the declared WSDL.",
 												EmfUtils.getXpathExpression( p ) + "/@interface-name",
 												jbiXmlFile ));
 
@@ -550,15 +553,14 @@ public class SuBuilder extends JbiXmlBuilder {
 									// Find services then
 									beans.clear();
 									for( JbiBasicBean bean : filteredBeans ) {
-										if( bean.getServiceName().equals( srvName )
-												&& bean.getServiceNs().equals( srvNs ))
+										if( bean.getServiceName().equals( p.getServiceName()))
 											beans.add( bean );
 									}
 
 									if( beans.isEmpty()) {
 										markerBeans.add( new MarkerBean(
 												IMarker.SEVERITY_ERROR,
-												"The service " + srvName + " defined in the jbi.xml was not found in the declared WSDL.",
+												"The service " + p.getServiceName().getLocalPart() + " defined in the jbi.xml was not found in the declared WSDL.",
 												EmfUtils.getXpathExpression( p ) + "/@service-name",
 												jbiXmlFile ));
 
@@ -568,7 +570,7 @@ public class SuBuilder extends JbiXmlBuilder {
 									// Find the end-point name then
 									filteredBeans.clear();
 									for( JbiBasicBean bean : beans ) {
-										if( bean.getEndpointName().equals( edpt )) {
+										if( bean.getEndpointName().equals( p.getEndpointName())) {
 											filteredBeans.add( bean );
 										}
 									}
@@ -576,7 +578,7 @@ public class SuBuilder extends JbiXmlBuilder {
 									if( filteredBeans.isEmpty()) {
 										markerBeans.add( new MarkerBean(
 												IMarker.SEVERITY_ERROR,
-												"The end-point name " + edpt + " defined in the jbi.xml does not match the declared WSDL.",
+												"The end-point name " + p.getEndpointName() + " defined in the jbi.xml does not match the declared WSDL.",
 												EmfUtils.getXpathExpression( p ) + "/@endpoint-name",
 												jbiXmlFile ));
 
@@ -595,62 +597,63 @@ public class SuBuilder extends JbiXmlBuilder {
 						}
 
 						// Step 4: check specific parameters (as defined in extensions)
-						Set<ValidationRule> validationRules = RegisteredContributors.getInstance().getValidationRules( suType );
-						for( TreeIterator<EObject> it = jbi.eAllContents(); it.hasNext(); ) {
-
-							EObject eo = it.next();
-							if( eo.eContainmentFeature() != null ) {
-								String name = ExtendedMetaData.INSTANCE.getName( eo.eContainmentFeature());
-								String namespace = ExtendedMetaData.INSTANCE.getNamespace( eo.eContainmentFeature());
-
-								for( ValidationRule vr : validationRules ) {
-									if( vr.hasSameQName( namespace, name )) {
-
-										// Get the element value
-										String value = null;
-										EStructuralFeature esf = eo.eContainingFeature();
-
-										// Feature Map entry? => validate it
-										if( FeatureMapUtil.isFeatureMap( esf )) {
-											Object o = eo.eGet( esf );
-											if( o instanceof BasicFeatureMap ) {
-
-												// The element exists but has an empty value
-												if(((BasicFeatureMap) o).isEmpty()) {
-													value = "";
-												}
-
-												// The element exists and has a value
-												// Also, skip XML comments!
-												else {
-													int size = ((BasicFeatureMap) o).size();
-													for( int i=0; i<size; i++ ) {
-														Object entry = ((BasicFeatureMap) o).getValue( i );
-														if( entry != null
-																&& ! FeatureMapUtil.isComment(((BasicFeatureMap) o).get( i ))) {
-															value = entry.toString().trim();
-															break;
-														}
-													}
-
-													if( value == null )
-														value = "";
-												}
-											}
-
-											MarkerBean markerBean = validateExtendedRule( value, eo, vr, jbiXmlFile );
-											if( markerBean != null )
-												markerBeans.add( markerBean );
-										}
-
-										// Otherwise, log a trace to indicate we could not get the element's value
-										else {
-											PetalsServicesPlugin.log( "The EObject for {" + namespace + "}" + name + " coult not be resolved." , IStatus.WARNING );
-										}
-									}
-								}
-							}
-						}
+						// TODO
+//						Set<ValidationRule> validationRules = ExtensionManager.INSTANCE.;
+//						for( TreeIterator<EObject> it = jbi.eAllContents(); it.hasNext(); ) {
+//
+//							EObject eo = it.next();
+//							if( eo.eContainmentFeature() != null ) {
+//								String name = ExtendedMetaData.INSTANCE.getName( eo.eContainmentFeature());
+//								String namespace = ExtendedMetaData.INSTANCE.getNamespace( eo.eContainmentFeature());
+//
+//								for( ValidationRule vr : validationRules ) {
+//									if( vr.hasSameQName( namespace, name )) {
+//
+//										// Get the element value
+//										String value = null;
+//										EStructuralFeature esf = eo.eContainingFeature();
+//
+//										// Feature Map entry? => validate it
+//										if( FeatureMapUtil.isFeatureMap( esf )) {
+//											Object o = eo.eGet( esf );
+//											if( o instanceof BasicFeatureMap ) {
+//
+//												// The element exists but has an empty value
+//												if(((BasicFeatureMap) o).isEmpty()) {
+//													value = "";
+//												}
+//
+//												// The element exists and has a value
+//												// Also, skip XML comments!
+//												else {
+//													int size = ((BasicFeatureMap) o).size();
+//													for( int i=0; i<size; i++ ) {
+//														Object entry = ((BasicFeatureMap) o).getValue( i );
+//														if( entry != null
+//																&& ! FeatureMapUtil.isComment(((BasicFeatureMap) o).get( i ))) {
+//															value = entry.toString().trim();
+//															break;
+//														}
+//													}
+//
+//													if( value == null )
+//														value = "";
+//												}
+//											}
+//
+//											MarkerBean markerBean = validateExtendedRule( value, eo, vr, jbiXmlFile );
+//											if( markerBean != null )
+//												markerBeans.add( markerBean );
+//										}
+//
+//										// Otherwise, log a trace to indicate we could not get the element's value
+//										else {
+//											PetalsServicesPlugin.log( "The EObject for {" + namespace + "}" + name + " coult not be resolved." , IStatus.WARNING );
+//										}
+//									}
+//								}
+//							}
+//						}
 
 						return markerBeans;
 	}

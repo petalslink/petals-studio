@@ -1,0 +1,618 @@
+/******************************************************************************
+ * Copyright (c) 2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+
+package com.ebmwebsourcing.petals.common.internal.provisional.utils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.dialogs.ListDialog;
+import org.eclipse.ui.model.WorkbenchContentProvider;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
+
+import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.LinkWithImageComposite;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.QNameText;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
+
+/**
+ * A set of utilities to create SWT and JFace widgets.
+ * @author Vincent Zurczak - EBM WebSourcing
+ */
+public class SwtFactory {
+
+	/**
+	 * Creates a new composite.
+	 * @param container the parent
+	 * @return a new composite
+	 */
+	public static Composite createComposite( Composite container ) {
+		return new Composite( container, SWT.NONE );
+	}
+
+
+	/**
+	 * Creates a label.
+	 *
+	 * @param container the parent
+	 * @param label the label
+	 * @param tooltip the tool tip
+	 * @return the created label
+	 */
+	public static Label createLabel( Composite container, String label, String tooltip ) {
+
+		Label l = new Label( container, SWT.NONE );
+		l.setText( label );
+		l.setToolTipText( tooltip );
+
+		return l;
+	}
+
+
+	/**
+	 * Creates a simple text field.
+	 *
+	 * @param container the parent
+	 * @param useWholeSpace true to use the whole space (horizontally)
+	 * @return the created text field
+	 */
+	public static Text createSimpleTextField( Composite container, boolean useWholeSpace ) {
+
+		Text t = new Text( container, SWT.SINGLE | SWT.BORDER );
+		if( useWholeSpace )
+			t.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		return t;
+	}
+
+
+	/**
+	 * Creates a combo with the drop_down option.
+	 *
+	 * @param container the parent
+	 * @param readOnly true to make the combo read only, false if it can be edited manually
+	 * @param useWholeSpace true to use the whole space (horizontally)
+	 * @return the created combo
+	 */
+	public static Combo createDropDownCombo( Composite container, boolean readOnly, boolean useWholeSpace ) {
+
+		int style = SWT.DROP_DOWN | SWT.BORDER;
+		if( readOnly )
+			style |= SWT.READ_ONLY;
+
+		Combo c = new Combo( container, style );
+		if( useWholeSpace )
+			c.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		return c;
+	}
+
+
+	/**
+	 * Creates a hyper link.
+	 *
+	 * @param container the parent
+	 * @param text the text to show in the hyper link
+	 * @param enabled true if it should be enabled, false otherwise
+	 * @param useWholeSpace true to use the whole space (horizontally)
+	 * @return the created link
+	 * @see #createDecoredLink(Composite, String, Image, boolean)
+	 */
+	public static Link createLink( Composite container, String text, boolean enabled, boolean useWholeSpace ) {
+
+		Link link = new Link( container, SWT.NONE );
+		link.setText( text );
+		link.setEnabled( enabled );
+		if( useWholeSpace )
+			link.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		return link;
+	}
+
+
+	/**
+	 * Creates a composite which contains both a label with an image and a hyper link.
+	 *
+	 * @param parent the parent
+	 * @param text the text to show in the hyper link
+	 * @param image the image to set
+	 * @return the created link
+	 * @see #createLink(Composite, String, boolean)
+	 */
+	public static LinkWithImageComposite createDecoredLink( Composite parent, String text, Image image ) {
+
+		LinkWithImageComposite decoredLink = new LinkWithImageComposite( parent );
+		decoredLink.getLabel().setImage( image );
+		decoredLink.getLink().setText( text );
+
+		return decoredLink;
+	}
+
+
+	/**
+	 * Creates a QName text field.
+	 *
+	 * @param container the parent
+	 * @param useWholeSpace true to use the whole space (horizontally)
+	 * @return the created QName text field
+	 */
+	public static QNameText createQNameTextField( Composite container, boolean useWholeSpace ) {
+
+		QNameText t = new QNameText( container );
+		if( useWholeSpace )
+			t.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		return t;
+	}
+
+
+	/**
+	 * Creates a QName text field.
+	 *
+	 * @param container the parent
+	 * @param useWholeSpace true to use the whole space (horizontally)
+	 * @param defaultLocalPart the local part to show when there is no value
+	 * @param defaultNamespace the name space to show when there is no value
+	 * @return the created QName text field
+	 */
+	public static QNameText createQNameTextField( Composite container, boolean useWholeSpace, String defaultLocalPart, String defaultNamespace ) {
+
+		QNameText t = new QNameText( container );
+		t.setDefaultLocalPart( defaultLocalPart );
+		t.setDefaultNamespace( defaultNamespace );
+		if( useWholeSpace )
+			t.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		return t;
+	}
+
+
+	/**
+	 * Creates a push button.
+	 *
+	 * @param container the parent
+	 * @param label the label
+	 * @param tooltip the tool tip
+	 * @return the created button
+	 */
+	public static Button createPushButton( Composite container, String label, String tooltip ) {
+
+		Button b = new Button( container, SWT.PUSH );
+		b.setText( label );
+		b.setToolTipText( tooltip );
+
+		return b;
+	}
+
+
+	/**
+	 * Creates a check box button.
+	 *
+	 * @param container the parent
+	 * @param label the label
+	 * @param tooltip the tool tip
+	 * @param selected true to select the check box
+	 * @return the created button
+	 */
+	public static Button createCheckBoxButton( Composite container, String label, String tooltip, boolean selected ) {
+
+		Button b = new Button( container, SWT.CHECK );
+		b.setText( label );
+		b.setToolTipText( tooltip );
+		b.setSelection( selected );
+
+		return b;
+	}
+
+
+	/**
+	 * Creates a file browser, with a text and a button to open a file dialog.
+	 * <p>
+	 * This is a convenience method to create a file browser from a file type.<br />
+	 * <code>
+	 * createFileBrowser( parent, true, "WSDL" );
+	 * </code>
+	 * is equivalent to
+	 * <code>
+	 * createFileBrowser( parent, true, new String[]{ WSDL Files (*.wsdl)}, new String[] { "*.wsdl" });
+	 * </code>
+	 * </p>
+	 *
+	 * @param parent the parent
+	 * @param selectSeveralFiles true to select several files, false for a single one
+	 * @param fileAsUri true to write the file path as an URI, false to write the file path
+	 * @param fileType the file type (file extension = file type in lower case)
+	 * @return the created text
+	 * @see #createFileBrowser(Composite, boolean, boolean, String[], String[])
+	 */
+	public static TextWithButtonComposite createFileBrowser( Composite parent, boolean selectSeveralFiles, boolean fileAsUri, String fileType ) {
+
+		String ext = "*" + fileType.toLowerCase();
+		String[] filterNames = new String[] { fileType + " Files (" + ext + ")" };
+		return createFileBrowser( parent, selectSeveralFiles, fileAsUri, filterNames, new String[]{ ext });
+	}
+
+
+	/**
+	 * Creates a file browser, with a text and a button to open a file dialog.
+	 *
+	 * @param parent the parent
+	 * @param selectSeveralFiles true to select several files, false for a single one
+	 * @param fileAsUri true to write the file path as an URI, false to write the file path
+	 * @param filterNames the filter names
+	 * @param fileExtensions the file extensions
+	 * @return the created composite, with a text containing the file selection
+	 * @see #createFileBrowser(Composite, boolean, boolean, String)
+	 */
+	public static TextWithButtonComposite createFileBrowser(
+			final Composite parent,
+			final boolean selectSeveralFiles,
+			final boolean fileAsUri,
+			final String[] filterNames,
+			final String[] fileExtensions ) {
+
+		final TextWithButtonComposite browser = new TextWithButtonComposite( parent );
+		browser.getText().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		browser.getButton().setText( "Browse..." );
+		browser.getButton().addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				FileDialog dlg = new FileDialog( parent.getShell(), selectSeveralFiles ? SWT.MULTI : SWT.SINGLE );
+				dlg.setText( "File Selection" );
+				dlg.setFilterNames( filterNames );
+				dlg.setFilterExtensions( fileExtensions );
+
+				String path = PreferencesManager.getSavedLocation();
+				if( ! StringUtils.isEmpty( path ))
+					dlg.setFilterPath( path );
+
+				String fn = dlg.open();
+				if( fn != null ) {
+					path = dlg.getFilterPath();
+					PreferencesManager.setSavedLocation( path );
+
+					File f = new File( fn );
+					browser.getText().setText( fileAsUri ? f.toURI().toString() : f.getAbsolutePath());
+					browser.getText().setSelection( browser.getText().getText().length());
+				}
+			}
+		});
+
+		return browser;
+	}
+
+
+	/**
+	 * Creates a dialog to select a file in the given container.
+	 *
+	 * @param parent the shell
+	 * @param container the parent container (can be the work space root)
+	 * @param title the dialog's title
+	 * @param desription the dialog's description
+	 * @return a selection dialog
+	 * @see #createWorkspaceFileSelectionDialog(Shell, IContainer, String, String, String)
+	 */
+	public static ElementTreeSelectionDialog createWorkspaceFileSelectionDialog(
+			Shell parent,
+			IContainer container,
+			String title,
+			String desription ) {
+
+		ElementTreeSelectionDialog dlg = new ElementTreeSelectionDialog(
+					parent,
+					new WorkbenchLabelProvider(),
+					new WorkbenchContentProvider());
+
+		dlg.setInput( container );
+		return dlg;
+	}
+
+
+	/**
+	 * Creates a dialog to select a file with a given extension in a given container.
+	 * <p>
+	 * If you want to select any file in the container, the best solution is to
+	 * directly use {@link ElementTreeSelectionDialog} with a {@link WorkbenchContentProvider}
+	 * and a {@link WorkbenchLabelProvider}. With respect to this solution, this method
+	 * adds filtering capabilities.
+	 * </p>
+	 *
+	 * @param parent the shell
+	 * @param container the parent container (can be the work space root)
+	 * @param title the dialog's title
+	 * @param desription the dialog's description
+	 * @param fileExtension the file extension (without the dot)
+	 * @return a selection dialog
+	 * @see #createWorkspaceFileSelectionDialog(Shell, IContainer, String, String)
+	 */
+	public static ElementTreeSelectionDialog createWorkspaceFileSelectionDialog(
+			Shell parent,
+			IContainer container,
+			String title,
+			String desription,
+			final String fileExtension ) {
+
+		ElementTreeSelectionDialog dlg = new ElementTreeSelectionDialog(
+					parent,
+					new WorkbenchLabelProvider(),
+					new WorkbenchContentProvider() {
+
+						@Override
+						public Object[] getChildren( Object element ) {
+
+							Object[] result = super.getChildren( element );
+							if( result == null )
+								result = new Object[ 0 ];
+
+							List<Object> filteredResult = new ArrayList<Object>();
+							for( Object o : result ) {
+								if( o instanceof IFile
+											&& fileExtension.equalsIgnoreCase(((IFile) o).getFileExtension()))
+									filteredResult.add( o );
+
+								else if( o instanceof IContainer
+											&& ! ResourceUtils.getFiles( fileExtension, Arrays.asList((IContainer) o)).isEmpty())
+									filteredResult.add( o );
+							}
+
+							return filteredResult.toArray();
+						}
+					});
+
+		dlg.setInput( container );
+		return dlg;
+	}
+
+
+	/**
+	 * Creates a list dialog with a workbench label provider and an array content provider.
+	 * @param shell the parent shell
+	 * @param title the title
+	 * @param message the message
+	 * @return the created list dialog
+	 */
+	public static ListDialog createListDialog( Shell shell, String title, String message ) {
+
+		ListDialog dlg = new ListDialog( shell );
+		dlg.setAddCancelButton( true );
+		dlg.setContentProvider( new ArrayContentProvider());
+		dlg.setLabelProvider( new WorkbenchLabelProvider());
+		dlg.setTitle( title );
+		dlg.setMessage( message );
+
+		return dlg;
+	}
+
+
+	/**
+	 * Creates grid layout.
+	 *
+	 * @param columns the number of columns
+	 * @param sameWidth true to have make the columns have the same width
+	 * @return a new grid layout
+	 * @see GridLayout#GridLayout(int, boolean)
+	 */
+	public static GridLayout createGridLayout( int columns, boolean sameWidth ) {
+		return new GridLayout( columns, sameWidth );
+	}
+
+
+	/**
+	 * Creates grid layout with predefined margins.
+	 * <p>
+	 * Note that width and height margins are both set to 0.
+	 * </p>
+	 *
+	 * @param columns the number of columns
+	 * @param sameWidth true to have make the columns have the same width
+	 * @param mTop the top margin
+	 * @param mRight the right margin
+	 * @param mBottom the bottom margin
+	 * @param mLeft the left margin
+	 * @return a new grid layout
+	 * @see GridLayout#GridLayout(int, boolean)
+	 */
+	public static GridLayout createGridLayout( int columns, boolean sameWidth, int mTop, int mRight, int mBottom, int mLeft ) {
+
+		GridLayout layout = new GridLayout( columns, sameWidth );
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
+		layout.marginBottom = mBottom;
+		layout.marginLeft = mLeft;
+		layout.marginTop = mTop;
+		layout.marginRight = mRight;
+
+		return layout;
+	}
+
+
+	/**
+	 * Creates and applies a grid layout to a specific composite.
+	 *
+	 * @param composite the composite
+	 * @param columns the number of columns
+	 * @param sameWidth true to have make the columns have the same width
+	 * @param mTop the top margin
+	 * @param mRight the right margin
+	 * @param mBottom the bottom margin
+	 * @param mLeft the left margin
+	 *
+	 * @return the updated composite
+	 * @see #createGridLayout(int, boolean, int, int, int, int)
+	 */
+	public static Composite applyNewGridLayout( Composite composite, int columns, boolean sameWidth ) {
+		composite.setLayout( createGridLayout( columns, sameWidth ));
+		return composite;
+	}
+
+
+	/**
+	 * Creates and applies a grid layout to a specific composite.
+	 *
+	 * @param composite the composite
+	 * @param columns the number of columns
+	 * @param sameWidth true to have make the columns have the same width
+	 * @return the updated composite
+	 * @see GridLayout#GridLayout(int, boolean)
+	 */
+	public static Composite applyNewGridLayout( Composite composite, int columns, boolean sameWidth, int mTop, int mRight, int mBottom, int mLeft ) {
+		composite.setLayout( createGridLayout( columns, sameWidth, mTop, mRight, mBottom, mLeft ));
+		return composite;
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 * <p>
+	 * The control fills the space horizontally.
+	 * </p>
+	 * @param control the control to update
+	 */
+	public static void applyHorizontalGridData( Control control ) {
+		control.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 * <p>
+	 * The control fills the space horizontally.
+	 * </p>
+	 * @param control the control to update
+	 * @param hSpan the horizontal span
+	 */
+	public static void applyHorizontalGridData( Control control, int hSpan ) {
+
+		GridData layoutData = new GridData( GridData.FILL_HORIZONTAL );
+		layoutData.horizontalSpan = hSpan;
+		control.setLayoutData( layoutData );
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 * <p>
+	 * The control fills the space horizontally.
+	 * </p>
+	 * @param control the control to update
+	 * @param hSpan the horizontal span
+	 * @param vIndent the vertical indent
+	 */
+	public static void applyHorizontalGridData( Control control, int hSpan, int vIndent ) {
+
+		GridData layoutData = new GridData( GridData.FILL_HORIZONTAL );
+		layoutData.horizontalSpan = hSpan;
+		layoutData.verticalIndent = vIndent;
+		control.setLayoutData( layoutData );
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 * <p>
+	 * The control fills the space horizontally.
+	 * </p>
+	 * @param control the control to update
+	 * @param hSpan the horizontal span
+	 * @param vIndent the vertical indent
+	 */
+	public static void applyGridData( Control control, int hSpan, int vIndent ) {
+
+		GridData layoutData = new GridData();
+		layoutData.horizontalSpan = hSpan;
+		layoutData.verticalIndent = vIndent;
+		control.setLayoutData( layoutData );
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 * <p>
+	 * The control fills the space horizontally and vertically.
+	 * </p>
+	 * @param control the control to update
+	 */
+	public static void applyGrabbingGridData( Control control ) {
+		control.setLayoutData( new GridData( GridData.FILL_BOTH ));
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 * <p>
+	 * The control fills the space horizontally.
+	 * </p>
+	 * @param control the control to update
+	 * @param hSpan the horizontal span
+	 */
+	public static void applyGrabbingGridData( Control control, int hSpan ) {
+
+		GridData layoutData = new GridData( GridData.FILL_BOTH );
+		layoutData.horizontalSpan = hSpan;
+		control.setLayoutData( layoutData );
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 * <p>
+	 * The control fills the space horizontally.
+	 * </p>
+	 * @param control the control to update
+	 * @param hSpan the horizontal span
+	 * @param vIndent the vertical indent
+	 */
+	public static void applyGrabbingGridData( Control control, int hSpan, int vIndent ) {
+
+		GridData layoutData = new GridData( GridData.FILL_BOTH );
+		layoutData.horizontalSpan = hSpan;
+		layoutData.verticalIndent = vIndent;
+		control.setLayoutData( layoutData );
+	}
+
+
+	/**
+	 * Creates and applies a grid data to a specific control.
+	 *
+	 * @param control the control to update
+	 * @param hAlign the horizontal alignment
+	 * @param vAlign the vertical alignment
+	 * @param grabHSpace true to grab extra horizontal space
+	 * @param grabVSpace true to grab extra vertical space
+	 * @see GridData#GridData(int, int, boolean, boolean)
+	 */
+	public static void applyNewGridData( Control control, int hAlign, int vAlign, boolean grabHSpace, boolean grabVSpace ) {
+		control.setLayoutData( new GridData( hAlign, vAlign, grabHSpace, grabVSpace ));
+	}
+}

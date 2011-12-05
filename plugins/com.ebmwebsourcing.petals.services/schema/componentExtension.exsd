@@ -59,16 +59,6 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="componentDescription" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java"/>
-               </appinfo>
-            </annotation>
-         </attribute>
       </complexType>
    </element>
 
@@ -95,13 +85,13 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="wizardExtension" type="string">
+         <attribute name="wizardExtension" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler:"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -122,6 +112,16 @@
                </documentation>
                <appinfo>
                   <meta.attribute kind="java"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="componentVersionDescription" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription:"/>
                </appinfo>
             </annotation>
          </attribute>

@@ -15,17 +15,16 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-            SuType="Validation"
-            ContributorDescription="com.ebmwebsourcing.petals.services.validation.ValidationContributorDescription">
-            <Version
-                  CustomComponentPage="com.ebmwebsourcing.petals.services.validation.wizard.ValidationProvideSpecificPage"
-                  LastActionsPerformer="com.ebmwebsourcing.petals.services.validation.wizard.ValidationLastActionsPerformer11"
-                  ProvideConfiguration="com.ebmwebsourcing.petals.services.validation.wizard.ValidationWizardConfiguration11"
-                  SuVersion="1.1">
-            </Version>
-      </WizardData>
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="validation">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.validation.ValidationDescription11"
+               id="Validation 1.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.validation.ValidationWizard11">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 
 </plugin>

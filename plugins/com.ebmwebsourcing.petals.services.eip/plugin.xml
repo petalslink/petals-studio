@@ -14,39 +14,7 @@
 -->
 
 <plugin>
-	<extension point="com.ebmwebsourcing.petals.services.contentExtension">
-		<WizardData
-        	SuType="EIP"
-        	ContributorDescription="com.ebmwebsourcing.petals.services.eip.EipContributorDescription">
-   <Version
-         CustomComponentPage="com.ebmwebsourcing.petals.services.eip.EipSpecificPage"
-         LastActionsPerformer="com.ebmwebsourcing.petals.services.eip.EipLastPerformer2x"
-         SuVersion="2.4">
-      <WizardPage
-            WizardPageClass="com.ebmwebsourcing.petals.services.eip.EipConsumesPage"
-            WizardPageMode="Provide"
-            WizardPagePosition="beforeCdkPage">
-      </WizardPage>
-   </Version>
-   <Version
-         CustomComponentPage="com.ebmwebsourcing.petals.services.eip.EipSpecificPage"
-         LastActionsPerformer="com.ebmwebsourcing.petals.services.eip.EipLastPerformer2x"
-         SuVersion="2.5">
-      <WizardPage
-            WizardPageClass="com.ebmwebsourcing.petals.services.eip.EipConsumesPage"
-            WizardPageMode="Provide"
-            WizardPagePosition="beforeCdkPage">
-      </WizardPage>
-   </Version>
-		</WizardData>
-	</extension>
- <extension
-       point="org.eclipse.help.toc">
-    <toc
-          file="doc/toceip.xml"
-          primary="false">
-    </toc>
- </extension>
+
  <extension
        point="org.eclipse.ui.editors">
     <editor

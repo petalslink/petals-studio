@@ -42,6 +42,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -222,6 +223,7 @@ implements IStyledLabelProvider {
 	 * @see org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 	 * #getStyledText(java.lang.Object)
 	 */
+	@Override
 	public StyledString getStyledText( Object element ) {
 
 		StyledString styledString;
@@ -300,7 +302,7 @@ implements IStyledLabelProvider {
 		if( StringUtils.isEmpty( edptName ))
 			edptName = "?";
 
-		String suType = bean.getComponentFunction();
+		String suType = ExtensionManager.INSTANCE.findComponentAlias( bean.getComponentName());
 		if( StringUtils.isEmpty( suType ))
 			suType = "?";
 
@@ -329,15 +331,11 @@ implements IStyledLabelProvider {
 	protected StyledString getStyledText( JbiBasicBean bean ) {
 
 		StyledString styledString = new StyledString( "" );
-		String srvName = null;
-		if( bean.getServiceName() != null )
-			srvName = bean.getServiceName();
+		String srvName = bean.getServiceName() == null ? null : bean.getServiceName().getLocalPart();;
 		if( srvName == null || srvName.trim().length() == 0 )
 			srvName = "?";
 
-		String itfName = null;
-		if( bean.getInterfaceName() != null )
-			itfName = bean.getInterfaceName();
+		String itfName = bean.getInterfaceName() == null ? null : bean.getInterfaceName().getLocalPart();
 		if( itfName == null || itfName.trim().length() == 0 )
 			itfName = "?";
 
