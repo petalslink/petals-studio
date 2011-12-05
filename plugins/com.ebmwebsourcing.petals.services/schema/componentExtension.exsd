@@ -59,6 +59,26 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="label" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="componentDescription" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java"/>
+               </appinfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
@@ -78,20 +98,13 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="cdkNamespace" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="wizardExtension" type="string" use="required">
+         <attribute name="wizardExtension" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler:"/>
+                  <meta.attribute kind="java"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -115,17 +128,7 @@
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="componentVersionDescription" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription:"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-          <attribute name="serviceInitializer" type="string" use="required">
+         <attribute name="serviceInitializer" type="string" use="required">
             <annotation>
                <documentation>
                   Class that is in charge of initializing the minimal set of attributes for this component. The attributes that are set are then be used to guess the component in the editor
@@ -137,17 +140,10 @@
          </attribute>
       </complexType>
    </element>
-   
-    <element name="category">
-      <complexType>
-         <attribute name="id" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
+
+
+
+
+
 
 </schema>

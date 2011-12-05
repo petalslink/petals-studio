@@ -15,8 +15,8 @@
 
 <plugin>
 
-   <extension-point id="cdkSupport" name="Support for a CDK" schema="schema/cdkSupport.exsd"/>
    <extension-point id="componentExtension" name="Extension to support component" schema="schema/componentExtension.exsd"/>
+   <extension-point id="jbiExtensionPackage" name="To register EPackages that are extensions to JBI" schema="schema/jbiExtensionPackage.exsd"/>
 
    <extension
          point="org.eclipse.ui.views">
@@ -280,6 +280,28 @@
             project="true">
          <description>
             Create a Service Unit project to define a new Petals service
+         </description>
+      </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards"
+            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewProvidesWizard"
+            icon="icons/obj16/service_unit.png"
+            id="com.ebmwebsourcing.petals.services.su.provides"
+            name="%newProvidesSU"
+            project="true">
+         <description>
+            Create a Service Unit project compatible with the Petals Maven plug-in
+         </description>
+      </wizard>
+      <wizard
+            category="com.ebmwebsourcing.petals.common.wizards"
+            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewConsumesWizard"
+            icon="icons/obj16/service_unit.png"
+            id="com.ebmwebsourcing.petals.services.su.consumes"
+            name="%newConsumesSU"
+            project="true">
+         <description>
+            Create a Service Unit project compatible with the Petals Maven plug-in
          </description>
       </wizard>
    </extension>
@@ -780,8 +802,8 @@
             class="com.ebmwebsourcing.petals.services.sa.projectscnf.SaProjectCategory">
       </Category>
    </extension>
-     
-   <extension
+   
+    <extension
          point="org.eclipse.ui.editors">
       <editor
             class="com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor"
@@ -795,17 +817,6 @@
                contentTypeId="com.ebmwebsourcing.petals.common.jbiContentType">
          </contentTypeBinding>
       </editor>
-   </extension>
-   <extension
-         point="com.ebmwebsourcing.petals.services.componentExtension">
-      <ComponentSupport
-            id="Generic">
-         <ComponentVersionSupport
-               cdkNamespace="&quot;we-do-not-care-for-this-component&quot;"
-               componentVersionDescription="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentDescription"
-               wizardExtension="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentWizardHandler">
-         </ComponentVersionSupport>
-      </ComponentSupport>
    </extension>
 
 </plugin>
