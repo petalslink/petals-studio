@@ -14,41 +14,19 @@
 -->
 
 <plugin>
-	<extension point="com.ebmwebsourcing.petals.services.contentExtension">
-		<WizardData
-        	SuType="File Transfer"
-        	ContributorDescription="com.ebmwebsourcing.petals.services.filetransfer.FileTransferContributorDescription">
-   <Version
-         ConsumeConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferWizardConfigurationConsume24"
-         CustomComponentPage="com.ebmwebsourcing.petals.services.filetransfer.v24.FTComponentPage"
-         LastActionsPerformer="com.ebmwebsourcing.petals.services.filetransfer.v24.FiletransferLastActionsPerformer24"
-         ProvideConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferWizardConfigurationProvide24"
-         SuVersion="2.4">
-   </Version>
-   <!-- Version
-         ConsumeConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferWizardConfigurationConsume30"
-         LastActionsPerformer="com.ebmwebsourcing.petals.services.filetransfer.v30.FiletransferLastActionsPerformer30"
-         ProvideConfiguration="com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferWizardConfigurationProvide30"
-         SuVersion="3.0">
-   </Version -->
-		</WizardData>
-	</extension>
 	
 <extension
       point="com.ebmwebsourcing.petals.services.componentExtension">
    <ComponentSupport
          componentDescription="TODO"
-         id="petals-bc-filetransfer"
-         label="%fileTransfer"
-         supportConsumes="true"
-         supportProvides="true">
-      <category
-            id="communication">
-      </category>
+         id="file transfer">
       <ComponentVersionSupport
+            cdkNamespace="http://petals.ow2.org/components/extensions/version-5"
+            componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription24"
             editorExtension="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferContributionSupport"
-            id="version-2"
+            id="File Transfer 2.4"
             namespace="http://petals.ow2.org/components/filetransfer/version-2"
+            wizardExtension="com.ebmwebsourcing.petals.services.filetransfer.FileTransferWizard24"
             serviceInitializer="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferInitializer">
       </ComponentVersionSupport>
    </ComponentSupport>
