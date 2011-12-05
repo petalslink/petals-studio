@@ -1,7 +1,12 @@
 package com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
@@ -16,8 +21,8 @@ import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 public class SupportsUtil {
 	
 	// KEYS
-	private static final String CDK_SUPPORT_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".cdkSupport";
 	private static final String COMPONENT_SUPPORT_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".componentExtension";
+	private static final String JBI_EXTENSION_PACKAGE_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".jbiExtensionPackage";
 	
 	// Singleton
 	private static SupportsUtil INSTANCE;
@@ -30,87 +35,47 @@ public class SupportsUtil {
 	}
 	
 	// logic
-	
-	private Map<String, SupportExtensionDesc> cdkSupportExtensions;
-	private SupportExtensionDesc defaultCDKSupport;
-	private Map<String, ComponentSupportExtensionDesc> componentSupportExtensions;
+	private Map<String, ComponentVersionSupportExtensionDesc> namespaceToVersionSupport;
+	private Set<ComponentSupportExtensionDesc> components;
+	private Collection<String> extensionPackagesNS;
 	
 	private SupportsUtil() {
-		loadCDKSupports();
+		namespaceToVersionSupport = new HashMap<String, ComponentVersionSupportExtensionDesc>();
+		extensionPackagesNS = new ArrayList<String>();
+		loadExtensionPackages();
+		components = new HashSet<ComponentSupportExtensionDesc>();
 		loadComponentSupports();
 	}
 
-	private void loadCDKSupports() {
-		cdkSupportExtensions = new HashMap<String, SupportExtensionDesc>();
-		for (IConfigurationElement elt : Platform.getExtensionRegistry().getConfigurationElementsFor(CDK_SUPPORT_EXTENSION_POINT)) {
-			SupportExtensionDesc ext = new SupportExtensionDesc(elt);
-			String namespace = ext.getNamespace();
-			if (cdkSupportExtensions.containsKey(namespace)) {
-				PetalsServicesPlugin.log("Several CDKSupport extensions for NS: " + namespace, IStatus.WARNING);
-			}
-			cdkSupportExtensions.put(namespace, ext);
-			if (defaultCDKSupport == null) {
-				defaultCDKSupport = ext;
-			}
+	
+	private void loadExtensionPackages() {
+		for (IConfigurationElement elt : Platform.getExtensionRegistry().getConfigurationElementsFor(JBI_EXTENSION_PACKAGE_EXTENSION_POINT)) {
+			String packageURI = elt.getAttribute("ePackageURI");
+			extensionPackagesNS.add(packageURI);
 		}
 	}
-	
+
+
 	private void loadComponentSupports() {
-		componentSupportExtensions = new HashMap<String, ComponentSupportExtensionDesc>();
 		for (IConfigurationElement elt : Platform.getExtensionRegistry().getConfigurationElementsFor(COMPONENT_SUPPORT_EXTENSION_POINT)) {
-			for (IConfigurationElement child : elt.getChildren("ComponentVersionSupport")) {
-				ComponentSupportExtensionDesc ext = new ComponentSupportExtensionDesc(child);
+			ComponentSupportExtensionDesc componentSupportExtension = new ComponentSupportExtensionDesc(elt);
+			components.add(componentSupportExtension);
+			for (ComponentVersionSupportExtensionDesc ext : componentSupportExtension.getVersionSupports()) {
 				String namespace = ext.getNamespace();
-				if (componentSupportExtensions.containsKey(namespace)) {
+				if (namespaceToVersionSupport.containsKey(namespace)) {
 					PetalsServicesPlugin.log("Several ComponentSupports extensions for NS: " + namespace, IStatus.WARNING);
 				}
-				componentSupportExtensions.put(namespace, ext);
+				namespaceToVersionSupport.put(namespace, ext);
 			}
 		}
 	}
 
-//	
-//	public ContributionSupport getCDKSupportFor(AbstractExtensibleElement element) {
-//		ContributionSupport res = null;
-//		SupportExtensionDesc cdkSupportDesc = null;
-//		for (FeatureMap.Entry entry : element.getGroup()) {
-//			EStructuralFeature feature = entry.getEStructuralFeature();
-//			if (feature instanceof Holder) {
-//				SupportExtensionDesc ext = cdkSupportExtensions.get(((Holder)feature).getExtendedMetaData().getNamespace());
-//				if (ext != null) {
-//					cdkSupportDesc = ext;
-//				}	
-//			}
-//		}
-//		if (cdkSupportDesc != null) {
-//			res = cdkSupportDesc.createNewExtensionSupport();
-//		}
-//		if (res == null) {
-//			res = getComponentSupportFor(element).createNewExtensionSupport();
-//		}
-//		res.setElement(element);
-//		return res;
-//	}
-	
-//	public EditorContributionSupport getComponentSupportFor(AbstractExtensibleElement element) {
-//		EditorContributionSupport res = null;
-//		ComponentSupportExtensionDesc componentExtensionDesc = getComponentExtensionDesc(element);
-//		
-//		if (componentExtensionDesc != null) {
-//			res = componentExtensionDesc.createNewExtensionSupport();
-//		}
-//		if (res != null) {
-//			res.setElement(element);
-//		}
-//		return res;
-//	}
-
-	public ComponentSupportExtensionDesc getComponentExtensionDesc(AbstractExtensibleElement element) {
-		ComponentSupportExtensionDesc componentExtensionDesc = null;
+	public ComponentVersionSupportExtensionDesc getComponentExtensionDesc(AbstractExtensibleElement element) {
+		ComponentVersionSupportExtensionDesc componentExtensionDesc = null;
 		for (FeatureMap.Entry entry : element.getGroup()) {
 			EStructuralFeature feature = entry.getEStructuralFeature();
 			if (feature instanceof Holder) {
-				ComponentSupportExtensionDesc ext = componentSupportExtensions.get(((Holder)feature).getExtendedMetaData().getNamespace());
+				ComponentVersionSupportExtensionDesc ext = namespaceToVersionSupport.get(((Holder)feature).getExtendedMetaData().getNamespace());
 				if (ext != null) {
 					componentExtensionDesc = ext;
 				}
@@ -118,13 +83,34 @@ public class SupportsUtil {
 		}
 		return componentExtensionDesc;
 	}
+	
+	public Collection<ComponentSupportExtensionDesc> getComponents() {
+		return this.components;
+	}
 
-	public SupportExtensionDesc getCDKSupport(String cdkSupportNamespace) {
-		SupportExtensionDesc res = componentSupportExtensions.get(cdkSupportNamespace);
-		if (res != null) {
-			return res;
-		} else {
-			return defaultCDKSupport;
+
+	public Collection<ComponentSupportExtensionDesc> getAllConsumes() {
+		List<ComponentSupportExtensionDesc> res = new ArrayList<ComponentSupportExtensionDesc>();
+		for (ComponentSupportExtensionDesc comp : components) {
+			if (comp.supportsConsumes()) {
+				res.add(comp);
+			}
 		}
+		return res;
+	}
+	
+	public Collection<ComponentSupportExtensionDesc> getAllProvides() {
+		List<ComponentSupportExtensionDesc> res = new ArrayList<ComponentSupportExtensionDesc>();
+		for (ComponentSupportExtensionDesc comp : components) {
+			if (comp.supportsProvides()) {
+				res.add(comp);
+			}
+		}
+		return res;
+	}
+
+
+	public Collection<String> getJBIExtensionEPackage() {
+		return extensionPackagesNS;
 	}
 }

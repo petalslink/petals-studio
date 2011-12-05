@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -62,7 +63,6 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.jbi.editor.sa.SaPersonality;
 import com.ebmwebsourcing.petals.services.jbi.editor.su.SuPersonality;
 import com.sun.java.xml.ns.jbi.DocumentRoot;
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -83,12 +83,13 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 
 	private final Set<ISelectionChangedListener> selectionListeners = new HashSet<ISelectionChangedListener> ();
 
-	protected final Map<String,AbstractServicesFormPage> pages = new HashMap<String,AbstractServicesFormPage> ();
+	protected final Map<String,AbstractJBIFormPage> pages = new HashMap<String,AbstractJBIFormPage> ();
 	protected IFile editedFile;
 
 	private ResourceSet resourceSet;
 	private TransactionalEditingDomain editDomain;
 	protected Collection<Resource> savedResources = new ArrayList<Resource>();
+	private DataBindingContext dbc;
 	
 	private ISelection selection;
 
@@ -97,6 +98,7 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	 */
 	public JbiFormEditor() {
 		super();
+		dbc = new DataBindingContext();
 	}
 
 
@@ -108,7 +110,7 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 		if( this.personality == null && this.editedFile != null ) {
 			IJbiEditorPersonality[] personalities = new IJbiEditorPersonality[] {
 						new SuPersonality(),
-						new SaPersonality()
+						//new SaPersonality()
 			};
 
 			for( IJbiEditorPersonality pers : personalities ) {
@@ -137,7 +139,7 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 
 			// Add the "General" page
 			if( pers != null ) {
-				AbstractServicesFormPage page = pers.getGeneralMasterPage( this );
+				AbstractJBIFormPage page = pers.getGeneralMasterPage( this );
 				addPage( page );
 				this.pages.put( page.getId(), page );
 			}
@@ -228,14 +230,12 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	 * Updates the editor UI.
 	 */
 	protected void updateEditor() {
-
-		for( AbstractServicesFormPage page : this.pages.values()) {
-			page.setModel(model);
-			page.setEditDomain(editDomain);
+		// Nothing at the moment
+		/*for( AbstractJBIFormPage page : this.pages.values()) {
 			if( page.getPartControl() != null && ! page.getPartControl().isDisposed()) {
 				page.updatePage();
 			}
-		}
+		}*/
 	}
 
 
@@ -445,8 +445,9 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 
 		ILabelProvider result = null;
 		IJbiEditorPersonality pers = getPersonality();
-		if( pers != null )
+		if( pers != null ) {
 			result = pers.getStatusLineLabelProvider();
+		}
 
 		return result;
 	}
@@ -484,6 +485,9 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	 * #partClosed(org.eclipse.ui.IWorkbenchPartReference)
 	 */
 	public void partClosed( IWorkbenchPartReference partRef ) {
+		if (dbc != null) {
+			dbc.dispose();
+		}
 		if (editDomain != null) {
 			editDomain.dispose();
 		}
@@ -573,5 +577,13 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	@Override
 	public EditingDomain getEditingDomain() {
 		return editDomain;
+	}
+	
+	public Jbi getJbiModel() {
+		return this.model;
+	}
+	
+	public DataBindingContext getDataBindingContext() {
+		return this.dbc;
 	}
 }

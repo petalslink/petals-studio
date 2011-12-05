@@ -1602,7 +1602,7 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 		  (jbiEClass, 
 		   source, 
 		   new String[] {
-			 "name", "Jbi",
+			 "name", "jbi",
 			 "kind", "elementOnly"
 		   });		
 		addAnnotation

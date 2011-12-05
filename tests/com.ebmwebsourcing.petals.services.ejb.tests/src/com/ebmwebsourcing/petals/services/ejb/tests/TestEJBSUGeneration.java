@@ -36,10 +36,10 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 	protected File jeeFile;
 
 	public void initFiles() throws Exception {
-		URL url = TestEJBSUGeneration.class.getResource("addorder.jar");
+		URL url = TestEJBSUGeneration.class.getResource("/addorder.jar");
 		url = FileLocator.toFileURL(url);
 		this.businessFile = new File(url.getFile());
-		url = TestEJBSUGeneration.class.getResource("easybeans-all-1.0.2.jar");
+		url = TestEJBSUGeneration.class.getResource("/easybeans-all-1.0.2.jar");
 		url = FileLocator.toFileURL(url);
 		this.jeeFile = new File(url.getFile());
 	}
@@ -82,7 +82,6 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 		this.bot.text(1).setText("jndiFactory");
 		this.bot.text(3).setText("jndiUrl");
 		this.bot.comboBox().setSelection(0);
-		this.bot.button("Next >").click();
 		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
 		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
 		this.bot.button("Finish").click();

@@ -25,7 +25,7 @@ public interface IJbiEditorPersonality {
 	 * @param editor the JBI editor
 	 * @return the "General" page of the editor
 	 */
-	public AbstractServicesFormPage getGeneralMasterPage( JbiFormEditor editor );
+	public AbstractJBIFormPage getGeneralMasterPage( JbiFormEditor editor );
 
 
 	/**
