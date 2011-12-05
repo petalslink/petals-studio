@@ -39,6 +39,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Export-Package: com.ebmwebsourcing.petals.services;x-internal:=true,
+ com.ebmwebsourcing.petals.services.editor,
  com.ebmwebsourcing.petals.services.explorer.model;x-internal:=true,
  com.ebmwebsourcing.petals.services.jbi.editor,
  com.ebmwebsourcing.petals.services.jbi.editor.common.databinding,
