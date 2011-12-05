@@ -5,6 +5,7 @@ Bundle-SymbolicName: com.ebmwebsourcing.petals.services;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.ebmwebsourcing.petals.services.PetalsServicesPlugin
 Bundle-Vendor: EBM WebSourcing
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
