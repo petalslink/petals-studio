@@ -49,6 +49,14 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+
+		// Initialize feature Ids
+//		for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
+//			for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
+//				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(version.getNamespace());
+//				new InitializeModelExtensionCommand(extensionPackage, null).initializeFeatures();
+//			}
+//		}
 	}
 
 

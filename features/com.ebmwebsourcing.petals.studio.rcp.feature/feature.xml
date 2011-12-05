@@ -440,12 +440,6 @@ Petals Link is a registered trademark of EBM WebSourcing
          unpack="false"/>
 
    <plugin
-         id="org.junit"
-         download-size="0"
-         install-size="0"
-         version="3.8.2"/>
-
-   <plugin
          id="org.eclipse.jdt"
          download-size="0"
          install-size="0"
@@ -530,6 +524,21 @@ Petals Link is a registered trademark of EBM WebSourcing
 
    <plugin
          id="org.eclipse.wst.standard.schemas"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+	<!--  PETALSSTUD-214 : Add these bundles in order to workaround Eclipse bug 361629 -->
+   <plugin
+         id="org.eclipse.core.runtime.compatibility.registry"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="org.eclipse.core.runtime.compatibility"
          download-size="0"
          install-size="0"
          version="0.0.0"

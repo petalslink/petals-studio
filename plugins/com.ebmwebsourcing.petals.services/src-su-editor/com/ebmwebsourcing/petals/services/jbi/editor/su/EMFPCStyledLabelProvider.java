@@ -49,15 +49,15 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class EMFPCStyledLabelProvider
-extends LabelProvider
-implements IStyledLabelProvider {
+public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLabelProvider {
 
 	private final Color consumesKeyWordForegroundColor;
 	private final Color providesKeyWordForegroundColor;
 	private final Color forbiddenForegroundColor;
+	private final Color categoryColor;
 	private final Font propertiesFont;
-	private final Styler providesKeyWordsStyle, consumesKeyWordsStyle, propertiesStyle, forbiddenStyle;
+	private final Font categoryFont;
+	private final Styler providesKeyWordsStyle, consumesKeyWordsStyle, propertiesStyle, forbiddenStyle, categoryStyle;
 
 	private Map<EObject,List<IMarker>> elementToMarkers;
 	private final ImageRegistry imageRegistry;
@@ -91,9 +91,11 @@ implements IStyledLabelProvider {
 		// Stylers
 		FontData[] originalData = control.getFont().getFontData();
 		this.propertiesFont = new Font( control.getDisplay(), PlatformUtils.getModifiedFontData( originalData, SWT.NORMAL ));
+		this.categoryFont = new Font( control.getDisplay(), PlatformUtils.getModifiedFontData( originalData, SWT.BOLD ));
 		this.consumesKeyWordForegroundColor = new Color( Display.getCurrent(), 228, 100, 37 );
 		this.providesKeyWordForegroundColor = new Color( Display.getCurrent(), 120, 49, 135 );
 		this.forbiddenForegroundColor = new Color( Display.getCurrent(), 120, 120, 120 );
+		this.categoryColor = new Color(Display.getCurrent(), 153, 50, 204);
 
 		this.consumesKeyWordsStyle = new Styler() {
 			@Override
@@ -124,6 +126,14 @@ implements IStyledLabelProvider {
 				textStyle.strikeoutColor = EMFPCStyledLabelProvider.this.forbiddenForegroundColor;
 			}
 		};
+		
+		this.categoryStyle = new Styler() {
+			@Override
+			public void applyStyles(TextStyle textStyle) {
+				textStyle.foreground = categoryColor;
+				textStyle.font = categoryFont;
+			}
+		};
 
 		// Images
 		this.imageRegistry = new ImageRegistry();
@@ -151,6 +161,13 @@ implements IStyledLabelProvider {
 
 		if( this.propertiesFont != null )
 			this.propertiesFont.dispose();
+		
+		if (this.categoryColor != null) {
+			this.categoryColor.dispose();
+		}
+		if (this.categoryFont != null) {
+			this.categoryFont.dispose();
+		}
 
 		this.imageRegistry.dispose();
 		super.dispose();
@@ -197,9 +214,9 @@ implements IStyledLabelProvider {
 
 			ImageDescriptor imageDesc = null;
 			if (endpoint instanceof Consumes) {
-				imageDesc = this.consumesDesc;
+				imageDesc = consumesDesc;
 			} else if (endpoint instanceof Provides) {
-				imageDesc = this.providesDesc;
+				imageDesc = providesDesc;
 			}
 			if( level == IStatus.ERROR )
 				image = this.imageRegistry.getErrorImage(imageDesc);
@@ -223,16 +240,14 @@ implements IStyledLabelProvider {
 	 * @see org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 	 * #getStyledText(java.lang.Object)
 	 */
-	@Override
 	public StyledString getStyledText( Object element ) {
-
 		StyledString styledString;
 		if (element instanceof AbstractEndpoint) {
 			styledString = getStyledText((AbstractEndpoint)element);
 		} else if (element instanceof Element)
 			styledString = getStyledText((Element) element);
 		else if( element instanceof JbiBasicBean )
-			styledString = getStyledText(element);
+			styledString = getStyledText((JbiBasicBean) element);
 		else
 			styledString = new StyledString( "" );
 
@@ -303,49 +318,37 @@ implements IStyledLabelProvider {
 		return styledString;
 	}
 
-//
-//	/**
-//	 * Gets the styled string from an {@link EndpointBean} instance.
-//	 * @param bean
-//	 * @return
-//	 */
-//	protected StyledString getStyledText( EndpointBean bean ) {
-//
-//		StyledString styledString = new StyledString( "" );
-//		String srvName = null;
-//		if( bean.getServiceName() != null )
-//			srvName = bean.getServiceName().getLocalPart();
-//		if( StringUtils.isEmpty( srvName ))
-//			srvName = "?";
-//
-//		String itfName = null;
-//		if( bean.getInterfaceName() != null )
-//			itfName = bean.getInterfaceName().getLocalPart();
-//		if( StringUtils.isEmpty( itfName ))
-//			itfName = "?";
-//
-//		String edptName = bean.getEndpointName();
-//		if( StringUtils.isEmpty( edptName ))
-//			edptName = "?";
-//
-//		String suType = bean.getComponentFunction();
-//		if( StringUtils.isEmpty( suType ))
-//			suType = "?";
-//
-//		if( bean.getOperationNameToMep().isEmpty()
-//				|| bean.supportsMep( this.filteringMep )) {
-//			styledString.append( srvName, this.propertiesStyle );
-//			styledString.append( " implements ", this.providesKeyWordsStyle );
-//			styledString.append( itfName, this.propertiesStyle );
-//			styledString.append( " @ ", this.providesKeyWordsStyle );
-//			styledString.append( edptName, this.propertiesStyle );
-//		}
-//		else {
-//			styledString.append( srvName + " implements " + itfName + " @ " + edptName, this.forbiddenStyle );
-//		}
-//
-//		styledString.append( " [ " + suType + " ]", this.providesKeyWordsStyle );
-//		return styledString;
-//	}
 
+	/**
+	 * Gets the styled string from a {@link JbiBasicBean} instance.
+	 * @param bean
+	 * @return
+	 */
+	protected StyledString getStyledText( JbiBasicBean bean ) {
+
+		StyledString styledString = new StyledString( "" );
+		String srvName = null;
+		if( bean.getServiceName() != null )
+			srvName = bean.getServiceName();
+		if( srvName == null || srvName.trim().length() == 0 )
+			srvName = "?";
+
+		String itfName = null;
+		if( bean.getInterfaceName() != null )
+			itfName = bean.getInterfaceName();
+		if( itfName == null || itfName.trim().length() == 0 )
+			itfName = "?";
+
+		String edptName = bean.getEndpointName();
+		if( edptName == null || edptName.trim().length() == 0 )
+			edptName = "?";
+
+		styledString.append( srvName.length() > 0 ? srvName : "?", this.propertiesStyle );
+		styledString.append( " implements ", this.providesKeyWordsStyle );
+		styledString.append( itfName.length() > 0 ? itfName : "?", this.propertiesStyle );
+		styledString.append( " @ ", this.providesKeyWordsStyle );
+		styledString.append( edptName.length() > 0 ? edptName : "?", this.propertiesStyle );
+
+		return styledString;
+	}
 }
