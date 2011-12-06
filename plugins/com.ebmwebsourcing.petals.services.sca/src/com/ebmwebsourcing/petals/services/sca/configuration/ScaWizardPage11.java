@@ -40,7 +40,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormText;
 
-import com.ebmwebsourcing.petals.services.su.wizards.SettingConstants;
+import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 
@@ -133,7 +133,7 @@ public class ScaWizardPage11 extends AbstractSuPage {
 
 
 		// Update the project page
-		getWizard().getDialogSettings().put( SettingConstants.SRV_NAME_VALUE, this.compositeName );
+		getWizard().getDialogSettings().put( SuWizardSettings.SRV_NAME_VALUE, this.compositeName );
 
 		updateStatus( null );
 		return true;

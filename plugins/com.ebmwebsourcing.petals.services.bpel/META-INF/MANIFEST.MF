@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  com.ebmwebsourcing.petals.services,
  org.eclipse.ui.ide,
  com.ebmwebsourcing.petals.common,
- org.jdom;bundle-version="1.1.0"
+ org.jdom;bundle-version="1.1.0",
+ com.ebmwebsourcing.jbi.core.metamodel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/activation-1.1.jar,

@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
@@ -29,8 +29,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
-import com.ebmwebsourcing.petals.services.su.wizards.SettingConstants;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 import com.ebmwebsourcing.petals.services.utils.ConsumeUtils;
 import com.ebmwebsourcing.petals.services.utils.PCStyledLabelProvider;
 
@@ -51,7 +49,7 @@ public class SeveralConsumeWizardPage extends AbstractSuPage {
 	 * @param suTypeVersion the version of the SU type (of its component)
 	 */
 	public SeveralConsumeWizardPage( String pageName, String suType, String suTypeVersion ) {
-		super( pageName, suType, suTypeVersion );
+		super();
 	}
 
 
@@ -72,26 +70,6 @@ public class SeveralConsumeWizardPage extends AbstractSuPage {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #fillInData(com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean)
-	 */
-	@Override
-	public void fillInData( EclipseSuBean suBean ) {
-		// nothing
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #setHelpContextId(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
-	protected void setHelpContextId( Composite container ) {
-		// nothing
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
 	 * #validate()
 	 */
 	@Override
@@ -102,13 +80,6 @@ public class SeveralConsumeWizardPage extends AbstractSuPage {
 			return false;
 		}
 
-		if( this.edptBeans.size() == 1 )
-			getDialogSettings().put(
-						SettingConstants.SRV_NAME_VALUE,
-						this.edptBeans.iterator().next().getServiceName().getLocalPart());
-		else
-			getDialogSettings().put( SettingConstants.SRV_NAME_VALUE, "" );
-
 		updateStatus( null );
 		return true;
 	}
@@ -118,6 +89,7 @@ public class SeveralConsumeWizardPage extends AbstractSuPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		// First page of the wizard: force the size
@@ -128,9 +100,6 @@ public class SeveralConsumeWizardPage extends AbstractSuPage {
 
 		/* create the composite container and define its layout */
 		final Composite container = new Composite( parent, SWT.NONE );
-
-		// Set help link for documentation page.
-		setHelpContextId( container );
 
 		GridLayout layout = new GridLayout();
 		layout.marginLeft = 15;
@@ -168,10 +137,12 @@ public class SeveralConsumeWizardPage extends AbstractSuPage {
 		addButton.setToolTipText( "Displays the end-points from the Petals Services view" );
 		addButton.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		addButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				widgetDefaultSelected( e );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 
 				EndpointBean bean = ConsumeUtils.selectEndpointToConsume( container );
@@ -188,10 +159,12 @@ public class SeveralConsumeWizardPage extends AbstractSuPage {
 		removeButton.setText( "&Remove" );
 		removeButton.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		removeButton.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				widgetDefaultSelected( e );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 
 				if( SeveralConsumeWizardPage.this.viewer.getSelection().isEmpty())

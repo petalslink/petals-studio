@@ -14,15 +14,16 @@
 -->
 
 <plugin>
-	<extension point="com.ebmwebsourcing.petals.services.contentExtension">
-		<WizardData
-       		 SuType="SQL"
-       		 ContributorDescription="com.ebmwebsourcing.petals.services.sql.SqlContributorDescription">
-		<Version
-         ProvideConfiguration="com.ebmwebsourcing.petals.services.sql.SqlWizardConfiguration10"
-         LastActionsPerformer="com.ebmwebsourcing.petals.services.sql.SqlLastActionsPerformer"
-         SuVersion="1.x">
-			</Version>
- 		</WizardData>
-	</extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="sql">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription11"
+               id="SQL 1.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.sql.SqlWizard11">
+         </ComponentVersionSupport>
+      </ComponentSupport>
+   </extension>
 </plugin>

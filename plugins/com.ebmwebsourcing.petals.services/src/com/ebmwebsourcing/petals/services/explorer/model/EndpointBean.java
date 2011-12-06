@@ -14,7 +14,6 @@ package com.ebmwebsourcing.petals.services.explorer.model;
 
 import java.io.File;
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
@@ -23,7 +22,7 @@ import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties.IServiceCardId;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.utils.ConsumeUtils;
 
 /**
@@ -42,6 +41,7 @@ public class EndpointBean implements IServiceCardId {
 	 * @see com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties.IServiceCardId
 	 * #getInterfaceName()
 	 */
+	@Override
 	public QName getInterfaceName() {
 		return this.interfaceName;
 	}
@@ -58,6 +58,7 @@ public class EndpointBean implements IServiceCardId {
 	 * @see com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties.IServiceCardId
 	 * #getServiceName()
 	 */
+	@Override
 	public QName getServiceName() {
 		return this.serviceName;
 	}
@@ -74,6 +75,7 @@ public class EndpointBean implements IServiceCardId {
 	 * @see com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties.IServiceCardId
 	 * #getEndpointName()
 	 */
+	@Override
 	public String getEndpointName() {
 		return this.endpointName;
 	}
@@ -108,29 +110,12 @@ public class EndpointBean implements IServiceCardId {
 		return su != null ? su.getComponentName() : "";
 	}
 
-	/**
-	 * @return the component function (SU type)
-	 */
-	public String getComponentFunction() {
-
-		List<String> suTypes = RegisteredContributors.getInstance().getSuType( getComponentName());
-		String result;
-		if( suTypes.size() == 0 )
-			result = "?";
-		else
-			result = suTypes.get( 0 );
-
-		if( "rest".equalsIgnoreCase( result ))
-			result = "SOAP";
-
-		return result;
-	}
-
 	/*
 	 * (non-Jsdoc)
 	 * @see com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties.IServiceCardId
 	 * #getWsdlLocation()
 	 */
+	@Override
 	public String getWsdlLocation() {
 		return this.wsdlLocation;
 	}
@@ -272,7 +257,8 @@ public class EndpointBean implements IServiceCardId {
 						this.serviceName.getLocalPart(),
 						this.serviceName.getNamespaceURI(),
 						this.endpointName,
-						this.getComponentName());
+						this.getComponentName(),
+						null );
 		}
 
 		return this.operationNameToMep;
@@ -294,7 +280,8 @@ public class EndpointBean implements IServiceCardId {
 	 * @see com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties.IServiceCardId
 	 * #getImplementationType()
 	 */
+	@Override
 	public String getImplementationType() {
-		return getComponentFunction();
+		return ExtensionManager.INSTANCE.findComponentAlias( getComponentName());
 	}
 }

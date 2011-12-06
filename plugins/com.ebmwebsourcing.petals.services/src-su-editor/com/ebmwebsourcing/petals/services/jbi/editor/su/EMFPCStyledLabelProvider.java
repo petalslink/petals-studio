@@ -126,12 +126,12 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 				textStyle.strikeoutColor = EMFPCStyledLabelProvider.this.forbiddenForegroundColor;
 			}
 		};
-		
+
 		this.categoryStyle = new Styler() {
 			@Override
 			public void applyStyles(TextStyle textStyle) {
-				textStyle.foreground = categoryColor;
-				textStyle.font = categoryFont;
+				textStyle.foreground = EMFPCStyledLabelProvider.this.categoryColor;
+				textStyle.font = EMFPCStyledLabelProvider.this.categoryFont;
 			}
 		};
 
@@ -161,7 +161,7 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 
 		if( this.propertiesFont != null )
 			this.propertiesFont.dispose();
-		
+
 		if (this.categoryColor != null) {
 			this.categoryColor.dispose();
 		}
@@ -214,9 +214,9 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 
 			ImageDescriptor imageDesc = null;
 			if (endpoint instanceof Consumes) {
-				imageDesc = consumesDesc;
+				imageDesc = this.consumesDesc;
 			} else if (endpoint instanceof Provides) {
-				imageDesc = providesDesc;
+				imageDesc = this.providesDesc;
 			}
 			if( level == IStatus.ERROR )
 				image = this.imageRegistry.getErrorImage(imageDesc);
@@ -240,6 +240,7 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 	 * @see org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 	 * #getStyledText(java.lang.Object)
 	 */
+	@Override
 	public StyledString getStyledText( Object element ) {
 		StyledString styledString;
 		if (element instanceof AbstractEndpoint) {
@@ -329,13 +330,13 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 		StyledString styledString = new StyledString( "" );
 		String srvName = null;
 		if( bean.getServiceName() != null )
-			srvName = bean.getServiceName();
+			srvName = bean.getServiceName().getLocalPart();
 		if( srvName == null || srvName.trim().length() == 0 )
 			srvName = "?";
 
 		String itfName = null;
 		if( bean.getInterfaceName() != null )
-			itfName = bean.getInterfaceName();
+			itfName = bean.getInterfaceName().getLocalPart();
 		if( itfName == null || itfName.trim().length() == 0 )
 			itfName = "?";
 

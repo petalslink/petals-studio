@@ -150,8 +150,7 @@ public class WsdlParsingJobManager {
 			List<JbiBasicBean> _beans = null;
 			try {
 				_beans = WsdlUtils.INSTANCE.parse( WsdlParsingJobManager.this.wsdlUri );
-
-			} catch( IllegalArgumentException e ) {
+			} catch( Exception e ) {
 				// nothing
 			}
 

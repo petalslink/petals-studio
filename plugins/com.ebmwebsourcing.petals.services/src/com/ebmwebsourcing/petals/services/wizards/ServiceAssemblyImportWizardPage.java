@@ -16,7 +16,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,7 +35,7 @@ import org.eclipse.swt.widgets.Label;
 
 import com.ebmwebsourcing.petals.services.explorer.model.ServiceUnitBean;
 import com.ebmwebsourcing.petals.services.explorer.sources.SaDirectorySource;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.wizards.beans.SaImportBean;
 import com.ebmwebsourcing.petals.services.wizards.beans.SuImportBean;
 
@@ -124,16 +123,8 @@ public class ServiceAssemblyImportWizardPage extends AbstractPetalsServiceCreati
 					suBean.setJbiXmlLocation( sub.getJbiXmlLocation());
 
 					// Resolve a version to propose and the SU type
-					List<String> suTypes = RegisteredContributors.getInstance().getSuType( sub.getComponentName());
-					StringBuilder sb = new StringBuilder();
-					for( Iterator<String> it = suTypes.iterator(); it.hasNext(); ) {
-						sb.append( it.next());
-						if( it.hasNext())
-							sb.append( " | " );
-					}
-
-					suBean.setSuType( sb.toString());
-					Set<String> knownVersions = RegisteredContributors.getInstance().getComponentVersions( sub.getComponentName());
+					suBean.setSuType( ExtensionManager.INSTANCE.findComponentAlias( sub.getComponentName()));
+					Set<String> knownVersions = ExtensionManager.INSTANCE.findComponentVersions( sub.getComponentName());
 					List<String> displayOrder = new ArrayList<String> ( knownVersions );
 					Collections.reverse( displayOrder );
 

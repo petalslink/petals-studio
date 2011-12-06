@@ -15,16 +15,16 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-            SuType="SOAP"
-            ContributorDescription="com.ebmwebsourcing.petals.services.soap.SoapContributorDescription">
-         <Version
-               ConsumeConfiguration="com.ebmwebsourcing.petals.services.soap.SoapConfigurationConsumes40"
-               ProvideConfiguration="com.ebmwebsourcing.petals.services.soap.SoapConfigurationProvides40"
-               SuVersion="4.0">
-         </Version>
-      </WizardData>
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="soap">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.soap.SoapDescription40"
+               id="SOAP 4.0"
+               wizardExtension="com.ebmwebsourcing.petals.services.soap.SoapWizard40">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 
 </plugin>

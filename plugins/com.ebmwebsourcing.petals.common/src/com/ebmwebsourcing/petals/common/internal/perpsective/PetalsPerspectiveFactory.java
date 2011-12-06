@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.perpsective;
@@ -66,7 +66,8 @@ public class PetalsPerspectiveFactory implements IPerspectiveFactory {
 
 		// Add wizard shortcuts
 		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.sa.project" );
-		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.su.project" );
+		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.service-provider.project" );
+		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.service-consumer.project" );
 		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.common.croquisWizard" );
 		layout.addNewWizardShortcut( "org.eclipse.ui.wizards.new.folder" );
 		layout.addNewWizardShortcut( "org.eclipse.ui.wizards.new.file" );

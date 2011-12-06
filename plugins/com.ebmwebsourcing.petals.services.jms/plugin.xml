@@ -15,11 +15,16 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-      		SuType="JMS"
-            ContributorDescription="com.ebmwebsourcing.petals.services.jms.JmsContributorDescription">
-      </WizardData>
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="jms">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.jms.JmsDescription31"
+               id="JMS 3.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.jms.JmsWizard31">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 
 </plugin>

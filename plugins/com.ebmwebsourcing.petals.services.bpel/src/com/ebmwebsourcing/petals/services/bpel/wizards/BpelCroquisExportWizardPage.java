@@ -48,8 +48,9 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.progress.IProgressService;
 
 import com.ebmwebsourcing.petals.common.generation.JbiUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.NameUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.bpel.PetalsBpelPlugin;
@@ -176,11 +177,10 @@ public class BpelCroquisExportWizardPage extends AbstractPetalsServiceCreationWi
 			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 
-				ElementTreeSelectionDialog dlg = ResourceUtils.createWorkspaceFileSelectionDialog(
-							button.getShell(), ResourcesPlugin.getWorkspace().getRoot(), "bpel" );
+				ElementTreeSelectionDialog dlg = SwtFactory.createWorkspaceFileSelectionDialog(
+						getShell(), ResourcesPlugin.getWorkspace().getRoot(),
+						"BPEL Selection", "Select a BPEL file located in the workspace.", "bpel" );
 
-				dlg.setTitle( "BPEL Selection" );
-				dlg.setMessage( "Select a BPEL file located in the workspace." );
 				if( BpelCroquisExportWizardPage.this.selectedBpel != null )
 					dlg.setInitialElementSelections( Arrays.asList( BpelCroquisExportWizardPage.this.selectedBpel ));
 
@@ -264,11 +264,11 @@ public class BpelCroquisExportWizardPage extends AbstractPetalsServiceCreationWi
 
 								String name;
 								if( bpelDefinitionUris.contains( import_ )) {
-									name = JbiUtils.createSuName( "SOAP", jbiBean.getServiceName(), true );
+									name = NameUtils.createSuName( "SOAP", jbiBean.getServiceName().getLocalPart(), true );
 									suBean.setConsume( true );
 								}
 								else
-									name = JbiUtils.createSuName( "SOAP", jbiBean.getServiceName(), false );
+									name = NameUtils.createSuName( "SOAP", jbiBean.getServiceName().getLocalPart(), false );
 
 								suBean.setProjectName( name );
 								IProject p = iwr.getProject( name );

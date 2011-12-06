@@ -15,16 +15,22 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-            SuType="Quartz"
-            ContributorDescription="com.ebmwebsourcing.petals.services.quartz.QuartzContributorDescription">
-         <Version
-               ConsumeConfiguration="com.ebmwebsourcing.petals.services.quartz.QuartzWizardConfigurationConsume"
-               CustomComponentPage="com.ebmwebsourcing.petals.services.quartz.QuartzComponentSpecificPage11"
-               SuVersion="1.1">
-         </Version>
-      </WizardData>
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="quartz">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription10"
+               id="Quartz 1.0"
+               wizardExtension="com.ebmwebsourcing.petals.services.quartz.QuartzWizard10">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription11"
+               id="Quartz 1.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.quartz.QuartzWizard11">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 
 </plugin>

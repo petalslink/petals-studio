@@ -13,116 +13,51 @@
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
 import java.io.File;
-import java.net.URI;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.IWorkingSet;
+import org.eclipse.ui.dialogs.WorkingSetGroup;
 
-import com.ebmwebsourcing.commons.jbi.internal.provisional.utils.JbiNameFormatter;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.NameUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.su.Messages;
-import com.ebmwebsourcing.petals.services.su.extensions.WizardConfiguration;
-import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.SettingConstants;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
-import com.ebmwebsourcing.petals.services.su.wizards.legacy.xsd.XsdNamespaceStore;
+import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class ProjectPage extends AbstractSuPage {
 
-	/**
-	 * The suffix to provide for the SU name creation.
-	 * {@link SpecificUtils#createSuName(String, String, String)}
-	 */
-	protected boolean isConsume = false;
+	public static final String PAGE_NAME = "ProjectPage";
 
-	/** */
-	protected String projectName, folderLocation = "";
-
-	/** */
-	protected URI projectLocationURI;
-
-	/** */
-	protected boolean isAtDefaultLocation = true;
-
-	/** */
-	protected Text projectNameText, projectLocationText;
-
-	/** */
-	protected Button useDefaultLocButton;
+	private WorkingSetGroup workingSetGroup;
+	private String projectName, projectContainer;
+	private Text projectNameText, projectLocationText;
 
 
 	/**
-	 * @param suType
-	 * @param suTypeVersion
-	 * @param isConsume
+	 * Constructor.
 	 */
-	public ProjectPage( String suType, String suTypeVersion, boolean isConsume ) {
-		super( "ProjectPage", suType, suTypeVersion );
-		this.isConsume = isConsume;
-		setDescription( "Define the project name and location." );
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #fillInData(com.ebmwebsourcing.petals.tools.eclipse.su.main.wizards.generation.EclipseSuBean)
-	 */
-	@Override
-	public void fillInData( EclipseSuBean suBean ) {
-
-		suBean.setProjectName( this.projectName );
-		if( this.isAtDefaultLocation )
-			suBean.setProjectLocation( null );
-		else
-			suBean.setProjectLocation( this.projectLocationURI );
-
-		suBean.setComponentVersion( this.suTypeVersion );
-		WizardConfiguration wizardConfiguration =
-			((PetalsSuNewWizard) getWizard()).getWizardConfiguration();
-
-		XsdNamespaceStore.getNamespaceStore().addAll( wizardConfiguration.getAdditionalNamespaces ());
-		suBean.specificElements.addAll( wizardConfiguration.getAdditionalSpecificElements ());
-		suBean.cdkElements.addAll( wizardConfiguration.getAdditionalCdkElements ());
-
-		boolean createJavaProject = getWizard().getDialogSettings().getBoolean(
-					SettingConstants.CREATE_JAVA_PROJECT );
-		suBean.setCreateJavaProject( createJavaProject );
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #setHelpContextId(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
-	protected void setHelpContextId( Composite container ) {
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(
-					container,
-					PetalsServicesPlugin.PLUGIN_ID + ".TODO" ); //$NON-NLS-1$
+	public ProjectPage() {
+		super( PAGE_NAME );
+		setDescription( "Define the project properties." );
 	}
 
 
@@ -134,86 +69,61 @@ public class ProjectPage extends AbstractSuPage {
 	@Override
 	public boolean validate() {
 
-		setMessage( null );
+		// Project name
+		if( StringUtils.isEmpty( this.projectName )) {
+			updateStatus( "The project name cannot be empty." );
+			return false;
+		}
+
+		// Name syntax
 		String warningMsg = null;
 
-		// Remove white spaces ("File Transfer")
-		String newSuType = this.suType.replaceAll( "\\s", "" );
-
-		// Project
-		if( this.isConsume ) {
+		// Remove white spaces ("File Transfer") - cause of problems with systems
+		String newSuType = getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" ).trim();
+		if( ! isProvides()) {
 			String regex = "su-" + newSuType + "-" + "[a-zA-Z_]+[.\\w\\-]*" + "-consume.*";
-			if( ! this.projectNameText.getText().matches( regex ))
+			if( ! this.projectName.matches( regex ))
 				warningMsg = "The project name does not respect the convention su-" + newSuType + "-...-consume.";
-		}
-		else {
+
+		} else {
 			String regex = "su-" + newSuType + "-" + "[a-zA-Z_]+[.\\w\\-]*" + "-provide.*";
-			if( ! this.projectNameText.getText().matches( regex ))
+			if( ! this.projectName.matches( regex ))
 				warningMsg = "The project name does not respect the convention su-" + newSuType + "-...-provide.";
 		}
 
+
+		// Name already used?
 		for( IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
 			if( project.getName().equalsIgnoreCase( this.projectNameText.getText())) {
 				updateStatus( NLS.bind( Messages.ConsumeJbiPage_12, this.projectNameText.getText()));
 				return false;
 			}
 		}
-		this.projectName = this.projectNameText.getText();
 
 
 		// Project location
-		this.projectLocationURI = null;
-		File projectFile = new File(
-					this.projectLocationText.getText(),
-					this.projectNameText.getText());
-
-		if( ! this.isAtDefaultLocation ) {
-
-			if( this.projectLocationText.getText().trim().length() == 0 ) {
-				updateStatus( "You have to specify the project location." );
-				return false;
-			}
-
-			try {
-				this.projectLocationURI = projectFile.toURI();
-
-			} catch( Exception e ) {
-				updateStatus( "The specified location is not a valid file location." );
-				return false;
-			}
-
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject( this.projectName );
-			IStatus status = ResourcesPlugin.getWorkspace().validateProjectLocationURI( project, this.projectLocationURI );
+		File targetfile = computeProjectLocation();
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject( this.projectName );
+		if( ! isAtDefaultlocation()) {
+			IStatus status = ResourcesPlugin.getWorkspace().validateProjectLocationURI( project, targetfile.toURI());
 			if( status.getCode() != IStatus.OK ) {
 				updateStatus( status.getMessage());
 				return false;
 			}
 		}
 
-		if( projectFile.exists()) {
-			if( projectFile.isDirectory())
+		if( targetfile.exists()) {
+			if( targetfile.isDirectory())
 				warningMsg = "This project will override an existing directory.";
 			else
 				warningMsg = "This project will override an existing file.";
 		}
 
+
+		// Display warning or clear the messages
 		setMessage( warningMsg, IMessageProvider.WARNING );
 		updateStatus( null );
 		return true;
-	}
-
-
-	/**
-	 * Adds widgets in the page, located above the project parts.
-	 * <p>
-	 * This method does nothing by default.
-	 * </p>
-	 *
-	 * @param container the container
-	 * @return the margin to set between these controls and the controls below
-	 */
-	protected int addControlsBeforeProject( Composite container ) {
-		return 0;
 	}
 
 
@@ -222,103 +132,88 @@ public class ProjectPage extends AbstractSuPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		// Create the composite container and define its layout
-		final Composite container = new Composite( parent, SWT.NONE );
+		final Composite container = SwtFactory.createComposite( parent );
+		setControl( container );
+		SwtFactory.applyNewGridLayout( container, 1, false, 15, 15, 0, 15 );
+		SwtFactory.applyHorizontalGridData( container );
 
-		GridLayout layout = new GridLayout( 2, false );
-		layout.marginLeft = layout.marginRight = 15;
-		layout.marginTop = 15;
-		container.setLayout( layout );
-		container.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-
-		// Add previous widgets
-		int marginTop = addControlsBeforeProject( container );
 
 		// Project name
-		Label projectNameLabel = new Label( container, SWT.NONE );
-		projectNameLabel.setText( "Project name:" );
-		projectNameLabel.setToolTipText( "Petals project names should respect naming conventions." );
-		GridData layoutData = new GridData();
-		layoutData.verticalIndent = marginTop;
-		projectNameLabel.setLayoutData( layoutData );
+		Composite locContainer = SwtFactory.createComposite( container );
+		SwtFactory.applyNewGridLayout( locContainer, 2, false, 0, 0, 5, 0 );
+		SwtFactory.applyHorizontalGridData( locContainer );
 
-		this.projectNameText = new Text( container, SWT.SINGLE | SWT.BORDER );
-		layoutData = new GridData( GridData.FILL_HORIZONTAL );
-		layoutData.verticalIndent = marginTop;
-		this.projectNameText.setLayoutData( layoutData );
-		this.projectNameText.addModifyListener(new ModifyListener() {
+		SwtFactory.createLabel( locContainer, "Project name:", "Petals project names should respect naming conventions." );
+		this.projectNameText = SwtFactory.createSimpleTextField( locContainer, true );
+		this.projectNameText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
+				ProjectPage.this.projectName = ProjectPage.this.projectNameText.getText();
 				updateProjectLocation();
+				validate();
 			}
 		});
 
 
 		// Location
-		this.useDefaultLocButton = new Button( container, SWT.CHECK );
-		this.useDefaultLocButton.setText( "Use default location" );
-		layoutData = new GridData ();
-		layoutData.horizontalSpan = 2;
-		layoutData.verticalIndent = 10;
-		this.useDefaultLocButton.setLayoutData( layoutData );
+		final Button useDefaultLocButton = SwtFactory.createCheckBoxButton( container, "Use default location", null, true );
+		SwtFactory.applyGridData( useDefaultLocButton, 2, 10 );
 
-		Composite locContainer = new Composite( container, SWT.NONE );
-		layout = new GridLayout( 3, false );
-		layout.marginHeight = layout.marginWidth = 0;
-		locContainer.setLayout( layout );
-		layoutData = new GridData( GridData.FILL_HORIZONTAL );
-		layoutData.horizontalSpan = 2;
-		locContainer.setLayoutData( layoutData );
+		locContainer = SwtFactory.createComposite( container );
+		SwtFactory.applyNewGridLayout( locContainer, 3, false, 0, 0, 11, 0 );
+		SwtFactory.applyHorizontalGridData( locContainer, 2 );
 
-		final Label locLabel = new Label( locContainer, SWT.NONE );
-		locLabel.setText( "Location:" );
-
-		this.projectLocationText = new Text( locContainer, SWT.SINGLE | SWT.BORDER );
-		this.projectLocationText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.projectLocationText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
+		final Label locLabel = SwtFactory.createLabel( locContainer, "Location:", null );
+		this.projectLocationText = SwtFactory.createSimpleTextField( locContainer, true );
+		this.projectLocationText.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				ProjectPage.this.projectName = ProjectPage.this.projectNameText.getText();
 				validate();
 			}
 		});
 
-		final Button browseButton = new Button( locContainer, SWT.PUSH );
-		browseButton.setText( "Browse..." );
+		final Button browseButton = SwtFactory.createPushButton( locContainer, "Browse...", null );
 		browseButton.addSelectionListener( new SelectionAdapter () {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				String s = new DirectoryDialog( getShell()).open();
 				if( s != null ) {
-					ProjectPage.this.folderLocation = s;
+					ProjectPage.this.projectContainer = s;
 					updateProjectLocation();
 				}
 			}
 		});
 
-		this.useDefaultLocButton.setSelection( this.isAtDefaultLocation );
-		this.useDefaultLocButton.addSelectionListener( new SelectionAdapter () {
+		// Working sets
+		this.workingSetGroup = new WorkingSetGroup(
+				container, new StructuredSelection(),
+				new String[] { "org.eclipse.ui.resourceWorkingSetPage" });
+
+
+		// Other listeners
+		useDefaultLocButton.addSelectionListener( new SelectionAdapter () {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
-				ProjectPage.this.isAtDefaultLocation = ProjectPage.this.useDefaultLocButton.getSelection();
-				boolean use = !ProjectPage.this.isAtDefaultLocation;
+				boolean enabled = ! useDefaultLocButton.getSelection();
+				if( ! enabled )
+					ProjectPage.this.projectContainer = null;
 
-				locLabel.setEnabled( use );
-				ProjectPage.this.projectLocationText.setEnabled( use );
-				browseButton.setEnabled( use );
+				locLabel.setEnabled( enabled );
+				ProjectPage.this.projectLocationText.setEnabled( enabled );
+				browseButton.setEnabled( enabled );
 				updateProjectLocation();
-				ProjectPage.this.projectLocationText.setFocus();
 			}
 		});
 
 
-		//
-		this.useDefaultLocButton.notifyListeners( SWT.Selection, new Event());
-		reloadDataFromConfiguration();
-
-		setHelpContextId( container );
-		setControl( container );
-		this.projectNameText.setFocus();
+		// Complete the page
+		useDefaultLocButton.notifyListeners( SWT.Selection, new Event());
 	}
 
 
@@ -326,64 +221,91 @@ public class ProjectPage extends AbstractSuPage {
 	 * Updates the project location, using the project name and the target folder.
 	 */
 	private void updateProjectLocation() {
-
-		if( this.isAtDefaultLocation ) {
-			IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
-			this.projectLocationText.setText( path.toString());
-		}
-		else {
-			File parent = new File( this.folderLocation );
-			String path = "";
-			if( this.folderLocation.trim().length() > 0 && parent.exists())
-				path = new File( parent, this.projectNameText.getText()).getAbsolutePath();
-			this.projectLocationText.setText( path );
-		}
-
-		this.projectLocationText.setSelection( this.projectLocationText.getText().length());
+		String s = computeProjectLocation().getAbsolutePath();
+		this.projectLocationText.setText( s );
+		this.projectLocationText.setSelection( s.length());
 	}
 
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #reloadDataFromConfiguration()
+	 * @see org.eclipse.jface.dialogs.DialogPage
+	 * #setVisible(boolean)
 	 */
 	@Override
-	public void reloadDataFromConfiguration() {
+	public void setVisible( boolean visible ) {
 
-		if( this.projectNameText == null )
-			return;
+		// Update the UI
+		if( visible ) {
 
-		// Update the project name from the "service-name"
-		boolean defaultServiceName = false;
-		String serviceName = getWizard().getDialogSettings().get( SettingConstants.SRV_NAME_VALUE );
+			// Update the project name from the "service-name"
+			boolean defaultServiceName = false;
+			AbstractEndpoint ae = getFirstProvideOrConsume();
+			String serviceName = ae.getServiceName() != null ? ae.getServiceName().getLocalPart() : null;
 
-		// If there is no service name, use a default one
-		if( StringUtils.isEmpty( serviceName )) {
-			serviceName = getWizard().getDialogSettings().get( SettingConstants.ITF_NAME_VALUE );
+			// If there is no service name, use a default one
 			if( StringUtils.isEmpty( serviceName )) {
-				serviceName = "YourServiceName";
-				defaultServiceName = true;
+				serviceName = ae.getInterfaceName() != null ? ae.getInterfaceName().getLocalPart() : null;
+				if( StringUtils.isEmpty( serviceName )) {
+					serviceName = "YourServiceName";
+					defaultServiceName = true;
+				}
+			}
+
+			// Create a SU name
+			String newSuType = getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" );
+			String formattedName = NameUtils.createSuName( newSuType, serviceName, ! isProvides());
+
+			this.projectNameText.setText( formattedName );
+			if( defaultServiceName ) {
+				int start = 4 + newSuType.length();
+				this.projectNameText.setSelection( start, start + serviceName.length());
+
+			} else {
+				this.projectNameText.setSelection( this.projectNameText.getText().length());
+			}
+
+			String error = getErrorMessage();
+			if( error != null ) {
+				setErrorMessage( null );
+				setMessage( error, IMessageProvider.INFORMATION );
 			}
 		}
 
-		// Create a SU name
-		String newSuType = this.suType.replaceAll( "\\s", "" );
-		String formattedName = JbiNameFormatter.createSuName( newSuType, serviceName, this.isConsume );
+		// Super
+		super.setVisible( visible );
+	}
 
-		this.projectNameText.setText( formattedName );
-		if( defaultServiceName ) {
-			int start = 4 + newSuType.length();
-			this.projectNameText.setSelection( start, start + serviceName.length());
 
-		} else {
-			this.projectNameText.setSelection( this.projectNameText.getText().length());
-		}
+	/**
+	 * @return the selected working sets
+	 */
+	public IWorkingSet[] getSelectedWorkingSets() {
+		return this.workingSetGroup == null ? new IWorkingSet[ 0 ] : this.workingSetGroup.getSelectedWorkingSets();
+	}
 
-		String error = getErrorMessage();
-		if( error != null ) {
-			setErrorMessage( null );
-			setMessage( error, IMessageProvider.INFORMATION );
-		}
+
+	/**
+	 * @return the projectName
+	 */
+	public String getProjectName() {
+		return this.projectName;
+	}
+
+
+	/**
+	 * @return the projectLocationURI
+	 */
+	public File computeProjectLocation() {
+		Object parent = this.projectContainer == null ? ResourcesPlugin.getWorkspace().getRoot().getLocation() : this.projectContainer;
+		return StringUtils.isEmpty( this.projectName ) ? new File( parent.toString()) : new File( parent.toString(), this.projectName );
+	}
+
+
+	/**
+	 * @return true if the project is at the default location, false otherwise
+	 */
+	public boolean isAtDefaultlocation() {
+		return this.projectContainer == null;
 	}
 }

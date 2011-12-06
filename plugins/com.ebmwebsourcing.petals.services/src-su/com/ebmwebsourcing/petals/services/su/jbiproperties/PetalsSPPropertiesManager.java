@@ -124,11 +124,9 @@ public class PetalsSPPropertiesManager {
 	 * Saves the Petals properties.
 	 * @param properties the properties to save
 	 * @param project a Petals SU project (the nature is checked)
-	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static void saveProperties( Properties properties, IProject project )
-	throws FileNotFoundException, IOException {
+	public static void saveProperties( Properties properties, IProject project ) throws IOException {
 
 		String comment = "Created with Petals Studio.";
 		IFile f = project.getFile( PROPERTIES_FILENAME );

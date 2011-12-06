@@ -49,7 +49,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		Composite fileTransferComposite = toolkit.createComposite(filetransferSection);
 		fileTransferComposite.setLayout(new GridLayout(2, false));
 		filetransferSection.setClient(fileTransferComposite);
-		
+		 
 		toolkit.createLabel(fileTransferComposite, Messages.contractType);
 		Combo contractCombo = new Combo(fileTransferComposite, SWT.READ_ONLY);
 		contractCombo.add(Messages.getFiles);

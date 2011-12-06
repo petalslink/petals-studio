@@ -15,6 +15,7 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,8 +86,12 @@ public class WsdlUtils {
 	 * @param wsdlUri the URI of the WSDL to parse (not null).
 	 * @return a list of beans containing easily accessible data
 	 * @throws IllegalArgumentException if the URI is invalid
+	 * @throws InvocationTargetException if the WSDL is not a valid WSDL 1.1
+	 * <p>
+	 * An Eclipse log entry is also created in this case.
+	 * </p>
 	 */
-	public List<JbiBasicBean> parse( String wsdlUrlAsString ) throws IllegalArgumentException {
+	public List<JbiBasicBean> parse( String wsdlUrlAsString ) throws IllegalArgumentException, InvocationTargetException {
 		URI uri = UriUtils.urlToUri( wsdlUrlAsString );
 		return parse( uri );
 	}
@@ -94,17 +99,20 @@ public class WsdlUtils {
 
 	/**
 	 * Parses a WSDL URL (WSDL 1.1 only).
-	 * @param wsdlUri the URI of the WSDL to parse.
-	 * @return a bean containing required data to generate a SU for Petals. Null if the parsing failed.
-	 * @throws IllegalArgumentException thrown when more than one service is described by the parsed WSDL (yes, that's possible).
+	 * @param wsdlUri the URI of the WSDL to parse
+	 * @return a list of {@link JbiBasicBean}s (never null)
+	 * @throws InvocationTargetException if the WSDL is not a valid WSDL 1.1
+	 * <p>
+	 * An Eclipse log entry is also created in this case.
+	 * </p>
 	 */
-	public List<JbiBasicBean> parse( URI wsdlUri ) {
+	public List<JbiBasicBean> parse( URI wsdlUri ) throws InvocationTargetException {
 
 		List<JbiBasicBean> result = new ArrayList<JbiBasicBean> ();
 
-	    // Read WSDL 1.1 definitions from the URL
-	    try {
-	    	Definition def = this.wsdlReader11.readWSDL( wsdlUri.toString());
+		// Read WSDL 1.1 definitions from the URL
+		try {
+			Definition def = this.wsdlReader11.readWSDL( wsdlUri.toString());
 			for( Iterator<?> itService = def.getServices().keySet().iterator(); itService.hasNext(); ) {
 
 				QName serviceName = (QName) itService.next();
@@ -134,14 +142,12 @@ public class WsdlUtils {
 						else
 							continue;
 
-						bean.setServiceName( service.getQName().getLocalPart());
-						bean.setServiceNs( service.getQName().getNamespaceURI());
+						bean.setServiceName( service.getQName());
 						bean.setSoapAddress( soapAddress );
 						bean.setEndpointName( portName );
 
 						PortType p = port.getBinding().getPortType();
-						bean.setInterfaceName( p.getQName().getLocalPart());
-						bean.setInterfaceNs( p.getQName().getNamespaceURI());
+						bean.setInterfaceName( p.getQName());
 
 						// Bug PETALSSTUD-71: make sure the referenced port type really exists in the WSDL
 						bean.setPortTypeExists( ! p.isUndefined());
@@ -152,8 +158,8 @@ public class WsdlUtils {
 							for( Object opo : p.getOperations()) {
 								if( opo instanceof Operation ) {
 									QName operationName = new QName(
-												p.getQName().getNamespaceURI(),
-												((Operation) opo).getName());
+											p.getQName().getNamespaceURI(),
+											((Operation) opo).getName());
 
 									Mep mep = Mep.IN_OUT;
 									if(((Operation) opo).isUndefined())
@@ -161,8 +167,8 @@ public class WsdlUtils {
 
 									// FIXME: it does not work. Tested with Talend#executeJobOnly.
 									else if(((Operation) opo).getOutput() == null
-												|| ((Operation) opo).getOutput().getMessage() == null
-												|| ((Operation) opo).getOutput().getMessage().isUndefined())
+											|| ((Operation) opo).getOutput().getMessage() == null
+											|| ((Operation) opo).getOutput().getMessage().isUndefined())
 										mep = Mep.IN_ONLY;
 
 									bean.addOperation( operationName, mep );
@@ -177,6 +183,7 @@ public class WsdlUtils {
 
 		} catch( WSDLException e ) {
 			PetalsCommonPlugin.log( e, IStatus.ERROR );
+			throw new InvocationTargetException( e );
 		}
 
 		return result;
@@ -281,17 +288,14 @@ public class WsdlUtils {
 
 		Map<QName,Mep> result = new HashMap<QName,Mep> ();
 		try {
-			List<JbiBasicBean> beans = parse( wsdlUri );
-			if( beans != null ) {
-				for( JbiBasicBean bean : beans ) {
-					if( bean.haveSameIdentifiers( itfName, itfNs, srvName, srvNs, edptName )) {
-						result.putAll( bean.getOperations());
-						break;
-					}
+			for( JbiBasicBean bean : parse( wsdlUri )) {
+				if( bean.haveSameIdentifiers( itfName, itfNs, srvName, srvNs, edptName )) {
+					result.putAll( bean.getOperations());
+					break;
 				}
 			}
 
-		} catch( IllegalArgumentException e ) {
+		} catch( Exception e ) {
 			// nothing
 		}
 
@@ -304,8 +308,7 @@ public class WsdlUtils {
 	 */
 	public static class JbiBasicBean {
 
-		private String serviceName, serviceNs;
-		private String interfaceName, interfaceNs;
+		private QName itfName, srvName;
 		private String endpointName;
 		private String soapAddress;
 		private boolean portTypeExists;
@@ -314,28 +317,31 @@ public class WsdlUtils {
 
 
 		/**
-		 * @return the serviceName
+		 * @return the itfName
 		 */
-		public String getServiceName() {
-			return this.serviceName;
+		public QName getInterfaceName() {
+			return this.itfName;
 		}
+
 		/**
-		 * @return the interfaceName
+		 * @param itfName the itfName to set
 		 */
-		public String getInterfaceName() {
-			return this.interfaceName;
+		public void setInterfaceName( QName itfName ) {
+			this.itfName = itfName;
 		}
+
 		/**
-		 * @return the serviceNs
+		 * @return the srvName
 		 */
-		public String getServiceNs() {
-			return this.serviceNs;
+		public QName getServiceName() {
+			return this.srvName;
 		}
+
 		/**
-		 * @return the interfaceNs
+		 * @param srvName the srvName to set
 		 */
-		public String getInterfaceNs() {
-			return this.interfaceNs;
+		public void setServiceName( QName srvName ) {
+			this.srvName = srvName;
 		}
 
 		/**
@@ -350,31 +356,6 @@ public class WsdlUtils {
 		 */
 		public void setPortTypeExists( boolean portTypeExists ) {
 			this.portTypeExists = portTypeExists;
-		}
-
-		/**
-		 * @param serviceName the serviceName to set
-		 */
-		public void setServiceName( String serviceName ) {
-			this.serviceName = serviceName;
-		}
-		/**
-		 * @param serviceNs the serviceNs to set
-		 */
-		public void setServiceNs( String serviceNs ) {
-			this.serviceNs = serviceNs;
-		}
-		/**
-		 * @param interfaceName the interfaceName to set
-		 */
-		public void setInterfaceName( String interfaceName ) {
-			this.interfaceName = interfaceName;
-		}
-		/**
-		 * @param interfaceNs the interfaceNs to set
-		 */
-		public void setInterfaceNs( String interfaceNs ) {
-			this.interfaceNs = interfaceNs;
 		}
 
 		/**
@@ -445,10 +426,10 @@ public class WsdlUtils {
 		 */
 		public boolean haveSameIdentifiers( String itfName, String itfNs, String srvName, String srvNs, String edptName ) {
 
-			return StringUtils.areEqual( itfName, this.interfaceName )
-			&& StringUtils.areEqual( itfNs, this.interfaceNs )
-			&& StringUtils.areEqual( srvName, this.serviceName )
-			&& StringUtils.areEqual( srvNs, this.serviceNs )
+			return StringUtils.areEqual( itfName, this.itfName.getLocalPart())
+			&& StringUtils.areEqual( itfNs, this.itfName.getNamespaceURI())
+			&& StringUtils.areEqual( srvName, this.srvName.getLocalPart())
+			&& StringUtils.areEqual( srvNs, this.srvName.getNamespaceURI())
 			&& StringUtils.areEqual( edptName, this.endpointName );
 		}
 	}

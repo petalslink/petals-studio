@@ -1,6 +1,6 @@
 package com.ebmwebsourcing.petals.services.xslt.generated;
 
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
+import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /****************************************************************************
  * 
@@ -44,7 +44,7 @@ public class XsltService23 {
 	 public String generate( Object argument )
   {
     final StringBuffer stringBuffer = new StringBuffer();
-     EclipseSuBean data = (EclipseSuBean) argument; 
+     AbstractEndpoint data = (AbstractEndpoint) argument; 
     stringBuffer.append(TEXT_1);
     stringBuffer.append( data.getInterfaceName() );
     stringBuffer.append(TEXT_2);

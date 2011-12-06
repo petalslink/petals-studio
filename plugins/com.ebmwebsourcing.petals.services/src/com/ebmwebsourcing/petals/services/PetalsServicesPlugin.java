@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services;
@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -45,6 +46,7 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 		// nothing
 	}
 
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin
@@ -54,6 +56,7 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+
 		// Initialize feature Ids
 		for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
 			for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
@@ -62,6 +65,7 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 			}
 		}
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -74,6 +78,7 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
+
 	/**
 	 * Returns the shared instance
 	 * @return the shared instance
@@ -81,6 +86,7 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	public static PetalsServicesPlugin getDefault() {
 		return plugin;
 	}
+
 
 	/**
 	 * Returns an image descriptor for the image file at the given
@@ -91,6 +97,31 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor( String path ) {
 		return imageDescriptorFromPlugin( PLUGIN_ID, path );
+	}
+
+
+	/**
+	 * Loads the image located by this path in the current plug-in.
+	 * <p>
+	 * If the path is invalid or if the image could not be loaded, a log entry is created.
+	 * </p>
+	 *
+	 * @param path the relative image path in the plug-in
+	 * @return the image or null if it could not be loaded
+	 */
+	public static Image loadImage( String path ) {
+
+		Image img = null;
+		try {
+			ImageDescriptor desc = getImageDescriptor( path );
+			if( desc != null )
+				img = desc.createImage();
+
+		} catch( Exception e ) {
+			log( e, IStatus.WARNING );
+		}
+
+		return img;
 	}
 
 

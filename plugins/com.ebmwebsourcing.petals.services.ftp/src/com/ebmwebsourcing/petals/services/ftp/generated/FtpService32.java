@@ -1,6 +1,6 @@
 package com.ebmwebsourcing.petals.services.ftp.generated;
 
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
+import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /****************************************************************************
  * 
@@ -41,13 +41,13 @@ public class FtpService32 {
 	 public String generate( Object argument )
   {
     final StringBuffer stringBuffer = new StringBuffer();
-     EclipseSuBean data = (EclipseSuBean) argument; 
+     AbstractEndpoint data = (AbstractEndpoint) argument; 
     stringBuffer.append(TEXT_1);
-    stringBuffer.append( data.getInterfaceName() );
+    stringBuffer.append( data.getInterfaceName().getLocalPart() );
     stringBuffer.append(TEXT_2);
-    stringBuffer.append( data.getInterfaceName() );
+    stringBuffer.append( data.getInterfaceName().getLocalPart() );
     stringBuffer.append(TEXT_3);
-    stringBuffer.append( data.getServiceName() );
+    stringBuffer.append( data.getServiceName().getLocalPart() );
     stringBuffer.append(TEXT_4);
     stringBuffer.append( data.getEndpointName() );
     stringBuffer.append(TEXT_5);

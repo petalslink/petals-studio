@@ -15,25 +15,27 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-            SuType="FTP"
-            ContributorDescription="com.ebmwebsourcing.petals.services.ftp.FtpContributorDescription">
-               <Version
-                     LastActionsPerformer="com.ebmwebsourcing.petals.services.ftp.FTPLastActionsPerformer31"
-                     ProvideConfiguration="com.ebmwebsourcing.petals.services.ftp.FTPWizardConfiguration31"
-                     SuVersion="3.1">
-               </Version>
-               <Version
-                     LastActionsPerformer="com.ebmwebsourcing.petals.services.ftp.FTPLastActionsPerformer32"
-                     ProvideConfiguration="com.ebmwebsourcing.petals.services.ftp.FTPWizardConfiguration31"
-                     SuVersion="3.2">
-               </Version>
-               <Version
-                     LastActionsPerformer="com.ebmwebsourcing.petals.services.ftp.FTPLastActionsPerformer33"
-                     ProvideConfiguration="com.ebmwebsourcing.petals.services.ftp.FTPWizardConfiguration31"
-                     SuVersion="3.3">
-               </Version>
-      </WizardData>
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="ftp">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription31"
+               id="FTP 3.1"
+               wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard31">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription32"
+               id="FTP 3.2"
+               wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard32">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription33"
+               id="FTP 3.3"
+               wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard33">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 </plugin>

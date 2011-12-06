@@ -12,8 +12,8 @@
 
 package com.ebmwebsourcing.petals.services.sca.configuration;
 
+import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.extensions.WizardConfiguration;
-import com.ebmwebsourcing.petals.services.su.wizards.SettingConstants;
 
 /**
  * The wizard configuration for the version 1.0 of the SCA component.
@@ -22,8 +22,8 @@ import com.ebmwebsourcing.petals.services.su.wizards.SettingConstants;
 public class ScaWizardConfiguration11 extends WizardConfiguration {
 
 	public ScaWizardConfiguration11 () {
-		this.wizardSettings.put( SettingConstants.CREATE_JAVA_PROJECT, "true" );
-		this.wizardSettings.put( SettingConstants.SHOW_JBI_PAGE, "false" );
-		this.wizardSettings.put( SettingConstants.FILL_AND_OPEN_JBI_XML, "false" );
+		this.wizardSettings.put( SuWizardSettings.CREATE_JAVA_PROJECT, "true" );
+		this.wizardSettings.put( SuWizardSettings.SHOW_JBI_PAGE, "false" );
+		this.wizardSettings.put( SuWizardSettings.FILL_AND_OPEN_JBI_XML, "false" );
 	}
 }

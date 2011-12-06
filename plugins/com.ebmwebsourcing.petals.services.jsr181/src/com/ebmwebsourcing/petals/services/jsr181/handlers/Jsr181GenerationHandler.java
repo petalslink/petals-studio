@@ -166,7 +166,7 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 				IJavaProject javaProject,
 				boolean generateJbiXml,
 				IProgressMonitor monitor )
-							throws CoreException {
+	throws CoreException {
 
 		// Delete all the WSDL and XSD files from the "jbi" directory
 		IFolder jbiFolder = javaProject.getProject().getFolder( PetalsConstants.LOC_RES_FOLDER );
@@ -243,7 +243,7 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 	 * @throws CoreException if the project resources could not be manipulated
 	 */
 	public static void generateJbiXml( IProject project, Map<String,String> classNameToWsdlName, IProgressMonitor monitor )
-				throws CoreException {
+	throws CoreException {
 
 		// Get the generation values
 		List<Jsr181Provides1x> provides = new ArrayList<Jsr181Provides1x> ();
@@ -253,20 +253,25 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 			if( wsdlFile.exists()) {
 
 				URI uri = wsdlFile.getLocation().toFile().toURI();
-				List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( uri );
-				for( JbiBasicBean bean : beans ) {
+				try {
+					List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( uri );
+					for( JbiBasicBean bean : beans ) {
 
-					Jsr181Provides1x jsr181Bean = new Jsr181Provides1x();
+						Jsr181Provides1x jsr181Bean = new Jsr181Provides1x();
 
-					jsr181Bean.setEndpointName( bean.getEndpointName());
-					jsr181Bean.setServiceName( bean.getServiceName());
-					jsr181Bean.setServiceNamespace( bean.getServiceNs());
-					jsr181Bean.setInterfaceName( bean.getInterfaceName());
-					jsr181Bean.setInterfaceNamespace( bean.getInterfaceNs());
+						jsr181Bean.setEndpointName( bean.getEndpointName());
+						jsr181Bean.setServiceName( bean.getServiceName().getLocalPart());
+						jsr181Bean.setServiceNamespace( bean.getServiceName().getNamespaceURI());
+						jsr181Bean.setInterfaceName( bean.getInterfaceName().getLocalPart());
+						jsr181Bean.setInterfaceNamespace( bean.getInterfaceName().getNamespaceURI());
 
-					jsr181Bean.setWsdl( entry.getValue());
-					jsr181Bean.setClassName( entry.getKey());
-					provides.add( jsr181Bean );
+						jsr181Bean.setWsdl( entry.getValue());
+						jsr181Bean.setClassName( entry.getKey());
+						provides.add( jsr181Bean );
+					}
+
+				} catch( InvocationTargetException e ) {
+					// nothing
 				}
 			}
 		}

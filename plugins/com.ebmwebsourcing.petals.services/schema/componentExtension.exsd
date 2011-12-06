@@ -51,7 +51,6 @@
       <complexType>
          <sequence>
             <element ref="ComponentVersionSupport" minOccurs="1" maxOccurs="unbounded"/>
-            <element ref="category" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
@@ -78,20 +77,6 @@
                <appinfo>
                   <meta.attribute kind="java"/>
                </appinfo>
-            </annotation>
-         </attribute>
-         <attribute name="supportProvides" type="boolean" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="supportConsumes" type="boolean" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
             </annotation>
          </attribute>
       </complexType>
@@ -151,18 +136,6 @@
                <appinfo>
                   <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ServiceInitializer:"/>
                </appinfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="category">
-      <complexType>
-         <attribute name="id" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
             </annotation>
          </attribute>
       </complexType>

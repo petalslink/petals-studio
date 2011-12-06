@@ -15,16 +15,16 @@
 
 <plugin>
    <extension
-         point="com.ebmwebsourcing.petals.services.contentExtension">
-      <WizardData
-            SuType="POJO"
-            ContributorDescription="com.ebmwebsourcing.petals.services.pojo.PojoContributorDescription">
-         <Version
-               CustomComponentPage="com.ebmwebsourcing.petals.services.pojo.PojoProvideSpecificPage22"
-               LastActionsPerformer="com.ebmwebsourcing.petals.services.pojo.PojoLastActionsPerformer"
-               SuVersion="2.2">
-         </Version>
-      </WizardData>
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="pojo">
+         <ComponentVersionSupport
+               cdkNamespace="lol"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.pojo.PojoDescription22"
+               id="POJO 2.2"
+               wizardExtension="com.ebmwebsourcing.petals.services.pojo.PojoWizard22">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
 
 </plugin>

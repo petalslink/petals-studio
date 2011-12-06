@@ -34,7 +34,7 @@ import com.ebmwebsourcing.petals.services.explorer.SourceManager;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 import com.ebmwebsourcing.petals.services.explorer.model.ServiceUnitBean;
 import com.ebmwebsourcing.petals.services.explorer.sources.EndpointSource;
-import com.ebmwebsourcing.petals.services.su.extensions.RegisteredContributors;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 
 /**
  * Utilities to define service consumers.
@@ -87,6 +87,7 @@ public class ConsumeUtils {
 		}
 
 		Collections.sort( edpts, new Comparator<EndpointBean> () {
+			@Override
 			public int compare( EndpointBean o1, EndpointBean o2 ) {
 
 				// MEP
@@ -236,13 +237,16 @@ public class ConsumeUtils {
 	 * @param srvNs the service name space
 	 * @param edptName the end-point name
 	 * @param targetComponent the target component (on which component is deployed this end-point)
+	 * @param componentVersion the component version
 	 * @return a non-null map of operations - MEP
 	 */
 	public static Map<QName,Mep> getOperations(
 			URI wsdlUri,
 			String itfName, String itfNs,
 			String srvName, String srvNs,
-			String edptName, String targetComponent ) {
+			String edptName,
+			String targetComponent,
+			String componentVersion ) {
 
 		Map<QName,Mep> result = new HashMap<QName,Mep> ();
 
@@ -256,7 +260,7 @@ public class ConsumeUtils {
 
 		} else if( targetComponent != null ) {
 			// Are there any default operation?
-			result.putAll( RegisteredContributors.getInstance().getDefaultOperations( targetComponent ));
+			result.putAll( ExtensionManager.INSTANCE.findDefaultOperations( targetComponent, componentVersion ));
 		}
 
 		// Hack for the Talend SE
@@ -271,14 +275,6 @@ public class ConsumeUtils {
 
 			if( opToHack != null )
 				result.put( opToHack, Mep.IN_ONLY );
-		}
-
-		// Hack for KPI
-		QName itf = itfNs != null ? new QName( itfNs, itfName ) : new QName( itfName );
-		QName srv = srvNs != null ? new QName( srvNs, srvName ) : new QName( srvName );
-		if( itf != null && itf.equals( new QName( "http://docs.oasis-open.org/wsn/br-2", "NotificationBroker" ))
-				|| srv != null && srv.equals( new QName( "http://petals.ow2.org/petals-se-notification", "NotificationBrokerService" ))) {
-			result.putAll( RegisteredContributors.getInstance().getDefaultOperations( "petals-se-kpi" ));
 		}
 
 		return result;

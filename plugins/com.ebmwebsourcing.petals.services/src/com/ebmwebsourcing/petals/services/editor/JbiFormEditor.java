@@ -69,7 +69,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstan
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.XPathUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.sa.editor.SaPersonality;
-import com.ebmwebsourcing.petals.services.su.editor.SuPersonality;
 
 /**
  * The Petals form editor for JBI descriptors.
@@ -114,7 +113,6 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 
 		if( this.personality == null && this.editedFile != null ) {
 			IJbiEditorPersonality[] personalities = new IJbiEditorPersonality[] {
-						new SuPersonality(),
 						new SaPersonality()
 			};
 
@@ -173,6 +171,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 
 		// The resource delta visitor
 		final IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
+			@Override
 			public boolean visit( final IResourceDelta delta ) throws CoreException {
 
 				// Check for changes.
@@ -184,6 +183,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 						deleted = delta.getMovedToPath() == null;
 						if( deleted ) {
 							getSite().getShell().getDisplay().asyncExec( new Runnable() {
+								@Override
 								public void run() {
 
 									// The part listener should handle it then...
@@ -198,6 +198,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 						// Renamed?
 						if( delta.getMovedToPath() != null ) {
 							Display.getDefault().asyncExec( new Runnable() {
+								@Override
 								public void run() {
 									setPartName( delta.getMovedToPath().lastSegment());
 								}
@@ -219,6 +220,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 
 		// The resource change listener
 		this.workspaceListener = new IResourceChangeListener() {
+			@Override
 			public void resourceChanged( IResourceChangeEvent event ) {
 
 				try {
@@ -272,6 +274,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 		}
 
 		getSite().getShell().getDisplay().asyncExec( new Runnable() {
+			@Override
 			public void run() {
 				for( AbstractServicesFormPage page : JbiFormEditor.this.pages.values())
 					page.updateMarkers( markerToNode );
@@ -341,24 +344,31 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 			this.model = (IDOMModel) model;
 			this.modelListener = new IModelStateListener () {
 
+				@Override
 				public void modelAboutToBeChanged( IStructuredModel model ) {}
+				@Override
 				public void modelAboutToBeReinitialized( IStructuredModel structuredModel ) {}
 
+				@Override
 				public void modelChanged( IStructuredModel model ) {
 					updateEditor();
 				}
 
+				@Override
 				public void modelDirtyStateChanged( IStructuredModel model, boolean isDirty ) {
 					// nothing
 				}
 
+				@Override
 				public void modelReinitialized( IStructuredModel structuredModel ) {
 					updateEditor();
 				}
 
+				@Override
 				public void modelResourceDeleted( IStructuredModel model ) {
 					// TODO: close the editor
 				}
+				@Override
 				public void modelResourceMoved( IStructuredModel oldModel, IStructuredModel newModel ) {
 					// TODO: update editor
 				}
@@ -484,6 +494,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.jface.viewers.ISelectionProvider
 	 * #addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
 	 */
+	@Override
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 		this.selectionListeners.add( listener );
 	}
@@ -494,6 +505,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.jface.viewers.ISelectionProvider
 	 * #getSelection()
 	 */
+	@Override
 	public ISelection getSelection() {
 		return this.selection;
 	}
@@ -504,6 +516,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.jface.viewers.ISelectionProvider
 	 * #removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
 	 */
+	@Override
 	public void removeSelectionChangedListener( ISelectionChangedListener listener) {
 		this.selectionListeners.remove( listener );
 	}
@@ -514,6 +527,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.jface.viewers.ISelectionProvider
 	 * #setSelection(org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void setSelection( ISelection selection ) {
 
 		// Update the selection
@@ -556,6 +570,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.ide.IGotoMarker
 	 * #gotoMarker(org.eclipse.core.resources.IMarker)
 	 */
+	@Override
 	public void gotoMarker( IMarker marker ) {
 
 		// Find the element
@@ -662,6 +677,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partActivated(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partActivated( IWorkbenchPartReference partRef ) {
 		// nothing
 	}
@@ -672,6 +688,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partBroughtToTop(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partBroughtToTop( IWorkbenchPartReference partRef ) {
 		// nothing
 	}
@@ -682,6 +699,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partClosed(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partClosed( IWorkbenchPartReference partRef ) {
 
 		// Remove the listeners
@@ -714,6 +732,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partDeactivated(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partDeactivated( IWorkbenchPartReference partRef ) {
 		// nothing
 	}
@@ -724,6 +743,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partHidden(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partHidden( IWorkbenchPartReference partRef ) {
 		// nothing
 	}
@@ -734,6 +754,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partInputChanged(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partInputChanged( IWorkbenchPartReference partRef ) {
 		// nothing
 	}
@@ -744,6 +765,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partOpened(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partOpened( IWorkbenchPartReference partRef ) {
 		// nothing
 	}
@@ -754,6 +776,7 @@ implements ISelectionProvider, IGotoMarker, IPartListener2 {
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partVisible(org.eclipse.ui.IWorkbenchPartReference)
 	 */
+	@Override
 	public void partVisible( IWorkbenchPartReference partRef ) {
 		// nothing
 	}
