@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="lib" path="lib/asm-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ast-core-2.4-alpha-4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/dtdparser-1.21.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.extended.activities.configuration-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.extended.service.activity-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.model.bpel.api-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.model.bpel.impl-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.model.bpel.tools.generator-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.model.bpel.tools.validator-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.xpath.exp.api-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easybpel.xpath.exp.impl-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easycommons.uri-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easyviper.core.api-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easyviper.core.impl-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easyviper.environment.test-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easyviper.extended.behaviours.abstractbehaviour-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easyviper.extended.service.behaviour-1.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easywsdl-ext-wsdl4bpel-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easywsdl-schema-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/easywsdl-wsdl-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/fractal-api-2.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb-api-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb-impl-2.1.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsap-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/junit-4.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.13.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spoon-core-1.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/task-deployment-2.4-alpha-4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/task-framework-2.4-alpha-4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xmlsec-1.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/activation-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime-0.4.1.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/stax-api-1.0-2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

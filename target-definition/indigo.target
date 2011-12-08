@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="Eclipse 3.7 - Indigo" sequenceNumber="11">
+<target name="Eclipse 3.7 - Indigo" sequenceNumber="12">
 <locations>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.jdom" version="1.1.1.v201101151400"/>
@@ -44,6 +44,10 @@
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.wst.sse.sieditor.feature.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/webtools/incubator/repository/sieditor/snapshot"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.bpel.feature.feature.group" version="0.5.0.v20110623-1252-H77-CI"/>
+<repository location="http://download.eclipse.org/bpel/update-site/"/>
 </location>
 </locations>
 </target>
