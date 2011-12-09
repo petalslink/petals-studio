@@ -59,32 +59,12 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="label" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute translatable="true"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-         <attribute name="componentDescription" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java"/>
-               </appinfo>
-            </annotation>
-         </attribute>
       </complexType>
    </element>
 
    <element name="ComponentVersionSupport">
       <complexType>
-         <attribute name="id" type="string">
+         <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
                   
@@ -104,7 +84,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler:"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -128,13 +108,23 @@
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="serviceInitializer" type="string" use="required">
+         <attribute name="serviceInitializer" type="string">
             <annotation>
                <documentation>
                   Class that is in charge of initializing the minimal set of attributes for this component. The attributes that are set are then be used to guess the component in the editor
                </documentation>
                <appinfo>
                   <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.jbi.editor.extensibility.ServiceInitializer:"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="componentVersionDescription" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A class that describes a component version.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription:"/>
                </appinfo>
             </annotation>
          </attribute>

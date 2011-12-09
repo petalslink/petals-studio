@@ -19,7 +19,6 @@
       <ComponentSupport
             id="soap">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.soap.SoapDescription40"
                id="SOAP 4.0"
                wizardExtension="com.ebmwebsourcing.petals.services.soap.SoapWizard40">

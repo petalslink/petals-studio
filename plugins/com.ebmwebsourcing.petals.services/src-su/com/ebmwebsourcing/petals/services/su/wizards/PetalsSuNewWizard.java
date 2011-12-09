@@ -14,8 +14,10 @@ package com.ebmwebsourcing.petals.services.su.wizards;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +33,6 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -67,6 +67,7 @@ import com.sun.java.xml.ns.jbi.Jbi;
 import com.sun.java.xml.ns.jbi.JbiFactory;
 import com.sun.java.xml.ns.jbi.Provides;
 import com.sun.java.xml.ns.jbi.Services;
+import com.sun.java.xml.ns.jbi.util.JbiResourceFactoryImpl;
 
 /**
  * The specialized wizard for the Petals service units.
@@ -127,6 +128,7 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutable
 		setWindowTitle( isProvides() ? "Petals Service" : "Petals Service Consumer" );
 
 		this.jbiInstance = JbiFactory.eINSTANCE.createJbi();
+		this.jbiInstance.setVersion( new BigDecimal( "1.0" ));
 		this.jbiInstance.setServices( JbiFactory.eINSTANCE.createServices());
 	}
 
@@ -403,12 +405,10 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutable
 
 		// Create the jbi.xml file
 		monitor.subTask( "Creating the jbi.xml..." );
-		ResourceSet resourceSet = new ResourceSetImpl();
 		org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createFileURI( jbiXmlFile.getAbsolutePath());
-
-		Resource resource = resourceSet.createResource( emfUri );
+		Resource resource = new JbiResourceFactoryImpl().createResource( emfUri );
 		resource.getContents().add( this.jbiInstance );
-		resource.save( null );
+		resource.save( Collections.EMPTY_MAP );
 		monitor.worked( 1 );
 
 

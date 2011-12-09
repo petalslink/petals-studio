@@ -113,7 +113,7 @@ public class SuBuilder extends JbiXmlBuilder {
 	 */
 	@Override
 	protected void incrementalBuild( IResourceDelta delta, IProgressMonitor monitor)
-			throws CoreException {
+	throws CoreException {
 		delta.accept( new SuDeltaVisitor( monitor ));
 	}
 

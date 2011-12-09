@@ -19,7 +19,6 @@
       <ComponentSupport
             id="sql">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription11"
                id="SQL 1.1"
                wizardExtension="com.ebmwebsourcing.petals.services.sql.SqlWizard11">

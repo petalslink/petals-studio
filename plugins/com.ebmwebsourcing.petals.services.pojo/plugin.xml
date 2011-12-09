@@ -19,7 +19,6 @@
       <ComponentSupport
             id="pojo">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.pojo.PojoDescription22"
                id="POJO 2.2"
                wizardExtension="com.ebmwebsourcing.petals.services.pojo.PojoWizard22">

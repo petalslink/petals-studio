@@ -24,7 +24,7 @@ import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
 public class GenericComponentDescription extends ComponentVersionDescription {
 
 	private boolean bc;
-	private String componentName = "Petals-any-component", componentVersion = "To set later", componentAlias = "Generic";
+	private String componentName = "petals-any-component", componentVersion = "To set later", componentAlias = "Generic";
 
 
 	/* (non-Javadoc)

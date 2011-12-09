@@ -19,19 +19,16 @@
       <ComponentSupport
             id="ftp">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription31"
                id="FTP 3.1"
                wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard31">
          </ComponentVersionSupport>
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription32"
                id="FTP 3.2"
                wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard32">
          </ComponentVersionSupport>
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription33"
                id="FTP 3.3"
                wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard33">

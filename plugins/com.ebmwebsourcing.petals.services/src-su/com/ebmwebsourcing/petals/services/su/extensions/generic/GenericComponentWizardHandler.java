@@ -22,6 +22,17 @@ import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
  */
 public class GenericComponentWizardHandler extends ComponentWizardHandler {
 
+	private final GenericComponentDescription genDesc;
+
+
+	/**
+	 * Constructor.
+	 */
+	public GenericComponentWizardHandler() {
+		this.genDesc = new GenericComponentDescription();
+	}
+
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -29,7 +40,7 @@ public class GenericComponentWizardHandler extends ComponentWizardHandler {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new GenericComponentDescription();
+		return this.genDesc;
 	}
 
 

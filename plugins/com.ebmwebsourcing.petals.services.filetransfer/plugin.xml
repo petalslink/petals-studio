@@ -17,11 +17,10 @@
 	
 <extension
       point="com.ebmwebsourcing.petals.services.componentExtension">
+      
    <ComponentSupport
-         componentDescription="TODO"
          id="file transfer">
       <ComponentVersionSupport
-            cdkNamespace="http://petals.ow2.org/components/extensions/version-5"
             componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription24"
             editorExtension="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferContributionSupport"
             id="File Transfer 2.4"
@@ -30,6 +29,7 @@
       </ComponentVersionSupport>
    </ComponentSupport>
 </extension>
+
 <extension
       point="org.eclipse.emf.ecore.generated_package">
    <package

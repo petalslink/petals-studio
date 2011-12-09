@@ -118,7 +118,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="com.ebmwebsourcing.petals.services.editor.JbiFormEditor"
+            class="com.ebmwebsourcing.petals.services.sa.editor.JbiFormEditor"
             default="true"
             filenames="jbi.xml"
             icon="icons/obj16/jbi_descriptor.png"
@@ -280,28 +280,6 @@
             project="true">
          <description>
             Create a Service Unit project to define a new Petals service
-         </description>
-      </wizard>
-      <wizard
-            category="com.ebmwebsourcing.petals.common.wizards"
-            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewProvidesWizard"
-            icon="icons/obj16/service_unit.png"
-            id="com.ebmwebsourcing.petals.services.su.provides"
-            name="%newProvidesSU"
-            project="true">
-         <description>
-            Create a Service Unit project compatible with the Petals Maven plug-in
-         </description>
-      </wizard>
-      <wizard
-            category="com.ebmwebsourcing.petals.common.wizards"
-            class="com.ebmwebsourcing.petals.services.jbi.wizard.NewConsumesWizard"
-            icon="icons/obj16/service_unit.png"
-            id="com.ebmwebsourcing.petals.services.su.consumes"
-            name="%newConsumesSU"
-            project="true">
-         <description>
-            Create a Service Unit project compatible with the Petals Maven plug-in
          </description>
       </wizard>
    </extension>
@@ -818,5 +796,16 @@
          </contentTypeBinding>
       </editor>
    </extension>
+    <extension
+          point="com.ebmwebsourcing.petals.services.componentExtension">
+       <ComponentSupport
+             id="generic">
+          <ComponentVersionSupport
+                componentVersionDescription="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentDescription"
+                id="Generic"
+                wizardExtension="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentWizardHandler">
+          </ComponentVersionSupport>
+       </ComponentSupport>
+    </extension>
 
 </plugin>

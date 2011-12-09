@@ -19,7 +19,6 @@
       <ComponentSupport
             id="mail">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.mail.MailDescription31"
                id="Mail 3.1"
                wizardExtension="com.ebmwebsourcing.petals.services.mail.MailWizard31">
