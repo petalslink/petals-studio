@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011, EBM WebSourcing&#xA;&#xA;This source code is available under agreement available at&#xA;http://www.petalslink.com/legal/licenses/petals-studio&#xA;&#xA;You should have received a copy of the agreement along with this program.&#xA;If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France)."
+    modelDirectory="/com.ebmwebsourcing.petals.services.ftp/src-model" modelPluginID="com.ebmwebsourcing.petals.services.ftp"
+    modelName="Ftp3" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" language="" usedGenPackages="../../com.ebmwebsourcing.petals.services.cdk/model/cdk5.genmodel#//cdk5 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.genmodel#//jbi platform:/plugin/org.eclipse.emf.ecore/model/XMLType.genmodel#//type">
+  <foreignModel>ftp3.ecore</foreignModel>
+  <genPackages prefix="Ftp3" basePackage="com.ebmwebsourcing.petals.services.ftp"
+      resource="XML" disposableProviderFactory="true" ecorePackage="ftp3.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ftp3.ecore#//ConnectionType">
+      <genEnumLiterals ecoreEnumLiteral="ftp3.ecore#//ConnectionType/ACTIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="ftp3.ecore#//ConnectionType/PASSIVE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ftp3.ecore#//TransferType">
+      <genEnumLiterals ecoreEnumLiteral="ftp3.ecore#//TransferType/AUTO"/>
+      <genEnumLiterals ecoreEnumLiteral="ftp3.ecore#//TransferType/ASCII"/>
+      <genEnumLiterals ecoreEnumLiteral="ftp3.ecore#//TransferType/BINARY"/>
+    </genEnums>
+    <genClasses ecoreClass="ftp3.ecore#//FtpProvides">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/connectionMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/deleteProcessedFiles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/filename"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/folder"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/overwrite"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/server"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/transferType"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
