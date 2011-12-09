@@ -19,13 +19,11 @@
       <ComponentSupport
             id="ftp">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.sftp.SftpDescription11"
                id="SFTP 1.1"
                wizardExtension="com.ebmwebsourcing.petals.services.sftp.SftpWizard11">
          </ComponentVersionSupport>
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.sftp.SftpDescription12"
                id="SFTP 1.2"
                wizardExtension="com.ebmwebsourcing.petals.services.sftp.SftpWizard12">

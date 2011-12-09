@@ -19,13 +19,11 @@
       <ComponentSupport
             id="xslt">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.xslt.XsltDescription23"
                id="XSLT 2.3"
                wizardExtension="com.ebmwebsourcing.petals.services.xslt.XsltWizard23">
          </ComponentVersionSupport>
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.xslt.XsltDescription24"
                id="XSLT 2.4"
                wizardExtension="com.ebmwebsourcing.petals.services.xslt.XsltWizard24">

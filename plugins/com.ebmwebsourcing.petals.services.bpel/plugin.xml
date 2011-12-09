@@ -198,7 +198,6 @@
       <ComponentSupport
             id="bpel">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.bpel.BpelDescription10"
                id="BPEL 1.0"
                wizardExtension="com.ebmwebsourcing.petals.services.bpel.BpelWizard10">

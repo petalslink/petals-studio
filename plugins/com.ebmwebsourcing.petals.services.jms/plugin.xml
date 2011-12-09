@@ -19,7 +19,6 @@
       <ComponentSupport
             id="jms">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.jms.JmsDescription31"
                id="JMS 3.1"
                wizardExtension="com.ebmwebsourcing.petals.services.jms.JmsWizard31">

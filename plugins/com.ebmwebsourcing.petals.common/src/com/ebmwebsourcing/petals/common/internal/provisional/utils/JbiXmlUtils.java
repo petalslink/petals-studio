@@ -15,24 +15,20 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URI;
-import java.util.HashMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipse.emf.ecore.xml.type.AnyType;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
-import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
-import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.JbiCustomDiagnostician;
@@ -40,7 +36,6 @@ import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.DocumentRoot;
 import com.sun.java.xml.ns.jbi.Jbi;
 import com.sun.java.xml.ns.jbi.Provides;
-import com.sun.java.xml.ns.jbi.provider.JbiItemProviderAdapterFactory;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -56,18 +51,11 @@ public class JbiXmlUtils {
 	public static Jbi getJbiXmlModel( org.eclipse.emf.common.util.URI emfUri ) throws InvalidJbiXmlException {
 
 		try {
-			ComposedAdapterFactory adapterFactory =
-					new ComposedAdapterFactory( ComposedAdapterFactory.Descriptor.Registry.INSTANCE );
+			ResourceSet resourceSet = new ResourceSetImpl();
+			Object o = resourceSet.getResourceFactoryRegistry().getFactory( emfUri );
 
-			adapterFactory.addAdapterFactory( new ResourceItemProviderAdapterFactory());
-			adapterFactory.addAdapterFactory( new JbiItemProviderAdapterFactory());
-			adapterFactory.addAdapterFactory( new ReflectiveItemProviderAdapterFactory());
-
-			BasicCommandStack commandStack = new BasicCommandStack();
-			AdapterFactoryEditingDomain editingDomain = new AdapterFactoryEditingDomain(
-					adapterFactory, commandStack, new HashMap<Resource, Boolean>());
-
-			Resource resource = editingDomain.getResourceSet().getResource( emfUri, true );
+			Resource resource = resourceSet.getResource( emfUri, true );
+			resource.load( resourceSet.getLoadOptions());
 			DocumentRoot root = (DocumentRoot) resource.getContents().get( 0 );
 
 			return root.getJbi();

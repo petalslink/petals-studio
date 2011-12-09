@@ -19,7 +19,6 @@
       <ComponentSupport
             id="ejb">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.ejb.EjbDescription13"
                id="EJB 1.3"
                wizardExtension="com.ebmwebsourcing.petals.services.ejb.EjbWizard13">

@@ -43,7 +43,6 @@
 		<module>com.ebmwebsourcing.petals.services.mail</module>
 		<module>com.ebmwebsourcing.petals.services.pojo</module>
 		<module>com.ebmwebsourcing.petals.services.quartz</module>
-		<module>com.ebmwebsourcing.petals.services.rest</module>
 		<module>com.ebmwebsourcing.petals.services.sftp</module>
 		<module>com.ebmwebsourcing.petals.services.soap</module>
 		<module>com.ebmwebsourcing.petals.services.sql</module>

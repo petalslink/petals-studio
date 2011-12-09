@@ -13,12 +13,10 @@
 package com.ebmwebsourcing.petals.services.su.extensions.generic;
 
 import org.eclipse.jface.dialogs.IMessageProvider;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -102,6 +100,7 @@ public class GenericSuWizardPage extends AbstractSuPage {
 
 		SwtFactory.createLabel( container, "Component Name:", "The name of the target component" );
 		Text text = SwtFactory.createSimpleTextField( container, true );
+		text.setText( genDesc.getComponentName());
 		text.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
@@ -113,6 +112,8 @@ public class GenericSuWizardPage extends AbstractSuPage {
 
 		SwtFactory.createLabel( container, "Component Version:", "The version of the target component" );
 		text = SwtFactory.createSimpleTextField( container, true );
+		genDesc.setComponentVersion( "1.0" );
+		text.setText( "1.0" );
 		text.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
@@ -124,6 +125,7 @@ public class GenericSuWizardPage extends AbstractSuPage {
 
 		SwtFactory.createLabel( container, "Component Alias:", "The component's alias (e.g. SOAP, FTP...)" );
 		text = SwtFactory.createSimpleTextField( container, true );
+		text.setText( genDesc.getComponentAlias());
 		text.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
@@ -133,21 +135,21 @@ public class GenericSuWizardPage extends AbstractSuPage {
 			}
 		});
 
-		SwtFactory.createLabel( container, "CDK Version:", "The version of the CDK to use" );
-		Combo cdkCombo = new Combo( container, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY );
-		cdkCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		cdkCombo.add( "" );
-		cdkCombo.add( "4.x" );
-		cdkCombo.add( "5.x" );
-		cdkCombo.addSelectionListener( new SelectionAdapter() {
-			@Override
-			public void widgetSelected( SelectionEvent e ) {
-				// String version = ((Combo) e.widget).getText();
-				// TODO : commented to remove deps on editor to CDK
-				// GenericSuWizardPage.this.cdkNamespaceUri = CdkXsdManager.getInstance().resolveCdkVersion( version.replace( 'x', '0' ));
-				// validate();
-			}
-		});
+//		SwtFactory.createLabel( container, "CDK Version:", "The version of the CDK to use" );
+//		Combo cdkCombo = new Combo( container, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY );
+//		cdkCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+//		cdkCombo.add( "" );
+//		cdkCombo.add( "4.x" );
+//		cdkCombo.add( "5.x" );
+//		cdkCombo.addSelectionListener( new SelectionAdapter() {
+//			@Override
+//			public void widgetSelected( SelectionEvent e ) {
+//				// String version = ((Combo) e.widget).getText();
+//				// TODO : commented to remove deps on editor to CDK
+//				// GenericSuWizardPage.this.cdkNamespaceUri = CdkXsdManager.getInstance().resolveCdkVersion( version.replace( 'x', '0' ));
+//				// validate();
+//			}
+//		});
 
 
 		// Complete the page

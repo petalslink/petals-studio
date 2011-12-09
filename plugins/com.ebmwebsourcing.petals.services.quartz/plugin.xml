@@ -19,13 +19,11 @@
       <ComponentSupport
             id="quartz">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription10"
                id="Quartz 1.0"
                wizardExtension="com.ebmwebsourcing.petals.services.quartz.QuartzWizard10">
          </ComponentVersionSupport>
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription11"
                id="Quartz 1.1"
                wizardExtension="com.ebmwebsourcing.petals.services.quartz.QuartzWizard11">

@@ -19,7 +19,6 @@
       <ComponentSupport
             id="validation">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.validation.ValidationDescription11"
                id="Validation 1.1"
                wizardExtension="com.ebmwebsourcing.petals.services.validation.ValidationWizard11">

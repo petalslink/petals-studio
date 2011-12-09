@@ -70,7 +70,6 @@
       <ComponentSupport
             id="jsr181">
          <ComponentVersionSupport
-               cdkNamespace="lol"
                componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11"
                id="Jsr181 1.1"
                wizardExtension="com.ebmwebsourcing.petals.services.jsr181.Jsr181Wizard11">

@@ -13,6 +13,7 @@
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -72,6 +73,8 @@ public class JbiProvidePage extends JbiAbstractPage {
 	 */
 	@Override
 	public String getDescription() {
+
+		this.jbiBasicBeans = new ArrayList<WsdlUtils.JbiBasicBean> ();
 		if( getWizardHandler().getComponentVersionDescription().isBc())
 			return "Define the JBI identifier of the resource to expose as a Petals service.";
 		else
@@ -243,7 +246,7 @@ public class JbiProvidePage extends JbiAbstractPage {
 				JbiProvidePage.this.wsdlParsingError = null;
 				try {
 					JbiProvidePage.this.jbiBasicBeans.clear();
-					JbiProvidePage.this.jbiBasicBeans = WsdlUtils.INSTANCE.parse( JbiProvidePage.this.wsdlUrl );
+					JbiProvidePage.this.jbiBasicBeans.addAll( WsdlUtils.INSTANCE.parse( JbiProvidePage.this.wsdlUrl ));
 					if( JbiProvidePage.this.jbiBasicBeans.isEmpty())
 						JbiProvidePage.this.wsdlParsingError = "The WSDL does not contain any service desription.";
 
@@ -276,7 +279,7 @@ public class JbiProvidePage extends JbiAbstractPage {
 		else
 			JbiProvidePage.this.wsdlTextDecoration.show();
 
-		int size = this.jbiBasicBeans != null ? this.jbiBasicBeans.size() : 0;
+		int size = this.jbiBasicBeans.size();
 		if( size > 1 )
 			this.wsdlHelper.getLink().setText( "<A>Select another service</A> in the WSDL" + " (" + size + " available)" );
 		else if( size == 1 )
@@ -285,7 +288,7 @@ public class JbiProvidePage extends JbiAbstractPage {
 		this.wsdlHelper.setVisible( size > 0 );
 		this.wsdlHelper.layout();
 
-		if( this.jbiBasicBeans != null && this.jbiBasicBeans.size() > 0 ) {
+		if( this.jbiBasicBeans.size() > 0 ) {
 			JbiBasicBean bean = this.jbiBasicBeans.get( 0 );
 			this.itfQText.setValue( bean.getInterfaceName());
 			this.srvQText.setValue( bean.getServiceName());

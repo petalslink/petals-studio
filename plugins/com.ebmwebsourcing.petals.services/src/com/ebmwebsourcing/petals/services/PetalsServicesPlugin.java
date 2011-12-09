@@ -53,16 +53,21 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	 * #start(org.osgi.framework.BundleContext)
 	 */
 	@Override
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
+	public void start( BundleContext context ) throws Exception {
+		super.start( context );
 		plugin = this;
 
-		// Initialize feature Ids
-		for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
-			for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
-				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(version.getNamespace());
-				new InitializeModelExtensionCommand(extensionPackage, null).initializeFeatures();
+		// Initialize feature IDs
+		try {
+			for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
+				for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
+					EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage( version.getNamespace());
+					new InitializeModelExtensionCommand( extensionPackage, null ).initializeFeatures();
+				}
 			}
+
+		} catch( Exception e ) {
+			log( e, IStatus.ERROR );
 		}
 	}
 
@@ -73,9 +78,9 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	 * #stop(org.osgi.framework.BundleContext)
 	 */
 	@Override
-	public void stop(BundleContext context) throws Exception {
+	public void stop( BundleContext context ) throws Exception {
 		plugin = null;
-		super.stop(context);
+		super.stop( context );
 	}
 
 

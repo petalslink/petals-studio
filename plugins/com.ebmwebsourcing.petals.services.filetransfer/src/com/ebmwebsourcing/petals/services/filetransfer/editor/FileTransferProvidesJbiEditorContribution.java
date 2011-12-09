@@ -1,3 +1,14 @@
+/******************************************************************************
+ * Copyright (c) 2011, EBM WebSourcing
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     EBM WebSourcing - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.filetransfer.editor;
 
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
@@ -27,34 +38,37 @@ import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDeta
 import com.ebmwebsourcing.petals.services.jbi.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
+/**
+ * @author Mickaël Istria - EBM WebSourcing
+ */
 public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetailsContribution {
 
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
 		generalDetails.setLayout(new GridLayout(1, false));
 		generalDetails.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
+
 		Section identificationSection = toolkit.createSection(generalDetails, Section.EXPANDED | Section.TITLE_BAR);
 		identificationSection.setText(Messages.identification);
 		identificationSection.setLayoutData(new GridData(GridData.FILL_BOTH));
 		Composite identificationComposite = toolkit.createComposite(identificationSection);
 		identificationComposite.setLayout(new GridLayout(2, false));
 		identificationSection.setClient(identificationComposite);
-		
+
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, identificationComposite, editor);
 		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, identificationComposite, editor);
-		
+
 		Section filetransferSection = toolkit.createSection(generalDetails, Section.EXPANDED | Section.TITLE_BAR);
 		filetransferSection.setText(Messages.fileTransfer);
 		filetransferSection.setLayoutData(new GridData(GridData.FILL_BOTH));
 		Composite fileTransferComposite = toolkit.createComposite(filetransferSection);
 		fileTransferComposite.setLayout(new GridLayout(2, false));
 		filetransferSection.setClient(fileTransferComposite);
-		 
+
 		toolkit.createLabel(fileTransferComposite, Messages.contractType);
 		Combo contractCombo = new Combo(fileTransferComposite, SWT.READ_ONLY);
 		contractCombo.add(Messages.getFiles);
 		contractCombo.add(Messages.writeFiles);
-		
+
 		toolkit.createLabel(fileTransferComposite, Messages.writeDirectory);
 		Composite writeDirectoryComposite = toolkit.createComposite(fileTransferComposite);
 		// write
@@ -64,7 +78,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		writeDirectoryText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		Button browseWriteButton = toolkit.createButton(writeDirectoryComposite, Messages.browse, SWT.PUSH);
 		browseWriteButton.setImage(PetalsImages.getBrowse());
-		
+
 		// Mode
 		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editor, new EStructuralFeature[] {
 			FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE
@@ -78,15 +92,15 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		readDirectoryText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		Button browseReadButton = toolkit.createButton(readDirectoryComposite, Messages.browse, SWT.PUSH);
 		browseReadButton.setImage(PetalsImages.getBrowse());
-		
+
 		editor.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(readDirectoryText)),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY));
 		editor.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(writeDirectoryText)),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY));
-				
-		
+
+
 		browseWriteButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -95,7 +109,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 				if (directory != null) {
 					SetCommand setCommand = new SetCommand(editor.getEditingDomain(), endpoint, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, directory);
 					editor.getEditingDomain().getCommandStack().execute(setCommand);
-					
+
 				}
 			}
 		});
