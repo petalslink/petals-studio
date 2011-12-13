@@ -55,6 +55,7 @@ import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.jbi.editor.AbstractJBIFormPage;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
+import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
@@ -377,7 +378,10 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		if (selectedEndpoint != null) {
 			ComponentVersionSupportExtensionDesc componentExtensionDesc = SupportsUtil.getInstance().getComponentExtensionDesc(selectedEndpoint);
 			if (componentExtensionDesc != null) {
-				this.componentContributions = componentExtensionDesc.createNewExtensionSupport().createJbiEditorContribution(selectedEndpoint);
+				EditorContributionSupport support = componentExtensionDesc.createNewExtensionSupport();
+				if (support != null) {
+					this.componentContributions = componentExtensionDesc.createNewExtensionSupport().createJbiEditorContribution(selectedEndpoint);
+				}
 		    }
 		} else {
 			this.componentContributions = null;

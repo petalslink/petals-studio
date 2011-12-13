@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.ftp;
+package com.ebmwebsourcing.petals.services.ftp.wizard;
 
 import java.util.List;
 
@@ -19,14 +19,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.ftp.generated.FtpService33;
+import com.ebmwebsourcing.petals.services.ftp.FtpDescription32;
+import com.ebmwebsourcing.petals.services.ftp.generated.FtpService32;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FtpWizard33 extends FtpWizard31 {
+public class FtpWizard32 extends FtpWizard31 {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -34,7 +35,7 @@ public class FtpWizard33 extends FtpWizard31 {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new FtpDescription33();
+		return new FtpDescription32();
 	}
 
 
@@ -49,7 +50,7 @@ public class FtpWizard33 extends FtpWizard31 {
 			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
 
 		IFile wsdlFile = resourceFolder.getFile( "FtpService.wsdl" );
-		createFile( wsdlFile, new FtpService33().generate( abstractEndpoint ), monitor );
+		createFile( wsdlFile, new FtpService32().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
 	}
 }

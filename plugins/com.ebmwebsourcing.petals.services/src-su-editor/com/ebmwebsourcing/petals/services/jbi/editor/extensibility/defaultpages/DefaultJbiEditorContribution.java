@@ -29,7 +29,7 @@ public class DefaultJbiEditorContribution implements JbiEditorDetailsContributio
 
 	private EClass[] extensionClasses;
 	
-	public DefaultJbiEditorContribution(EClass[] extensionEClasses) {
+	public DefaultJbiEditorContribution(EClass... extensionEClasses) {
 		this.extensionClasses = extensionEClasses;
 	}
 	

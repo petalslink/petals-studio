@@ -9,6 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.ftp.ftp3;
 
+import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -81,7 +82,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__GROUP = Cdk5Package.CDK5_PROVIDES__GROUP;
+	int FTP_PROVIDES__GROUP = JbiPackage.PROVIDES__GROUP;
 
 	/**
 	 * The feature id for the '<em><b>Other</b></em>' attribute list.
@@ -90,7 +91,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__OTHER = Cdk5Package.CDK5_PROVIDES__OTHER;
+	int FTP_PROVIDES__OTHER = JbiPackage.PROVIDES__OTHER;
 
 	/**
 	 * The feature id for the '<em><b>Local</b></em>' attribute list.
@@ -99,7 +100,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__LOCAL = Cdk5Package.CDK5_PROVIDES__LOCAL;
+	int FTP_PROVIDES__LOCAL = JbiPackage.PROVIDES__LOCAL;
 
 	/**
 	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
@@ -108,7 +109,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__ENDPOINT_NAME = Cdk5Package.CDK5_PROVIDES__ENDPOINT_NAME;
+	int FTP_PROVIDES__ENDPOINT_NAME = JbiPackage.PROVIDES__ENDPOINT_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
@@ -117,7 +118,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__INTERFACE_NAME = Cdk5Package.CDK5_PROVIDES__INTERFACE_NAME;
+	int FTP_PROVIDES__INTERFACE_NAME = JbiPackage.PROVIDES__INTERFACE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
@@ -126,88 +127,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__SERVICE_NAME = Cdk5Package.CDK5_PROVIDES__SERVICE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Cdk Ext Container</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__CDK_EXT_CONTAINER = Cdk5Package.CDK5_PROVIDES__CDK_EXT_CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Timeout</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__TIMEOUT = Cdk5Package.CDK5_PROVIDES__TIMEOUT;
-
-	/**
-	 * The feature id for the '<em><b>Su Interceptors</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__SU_INTERCEPTORS = Cdk5Package.CDK5_PROVIDES__SU_INTERCEPTORS;
-
-	/**
-	 * The feature id for the '<em><b>Validate Wsdl</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__VALIDATE_WSDL = Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL;
-
-	/**
-	 * The feature id for the '<em><b>Forward Security Subject</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__FORWARD_SECURITY_SUBJECT = Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT;
-
-	/**
-	 * The feature id for the '<em><b>Forward Message Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__FORWARD_MESSAGE_PROPERTIES = Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Forward Attachments</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__FORWARD_ATTACHMENTS = Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Wsdl</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__WSDL = Cdk5Package.CDK5_PROVIDES__WSDL;
-
-	/**
-	 * The feature id for the '<em><b>Retry Policy</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FTP_PROVIDES__RETRY_POLICY = Cdk5Package.CDK5_PROVIDES__RETRY_POLICY;
+	int FTP_PROVIDES__SERVICE_NAME = JbiPackage.PROVIDES__SERVICE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Connection Mode</b></em>' attribute.
@@ -216,7 +136,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__CONNECTION_MODE = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 0;
+	int FTP_PROVIDES__CONNECTION_MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Delete Processed Files</b></em>' attribute.
@@ -225,7 +145,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__DELETE_PROCESSED_FILES = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 1;
+	int FTP_PROVIDES__DELETE_PROCESSED_FILES = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Filename</b></em>' attribute.
@@ -234,7 +154,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__FILENAME = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 2;
+	int FTP_PROVIDES__FILENAME = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Folder</b></em>' attribute.
@@ -243,7 +163,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__FOLDER = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 3;
+	int FTP_PROVIDES__FOLDER = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Overwrite</b></em>' attribute.
@@ -252,7 +172,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__OVERWRITE = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 4;
+	int FTP_PROVIDES__OVERWRITE = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Password</b></em>' attribute.
@@ -261,7 +181,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__PASSWORD = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 5;
+	int FTP_PROVIDES__PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -270,7 +190,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__PORT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 6;
+	int FTP_PROVIDES__PORT = JbiPackage.PROVIDES_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Server</b></em>' attribute.
@@ -279,7 +199,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__SERVER = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 7;
+	int FTP_PROVIDES__SERVER = JbiPackage.PROVIDES_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>User</b></em>' attribute.
@@ -288,7 +208,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__USER = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 8;
+	int FTP_PROVIDES__USER = JbiPackage.PROVIDES_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Transfer Type</b></em>' attribute.
@@ -297,7 +217,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES__TRANSFER_TYPE = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 9;
+	int FTP_PROVIDES__TRANSFER_TYPE = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Ftp Provides</em>' class.
@@ -306,7 +226,7 @@ public interface Ftp3Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES_FEATURE_COUNT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 10;
+	int FTP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.ConnectionType <em>Connection Type</em>}' enum.

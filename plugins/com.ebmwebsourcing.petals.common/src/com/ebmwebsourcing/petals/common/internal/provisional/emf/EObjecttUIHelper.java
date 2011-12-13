@@ -1,14 +1,21 @@
-package com.ebmwebsourcing.petals.services.jbi.editor.common.emf;
+package com.ebmwebsourcing.petals.common.internal.provisional.emf;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -21,10 +28,7 @@ import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages.EEnumLiteralsProvider;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages.EEnumNameLabelProvider;
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 public class EObjecttUIHelper {
 	
@@ -38,25 +42,36 @@ public class EObjecttUIHelper {
 		}
 	}
 	
-	public static void generateWidgets(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, JbiFormEditor editor, EStructuralFeature[] toProcessFeatures) {
+	/**
+	 * Generate a 2 column list with left column containing description of widgets
+	 * and right column containing widget
+	 * @param eObject the eObject to edit
+	 * @param toolkit a {@link FormToolkit} to create widgets
+	 * @param parent
+	 * @param domain the {@link EditingDomain} in case of transactional edition. Can be null, then no transaction is used.
+	 * @param dbc
+	 * @param toProcessFeatures list of features to edit.
+	 */
+	public static void generateWidgets(EObject eObject, FormToolkit toolkit, Composite parent, EditingDomain domain, DataBindingContext dbc, EStructuralFeature... toProcessFeatures) {
 		List<EntryDescription> entries = new ArrayList<EntryDescription>();
 		for (EStructuralFeature feature : toProcessFeatures) {
 			Object widget = null;
 			EAttribute attr = (EAttribute)feature;
-			toolkit.createLabel(advancedDetails, attr.getName());
-			if (attr.getEType().equals(EcorePackage.Literals.ESTRING)) {
-				widget = toolkit.createText(advancedDetails, "", SWT.BORDER);
+			toolkit.createLabel(parent, attr.getName());
+			Class<?> instanceClass = attr.getEType().getInstanceClass(); 
+			if (instanceClass.equals(String.class)) {
+				widget = toolkit.createText(parent, "", SWT.BORDER);
 				((Text)widget).setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-			} else if (attr.getEType().equals(EcorePackage.Literals.EINT) || attr.getEType().equals(EcorePackage.Literals.EINTEGER_OBJECT)) {
-				widget = new Spinner(advancedDetails, SWT.DEFAULT);
-			} else if (attr.getEType() instanceof EEnum) {
-				widget = new ComboViewer(advancedDetails, SWT.READ_ONLY | SWT.FLAT);
+			} else if (instanceClass.equals(Integer.class) || instanceClass.equals(int.class)) {
+				widget = new Spinner(parent, SWT.DEFAULT);
+			} else if (instanceClass.isEnum()) {
+				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
 				ComboViewer viewer = (ComboViewer)widget;
 				viewer.setContentProvider(new EEnumLiteralsProvider());
 				viewer.setLabelProvider(new EEnumNameLabelProvider());
 				viewer.setInput(attr.getEType());
-			} else if (attr.getEType().equals(EcorePackage.Literals.EBOOLEAN) || attr.getEType().equals(EcorePackage.Literals.EBOOLEAN_OBJECT)) {
-				widget = toolkit.createButton(advancedDetails, "", SWT.CHECK);
+			} else if (instanceClass.equals(Boolean.class) || instanceClass.equals(boolean.class)) {
+				widget = toolkit.createButton(parent, "", SWT.CHECK);
 			}
 			if (widget != null) {
 				entries.add(new EntryDescription(widget, attr));
@@ -75,9 +90,15 @@ public class EObjecttUIHelper {
 				widgetObservable = SWTObservables.observeSelection((Button)entry.widget);
 			}
 			if (widgetObservable != null) {
-				editor.getDataBindingContext().bindValue(
-					widgetObservable,
-					EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, entry.attribute));
+				if (domain != null) {
+					dbc.bindValue(
+						widgetObservable,
+						EMFEditObservables.observeValue(domain, eObject, entry.attribute));
+				} else {
+					dbc.bindValue(
+						widgetObservable,
+						EMFObservables.observeValue(eObject, entry.attribute));
+				}
 			}
 		}
 	}

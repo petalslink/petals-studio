@@ -10,7 +10,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  com.ebmwebsourcing.petals.services,
  com.ebmwebsourcing.jbi.core.metamodel,
- com.ebmwebsourcing.petals.services.cdk;bundle-version="1.0.0"
+ com.ebmwebsourcing.petals.services.cdk;bundle-version="1.0.0",
+ com.ebmwebsourcing.petals.common;bundle-version="1.0.0",
+ org.eclipse.ui.forms,
+ org.eclipse.core.databinding;bundle-version="1.4.0",
+ org.eclipse.emf.edit;bundle-version="2.7.1"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5	
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 

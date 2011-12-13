@@ -1,4 +1,4 @@
-package com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages;
+package com.ebmwebsourcing.petals.common.internal.provisional.emf;
 
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.jface.viewers.IBaseLabelProvider;

@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.editor;
+package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -20,7 +20,7 @@ import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDeta
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class FileTransferContributionSupport extends EditorContributionSupport {
 

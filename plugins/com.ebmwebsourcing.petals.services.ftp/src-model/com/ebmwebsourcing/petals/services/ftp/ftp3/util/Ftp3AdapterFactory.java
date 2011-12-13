@@ -94,16 +94,8 @@ public class Ftp3AdapterFactory extends AdapterFactoryImpl {
 				return createAbstractEndpointAdapter();
 			}
 			@Override
-			public Adapter caseCDKService(CDKService object) {
-				return createCDKServiceAdapter();
-			}
-			@Override
 			public Adapter caseProvides(Provides object) {
 				return createProvidesAdapter();
-			}
-			@Override
-			public Adapter caseCDK5Provides(CDK5Provides object) {
-				return createCDK5ProvidesAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -168,20 +160,6 @@ public class Ftp3AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService <em>CDK Service</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService
-	 * @generated
-	 */
-	public Adapter createCDKServiceAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link com.sun.java.xml.ns.jbi.Provides <em>Provides</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -192,20 +170,6 @@ public class Ftp3AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createProvidesAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides <em>CDK5 Provides</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides
-	 * @generated
-	 */
-	public Adapter createCDK5ProvidesAdapter() {
 		return null;
 	}
 

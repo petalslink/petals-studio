@@ -9,6 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.ftp.ftp3;
 
+import com.sun.java.xml.ns.jbi.Provides;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
 
 /**
@@ -36,7 +37,7 @@ import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
  * @model extendedMetaData="name=''"
  * @generated
  */
-public interface FtpProvides extends CDK5Provides {
+public interface FtpProvides extends Provides {
 	/**
 	 * Returns the value of the '<em><b>Connection Mode</b></em>' attribute.
 	 * The literals are from the enumeration {@link com.ebmwebsourcing.petals.services.ftp.ftp3.ConnectionType}.
@@ -50,7 +51,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.ConnectionType
 	 * @see #setConnectionMode(ConnectionType)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_ConnectionMode()
-	 * @model extendedMetaData="name='connection-mode' namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model derived="true"
+	 *        extendedMetaData="name='connection-mode' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	ConnectionType getConnectionMode();
@@ -77,8 +79,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>Delete Processed Files</em>' attribute.
 	 * @see #setDeleteProcessedFiles(boolean)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_DeleteProcessedFiles()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-	 *        extendedMetaData="name='delete-processed-files' namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
+	 *        extendedMetaData="name='delete-processed-files' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	boolean isDeleteProcessedFiles();
@@ -105,8 +107,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>Filename</em>' attribute.
 	 * @see #setFilename(String)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Filename()
-	 * @model default="" dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model default="" dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	String getFilename();
@@ -132,8 +134,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>Folder</em>' attribute.
 	 * @see #setFolder(String)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Folder()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	String getFolder();
@@ -159,8 +161,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>Overwrite</em>' attribute.
 	 * @see #setOverwrite(boolean)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Overwrite()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-	 *        extendedMetaData="namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	boolean isOverwrite();
@@ -186,8 +188,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>Password</em>' attribute.
 	 * @see #setPassword(String)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Password()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	String getPassword();
@@ -213,8 +215,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>Port</em>' attribute.
 	 * @see #setPort(int)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Port()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
-	 *        extendedMetaData="namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	int getPort();
@@ -240,8 +242,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>Server</em>' attribute.
 	 * @see #setServer(String)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Server()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	String getServer();
@@ -267,8 +269,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @return the value of the '<em>User</em>' attribute.
 	 * @see #setUser(String)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_User()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="namespace='##targetNamespace' type='element' group='#group:0'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
 	String getUser();
@@ -296,7 +298,8 @@ public interface FtpProvides extends CDK5Provides {
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.TransferType
 	 * @see #setTransferType(TransferType)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_TransferType()
-	 * @model extendedMetaData="namespace='##targetNamespace' type='element' name='transfer-type' group='#group:0'"
+	 * @model derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' name='transfer-type' group='#group:0'"
 	 * @generated
 	 */
 	TransferType getTransferType();

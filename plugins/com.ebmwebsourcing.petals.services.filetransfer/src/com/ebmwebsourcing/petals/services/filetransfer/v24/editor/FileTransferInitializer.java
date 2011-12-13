@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.editor;
+package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.CopyMode;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
@@ -19,7 +19,7 @@ import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class FileTransferInitializer extends ServiceInitializer {
 

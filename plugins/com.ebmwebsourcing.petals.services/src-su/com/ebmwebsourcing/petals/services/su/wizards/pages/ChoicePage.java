@@ -33,6 +33,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.IWizardNode;
+import org.eclipse.jface.wizard.WizardSelectionPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -64,13 +66,13 @@ import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.extensions.IComponentDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
-import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 
 /**
  * Choose the kind of SU to create.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ChoicePage extends AbstractSuPage {
+public class ChoicePage extends WizardSelectionPage {
 
 	public static final String PAGE_NAME = "ChoicePage";
 
@@ -79,6 +81,8 @@ public class ChoicePage extends AbstractSuPage {
 	private Font boldFont;
 	private FixedShellTooltip helpTooltip;
 	private final PetalsMode petalsMode;
+
+	private Map<ComponentWizardHandler, ComponentWizardDescriptionWizardNode> handlerToNodes = new HashMap<ComponentWizardHandler, ComponentWizardDescriptionWizardNode>();
 
 
 	/**
@@ -187,9 +191,6 @@ public class ChoicePage extends AbstractSuPage {
 										"com.ebmwebsourcing.petals.services.prefs.maven",
 										null, null );
 
-							if( dlg.open() == Window.OK )
-								validate();
-
 						} catch( Exception e1 ) {
 							PetalsServicesPlugin.log( e1, IStatus.ERROR );
 						}
@@ -283,13 +284,13 @@ public class ChoicePage extends AbstractSuPage {
 			public int compare( ComponentWizardHandler o1, ComponentWizardHandler o2 ) {
 				String v1 = o1.getComponentVersionDescription().getComponentVersion();
 				String v2 = o2.getComponentVersionDescription().getComponentVersion();
-				return v1.compareTo( v2 );
+				return - v1.compareTo( v2 ); // negative so that must recent is first
 			}
 		};
 
 		final Map<String,Collection<ComponentWizardHandler>> componentNameToHandler = new TreeMap<String,Collection<ComponentWizardHandler>> ();
 		final Map<PetalsKeyWords,Set<String>> keywordToComponentName = new HashMap<PetalsKeyWords,Set<String>> ();
-		for( ComponentWizardHandler handler : ExtensionManager.INSTANCE.findWizardandlers()) {
+		for( ComponentWizardHandler handler : ExtensionManager.INSTANCE.findWizardandlers(petalsMode)) {
 			for( PetalsKeyWords keyword : handler.getComponentVersionDescription().getKeyWords()) {
 				Set<String> list = keywordToComponentName.get( keyword );
 				if( list == null )
@@ -380,7 +381,8 @@ public class ChoicePage extends AbstractSuPage {
 
 				// Get the selection
 				ComponentWizardHandler handler = (ComponentWizardHandler) ((IStructuredSelection) event.getSelection()).getFirstElement();
-				((PetalsSuNewWizard) getWizard()).setWizardHandler( handler );
+				setSelectedNode(getWizardNode(handler));
+				
 
 				// Update the right image
 				Image newImg;
@@ -391,18 +393,16 @@ public class ChoicePage extends AbstractSuPage {
 
 				// Update the description label
 				String txt;
-				if( ChoicePage.this.petalsMode == PetalsMode.provides )
+				if( ChoicePage.this.petalsMode == PetalsMode.provides ) {
 					txt = handler.getComponentVersionDescription().getProvideDescription();
-				else
+				} else {
 					txt = handler.getComponentVersionDescription().getConsumeDescription();
+				}
 
 				// Refresh the UI
 				rightLabel.setImage( newImg );
 				middleText.setText( txt );
 				middleText.getParent().layout();
-
-				// Validate
-				validate();
 			}
 		});
 
@@ -415,39 +415,11 @@ public class ChoicePage extends AbstractSuPage {
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage
-	 * #dialogChanged()
-	 */
-	@Override
-	public boolean validate() {
-
-		boolean showTooltip = false;
-		String msg = null;
-		if( ! PreferencesManager.isMavenTemplateConfigurationValid()) {
-			msg = "There is an error in your preferences about custom POM templates.";
-			showTooltip = true;
+	protected IWizardNode getWizardNode(ComponentWizardHandler handler) {
+		if (handlerToNodes .get(handler) == null) {
+			handlerToNodes.put(handler, new ComponentWizardDescriptionWizardNode(handler, petalsMode));
 		}
-
-		if( showTooltip )
-			this.helpTooltip.show();
-		else
-			this.helpTooltip.hide();
-
-		updateStatus( msg );
-		return msg == null;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.WizardPage
-	 * #canFlipToNextPage()
-	 */
-	@Override
-	public boolean canFlipToNextPage() {
-		return getWizardHandler() != null;
+		return handlerToNodes.get(handler);
 	}
 
 

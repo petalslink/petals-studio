@@ -12,13 +12,11 @@
 
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
-import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -65,18 +63,6 @@ public abstract class AbstractSuPage extends WizardPage {
 		PlatformUI.getWorkbench().getHelpSystem().setHelp( container, helpId );
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.WizardPage#getNextPage()
-	 */
-	@Override
-	public IWizardPage getNextPage() {
-		IWizardPage p = getWizard().getNextPage( this );
-		return p;
-	}
-
-
 	/**
 	 * Validates the page's input.
 	 * <p>
@@ -96,27 +82,17 @@ public abstract class AbstractSuPage extends WizardPage {
 		setPageComplete( message == null );
 	}
 
-
-	/**
-	 * @return true if this page is used in a provider wizard, false otherwise
-	 */
-	protected boolean isProvides() {
-		return ((PetalsSuNewWizard) getWizard()).isProvides();
-	}
-
-
 	/**
 	 * @return the first provides or consumes block (not null)
 	 */
-	protected AbstractEndpoint getFirstProvideOrConsume() {
-		return ((PetalsSuNewWizard) getWizard()).getFirstProvideOrConsume();
+	protected AbstractEndpoint getNewlyCreatedEndpoint() {
+		return ((ComponentCreationWizard) getWizard()).getNewlyCreatedEndpoint();
 	}
 
-
-	/**
-	 * @return the component version's description
-	 */
-	protected ComponentWizardHandler getWizardHandler() {
-		return ((PetalsSuNewWizard) getWizard()).getWizardHandler();
+	
+	@Override
+	public ComponentCreationWizard getWizard() {
+		return (ComponentCreationWizard) super.getWizard();
 	}
+
 }

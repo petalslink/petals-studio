@@ -38,6 +38,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.NameUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.su.Messages;
+import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -79,16 +80,15 @@ public class ProjectPage extends AbstractSuPage {
 		String warningMsg = null;
 
 		// Remove white spaces ("File Transfer") - cause of problems with systems
-		String newSuType = getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" ).trim();
-		if( ! isProvides()) {
-			String regex = "su-" + newSuType + "-" + "[a-zA-Z_]+[.\\w\\-]*" + "-consume.*";
-			if( ! this.projectName.matches( regex ))
-				warningMsg = "The project name does not respect the convention su-" + newSuType + "-...-consume.";
-
-		} else {
+		String newSuType = getWizard().getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" ).trim();
+		if( getWizard().getPetalsMode() == PetalsMode.provides) {
 			String regex = "su-" + newSuType + "-" + "[a-zA-Z_]+[.\\w\\-]*" + "-provide.*";
 			if( ! this.projectName.matches( regex ))
 				warningMsg = "The project name does not respect the convention su-" + newSuType + "-...-provide.";
+		} else {
+			String regex = "su-" + newSuType + "-" + "[a-zA-Z_]+[.\\w\\-]*" + "-consume.*";
+			if( ! this.projectName.matches( regex ))
+				warningMsg = "The project name does not respect the convention su-" + newSuType + "-...-consume.";
 		}
 
 
@@ -240,7 +240,7 @@ public class ProjectPage extends AbstractSuPage {
 
 			// Update the project name from the "service-name"
 			boolean defaultServiceName = false;
-			AbstractEndpoint ae = getFirstProvideOrConsume();
+			AbstractEndpoint ae = getNewlyCreatedEndpoint();
 			String serviceName = ae.getServiceName() != null ? ae.getServiceName().getLocalPart() : null;
 
 			// If there is no service name, use a default one
@@ -253,8 +253,8 @@ public class ProjectPage extends AbstractSuPage {
 			}
 
 			// Create a SU name
-			String newSuType = getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" );
-			String formattedName = NameUtils.createSuName( newSuType, serviceName, ! isProvides());
+			String newSuType = getWizard().getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" );
+			String formattedName = NameUtils.createSuName( newSuType, serviceName, getWizard().getPetalsMode() != PetalsMode.provides);
 
 			this.projectNameText.setText( formattedName );
 			if( defaultServiceName ) {

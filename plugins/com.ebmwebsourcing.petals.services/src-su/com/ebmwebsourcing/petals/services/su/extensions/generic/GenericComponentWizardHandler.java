@@ -11,6 +11,7 @@
 
 package com.ebmwebsourcing.petals.services.su.extensions.generic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -50,9 +51,11 @@ public class GenericComponentWizardHandler extends ComponentWizardHandler {
 	 * #registerCustomWizardPages(com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler.CustomPagePosition, java.util.List)
 	 */
 	@Override
-	public void registerCustomWizardPages( CustomPagePosition position, List<AbstractSuPage> pagesToInsert ) {
-
-		if( position == CustomPagePosition.beforeProjectPage )
-			pagesToInsert.add( new GenericSuWizardPage());
+	public List<AbstractSuPage> getCustomWizardPages( CustomPagePosition position) {
+		List<AbstractSuPage> res = new ArrayList<AbstractSuPage>();
+		if( position == CustomPagePosition.beforeProjectPage ) {
+			res.add( new GenericSuWizardPage());
+		}
+		return res;
 	}
 }

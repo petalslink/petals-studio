@@ -9,8 +9,9 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer;
+package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -97,5 +100,19 @@ public class FileTransferWizard24 extends ComponentWizardHandler {
 		}
 
 		return Status.OK_STATUS;
+	}
+
+
+	@Override
+	public List<AbstractSuPage> getCustomWizardPages(CustomPagePosition position) {
+		List<AbstractSuPage> pages = new ArrayList<AbstractSuPage>();
+		if (position == CustomPagePosition.afterProjectPage) {
+			if (isServiceProvider()) {
+				pages.add(new FiletransferProvidesPage());
+			} else {
+				pages.add(new FiletransferConsumesPage());
+			}
+		}
+		return pages;
 	}
 }

@@ -9,9 +9,10 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer;
+package com.ebmwebsourcing.petals.services.filetransfer.v24;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing

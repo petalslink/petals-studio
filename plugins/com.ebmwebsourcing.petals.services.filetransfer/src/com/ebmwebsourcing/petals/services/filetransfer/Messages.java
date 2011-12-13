@@ -12,6 +12,8 @@ public class Messages extends NLS {
 	public static String writeFiles;
 	public static String readDirectory;
 	public static String identification;
+	public static String readFileContract;
+	public static String writeFileContract;
 
 	static {
 		initializeMessages("messages", Messages.class);

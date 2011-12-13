@@ -21,17 +21,19 @@
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription31"
                id="FTP 3.1"
-               wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard31">
+               wizardExtension="com.ebmwebsourcing.petals.services.ftp.wizard.FtpWizard31">
          </ComponentVersionSupport>
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription32"
                id="FTP 3.2"
-               wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard32">
+               wizardExtension="com.ebmwebsourcing.petals.services.ftp.wizard.FtpWizard32">
          </ComponentVersionSupport>
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription33"
+               editorExtension="com.ebmwebsourcing.petals.services.ftp.editor.FTPEditorContribution"
                id="FTP 3.3"
-               wizardExtension="com.ebmwebsourcing.petals.services.ftp.FtpWizard33">
+               namespace="http://petals.ow2.org/components/ftp/version-3"
+               wizardExtension="com.ebmwebsourcing.petals.services.ftp.wizard.FtpWizard33">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>

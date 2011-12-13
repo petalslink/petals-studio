@@ -83,8 +83,6 @@ public class Ftp3Switch<T> extends Switch<T> {
 			case Ftp3Package.FTP_PROVIDES: {
 				FtpProvides ftpProvides = (FtpProvides)theEObject;
 				T result = caseFtpProvides(ftpProvides);
-				if (result == null) result = caseCDK5Provides(ftpProvides);
-				if (result == null) result = caseCDKService(ftpProvides);
 				if (result == null) result = caseProvides(ftpProvides);
 				if (result == null) result = caseAbstractEndpoint(ftpProvides);
 				if (result == null) result = caseAbstractExtensibleElement(ftpProvides);
@@ -141,21 +139,6 @@ public class Ftp3Switch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseCDKService(CDKService object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Provides</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -167,21 +150,6 @@ public class Ftp3Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseProvides(Provides object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>CDK5 Provides</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>CDK5 Provides</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseCDK5Provides(CDK5Provides object) {
 		return null;
 	}
 

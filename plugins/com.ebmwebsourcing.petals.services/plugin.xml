@@ -261,12 +261,12 @@
             class="com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard:provides"
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             hasPages="true"
-            icon="icons/obj16/petals_service.png"
-            id="com.ebmwebsourcing.petals.services.service-provider.project"
-            name="Petals Service"
+            icon="icons/obj16/provides_3.0.png"
+            id="com.ebmwebsourcing.petals.services.provider.project"
+            name="Petals Service Provider"
             project="true">
          <description>
-            Create a Service Unit project to define a new Petals service
+            Create a Service Unit project to define provide a new Petals service inside the bus.
          </description>
       </wizard>
       <wizard
@@ -275,11 +275,11 @@
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             hasPages="true"
             icon="icons/obj16/consumes_3.0.png"
-            id="com.ebmwebsourcing.petals.services.service-consumer.project"
+            id="com.ebmwebsourcing.petals.services.consumer.project"
             name="Petals Service Consumer"
             project="true">
          <description>
-            Create a Service Unit project to define a new Petals service
+            Create a Service Unit project to make a new Petals service available from outside of the bus.
          </description>
       </wizard>
    </extension>

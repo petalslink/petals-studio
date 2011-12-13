@@ -16,6 +16,7 @@ import com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package;
 import com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides;
 import com.ebmwebsourcing.petals.services.ftp.ftp3.TransferType;
 
+import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -44,7 +45,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class FtpProvidesImpl extends CDK5ProvidesImpl implements FtpProvides {
+public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	/**
 	 * The default value of the '{@link #getConnectionMode() <em>Connection Mode</em>}' attribute.
 	 * <!-- begin-user-doc -->

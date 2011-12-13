@@ -52,7 +52,7 @@ public class GenericSuWizardPage extends AbstractSuPage {
 
 		// Validate the fields
 		String error = null;
-		ComponentVersionDescription desc = getWizardHandler().getComponentVersionDescription();
+		ComponentVersionDescription desc = getWizard().getWizardHandler().getComponentVersionDescription();
 		if( StringUtils.isEmpty( desc.getComponentName()))
 			error = "You have to set the component name.";
 		else if( StringUtils.isEmpty( desc.getComponentAlias()))
@@ -74,7 +74,7 @@ public class GenericSuWizardPage extends AbstractSuPage {
 	public void createControl( final Composite parent ) {
 
 		// Keep the component description
-		final GenericComponentDescription genDesc = (GenericComponentDescription) getWizardHandler().getComponentVersionDescription();
+		final GenericComponentDescription genDesc = (GenericComponentDescription) getWizard().getWizardHandler().getComponentVersionDescription();
 
 
 		// Create the composite container and define its layout.

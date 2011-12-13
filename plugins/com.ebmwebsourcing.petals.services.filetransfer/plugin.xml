@@ -21,11 +21,11 @@
    <ComponentSupport
          id="file transfer">
       <ComponentVersionSupport
-            componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription24"
-            editorExtension="com.ebmwebsourcing.petals.services.filetransfer.editor.FileTransferContributionSupport"
+            componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24"
+            editorExtension="com.ebmwebsourcing.petals.services.filetransfer.v24.editor.FileTransferContributionSupport"
             id="File Transfer 2.4"
             namespace="http://petals.ow2.org/components/filetransfer/version-2"
-            wizardExtension="com.ebmwebsourcing.petals.services.filetransfer.FileTransferWizard24">
+            wizardExtension="com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FileTransferWizard24">
       </ComponentVersionSupport>
    </ComponentSupport>
 </extension>

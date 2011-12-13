@@ -112,7 +112,7 @@ public abstract class JbiAbstractPage extends AbstractSuPage {
 		this.itfQText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
-				getFirstProvideOrConsume().setInterfaceName( JbiAbstractPage.this.itfQText.getValue());
+				getNewlyCreatedEndpoint().setInterfaceName( JbiAbstractPage.this.itfQText.getValue());
 				validate();
 			}
 		});
@@ -124,7 +124,7 @@ public abstract class JbiAbstractPage extends AbstractSuPage {
 		this.srvQText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
-				getFirstProvideOrConsume().setServiceName( JbiAbstractPage.this.srvQText.getValue());
+				getNewlyCreatedEndpoint().setServiceName( JbiAbstractPage.this.srvQText.getValue());
 				validate();
 			}
 		});
@@ -136,7 +136,7 @@ public abstract class JbiAbstractPage extends AbstractSuPage {
 		this.edptText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
-				getFirstProvideOrConsume().setEndpointName( JbiAbstractPage.this.edptText.getText());
+				getNewlyCreatedEndpoint().setEndpointName( JbiAbstractPage.this.edptText.getText());
 				validate();
 			}
 		});
@@ -153,7 +153,7 @@ public abstract class JbiAbstractPage extends AbstractSuPage {
 
 		// Update the UI
 		if( visible ) {
-			AbstractEndpoint ae = getFirstProvideOrConsume();
+			AbstractEndpoint ae = getNewlyCreatedEndpoint();
 			this.itfQText.setValue( ae.getInterfaceName());
 			this.srvQText.setValue( ae.getServiceName());
 			String edpt = ae.getEndpointName();

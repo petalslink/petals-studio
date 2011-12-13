@@ -7,6 +7,7 @@ import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.edit.command.SetCommand;
@@ -25,13 +26,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsColors;
 import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.LocalQNameToStringConverter;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.NamespaceQNameToStringConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.services.jbi.editor.su.wizard.QNameEditor;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
@@ -187,7 +188,7 @@ public class JBIEndpointUIHelpers {
 		}
 		EStructuralFeature[] toProcessFeatures = toProcessFeaturesList.toArray(new EStructuralFeature[toProcessFeaturesList.size()] );
 		
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, advancedDetails, editor, toProcessFeatures);
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, advancedDetails, editor.getEditingDomain(), editor.getDataBindingContext(), toProcessFeatures);
 	}
 
 

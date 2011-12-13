@@ -103,7 +103,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		isInited = true;
 
 		// Initialize simple dependencies
-		Cdk5Package.eINSTANCE.eClass();
+		JbiPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theFtp3Package.createPackageContents();
@@ -306,7 +306,6 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Cdk5Package theCdk5Package = (Cdk5Package)EPackage.Registry.INSTANCE.getEPackage(Cdk5Package.eNS_URI);
 		JbiPackage theJbiPackage = (JbiPackage)EPackage.Registry.INSTANCE.getEPackage(JbiPackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
@@ -315,20 +314,20 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		ftpProvidesEClass.getESuperTypes().add(theCdk5Package.getCDK5Provides());
+		ftpProvidesEClass.getESuperTypes().add(theJbiPackage.getProvides());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(ftpProvidesEClass, FtpProvides.class, "FtpProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFtpProvides_ConnectionMode(), this.getConnectionType(), "connectionMode", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_DeleteProcessedFiles(), theXMLTypePackage.getBoolean(), "deleteProcessedFiles", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_Filename(), theXMLTypePackage.getString(), "filename", "", 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_Folder(), theXMLTypePackage.getString(), "folder", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_Overwrite(), theXMLTypePackage.getBoolean(), "overwrite", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_Port(), theXMLTypePackage.getInt(), "port", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_Server(), theXMLTypePackage.getString(), "server", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_User(), theXMLTypePackage.getString(), "user", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFtpProvides_TransferType(), this.getTransferType(), "transferType", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_ConnectionMode(), this.getConnectionType(), "connectionMode", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_DeleteProcessedFiles(), theXMLTypePackage.getBoolean(), "deleteProcessedFiles", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_Filename(), theXMLTypePackage.getString(), "filename", "", 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_Folder(), theXMLTypePackage.getString(), "folder", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_Overwrite(), theXMLTypePackage.getBoolean(), "overwrite", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_Port(), theXMLTypePackage.getInt(), "port", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_Server(), theXMLTypePackage.getString(), "server", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_User(), theXMLTypePackage.getString(), "user", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_TransferType(), this.getTransferType(), "transferType", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(connectionTypeEEnum, ConnectionType.class, "ConnectionType");
@@ -368,7 +367,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   new String[] {
 			 "name", "connection-mode",
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -377,7 +376,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   new String[] {
 			 "name", "delete-processed-files",
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -385,7 +384,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -393,7 +392,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -401,7 +400,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -409,7 +408,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -417,7 +416,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -425,7 +424,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -433,7 +432,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "group", "#group:0"
 		   });		
 		addAnnotation
@@ -441,7 +440,7 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",
-			 "type", "element",
+			 "kind", "element",
 			 "name", "transfer-type",
 			 "group", "#group:0"
 		   });

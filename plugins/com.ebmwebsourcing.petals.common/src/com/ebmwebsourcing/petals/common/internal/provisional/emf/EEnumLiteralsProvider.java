@@ -1,4 +1,4 @@
-package com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages;
+package com.ebmwebsourcing.petals.common.internal.provisional.emf;
 
 import java.util.ArrayList;
 import java.util.List;

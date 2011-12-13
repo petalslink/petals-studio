@@ -9,10 +9,9 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.editor;
+package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
 
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
@@ -28,18 +27,18 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.Messages;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.jbi.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetailsContribution {
 
@@ -80,9 +79,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		browseWriteButton.setImage(PetalsImages.getBrowse());
 
 		// Mode
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editor, new EStructuralFeature[] {
-			FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE
-		});
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editor.getEditingDomain(), editor.getDataBindingContext(), FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
 		// read
 		toolkit.createLabel(fileTransferComposite, Messages.readDirectory);
 		Composite readDirectoryComposite = toolkit.createComposite(fileTransferComposite);

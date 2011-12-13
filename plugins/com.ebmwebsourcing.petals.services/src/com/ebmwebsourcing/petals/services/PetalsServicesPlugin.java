@@ -62,7 +62,11 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 			for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
 				for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
 					EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage( version.getNamespace());
-					new InitializeModelExtensionCommand( extensionPackage, null ).initializeFeatures();
+					if (extensionPackage != null) {
+						new InitializeModelExtensionCommand( extensionPackage, null ).initializeFeatures();
+					} else {
+						log("Could not load model for component [" + version.getVersion() + "]", IStatus.ERROR);
+					}
 				}
 			}
 

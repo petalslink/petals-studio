@@ -3,80 +3,89 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ftp3"
     nsURI="http://petals.ow2.org/components/ftp/version-3" nsPrefix="ftp3">
-  <eClassifiers xsi:type="ecore:EClass" name="FtpProvides" eSuperTypes="../../com.ebmwebsourcing.petals.services.cdk/model/cdk5.ecore#//CDK5Provides">
+  <eClassifiers xsi:type="ecore:EClass" name="FtpProvides" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Provides">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionMode" eType="#//ConnectionType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionMode" eType="#//ConnectionType"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="connection-mode"/>
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleteProcessedFiles" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleteProcessedFiles" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="delete-processed-files"/>
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filename" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
-        defaultValueLiteral="">
+        defaultValueLiteral="" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="folder" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="folder" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overwrite" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overwrite" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Int">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Int"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="server" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="server" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="user" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="user" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transferType" eType="#//TransferType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transferType" eType="#//TransferType"
+        derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
-        <details key="type" value="element"/>
+        <details key="kind" value="element"/>
         <details key="name" value="transfer-type"/>
         <details key="group" value="#group:0"/>
       </eAnnotations>

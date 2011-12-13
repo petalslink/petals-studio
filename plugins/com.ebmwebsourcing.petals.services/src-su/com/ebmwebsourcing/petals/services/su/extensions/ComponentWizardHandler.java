@@ -65,11 +65,9 @@ public abstract class ComponentWizardHandler {
 	/**
 	 * Registers custom pages to insert in the wizard at the given position.
 	 * @param position a page position
-	 * @param pagesToInsert a non-null, ordered list, to insert pages to register
+	 * @return pagesToInsert a non-null, ordered list, to insert pages to register
 	 */
-	public void registerCustomWizardPages( CustomPagePosition position, List<AbstractSuPage> pagesToInsert ) {
-		// nothing
-	}
+	public abstract List<AbstractSuPage> getCustomWizardPages( CustomPagePosition position);
 
 
 	/**
@@ -169,4 +167,5 @@ public abstract class ComponentWizardHandler {
 	public void setServiceProvider( boolean serviceProvider ) {
 		this.serviceProvider = serviceProvider;
 	}
+
 }
