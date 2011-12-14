@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.Platform;
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 
 /**
@@ -66,17 +67,9 @@ public class ExtensionManager {
 	 * Finds the wizard handlers.
 	 * @return the wizard handlers (never null, possibly empty)
 	 */
-	public List<ComponentWizardHandler> findWizardandlers(PetalsMode mode) {
-		List<ComponentWizardHandler> handlers = new ArrayList<ComponentWizardHandler>();
-		for (ComponentWizardHandler handler : findComponentVersionClass("wizardExtension", ComponentWizardHandler.class )) {
-			if (handler.getComponentVersionDescription().isConsume() && mode == PetalsMode.consumes) {
-				handlers.add(handler);
-			}
-			if (handler.getComponentVersionDescription().isProvide() && mode == PetalsMode.provides) {
-				handlers.add(handler);
-			}
-		}
-		return handlers;
+	public List<ComponentCreationWizard> findComponentWizards(PetalsMode mode) {
+		String key = (mode == PetalsMode.provides ? "providesExtensionWizard" : "consumesExtensionWizard");
+		return findComponentVersionClass(key, ComponentCreationWizard.class );
 	}
 
 

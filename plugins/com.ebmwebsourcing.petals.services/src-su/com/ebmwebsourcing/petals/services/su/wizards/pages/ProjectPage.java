@@ -80,7 +80,7 @@ public class ProjectPage extends AbstractSuPage {
 		String warningMsg = null;
 
 		// Remove white spaces ("File Transfer") - cause of problems with systems
-		String newSuType = getWizard().getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" ).trim();
+		String newSuType = getWizard().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" ).trim();
 		if( getWizard().getPetalsMode() == PetalsMode.provides) {
 			String regex = "su-" + newSuType + "-" + "[a-zA-Z_]+[.\\w\\-]*" + "-provide.*";
 			if( ! this.projectName.matches( regex ))
@@ -253,7 +253,7 @@ public class ProjectPage extends AbstractSuPage {
 			}
 
 			// Create a SU name
-			String newSuType = getWizard().getWizardHandler().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" );
+			String newSuType = getWizard().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" );
 			String formattedName = NameUtils.createSuName( newSuType, serviceName, getWizard().getPetalsMode() != PetalsMode.provides);
 
 			this.projectNameText.setText( formattedName );

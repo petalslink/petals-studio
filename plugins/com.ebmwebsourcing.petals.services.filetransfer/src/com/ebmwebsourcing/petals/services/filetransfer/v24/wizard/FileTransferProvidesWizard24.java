@@ -11,7 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +24,23 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FileTransferWizard24 extends ComponentWizardHandler {
-
+public class FileTransferProvidesWizard24 extends ComponentCreationWizard {
+	
+	public FileTransferProvidesWizard24() {
+		super();
+		getDialogSettings().put(SuWizardSettings.WSDL_SHOW, "false");
+		getDialogSettings().put(SuWizardSettings.ITF_NAME_ACTIVATE, "false");
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -51,30 +57,10 @@ public class FileTransferWizard24 extends ComponentWizardHandler {
 	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override
-	public void predefineJbiValues( AbstractEndpoint ae ) {
-
-		if( isServiceProvider()) {
-			ae.setInterfaceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "Abstract (will be in the next pages)" ));
-			ae.setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "change-it" ));
-		}
+	public void presetServiceValues( AbstractEndpoint ae ) {
+		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "Abstract (will be in the next pages)" ));
+		ae.setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "change-it" ));
 	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #getOverridenWizardSettings()
-	 */
-	@Override
-	public Map<String, String> getOverridenWizardSettings() {
-
-		Map<String,String> result = new HashMap<String,String> ();
-		result.put( SuWizardSettings.WSDL_SHOW, "false" );
-		result.put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
-
-		return result;
-	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -86,8 +72,6 @@ public class FileTransferWizard24 extends ComponentWizardHandler {
 			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
 			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
 
-		if( isServiceProvider()) {
-
 //			String name = eclipseSuBean.getCreatedWsdlMarkupValue();
 //			eclipseSuBean.setWsdlUrl( name );
 //			IFile wsdlFile = resourceFolder.getFile( name );
@@ -97,22 +81,39 @@ public class FileTransferWizard24 extends ComponentWizardHandler {
 //				createFile( wsdlFile, new WriteWsdl24().generate( abstractEndpoint ), monitor );
 //			else
 //				createFile( wsdlFile, new GetFilesWsdl24().generate( abstractEndpoint ), monitor );
-		}
 
 		return Status.OK_STATUS;
 	}
 
 
 	@Override
-	public List<AbstractSuPage> getCustomWizardPages(CustomPagePosition position) {
-		List<AbstractSuPage> pages = new ArrayList<AbstractSuPage>();
-		if (position == CustomPagePosition.afterProjectPage) {
-			if (isServiceProvider()) {
-				pages.add(new FiletransferProvidesPage());
-			} else {
-				pages.add(new FiletransferConsumesPage());
-			}
-		}
-		return pages;
+	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+		return null;
+	}
+
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+		return null;
+	}
+
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+		return new AbstractSuPage[] { new FiletransferProvidesPage() };
+	}
+
+
+	@Override
+	protected IStatus performActionsBeforeWrittingJbiXml(
+			IFolder resourceDirectory, Jbi jbiInstance2,
+			IProgressMonitor monitor) {
+		return Status.OK_STATUS;
+	}
+
+
+	@Override
+	protected boolean isJavaProject() {
+		return false;
 	}
 }

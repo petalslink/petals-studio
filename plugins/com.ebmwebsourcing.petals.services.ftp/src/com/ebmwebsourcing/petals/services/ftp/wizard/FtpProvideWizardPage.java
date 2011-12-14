@@ -54,10 +54,10 @@ public class FtpProvideWizardPage extends AbstractSuPage {
 	private void initializeProvides() {
 		EObject endpoint = getNewlyCreatedEndpoint();
 		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__PORT, 21);
-		if (getWizard().getWizardHandler().getComponentVersionDescription() instanceof FtpDescription32) {
+		if (getWizard().getComponentVersionDescription() instanceof FtpDescription32) {
 			endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__DELETE_PROCESSED_FILES, false);
 		}
-		if (getWizard().getWizardHandler().getComponentVersionDescription() instanceof FtpDescription33) {
+		if (getWizard().getComponentVersionDescription() instanceof FtpDescription33) {
 			endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__OVERWRITE, true);
 		}
 		

@@ -78,13 +78,23 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="wizardExtension" type="string">
+         <attribute name="providesExtensionWizard" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler:"/>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard:"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="consumesExtensionWizard" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard:"/>
                </appinfo>
             </annotation>
          </attribute>

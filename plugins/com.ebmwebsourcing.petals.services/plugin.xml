@@ -802,8 +802,9 @@
              id="generic">
           <ComponentVersionSupport
                 componentVersionDescription="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentDescription"
+                consumesExtensionWizard="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentWizard"
                 id="Generic"
-                wizardExtension="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentWizardHandler">
+                providesExtensionWizard="com.ebmwebsourcing.petals.services.su.extensions.generic.GenericComponentWizard">
           </ComponentVersionSupport>
        </ComponentSupport>
     </extension>

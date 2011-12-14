@@ -9,44 +9,34 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.ftp.wizard;
+package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.xml.namespace.QName;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.ftp.FtpDescription31;
-import com.ebmwebsourcing.petals.services.ftp.generated.FtpService31;
+import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FtpWizard31 extends ComponentWizardHandler {
-	
-	
-	@Override
-	public List<AbstractSuPage> getCustomWizardPages( CustomPagePosition position) {
-		List<AbstractSuPage> res = new ArrayList<AbstractSuPage>();
-		if (position == CustomPagePosition.afterProjectPage) {
-			res.add(new FtpProvideWizardPage());
-		}
-		return res;
-	}
+public class FileTransferConsumesWizard24 extends ComponentCreationWizard {
 
+	
+	public FileTransferConsumesWizard24() {
+		super();
+		getDialogSettings().put(SuWizardSettings.WSDL_SHOW, "false");
+		getDialogSettings().put(SuWizardSettings.ITF_NAME_ACTIVATE, "false");
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -54,7 +44,7 @@ public class FtpWizard31 extends ComponentWizardHandler {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new FtpDescription31();
+		return new FileTransferDescription24();
 	}
 
 
@@ -64,30 +54,9 @@ public class FtpWizard31 extends ComponentWizardHandler {
 	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override
-	public void predefineJbiValues( AbstractEndpoint abstractEndpoint ) {
-		super.predefineJbiValues(abstractEndpoint);
-		if( isServiceProvider()) {
-			abstractEndpoint.setInterfaceName( new QName( "http://petals.ow2.org/components/ftp/version-3", "FtpInterface" ));
-			abstractEndpoint.setServiceName( new QName( "http://petals.ow2.org/components/ftp/version-3", "change-it" ));
-		}
-		
+	public void presetServiceValues( AbstractEndpoint ae ) {
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #getOverridenWizardSettings()
-	 */
-	@Override
-	public Map<String, String> getOverridenWizardSettings() {
-
-		Map<String,String> result = new HashMap<String,String> ();
-		result.put( SuWizardSettings.WSDL_SHOW, "false" );
-		result.put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
-
-		return result;
-	}
 
 
 	/*
@@ -99,9 +68,34 @@ public class FtpWizard31 extends ComponentWizardHandler {
 	public IStatus performLastActions(
 			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
 			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
-
-		IFile wsdlFile = resourceFolder.getFile( "FtpService.wsdl" );
-		createFile( wsdlFile, new FtpService31().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
 	}
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+		return null;
+	}
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+		return null;
+	}
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+		return new AbstractSuPage[] { new FiletransferConsumesPage() };
+	}
+
+	@Override
+	protected IStatus performActionsBeforeWrittingJbiXml(
+			IFolder resourceDirectory, Jbi jbiInstance2,
+			IProgressMonitor monitor) {
+		return Status.OK_STATUS;
+	}
+
+	@Override
+	protected boolean isJavaProject() {
+		return false;
+	}
+
 }

@@ -27,7 +27,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FtpWizard32 extends FtpWizard31 {
+public class FtpProvidesWizard32 extends FtpProvidesWizard31 {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler

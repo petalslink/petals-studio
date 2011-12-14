@@ -32,7 +32,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizardNode;
 import org.eclipse.jface.wizard.WizardSelectionPage;
 import org.eclipse.swt.SWT;
@@ -61,12 +60,11 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
 import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.extensions.IComponentDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
-import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 
 /**
  * Choose the kind of SU to create.
@@ -81,9 +79,6 @@ public class ChoicePage extends WizardSelectionPage {
 	private Font boldFont;
 	private FixedShellTooltip helpTooltip;
 	private final PetalsMode petalsMode;
-
-	private Map<ComponentWizardHandler, ComponentWizardDescriptionWizardNode> handlerToNodes = new HashMap<ComponentWizardHandler, ComponentWizardDescriptionWizardNode>();
-
 
 	/**
 	 * Constructor.
@@ -233,7 +228,7 @@ public class ChoicePage extends WizardSelectionPage {
 		versionCombo.setLabelProvider( new LabelProvider() {
 			@Override
 			public String getText( Object element ) {
-				return ((ComponentWizardHandler) element).getComponentVersionDescription().getComponentVersion();
+				return ((ComponentCreationWizard) element).getComponentVersionDescription().getComponentVersion();
 			}
 		});
 
@@ -279,18 +274,18 @@ public class ChoicePage extends WizardSelectionPage {
 
 
 		// Prepare the input
-		Comparator<ComponentWizardHandler> comparator = new Comparator<ComponentWizardHandler>() {
+		Comparator<ComponentCreationWizard> comparator = new Comparator<ComponentCreationWizard>() {
 			@Override
-			public int compare( ComponentWizardHandler o1, ComponentWizardHandler o2 ) {
+			public int compare( ComponentCreationWizard o1, ComponentCreationWizard o2 ) {
 				String v1 = o1.getComponentVersionDescription().getComponentVersion();
 				String v2 = o2.getComponentVersionDescription().getComponentVersion();
 				return - v1.compareTo( v2 ); // negative so that must recent is first
 			}
 		};
 
-		final Map<String,Collection<ComponentWizardHandler>> componentNameToHandler = new TreeMap<String,Collection<ComponentWizardHandler>> ();
+		final Map<String,Collection<ComponentCreationWizard>> componentNameToHandler = new TreeMap<String,Collection<ComponentCreationWizard>> ();
 		final Map<PetalsKeyWords,Set<String>> keywordToComponentName = new HashMap<PetalsKeyWords,Set<String>> ();
-		for( ComponentWizardHandler handler : ExtensionManager.INSTANCE.findWizardandlers(petalsMode)) {
+		for( ComponentCreationWizard handler : ExtensionManager.INSTANCE.findComponentWizards(petalsMode)) {
 			for( PetalsKeyWords keyword : handler.getComponentVersionDescription().getKeyWords()) {
 				Set<String> list = keywordToComponentName.get( keyword );
 				if( list == null )
@@ -300,9 +295,9 @@ public class ChoicePage extends WizardSelectionPage {
 				list.add( componentName );
 				keywordToComponentName.put( keyword, list );
 
-				Collection<ComponentWizardHandler> handlers = componentNameToHandler.get( componentName );
+				Collection<ComponentCreationWizard> handlers = componentNameToHandler.get( componentName );
 				if( handlers == null )
-					handlers = new TreeSet<ComponentWizardHandler>( comparator );
+					handlers = new TreeSet<ComponentCreationWizard>( comparator );
 
 				handlers.add( handler );
 				componentNameToHandler.put( componentName, handlers );
@@ -363,7 +358,7 @@ public class ChoicePage extends WizardSelectionPage {
 
 				// Get the selection
 				String componentName = (String) ((IStructuredSelection) event.getSelection()).getFirstElement();
-				Collection<ComponentWizardHandler> handlers = componentNameToHandler.get( componentName );
+				Collection<ComponentCreationWizard> handlers = componentNameToHandler.get( componentName );
 				versionCombo.setInput( handlers );
 
 				// Default selection - there is always one
@@ -380,13 +375,13 @@ public class ChoicePage extends WizardSelectionPage {
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				// Get the selection
-				ComponentWizardHandler handler = (ComponentWizardHandler) ((IStructuredSelection) event.getSelection()).getFirstElement();
-				setSelectedNode(getWizardNode(handler));
+				ComponentCreationWizard selectedWizard = (ComponentCreationWizard) ((IStructuredSelection) event.getSelection()).getFirstElement();
+				setSelectedNode(getWizardNode(selectedWizard));
 				
 
 				// Update the right image
 				Image newImg;
-				if( handler.getComponentVersionDescription().isBc())
+				if( selectedWizard.getComponentVersionDescription().isBc())
 					newImg = ChoicePage.this.petalsMode == PetalsMode.provides ? ChoicePage.this.serviceImg : ChoicePage.this.consumeImg;
 				else
 					newImg = ChoicePage.this.wheelsImg;
@@ -394,9 +389,9 @@ public class ChoicePage extends WizardSelectionPage {
 				// Update the description label
 				String txt;
 				if( ChoicePage.this.petalsMode == PetalsMode.provides ) {
-					txt = handler.getComponentVersionDescription().getProvideDescription();
+					txt = selectedWizard.getComponentVersionDescription().getProvideDescription();
 				} else {
-					txt = handler.getComponentVersionDescription().getConsumeDescription();
+					txt = selectedWizard.getComponentVersionDescription().getConsumeDescription();
 				}
 
 				// Refresh the UI
@@ -415,11 +410,8 @@ public class ChoicePage extends WizardSelectionPage {
 	}
 
 
-	protected IWizardNode getWizardNode(ComponentWizardHandler handler) {
-		if (handlerToNodes .get(handler) == null) {
-			handlerToNodes.put(handler, new ComponentWizardDescriptionWizardNode(handler, petalsMode));
-		}
-		return handlerToNodes.get(handler);
+	protected IWizardNode getWizardNode(ComponentCreationWizard wizard) {
+		return new ComponentWizardDescriptionWizardNode(wizard);
 	}
 
 

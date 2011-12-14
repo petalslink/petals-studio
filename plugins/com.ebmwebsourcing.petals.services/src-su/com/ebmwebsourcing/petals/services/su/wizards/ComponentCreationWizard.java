@@ -12,6 +12,7 @@
 
 package com.ebmwebsourcing.petals.services.su.wizards;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -27,10 +28,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IWorkbenchPage;
@@ -45,9 +47,9 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler.CustomPagePosition;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiConsumePage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiProvidePage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ProjectPage;
@@ -63,26 +65,20 @@ import com.sun.java.xml.ns.jbi.util.JbiResourceFactoryImpl;
  * The specialized wizard for the Petals service units.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ComponentCreationWizard extends Wizard {
+public abstract class ComponentCreationWizard extends Wizard implements IExecutableExtension {
 
 	/**
 	 * The Petals mode associated with this instance of the wizard.
 	 */
-	private PetalsMode petalsMode;
+	protected PetalsMode petalsMode;
 
 	/**
 	 * The instance of the JBI object model.
 	 */
-	private Jbi jbiInstance;
-	private AbstractEndpoint endpoint;
-
-	/**
-	 * The wizard handler for the selected component version.
-	 */
-	private ComponentWizardHandler wizardHandler;
+	protected Jbi jbiInstance;
+	protected AbstractEndpoint endpoint;
 
 	private ProjectPage projectPage;
-
 	private JbiProvidePage jbiProvidePage;
 
 
@@ -90,18 +86,30 @@ public class ComponentCreationWizard extends Wizard {
 	/**
 	 * Constructor.
 	 */
-	public ComponentCreationWizard(ComponentWizardHandler wizardHandler, PetalsMode petalsMode) {
+	public ComponentCreationWizard() {
 		super();
-		this.petalsMode = petalsMode;
-		this.wizardHandler = wizardHandler;
 		setNeedsProgressMonitor( true );
 		setForcePreviousAndNextButtons( true );
 		setDefaultPageImageDescriptor( PetalsServicesPlugin.getImageDescriptor( "icons/wizban/wiz_service_unit.png" ));
+		setDialogSettings(SuWizardSettings.createDefaultSettings());
+	}
+	
+	public ComponentCreationWizard(PetalsMode petalsMode) {
+		this();
 		initializeJbiAndEndpoint(petalsMode);
-		setDialogSettings(new DialogSettings(this.getClass().getName()));
 	}
 
+	@Override
+	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
+		if (propertyName.toLowerCase().contains("provide")) {
+			initializeJbiAndEndpoint(PetalsMode.provides); 
+		} else {
+			initializeJbiAndEndpoint(PetalsMode.consumes);
+		}
+	}
+	
 	public void initializeJbiAndEndpoint(PetalsMode petalsMode) {
+		this.petalsMode = petalsMode;
 		jbiInstance = JbiFactory.eINSTANCE.createJbi();
 		jbiInstance.setVersion(new BigDecimal("1.0"));
 		jbiInstance.setServices(JbiFactory.eINSTANCE.createServices());
@@ -112,7 +120,7 @@ public class ComponentCreationWizard extends Wizard {
 			endpoint = JbiFactory.eINSTANCE.createProvides();
 			jbiInstance.getServices().getProvides().add((Provides)endpoint);
 		}
-		wizardHandler.predefineJbiValues(endpoint);
+		this.presetServiceValues(endpoint);
 	}
 
 	@Override
@@ -121,30 +129,39 @@ public class ComponentCreationWizard extends Wizard {
 		page.setWizard(this);
 	}
 	
-	/**
-	 * Adds the first page of the wizard.
-	 */
 	@Override
 	public void addPages() {
-		for (IWizardPage page : wizardHandler.getCustomWizardPages(CustomPagePosition.beforeProjectPage)) {
-			addPage(page);
+		AbstractSuPage[] pages = this.getCustomWizardPagesBeforeProject();
+		if (pages != null) {
+			for (IWizardPage page : pages) {
+				addPage(page);
+			}
 		}
+		
 		projectPage = new ProjectPage();
 		addPage(projectPage);
-		for (IWizardPage page : wizardHandler.getCustomWizardPages(CustomPagePosition.afterProjectPage)) {
-			addPage(page);
+		
+		pages = getCustomWizardPagesAfterProject();
+		if (pages != null) {
+			for (IWizardPage page : pages) {
+				addPage(page);
+			}
 		}
+		
 		if (petalsMode == PetalsMode.consumes) {
 			addPage(new JbiConsumePage());
 		} else if (petalsMode == PetalsMode.provides) {
 			jbiProvidePage = new JbiProvidePage();
 			addPage(jbiProvidePage);
 		}
-		for (IWizardPage page : wizardHandler.getCustomWizardPages(CustomPagePosition.afterProjectPage)) {
-			addPage(page);
-		}		
+		
+		pages = getCustomWizardPagesAfterJbi();
+		if (pages != null) {
+			for (IWizardPage page : this.getCustomWizardPagesAfterJbi()) {
+				addPage(page);
+			}
+		}
 	}
-
 
 
 	/**
@@ -225,10 +242,10 @@ public class ComponentCreationWizard extends Wizard {
 		IProject project = PetalsServicesProjectUtils.createSuProject(
 				projectPage.getProjectName(),
 				locationURI,
-				this.wizardHandler.getComponentVersionDescription().getComponentName(),
-				this.wizardHandler.getComponentVersionDescription().getComponentVersion(),
-				this.wizardHandler.getComponentVersionDescription().getComponentAlias(),
-				this.wizardHandler.isJavaProject(),
+				getComponentVersionDescription().getComponentName(),
+				getComponentVersionDescription().getComponentVersion(),
+				getComponentVersionDescription().getComponentAlias(),
+				isJavaProject(),
 				monitor );
 
 
@@ -254,7 +271,7 @@ public class ComponentCreationWizard extends Wizard {
 
 		// Import the files that need to be imported - done by the contributor
 		monitor.subTask( "Importing files..." );
-		this.wizardHandler.performActionsBeforeWrittingJbiXml( resourceDirectory, this.jbiInstance, monitor );
+		performActionsBeforeWrittingJbiXml( resourceDirectory, this.jbiInstance, monitor );
 		monitor.worked( 1 );
 
 
@@ -265,8 +282,7 @@ public class ComponentCreationWizard extends Wizard {
 
 			} else {
 				monitor.subTask( "Updating the WSDL..." );
-				AbstractEndpoint ae = getNewlyCreatedEndpoint();
-				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, ae.getServiceName(), ae.getEndpointName());
+				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, endpoint.getServiceName(), endpoint.getEndpointName());
 				monitor.worked( 1 );
 			}
 		}
@@ -290,8 +306,8 @@ public class ComponentCreationWizard extends Wizard {
 
 					try {
 						resourceDirectory.refreshLocal( IResource.DEPTH_INFINITE, monitor );
-						wizardHandler.performLastActions(
-								 resourceDirectory, getNewlyCreatedEndpoint(),
+						performLastActions(
+								 resourceDirectory, endpoint,
 								 monitor, elementsToSelect );
 
 					} catch( CoreException e ) {
@@ -309,32 +325,48 @@ public class ComponentCreationWizard extends Wizard {
 		}
 	}
 
-
 	/**
-	 * @return true if this wizard defines a service provider, false for a consumer
+	 * Creates the file and write its content.
+	 * @param targetFile the target file
+	 * @param content the content to write in the file
+	 * @param monitor a progress monitor
 	 */
-	public PetalsMode getComponentMode() {
-		return this.petalsMode;
+	protected void createFile( IFile targetFile, String content, IProgressMonitor monitor ) {
+		try {
+			if( content == null )
+				content = "Result was null. Make your code correct.";
+
+			ByteArrayInputStream inputStream = new ByteArrayInputStream( content.getBytes());
+			if( ! targetFile.exists())
+				targetFile.create( inputStream, true, monitor );
+			else
+				targetFile.setContents( inputStream, true, true, monitor );
+
+		} catch( Exception e ) {
+			PetalsServicesPlugin.log( e, IStatus.ERROR );
+		}
 	}
 
-
-	/**
-	 * @return the componentVersionDescription
-	 */
-	public ComponentWizardHandler getWizardHandler() {
-		return this.wizardHandler;
-	}
-
-
-	/**
-	 * @return the first provides or consumes block (not null)
-	 */
-	public AbstractEndpoint getNewlyCreatedEndpoint() {
-		return endpoint;
-	}
 
 	public PetalsMode getPetalsMode() {
 		return this.petalsMode;
 	}
+	
+	public AbstractEndpoint getNewlyCreatedEndpoint() {
+		return this.endpoint;
+	}
+	
+	// Component business methods
+	protected abstract void presetServiceValues(AbstractEndpoint endpoint);
+	protected abstract AbstractSuPage[] getCustomWizardPagesAfterJbi();
+	protected abstract AbstractSuPage[] getCustomWizardPagesAfterProject();
+	protected abstract AbstractSuPage[] getCustomWizardPagesBeforeProject();
+	protected abstract IStatus performActionsBeforeWrittingJbiXml(IFolder resourceDirectory,
+			Jbi jbiInstance2, IProgressMonitor monitor);
+	protected abstract IStatus performLastActions(IFolder resourceDirectory,
+			AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor,
+			List<Object> elementsToSelect);
+	protected abstract boolean isJavaProject() ;
+	public abstract ComponentVersionDescription getComponentVersionDescription();
 
 }
