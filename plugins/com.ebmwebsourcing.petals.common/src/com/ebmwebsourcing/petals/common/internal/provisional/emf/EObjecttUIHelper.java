@@ -57,7 +57,7 @@ public class EObjecttUIHelper {
 		for (EStructuralFeature feature : toProcessFeatures) {
 			Object widget = null;
 			EAttribute attr = (EAttribute)feature;
-			toolkit.createLabel(parent, attr.getName());
+			toolkit.createLabel(parent, attr.getName()).setBackground(parent.getBackground());
 			Class<?> instanceClass = attr.getEType().getInstanceClass(); 
 			if (instanceClass.equals(String.class)) {
 				widget = toolkit.createText(parent, "", SWT.BORDER);

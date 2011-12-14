@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011, EBM WebSourcing&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;    EBM WebSourcing - initial API and implementation"
+    modelDirectory="/com.ebmwebsourcing.petals.services.mail/src-model" modelPluginID="com.ebmwebsourcing.petals.services.mail"
+    modelName="Mail" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.genmodel#//jbi platform:/plugin/org.eclipse.emf.ecore/model/XMLType.genmodel#//type">
+  <foreignModel>mail.ecore</foreignModel>
+  <genPackages prefix="Mail" basePackage="com.ebmwebsourcing.petals.services.mail"
+      resource="XML" disposableProviderFactory="true" ecorePackage="mail.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="mail.ecore#//Scheme">
+      <genEnumLiterals ecoreEnumLiteral="mail.ecore#//Scheme/SMTP"/>
+      <genEnumLiterals ecoreEnumLiteral="mail.ecore#//Scheme/POP3"/>
+      <genEnumLiterals ecoreEnumLiteral="mail.ecore#//Scheme/IMAP"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="mail.ecore#//SendMode">
+      <genEnumLiterals ecoreEnumLiteral="mail.ecore#//SendMode/CONTENT_ONLY"/>
+      <genEnumLiterals ecoreEnumLiteral="mail.ecore#//SendMode/ATTACHMENTS_ONLY"/>
+      <genEnumLiterals ecoreEnumLiteral="mail.ecore#//SendMode/CONTENT_AND_ATTACHMENTS"/>
+    </genEnums>
+    <genClasses ecoreClass="mail.ecore#//MailProvides">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/from"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/reply"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/to"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/subject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/helohost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/sendMode"/>
+    </genClasses>
+    <genClasses ecoreClass="mail.ecore#//MailConsumes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailConsumes/folder"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailConsumes/delete"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailConsumes/period"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailConsumes/isxmlcontent"/>
+    </genClasses>
+    <genClasses ecoreClass="mail.ecore#//MailServiceCommon">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailServiceCommon/scheme"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailServiceCommon/host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailServiceCommon/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailServiceCommon/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailServiceCommon/password"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -20,9 +20,26 @@
             id="mail">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.mail.MailDescription31"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.mail.wizards.MailConsumesWizard31"
+               editorExtension="com.ebmwebsourcing.petals.services.mail.editor.MailEditorContribution"
                id="Mail 3.1"
-               wizardExtension="com.ebmwebsourcing.petals.services.mail.MailWizard31">
+               namespace="http://petals.ow2.org/components/mail/version-3"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.mail.wizards.MailProvideWizard31">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.mail.mail.MailPackage"
+            genModel="model/mail.genmodel"
+            uri="http://petals.ow2.org/components/mail/version-3">
+      </package>
+   </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.jbiExtensionPackage">
+      <jbiExtensionPackage
+            ePackageURI="http://petals.ow2.org/components/mail/version-3">
+      </jbiExtensionPackage>
    </extension>
 </plugin>

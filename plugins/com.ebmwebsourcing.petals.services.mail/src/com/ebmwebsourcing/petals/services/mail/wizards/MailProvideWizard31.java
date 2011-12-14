@@ -9,11 +9,9 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.mail;
+package com.ebmwebsourcing.petals.services.mail.wizards;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.namespace.QName;
 
@@ -23,17 +21,27 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.services.mail.MailDescription31;
 import com.ebmwebsourcing.petals.services.mail.generated.MailService;
+import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
+import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class MailWizard31 extends ComponentWizardHandler {
+public class MailProvideWizard31 extends ComponentCreationWizard {
 
+	public MailProvideWizard31() {
+		getDialogSettings().put( SuWizardSettings.WSDL_SHOW, "false" );
+		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -50,28 +58,11 @@ public class MailWizard31 extends ComponentWizardHandler {
 	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override
-	public void predefineJbiValues( AbstractEndpoint ae ) {
-
-		if( isServiceProvider()) {
-			ae.setInterfaceName( new QName( "http://petals.ow2.org/components/mail/version-3", "Mail" ));
-			ae.setServiceName( new QName( "http://petals.ow2.org/components/mail/version-3", "change-it" ));
-		}
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #getOverridenWizardSettings()
-	 */
-	@Override
-	public Map<String, String> getOverridenWizardSettings() {
-
-		Map<String,String> result = new HashMap<String,String> ();
-		result.put( SuWizardSettings.WSDL_SHOW, "false" );
-		result.put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
-
-		return result;
+	public void presetServiceValues( AbstractEndpoint ae ) {
+		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/mail/version-3", "Mail" ));
+		ae.setServiceName( new QName( "http://petals.ow2.org/components/mail/version-3", "change-it" ));
+		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PORT, 25);
+		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__SEND_MODE, SendMode.CONTENT_AND_ATTACHMENTS);
 	}
 
 
@@ -88,5 +79,36 @@ public class MailWizard31 extends ComponentWizardHandler {
 		IFile wsdlFile = resourceFolder.getFile( "MailService.wsdl" );
 		createFile( wsdlFile, new MailService().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
+	}
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+		return new AbstractSuPage[] { new MailProvideWizardPage() };
+	}
+
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected IStatus performActionsBeforeWrittingJbiXml(
+			IFolder resourceDirectory, Jbi jbiInstance2,
+			IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected boolean isJavaProject() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
