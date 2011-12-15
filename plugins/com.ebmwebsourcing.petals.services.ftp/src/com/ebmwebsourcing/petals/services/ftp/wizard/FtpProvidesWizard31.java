@@ -70,9 +70,7 @@ public class FtpProvidesWizard31 extends ComponentCreationWizard {
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(
-			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
-			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
+	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
 
 		IFile wsdlFile = resourceFolder.getFile( "FtpService.wsdl" );
 		createFile( wsdlFile, new FtpService31().generate( abstractEndpoint ), monitor );
@@ -95,10 +93,8 @@ public class FtpProvidesWizard31 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected IStatus performActionsBeforeWrittingJbiXml(
-			IFolder resourceDirectory, Jbi jbiInstance2,
-			IProgressMonitor monitor) {
-		return null;
+	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
 	}
 
 	@Override

@@ -10,17 +10,18 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
-import com.ebmwebsourcing.petals.services.mail.mail.*;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.Switch;
 
+import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
+import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
+import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
+import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-
-import org.eclipse.emf.ecore.util.Switch;
 
 /**
  * <!-- begin-user-doc -->

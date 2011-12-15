@@ -38,19 +38,4 @@ public class FtpProvidesWizard32 extends FtpProvidesWizard31 {
 		return new FtpDescription32();
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
-	 */
-	@Override
-	public IStatus performLastActions(
-			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
-			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
-
-		IFile wsdlFile = resourceFolder.getFile( "FtpService.wsdl" );
-		createFile( wsdlFile, new FtpService32().generate( abstractEndpoint ), monitor );
-		return Status.OK_STATUS;
-	}
 }

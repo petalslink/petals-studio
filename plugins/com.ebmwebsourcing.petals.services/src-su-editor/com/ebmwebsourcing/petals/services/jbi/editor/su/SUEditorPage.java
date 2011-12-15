@@ -61,8 +61,10 @@ import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDeta
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
-import com.ebmwebsourcing.petals.services.jbi.editor.su.wizard.NewServiceWizard;
-import com.ebmwebsourcing.petals.services.jbi.wizard.ComponentSupportTreeContentProvider.SUType;
+import com.ebmwebsourcing.petals.services.su.wizards.AddConsumesToExistingJbiStrategy;
+import com.ebmwebsourcing.petals.services.su.wizards.AddProvidesToExistingJbiStrategy;
+import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
+import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.JbiPackage;
@@ -224,7 +226,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		newProvidesButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				IWizard createEndpointWizard = new NewServiceWizard(getEditor().getJbiModel(), getEditor().getEditingDomain(), SUType.PROVIDES);
+				IWizard createEndpointWizard = new PetalsSuNewWizard(PetalsMode.provides, new AddProvidesToExistingJbiStrategy(getEditor().getJbiModel(), getEditor().getEditingDomain(), getEditor().getEditedFile().getProject()));
 				if (new WizardDialog(getSite().getShell(), createEndpointWizard).open() == Dialog.OK) {
 					providesViewer.refresh();
 				}
@@ -264,7 +266,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		newConsumesButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				IWizard createEndpointWizard = new NewServiceWizard(getEditor().getJbiModel(), getEditor().getEditingDomain(), SUType.CONSUMES);
+				IWizard createEndpointWizard = new PetalsSuNewWizard(PetalsMode.consumes, new AddConsumesToExistingJbiStrategy(getEditor().getJbiModel(), getEditor().getEditingDomain(), getEditor().getEditedFile().getProject()));
 				if (new WizardDialog(getSite().getShell(), createEndpointWizard).open() == Dialog.OK) {
 					consumesViewer.refresh();
 				}

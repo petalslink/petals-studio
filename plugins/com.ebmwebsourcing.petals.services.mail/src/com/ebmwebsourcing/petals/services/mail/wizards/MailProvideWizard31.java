@@ -11,8 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.mail.wizards;
 
-import java.util.List;
-
 import javax.xml.namespace.QName;
 
 import org.eclipse.core.resources.IFile;
@@ -30,7 +28,6 @@ import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -72,10 +69,7 @@ public class MailProvideWizard31 extends ComponentCreationWizard {
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(
-			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
-			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
-
+	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
 		IFile wsdlFile = resourceFolder.getFile( "MailService.wsdl" );
 		createFile( wsdlFile, new MailService().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
@@ -99,11 +93,8 @@ public class MailProvideWizard31 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected IStatus performActionsBeforeWrittingJbiXml(
-			IFolder resourceDirectory, Jbi jbiInstance2,
-			IProgressMonitor monitor) {
-		// TODO Auto-generated method stub
-		return null;
+	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
 	}
 
 	@Override

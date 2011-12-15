@@ -13,15 +13,19 @@ import com.ebmwebsourcing.petals.services.su.wizards.pages.ChoicePage;
 public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutableExtension {
 
 	private PetalsMode petalsMode;
+	private FinishServiceCreationStrategy strategy;
 
 	public PetalsSuNewWizard() {
+		setForcePreviousAndNextButtons(true);
 	}
-	
-	public PetalsSuNewWizard(PetalsMode petalsMode) {
-		this.petalsMode = petalsMode;
+		
+	public PetalsSuNewWizard(PetalsMode mode, FinishServiceCreationStrategy strategy) {
+		this();
+		this.strategy = strategy;
+		this.petalsMode = mode;
 		init();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.core.runtime.IExecutableExtension
@@ -30,6 +34,7 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutable
 	@Override
 	public void setInitializationData( IConfigurationElement config, String propertyName, Object data ) throws CoreException {
 		this.petalsMode = "provides".equalsIgnoreCase( String.valueOf( data )) ? PetalsMode.provides : PetalsMode.consumes;
+		this.strategy = new CreateJBIStrategy();
 	}
 	
 	public void init() {
@@ -45,7 +50,7 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutable
 	 */
 	@Override
 	public void addPages() {
-		addPage( new ChoicePage( this.petalsMode ));
+		addPage( new ChoicePage(this.petalsMode, strategy));
 	}
 
 	

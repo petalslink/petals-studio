@@ -11,8 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -24,7 +22,6 @@ import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -59,17 +56,6 @@ public class FileTransferConsumesWizard24 extends ComponentCreationWizard {
 
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
-	 */
-	@Override
-	public IStatus performLastActions(
-			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
-			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
-		return Status.OK_STATUS;
-	}
 
 	@Override
 	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
@@ -87,15 +73,18 @@ public class FileTransferConsumesWizard24 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected IStatus performActionsBeforeWrittingJbiXml(
-			IFolder resourceDirectory, Jbi jbiInstance2,
-			IProgressMonitor monitor) {
+	protected boolean isJavaProject() {
+		return false;
+	}
+
+	@Override
+	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
 		return Status.OK_STATUS;
 	}
 
 	@Override
-	protected boolean isJavaProject() {
-		return false;
+	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
 	}
 
 }

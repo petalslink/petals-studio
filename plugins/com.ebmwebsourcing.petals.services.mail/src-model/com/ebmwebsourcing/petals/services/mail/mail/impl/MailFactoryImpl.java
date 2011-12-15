@@ -10,16 +10,20 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.impl;
 
-import com.ebmwebsourcing.petals.services.mail.mail.*;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
+import com.ebmwebsourcing.petals.services.mail.mail.MailFactory;
+import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
+import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
+import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
+import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
+import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
 
 /**
  * <!-- begin-user-doc -->

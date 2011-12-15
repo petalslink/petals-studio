@@ -10,12 +10,12 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail;
 
-import com.sun.java.xml.ns.jbi.JbiPackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
+
+import com.sun.java.xml.ns.jbi.JbiPackage;
 
 /**
  * <!-- begin-user-doc -->

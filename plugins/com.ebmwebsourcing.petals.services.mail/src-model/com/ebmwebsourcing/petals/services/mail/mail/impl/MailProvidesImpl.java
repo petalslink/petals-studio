@@ -10,19 +10,16 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
 import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
 import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
-
 import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->

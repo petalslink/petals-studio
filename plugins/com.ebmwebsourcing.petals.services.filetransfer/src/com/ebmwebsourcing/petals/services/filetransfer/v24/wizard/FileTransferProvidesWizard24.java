@@ -11,10 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.xml.namespace.QName;
 
 import org.eclipse.core.resources.IFolder;
@@ -28,7 +24,6 @@ import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -68,9 +63,7 @@ public class FileTransferProvidesWizard24 extends ComponentCreationWizard {
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(
-			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
-			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
+	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
 
 //			String name = eclipseSuBean.getCreatedWsdlMarkupValue();
 //			eclipseSuBean.setWsdlUrl( name );
@@ -105,9 +98,7 @@ public class FileTransferProvidesWizard24 extends ComponentCreationWizard {
 
 
 	@Override
-	protected IStatus performActionsBeforeWrittingJbiXml(
-			IFolder resourceDirectory, Jbi jbiInstance2,
-			IProgressMonitor monitor) {
+	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
 		return Status.OK_STATUS;
 	}
 

@@ -10,19 +10,19 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
-import com.ebmwebsourcing.petals.services.mail.mail.*;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+import org.eclipse.emf.ecore.EObject;
 
+import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
+import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
+import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
+import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
-
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notifier;
-
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->

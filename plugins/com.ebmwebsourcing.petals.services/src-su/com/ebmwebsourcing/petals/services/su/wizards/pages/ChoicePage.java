@@ -64,6 +64,7 @@ import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.extensions.IComponentDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.FinishServiceCreationStrategy;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 
 /**
@@ -80,12 +81,16 @@ public class ChoicePage extends WizardSelectionPage {
 	private FixedShellTooltip helpTooltip;
 	private final PetalsMode petalsMode;
 
+	private FinishServiceCreationStrategy strategy;
+
 	/**
 	 * Constructor.
+	 * @param strategy 
 	 */
-	public ChoicePage( PetalsMode petalsMode ) {
+	public ChoicePage( PetalsMode petalsMode, FinishServiceCreationStrategy strategy ) {
 		super( PAGE_NAME );
 		this.petalsMode = petalsMode;
+		this.strategy = strategy;
 		setDescription( "Select the Petals component to configure and its version." );
 
 		this.descImg = PetalsServicesPlugin.loadImage( "icons/others/descriptor_3.png" );
@@ -411,6 +416,7 @@ public class ChoicePage extends WizardSelectionPage {
 
 
 	protected IWizardNode getWizardNode(ComponentCreationWizard wizard) {
+		wizard.setStrategy(strategy);
 		return new ComponentWizardDescriptionWizardNode(wizard);
 	}
 

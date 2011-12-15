@@ -10,15 +10,13 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
-import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
-
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
+
+import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 
 /**
  * This class contains helper methods to serialize and deserialize XML documents

@@ -10,6 +10,13 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
 import com.ebmwebsourcing.petals.services.mail.mail.MailFactory;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
@@ -17,17 +24,7 @@ import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
 import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
 import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
-
 import com.sun.java.xml.ns.jbi.JbiPackage;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc -->
