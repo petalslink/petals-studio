@@ -108,6 +108,13 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 			}
 		}
 		
+		if (petalsMode == PetalsMode.consumes) {
+			addPage(new JbiConsumePage());
+		} else if (petalsMode == PetalsMode.provides) {
+			jbiProvidePage = new JbiProvidePage();
+			addPage(jbiProvidePage);
+		}
+		
 		if (finishStrategy instanceof CreateJBIStrategy) {
 			projectPage = new ProjectPage();
 			addPage(projectPage);
@@ -118,13 +125,6 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 			for (IWizardPage page : pages) {
 				addPage(page);
 			}
-		}
-		
-		if (petalsMode == PetalsMode.consumes) {
-			addPage(new JbiConsumePage());
-		} else if (petalsMode == PetalsMode.provides) {
-			jbiProvidePage = new JbiProvidePage();
-			addPage(jbiProvidePage);
 		}
 		
 		pages = getCustomWizardPagesAfterJbi();
