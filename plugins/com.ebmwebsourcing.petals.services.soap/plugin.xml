@@ -20,10 +20,26 @@
             id="soap">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.soap.SoapDescription40"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.soap.wizards.SoapConsumesWizard40"
                id="SOAP 4.0"
-               wizardExtension="com.ebmwebsourcing.petals.services.soap.SoapWizard40">
+               namespace="http://petals.ow2.org/components/soap/version-4"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.soap.wizards.SoapProvidesWizard40">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.soap.soap.SoapPackage"
+            genModel="model/soap.genmodel"
+            uri="http://petals.ow2.org/components/soap/version-4">
+      </package>
+   </extension>
+   <extension
+         point="com.ebmwebsourcing.petals.services.jbiExtensionPackage">
+      <jbiExtensionPackage
+            ePackageURI="http://petals.ow2.org/components/soap/version-4">
+      </jbiExtensionPackage>
    </extension>
 
 </plugin>
