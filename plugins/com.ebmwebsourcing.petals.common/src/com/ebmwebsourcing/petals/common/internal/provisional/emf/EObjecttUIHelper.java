@@ -5,16 +5,12 @@ import java.util.List;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
@@ -24,11 +20,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-
-import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 public class EObjecttUIHelper {
 	
@@ -58,6 +53,7 @@ public class EObjecttUIHelper {
 			Object widget = null;
 			EAttribute attr = (EAttribute)feature;
 			toolkit.createLabel(parent, attr.getName()).setBackground(parent.getBackground());
+			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
 			Class<?> instanceClass = attr.getEType().getInstanceClass(); 
 			if (instanceClass.equals(String.class)) {
 				widget = toolkit.createText(parent, "", SWT.BORDER);
