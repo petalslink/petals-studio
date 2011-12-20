@@ -21,8 +21,17 @@
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription11"
                id="SQL 1.1"
-               wizardExtension="com.ebmwebsourcing.petals.services.sql.SqlWizard11">
+               namespace="http://petals.ow2.org/components/sql/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard11">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.sql.sql.SqlPackage"
+            genModel="model/sql.genmodel"
+            uri="http://petals.ow2.org/components/sql/version-1">
+      </package>
    </extension>
 </plugin>
