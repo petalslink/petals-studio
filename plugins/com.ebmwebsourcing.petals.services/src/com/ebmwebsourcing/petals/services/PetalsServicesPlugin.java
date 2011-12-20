@@ -22,9 +22,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -59,14 +58,12 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 
 		// Initialize feature IDs
 		try {
-			for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
-				for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
-					EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage( version.getNamespace());
-					if (extensionPackage != null) {
-						new InitializeModelExtensionCommand( extensionPackage, null ).initializeFeatures();
-					} else {
-						log("Could not load model for component [" + version.getVersion() + "]", IStatus.ERROR);
-					}
+			for (ComponentVersionDescription description : ExtensionManager.INSTANCE.findAllComponentVersionDescriptions()) {
+				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(description.getNamespace());
+				if (extensionPackage != null) {
+					new InitializeModelExtensionCommand( extensionPackage, null ).initializeFeatures();
+				} else {
+					log("Could not load model for component [" + description.getComponentName() + "] (ns=" + description.getNamespace() + ")", IStatus.ERROR);
 				}
 			}
 

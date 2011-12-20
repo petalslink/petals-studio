@@ -1,4 +1,4 @@
-package com.ebmwebsourcing.petals.services.jbi.editor.su.wizard;
+package com.ebmwebsourcing.petals.services.jbi.editor.su;
 
 import javax.xml.namespace.QName;
 

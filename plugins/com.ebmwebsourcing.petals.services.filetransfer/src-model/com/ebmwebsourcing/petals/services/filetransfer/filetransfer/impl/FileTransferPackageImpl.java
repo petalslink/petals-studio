@@ -144,7 +144,7 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileTransferExtension_FileTransferExtContainer() {
+	public EAttribute getFileTransferExtension_FilePattern() {
 		return (EAttribute)fileTransferExtensionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -153,7 +153,7 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileTransferExtension_FilePattern() {
+	public EAttribute getFileTransferExtension_ReadDirectory() {
 		return (EAttribute)fileTransferExtensionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -162,17 +162,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileTransferExtension_ReadDirectory() {
-		return (EAttribute)fileTransferExtensionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getFileTransferExtension_BackupDirectory() {
-		return (EAttribute)fileTransferExtensionEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)fileTransferExtensionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -276,7 +267,6 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 
 		// Create classes and their features
 		fileTransferExtensionEClass = createEClass(FILE_TRANSFER_EXTENSION);
-		createEAttribute(fileTransferExtensionEClass, FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER);
 		createEAttribute(fileTransferExtensionEClass, FILE_TRANSFER_EXTENSION__FILE_PATTERN);
 		createEAttribute(fileTransferExtensionEClass, FILE_TRANSFER_EXTENSION__READ_DIRECTORY);
 		createEAttribute(fileTransferExtensionEClass, FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY);
@@ -319,7 +309,6 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 
 		// Obtain other dependent packages
 		JbiPackage theJbiPackage = (JbiPackage)EPackage.Registry.INSTANCE.getEPackage(JbiPackage.eNS_URI);
-		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -334,7 +323,6 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(fileTransferExtensionEClass, FileTransferExtension.class, "FileTransferExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFileTransferExtension_FileTransferExtContainer(), theEcorePackage.getEFeatureMapEntry(), "fileTransferExtContainer", null, 0, -1, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransferExtension_FilePattern(), ecorePackage.getEString(), "filePattern", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransferExtension_ReadDirectory(), ecorePackage.getEString(), "readDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransferExtension_BackupDirectory(), ecorePackage.getEString(), "backupDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -380,23 +368,13 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 			 "name", ""
 		   });		
 		addAnnotation
-		  (getFileTransferExtension_FileTransferExtContainer(), 
-		   source, 
-		   new String[] {
-			 "kind", "elementWildcard",
-			 "wildcards", "http://petals.ow2.org/components/filetransfer/version-2",
-			 "processing", "skip",
-			 "name", "fileTransferExtContainer",
-			 "group", "#group:0"
-		   });		
-		addAnnotation
 		  (getFileTransferExtension_FilePattern(), 
 		   source, 
 		   new String[] {
 			 "name", "file-pattern",
 			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/filetransfer/version-2",
-			 "group", "#fileTransferExtContainer"
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });		
 		addAnnotation
 		  (getFileTransferExtension_ReadDirectory(), 
@@ -404,8 +382,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		   new String[] {
 			 "name", "read-directory",
 			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/filetransfer/version-2",
-			 "group", "#fileTransferExtContainer"
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });		
 		addAnnotation
 		  (getFileTransferExtension_BackupDirectory(), 
@@ -413,8 +391,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		   new String[] {
 			 "name", "backup-directory",
 			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/filetransfer/version-2",
-			 "group", "#fileTransferExtContainer"
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });		
 		addAnnotation
 		  (fileTransferProvidesEClass, 
@@ -428,8 +406,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		   new String[] {
 			 "name", "write-directory",
 			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/filetransfer/version-2",
-			 "group", "#fileTransferExtContainer"
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });		
 		addAnnotation
 		  (getFileTransferProvides_CopyMode(), 
@@ -437,8 +415,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		   new String[] {
 			 "name", "copy-mode",
 			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/filetransfer/version-2",
-			 "group", "#fileTransferExtContainer"
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });		
 		addAnnotation
 		  (fileTransferConsumesEClass, 
@@ -452,7 +430,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		   new String[] {
 			 "name", "transfer-mode",
 			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/filetransfer/version-2"
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });		
 		addAnnotation
 		  (getFileTransferConsumes_PollingPeriod(), 
@@ -460,8 +439,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		   new String[] {
 			 "name", "polling-period",
 			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/filetransfer/version-2",
-			 "group", "#fileTransferExtContainer"
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });
 	}
 

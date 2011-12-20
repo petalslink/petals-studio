@@ -91,10 +91,10 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		browseReadButton.setImage(PetalsImages.getBrowse());
 
 		editor.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(readDirectoryText)),
+				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(readDirectoryText, SWT.Modify)),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY));
 		editor.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(writeDirectoryText)),
+				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(writeDirectoryText, SWT.Modify)),
 				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY));
 
 

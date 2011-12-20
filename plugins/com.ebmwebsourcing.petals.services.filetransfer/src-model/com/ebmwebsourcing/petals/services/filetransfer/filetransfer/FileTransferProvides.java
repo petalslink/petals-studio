@@ -38,7 +38,7 @@ public interface FileTransferProvides extends Provides, FileTransferExtension {
 	 * @see #setWriteDirectory(String)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferProvides_WriteDirectory()
 	 * @model derived="true"
-	 *        extendedMetaData="name='write-directory' kind='element' namespace='http://petals.ow2.org/components/filetransfer/version-2' group='#fileTransferExtContainer'"
+	 *        extendedMetaData="name='write-directory' kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
 	String getWriteDirectory();
@@ -68,7 +68,7 @@ public interface FileTransferProvides extends Provides, FileTransferExtension {
 	 * @see #setCopyMode(CopyMode)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferProvides_CopyMode()
 	 * @model default="CopyMode.CONTENT_ONLY" derived="true"
-	 *        extendedMetaData="name='copy-mode' kind='element' namespace='http://petals.ow2.org/components/filetransfer/version-2' group='#fileTransferExtContainer'"
+	 *        extendedMetaData="name='copy-mode' kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
 	CopyMode getCopyMode();

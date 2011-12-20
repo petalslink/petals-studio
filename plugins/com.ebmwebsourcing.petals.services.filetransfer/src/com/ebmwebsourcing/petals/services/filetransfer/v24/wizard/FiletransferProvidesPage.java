@@ -13,8 +13,6 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -119,7 +117,7 @@ public class FiletransferProvidesPage extends AbstractSuPage {
 			l.setText("Write Mode:");
 			l.setToolTipText("What part(s) of the message should be written");
 
-			final ComboViewer viewer = new ComboViewer(container, SWT.SINGLE | SWT.BORDER );
+			final ComboViewer viewer = new ComboViewer(container, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
 			viewer.getCombo().setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			viewer.setContentProvider(new ArrayContentProvider());
 			viewer.setLabelProvider(new LabelProvider());
@@ -133,7 +131,7 @@ public class FiletransferProvidesPage extends AbstractSuPage {
 
 			Text patterntext = new Text(container, SWT.BORDER);
 			patterntext.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-			dbc.bindValue(SWTObservables.observeText(patterntext),
+			dbc.bindValue(SWTObservables.observeText(patterntext, SWT.Modify),
 					EMFObservables.observeValue(getNewlyCreatedEndpoint(), FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN));
 		}
 
@@ -169,7 +167,7 @@ public class FiletransferProvidesPage extends AbstractSuPage {
 
 		final Text text = new Text(subContainer, SWT.BORDER);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-		dbc.bindValue(SWTObservables.observeText(text),
+		dbc.bindValue(SWTObservables.observeText(text, SWT.Modify),
 				EMFObservables.observeValue(getNewlyCreatedEndpoint(), feature));
 		
 		Button browseButton = new Button(subContainer, SWT.PUSH);

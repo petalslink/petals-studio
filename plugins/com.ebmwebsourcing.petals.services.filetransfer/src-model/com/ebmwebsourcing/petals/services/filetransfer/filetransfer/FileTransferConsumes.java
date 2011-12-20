@@ -41,7 +41,7 @@ public interface FileTransferConsumes extends Consumes, FileTransferExtension {
 	 * @see #setTransferMode(TransferMode)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferConsumes_TransferMode()
 	 * @model default="TransferMode.CONTENT" derived="true"
-	 *        extendedMetaData="name='transfer-mode' kind='element' namespace='http://petals.ow2.org/components/filetransfer/version-2'"
+	 *        extendedMetaData="name='transfer-mode' kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
 	TransferMode getTransferMode();
@@ -69,7 +69,7 @@ public interface FileTransferConsumes extends Consumes, FileTransferExtension {
 	 * @see #setPollingPeriod(int)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferConsumes_PollingPeriod()
 	 * @model derived="true"
-	 *        extendedMetaData="name='polling-period' kind='element' namespace='http://petals.ow2.org/components/filetransfer/version-2' group='#fileTransferExtContainer'"
+	 *        extendedMetaData="name='polling-period' kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
 	int getPollingPeriod();

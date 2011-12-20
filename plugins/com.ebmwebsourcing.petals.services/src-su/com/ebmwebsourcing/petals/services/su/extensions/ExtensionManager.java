@@ -13,6 +13,7 @@
 package com.ebmwebsourcing.petals.services.su.extensions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +27,18 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.BasicExtendedMetaData.EStructuralFeatureExtendedMetaData.Holder;
+import org.eclipse.emf.ecore.util.FeatureMap;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
+import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Consumes;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * The class in charge of getting the contributions made to the extension-point defined by this plug-in.
@@ -52,14 +59,18 @@ public class ExtensionManager {
 	/**
 	 * The component descriptions.
 	 */
-	private final List<ComponentVersionDescription> descriptions;
-
+	private final Map<String, ComponentVersionDescription> namespaceToDescription;
 
 	/**
 	 * Constructor.
 	 */
 	private ExtensionManager() {
-		this.descriptions = findComponentVersionClass( "componentVersionDescription", ComponentVersionDescription.class );
+		this.namespaceToDescription = new HashMap<String, ComponentVersionDescription>();
+		for (ComponentVersionDescription desc : findComponentVersionClass( "componentVersionDescription", ComponentVersionDescription.class )) {
+			if (desc.getNamespace() != null) {
+				namespaceToDescription.put(desc.getNamespace(), desc);
+			}
+		}
 	}
 
 
@@ -88,7 +99,7 @@ public class ExtensionManager {
 
 				String theClassName = child.getAttribute( attributeName );
 				if( StringUtils.isEmpty( theClassName )) {
-					PetalsServicesPlugin.log( "No class was provided for " + child.getContributor().getName(), IStatus.WARNING );
+					PetalsServicesPlugin.log( "No [" + attributeName + "] was provided for " + child.getContributor().getName(), IStatus.WARNING );
 					continue;
 				}
 
@@ -117,7 +128,7 @@ public class ExtensionManager {
 	public String findComponentAlias( String componentName ) {
 
 		String alias = null;
-		for( ComponentVersionDescription desc : this.descriptions ) {
+		for( ComponentVersionDescription desc : this.namespaceToDescription.values() ) {
 			if( ! desc.getComponentName().equals( componentName ))
 				continue;
 
@@ -137,7 +148,7 @@ public class ExtensionManager {
 	public SortedSet<String> findComponentVersions( String componentName ) {
 
 		SortedSet<String> result = new TreeSet<String> ();
-		for( ComponentVersionDescription desc : this.descriptions ) {
+		for( ComponentVersionDescription desc : this.namespaceToDescription.values() ) {
 			if( desc.getComponentName().equals( componentName ))
 				result.add( desc.getComponentVersion());
 		}
@@ -153,7 +164,7 @@ public class ExtensionManager {
 	public Set<String> findAllComponentNames() {
 
 		SortedSet<String> result = new TreeSet<String> ();
-		for( ComponentVersionDescription desc : this.descriptions )
+		for( ComponentVersionDescription desc : this.namespaceToDescription.values() )
 			result.add( desc.getComponentName());
 
 		return result;
@@ -181,7 +192,7 @@ public class ExtensionManager {
 	public ComponentVersionDescription findComponentDescription( String componentName, String componentVersion ) {
 
 		ComponentVersionDescription result = null;
-		for( ComponentVersionDescription desc : this.descriptions ) {
+		for( ComponentVersionDescription desc : this.namespaceToDescription.values() ) {
 			if( desc.getComponentName().equals( componentName )) {
 				if( componentVersion == null || desc.getComponentVersion().equals( componentVersion )) {
 					result = desc;
@@ -191,5 +202,28 @@ public class ExtensionManager {
 		}
 
 		return result;
+	}
+
+
+	public Collection<ComponentVersionDescription> findAllComponentVersionDescriptions() {
+		return this.namespaceToDescription.values();
+	}
+
+
+	public ComponentVersionDescription findComponentDescription(AbstractEndpoint selectedEndpoint) {
+		for (FeatureMap.Entry entry : selectedEndpoint.getGroup()) {
+			EStructuralFeature feature = entry.getEStructuralFeature();
+			if (feature instanceof Holder) {
+				ComponentVersionDescription ext = this.namespaceToDescription.get(((Holder)feature).getExtendedMetaData().getNamespace());
+				if (ext != null) {
+					if (selectedEndpoint instanceof Provides && ext.isProvide()) {
+						return ext;
+					} else if (selectedEndpoint instanceof Consumes && ext.isConsume()) {
+						return ext;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

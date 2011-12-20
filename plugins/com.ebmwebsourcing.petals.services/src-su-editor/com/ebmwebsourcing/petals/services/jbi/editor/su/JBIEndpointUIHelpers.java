@@ -33,7 +33,6 @@ import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.LocalQNameToStringConverter;
 import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.NamespaceQNameToStringConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.su.wizard.QNameEditor;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 

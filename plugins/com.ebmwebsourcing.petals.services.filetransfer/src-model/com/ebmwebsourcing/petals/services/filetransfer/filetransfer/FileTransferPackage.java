@@ -99,22 +99,13 @@ public interface FileTransferPackage extends EPackage {
 	int FILE_TRANSFER_EXTENSION__LOCAL = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT__LOCAL;
 
 	/**
-	 * The feature id for the '<em><b>File Transfer Ext Container</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>File Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_EXTENSION__FILE_PATTERN = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
+	int FILE_TRANSFER_EXTENSION__FILE_PATTERN = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Read Directory</b></em>' attribute.
@@ -123,7 +114,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_EXTENSION__READ_DIRECTORY = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
+	int FILE_TRANSFER_EXTENSION__READ_DIRECTORY = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Backup Directory</b></em>' attribute.
@@ -132,7 +123,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 3;
+	int FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Extension</em>' class.
@@ -141,7 +132,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_EXTENSION_FEATURE_COUNT = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 4;
+	int FILE_TRANSFER_EXTENSION_FEATURE_COUNT = JbiPackage.ABSTRACT_EXTENSIBLE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferProvidesImpl <em>Provides</em>}' class.
@@ -208,22 +199,13 @@ public interface FileTransferPackage extends EPackage {
 	int FILE_TRANSFER_PROVIDES__SERVICE_NAME = JbiPackage.PROVIDES__SERVICE_NAME;
 
 	/**
-	 * The feature id for the '<em><b>File Transfer Ext Container</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER = JbiPackage.PROVIDES_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>File Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_PROVIDES__FILE_PATTERN = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
+	int FILE_TRANSFER_PROVIDES__FILE_PATTERN = JbiPackage.PROVIDES_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Read Directory</b></em>' attribute.
@@ -232,7 +214,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_PROVIDES__READ_DIRECTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
+	int FILE_TRANSFER_PROVIDES__READ_DIRECTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Backup Directory</b></em>' attribute.
@@ -241,7 +223,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
+	int FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Write Directory</b></em>' attribute.
@@ -250,7 +232,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
+	int FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Copy Mode</b></em>' attribute.
@@ -259,7 +241,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_PROVIDES__COPY_MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
+	int FILE_TRANSFER_PROVIDES__COPY_MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Provides</em>' class.
@@ -268,7 +250,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 6;
+	int FILE_TRANSFER_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferConsumesImpl <em>Consumes</em>}' class.
@@ -335,22 +317,13 @@ public interface FileTransferPackage extends EPackage {
 	int FILE_TRANSFER_CONSUMES__SERVICE_NAME = JbiPackage.CONSUMES__SERVICE_NAME;
 
 	/**
-	 * The feature id for the '<em><b>File Transfer Ext Container</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER_CONSUMES__FILE_TRANSFER_EXT_CONTAINER = JbiPackage.CONSUMES_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>File Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_CONSUMES__FILE_PATTERN = JbiPackage.CONSUMES_FEATURE_COUNT + 1;
+	int FILE_TRANSFER_CONSUMES__FILE_PATTERN = JbiPackage.CONSUMES_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Read Directory</b></em>' attribute.
@@ -359,7 +332,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_CONSUMES__READ_DIRECTORY = JbiPackage.CONSUMES_FEATURE_COUNT + 2;
+	int FILE_TRANSFER_CONSUMES__READ_DIRECTORY = JbiPackage.CONSUMES_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Backup Directory</b></em>' attribute.
@@ -368,7 +341,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY = JbiPackage.CONSUMES_FEATURE_COUNT + 3;
+	int FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY = JbiPackage.CONSUMES_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Transfer Mode</b></em>' attribute.
@@ -377,7 +350,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_CONSUMES__TRANSFER_MODE = JbiPackage.CONSUMES_FEATURE_COUNT + 4;
+	int FILE_TRANSFER_CONSUMES__TRANSFER_MODE = JbiPackage.CONSUMES_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Polling Period</b></em>' attribute.
@@ -386,7 +359,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_CONSUMES__POLLING_PERIOD = JbiPackage.CONSUMES_FEATURE_COUNT + 5;
+	int FILE_TRANSFER_CONSUMES__POLLING_PERIOD = JbiPackage.CONSUMES_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Consumes</em>' class.
@@ -395,7 +368,7 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TRANSFER_CONSUMES_FEATURE_COUNT = JbiPackage.CONSUMES_FEATURE_COUNT + 6;
+	int FILE_TRANSFER_CONSUMES_FEATURE_COUNT = JbiPackage.CONSUMES_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.CopyMode <em>Copy Mode</em>}' enum.
@@ -427,17 +400,6 @@ public interface FileTransferPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFileTransferExtension();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferExtension#getFileTransferExtContainer <em>File Transfer Ext Container</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>File Transfer Ext Container</em>'.
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferExtension#getFileTransferExtContainer()
-	 * @see #getFileTransferExtension()
-	 * @generated
-	 */
-	EAttribute getFileTransferExtension_FileTransferExtContainer();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferExtension#getFilePattern <em>File Pattern</em>}'.
@@ -587,14 +549,6 @@ public interface FileTransferPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FILE_TRANSFER_EXTENSION = eINSTANCE.getFileTransferExtension();
-
-		/**
-		 * The meta object literal for the '<em><b>File Transfer Ext Container</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER = eINSTANCE.getFileTransferExtension_FileTransferExtContainer();
 
 		/**
 		 * The meta object literal for the '<em><b>File Pattern</b></em>' attribute feature.

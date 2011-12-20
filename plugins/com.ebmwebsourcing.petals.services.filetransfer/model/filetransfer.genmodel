@@ -18,7 +18,6 @@
       <genEnumLiterals ecoreEnumLiteral="filetransfer.ecore#//TransferMode/ATTACHMENTS"/>
     </genEnums>
     <genClasses ecoreClass="filetransfer.ecore#//FileTransferExtension">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferExtension/fileTransferExtContainer"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferExtension/filePattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferExtension/readDirectory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferExtension/backupDirectory"/>

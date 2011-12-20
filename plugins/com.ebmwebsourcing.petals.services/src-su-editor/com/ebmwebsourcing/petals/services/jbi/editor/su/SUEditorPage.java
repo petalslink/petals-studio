@@ -58,11 +58,10 @@ import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentSupportExtensionDesc;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.ComponentVersionSupportExtensionDesc;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.util.SupportsUtil;
-import com.ebmwebsourcing.petals.services.su.wizards.AddConsumesToExistingJbiStrategy;
-import com.ebmwebsourcing.petals.services.su.wizards.AddProvidesToExistingJbiStrategy;
+import com.ebmwebsourcing.petals.services.jbi.editor.wizards.AddConsumesToExistingJbiStrategy;
+import com.ebmwebsourcing.petals.services.jbi.editor.wizards.AddProvidesToExistingJbiStrategy;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
+import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -133,23 +132,19 @@ public class SUEditorPage extends AbstractJBIFormPage {
 	public void init(IEditorSite site, IEditorInput input) {
 		super.init(site, input);
 		CompoundCommand initializeCommand = new CompoundCommand();
-		for (String ePackageNS : SupportsUtil.getInstance().getJBIExtensionEPackage()) {
-			EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(ePackageNS);
+		for (ComponentVersionDescription description : ExtensionManager.INSTANCE.findAllComponentVersionDescriptions()) {
+			EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(description.getNamespace());
+			InitializeModelExtensionCommand command = null;
 			for (Provides provide : getEditor().getJbiModel().getServices().getProvides()) {
-				initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, provide));
+				command = new InitializeModelExtensionCommand(extensionPackage, provide);
+				if (command.prepare()) {
+					initializeCommand.append(command);
+				}
 			}
 			for (Consumes consume : getEditor().getJbiModel().getServices().getConsumes()) {
-				initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, consume));
-			}
-		}
-		for (ComponentSupportExtensionDesc component : SupportsUtil.getInstance().getComponents()) {
-			for (ComponentVersionSupportExtensionDesc version : component.getVersionSupports()) {
-				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(version.getNamespace());
-				for (Provides provide : getEditor().getJbiModel().getServices().getProvides()) {
-					initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, provide));
-				}
-				for (Consumes consume : getEditor().getJbiModel().getServices().getConsumes()) {
-					initializeCommand.append(new InitializeModelExtensionCommand(extensionPackage, consume));
+				command = new InitializeModelExtensionCommand(extensionPackage, consume);
+				if (command.prepare()) {
+					initializeCommand.append(command);
 				}
 			}
 		}
@@ -378,11 +373,11 @@ public class SUEditorPage extends AbstractJBIFormPage {
 	
 	private void refreshDetails() {
 		if (selectedEndpoint != null) {
-			ComponentVersionSupportExtensionDesc componentExtensionDesc = SupportsUtil.getInstance().getComponentExtensionDesc(selectedEndpoint);
-			if (componentExtensionDesc != null) {
-				EditorContributionSupport support = componentExtensionDesc.createNewExtensionSupport();
+			ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findComponentDescription(selectedEndpoint);
+			if (componentDesc != null) {
+				EditorContributionSupport support = componentDesc.createNewExtensionSupport();
 				if (support != null) {
-					this.componentContributions = componentExtensionDesc.createNewExtensionSupport().createJbiEditorContribution(selectedEndpoint);
+					this.componentContributions = support.createJbiEditorContribution(selectedEndpoint);
 				}
 		    }
 		} else {

@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferProvidesImpl#getFileTransferExtContainer <em>File Transfer Ext Container</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferProvidesImpl#getFilePattern <em>File Pattern</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferProvidesImpl#getReadDirectory <em>Read Directory</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferProvidesImpl#getBackupDirectory <em>Backup Directory</em>}</li>
@@ -167,15 +166,6 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getFileTransferExtContainer() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getFilePattern() {
 		return filePattern;
 	}
@@ -282,25 +272,8 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER:
-				return ((InternalEList<?>)getFileTransferExtContainer()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER:
-				if (coreType) return getFileTransferExtContainer();
-				return ((FeatureMap.Internal)getFileTransferExtContainer()).getWrapper();
 			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN:
 				return getFilePattern();
 			case FileTransferPackage.FILE_TRANSFER_PROVIDES__READ_DIRECTORY:
@@ -323,9 +296,6 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER:
-				((FeatureMap.Internal)getFileTransferExtContainer()).set(newValue);
-				return;
 			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN:
 				setFilePattern((String)newValue);
 				return;
@@ -353,9 +323,6 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER:
-				getFileTransferExtContainer().clear();
-				return;
 			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN:
 				setFilePattern(FILE_PATTERN_EDEFAULT);
 				return;
@@ -383,8 +350,6 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER:
-				return !getFileTransferExtContainer().isEmpty();
 			case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN:
 				return FILE_PATTERN_EDEFAULT == null ? filePattern != null : !FILE_PATTERN_EDEFAULT.equals(filePattern);
 			case FileTransferPackage.FILE_TRANSFER_PROVIDES__READ_DIRECTORY:
@@ -408,7 +373,6 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == FileTransferExtension.class) {
 			switch (derivedFeatureID) {
-				case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER: return FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER;
 				case FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN: return FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_PATTERN;
 				case FileTransferPackage.FILE_TRANSFER_PROVIDES__READ_DIRECTORY: return FileTransferPackage.FILE_TRANSFER_EXTENSION__READ_DIRECTORY;
 				case FileTransferPackage.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY: return FileTransferPackage.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY;
@@ -427,7 +391,6 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == FileTransferExtension.class) {
 			switch (baseFeatureID) {
-				case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER: return FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_TRANSFER_EXT_CONTAINER;
 				case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_PATTERN: return FileTransferPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN;
 				case FileTransferPackage.FILE_TRANSFER_EXTENSION__READ_DIRECTORY: return FileTransferPackage.FILE_TRANSFER_PROVIDES__READ_DIRECTORY;
 				case FileTransferPackage.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY: return FileTransferPackage.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY;

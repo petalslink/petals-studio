@@ -1,10 +1,12 @@
-package com.ebmwebsourcing.petals.services.su.wizards;
+package com.ebmwebsourcing.petals.services.jbi.editor.wizards;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.FinishServiceCreationStrategy;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Jbi;
 

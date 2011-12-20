@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferExtension#getFileTransferExtContainer <em>File Transfer Ext Container</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferExtension#getFilePattern <em>File Pattern</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferExtension#getReadDirectory <em>Read Directory</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferExtension#getBackupDirectory <em>Backup Directory</em>}</li>
@@ -31,23 +30,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  */
 public interface FileTransferExtension extends AbstractExtensibleElement {
 	/**
-	 * Returns the value of the '<em><b>File Transfer Ext Container</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>File Transfer Ext Container</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>File Transfer Ext Container</em>' attribute list.
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferExtension_FileTransferExtContainer()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='elementWildcard' wildcards='http://petals.ow2.org/components/filetransfer/version-2' processing='skip' name='fileTransferExtContainer' group='#group:0'"
-	 * @generated
-	 */
-	FeatureMap getFileTransferExtContainer();
-
-	/**
 	 * Returns the value of the '<em><b>File Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -59,7 +41,7 @@ public interface FileTransferExtension extends AbstractExtensibleElement {
 	 * @see #setFilePattern(String)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferExtension_FilePattern()
 	 * @model derived="true"
-	 *        extendedMetaData="name='file-pattern' kind='element' namespace='http://petals.ow2.org/components/filetransfer/version-2' group='#fileTransferExtContainer'"
+	 *        extendedMetaData="name='file-pattern' kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
 	String getFilePattern();
@@ -86,7 +68,7 @@ public interface FileTransferExtension extends AbstractExtensibleElement {
 	 * @see #setReadDirectory(String)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferExtension_ReadDirectory()
 	 * @model derived="true"
-	 *        extendedMetaData="name='read-directory' kind='element' namespace='http://petals.ow2.org/components/filetransfer/version-2' group='#fileTransferExtContainer'"
+	 *        extendedMetaData="name='read-directory' kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
 	String getReadDirectory();
@@ -113,7 +95,7 @@ public interface FileTransferExtension extends AbstractExtensibleElement {
 	 * @see #setBackupDirectory(String)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage#getFileTransferExtension_BackupDirectory()
 	 * @model derived="true"
-	 *        extendedMetaData="name='backup-directory' kind='element' namespace='http://petals.ow2.org/components/filetransfer/version-2' group='#fileTransferExtContainer'"
+	 *        extendedMetaData="name='backup-directory' kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
 	String getBackupDirectory();

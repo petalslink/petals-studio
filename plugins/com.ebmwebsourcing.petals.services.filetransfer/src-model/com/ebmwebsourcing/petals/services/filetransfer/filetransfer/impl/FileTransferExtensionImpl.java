@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferExtensionImpl#getFileTransferExtContainer <em>File Transfer Ext Container</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferExtensionImpl#getFilePattern <em>File Pattern</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferExtensionImpl#getReadDirectory <em>Read Directory</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.impl.FileTransferExtensionImpl#getBackupDirectory <em>Backup Directory</em>}</li>
@@ -123,15 +122,6 @@ public class FileTransferExtensionImpl extends AbstractExtensibleElementImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getFileTransferExtContainer() {
-		return (FeatureMap)getGroup().<FeatureMap.Entry>list(FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getFilePattern() {
 		return filePattern;
 	}
@@ -196,25 +186,8 @@ public class FileTransferExtensionImpl extends AbstractExtensibleElementImpl imp
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER:
-				return ((InternalEList<?>)getFileTransferExtContainer()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER:
-				if (coreType) return getFileTransferExtContainer();
-				return ((FeatureMap.Internal)getFileTransferExtContainer()).getWrapper();
 			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_PATTERN:
 				return getFilePattern();
 			case FileTransferPackage.FILE_TRANSFER_EXTENSION__READ_DIRECTORY:
@@ -233,9 +206,6 @@ public class FileTransferExtensionImpl extends AbstractExtensibleElementImpl imp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER:
-				((FeatureMap.Internal)getFileTransferExtContainer()).set(newValue);
-				return;
 			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_PATTERN:
 				setFilePattern((String)newValue);
 				return;
@@ -257,9 +227,6 @@ public class FileTransferExtensionImpl extends AbstractExtensibleElementImpl imp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER:
-				getFileTransferExtContainer().clear();
-				return;
 			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_PATTERN:
 				setFilePattern(FILE_PATTERN_EDEFAULT);
 				return;
@@ -281,8 +248,6 @@ public class FileTransferExtensionImpl extends AbstractExtensibleElementImpl imp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_TRANSFER_EXT_CONTAINER:
-				return !getFileTransferExtContainer().isEmpty();
 			case FileTransferPackage.FILE_TRANSFER_EXTENSION__FILE_PATTERN:
 				return FILE_PATTERN_EDEFAULT == null ? filePattern != null : !FILE_PATTERN_EDEFAULT.equals(filePattern);
 			case FileTransferPackage.FILE_TRANSFER_EXTENSION__READ_DIRECTORY:

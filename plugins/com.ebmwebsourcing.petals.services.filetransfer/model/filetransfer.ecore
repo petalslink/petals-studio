@@ -7,24 +7,13 @@
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileTransferExtContainer"
-        unique="false" upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry"
-        volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="elementWildcard"/>
-        <details key="wildcards" value="http://petals.ow2.org/components/filetransfer/version-2"/>
-        <details key="processing" value="skip"/>
-        <details key="name" value="fileTransferExtContainer"/>
-        <details key="group" value="#group:0"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filePattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="file-pattern"/>
         <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/filetransfer/version-2"/>
-        <details key="group" value="#fileTransferExtContainer"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="readDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -32,8 +21,8 @@
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="read-directory"/>
         <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/filetransfer/version-2"/>
-        <details key="group" value="#fileTransferExtContainer"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backupDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -41,8 +30,8 @@
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="backup-directory"/>
         <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/filetransfer/version-2"/>
-        <details key="group" value="#fileTransferExtContainer"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -55,8 +44,8 @@
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="write-directory"/>
         <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/filetransfer/version-2"/>
-        <details key="group" value="#fileTransferExtContainer"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="copyMode" eType="#//CopyMode"
@@ -64,8 +53,8 @@
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="copy-mode"/>
         <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/filetransfer/version-2"/>
-        <details key="group" value="#fileTransferExtContainer"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -78,7 +67,8 @@
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="transfer-mode"/>
         <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/filetransfer/version-2"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pollingPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -86,8 +76,8 @@
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="polling-period"/>
         <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/filetransfer/version-2"/>
-        <details key="group" value="#fileTransferExtContainer"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
