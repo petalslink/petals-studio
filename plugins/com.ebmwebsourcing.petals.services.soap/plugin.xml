@@ -35,11 +35,5 @@
             uri="http://petals.ow2.org/components/soap/version-4">
       </package>
    </extension>
-   <extension
-         point="com.ebmwebsourcing.petals.services.jbiExtensionPackage">
-      <jbiExtensionPackage
-            ePackageURI="http://petals.ow2.org/components/soap/version-4">
-      </jbiExtensionPackage>
-   </extension>
 
 </plugin>

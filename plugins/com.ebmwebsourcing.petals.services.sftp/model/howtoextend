@@ -39,5 +39,4 @@ In genmodel:
 * Add dependency to CDK plugin.
 * In plugin.xml:
 - Ensure package is registered in EMF (org.eclipse.emf.ecore.generated_package)
-- add a jbiExtensionPackage, set URI as the namespace of your component.
-
+- add a componentExtension in plugin.xml for the component. Don't forget the namespace URI to register extension!

@@ -22,11 +22,17 @@
             type="cdk5"
             class="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.util.Cdk5ResourceFactoryImpl"/>
    </extension>
+   <!-- Register the CDK package, without UI contribution -->
    <extension
-         point="com.ebmwebsourcing.petals.services.jbiExtensionPackage">
-      <jbiExtensionPackage
-            ePackageURI="http://petals.ow2.org/components/extensions/version-5">
-      </jbiExtensionPackage>
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="CDK 5.0">
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.cdk.CDK5Description"
+               id="CDK 5.0"
+               namespace="http://petals.ow2.org/components/extensions/version-5">
+         </ComponentVersionSupport>
+      </ComponentSupport>
    </extension>
    
 

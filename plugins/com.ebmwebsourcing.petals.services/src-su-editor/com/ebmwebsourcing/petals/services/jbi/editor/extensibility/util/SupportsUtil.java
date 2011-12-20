@@ -22,7 +22,6 @@ public class SupportsUtil {
 	
 	// KEYS
 	private static final String COMPONENT_SUPPORT_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".componentExtension";
-	private static final String JBI_EXTENSION_PACKAGE_EXTENSION_POINT = PetalsServicesPlugin.getDefault().getBundle().getSymbolicName() + ".jbiExtensionPackage";
 	
 	// Singleton
 	private static SupportsUtil INSTANCE;
@@ -41,20 +40,10 @@ public class SupportsUtil {
 	
 	private SupportsUtil() {
 		namespaceToVersionSupport = new HashMap<String, ComponentVersionSupportExtensionDesc>();
-		extensionPackagesNS = new ArrayList<String>();
-		loadExtensionPackages();
+		extensionPackagesNS = new HashSet<String>();
 		components = new HashSet<ComponentSupportExtensionDesc>();
 		loadComponentSupports();
 	}
-
-	
-	private void loadExtensionPackages() {
-		for (IConfigurationElement elt : Platform.getExtensionRegistry().getConfigurationElementsFor(JBI_EXTENSION_PACKAGE_EXTENSION_POINT)) {
-			String packageURI = elt.getAttribute("ePackageURI");
-			extensionPackagesNS.add(packageURI);
-		}
-	}
-
 
 	private void loadComponentSupports() {
 		for (IConfigurationElement elt : Platform.getExtensionRegistry().getConfigurationElementsFor(COMPONENT_SUPPORT_EXTENSION_POINT)) {
@@ -62,10 +51,13 @@ public class SupportsUtil {
 			components.add(componentSupportExtension);
 			for (ComponentVersionSupportExtensionDesc ext : componentSupportExtension.getVersionSupports()) {
 				String namespace = ext.getNamespace();
-				if (namespaceToVersionSupport.containsKey(namespace)) {
-					PetalsServicesPlugin.log("Several ComponentSupports extensions for NS: " + namespace, IStatus.WARNING);
+				if (namespace != null) {
+					extensionPackagesNS.add(namespace);
+					if (namespaceToVersionSupport.containsKey(namespace)) {
+						PetalsServicesPlugin.log("Several ComponentSupports extensions for NS: " + namespace, IStatus.WARNING);
+					}
+					namespaceToVersionSupport.put(namespace, ext);
 				}
-				namespaceToVersionSupport.put(namespace, ext);
 			}
 		}
 	}

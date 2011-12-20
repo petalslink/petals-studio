@@ -45,10 +45,4 @@
             uri="http://petals.ow2.org/components/ftp/version-3">
       </package>
    </extension>
-   <extension
-         point="com.ebmwebsourcing.petals.services.jbiExtensionPackage">
-      <jbiExtensionPackage
-            ePackageURI="http://petals.ow2.org/components/ftp/version-3">
-      </jbiExtensionPackage>
-   </extension>
 </plugin>

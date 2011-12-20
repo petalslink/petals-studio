@@ -39,10 +39,4 @@
           uri="http://petals.ow2.org/components/sftp/version-1">
     </package>
  </extension>
- <extension
-       point="com.ebmwebsourcing.petals.services.jbiExtensionPackage">
-    <jbiExtensionPackage
-          ePackageURI="http://petals.ow2.org/components/sftp/version-1">
-    </jbiExtensionPackage>
- </extension>
 </plugin>
