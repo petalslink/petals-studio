@@ -25,6 +25,8 @@ import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+
 public class EObjecttUIHelper {
 	
 	private static class EntryDescription {
@@ -52,7 +54,11 @@ public class EObjecttUIHelper {
 		for (EStructuralFeature feature : toProcessFeatures) {
 			Object widget = null;
 			EAttribute attr = (EAttribute)feature;
-			toolkit.createLabel(parent, attr.getName()).setBackground(parent.getBackground());
+			String label = StringUtils.camelCaseToHuman(attr.getName());;
+			if (attr.getLowerBound() > 0) {
+				label += " *";
+			}
+			toolkit.createLabel(parent, label).setBackground(parent.getBackground());
 			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
 			Class<?> instanceClass = attr.getEType().getInstanceClass(); 
 			if (instanceClass.equals(String.class)) {
