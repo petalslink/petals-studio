@@ -15,6 +15,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.xml.core;bundle-version="1.1.401",
  org.eclipse.wst.sse.core;bundle-version="1.1.401",
  com.ebmwebsourcing.petals.common.generation,
- com.ebmwebsourcing.petals.services
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+ com.ebmwebsourcing.petals.services,
+ org.eclipse.emf;bundle-version="2.6.0",
+ com.ebmwebsourcing.jbi.core.metamodel;bundle-version="1.0.0",
+ org.eclipse.core.databinding;bundle-version="1.4.0",
+ org.eclipse.emf.databinding;bundle-version="1.2.0",
+ org.eclipse.jface.databinding;bundle-version="1.5.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

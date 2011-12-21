@@ -19,16 +19,21 @@
       <ComponentSupport
             id="quartz">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription10"
-               id="Quartz 1.0"
-               wizardExtension="com.ebmwebsourcing.petals.services.quartz.QuartzWizard10">
-         </ComponentVersionSupport>
-         <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription11"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription10_11"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.quartz.wizards.QuartzWizard10_11"
                id="Quartz 1.1"
+               namespace="http://petals.ow2.org/components/quartz/version-1"
                wizardExtension="com.ebmwebsourcing.petals.services.quartz.QuartzWizard11">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage"
+            genModel="model/quartz.genmodel"
+            uri="http://petals.ow2.org/components/quartz/version-1">
+      </package>
    </extension>
 
 </plugin>
