@@ -19,16 +19,20 @@
       <ComponentSupport
             id="xslt">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.xslt.XsltDescription23"
-               id="XSLT 2.3"
-               wizardExtension="com.ebmwebsourcing.petals.services.xslt.XsltWizard23">
-         </ComponentVersionSupport>
-         <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.xslt.XsltDescription24"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.xslt.XsltDescription23_24"
                id="XSLT 2.4"
-               wizardExtension="com.ebmwebsourcing.petals.services.xslt.XsltWizard24">
+               namespace="http://petals.ow2.org/components/xslt/version-2"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.xslt.wizard.XsltWizard24">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage"
+            genModel="model/xslt.genmodel"
+            uri="http://petals.ow2.org/components/xslt/version-2">
+      </package>
    </extension>
 
 </plugin>

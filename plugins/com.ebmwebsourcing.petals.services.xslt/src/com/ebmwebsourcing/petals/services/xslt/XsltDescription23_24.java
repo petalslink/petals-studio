@@ -21,7 +21,7 @@ import com.ebmwebsourcing.petals.common.generation.Mep;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class XsltDescription23 extends XsltDescription {
+public class XsltDescription23_24 extends XsltDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -30,7 +30,7 @@ public class XsltDescription23 extends XsltDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "2.3";
+		return "2.3,2.4";
 	}
 
 	/*
