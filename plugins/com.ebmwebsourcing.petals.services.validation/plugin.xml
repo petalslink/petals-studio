@@ -21,9 +21,19 @@
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.validation.ValidationDescription11"
                id="Validation 1.1"
+               namespace="http://petals.ow2.org/components/validation/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.validation.wizard.ValidationProvidesWizard11"
                wizardExtension="com.ebmwebsourcing.petals.services.validation.ValidationWizard11">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.validation.validation.ValidationPackage"
+            genModel="model/validation.genmodel"
+            uri="http://petals.ow2.org/components/validation/version-1">
+      </package>
    </extension>
 
 </plugin>

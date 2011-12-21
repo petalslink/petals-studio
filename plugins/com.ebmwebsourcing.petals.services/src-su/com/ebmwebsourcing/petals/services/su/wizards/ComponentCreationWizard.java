@@ -186,8 +186,6 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 	 * @throws IOException
 	 */
 	private void doFinish(final IProgressMonitor monitor ) throws Exception {
-		finishStrategy.finishWizard(this, endpoint, monitor);
-		
 		// Common stuff
 		IProject project = finishStrategy.getSUProject(this, monitor);
 		IFile jbiFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
@@ -205,6 +203,9 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 		monitor.subTask( "Performing extra-actions..." );
 		resourceDirectory.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 		performLastActions(resourceDirectory, endpoint, monitor);
+		
+		// last action so that previous ones can keep on modifying JBI
+		finishStrategy.finishWizard(this, endpoint, monitor);
 	}
 
 	public void importWSDLFileInProvideSUProject(IProgressMonitor monitor, IFile jbiFile, IFolder resourceDirectory) {
