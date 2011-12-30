@@ -195,7 +195,7 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 		
 		// Import the WSDL and update the jbi.xml file in consequence
 		final IFolder resourceDirectory = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
-		if( petalsMode == PetalsMode.provides) {
+		if( petalsMode == PetalsMode.provides && settings.showWsdl && settings.showJbiPage) {
 			importWSDLFileInProvideSUProject(monitor, jbiFile, resourceDirectory);
 		}
 
