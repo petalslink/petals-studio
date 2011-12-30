@@ -23,7 +23,7 @@ public class Jsr181Description11 extends Jsr181Description {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "1.1";
+		return "1.0,1.1";
 	}
 
 	/*

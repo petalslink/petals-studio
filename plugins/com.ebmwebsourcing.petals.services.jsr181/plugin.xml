@@ -15,6 +15,27 @@
 
 <plugin>
    <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.jsr181.jsr181.Jsr181Package"
+            genModel="model/jsr181.genmodel"
+            uri="http://petals.ow2.org/components/jsr181/version-1">
+      </package>
+   </extension>
+
+   <extension
+         point="com.ebmwebsourcing.petals.services.componentExtension">
+      <ComponentSupport
+            id="jsr181">
+         <ComponentVersionSupport id="Jsr181 1.1"
+         		namespace="http://petals.ow2.org/components/jsr181/version-1"
+				componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11"
+				providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181ProvidesWizard">
+         </ComponentVersionSupport>
+      </ComponentSupport>
+   </extension>
+   
+    <extension
          point="org.eclipse.ui.commands">
       <command
             categoryId="com.ebmwebsourcing.jbi.core.petals-category"
@@ -64,17 +85,6 @@
             </visibleWhen>
          </command>
       </menuContribution>
-   </extension>
-   <extension
-         point="com.ebmwebsourcing.petals.services.componentExtension">
-      <ComponentSupport
-            id="jsr181">
-         <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11"
-               id="Jsr181 1.1"
-               wizardExtension="com.ebmwebsourcing.petals.services.jsr181.Jsr181Wizard11">
-         </ComponentVersionSupport>
-      </ComponentSupport>
    </extension>
 
 </plugin>
