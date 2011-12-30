@@ -24,6 +24,7 @@ import java.util.TreeSet;
 import javax.xml.namespace.QName;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -96,8 +97,8 @@ public class ExtensionManager {
 		for( IConfigurationElement elt : extensions ) {
 
 			for( IConfigurationElement child : elt.getChildren( "ComponentVersionSupport" )) {
-
 				String theClassName = child.getAttribute( attributeName );
+				//FileLocator.resolve(Platform.getBundle(child.getContributor().getName()).getResource("plugin.xml"))
 				if( StringUtils.isEmpty( theClassName )) {
 					PetalsServicesPlugin.log( "No [" + attributeName + "] was provided for " + child.getContributor().getName(), IStatus.WARNING );
 					continue;

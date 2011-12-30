@@ -49,8 +49,8 @@ public class ValidationProvidesWizard11 extends ComponentCreationWizard {
 
 	public ValidationProvidesWizard11() {
 		super();
-		getDialogSettings().put( SuWizardSettings.WSDL_SHOW, "false" );
-		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)

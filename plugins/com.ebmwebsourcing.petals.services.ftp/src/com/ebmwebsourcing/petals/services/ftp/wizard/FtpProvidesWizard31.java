@@ -35,9 +35,10 @@ import com.sun.java.xml.ns.jbi.Jbi;
  */
 public class FtpProvidesWizard31 extends ComponentCreationWizard {
 	
-	public void FtpProvidesWizard31() {
-		getDialogSettings().put(SuWizardSettings.WSDL_SHOW, "false" );
-		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+	public FtpProvidesWizard31() {
+		super();
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)

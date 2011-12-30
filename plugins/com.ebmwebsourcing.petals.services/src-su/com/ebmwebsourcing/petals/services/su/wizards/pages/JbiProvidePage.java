@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
@@ -60,7 +59,6 @@ public class JbiProvidePage extends JbiAbstractPage {
 	protected String wsdlUrl, wsdlParsingError;
 	protected boolean importWsdl = true;
 
-	protected Button wsdlBrowserButton;
 	private LinkWithImageComposite wsdlHelper;
 	private ControlDecoration wsdlTextDecoration;
 	private List<JbiBasicBean> jbiBasicBeans;
@@ -90,8 +88,9 @@ public class JbiProvidePage extends JbiAbstractPage {
 	@Override
 	public void createCustomControls( Composite container ) {
 
-		if( getWizard().getDialogSettings().getBoolean( SuWizardSettings.WSDL_SHOW ))
+		if( getWizard().getSettings().showWsdl) {
 			addWsdlBrowser( container );
+		}
 
 		createCommonControls( container, 20 );
 		createAutoGenerationWidget( container );
@@ -314,23 +313,20 @@ public class JbiProvidePage extends JbiAbstractPage {
 
 		// Interface name
 		AbstractEndpoint ae = getNewlyCreatedEndpoint();
-		IDialogSettings settings = getWizard().getDialogSettings();
-		if( settings.getBoolean( SuWizardSettings.ITF_VALIDATE )
-				&& ae.getInterfaceName() == null ) {
+		SuWizardSettings settings = getWizard().getSettings();
+		if( settings.validateInterface && ae.getInterfaceName() == null ) {
 			updateStatus( "You have to provide the interface name." );
 			return false;
 		}
 
 		// Service name
-		if( settings.getBoolean( SuWizardSettings.SRV_VALIDATE )
-				&& ae.getServiceName() == null ) {
+		if( settings.validateServiceName && ae.getServiceName() == null ) {
 			updateStatus( "You have to provide the service name." );
 			return false;
 		}
 
 		// End-point name
-		if( settings.getBoolean( SuWizardSettings.EDPT_VALIDATE )
-				&& StringUtils.isEmpty( ae.getEndpointName())) {
+		if( settings.validateEndpointName && StringUtils.isEmpty( ae.getEndpointName())) {
 			updateStatus( Messages.ProvideJbiPage_37 );
 			return false;
 		}

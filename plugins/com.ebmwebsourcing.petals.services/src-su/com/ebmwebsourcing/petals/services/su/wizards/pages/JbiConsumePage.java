@@ -18,7 +18,6 @@ import javax.xml.namespace.QName;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
@@ -335,9 +334,8 @@ public class JbiConsumePage extends JbiAbstractPage {
 
 		// Interface name
 		AbstractEndpoint ae = getNewlyCreatedEndpoint();
-		IDialogSettings settings = getWizard().getDialogSettings();
-		if( settings.getBoolean( SuWizardSettings.ITF_VALIDATE )
-				&& ae.getInterfaceName() == null ) {
+		SuWizardSettings settings = getWizard().getSettings();
+		if( settings.validateInterface && ae.getInterfaceName() == null ) {
 				updateStatus( "You have to provide the interface name." );
 				return false;
 		}
@@ -384,11 +382,11 @@ public class JbiConsumePage extends JbiAbstractPage {
 		}
 
 		if( this.consumedBean != null ) {
-			settings.put( SuWizardSettings.CONSUMED_COMPONENT_NAME, this.consumedBean.getComponentName());
-			settings.put( SuWizardSettings.CONSUMED_WSDL_URI, String.valueOf( this.consumedBean.getWsdlUri()));
+			settings.consumedComponentName = this.consumedBean.getComponentName();
+			settings.consumedWsdlUri = String.valueOf( this.consumedBean.getWsdlUri());
 		} else {
-			settings.put( SuWizardSettings.CONSUMED_COMPONENT_NAME, "" );
-			settings.put( SuWizardSettings.CONSUMED_WSDL_URI, (String) null );
+			settings.consumedComponentName = "" ;
+			settings.consumedWsdlUri = null;
 		}
 
 		return true;

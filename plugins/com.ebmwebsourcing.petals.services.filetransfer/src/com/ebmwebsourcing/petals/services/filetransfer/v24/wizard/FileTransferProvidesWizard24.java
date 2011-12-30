@@ -32,8 +32,8 @@ public class FileTransferProvidesWizard24 extends ComponentCreationWizard {
 	
 	public FileTransferProvidesWizard24() {
 		super();
-		getDialogSettings().put(SuWizardSettings.WSDL_SHOW, "false");
-		getDialogSettings().put(SuWizardSettings.ITF_NAME_ACTIVATE, "false");
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)

@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.ebmwebsourcing.petals.services.xslt.PetalsXsltPlugin;
@@ -48,8 +47,8 @@ public class XsltWizard24 extends ComponentCreationWizard {
 
 	public XsltWizard24() {
 		super();
-		getDialogSettings().put( SuWizardSettings.WSDL_SHOW, "false" );
-		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)

@@ -34,8 +34,9 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class SqlProvidesWizard11 extends ComponentCreationWizard {
 
 	public SqlProvidesWizard11() {
-		getDialogSettings().put( SuWizardSettings.WSDL_SHOW, "false" );
-		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+		super();
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)

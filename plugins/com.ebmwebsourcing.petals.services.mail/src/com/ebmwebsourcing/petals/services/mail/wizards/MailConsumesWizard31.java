@@ -32,8 +32,9 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class MailConsumesWizard31 extends ComponentCreationWizard {
 
 	public MailConsumesWizard31() {
-		getDialogSettings().put( SuWizardSettings.WSDL_SHOW, "false" );
-		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+		super();
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)

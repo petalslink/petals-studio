@@ -63,7 +63,8 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 	ProjectPage projectPage;
 	private JbiProvidePage jbiProvidePage;
 
-	private FinishServiceCreationStrategy finishStrategy;
+	protected FinishServiceCreationStrategy finishStrategy;
+	protected SuWizardSettings settings;
 
 
 	/**
@@ -73,7 +74,7 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 		setNeedsProgressMonitor( true );
 		setForcePreviousAndNextButtons( true );
 		setDefaultPageImageDescriptor( PetalsServicesPlugin.getImageDescriptor( "icons/wizban/wiz_service_unit.png" ));
-		setDialogSettings(SuWizardSettings.createDefaultSettings());
+		settings = new SuWizardSettings();
 	}
 	
 	public void setStrategy(FinishServiceCreationStrategy strategy) {
@@ -108,11 +109,13 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 			}
 		}
 		
-		if (petalsMode == PetalsMode.consumes) {
-			addPage(new JbiConsumePage());
-		} else if (petalsMode == PetalsMode.provides) {
-			jbiProvidePage = new JbiProvidePage();
-			addPage(jbiProvidePage);
+		if (settings.showJbiPage) {
+			if (petalsMode == PetalsMode.consumes) {
+				addPage(new JbiConsumePage());
+			} else if (petalsMode == PetalsMode.provides) {
+				jbiProvidePage = new JbiProvidePage();
+				addPage(jbiProvidePage);
+			}
 		}
 		
 		if (finishStrategy instanceof CreateJBIStrategy) {
@@ -257,6 +260,10 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 	
 	public AbstractEndpoint getNewlyCreatedEndpoint() {
 		return this.endpoint;
+	}
+	
+	public SuWizardSettings getSettings() {
+		return this.settings;
 	}
 	
 	// Component business methods

@@ -19,7 +19,6 @@ import org.eclipse.ui.ide.IDE;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Consumes;
@@ -62,7 +61,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 			// Do not open it in the WorkspaceModifyOperation
 			// The project viewer must be updated before selecting anything in it
 			final IFile jbiXmlFile = getSUProject(wizard, new NullProgressMonitor()).getFile( PetalsConstants.LOC_JBI_FILE );
-			if( wizard.getDialogSettings().getBoolean( SuWizardSettings.OPEN_JBI_XML )) {
+			if( wizard.getSettings().openJbiEditor) {
 				wizard.getShell().getDisplay().syncExec(new Runnable() {
 					@Override
 					public void run() {

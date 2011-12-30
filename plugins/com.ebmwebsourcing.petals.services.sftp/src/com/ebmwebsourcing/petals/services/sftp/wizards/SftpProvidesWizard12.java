@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.Status;
 import com.ebmwebsourcing.petals.services.sftp.SftpDescription12;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService12;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
@@ -33,8 +32,8 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 
 	public SftpProvidesWizard12() {
 		super();
-		getDialogSettings().put( SuWizardSettings.WSDL_SHOW, "false" );
-		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)

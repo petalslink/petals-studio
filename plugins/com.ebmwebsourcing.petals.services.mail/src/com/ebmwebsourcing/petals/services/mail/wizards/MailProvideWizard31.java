@@ -24,7 +24,6 @@ import com.ebmwebsourcing.petals.services.mail.generated.MailService;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -35,8 +34,9 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class MailProvideWizard31 extends ComponentCreationWizard {
 
 	public MailProvideWizard31() {
-		getDialogSettings().put( SuWizardSettings.WSDL_SHOW, "false" );
-		getDialogSettings().put( SuWizardSettings.ITF_NAME_ACTIVATE, "false" );
+		super();
+		settings.showWsdl = false;
+		settings.activateInterfaceName = false;
 	}
 	
 	/* (non-Javadoc)
