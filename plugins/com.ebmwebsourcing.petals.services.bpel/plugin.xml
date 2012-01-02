@@ -171,7 +171,7 @@
          point="org.eclipse.ui.importWizards">
       <wizard
             category="com.ebmwebsourcing.petals.common.importWizard"
-            class="com.ebmwebsourcing.petals.services.bpel.wizards.BpelImportWizard"
+            class="com.ebmwebsourcing.petals.services.bpel.croquis.wizards.BpelImportWizard"
             icon="icons/obj16/import_bpel.gif"
             id="com.ebmwebsourcing.petals.services.bpel.importBpel"
             name="BPEL">
@@ -184,7 +184,7 @@
          point="org.eclipse.ui.exportWizards">
       <wizard
             category="com.ebmwebsourcing.petals.common.exportWizard"
-            class="com.ebmwebsourcing.petals.services.bpel.wizards.BpelCroquisExportWizard"
+            class="com.ebmwebsourcing.petals.services.bpel.croquis.wizards.BpelCroquisExportWizard"
             icon="icons/obj16/export_bpel.gif"
             id="com.ebmwebsourcing.petals.services.bpel.bpelProject"
             name="BPEL to Petals Projects">
@@ -200,8 +200,17 @@
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.bpel.BpelDescription10"
                id="BPEL 1.0"
-               wizardExtension="com.ebmwebsourcing.petals.services.bpel.BpelWizard10">
+               namespace="http://petals.ow2.org/components/petals-bpel-engine/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.bpel.wizards.BpelWizard10">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.bpel.bpel.BpelPackage"
+            genModel="model/bpel.genmodel"
+            uri="http://petals.ow2.org/components/petals-bpel-engine/version-1">
+      </package>
    </extension>
 </plugin>

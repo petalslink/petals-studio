@@ -9,7 +9,7 @@
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
  *
  *****************************************************************************/
-package com.ebmwebsourcing.petals.services.bpel.wizards;
+package com.ebmwebsourcing.petals.services.bpel.croquis.wizards;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;

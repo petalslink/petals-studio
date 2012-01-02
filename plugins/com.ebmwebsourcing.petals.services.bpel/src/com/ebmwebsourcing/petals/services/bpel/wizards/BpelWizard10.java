@@ -9,16 +9,14 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.bpel;
+package com.ebmwebsourcing.petals.services.bpel.wizards;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.OutputKeys;
@@ -45,19 +43,35 @@ import com.ebmwebsourcing.petals.common.generation.JbiXmlGenerationHelper;
 import com.ebmwebsourcing.petals.common.generation.cdk5.components.BpelProvides10;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
+import com.ebmwebsourcing.petals.services.bpel.BpelDescription10;
+import com.ebmwebsourcing.petals.services.bpel.PetalsBpelPlugin;
 import com.ebmwebsourcing.petals.services.bpel.designer.builder.PetalsBpelNature;
 import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules;
 import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules.JbiXmlBean;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class BpelWizard10 extends ComponentWizardHandler {
+public class BpelWizard10 extends ComponentCreationWizard {
+	
+	public enum BpelCreationMode {
+		importBpel, generateBpel, createAll;
+	}
 
+	private CreateBPELFromScratch createBpelFromScratchStrategy = new CreateBPELFromScratch();
+	private ImportBPEL importBPELStrategy = new ImportBPEL();
+	private GenerateBPELFromWSDL generateBPELStrategy = new GenerateBPELFromWSDL();
+	private BpelWizardStrategy currentStrategy;
+
+	public BpelWizard10() {
+		super();
+		settings.showJbiPage = false;
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -67,132 +81,16 @@ public class BpelWizard10 extends ComponentWizardHandler {
 		return new BpelDescription10();
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #getOverridenWizardSettings()
-	 */
-	@Override
-	public Map<String, String> getOverridenWizardSettings() {
-
-		Map<String,String> result = new HashMap<String,String> ();
-		result.put( SuWizardSettings.SHOW_JBI_PAGE, "false" );
-		return result;
-	}
-
-
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(
-			IFolder resourceFolder, AbstractEndpoint abstractEndpoint,
-			IProgressMonitor monitor, List<Object> resourcesToSelect ) {
-
-//		String bpelName = null;
-//
-//		// Get the BPEL element
-//		XmlElement bpelElement = null;
-//		for( XmlElement elt : eclipseSuBean.specificElements ) {
-//			if( "bpel-engine:bpel".equals( elt.getName())) {
-//				bpelElement = elt;
-//				break;
-//			}
-//		}
-//
-//		// Create the BPEL file
-//		BpelCreationMode creationMode = (BpelCreationMode) eclipseSuBean.customObjects.get( "generateBpel" );
-//		if( creationMode != null ) {
-//			if( creationMode == BpelCreationMode.createAll ) {
-//				String processName = eclipseSuBean.getProjectName();
-//
-//				// Hack for SU names
-//				if( processName.startsWith( "su-BPEL-" )) {
-//					processName = processName.substring( 8 );
-//					processName = processName.replaceFirst( "-provide.*", "" );
-//				}
-//				// End of hack
-//
-//				processName = processName.replaceAll( "\\W", "_" );
-//				bpelName = processName + ".bpel";
-//
-//				IFile file = resourceFolder.getFile( processName + "Definition.wsdl" );
-//				String result = new ProcessWsdl().generate( processName );
-//				createFile( file, result, monitor );
-//
-//				file = resourceFolder.getFile( processName + ".bpel" );
-//				result = new Process().generate( processName );
-//				createFile( file, result, monitor );
-//
-//				file = resourceFolder.getFile( processName + "Artifacts.wsdl" );
-//				result = new ProcessArtifacts().generate( processName );
-//				createFile( file, result, monitor );
-//			}
-//
+	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
+		currentStrategy.perform(resourceFolder, abstractEndpoint, monitor);
 //			else if( creationMode == BpelCreationMode.generateBpel ) {
 //				try {
-//					Description desc = (Description) eclipseSuBean.customObjects.get( "wsdlDescription" );
-//					QName interfaceName = (QName) eclipseSuBean.customObjects.get( "wsdlName" );
-//					bpelName = bpelElement != null ? bpelElement.getValue() : null;
-//
-//					BPELGenerator generator = new BPELGeneratorImpl();
-//					BPELProject project = generator.generateDefaultBPELProjectFromInterface( interfaceName, desc );
-//					if( bpelName == null )
-//						bpelName = project.getBpelFileName();
-//
-//
-//					// Do not write the WSDL of the BPEL: imports are not processed.
-//					// Instead, we have to import it in the project.
-//					Map<String,File> urlToFile = new WsdlImportUtils().importWsdlOrXsdAndDependencies(
-//								resourceFolder.getLocation().toFile(),
-//								eclipseSuBean.getWsdlUrl());
-//
-//					// Prepare the file names to update the generated documents
-//					String wsdlName = urlToFile.get( eclipseSuBean.getWsdlUrl()).getName();
-//					String artifactsName =
-//						resourceFolder.getFile( bpelName ).getLocation()
-//						.removeFileExtension().lastSegment() + "Artifacts.wsdl";
-//
-//
-//					// Write the WSDL artifacts
-//					Document doc = WSDL4BPELFactory.newInstance().newWSDLWriter().getDocument( project.getWsdlArtifacts());
-//					String content = write( doc );
-//					content = content.replaceAll( Pattern.quote( project.getWsdlFileName()), wsdlName );
-//
-//					IFile file = resourceFolder.getFile( artifactsName );
-//					if( file.exists())
-//						file.setContents( new ByteArrayInputStream( content.getBytes()), true, true, monitor );
-//					else
-//						file.create( new ByteArrayInputStream( content.getBytes()), true, monitor );
-//
-//
-//					// Write the BPEL
-//					doc = new BPELWriterImpl().getDocument( project.getBpelProcess());
-//					content = write( doc );
-//					content = content.replaceAll( Pattern.quote( project.getWsdlFileName()), wsdlName );
-//					content = content.replaceAll( Pattern.quote( project.getArtifactFileName()), artifactsName );
-//
-//					// Hack for bug PETALSSTUD-16 (not yet fixed in EasyBPEL)
-//					content = content.replaceAll( "myRole=\"mainPartnerRole\"", "myRole=\"" + interfaceName.getLocalPart() + "Role\"" );
-//					String abstractNsPattern = Pattern.quote( "xmlns:ns3=\"http://docs.oasis-open.org/wsbpel/2.0/process/abstract\"" );
-//					content = content.replaceAll( abstractNsPattern, "" );
-//					content = content.replaceAll( "ns3:", "ns2:" );
-//					// Hack for bug PETALSSTUD-16
-//
-//					file = resourceFolder.getFile( bpelName );
-//					if( file.exists())
-//						file.setContents( new ByteArrayInputStream( content.getBytes()), true, true, monitor );
-//					else
-//						file.create( new ByteArrayInputStream( content.getBytes()), true, monitor );
-//
-//				} catch( Exception e ) {
-//					PetalsBpelPlugin.log( e, IStatus.ERROR );
-//				}
-//			}
-//		}
 
 
 		// Add the nature "BPEL extension for Petals"
@@ -245,8 +143,7 @@ public class BpelWizard10 extends ComponentWizardHandler {
 
 		return Status.OK_STATUS;
 	}
-
-
+	
 	/**
 	 * Creates a default jbi.xml for a brand new BPEL project.
 	 * @param bpelName the name of the BPEL file
@@ -325,4 +222,75 @@ public class BpelWizard10 extends ComponentWizardHandler {
 
 		return writer.toString();
 	}
+
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
+	@Override
+	protected void presetServiceValues(AbstractEndpoint endpoint) {
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterJbi()
+	 */
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterProject()
+	 */
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesBeforeProject()
+	 */
+	@Override
+	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+		return new AbstractSuPage[] {
+			new BpelFirstPage10()
+		};
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#importAdditionalFiles(org.eclipse.core.resources.IFolder, org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#isJavaProject()
+	 */
+	@Override
+	protected boolean isJavaProject() {
+		return false;
+	}
+
+	public BpelWizardStrategy getCurrentStrategy() {
+		return currentStrategy;
+	}
+
+	public void setCurrentStrategy(BpelWizardStrategy currentStrategy) {
+		this.currentStrategy = currentStrategy;
+	}
+
+	public CreateBPELFromScratch getCreateBpelFromScratchStrategy() {
+		return createBpelFromScratchStrategy;
+	}
+
+	public ImportBPEL getImportBPELStrategy() {
+		return importBPELStrategy;
+	}
+
+	public GenerateBPELFromWSDL getGenerateBPELStrategy() {
+		return generateBPELStrategy;
+	}
+
+	
 }
