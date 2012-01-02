@@ -3,15 +3,20 @@ package com.ebmwebsourcing.petals.common.internal.provisional.emf;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.validation.IValidator;
+import org.eclipse.core.databinding.validation.ValidationStatus;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -20,15 +25,36 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.ebmwebsourcing.petals.common.internal.Messages;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
 public class EObjecttUIHelper {
 	
+	/**
+	 * @author istria
+	 *
+	 */
+	private static final class MandatoryFieldValidator implements IValidator {
+		private EStructuralFeature feature;
+		
+		public MandatoryFieldValidator(EStructuralFeature feature) {
+			this.feature = feature;
+		}
+		
+		@Override
+		public IStatus validate(Object value) {
+			if (value == null || (value instanceof String && ((String)value).isEmpty()) ) {
+				return ValidationStatus.error(com.ebmwebsourcing.petals.common.internal.Messages.bind(Messages.fieldNotSet, feature.getName()));
+			} else {
+				return ValidationStatus.ok();
+			}
+		}
+	}
+
 	private static class EntryDescription {
 		public Object widget;
 		public EAttribute attribute;
@@ -92,14 +118,26 @@ public class EObjecttUIHelper {
 				widgetObservable = SWTObservables.observeSelection((Button)entry.widget);
 			}
 			if (widgetObservable != null) {
+				UpdateValueStrategy strategy = new UpdateValueStrategy();
+				if (entry.attribute.getLowerBound() > 0) {
+					strategy.setBeforeSetValidator(new MandatoryFieldValidator(entry.attribute));
+				}
+				Binding binding = null;
 				if (domain != null) {
-					dbc.bindValue(
+					binding = dbc.bindValue(
 						widgetObservable,
-						EMFEditObservables.observeValue(domain, eObject, entry.attribute));
+						EMFEditObservables.observeValue(domain, eObject, entry.attribute),
+						strategy,
+						null);
 				} else {
-					dbc.bindValue(
+					binding = dbc.bindValue(
 						widgetObservable,
-						EMFObservables.observeValue(eObject, entry.attribute));
+						EMFObservables.observeValue(eObject, entry.attribute),
+						strategy,
+						null);
+				}
+				if (entry.attribute.getLowerBound() > 0) {
+					ControlDecorationSupport.create(binding, SWT.TOP | SWT.LEFT);
 				}
 			}
 		}
