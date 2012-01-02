@@ -21,9 +21,17 @@
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.ejb.EjbDescription13"
                id="EJB 1.3"
-               wizardExtension="com.ebmwebsourcing.petals.services.ejb.EjbWizard13">
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.ejb.wizards.EjbWizard13">
          </ComponentVersionSupport>
       </ComponentSupport>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage"
+            genModel="model/ejb.genmodel"
+            uri="http://petals.ow2.org/components/ejb/version-1">
+      </package>
    </extension>
 
 </plugin>

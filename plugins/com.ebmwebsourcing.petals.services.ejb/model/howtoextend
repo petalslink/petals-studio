@@ -1,0 +1,42 @@
+1. Create a model
+
+1.a Create Ecore
+Namespace = namespace in XSD
+
+1.b Create Types
+1.b.1 Definition
+SuperType contains CDKProvides or CDKConsumes (need to load CDK ecore before)
+Type has annotation:
+- source: http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+- key: name
+- value: [blank]
+1.b.2 Contents
+Create fields following XSD
+Attributes and children must have "Derived" set to true.
+Use annotations, source http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+- group: #group:0 (EFeatureMap container, the "any" element)
+- kind: element
+- namespace: ##targetNamespace (namespace of package)
+if not same in ecore and XSD - name: [name in XSD]
+For enum: Create enum, put in "Literal" the String as in XSD
+
+1.c Generate code
+
+Create a new EMF Generator Model for this Ecore. Add references to jbi.genmodel and cdk.genmodel.
+Only generate genmodel for your component.
+In genmodel:
+* Select top-level element:
+- All > Copyright
+- Model > Model Directory: .../src-model
+* Select package:
+- set basePackage to pluginId 
+* In build.properties
+- add src-model to src folders
+- add model folder to binary build
+
+1.d Finish
+
+* Add dependency to CDK plugin.
+* In plugin.xml:
+- Ensure package is registered in EMF (org.eclipse.emf.ecore.generated_package)
+- add a componentExtension in plugin.xml for the component. Don't forget the namespace URI to register extension!
