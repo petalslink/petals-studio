@@ -73,7 +73,7 @@ public class EJBDetailsPage extends AbstractSuPage {
 		for (EStructuralFeature field : fields) {
 			if (field.getLowerBound() > 0) {
 				if (!getNewlyCreatedEndpoint().eIsSet(field)) {
-					error.append(Messages.bind(Messages.fieldNotSet, StringUtils.camelCaseToHuman(field.getName())));
+					error.append("Field not set");
 					error.append('\n');
 					containsError = false;
 				}
