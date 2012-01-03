@@ -91,7 +91,12 @@ public class EObjecttUIHelper {
 				widget = toolkit.createText(parent, "", SWT.BORDER);
 				((Text)widget).setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 			} else if (instanceClass.equals(Integer.class) || instanceClass.equals(int.class)) {
-				widget = new Spinner(parent, SWT.DEFAULT);
+				widget = new Spinner(parent, SWT.BORDER);
+				GridData gd = new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false);
+				gd.widthHint = 100;
+				gd.minimumWidth = 100;
+				((Spinner)widget).setLayoutData(gd);
+				((Spinner)widget).setMaximum(Integer.MAX_VALUE);
 			} else if (instanceClass.isEnum()) {
 				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
 				ComboViewer viewer = (ComboViewer)widget;
@@ -100,6 +105,7 @@ public class EObjecttUIHelper {
 				viewer.setInput(attr.getEType());
 			} else if (instanceClass.equals(Boolean.class) || instanceClass.equals(boolean.class)) {
 				widget = toolkit.createButton(parent, "", SWT.CHECK);
+				((Button)widget).setBackground(parent.getBackground());
 			}
 			if (widget != null) {
 				entries.add(new EntryDescription(widget, attr));

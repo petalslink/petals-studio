@@ -37,6 +37,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 		jbiInstance = JbiFactory.eINSTANCE.createJbi();
 		jbiInstance.setVersion(new BigDecimal("1.0"));
 		jbiInstance.setServices(JbiFactory.eINSTANCE.createServices());
+		jbiInstance.getServices().setBindingComponent(wizard.getComponentVersionDescription().isBc());
 		if (endpoint instanceof Provides) {
 			jbiInstance.getServices().getProvides().add((Provides)endpoint);
 		} else {

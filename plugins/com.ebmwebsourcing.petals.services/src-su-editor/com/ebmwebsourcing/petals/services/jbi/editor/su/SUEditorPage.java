@@ -63,7 +63,7 @@ import com.ebmwebsourcing.petals.services.jbi.editor.wizards.AddProvidesToExisti
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
-import com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.SelectNewPetalsSuWizard;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.JbiPackage;
@@ -221,7 +221,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		newProvidesButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				IWizard createEndpointWizard = new PetalsSuNewWizard(PetalsMode.provides, new AddProvidesToExistingJbiStrategy(getEditor().getJbiModel(), getEditor().getEditingDomain(), getEditor().getEditedFile().getProject()));
+				IWizard createEndpointWizard = new SelectNewPetalsSuWizard(PetalsMode.provides, new AddProvidesToExistingJbiStrategy(getEditor().getJbiModel(), getEditor().getEditingDomain(), getEditor().getEditedFile().getProject()));
 				if (new WizardDialog(getSite().getShell(), createEndpointWizard).open() == Dialog.OK) {
 					providesViewer.refresh();
 				}
@@ -261,7 +261,7 @@ public class SUEditorPage extends AbstractJBIFormPage {
 		newConsumesButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				IWizard createEndpointWizard = new PetalsSuNewWizard(PetalsMode.consumes, new AddConsumesToExistingJbiStrategy(getEditor().getJbiModel(), getEditor().getEditingDomain(), getEditor().getEditedFile().getProject()));
+				IWizard createEndpointWizard = new SelectNewPetalsSuWizard(PetalsMode.consumes, new AddConsumesToExistingJbiStrategy(getEditor().getJbiModel(), getEditor().getEditingDomain(), getEditor().getEditedFile().getProject()));
 				if (new WizardDialog(getSite().getShell(), createEndpointWizard).open() == Dialog.OK) {
 					consumesViewer.refresh();
 				}

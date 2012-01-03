@@ -1,4 +1,4 @@
-package com.ebmwebsourcing.petals.common.tests;
+package com.ebmwebsourcing.petals.common.tests.utils;
 
 import junit.framework.Assert;
 

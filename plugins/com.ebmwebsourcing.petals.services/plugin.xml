@@ -257,7 +257,7 @@
       </wizard>
       <wizard
             category="com.ebmwebsourcing.petals.common.wizards"
-            class="com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard:provides"
+            class="com.ebmwebsourcing.petals.services.su.wizards.SelectNewPetalsSuWizard:provides"
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             hasPages="true"
             icon="icons/obj16/provides_3.0.png"
@@ -270,7 +270,7 @@
       </wizard>
       <wizard
             category="com.ebmwebsourcing.petals.common.wizards"
-            class="com.ebmwebsourcing.petals.services.su.wizards.PetalsSuNewWizard:consumes"
+            class="com.ebmwebsourcing.petals.services.su.wizards.SelectNewPetalsSuWizard:consumes"
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             hasPages="true"
             icon="icons/obj16/consumes_3.0.png"

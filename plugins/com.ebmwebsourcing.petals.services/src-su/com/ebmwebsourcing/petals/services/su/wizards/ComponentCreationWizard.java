@@ -34,6 +34,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
@@ -86,9 +87,11 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 		if (propertyName.toLowerCase().contains("provide")) {
 			this.petalsMode = PetalsMode.provides;
 			endpoint = JbiFactory.eINSTANCE.createProvides();
+			setWindowTitle(Messages.provideTitle);
 		} else {
 			this.petalsMode = PetalsMode.consumes;
 			endpoint = JbiFactory.eINSTANCE.createConsumes();
+			setWindowTitle(Messages.consumeTitle);
 		}
 		presetServiceValues(endpoint);
 		this.finishStrategy = new CreateJBIStrategy();
@@ -98,6 +101,14 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 	public void addPage(IWizardPage page) {
 		super.addPage(page);
 		page.setWizard(this);
+		page.setTitle(getComponentVersionDescription().getComponentAlias());
+		if (page.getDescription() == null) {
+			if (petalsMode == PetalsMode.consumes) {
+				page.setDescription(getComponentVersionDescription().getConsumeDescription());
+			} else if (petalsMode == PetalsMode.provides) {
+				page.setDescription(getComponentVersionDescription().getProvideDescription());
+			}
+		}
 	}
 	
 	@Override

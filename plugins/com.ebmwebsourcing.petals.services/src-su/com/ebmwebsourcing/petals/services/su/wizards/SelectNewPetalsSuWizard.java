@@ -8,18 +8,19 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
+import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ChoicePage;
 
-public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutableExtension {
+public class SelectNewPetalsSuWizard extends Wizard implements INewWizard, IExecutableExtension {
 
 	private PetalsMode petalsMode;
 	private FinishServiceCreationStrategy strategy;
 
-	public PetalsSuNewWizard() {
+	public SelectNewPetalsSuWizard() {
 		setForcePreviousAndNextButtons(true);
 	}
 		
-	public PetalsSuNewWizard(PetalsMode mode, FinishServiceCreationStrategy strategy) {
+	public SelectNewPetalsSuWizard(PetalsMode mode, FinishServiceCreationStrategy strategy) {
 		this();
 		this.strategy = strategy;
 		this.petalsMode = mode;
@@ -35,13 +36,14 @@ public class PetalsSuNewWizard extends Wizard implements INewWizard, IExecutable
 	public void setInitializationData( IConfigurationElement config, String propertyName, Object data ) throws CoreException {
 		this.petalsMode = "provides".equalsIgnoreCase( String.valueOf( data )) ? PetalsMode.provides : PetalsMode.consumes;
 		this.strategy = new CreateJBIStrategy();
+		init();
 	}
 	
 	public void init() {
 		if (petalsMode == PetalsMode.provides) {
-			setWindowTitle("Petals Service");
+			setWindowTitle(Messages.provideTitle);
 		} else {
-			setWindowTitle("Petals Service Consumer" );
+			setWindowTitle(Messages.consumeTitle);
 		}
 	}
 	

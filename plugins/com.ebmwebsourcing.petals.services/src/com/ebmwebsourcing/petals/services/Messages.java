@@ -26,6 +26,8 @@ public class Messages extends NLS {
 	public static String localPart;
 	public static String provides;
 	public static String consumes;
+	public static String provideTitle;
+	public static String consumeTitle;
 
 	static {
 		initializeMessages("messages", Messages.class);
