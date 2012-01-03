@@ -110,8 +110,8 @@ public class JbiXmlUtils {
 	 */
 	public static String getWsdlValue( Provides provides ) {
 
-		for( int i=0; i<provides.getCdkGroup().size(); i++ ) {
-			FeatureMap.Entry f = provides.getCdkGroup().get( i );
+		for( int i=0; i<provides.getGroup().size(); i++ ) {
+			FeatureMap.Entry f = provides.getGroup().get( i );
 			Object o = f.getValue();
 			if( !( o instanceof AnyType ))
 				continue;
@@ -140,8 +140,8 @@ public class JbiXmlUtils {
 	 */
 	public static String getMepValue( Consumes consumes ) {
 
-		for( int i=0; i<consumes.getCdkGroup().size(); i++ ) {
-			FeatureMap.Entry f = consumes.getCdkGroup().get( i );
+		for( int i=0; i<consumes.getGroup().size(); i++ ) {
+			FeatureMap.Entry f = consumes.getGroup().get( i );
 			Object o = f.getValue();
 			if( o == null || !( o instanceof AnyType ))
 				continue;
