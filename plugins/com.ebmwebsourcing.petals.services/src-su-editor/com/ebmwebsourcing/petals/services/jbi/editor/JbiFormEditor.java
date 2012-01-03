@@ -49,7 +49,9 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -73,7 +75,8 @@ import com.sun.java.xml.ns.jbi.Jbi;
  * Let in *.services for historical reasons, but may be moved in *.common.
  * </p>
  */
-public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPartListener2, IEditingDomainProvider {
+public class JbiFormEditor extends FormEditor implements ISelectionProvider,
+		IPartListener2, IEditingDomainProvider {
 
 	private static final String JBI_FORM_EDITOR_ID = "com.ebmwebsourcing.petals.services.formeditor"; //$NON-NLS-1$
 
@@ -81,40 +84,34 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 	private IResourceChangeListener workspaceListener;
 	private IJbiEditorPersonality personality;
 
-	private final Set<ISelectionChangedListener> selectionListeners = new HashSet<ISelectionChangedListener> ();
+	private final Set<ISelectionChangedListener> selectionListeners = new HashSet<ISelectionChangedListener>();
 
-	protected final Map<String,AbstractJBIFormPage> pages = new HashMap<String,AbstractJBIFormPage> ();
 	protected IFile editedFile;
 
 	private ResourceSet resourceSet;
 	private TransactionalEditingDomain editDomain;
 	protected Collection<Resource> savedResources = new ArrayList<Resource>();
 	private DataBindingContext dbc;
-	
+
 	private ISelection selection;
 
-	/**
-	 * Constructor.
-	 */
 	public JbiFormEditor() {
 		super();
 		dbc = new DataBindingContext();
 	}
-
 
 	/**
 	 * @return the editor personality
 	 */
 	private IJbiEditorPersonality getPersonality() {
 
-		if( this.personality == null && this.editedFile != null ) {
-			IJbiEditorPersonality[] personalities = new IJbiEditorPersonality[] {
-						new SuPersonality(),
-						//new SaPersonality()
+		if (this.personality == null && this.editedFile != null) {
+			IJbiEditorPersonality[] personalities = new IJbiEditorPersonality[] { new SuPersonality(),
+			// new SaPersonality()
 			};
 
-			for( IJbiEditorPersonality pers : personalities ) {
-				if( pers.matchesPersonality(model, this.editedFile )) {
+			for (IJbiEditorPersonality pers : personalities) {
+				if (pers.matchesPersonality(model, this.editedFile)) {
 					this.personality = pers;
 					break;
 				}
@@ -124,11 +121,10 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 		return this.personality;
 	}
 
-
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.forms.editor.FormEditor
-	 * #addPages()
+	 * 
+	 * @see org.eclipse.ui.forms.editor.FormEditor #addPages()
 	 */
 	@Override
 	protected void addPages() {
@@ -137,209 +133,146 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 			// Find the personality
 			IJbiEditorPersonality pers = getPersonality();
 
-			// Add the "General" page
-			if( pers != null ) {
-				AbstractJBIFormPage page = pers.getGeneralMasterPage( this );
-				addPage( page );
-				this.pages.put( page.getId(), page );
+			if (pers != null) {
+				AbstractJBIFormPage page = pers.getGeneralMasterPage(this);
+				addPage(page);
 			}
-			
-			// Always add the page with the source editor
-			/*this.srcEditor = new StructuredTextEditor();
-			int index = addPage( this.srcEditor, getEditorInput());
-			setPageText( index, "Source" );*/
 
-		} catch( PartInitException e ) {
-			PetalsServicesPlugin.log( e, IStatus.ERROR );
+		} catch (PartInitException e) {
+			PetalsServicesPlugin.log(e, IStatus.ERROR);
 		}
-
-		updateEditor();
 	}
-
-
-	/**
-	 * Embeds the XML Editor as source page into the Form Editor.
-	 * @see org.eclipse.ui.part.MultiPageEditorPart#createSite(org.eclipse.ui.IEditorPart)
-	 */
-	/*@Override
-	protected IEditorSite createSite( IEditorPart page ) {
-
-		IEditorSite site = null;
-		if( page == this.srcEditor ) {
-			site = new MultiPageEditorSite( this, page );
-		} else {
-			site = super.createSite( page );
-		}
-
-		return site;
-	}*/
-
 
 	/**
 	 * Loads the DOM model.
 	 * <p>
-	 * If this model was already loaded, we reuse it.
-	 * Otherwise, we make it loaded.
+	 * If this model was already loaded, we reuse it. Otherwise, we make it
+	 * loaded.
 	 * </p>
 	 */
 	protected void loadSharedModel() throws IOException {
 
 		try {
 			// Get the edited file
-			if( getEditorInput() instanceof IFileEditorInput ) {
-				this.editedFile = ((IFileEditorInput) getEditorInput()).getFile();
-				if( ! this.editedFile.exists()) {
-					throw new FileNotFoundException( this.editedFile.getLocation() + " does not exist." );
+			if (getEditorInput() instanceof IFileEditorInput) {
+				this.editedFile = ((IFileEditorInput) getEditorInput())
+						.getFile();
+				if (!this.editedFile.exists()) {
+					throw new FileNotFoundException(
+							this.editedFile.getLocation() + " does not exist.");
 				}
 
-				if( ! this.editedFile.isSynchronized( IResource.DEPTH_ONE )) {
-					this.editedFile.refreshLocal( IResource.DEPTH_ONE, null );
+				if (!this.editedFile.isSynchronized(IResource.DEPTH_ONE)) {
+					this.editedFile.refreshLocal(IResource.DEPTH_ONE, null);
 				}
 
-			}
-
-			// Otherwise, do no go further: only the source page will be displayed
-			else {
+			} else {
+				// Don't load anything
 				return;
 			}
 
-
 			resourceSet = new ResourceSetImpl();
 			this.editDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
-			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(editedFile.getFullPath().toString(), true), true);
+			URI resourceUri = URI.createPlatformResourceURI(editedFile.getFullPath().toString(), true);
+			Resource resource = resourceSet.getResource(resourceUri, true);
 			resource.load(resourceSet.getLoadOptions());
-			model = ((DocumentRoot)resource.getContents().get(0)).getJbi();
-			
-			this.editDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
-				 public void commandStackChanged(final EventObject event) {
-					 getContainer().getDisplay().asyncExec(new Runnable() {
-							  public void run() {
-								  firePropertyChange(IEditorPart.PROP_DIRTY);
-							  }
-					 });
-				 }
-			});
+			model = ((DocumentRoot) resource.getContents().get(0)).getJbi();
 
-		} catch( CoreException e ) {
-			PetalsServicesPlugin.log( e, IStatus.WARNING );
+			this.editDomain.getCommandStack().addCommandStackListener(
+					new CommandStackListener() {
+						public void commandStackChanged(final EventObject event) {
+							getContainer().getDisplay().asyncExec(
+									new Runnable() {
+										public void run() {
+											firePropertyChange(IEditorPart.PROP_DIRTY);
+										}
+									});
+						}
+					});
+
+		} catch (CoreException e) {
+			PetalsServicesPlugin.log(e, IStatus.WARNING);
 		}
 	}
-
-
-	/**
-	 * Updates the editor UI.
-	 */
-	protected void updateEditor() {
-		// Nothing at the moment
-		/*for( AbstractJBIFormPage page : this.pages.values()) {
-			if( page.getPartControl() != null && ! page.getPartControl().isDisposed()) {
-				page.updatePage();
-			}
-		}*/
-	}
-
-
-	/***************************************************************************
-	 * Add an outline view
-	 **************************************************************************/
-
-	// @Override
-	// public Object getAdapter( Class required ) {
-	// if( IContentOutlinePage.class.equals( required )) {
-	// if( outlinePage == null ) {
-	// outlinePage = new ScaCompositeWizardEditorOutline ();
-	// TODO: add missing line - add input
-	// }
-	// return outlinePage;
-	// }
-	// return super.getAdapter( required );
-	// }
 
 	/***************************************************************************
 	 * Adding EMF Code (from SCA EMF Editor)
 	 **************************************************************************/
 
-
 	/**
 	 * This is called during startup.
 	 */
 	@Override
-	public void init( IEditorSite site, IEditorInput editorInput ) {
-		setSite( site );
-		setInputWithNotify( editorInput );
+	public void init(IEditorSite site, IEditorInput editorInput) {
+		setSite(site);
+		setInputWithNotify(editorInput);
 		if (editorInput instanceof FileEditorInput) {
-			setPartName( ((FileEditorInput)editorInput).getFile().getProject().getName() );
+			setPartName(((FileEditorInput) editorInput).getFile().getProject().getName());
 		} else {
-			setPartName( editorInput.getName());
+			setPartName(editorInput.getName());
 		}
-		site.setSelectionProvider( this );
+		site.setSelectionProvider(this);
 
 		try {
 			loadSharedModel();
 		} catch (Exception ex) {
 			PetalsServicesPlugin.log(ex, IStatus.ERROR);
 		}
-		site.getWorkbenchWindow().getPartService().addPartListener( this );
+		site.getWorkbenchWindow().getPartService().addPartListener(this);
 	}
-
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.part.EditorPart
 	 * #doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	public void doSave( IProgressMonitor monitor ) {
+	public void doSave(IProgressMonitor monitor) {
 
 		try {
 			// Save only resources that have actually changed.
-			//
 			final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
-			saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+			saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
+					Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 
-			// Do the work within an operation because this is a long running activity that modifies the workbench.
-			//
-			WorkspaceModifyOperation operation =
-				new WorkspaceModifyOperation() {
-					// This is the method that gets invoked when the operation runs.
-					//
-					@Override
-					public void execute(IProgressMonitor monitor) {
-						// Save the resources to the file system.
-						//
-						for (Resource resource : getEditingDomain().getResourceSet().getResources()) {
-							try {
-								long timeStamp = resource.getTimeStamp();
-								resource.save(saveOptions);
-								if (resource.getTimeStamp() != timeStamp) {
-									savedResources.add(resource);
-								}
+			// Do the work within an operation because this is a long running
+			// activity that modifies the workbench.
+			WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+				@Override
+				public void execute(IProgressMonitor monitor) {
+					// Save the resources to the file system.
+					for (Resource resource : getEditingDomain()
+							.getResourceSet().getResources()) {
+						try {
+							long timeStamp = resource.getTimeStamp();
+							resource.save(saveOptions);
+							if (resource.getTimeStamp() != timeStamp) {
+								savedResources.add(resource);
 							}
-							catch (Exception exception) {
-								PetalsServicesPlugin.log(exception, IStatus.ERROR);
-							}
+						} catch (Exception exception) {
+							PetalsServicesPlugin.log(exception, IStatus.ERROR);
 						}
 					}
-				};
+				}
+			};
 
 			try {
 				new ProgressMonitorDialog(getSite().getShell()).run(true, false, operation);
-
-				((BasicCommandStack)getEditingDomain().getCommandStack()).saveIsDone();
+				((BasicCommandStack) getEditingDomain().getCommandStack()).saveIsDone();
 				firePropertyChange(IEditorPart.PROP_DIRTY);
-			}
-			catch (Exception exception) {
+			} catch (Exception exception) {
 				PetalsServicesPlugin.log(exception, IStatus.ERROR);
 			}
 
-		} catch( Exception e ) {
-			PetalsServicesPlugin.log( e, IStatus.ERROR);
+		} catch (Exception e) {
+			PetalsServicesPlugin.log(e, IStatus.ERROR);
 		}
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.part.EditorPart#doSaveAs()
 	 */
 	@Override
@@ -347,9 +280,9 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 		// Not supported
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.part.EditorPart#isSaveAsAllowed()
 	 */
 	@Override
@@ -357,21 +290,21 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 		return false;
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.viewers.ISelectionProvider
-	 * #addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
+	 * #addSelectionChangedListener
+	 * (org.eclipse.jface.viewers.ISelectionChangedListener)
 	 */
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
-		this.selectionListeners.add( listener );
+		this.selectionListeners.add(listener);
 	}
-
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ISelectionProvider
-	 * #getSelection()
+	 * 
+	 * @see org.eclipse.jface.viewers.ISelectionProvider #getSelection()
 	 */
 	public ISelection getSelection() {
 		return this.selection;
@@ -379,64 +312,68 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.viewers.ISelectionProvider
-	 * #removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
+	 * #removeSelectionChangedListener
+	 * (org.eclipse.jface.viewers.ISelectionChangedListener)
 	 */
-	public void removeSelectionChangedListener( ISelectionChangedListener listener) {
-		this.selectionListeners.remove( listener );
+	public void removeSelectionChangedListener(
+			ISelectionChangedListener listener) {
+		this.selectionListeners.remove(listener);
 	}
-	
-		/*
+
+	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.viewers.ISelectionProvider
 	 * #setSelection(org.eclipse.jface.viewers.ISelection)
 	 */
-	public void setSelection( ISelection selection ) {
+	public void setSelection(ISelection selection) {
 
 		// Update the selection
 		this.selection = selection;
-		for( ISelectionChangedListener listener : this.selectionListeners ) {
-			listener.selectionChanged( new SelectionChangedEvent( this, selection ));
+		for (ISelectionChangedListener listener : this.selectionListeners) {
+			listener.selectionChanged(new SelectionChangedEvent(this, selection));
 		}
 
 		// Update the status line
 		try {
-			IStatusLineManager manager = getEditorSite().getActionBars().getStatusLineManager();
-			if( selection instanceof IStructuredSelection ) {
+			IStatusLineManager manager = getEditorSite().getActionBars()
+					.getStatusLineManager();
+			if (selection instanceof IStructuredSelection) {
 
 				IStructuredSelection sse = (IStructuredSelection) selection;
-				switch( sse.size()) {
+				switch (sse.size()) {
 				case 0:
-					manager.setMessage( "" );
+					manager.setMessage("");
 					break;
 				case 1:
 					ILabelProvider lp = getStatusLineLabelProvider();
-					if( lp != null ) {
-						String msg = lp.getText( sse.getFirstElement());
-						Image img = lp.getImage( sse.getFirstElement());
-						manager.setMessage( img, msg );
+					if (lp != null) {
+						String msg = lp.getText(sse.getFirstElement());
+						Image img = lp.getImage(sse.getFirstElement());
+						manager.setMessage(img, msg);
 					}
 					break;
 				default:
-					manager.setMessage( sse.size() + " selected elements" );
+					manager.setMessage(sse.size() + " selected elements");
 					break;
 				}
 			}
 
-		} catch( Exception e ) {
-			PetalsServicesPlugin.log( e, IStatus.WARNING );
+		} catch (Exception e) {
+			PetalsServicesPlugin.log(e, IStatus.WARNING);
 		}
 	}
 
-
 	/*
-	 * (non-Javadoc)	/**
+	 * (non-Javadoc) /**
+	 * 
 	 * @return the editedFile
 	 */
 	public IFile getEditedFile() {
 		return this.editedFile;
 	}
-
 
 	/**
 	 * @return a label provider for the status line manager
@@ -445,46 +382,46 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 
 		ILabelProvider result = null;
 		IJbiEditorPersonality pers = getPersonality();
-		if( pers != null ) {
+		if (pers != null) {
 			result = pers.getStatusLineLabelProvider();
 		}
 
 		return result;
 	}
 
-
 	// IPartListener methods
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partActivated(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partActivated( IWorkbenchPartReference partRef ) {
+	public void partActivated(IWorkbenchPartReference partRef) {
 		getActionBarContributor().setActiveEditor(this);
 	}
-	
-	public EditingDomainActionBarContributor getActionBarContributor() {
-		return (EditingDomainActionBarContributor)getEditorSite().getActionBarContributor();
-	}
 
+	public EditingDomainActionBarContributor getActionBarContributor() {
+		return (EditingDomainActionBarContributor) getEditorSite().getActionBarContributor();
+	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partBroughtToTop(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partBroughtToTop( IWorkbenchPartReference partRef ) {
+	public void partBroughtToTop(IWorkbenchPartReference partRef) {
 		// nothing
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partClosed(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partClosed( IWorkbenchPartReference partRef ) {
+	public void partClosed(IWorkbenchPartReference partRef) {
 		if (dbc != null) {
 			dbc.dispose();
 		}
@@ -492,97 +429,101 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider, IPa
 			editDomain.dispose();
 		}
 		// Remove the listeners
-		if( partRef instanceof IEditorReference ) {
+		if (partRef instanceof IEditorReference) {
 			try {
-				boolean eq = ((IEditorReference) partRef).getEditorInput().equals( getEditorInput());
-				if( eq && ((IEditorReference) partRef).getId().equals( JBI_FORM_EDITOR_ID )) {
-
-					// Same editor and same input
-					getSite().getWorkbenchWindow().getPartService().removePartListener( this );
+				boolean sameInput = ((IEditorReference) partRef).getEditorInput().equals(getEditorInput());
+				boolean sameEditor = ((IEditorReference) partRef).getId().equals(JBI_FORM_EDITOR_ID);
+				if (sameInput && sameEditor) {
+					getSite().getWorkbenchWindow().getPartService().removePartListener(this);
 
 					// No model or workspace changes are listened to
 					// if the edited file is not in the workspace
-					if( this.editedFile != null ) {
-						ResourcesPlugin.getWorkspace().removeResourceChangeListener( this.workspaceListener );
+					if (this.editedFile != null) {
+						ResourcesPlugin.getWorkspace().removeResourceChangeListener(this.workspaceListener);
 					}
 				}
 
-			} catch( PartInitException e ) {
-				PetalsServicesPlugin.log( e, IStatus.ERROR );
+			} catch (PartInitException e) {
+				PetalsServicesPlugin.log(e, IStatus.ERROR);
 			}
 		}
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partDeactivated(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partDeactivated( IWorkbenchPartReference partRef ) {
+	public void partDeactivated(IWorkbenchPartReference partRef) {
 		// nothing
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partHidden(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partHidden( IWorkbenchPartReference partRef ) {
+	public void partHidden(IWorkbenchPartReference partRef) {
 		// nothing
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partInputChanged(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partInputChanged( IWorkbenchPartReference partRef ) {
+	public void partInputChanged(IWorkbenchPartReference partRef) {
 		// nothing
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partOpened(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partOpened( IWorkbenchPartReference partRef ) {
-		// nothing
+	public void partOpened(IWorkbenchPartReference partRef) {
+		// Hide tabs
+		Composite container = getContainer();
+		if (container instanceof CTabFolder) {
+			CTabFolder folder = (CTabFolder) container;
+			folder.setTabHeight(0);
+			folder.redraw();
+		}
 	}
-
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IPartListener2
 	 * #partVisible(org.eclipse.ui.IWorkbenchPartReference)
 	 */
-	public void partVisible( IWorkbenchPartReference partRef ) {
+	public void partVisible(IWorkbenchPartReference partRef) {
 		// nothing
 	}
-	
+
 	@Override
 	public boolean isDirty() {
 		CommandStack commandStack = getEditingDomain().getCommandStack();
 		if (commandStack != null) {
-			return ((BasicCommandStack)commandStack).isSaveNeeded();
+			return ((BasicCommandStack) commandStack).isSaveNeeded();
 		} else {
 			return false;
 		}
 	}
 
-
 	@Override
 	public EditingDomain getEditingDomain() {
 		return editDomain;
 	}
-	
+
 	public Jbi getJbiModel() {
 		return this.model;
 	}
-	
+
 	public DataBindingContext getDataBindingContext() {
 		return this.dbc;
 	}
