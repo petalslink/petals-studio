@@ -63,17 +63,12 @@ public class PhantomText extends Composite {
 
 			public void focusLost( FocusEvent e ) {
 				PhantomText.this.updateEnabled = false;
-				if( PhantomText.this.value == null || PhantomText.this.value.length() == 0 ) {
-					PhantomText.this.text.setText( PhantomText.this.defaultValue );
-					PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_TITLE_INACTIVE_FOREGROUND ));
-				} else {
-					PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_TITLE_FOREGROUND ));
-				}
+				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_GRAY ));
 			}
 
 			public void focusGained( FocusEvent e ) {
 				PhantomText.this.text.setText( PhantomText.this.value == null ? "" : PhantomText.this.value );
-				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_TITLE_FOREGROUND ));
+				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_BLACK ));
 				PhantomText.this.updateEnabled = true;
 			}
 		});

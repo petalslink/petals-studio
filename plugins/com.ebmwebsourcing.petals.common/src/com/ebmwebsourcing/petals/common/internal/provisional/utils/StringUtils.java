@@ -105,4 +105,68 @@ public class StringUtils {
 
 		return fileName.substring( 0, index ) + suffix + fileName.substring( index );
 	}
+
+	/**
+	 * Turns a CamelCase String to a more human friendly string
+	 * See TestStringUtils for specification.
+	 * @param input
+	 * @return
+	 */
+	public static String camelCaseToHuman(String input) {
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < input.length(); i++) {
+			char currentChar = input.charAt(i);
+			if (i == 0) {
+				builder.append(Character.toUpperCase(currentChar));
+			} else if (Character.isLowerCase(currentChar)) {
+				builder.append(currentChar);
+			} else if (Character.isUpperCase(currentChar)) {
+				char previousChar = input.charAt(i - 1);
+				if (Character.isUpperCase(previousChar)) { // most probably an acronym
+					builder.append(currentChar);
+					if (i < input.length() - 1) {
+						char nextChar = input.charAt(i + 1);
+						if (! Character.isUpperCase(nextChar)) { // current is last letter of acronym
+							if (builder.charAt(builder.length() - 1) != ' ') {
+								builder.append(' ');
+							}
+						}
+					}
+				} else if (! Character.isUpperCase(previousChar)) {
+					if (builder.charAt(builder.length() - 1) != ' ') {
+						builder.append(' ');
+					}
+					if (i == input.length() - 1) {
+						builder.append(currentChar);
+					} else {
+						char nextChar = input.charAt(i + 1);
+						if (Character.isUpperCase(nextChar)) { // most probably an acronym
+							builder.append(currentChar);
+						} else {
+							builder.append(Character.toLowerCase(currentChar));
+						}
+					}
+				}
+			} else if (Character.isDigit(currentChar)) {
+				char previousChar = input.charAt(i - 1);
+				if (!Character.isDigit(previousChar)) { // first digit of a sequence
+					if (builder.charAt(builder.length() - 1) != ' ') {
+						builder.append(' ');
+					}
+				}
+				builder.append(currentChar);
+				if (i < input.length() - 1) {
+					char nextChar = input.charAt(i + 1);
+					if (!Character.isDigit(nextChar)) { // current is last digit of the sequence
+						if (builder.charAt(builder.length() - 1) != ' ') {
+							builder.append(' ');
+						}
+					}
+				}
+			} else {
+				builder.append(currentChar);
+			}
+		}
+		return builder.toString();
+	}
 }

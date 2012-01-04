@@ -41,6 +41,8 @@ public class Messages extends NLS {
 
 	// Package "*.utils"
 	public static String WsdlUpdater_9;
+	
+	public static String fieldNotSet;
 
 	static {
 		// initialize resource bundle
