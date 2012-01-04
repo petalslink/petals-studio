@@ -14,10 +14,14 @@ package com.ebmwebsourcing.petals.services.xslt.wizard;
 
 import java.io.File;
 
-import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.beans.PojoObservables;
+import org.eclipse.core.databinding.conversion.IConverter;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.emf.databinding.EMFObservables;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -32,11 +36,8 @@ import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.commons.jbi.internal.provisional.beans.XmlElement;
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
-import com.ebmwebsourcing.petals.services.su.wizards.SuMainConstants;
-import com.ebmwebsourcing.petals.services.su.wizards.generation.EclipseSuBean;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage;
 
 /**
  * Replace the default COMPONENT page.
@@ -44,125 +45,7 @@ import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
  */
 public class XsltProvideSpecificPage extends AbstractSuPage {
 
-	public final static String DEFAULT_XSL_NAME = "transformation.xsl";
-	public final static String CREATE_XSL = "create.xsl";
-	public final static String CREATE_WSDL = "create.wsdl";
-
-	private String attachmentName;
-	private String xslUrl;
-	private boolean createXsltFile = true;
-	private boolean createWsdlFile = false;
-
-
-
-	/**
-	 * Empty constructor. Required empty to be instantiated by the main plug-in.
-	 */
-	public XsltProvideSpecificPage() {
-		// Custom component page - follow the rule about page naming.
-		super( SuMainConstants.PAGE_SPECIFIC_JBI_DATA );
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.tools.eclipse.su.main.pages.AbstractSuPage
-	 * #setBasicFields(java.lang.String, java.lang.String, java.lang.String)
-	 */
-	@Override
-	public void setBasicFields( String suType, String suTypeVersion, String pluginId ) {
-
-		super.setBasicFields( suType, suTypeVersion, pluginId );
-		registerNamespace( "xslt", "http://petals.ow2.org/components/xslt/version-2" );
-		registerNamespace( "petalsCDK", "http://petals.ow2.org/components/extensions/version-5" );
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.tools.eclipse.su.pages.AbstractSuPage#
-	 * setHelpContextId(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
-	protected void setHelpContextId( Composite container ) {
-		// Nothing.
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.tools.eclipse.su.main.pages.AbstractSuPage
-	 * #fillInData(com.ebmwebsourcing.petals.tools.eclipse.su.main.wizards.generation.EclipseSuBean)
-	 */
-	@Override
-	public void fillInData( EclipseSuBean suBean ) {
-
-		// Import the XSL style sheet?
-		XmlElement xslElement = new XmlElement();
-		xslElement.setName( "xslt:stylesheet" );
-		xslElement.setNillable( false );
-		xslElement.setOptional( false );
-
-		if( ! this.createXsltFile )
-			getFileImportManager().registerXmlFileElement( xslElement, this.xslUrl, "" );
-		else
-			xslElement.setValue( DEFAULT_XSL_NAME );
-
-		suBean.specificElements.add( xslElement );
-
-		// Create the XSL / WSDL?
-		suBean.customObjects.put( CREATE_XSL, this.createXsltFile );
-		suBean.customObjects.put( CREATE_WSDL, this.createWsdlFile );
-		if( this.createWsdlFile ) {
-			suBean.setCreatedWsdlMarkupValue( "XsltService.wsdl" );
-		}
-
-		// Register the attachment name
-		XmlElement attNameElement = new XmlElement();
-		attNameElement.setName( "xslt:output-attachment-name" );
-		attNameElement.setValue( this.attachmentName );
-		attNameElement.setNillable( false );
-		attNameElement.setOptional( true );
-		suBean.specificElements.add( attNameElement );
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.tools.eclipse.su.main.pages.XsdBasedAbstractSuPage
-	 * #dialogChanged()
-	 */
-	@Override
-	public boolean validate() {
-
-		boolean valid = true;
-		if( ! this.createXsltFile ) {
-			if( StringUtils.isEmpty( this.xslUrl )) {
-				updateStatus( "You must select the XSL style sheet to import." );
-				valid = false;
-			}
-			else {
-				try {
-					UriUtils.convertFilePathToUrl( this.xslUrl );
-
-				} catch( Exception e ) {
-					updateStatus( "The URL for the XSL style sheet is not valid." );
-					valid = false;
-				}
-			}
-		}
-
-		if( valid )
-			updateStatus( null );
-
-		if( this.createWsdlFile && ! this.createXsltFile )
-			setMessage( "The generated WSDL might not reflect the content of the imported XSL style sheet.", IMessageProvider.WARNING );
-		else
-			setMessage( null, IMessageProvider.WARNING );
-
-		return valid;
-	}
-
+	private DataBindingContext dbc;
 
 	/*
 	 * (non-Javadoc)
@@ -175,7 +58,6 @@ public class XsltProvideSpecificPage extends AbstractSuPage {
 		final Composite container = new Composite( parent, SWT.NONE );
 
 		// Set help link for documentation page.
-		setHelpContextId( container );
 		setDescription( "Specify how to get the XSL style sheet." );
 
 		GridLayout layout = new GridLayout ();
@@ -204,12 +86,6 @@ public class XsltProvideSpecificPage extends AbstractSuPage {
 
 		final Text xslText = new Text( comp, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY );
 		xslText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		xslText.addModifyListener( new ModifyListener() {
-			public void modifyText( ModifyEvent e ) {
-				XsltProvideSpecificPage.this.xslUrl = xslText.getText().trim();
-				validate();
-			}
-		});
 
 		final Button xslBrowserButton = new Button( comp, SWT.PUSH );
 		xslBrowserButton.setText( "Browse..." );
@@ -242,19 +118,10 @@ public class XsltProvideSpecificPage extends AbstractSuPage {
 		// Create a WSDL
 		Button createWsdlButton = new Button( container, SWT.CHECK );
 		createWsdlButton.setText( "Create a default WSDL (might need to be updated)" );
-		createWsdlButton.setSelection( this.createWsdlFile );
 
 		GridData layoutData = new GridData();
 		layoutData.verticalIndent = 10;
 		createWsdlButton.setLayoutData( layoutData );
-
-		createWsdlButton.addSelectionListener( new SelectionAdapter() {
-			@Override
-			public void widgetSelected( SelectionEvent e ) {
-				XsltProvideSpecificPage.this.createWsdlFile = ! XsltProvideSpecificPage.this.createWsdlFile;
-				validate();
-			}
-		});
 
 
 		// The attachment name
@@ -263,37 +130,32 @@ public class XsltProvideSpecificPage extends AbstractSuPage {
 
 		final Text attachText = new Text( container, SWT.SINGLE | SWT.BORDER );
 		attachText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		attachText.addModifyListener( new ModifyListener() {
-			public void modifyText( ModifyEvent e ) {
-				XsltProvideSpecificPage.this.attachmentName = attachText.getText().trim();
-				validate();
+		
+		dbc = new DataBindingContext();
+		IObservableValue createXslButtonObservable = SWTObservables.observeSelection(createXslStyleSheetButton);
+		dbc.bindValue(createXslButtonObservable, PojoObservables.observeValue(getWizard(), "createXsl"));
+		
+		UpdateValueStrategy notRule = new UpdateValueStrategy().setConverter(new IConverter() {
+			public Object getToType() {
+				return boolean.class;
+			}
+			
+			public Object getFromType() {
+				return boolean.class;
+			}
+			
+			public Object convert(Object fromObject) {
+				return ! ((Boolean)fromObject);
 			}
 		});
-
-
-		// Listeners
-		SelectionListener commonListener = new SelectionListener() {
-			public void widgetSelected( SelectionEvent e ) {
-				widgetDefaultSelected( e );
-			}
-
-			public void widgetDefaultSelected( SelectionEvent e ) {
-				XsltProvideSpecificPage.this.createXsltFile = createXslStyleSheetButton.getSelection();
-
-				xslLabel.setEnabled( ! XsltProvideSpecificPage.this.createXsltFile );
-				xslText.setEnabled( ! XsltProvideSpecificPage.this.createXsltFile );
-				xslBrowserButton.setEnabled( ! XsltProvideSpecificPage.this.createXsltFile );
-
-				validate();
-			}
-		};
-
-		createXslStyleSheetButton.addSelectionListener( commonListener );
-		importXslStyleSheetButton.addSelectionListener( commonListener );
-
+		dbc.bindValue(SWTObservables.observeEnabled(xslLabel), createXslButtonObservable, notRule, notRule);
+		dbc.bindValue(SWTObservables.observeEnabled(xslText), createXslButtonObservable, notRule, notRule);
+		
+		dbc.bindValue(SWTObservables.observeSelection(createWsdlButton), PojoObservables.observeValue(getWizard(), "createWSDL"));
+		dbc.bindValue(SWTObservables.observeText(attachText, SWT.Modify), EMFObservables.observeValue(getNewlyCreatedEndpoint(), XsltPackage.Literals.XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME));
 
 		// Initialize the page
-		createXslStyleSheetButton.setSelection( this.createXsltFile );
+		createXslStyleSheetButton.setSelection( getWizard().isCreateXsl() );
 		createXslStyleSheetButton.notifyListeners( SWT.Selection, new Event());
 		if( getErrorMessage() != null ) {
 			updateStatus( null );
@@ -302,15 +164,23 @@ public class XsltProvideSpecificPage extends AbstractSuPage {
 
 		setControl( container );
 	}
+	
+	@Override
+	public XsltWizard24 getWizard() {
+		return (XsltWizard24)super.getWizard();
+	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.tools.eclipse.su.main.pages.AbstractSuPage
-	 * #reloadDataFromConfiguration()
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage#validate()
 	 */
 	@Override
-	public void reloadDataFromConfiguration() {
-		// nothing
+	public boolean validate() {
+		return true;
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		dbc.dispose();
 	}
 }

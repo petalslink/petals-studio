@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.xml.namespace.QName;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
@@ -24,6 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
@@ -115,6 +118,9 @@ public class XsltWizard24 extends ComponentCreationWizard {
 
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
+		endpoint.setInterfaceName( new QName( "http://petals.ow2.org/components/xslt/version-2", "XsltService" ));
+		endpoint.setServiceName( new QName( "http://petals.ow2.org/components/xslt/version-2", "change-it" ));
+		endpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "XsltService.wsdl");
 	}
 
 

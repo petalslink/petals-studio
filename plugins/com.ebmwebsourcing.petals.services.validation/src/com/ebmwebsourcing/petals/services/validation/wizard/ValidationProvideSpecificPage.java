@@ -154,9 +154,10 @@ public class ValidationProvideSpecificPage extends AbstractSuPage {
 				return ! ((Boolean)fromObject);
 			}
 		});
-		
+		dbc.bindValue(createXsdButtonObservable, SWTObservables.observeEnabled(xsdLabel), notRule, notRule);
 		dbc.bindValue(createXsdButtonObservable, SWTObservables.observeSelection(importXsdButton), notRule, notRule);
 		dbc.bindValue(createXsdButtonObservable, SWTObservables.observeEnabled(xsdText), notRule, notRule);
+		
 		dbc.bindValue(SWTObservables.observeText(xsdText, SWT.Modify), PojoObservables.observeValue(getWizard(), "xsdURL"));
 		
 		dbc.bindValue(SWTObservables.observeSelection(createWsdlButton), PojoObservables.observeValue(getWizard(), "createWSDL"));

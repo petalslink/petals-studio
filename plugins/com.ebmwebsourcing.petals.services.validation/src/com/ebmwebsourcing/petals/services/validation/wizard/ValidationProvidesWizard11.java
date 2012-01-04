@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
@@ -71,6 +72,7 @@ public class ValidationProvidesWizard11 extends ComponentCreationWizard {
 	public void presetServiceValues( AbstractEndpoint ae ) {
 		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/validation/version-1", "ValidationInterface" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/validation/version-1", "change-it" ));
+		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "ValidationService.wsdl");
 	}
 
 
