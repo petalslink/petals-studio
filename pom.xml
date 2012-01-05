@@ -24,7 +24,7 @@
 		<studio-version-qualifier>M1</studio-version-qualifier>
 		<!-- M1, RC, Alpha = \u03B1lpha 1, Beta = \u03B2eta -->
 		
-		<tycho-version>0.13.0-SNAPSHOT</tycho-version>
+		<tycho-version>0.13.0</tycho-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
