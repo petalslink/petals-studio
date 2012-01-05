@@ -54,12 +54,5 @@
 		<module>com.ebmwebsourcing.petals.easybox</module>
 		<module>com.ebmwebsourcing.petals.bpel.easybpel.validators</module>
 		<module>com.ebmwebsourcing.petals.services.bpel</module>
-
-		<!-- 
-			This module needs SCA Tools to be built with Tycho first.
-			SCA Tools can be check out from the Eclipse repository.
-			http://dev.eclipse.org/svnroot/soa/org.eclipse.stp.sca-tools/org.eclipse.stp.sca/
-		-->
-		<module>com.ebmwebsourcing.petals.services.sca</module>
 	</modules>
 </project>
