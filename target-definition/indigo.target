@@ -46,7 +46,7 @@
 <repository location="http://download.eclipse.org/webtools/incubator/repository/sieditor/snapshot"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.bpel.feature.feature.group" version="0.8.0.v20120104-0509-H102-CI"/>
+<unit id="org.eclipse.bpel.feature.feature.group" version="0.0.0"/>
 <repository location="https://hudson.eclipse.org/hudson/job/bpel-0.5/lastSuccessfulBuild/artifact/site/target/site/"/>
 </location>
 </locations>
