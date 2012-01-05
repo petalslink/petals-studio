@@ -19,9 +19,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.services.jsr181.Messages;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
-public class ErrorPage extends AbstractSuPage {
+public class ErrorPage extends AbstractSuWizardPage {
 
 	private Exception error;
 

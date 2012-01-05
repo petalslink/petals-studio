@@ -17,9 +17,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.jms.JmsDescription31;
+import com.ebmwebsourcing.petals.services.jms.jms.JmsPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -32,17 +34,25 @@ public class JmsConsumesWizard31 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
-		return new AbstractSuPage[] { new JmsConsumes31WizardPage() };
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
+				JmsPackage.Literals.JMS_EXTENSION__JNDI_PROVIDER_URL,
+				JmsPackage.Literals.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY,
+				JmsPackage.Literals.JMS_EXTENSION__JNDI_DESTINATION_NAME,
+				JmsPackage.Literals.JMS_EXTENSION__JNDI_CONNECTION_FACTORY,
+				JmsPackage.Literals.JMS_EXTENSION__USER,
+				JmsPackage.Literals.JMS_EXTENSION__PASSWORD,
+				JmsPackage.Literals.JMS_EXTENSION__TRANSACTED)
+		};
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
 		return null;
 	}
 

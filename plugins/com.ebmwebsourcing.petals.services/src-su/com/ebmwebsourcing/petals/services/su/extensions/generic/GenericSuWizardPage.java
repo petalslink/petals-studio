@@ -24,13 +24,13 @@ import org.eclipse.swt.widgets.Text;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
 /**
  * A wizard page to define the target component (and to create a default SU for this component).
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class GenericSuWizardPage extends AbstractSuPage {
+public class GenericSuWizardPage extends AbstractSuWizardPage {
 
 	/**
 	 * Empty constructor. Required empty to be instantiated by the main plug-in.

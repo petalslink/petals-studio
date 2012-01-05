@@ -36,14 +36,14 @@ import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.commons.jbi.internal.provisional.beans.XmlElement;
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage;
 
 /**
  * Replace the default COMPONENT page.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class XsltProvideSpecificPage extends AbstractSuPage {
+public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 
 	private DataBindingContext dbc;
 

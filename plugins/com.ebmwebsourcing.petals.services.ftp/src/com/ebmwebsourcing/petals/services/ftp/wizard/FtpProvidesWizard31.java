@@ -22,11 +22,15 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.ftp.FtpDescription31;
+import com.ebmwebsourcing.petals.services.ftp.FtpDescription32;
+import com.ebmwebsourcing.petals.services.ftp.FtpDescription33;
+import com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package;
 import com.ebmwebsourcing.petals.services.ftp.generated.FtpService31;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Jbi;
 
@@ -60,6 +64,13 @@ public class FtpProvidesWizard31 extends ComponentCreationWizard {
 	public void presetServiceValues( AbstractEndpoint abstractEndpoint ) {
 		abstractEndpoint.setInterfaceName( new QName( "http://petals.ow2.org/components/ftp/version-3", "FtpInterface" ));
 		abstractEndpoint.setServiceName( new QName( "http://petals.ow2.org/components/ftp/version-3", "change-it" ));
+		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__PORT, 21);
+		if (getComponentVersionDescription() instanceof FtpDescription32) {
+			endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__DELETE_PROCESSED_FILES, false);
+		}
+		if (getComponentVersionDescription() instanceof FtpDescription33) {
+			endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__OVERWRITE, true);
+		}
 	}
 
 
@@ -79,17 +90,24 @@ public class FtpProvidesWizard31 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
-		return new AbstractSuPage[] { new FtpProvideWizardPage() };
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
+				Ftp3Package.Literals.FTP_PROVIDES__SERVER,
+				Ftp3Package.Literals.FTP_PROVIDES__PORT,
+				Ftp3Package.Literals.FTP_PROVIDES__USER,
+				Ftp3Package.Literals.FTP_PROVIDES__PASSWORD,
+				Ftp3Package.Literals.FTP_PROVIDES__FOLDER,
+				Ftp3Package.Literals.FTP_PROVIDES__FILENAME)
+		};
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
 		return null;
 	}
 

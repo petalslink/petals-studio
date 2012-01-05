@@ -23,9 +23,9 @@ import org.eclipse.swt.widgets.Text;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.TransferMode;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
-public class FiletransferConsumesPage extends AbstractSuPage {
+public class FiletransferConsumesPage extends AbstractSuWizardPage {
 
 	private DataBindingContext dbc;
 	

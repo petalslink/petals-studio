@@ -18,9 +18,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -36,7 +33,8 @@ import com.ebmwebsourcing.petals.services.ejb.ejb.EjbVersion;
 import com.ebmwebsourcing.petals.services.ejb.ejb.XmlEngine;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -118,7 +116,7 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterJbi()
 	 */
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -127,9 +125,18 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterProject()
 	 */
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
-		return new AbstractSuPage[] {
-			new EJBDetailsPage()
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+		return new AbstractSuWizardPage[] {
+			new SimpleFeatureListSuWizardPage(EjbPackage.Literals.EJB_PROVIDES__EJB_JNDI_NAME,
+					EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL,
+					EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_URL_PKGS,
+					EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL,
+					EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION,
+					EjbPackage.Literals.EJB_PROVIDES__EJB_HOME_INTERFACE,
+					EjbPackage.Literals.EJB_PROVIDES__SECURITY_NAME,
+					EjbPackage.Literals.EJB_PROVIDES__SECURITY_PRINCIPAL,
+					EjbPackage.Literals.EJB_PROVIDES__SECURITY_CREDENCIALS,
+					EjbPackage.Literals.EJB_PROVIDES__MARSHALLING_ENGINE)
 		};
 	}
 
@@ -137,8 +144,8 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesBeforeProject()
 	 */
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
-		return new AbstractSuPage[] {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+		return new AbstractSuWizardPage[] {
 				new EJBCustomSpecificationPage12()
 		};
 	}

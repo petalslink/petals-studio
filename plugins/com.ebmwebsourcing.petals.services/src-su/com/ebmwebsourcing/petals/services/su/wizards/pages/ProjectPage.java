@@ -44,7 +44,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ProjectPage extends AbstractSuPage {
+public class ProjectPage extends AbstractSuWizardPage {
 
 	public static final String PAGE_NAME = "ProjectPage";
 

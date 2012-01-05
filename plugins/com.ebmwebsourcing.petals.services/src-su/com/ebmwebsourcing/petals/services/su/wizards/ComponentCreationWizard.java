@@ -38,7 +38,7 @@ import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiConsumePage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiProvidePage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ProjectPage;
@@ -113,7 +113,7 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 	
 	@Override
 	public void addPages() {
-		AbstractSuPage[] pages = this.getCustomWizardPagesBeforeProject();
+		AbstractSuWizardPage[] pages = this.getCustomWizardPagesBeforeProject();
 		if (pages != null) {
 			for (IWizardPage page : pages) {
 				addPage(page);
@@ -279,9 +279,9 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 	
 	// Component business methods
 	protected abstract void presetServiceValues(AbstractEndpoint endpoint);
-	protected abstract AbstractSuPage[] getCustomWizardPagesAfterJbi();
-	protected abstract AbstractSuPage[] getCustomWizardPagesAfterProject();
-	protected abstract AbstractSuPage[] getCustomWizardPagesBeforeProject();
+	protected abstract AbstractSuWizardPage[] getCustomWizardPagesAfterJbi();
+	protected abstract AbstractSuWizardPage[] getCustomWizardPagesAfterProject();
+	protected abstract AbstractSuWizardPage[] getCustomWizardPagesBeforeProject();
 	protected abstract IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor);
 	protected abstract IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor);
 	protected abstract boolean isJavaProject() ;

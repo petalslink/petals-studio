@@ -57,14 +57,14 @@ import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.pojo.Messages;
 import com.ebmwebsourcing.petals.services.pojo.PetalsPojoPlugin;
 import com.ebmwebsourcing.petals.services.pojo.pojo.PojoPackage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
 /**
  * Replace the default COMPONENT page.
  * @author Vincent Zurczak - EBM WebSourcing
  */
 @SuppressWarnings( "restriction" )
-public class PojoProvideSpecificPage2x extends AbstractSuPage {
+public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 
 	private final class SelectClassDialog extends SelectionDialog {
 

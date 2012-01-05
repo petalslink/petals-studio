@@ -50,7 +50,7 @@ import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelMo
 import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules.JbiXmlBean;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -234,7 +234,7 @@ public class BpelWizard10 extends ComponentCreationWizard {
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterJbi()
 	 */
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		return null;
 	}
 
@@ -242,7 +242,7 @@ public class BpelWizard10 extends ComponentCreationWizard {
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterProject()
 	 */
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return null;
 	}
 
@@ -250,8 +250,8 @@ public class BpelWizard10 extends ComponentCreationWizard {
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesBeforeProject()
 	 */
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
-		return new AbstractSuPage[] {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+		return new AbstractSuWizardPage[] {
 			new BpelFirstPage10()
 		};
 	}

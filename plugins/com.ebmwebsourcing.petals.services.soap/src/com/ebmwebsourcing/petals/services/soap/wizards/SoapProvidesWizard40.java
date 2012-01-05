@@ -21,7 +21,8 @@ import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -47,17 +48,28 @@ public class SoapProvidesWizard40 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
-		return new AbstractSuPage[] { new SoapProvides40Page() };
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
+				SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
+				SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
+				SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
+				SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT,
+				SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
+				SoapPackage.Literals.SOAP_PROVIDES__PROXY_HOST,
+				SoapPackage.Literals.SOAP_PROVIDES__PROXY_PORT,
+				SoapPackage.Literals.SOAP_PROVIDES__PROXY_USER,
+				SoapPackage.Literals.SOAP_PROVIDES__PROXY_PASSWORD,
+				SoapPackage.Literals.SOAP_PROVIDES__PROXY_DOMAIN)
+		};
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
 		return null;
 	}
 

@@ -20,7 +20,7 @@ import com.ebmwebsourcing.petals.services.quartz.QuartzDescription10_11;
 import com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -44,19 +44,19 @@ public class QuartzWizard10_11 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
-		return new AbstractSuPage[] {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+		return new AbstractSuWizardPage[] {
 			new QuartzComponentSpecificPage10()
 		};
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
 		return null;
 	}
 

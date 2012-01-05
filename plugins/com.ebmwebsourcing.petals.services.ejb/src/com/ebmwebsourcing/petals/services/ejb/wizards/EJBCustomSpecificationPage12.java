@@ -44,14 +44,14 @@ import com.ebmwebsourcing.petals.common.internal.provisional.ui.FileList;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.ejb.Messages;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 /**
  * Located after the VERSION page.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class EJBCustomSpecificationPage12 extends AbstractSuPage {
+public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 
 	private FileList ejbFiles;
 	private FileList jeeFiles;

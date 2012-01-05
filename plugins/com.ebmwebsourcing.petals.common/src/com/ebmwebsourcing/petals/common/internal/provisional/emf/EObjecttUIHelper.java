@@ -25,6 +25,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -48,7 +49,7 @@ public class EObjecttUIHelper {
 		@Override
 		public IStatus validate(Object value) {
 			if (value == null || (value instanceof String && ((String)value).isEmpty()) ) {
-				return ValidationStatus.error(com.ebmwebsourcing.petals.common.internal.Messages.bind(Messages.fieldNotSet, feature.getName()));
+				return ValidationStatus.warning(com.ebmwebsourcing.petals.common.internal.Messages.bind(Messages.fieldNotSet, feature.getName()));
 			} else {
 				return ValidationStatus.ok();
 			}
@@ -64,7 +65,7 @@ public class EObjecttUIHelper {
 			this.attribute = att;
 		}
 	}
-	
+
 	/**
 	 * Generate a 2 column list with left column containing description of widgets
 	 * and right column containing widget
@@ -76,42 +77,30 @@ public class EObjecttUIHelper {
 	 * @param toProcessFeatures list of features to edit.
 	 */
 	public static void generateWidgets(EObject eObject, FormToolkit toolkit, Composite parent, EditingDomain domain, DataBindingContext dbc, EStructuralFeature... toProcessFeatures) {
-		List<EntryDescription> entries = new ArrayList<EntryDescription>();
-		for (EStructuralFeature feature : toProcessFeatures) {
-			Object widget = null;
-			EAttribute attr = (EAttribute)feature;
-			String label = StringUtils.camelCaseToHuman(attr.getName());;
-			if (attr.getLowerBound() > 0) {
-				label += " *";
-			}
-			toolkit.createLabel(parent, label).setBackground(parent.getBackground());
-			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
-			Class<?> instanceClass = attr.getEType().getInstanceClass(); 
-			if (instanceClass.equals(String.class)) {
-				widget = toolkit.createText(parent, "", SWT.BORDER);
-				((Text)widget).setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-			} else if (instanceClass.equals(Integer.class) || instanceClass.equals(int.class)) {
-				widget = new Spinner(parent, SWT.BORDER);
-				GridData gd = new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false);
-				gd.widthHint = 100;
-				gd.minimumWidth = 100;
-				((Spinner)widget).setLayoutData(gd);
-				((Spinner)widget).setMaximum(Integer.MAX_VALUE);
-			} else if (instanceClass.isEnum()) {
-				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
-				ComboViewer viewer = (ComboViewer)widget;
-				viewer.setContentProvider(new EEnumLiteralsProvider());
-				viewer.setLabelProvider(new EEnumNameLabelProvider());
-				viewer.setInput(attr.getEType());
-			} else if (instanceClass.equals(Boolean.class) || instanceClass.equals(boolean.class)) {
-				widget = toolkit.createButton(parent, "", SWT.CHECK);
-				((Button)widget).setBackground(parent.getBackground());
-			}
-			if (widget != null) {
-				entries.add(new EntryDescription(widget, attr));
+		List<EntryDescription> entries = produceWidgets(toolkit, parent, toProcessFeatures);
+		setUpDatabinding(eObject, domain, dbc, entries);
+	}
+
+	/**
+	 * @param entries
+	 * @param listener
+	 */
+	private static void addListener(List<EntryDescription> entries, Listener listener) {
+		for (EntryDescription entry : entries) {
+			if (entry.widget instanceof Text) {
+				((Text)entry.widget).addListener(SWT.Modify, listener);
+			} else if (entry.widget instanceof Spinner) {
+				((Spinner)entry.widget).addListener(SWT.Selection, listener);
+			} else if (entry.widget instanceof Button) {
+				((Button)entry.widget).addListener(SWT.Selection, listener);
+			} else if (entry.widget instanceof ComboViewer) {
+				((ComboViewer)entry.widget).getControl().addListener(SWT.Selection, listener);
 			}
 		}
+		
+	}
 
+	private static void setUpDatabinding(EObject eObject, EditingDomain domain, DataBindingContext dbc, List<EntryDescription> entries) {
 		for (EntryDescription entry : entries) {
 			IObservableValue widgetObservable = null;
 			if (entry.widget instanceof Text) {
@@ -147,5 +136,44 @@ public class EObjecttUIHelper {
 				}
 			}
 		}
+	}
+
+	public static List<EntryDescription> produceWidgets(FormToolkit toolkit, Composite parent, EStructuralFeature... toProcessFeatures) {
+		List<EntryDescription> entries = new ArrayList<EntryDescription>();
+		for (EStructuralFeature feature : toProcessFeatures) {
+			Object widget = null;
+			EAttribute attr = (EAttribute)feature;
+			String label = StringUtils.camelCaseToHuman(attr.getName());;
+			if (attr.getLowerBound() > 0) {
+				label += " *";
+			}
+			toolkit.createLabel(parent, label).setBackground(parent.getBackground());
+			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
+			Class<?> instanceClass = attr.getEType().getInstanceClass(); 
+			if (instanceClass.equals(String.class)) {
+				widget = toolkit.createText(parent, "", SWT.BORDER);
+				((Text)widget).setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+			} else if (instanceClass.equals(Integer.class) || instanceClass.equals(int.class)) {
+				widget = new Spinner(parent, SWT.BORDER);
+				GridData gd = new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false);
+				gd.widthHint = 100;
+				gd.minimumWidth = 100;
+				((Spinner)widget).setLayoutData(gd);
+				((Spinner)widget).setMaximum(Integer.MAX_VALUE);
+			} else if (instanceClass.isEnum()) {
+				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
+				ComboViewer viewer = (ComboViewer)widget;
+				viewer.setContentProvider(new EEnumLiteralsProvider());
+				viewer.setLabelProvider(new EEnumNameLabelProvider());
+				viewer.setInput(attr.getEType());
+			} else if (instanceClass.equals(Boolean.class) || instanceClass.equals(boolean.class)) {
+				widget = toolkit.createButton(parent, "", SWT.CHECK);
+				((Button)widget).setBackground(parent.getBackground());
+			}
+			if (widget != null) {
+				entries.add(new EntryDescription(widget, attr));
+			}
+		}
+		return entries;
 	}
 }

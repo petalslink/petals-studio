@@ -21,8 +21,10 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.sftp.SftpDescription12;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService12;
+import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -72,17 +74,27 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
-		return new AbstractSuPage[] { new SftpProvides12WizardPage() };
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
+				SftpPackage.Literals.SFTP_PROVIDES__HOST,
+				SftpPackage.Literals.SFTP_PROVIDES__PORT,
+				SftpPackage.Literals.SFTP_PROVIDES__USER,
+				SftpPackage.Literals.SFTP_PROVIDES__PASSWORD,
+				SftpPackage.Literals.SFTP_PROVIDES__PRIVATEKEY,
+				SftpPackage.Literals.SFTP_PROVIDES__PASSPHRASE,
+				SftpPackage.Literals.SFTP_PROVIDES__FOLDER,
+				SftpPackage.Literals.SFTP_PROVIDES__MAX_IDLE_TIME,
+				SftpPackage.Literals.SFTP_PROVIDES__OVERWRITE)
+		};
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
 		return null;
 	}
 

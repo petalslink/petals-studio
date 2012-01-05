@@ -57,14 +57,14 @@ import com.ebmwebsourcing.petals.common.internal.provisional.ui.databinding.Brow
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.services.bpel.PetalsBpelPlugin;
 import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 /**
  * The BPEL specific page.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class BpelFirstPage10 extends AbstractSuPage {
+public class BpelFirstPage10 extends AbstractSuWizardPage {
 
 	private FileUriBrowser bpelBrowser, wsdlBrowser;
 	private ComboViewer interfaceComboViewer;

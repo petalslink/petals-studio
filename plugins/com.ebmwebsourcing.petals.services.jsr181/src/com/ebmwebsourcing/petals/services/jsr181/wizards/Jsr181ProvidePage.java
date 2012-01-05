@@ -34,13 +34,13 @@ import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.services.jsr181.jsr181.Jsr181Package;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
 /**
  * Replace the default COMPONENT page.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class Jsr181ProvidePage extends AbstractSuPage {
+public class Jsr181ProvidePage extends AbstractSuWizardPage {
 
 	private static final int LABEL_WIDTH = 65;
 

@@ -28,7 +28,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  *
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public abstract class AbstractSuPage extends WizardPage {
+public abstract class AbstractSuWizardPage extends WizardPage {
 
 	/**
 	 * Count the number of these pages and ensure they never have the same name.
@@ -40,7 +40,7 @@ public abstract class AbstractSuPage extends WizardPage {
 	/**
 	 * Constructor defining the page name.
 	 */
-	public AbstractSuPage() {
+	public AbstractSuWizardPage() {
 		super( "AbstractSuPage_" + cpt++ );
 	}
 
@@ -49,7 +49,7 @@ public abstract class AbstractSuPage extends WizardPage {
 	 * Constructor defining the page name.
 	 * @param pageName
 	 */
-	public AbstractSuPage( String pageName ) {
+	public AbstractSuWizardPage( String pageName ) {
 		super( pageName );
 	}
 

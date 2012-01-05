@@ -20,7 +20,7 @@ import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescripti
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -58,18 +58,18 @@ public class FileTransferConsumesWizard24 extends ComponentCreationWizard {
 
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
-		return new AbstractSuPage[] { new FiletransferConsumesPage() };
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+		return new AbstractSuWizardPage[] { new FiletransferConsumesPage() };
 	}
 
 	@Override

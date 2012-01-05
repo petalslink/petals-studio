@@ -23,7 +23,8 @@ import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -76,18 +77,28 @@ public class MailConsumesWizard31 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
-		return new AbstractSuPage[] { new MailProvideWizardPage() };
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
+				MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME,
+				MailPackage.Literals.MAIL_SERVICE_COMMON__HOST,
+				MailPackage.Literals.MAIL_SERVICE_COMMON__PORT,
+				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
+				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
+				MailPackage.Literals.MAIL_CONSUMES__FOLDER,
+				MailPackage.Literals.MAIL_CONSUMES__DELETE,
+				MailPackage.Literals.MAIL_CONSUMES__PERIOD,
+				MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT)
+		};
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
 		// TODO Auto-generated method stub
 		return null;
 	}

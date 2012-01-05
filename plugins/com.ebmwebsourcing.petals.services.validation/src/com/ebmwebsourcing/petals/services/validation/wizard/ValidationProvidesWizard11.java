@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.Status;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.validation.PetalsValidationPlugin;
 import com.ebmwebsourcing.petals.services.validation.ValidationDescription11;
 import com.ebmwebsourcing.petals.services.validation.generated.ValidationService;
@@ -153,19 +153,19 @@ public class ValidationProvidesWizard11 extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
-		return new AbstractSuPage[] {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+		return new AbstractSuWizardPage[] {
 			new ValidationProvideSpecificPage()		
 		};
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
 		return null;
 	}
 

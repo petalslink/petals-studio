@@ -48,13 +48,13 @@ import org.eclipse.wst.xml.ui.StructuredTextViewerConfigurationXML;
 
 import com.ebmwebsourcing.petals.services.quartz.Messages;
 import com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
 @SuppressWarnings( "restriction" )
-public class QuartzComponentSpecificPage10 extends AbstractSuPage {
+public class QuartzComponentSpecificPage10 extends AbstractSuWizardPage {
 
 	private String content;
 	private StyledText contentTextField;

@@ -35,7 +35,7 @@ import com.ebmwebsourcing.petals.services.utils.PCStyledLabelProvider;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SeveralConsumeWizardPage extends AbstractSuPage {
+public class SeveralConsumeWizardPage extends AbstractSuWizardPage {
 
 	protected  final Set<EndpointBean> edptBeans = new HashSet<EndpointBean>();
 

@@ -29,7 +29,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  * The abstract wizard page showing JBI standard fields.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public abstract class JbiAbstractPage extends AbstractSuPage {
+public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 
 	public static final String PAGE_NAME = "JbiPage";
 

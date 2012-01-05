@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 public class GenericComponentWizard extends ComponentCreationWizard {
@@ -19,18 +19,18 @@ public class GenericComponentWizard extends ComponentCreationWizard {
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return null;
 	}
 
 	@Override
-	protected AbstractSuPage[] getCustomWizardPagesBeforeProject() {
-		return new AbstractSuPage[] {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+		return new AbstractSuWizardPage[] {
 				new GenericSuWizardPage()
 		};
 	}

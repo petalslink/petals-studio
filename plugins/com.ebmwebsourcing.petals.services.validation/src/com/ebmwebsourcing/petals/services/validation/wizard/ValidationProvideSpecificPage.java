@@ -33,13 +33,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage;
+import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
 /**
  * Replace the default COMPONENT page.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ValidationProvideSpecificPage extends AbstractSuPage {
+public class ValidationProvideSpecificPage extends AbstractSuWizardPage {
 
 	private DataBindingContext dbc = new DataBindingContext();
 
