@@ -75,4 +75,18 @@ Petals Link is a registered trademark of EBM WebSourcing
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="com.ebmwebsourcing.petals.bpel.easybpel.validators"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.ebmwebsourcing.petals.easybox"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

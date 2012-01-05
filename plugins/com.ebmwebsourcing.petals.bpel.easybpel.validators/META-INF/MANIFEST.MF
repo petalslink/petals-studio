@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EasyBPEL specific validation for BPEL Designer
+Bundle-SymbolicName: com.ebmwebsourcing.petals.bpel.easybpel.validators;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.ebmwebsourcing.petals.studio.easybpel.validators.EasyBPELValidatorPlugin
+Bundle-Vendor: EBMWEBSOURCING
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.bpel.validator;bundle-version="0.5.0",
+ com.ebmwebsourcing.petals.easybox;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

@@ -50,13 +50,8 @@
 		<module>com.ebmwebsourcing.petals.services.xslt</module>
 		
 		<!-- BPEL plug-ins -->
-		<module>org.eclipse.bpel.common.model</module>
-		<module>org.eclipse.bpel.common.ui</module>
-		<module>org.eclipse.bpel.model</module>
-		<module>org.eclipse.bpel.xpath10</module>
-		<module>org.eclipse.bpel.wsil.model</module>
-		<module>org.eclipse.bpel.validator</module>
-		<module>org.eclipse.bpel.ui</module>
+		<module>com.ebmwebsourcing.petals.easybox</module>
+		<module>com.ebmwebsourcing.petals.bpel.easybpel.validators</module>
 		<module>com.ebmwebsourcing.petals.services.bpel</module>
 
 	</modules>
