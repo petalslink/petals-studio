@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: com.ebmwebsourcing.petals.common;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.emf.validation,
  org.eclipse.core.runtime,
@@ -52,6 +52,7 @@ Export-Package: com.ebmwebsourcing.petals.common.croquis.internal.provisional,
  com.ebmwebsourcing.petals.common.internal.provisional.swt,
  com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties,
  com.ebmwebsourcing.petals.common.internal.provisional.ui,
+ com.ebmwebsourcing.petals.common.internal.provisional.ui.databinding,
  com.ebmwebsourcing.petals.common.internal.provisional.ui.jdt,
  com.ebmwebsourcing.petals.common.internal.provisional.utils,
  com.ebmwebsourcing.petals.common.internal.provisional.wizards,
