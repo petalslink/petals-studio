@@ -53,6 +53,5 @@
 		<module>com.ebmwebsourcing.petals.easybox</module>
 		<module>com.ebmwebsourcing.petals.bpel.easybpel.validators</module>
 		<module>com.ebmwebsourcing.petals.services.bpel</module>
-
 	</modules>
 </project>
