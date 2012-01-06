@@ -35,11 +35,6 @@
 						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>
-							<artifactId>com.ebmwebsourcing.petals.studio.sca.feature.feature.group</artifactId>
-							<version>0.0.0</version>
-						</dependency>
-						<dependency>
-							<type>p2-installable-unit</type>
 							<artifactId>com.ebmwebsourcing.petals.studio.bpel.feature.feature.group</artifactId>
 							<version>0.0.0</version>
 						</dependency>
