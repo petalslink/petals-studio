@@ -13,8 +13,6 @@ package com.ebmwebsourcing.petals.services.ejb.tests;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -25,8 +23,7 @@ import org.eclipse.swtbot.swt.finder.waits.ICondition;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.ebmwebsourcing.petals.services.ejb.v12.EJBCustomSpecificationPage12;
-import com.ebmwebsourcing.petals.services.su.wizards.legacy.swt.FileList;
+import com.ebmwebsourcing.petals.services.ejb.wizards.EJBCustomSpecificationPage12;
 import com.ebmwebsourcing.petals.tests.common.FileTestUtil;
 
 public class TestEJBSUGeneration extends SWTBotGefTestCase {
@@ -47,30 +44,16 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 	@Test
 	public void testFileLocked() throws Exception {
 		initFiles();
-		this.bot.menu("New").menu("Service Unit").click();
+		this.bot.menu("New").menu("Petals Service Provider").click();
 		this.bot.comboBox(1).setSelection("EJB  //  petals-bc-ejb");
 		this.bot.button("Next >").click();
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				try {
-					WizardDialog wizardDialog = (WizardDialog)TestEJBSUGeneration.this.bot.activeShell().widget.getData();
-					EJBCustomSpecificationPage12 page = (EJBCustomSpecificationPage12)wizardDialog.getCurrentPage();
-					{
-						FileList list = page.getEJBFiles();
-						List<File> files = new ArrayList<File>();
-						files.add(TestEJBSUGeneration.this.businessFile);
-						list.addFiles(files);
-					}
-					{
-						FileList list = page.getJEEFiles();
-						List<File> files = new ArrayList<File>();
-						files.add(TestEJBSUGeneration.this.jeeFile);
-						list.addFiles(files);
-					}
-				} catch (Exception ex) {
-					throw new RuntimeException(ex);
-				}
+				WizardDialog wizardDialog = (WizardDialog)TestEJBSUGeneration.this.bot.activeShell().widget.getData();
+				EJBCustomSpecificationPage12 page = (EJBCustomSpecificationPage12)wizardDialog.getCurrentPage();
+				page.getWizard().setEJBFiles(new String[] { businessFile.getAbsolutePath() });
+				page.getWizard().setJEEFiles(new String[] { jeeFile.getAbsolutePath() });
 			}
 		});
 		this.bot.text().setText("org.ow2.petals.examples.ejb.addorder.AddOrderRemote");
