@@ -19,57 +19,21 @@ Petals Link is a registered trademark of EBM WebSourcing
       This feature is licensed under the terms of the Eclipse Public License (EPL).
    </license>
 
+   <requires>
+      <import plugin="org.eclipse.bpel.cheatsheet"/>
+      <import plugin="org.eclipse.bpel.common.model"/>
+      <import plugin="org.eclipse.bpel.common.ui"/>
+      <import plugin="org.eclipse.bpel.help"/>
+      <import plugin="org.eclipse.bpel.model"/>
+      <import plugin="org.eclipse.bpel.runtimes"/>
+      <import plugin="org.eclipse.bpel.ui"/>
+      <import plugin="org.eclipse.bpel.validator"/>
+      <import plugin="org.eclipse.bpel.wsil.model"/>
+      <import plugin="org.eclipse.bpel.xpath10"/>
+   </requires>
+
    <plugin
          id="com.ebmwebsourcing.petals.services.bpel"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.bpel.common.model"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.bpel.common.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.bpel.model"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.bpel.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.bpel.validator"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.bpel.wsil.model"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.bpel.xpath10"
          download-size="0"
          install-size="0"
          version="0.0.0"
