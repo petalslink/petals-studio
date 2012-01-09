@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.impl.JmsProvidesImpl#getMaxIdle <em>Max Idle</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.impl.JmsProvidesImpl#getTimeBetweenEvictionRunsMilles <em>Time Between Eviction Runs Milles</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.impl.JmsProvidesImpl#getMinEvictableIdleTimeMillis <em>Min Evictable Idle Time Millis</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.impl.JmsProvidesImpl#isTitleWhileIdle <em>Title While Idle</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.impl.JmsProvidesImpl#isTestWhileIdle <em>Test While Idle</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,24 +138,24 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 	protected int minEvictableIdleTimeMillis = MIN_EVICTABLE_IDLE_TIME_MILLIS_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isTitleWhileIdle() <em>Title While Idle</em>}' attribute.
+	 * The default value of the '{@link #isTestWhileIdle() <em>Test While Idle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isTitleWhileIdle()
+	 * @see #isTestWhileIdle()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean TITLE_WHILE_IDLE_EDEFAULT = false;
+	protected static final boolean TEST_WHILE_IDLE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isTitleWhileIdle() <em>Title While Idle</em>}' attribute.
+	 * The cached value of the '{@link #isTestWhileIdle() <em>Test While Idle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isTitleWhileIdle()
+	 * @see #isTestWhileIdle()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean titleWhileIdle = TITLE_WHILE_IDLE_EDEFAULT;
+	protected boolean testWhileIdle = TEST_WHILE_IDLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -286,8 +286,8 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isTitleWhileIdle() {
-		return titleWhileIdle;
+	public boolean isTestWhileIdle() {
+		return testWhileIdle;
 	}
 
 	/**
@@ -295,11 +295,11 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTitleWhileIdle(boolean newTitleWhileIdle) {
-		boolean oldTitleWhileIdle = titleWhileIdle;
-		titleWhileIdle = newTitleWhileIdle;
+	public void setTestWhileIdle(boolean newTestWhileIdle) {
+		boolean oldTestWhileIdle = testWhileIdle;
+		testWhileIdle = newTestWhileIdle;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_PROVIDES__TITLE_WHILE_IDLE, oldTitleWhileIdle, titleWhileIdle));
+			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_PROVIDES__TEST_WHILE_IDLE, oldTestWhileIdle, testWhileIdle));
 	}
 
 	/**
@@ -320,8 +320,8 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 				return getTimeBetweenEvictionRunsMilles();
 			case JmsPackage.JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS:
 				return getMinEvictableIdleTimeMillis();
-			case JmsPackage.JMS_PROVIDES__TITLE_WHILE_IDLE:
-				return isTitleWhileIdle();
+			case JmsPackage.JMS_PROVIDES__TEST_WHILE_IDLE:
+				return isTestWhileIdle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -349,8 +349,8 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 			case JmsPackage.JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS:
 				setMinEvictableIdleTimeMillis((Integer)newValue);
 				return;
-			case JmsPackage.JMS_PROVIDES__TITLE_WHILE_IDLE:
-				setTitleWhileIdle((Boolean)newValue);
+			case JmsPackage.JMS_PROVIDES__TEST_WHILE_IDLE:
+				setTestWhileIdle((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -379,8 +379,8 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 			case JmsPackage.JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS:
 				setMinEvictableIdleTimeMillis(MIN_EVICTABLE_IDLE_TIME_MILLIS_EDEFAULT);
 				return;
-			case JmsPackage.JMS_PROVIDES__TITLE_WHILE_IDLE:
-				setTitleWhileIdle(TITLE_WHILE_IDLE_EDEFAULT);
+			case JmsPackage.JMS_PROVIDES__TEST_WHILE_IDLE:
+				setTestWhileIdle(TEST_WHILE_IDLE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -404,8 +404,8 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 				return timeBetweenEvictionRunsMilles != TIME_BETWEEN_EVICTION_RUNS_MILLES_EDEFAULT;
 			case JmsPackage.JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS:
 				return minEvictableIdleTimeMillis != MIN_EVICTABLE_IDLE_TIME_MILLIS_EDEFAULT;
-			case JmsPackage.JMS_PROVIDES__TITLE_WHILE_IDLE:
-				return titleWhileIdle != TITLE_WHILE_IDLE_EDEFAULT;
+			case JmsPackage.JMS_PROVIDES__TEST_WHILE_IDLE:
+				return testWhileIdle != TEST_WHILE_IDLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -430,8 +430,8 @@ public class JmsProvidesImpl extends JmsExtensionImpl implements JmsProvides {
 		result.append(timeBetweenEvictionRunsMilles);
 		result.append(", minEvictableIdleTimeMillis: ");
 		result.append(minEvictableIdleTimeMillis);
-		result.append(", titleWhileIdle: ");
-		result.append(titleWhileIdle);
+		result.append(", testWhileIdle: ");
+		result.append(testWhileIdle);
 		result.append(')');
 		return result.toString();
 	}

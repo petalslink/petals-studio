@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.ftp.FtpDescription31;
 import com.ebmwebsourcing.petals.services.ftp.FtpDescription32;
 import com.ebmwebsourcing.petals.services.ftp.FtpDescription33;
@@ -64,7 +66,9 @@ public class FtpProvidesWizard31 extends ComponentCreationWizard {
 	public void presetServiceValues( AbstractEndpoint abstractEndpoint ) {
 		abstractEndpoint.setInterfaceName( new QName( "http://petals.ow2.org/components/ftp/version-3", "FtpInterface" ));
 		abstractEndpoint.setServiceName( new QName( "http://petals.ow2.org/components/ftp/version-3", "change-it" ));
+		abstractEndpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "FtpService.wsdl");
 		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__PORT, 21);
+		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__FILENAME, "*.*");
 		if (getComponentVersionDescription() instanceof FtpDescription32) {
 			endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__DELETE_PROCESSED_FILES, false);
 		}

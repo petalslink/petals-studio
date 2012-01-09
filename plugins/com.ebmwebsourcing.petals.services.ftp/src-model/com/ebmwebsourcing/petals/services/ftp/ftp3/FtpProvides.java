@@ -134,7 +134,7 @@ public interface FtpProvides extends Provides {
 	 * @return the value of the '<em>Folder</em>' attribute.
 	 * @see #setFolder(String)
 	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Folder()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */

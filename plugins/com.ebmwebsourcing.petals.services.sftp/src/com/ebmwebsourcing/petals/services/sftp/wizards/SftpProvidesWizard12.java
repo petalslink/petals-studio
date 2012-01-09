@@ -51,18 +51,6 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
-	 */
-	@Override
-	public void presetServiceValues( AbstractEndpoint ae ) {
-		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "SftpInterface" ));
-		ae.setServiceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "change-it" ));
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override

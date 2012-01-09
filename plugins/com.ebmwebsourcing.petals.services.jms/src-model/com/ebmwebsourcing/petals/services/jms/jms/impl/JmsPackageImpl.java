@@ -248,7 +248,7 @@ public class JmsPackageImpl extends EPackageImpl implements JmsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsProvides_TitleWhileIdle() {
+	public EAttribute getJmsProvides_TestWhileIdle() {
 		return (EAttribute)jmsProvidesEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -304,7 +304,7 @@ public class JmsPackageImpl extends EPackageImpl implements JmsPackage {
 		createEAttribute(jmsProvidesEClass, JMS_PROVIDES__MAX_IDLE);
 		createEAttribute(jmsProvidesEClass, JMS_PROVIDES__TIME_BETWEEN_EVICTION_RUNS_MILLES);
 		createEAttribute(jmsProvidesEClass, JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS);
-		createEAttribute(jmsProvidesEClass, JMS_PROVIDES__TITLE_WHILE_IDLE);
+		createEAttribute(jmsProvidesEClass, JMS_PROVIDES__TEST_WHILE_IDLE);
 
 		jmsConsumesEClass = createEClass(JMS_CONSUMES);
 	}
@@ -361,7 +361,7 @@ public class JmsPackageImpl extends EPackageImpl implements JmsPackage {
 		initEAttribute(getJmsProvides_MaxIdle(), theXMLTypePackage.getInt(), "maxIdle", "0", 0, 1, JmsProvides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJmsProvides_TimeBetweenEvictionRunsMilles(), theXMLTypePackage.getInt(), "timeBetweenEvictionRunsMilles", "0", 0, 1, JmsProvides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJmsProvides_MinEvictableIdleTimeMillis(), theXMLTypePackage.getInt(), "minEvictableIdleTimeMillis", "0", 0, 1, JmsProvides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getJmsProvides_TitleWhileIdle(), theXMLTypePackage.getBoolean(), "titleWhileIdle", "", 0, 1, JmsProvides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJmsProvides_TestWhileIdle(), theXMLTypePackage.getBoolean(), "testWhileIdle", "", 0, 1, JmsProvides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(jmsConsumesEClass, JmsConsumes.class, "JmsConsumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -499,7 +499,7 @@ public class JmsPackageImpl extends EPackageImpl implements JmsPackage {
 			 "group", "#group:0"
 		   });		
 		addAnnotation
-		  (getJmsProvides_TitleWhileIdle(), 
+		  (getJmsProvides_TestWhileIdle(), 
 		   source, 
 		   new String[] {
 			 "name", "test-while-idle",

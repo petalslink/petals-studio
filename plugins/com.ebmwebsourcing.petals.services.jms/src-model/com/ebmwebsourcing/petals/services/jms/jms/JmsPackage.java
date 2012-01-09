@@ -318,13 +318,13 @@ public interface JmsPackage extends EPackage {
 	int JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS = JMS_EXTENSION_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Title While Idle</b></em>' attribute.
+	 * The feature id for the '<em><b>Test While Idle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_PROVIDES__TITLE_WHILE_IDLE = JMS_EXTENSION_FEATURE_COUNT + 5;
+	int JMS_PROVIDES__TEST_WHILE_IDLE = JMS_EXTENSION_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Provides</em>' class.
@@ -598,15 +598,15 @@ public interface JmsPackage extends EPackage {
 	EAttribute getJmsProvides_MinEvictableIdleTimeMillis();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTitleWhileIdle <em>Title While Idle</em>}'.
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTestWhileIdle <em>Test While Idle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Title While Idle</em>'.
-	 * @see com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTitleWhileIdle()
+	 * @return the meta object for the attribute '<em>Test While Idle</em>'.
+	 * @see com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTestWhileIdle()
 	 * @see #getJmsProvides()
 	 * @generated
 	 */
-	EAttribute getJmsProvides_TitleWhileIdle();
+	EAttribute getJmsProvides_TestWhileIdle();
 
 	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.jms.jms.JmsConsumes <em>Consumes</em>}'.
@@ -757,12 +757,12 @@ public interface JmsPackage extends EPackage {
 		EAttribute JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS = eINSTANCE.getJmsProvides_MinEvictableIdleTimeMillis();
 
 		/**
-		 * The meta object literal for the '<em><b>Title While Idle</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Test While Idle</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JMS_PROVIDES__TITLE_WHILE_IDLE = eINSTANCE.getJmsProvides_TitleWhileIdle();
+		EAttribute JMS_PROVIDES__TEST_WHILE_IDLE = eINSTANCE.getJmsProvides_TestWhileIdle();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.jms.jms.impl.JmsConsumesImpl <em>Consumes</em>}' class.

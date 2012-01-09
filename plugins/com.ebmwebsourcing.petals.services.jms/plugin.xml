@@ -20,6 +20,7 @@
             id="jms">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.jms.JmsDescription31"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.jms.wizards.JmsConsumesWizard31"
                id="JMS 3.1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.jms.wizards.JmsProvidesWizard31">
          </ComponentVersionSupport>

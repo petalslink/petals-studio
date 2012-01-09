@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.sftp.SftpDescription11;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService11;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
@@ -58,6 +59,8 @@ public class SftpProvidesWizard11 extends ComponentCreationWizard {
 	public void presetServiceValues( AbstractEndpoint ae ) {
 		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "SftpInterface" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "change-it" ));
+		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "SftpService.wsdl");
+		ae.eSet(SftpPackage.Literals.SFTP_PROVIDES__PORT, 22);
 	}
 
 

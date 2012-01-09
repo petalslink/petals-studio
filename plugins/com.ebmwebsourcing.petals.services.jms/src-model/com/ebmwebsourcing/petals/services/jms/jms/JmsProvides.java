@@ -23,7 +23,7 @@ package com.ebmwebsourcing.petals.services.jms.jms;
  *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#getMaxIdle <em>Max Idle</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#getTimeBetweenEvictionRunsMilles <em>Time Between Eviction Runs Milles</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#getMinEvictableIdleTimeMillis <em>Min Evictable Idle Time Millis</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTitleWhileIdle <em>Title While Idle</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTestWhileIdle <em>Test While Idle</em>}</li>
  * </ul>
  * </p>
  *
@@ -173,31 +173,31 @@ public interface JmsProvides extends JmsExtension {
 	void setMinEvictableIdleTimeMillis(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Title While Idle</b></em>' attribute.
+	 * Returns the value of the '<em><b>Test While Idle</b></em>' attribute.
 	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Title While Idle</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Test While Idle</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Title While Idle</em>' attribute.
-	 * @see #setTitleWhileIdle(boolean)
-	 * @see com.ebmwebsourcing.petals.services.jms.jms.JmsPackage#getJmsProvides_TitleWhileIdle()
+	 * @return the value of the '<em>Test While Idle</em>' attribute.
+	 * @see #setTestWhileIdle(boolean)
+	 * @see com.ebmwebsourcing.petals.services.jms.jms.JmsPackage#getJmsProvides_TestWhileIdle()
 	 * @model default="" dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="name='test-while-idle' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
-	boolean isTitleWhileIdle();
+	boolean isTestWhileIdle();
 
 	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTitleWhileIdle <em>Title While Idle</em>}' attribute.
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.jms.jms.JmsProvides#isTestWhileIdle <em>Test While Idle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Title While Idle</em>' attribute.
-	 * @see #isTitleWhileIdle()
+	 * @param value the new value of the '<em>Test While Idle</em>' attribute.
+	 * @see #isTestWhileIdle()
 	 * @generated
 	 */
-	void setTitleWhileIdle(boolean value);
+	void setTestWhileIdle(boolean value);
 
 } // JmsProvides

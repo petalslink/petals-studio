@@ -22,6 +22,7 @@
          id="file transfer">
       <ComponentVersionSupport
             componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24"
+            consumesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FileTransferConsumesWizard24"
             editorExtension="com.ebmwebsourcing.petals.services.filetransfer.v24.editor.FileTransferContributionSupport"
             id="File Transfer 2.4"
             namespace="http://petals.ow2.org/components/filetransfer/version-2"

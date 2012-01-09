@@ -47,7 +47,7 @@ public class JmsProvidesWizard31 extends ComponentCreationWizard {
 				JmsPackage.Literals.JMS_PROVIDES__MAX_IDLE,
 				JmsPackage.Literals.JMS_PROVIDES__TIME_BETWEEN_EVICTION_RUNS_MILLES,
 				JmsPackage.Literals.JMS_PROVIDES__MIN_EVICTABLE_IDLE_TIME_MILLIS,
-				JmsPackage.Literals.JMS_PROVIDES__TITLE_WHILE_IDLE)
+				JmsPackage.Literals.JMS_PROVIDES__TEST_WHILE_IDLE)
 		};
 	}
 

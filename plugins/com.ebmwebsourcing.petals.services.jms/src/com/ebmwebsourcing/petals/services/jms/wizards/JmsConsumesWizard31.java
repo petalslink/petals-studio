@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.jms.JmsDescription31;
 import com.ebmwebsourcing.petals.services.jms.jms.JmsPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;

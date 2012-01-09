@@ -268,7 +268,7 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(sftpProvidesEClass, SftpProvides.class, "SftpProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSftpProvides_Folder(), theXMLTypePackage.getString(), "folder", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSftpProvides_Folder(), theXMLTypePackage.getString(), "folder", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Host(), theXMLTypePackage.getString(), "host", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_MaxIdleTime(), theXMLTypePackage.getInt(), "maxIdleTime", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Overwrite(), theXMLTypePackage.getBoolean(), "overwrite", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);

@@ -123,7 +123,7 @@
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="titleWhileIdle" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="testWhileIdle" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
         defaultValueLiteral="" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="test-while-idle"/>

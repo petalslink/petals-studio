@@ -16,7 +16,7 @@ import com.ebmwebsourcing.petals.common.generation.Mep;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class QuartzDescription10_11 extends QuartzDescription {
+public class QuartzDescription1x extends QuartzDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -25,7 +25,7 @@ public class QuartzDescription10_11 extends QuartzDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "1.0,1.1";
+		return "1.x";
 	}
 
 	/*

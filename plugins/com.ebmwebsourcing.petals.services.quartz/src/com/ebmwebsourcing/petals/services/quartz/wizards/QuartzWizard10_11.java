@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.quartz.QuartzDescription10_11;
+import com.ebmwebsourcing.petals.services.quartz.QuartzDescription1x;
 import com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
@@ -34,7 +34,7 @@ public class QuartzWizard10_11 extends ComponentCreationWizard {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new QuartzDescription10_11();
+		return new QuartzDescription1x();
 	}
 
 	@Override
