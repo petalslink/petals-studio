@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="Eclipse 3.7 - Indigo" sequenceNumber="12">
+<target name="Eclipse 3.7 - Indigo" sequenceNumber="13">
 <locations>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.swtbot.eclipse.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.swtbot.ide.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.swtbot.eclipse.test.junit4.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.swtbot.forms.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.swtbot.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.bpel.feature.feature.group" version="0.0.0"/>
+<repository location="https://hudson.eclipse.org/hudson/job/bpel-0.5/lastSuccessfulBuild/artifact/site/target/site/"/>
+</location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.jdom" version="1.1.1.v201101151400"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.soa.sca.core.feature.feature.group" version="2.2.0.201106080505"/>
-<unit id="org.eclipse.soa.sca.sca1_0.feature.feature.group" version="2.2.0.201106080505"/>
-<repository location="http://download.eclipse.org/soa/sca/indigo/"/>
+<unit id="org.eclipse.wst.sse.sieditor.feature.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/webtools/incubator/repository/sieditor/snapshot"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rcp.feature.group" version="3.7.0.v20110216-9DB5Fm1FpBGy_AaVz-mFamgY"/>
@@ -31,23 +43,6 @@
 <unit id="org.eclipse.wst.ws_core.feature.feature.group" version="3.3.0.v201102200555-7L7RFi7FGtGd-thnz0ysWug2766"/>
 <unit id="org.eclipse.wst.ws_ui.feature.feature.group" version="3.3.0.v201102200555-7I7AFeREtEoVEjj76K0kpf98puxOLDNv169v6_A3"/>
 <repository location="http://download.eclipse.org/releases/indigo/"/>
-</location>
-<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.swtbot.eclipse.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.swtbot.ide.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.swtbot.eclipse.test.junit4.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.swtbot.forms.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.swtbot.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site"/>
-</location>
-<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.wst.sse.sieditor.feature.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/webtools/incubator/repository/sieditor/snapshot"/>
-</location>
-<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.bpel.feature.feature.group" version="0.0.0"/>
-<repository location="https://hudson.eclipse.org/hudson/job/bpel-0.5/lastSuccessfulBuild/artifact/site/target/site/"/>
 </location>
 </locations>
 </target>
