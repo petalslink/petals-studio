@@ -11,10 +11,10 @@ public class TestStringUtils {
 	@Test
 	public void testCamelCaseToHuman() {
 		Assert.assertEquals(
-			"A long text with 1 ACRONYM and digits 234",
+			"A Long Text With 1 ACRONYM And Digits 234",
 			StringUtils.camelCaseToHuman("aLongTextWith1ACRONYMandDigits234"));
 		Assert.assertEquals(
-			"A long text with 1 ACRONYM and digits 234 lol",
+			"A Long Text With 1 ACRONYM And Digits 234 Lol",
 			StringUtils.camelCaseToHuman("aLongTextWith1ACRONYMandDigits234lol"));
 	}
 
