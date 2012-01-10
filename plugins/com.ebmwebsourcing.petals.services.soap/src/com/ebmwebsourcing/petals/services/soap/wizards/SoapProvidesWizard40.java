@@ -49,18 +49,7 @@ public class SoapProvidesWizard40 extends ComponentCreationWizard {
 
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
-				SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
-				SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
-				SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT,
-				SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
-				SoapPackage.Literals.SOAP_PROVIDES__PROXY_HOST,
-				SoapPackage.Literals.SOAP_PROVIDES__PROXY_PORT,
-				SoapPackage.Literals.SOAP_PROVIDES__PROXY_USER,
-				SoapPackage.Literals.SOAP_PROVIDES__PROXY_PASSWORD,
-				SoapPackage.Literals.SOAP_PROVIDES__PROXY_DOMAIN)
-		};
+		return new AbstractSuWizardPage[] { new SoapProvidesSUWizardPage() };
 	}
 
 	@Override

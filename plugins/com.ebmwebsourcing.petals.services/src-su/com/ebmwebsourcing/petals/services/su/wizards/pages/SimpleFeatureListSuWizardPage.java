@@ -16,8 +16,8 @@ import com.ebmwebsourcing.petals.services.Messages;
 
 public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage implements Adapter {
 
-	private DataBindingContext dbc;
-	private EStructuralFeature[] features;
+	protected DataBindingContext dbc;
+	protected EStructuralFeature[] features;
 
 	public SimpleFeatureListSuWizardPage(EStructuralFeature... features) {
 		this.features = features;

@@ -226,11 +226,11 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 		File wsdlFile = null;
 		monitor.subTask( "Importing the WSDL..." );
 
-		String wsdlFileLocation = jbiProvidePage.getWsdlUrl();
+		String wsdlFileLocation = getSelectedWSDLForProvide();
 		if( jbiProvidePage.isImportWsdl() && wsdlFileLocation != null ) {
 			WsdlImportUtils wsdlImportUtils = new WsdlImportUtils();
-			Map<String,File> fileToUrl = wsdlImportUtils.importWsdlOrXsdAndDependencies( resourceDirectory.getLocation().toFile(), jbiProvidePage.getWsdlUrl());
-			wsdlFile = fileToUrl.get( jbiProvidePage.getWsdlUrl());
+			Map<String,File> fileToUrl = wsdlImportUtils.importWsdlOrXsdAndDependencies( resourceDirectory.getLocation().toFile(), getSelectedWSDLForProvide());
+			wsdlFile = fileToUrl.get( getSelectedWSDLForProvide());
 			wsdlFileLocation = IoUtils.getRelativeLocationToFile(jbiFile.getLocation().toFile(), wsdlFile );
 			monitor.subTask( "Updating the WSDL..." );
 			WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, endpoint.getServiceName(), endpoint.getEndpointName());
@@ -239,6 +239,10 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 
 		// TODO: set the WSDL URL
 		monitor.worked( 1 );
+	}
+
+	public String getSelectedWSDLForProvide() {
+		return jbiProvidePage.getWsdlUrl();
 	}
 
 
