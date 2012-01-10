@@ -34,6 +34,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -150,19 +152,29 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 		container.setLayout( layout );
 		container.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
-		
-		Label clazzLabel = new Label(container, SWT.NONE);
-		clazzLabel.setText(Messages.className);
-		Text clazzText = new Text(container, SWT.BORDER);
-		clazzText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-		Button selectClassButton = new Button(container, SWT.PUSH);
-		selectClassButton.setText(Messages.select);
-		selectClassButton.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, false, false));
-		
 		// Create a Java project
 		final Button createJavaProjectButton = new Button( container, SWT.RADIO );
 		createJavaProjectButton.setText( "Create a Java project." );
 		createJavaProjectButton.setLayoutData(new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false, 3, 1));
+	
+		{	
+			Label clazzLabel = new Label(container, SWT.NONE);
+			clazzLabel.setText(Messages.className);
+			Text clazzText = new Text(container, SWT.BORDER);
+			clazzText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false, 2, 1));
+			dbc.bindValue(SWTObservables.observeText(clazzText, SWT.Modify),
+					EMFObservables.observeValue(getNewlyCreatedEndpoint(), PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME));
+			ISWTObservableValue newProjectButtonSelection = SWTObservables.observeSelection(createJavaProjectButton);
+			dbc.bindValue(newProjectButtonSelection, SWTObservables.observeEnabled(clazzLabel));
+			dbc.bindValue(newProjectButtonSelection, SWTObservables.observeEnabled(clazzText));
+			
+			clazzText.addModifyListener(new ModifyListener() {
+				@Override
+				public void modifyText(ModifyEvent e) {
+					setPageComplete(isPageComplete());
+				}
+			});
+		}
 
 		// Add check button
 		final Button useExistingImplemButton = new Button( container, SWT.RADIO );
@@ -186,22 +198,48 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 		removeLibButton.setImage(PetalsImages.getDelete());
 		removeLibButton.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
 		
+		ISWTObservableValue reUseProjectObservable = SWTObservables.observeSelection(useExistingImplemButton);
+		{	
+			Label clazzLabel = new Label(container, SWT.NONE);
+			clazzLabel.setText(Messages.className);
+			Text clazzText = new Text(container, SWT.BORDER);
+			clazzText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+			Button selectClassButton = new Button(container, SWT.PUSH);
+			selectClassButton.setText(Messages.select);
+			selectClassButton.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, false, false));
+			dbc.bindValue(SWTObservables.observeText(clazzText, SWT.Modify),
+					EMFObservables.observeValue(getNewlyCreatedEndpoint(), PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME));
+			
+			dbc.bindValue(reUseProjectObservable, SWTObservables.observeEnabled(clazzLabel));
+			dbc.bindValue(reUseProjectObservable, SWTObservables.observeEnabled(clazzText));
+			dbc.bindValue(reUseProjectObservable, SWTObservables.observeEnabled(selectClassButton));
+			
+			
+			selectClassButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					SelectClassDialog selectionDialog = new SelectClassDialog(getShell());
+					selectionDialog.setInitialSelections(new Object[] { getNewlyCreatedEndpoint().eGet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME) });
+					if (selectionDialog.open() == Dialog.OK && selectionDialog.getResult().length > 0) {
+						getNewlyCreatedEndpoint().eSet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME, selectionDialog.getResult()[0]);
+					}
+				}
+			});
+			clazzText.addModifyListener(new ModifyListener() {
+				@Override
+				public void modifyText(ModifyEvent e) {
+					setPageComplete(isPageComplete());
+				}
+			});
+		}
 		
 		// Listeners
-		ISWTObservableValue reUseProjectObservable = SWTObservables.observeSelection(useExistingImplemButton);
 		dbc.bindValue(reUseProjectObservable,
 				PojoObservables.observeValue(getWizard(), "useExistingImplementation"));
-		dbc.bindValue(SWTObservables.observeText(clazzText, SWT.Modify),
-				EMFObservables.observeValue(getNewlyCreatedEndpoint(), PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME));
 		
-		dbc.bindValue(SWTObservables.observeEnabled(classpathLabel),
-				reUseProjectObservable);
-		dbc.bindValue(SWTObservables.observeEnabled(jarList),
-				reUseProjectObservable);
-		dbc.bindValue(SWTObservables.observeEnabled(selectClassButton),
-				reUseProjectObservable);
-		dbc.bindValue(SWTObservables.observeEnabled(addLibButton),
-				reUseProjectObservable);
+		dbc.bindValue(SWTObservables.observeEnabled(classpathLabel), reUseProjectObservable);
+		dbc.bindValue(SWTObservables.observeEnabled(jarList),reUseProjectObservable);
+		dbc.bindValue(SWTObservables.observeEnabled(addLibButton), reUseProjectObservable);
 		Listener updateRemoveButtonListener = new Listener() {
 			public void handleEvent(Event e) {
 				removeLibButton.setEnabled(
@@ -249,16 +287,7 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 				jarList.remove(jarList.getSelectionIndices());
 			}
 		});
-		selectClassButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				SelectClassDialog selectionDialog = new SelectClassDialog(getShell());
-				selectionDialog.setInitialSelections(new Object[] { getNewlyCreatedEndpoint().eGet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME) });
-				if (selectionDialog.open() == Dialog.OK && selectionDialog.getResult().length > 0) {
-					getNewlyCreatedEndpoint().eSet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME, selectionDialog.getResult()[0]);
-				}
-			}
-		});
+		
 		createJavaProjectButton.setSelection(true);
 		useExistingImplemButton.setSelection(false);
 		removeLibButton.setEnabled(false);
@@ -294,5 +323,11 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 	public void dispose() {
 		super.dispose();
 		dbc.dispose();
+	}
+	
+	@Override
+	public boolean isPageComplete() {
+		Object className = getNewlyCreatedEndpoint().eGet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME);
+		return className != null && ! ((String)className).trim().isEmpty(); 
 	}
 }
