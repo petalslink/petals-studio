@@ -56,7 +56,7 @@ public class EObjecttUIHelper {
 		}
 	}
 
-	private static class EntryDescription {
+	public static class EntryDescription {
 		public Object widget;
 		public EAttribute attribute;
 
@@ -76,9 +76,10 @@ public class EObjecttUIHelper {
 	 * @param dbc
 	 * @param toProcessFeatures list of features to edit.
 	 */
-	public static void generateWidgets(EObject eObject, FormToolkit toolkit, Composite parent, EditingDomain domain, DataBindingContext dbc, EStructuralFeature... toProcessFeatures) {
+	public static List<EntryDescription> generateWidgets(EObject eObject, FormToolkit toolkit, Composite parent, EditingDomain domain, DataBindingContext dbc, EStructuralFeature... toProcessFeatures) {
 		List<EntryDescription> entries = produceWidgets(toolkit, parent, toProcessFeatures);
 		setUpDatabinding(eObject, domain, dbc, entries);
+		return entries;
 	}
 
 	/**
@@ -138,7 +139,7 @@ public class EObjecttUIHelper {
 		}
 	}
 
-	public static List<EntryDescription> produceWidgets(FormToolkit toolkit, Composite parent, EStructuralFeature... toProcessFeatures) {
+	private static List<EntryDescription> produceWidgets(FormToolkit toolkit, Composite parent, EStructuralFeature... toProcessFeatures) {
 		List<EntryDescription> entries = new ArrayList<EntryDescription>();
 		for (EStructuralFeature feature : toProcessFeatures) {
 			Object widget = null;

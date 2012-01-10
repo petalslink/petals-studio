@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.naming.InitialContext;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -34,7 +36,6 @@ import com.ebmwebsourcing.petals.services.ejb.ejb.XmlEngine;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -69,7 +70,11 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-
+		Object ejbVersion = abstractEndpoint.eGet(EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION);
+		if (ejbVersion != EjbVersion.V30 && ejbVersion != EjbVersion.V31) {
+			abstractEndpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__EJB_HOME_INTERFACE, null);
+		}
+		
 		List<String> paths = new ArrayList<String> ();
 		List<IFile> jars = ResourceUtils.getFilesByRegexp( resourceFolder, ".*\\.(jar|zip)" );
 		for( IFile f : jars ) {
@@ -77,6 +82,9 @@ public class EjbWizard13 extends ComponentCreationWizard {
 		}
 
 		for( String f : jeeLibs) {
+			paths.add( f );
+		}
+		for( String f : ejbLibs) {
 			paths.add( f );
 		}
 
@@ -117,7 +125,6 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -127,16 +134,7 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] {
-			new SimpleFeatureListSuWizardPage(EjbPackage.Literals.EJB_PROVIDES__EJB_JNDI_NAME,
-					EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL,
-					EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_URL_PKGS,
-					EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL,
-					EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION,
-					EjbPackage.Literals.EJB_PROVIDES__EJB_HOME_INTERFACE,
-					EjbPackage.Literals.EJB_PROVIDES__SECURITY_NAME,
-					EjbPackage.Literals.EJB_PROVIDES__SECURITY_PRINCIPAL,
-					EjbPackage.Literals.EJB_PROVIDES__SECURITY_CREDENCIALS,
-					EjbPackage.Literals.EJB_PROVIDES__MARSHALLING_ENGINE)
+			new EJBDetailsPage()
 		};
 	}
 

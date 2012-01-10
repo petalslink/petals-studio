@@ -9,6 +9,8 @@ public class PetalsImages {
 	private static Image delete;
 	private static Image browse;
 	private static Image searchWSDL;
+	private static Image ok;
+	private static Image ko;
 
 	public synchronized static Image getPencil() {
 		if (pencil == null) {
@@ -43,6 +45,26 @@ public class PetalsImages {
 			searchWSDL = PetalsServicesPlugin.getImageDescriptor("icons/obj16/Interface_explore.gif").createImage();
 		}
 		return searchWSDL;
+	}
+
+	/**
+	 * @return
+	 */
+	public static Image getOk() {
+		if (ok == null) {
+			ok = PetalsServicesPlugin.getImageDescriptor("icons/obj16/tick.png").createImage();
+		}
+		return ok;
+	}
+
+	/**
+	 * @return
+	 */
+	public static Image getKO() {
+		if (ko == null) {
+			ko = PetalsServicesPlugin.getImageDescriptor("icons/obj16/cross.png").createImage();
+		}
+		return ko;
 	}
 
 }
