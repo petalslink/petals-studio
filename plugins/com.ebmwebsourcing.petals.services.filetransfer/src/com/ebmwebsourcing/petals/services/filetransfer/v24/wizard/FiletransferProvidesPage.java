@@ -1,5 +1,7 @@
 package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 
+import javax.xml.namespace.QName;
+
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -13,6 +15,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -25,6 +29,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.CopyMode;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -75,6 +80,20 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			}
 		});
 		contractCombo.setInput(Contract.values());
+		contractCombo.addSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
+				Object sel = ((IStructuredSelection)event.getSelection()).getFirstElement();
+				String wsdl = null;
+				if (sel == Contract.WRITE_FILES) {
+					wsdl = "WriteFiles.wsdl";
+					getNewlyCreatedEndpoint().setInterfaceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "WriteFiles" ));
+				} else if (sel == Contract.READ_FILES) {
+					wsdl = "GetFiles.wsdl";
+					getNewlyCreatedEndpoint().setInterfaceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "GetFiles" ));
+				}
+				getNewlyCreatedEndpoint().eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, wsdl);
+			}
+		});
 
 		layoutData = new GridData(GridData.FILL_HORIZONTAL);
 		layoutData.horizontalSpan = 2;
@@ -109,45 +128,71 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 		// Add the new children: "write" mode first
 		if (this.contract == Contract.WRITE_FILES) {
 			Label l = new Label(container, SWT.NONE);
-			l.setText("Write Directory:");
+			l.setText("Write Directory * :");
 			l.setToolTipText("The directory in which the message content will be written");
-			createFileBrowser(container, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY);
-
+			final Text createText = createFileBrowser(container, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY);
+			createText.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent e) {
+					setPageComplete(isPageComplete());
+				}
+			});
+			
 			l = new Label(container, SWT.NONE);
-			l.setText("Write Mode:");
+			l.setText("Write Mode * :");
 			l.setToolTipText("What part(s) of the message should be written");
 
 			final ComboViewer viewer = new ComboViewer(container, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-			viewer.getCombo().setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
+			viewer.getCombo().setLayoutData(layoutData);
 			viewer.setContentProvider(new ArrayContentProvider());
 			viewer.setLabelProvider(new LabelProvider());
 			viewer.setInput(CopyMode.values());
 			dbc.bindValue(ViewersObservables.observeSingleSelection(viewer),
 					EMFObservables.observeValue(getNewlyCreatedEndpoint(), FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE));
-
+			viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+				public void selectionChanged(SelectionChangedEvent event) {
+					setPageComplete(isPageComplete());
+				}
+			});
+			
 			l = new Label(container, SWT.NONE);
 			l.setText("File Name:");
 			l.setToolTipText("The base name of the file to write (will be appended the system date)");
 
-			Text patterntext = new Text(container, SWT.BORDER);
+			final Text patterntext = new Text(container, SWT.BORDER);
 			patterntext.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 			dbc.bindValue(SWTObservables.observeText(patterntext, SWT.Modify),
 					EMFObservables.observeValue(getNewlyCreatedEndpoint(), FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN));
+			
+			viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+				public void selectionChanged(SelectionChangedEvent event) {
+					Object sel = ((IStructuredSelection)event.getSelection()).getFirstElement();
+					patterntext.setEnabled(sel == CopyMode.CONTENT_ONLY);
+				}
+			});
+			
 		}
 
 		// "Get files" mode then
 		else {
 			Label readLabel = new Label(container, SWT.NONE);
-			readLabel.setText("Read Directory:");
+			readLabel.setText("Read Directory * :");
 			readLabel.setToolTipText("The directory to read");
-			createFileBrowser(container, FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY);
+			final Text readText = createFileBrowser(container, FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY);
+			readText.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent e) {
+					setPageComplete(readText.getText() != null && !readText.getText().trim().isEmpty());
+				}
+			});
 			
 			Label backupLabel = new Label(container, SWT.NONE);
 			backupLabel.setText("Backup Directory:");
 			backupLabel.setToolTipText("The directory into which read files are moved (the temporary directory by default)");
 			createFileBrowser(container, FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY);
+			
 		}
 
+		setPageComplete(isPageComplete());
 		container.layout();
 	}
 
@@ -158,10 +203,11 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 	 *            the parent
 	 * @return the created text
 	 */
-	private void createFileBrowser(Composite container, final EStructuralFeature feature) {
+	private Text createFileBrowser(Composite container, final EStructuralFeature feature) {
 		
 		Composite subContainer = new Composite(container, SWT.NONE);
 		GridLayout layout = new GridLayout(2, false);
+		layout.marginHeight = layout.marginWidth = 0;
 		subContainer.setLayout(layout);
 		subContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
@@ -192,6 +238,8 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 				}
 			}
 		});
+		
+		return text;
 	}
 	
 	@Override
@@ -200,6 +248,19 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			dbc.dispose();
 		}
 		super.dispose();
+	}
+	
+	@Override
+	public boolean isPageComplete() {
+		if (contract == Contract.READ_FILES) {
+			Object readDirectory = getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY);
+			return readDirectory != null && ! ((String)readDirectory).trim().isEmpty();
+		} else if (contract == Contract.WRITE_FILES) {
+			Object writeDirectory = getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY);
+			Object mode = getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
+			return writeDirectory != null && ! ((String)writeDirectory).trim().isEmpty() && mode != null;
+		}
+		return true;
 	}
 
 }

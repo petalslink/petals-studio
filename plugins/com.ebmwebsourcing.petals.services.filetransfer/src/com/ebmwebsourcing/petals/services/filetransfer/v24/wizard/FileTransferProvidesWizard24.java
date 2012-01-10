@@ -13,14 +13,17 @@ package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 
 import javax.xml.namespace.QName;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.GetFilesWsdl24;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.WriteWsdl24;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -53,7 +56,6 @@ public class FileTransferProvidesWizard24 extends ComponentCreationWizard {
 	 */
 	@Override
 	public void presetServiceValues( AbstractEndpoint ae ) {
-		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "Abstract (will be in the next pages)" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "change-it" ));
 	}
 
@@ -64,16 +66,13 @@ public class FileTransferProvidesWizard24 extends ComponentCreationWizard {
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-
-//			String name = eclipseSuBean.getCreatedWsdlMarkupValue();
-//			eclipseSuBean.setWsdlUrl( name );
-//			IFile wsdlFile = resourceFolder.getFile( name );
-//
-//			boolean writeContract = (Boolean) eclipseSuBean.customObjects.get( "write-contract" );
-//			if( writeContract )
-//				createFile( wsdlFile, new WriteWsdl24().generate( abstractEndpoint ), monitor );
-//			else
-//				createFile( wsdlFile, new GetFilesWsdl24().generate( abstractEndpoint ), monitor );
+		String wsdlFileName = (String)abstractEndpoint.eGet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL);
+		IFile wsdlFile = resourceFolder.getFile(wsdlFileName);
+		if( abstractEndpoint.getServiceName().getLocalPart().equals("WriteFiles") ) {
+			createFile( wsdlFile, new WriteWsdl24().generate( abstractEndpoint ), monitor );
+		} else {
+			createFile( wsdlFile, new GetFilesWsdl24().generate( abstractEndpoint ), monitor );
+		}
 
 		return Status.OK_STATUS;
 	}
