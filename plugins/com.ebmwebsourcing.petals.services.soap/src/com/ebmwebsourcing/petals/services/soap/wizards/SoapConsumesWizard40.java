@@ -47,13 +47,7 @@ public class SoapConsumesWizard40 extends ComponentCreationWizard {
 
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				SoapPackage.Literals.SOAP_CONSUMES__SOAP_SERVICE_NAME,
-				SoapPackage.Literals.SOAP_CONSUMES__SOAP_ACTION,
-				SoapPackage.Literals.SOAP_CONSUMES__SYNCHONOUS_TIMEOUT,
-				SoapPackage.Literals.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT,
-				SoapPackage.Literals.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT)
-		};
+		return new AbstractSuWizardPage[] { new SOAPConsumesSUWizardPage() };
 	}
 
 	@Override
