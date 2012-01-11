@@ -127,15 +127,11 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 		
 		// Add the new children: "write" mode first
 		if (this.contract == Contract.WRITE_FILES) {
+			// UI
 			Label l = new Label(container, SWT.NONE);
 			l.setText("Write Directory * :");
 			l.setToolTipText("The directory in which the message content will be written");
 			final Text createText = createFileBrowser(container, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY);
-			createText.addModifyListener(new ModifyListener() {
-				public void modifyText(ModifyEvent e) {
-					setPageComplete(isPageComplete());
-				}
-			});
 			
 			l = new Label(container, SWT.NONE);
 			l.setText("Write Mode * :");
@@ -147,13 +143,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			viewer.setContentProvider(new ArrayContentProvider());
 			viewer.setLabelProvider(new LabelProvider());
 			viewer.setInput(CopyMode.values());
-			dbc.bindValue(ViewersObservables.observeSingleSelection(viewer),
-					EMFObservables.observeValue(getNewlyCreatedEndpoint(), FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE));
-			viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-				public void selectionChanged(SelectionChangedEvent event) {
-					setPageComplete(isPageComplete());
-				}
-			});
 			
 			l = new Label(container, SWT.NONE);
 			l.setText("File Name:");
@@ -161,6 +150,20 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 
 			final Text patterntext = new Text(container, SWT.BORDER);
 			patterntext.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+			
+			// dynamics
+			createText.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent e) {
+					setPageComplete(isPageComplete());
+				}
+			});
+			dbc.bindValue(ViewersObservables.observeSingleSelection(viewer),
+					EMFObservables.observeValue(getNewlyCreatedEndpoint(), FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE));
+			viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+				public void selectionChanged(SelectionChangedEvent event) {
+					setPageComplete(isPageComplete());
+				}
+			});
 			dbc.bindValue(SWTObservables.observeText(patterntext, SWT.Modify),
 					EMFObservables.observeValue(getNewlyCreatedEndpoint(), FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN));
 			
@@ -170,7 +173,13 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 					patterntext.setEnabled(sel == CopyMode.CONTENT_ONLY);
 				}
 			});
-			
+
+			// init
+			Object copyMode = getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
+			if (copyMode == null) {
+				getNewlyCreatedEndpoint().eSet(FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE, CopyMode.CONTENT_ONLY);
+			}
+			patterntext.setEnabled(getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE) == CopyMode.CONTENT_ONLY);
 		}
 
 		// "Get files" mode then
