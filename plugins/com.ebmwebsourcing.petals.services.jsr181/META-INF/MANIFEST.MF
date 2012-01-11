@@ -17,7 +17,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf,
  org.eclipse.emf.databinding,
  org.eclipse.core.databinding.beans,
- org.eclipse.jface.databinding
+ org.eclipse.jface.databinding,
+ org.eclipse.jface.text;bundle-version="3.7.1",
+ org.eclipse.jdt;bundle-version="3.7.1",
+ org.eclipse.wst.wsdl.ui;bundle-version="1.2.403",
+ org.eclipse.wst.xml.ui;bundle-version="1.1.201",
+ org.eclipse.wst.sse.ui;bundle-version="1.3.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin

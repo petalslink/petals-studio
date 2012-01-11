@@ -22,7 +22,9 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
@@ -430,5 +432,23 @@ public class IoUtils {
 			else if( ! source.renameTo( target ))
 				copyFile( source, target, true );
 		}
+	}
+
+
+	/**
+	 * @param stream
+	 * @return
+	 */
+	public static String streamToText(InputStream stream) throws IOException {
+		List<Byte> bytes = new ArrayList<Byte>();
+		int current;
+		while ((current = stream.read()) != -1) {
+			bytes.add((byte)current);
+		}
+		byte[] byteArray = new byte[bytes.size()];
+		for (int i = 0; i < bytes.size(); i++) {
+			byteArray[i] = bytes.get(i);
+		}
+		return new String(byteArray);
 	}
 }

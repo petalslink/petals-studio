@@ -13,15 +13,25 @@
 package com.ebmwebsourcing.petals.services.jsr181.wizards;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.conversion.IConverter;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.databinding.EMFObservables;
+import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -31,8 +41,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
+import org.eclipse.wst.xml.ui.StructuredTextViewerConfigurationXML;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
+import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.jsr181.jsr181.Jsr181Package;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
@@ -110,7 +126,7 @@ public class Jsr181ProvidePage extends AbstractSuWizardPage {
 		layout = new GridLayout( 3, false );
 		layout.marginWidth = 0;
 		comp.setLayout( layout );
-		comp.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		comp.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
 		final Label wsdlLabel = new Label( comp, SWT.NONE );
 		wsdlLabel.setText( "WSDL URL:" );
@@ -147,7 +163,11 @@ public class Jsr181ProvidePage extends AbstractSuWizardPage {
 			}
 		});
 
-
+		final StructuredTextViewer sv = new StructuredTextViewer(comp, null, null, true, SWT.MULTI | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		sv.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+		sv.configure(new StructuredTextViewerConfigurationXML());
+		sv.setEditable(false);
+		
 		// Listeners
 		ISWTObservableValue wsdlFirstObservable = SWTObservables.observeSelection(wsdlFirstButton);
 		dbc.bindValue(wsdlFirstObservable,
@@ -158,7 +178,6 @@ public class Jsr181ProvidePage extends AbstractSuWizardPage {
 				SWTObservables.observeEnabled(wsdlText));
 		dbc.bindValue(wsdlFirstObservable,
 				SWTObservables.observeEnabled(wsdlBrowserButton));
-		
 
 		UpdateValueStrategy notRule = new UpdateValueStrategy();
 		notRule.setConverter(new IConverter() {
@@ -182,8 +201,40 @@ public class Jsr181ProvidePage extends AbstractSuWizardPage {
 
 		dbc.bindValue(SWTObservables.observeText(classText, SWT.Modify),
 				EMFObservables.observeValue(getNewlyCreatedEndpoint(), Jsr181Package.Literals.JSR181_PROVIDES__CLAZZ));
-		dbc.bindValue(SWTObservables.observeText(wsdlText, SWT.Modify),
-				PojoObservables.observeValue(getWizard(), "wsdlUrl"));
+		
+		classText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				validateClassNae(classText);
+			}
+		});
+		implemFirstButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (implemFirstButton.getSelection()) {
+					sv.getTextWidget().setBackground(container.getBackground());
+					sv.getTextWidget().setEnabled(false);
+					validateClassNae(classText);
+				}
+			}
+		});
+		
+		wsdlText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				validateWSDL(wsdlText, sv);
+			}
+		});
+		wsdlFirstButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (wsdlFirstButton.getSelection()) {
+					sv.getTextWidget().setEnabled(true);
+					sv.getTextWidget().setBackground(null);
+					validateWSDL(wsdlText, sv);
+				}
+			}
+		});
 
 		// Initialize the page
 		wsdlFirstButton.setSelection(true);
@@ -201,4 +252,49 @@ public class Jsr181ProvidePage extends AbstractSuWizardPage {
 		super.dispose();
 		dbc.dispose();
 	}
+	
+	@Override
+	public Jsr181ProvidesWizard getWizard() {
+		return (Jsr181ProvidesWizard)super.getWizard();
+	}
+	
+	public void validateWSDL(final Text wsdlText, final SourceViewer sv) {
+		String wsdlUrl = wsdlText.getText();
+		getWizard().setWsdlUrl(wsdlUrl);
+		URL url = null;
+		try {
+			url = new URL(wsdlUrl);
+		} catch (MalformedURLException ex) {
+			setErrorMessage("Not valid URL");
+			sv.setDocument(new Document(ex.getMessage()));
+			setPageComplete(false);
+			return;
+		}
+		InputStream stream;
+		try {
+			stream = url.openStream();
+			Document contents = new Document(IoUtils.streamToText(stream));
+			sv.setDocument(contents);
+			List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse(url.toURI());
+			setErrorMessage(null);
+			setPageComplete(true);
+		} catch (Exception ex) {
+			setErrorMessage("Could not get valid WSDL");
+			sv.setDocument(new Document(ex.getMessage()));
+			setPageComplete(false);
+		}
+	}
+
+
+	public void validateClassNae(final Text classText) {
+		String className = classText.getText();
+		if (JavaConventions.validateJavaTypeName(className).getSeverity() == IStatus.ERROR) {
+			setPageComplete(false);
+			setErrorMessage(Messages.invalidClassName);
+		} else {
+			setErrorMessage(null);
+			setPageComplete(true);					
+		}
+	}
+	
 }

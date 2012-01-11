@@ -29,6 +29,7 @@ public class Messages extends NLS {
 	public static String provideTitle;
 	public static String consumeTitle;
 	public static String featureNotSet;
+	public static String invalidClassName;
 
 	static {
 		initializeMessages("messages", Messages.class);
