@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.preferences;
@@ -32,7 +32,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.preferences.Prefere
  */
 public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
-	private BooleanFieldEditor logJaxWsField, formatJbiField;
+	private BooleanFieldEditor logJaxWsField;
 
 
 	/**
@@ -86,17 +86,6 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 		group.setLayoutData( layoutData );
 		group.setText( "Formatting" );
 
-		subContainer = new Composite( group, SWT.NONE );
-		subContainer.setLayout( new GridLayout());
-
-		this.formatJbiField = new BooleanFieldEditor(
-					PreferencesManager.PREFS_FORMAT_JBI,
-					"Format the source of jbi.xml files automatically",
-					subContainer );
-		this.formatJbiField.setPage( this );
-		this.formatJbiField.setPreferenceStore( getPreferenceStore());
-		this.formatJbiField.load();
-
 		return container;
 	}
 
@@ -109,7 +98,6 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 	@Override
 	public boolean performOk() {
 		this.logJaxWsField.store();
-		this.formatJbiField.store();
 		return super.performOk();
 	}
 
@@ -122,7 +110,6 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 	@Override
 	protected void performDefaults() {
 		this.logJaxWsField.loadDefault();
-		this.formatJbiField.loadDefault();
 		super.performDefaults();
 	}
 
@@ -132,6 +119,7 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 	 * @see org.eclipse.ui.IWorkbenchPreferencePage
 	 * #init(org.eclipse.ui.IWorkbench)
 	 */
+	@Override
 	public void init( IWorkbench workbench ) {
 		// nothing
 	}

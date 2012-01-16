@@ -1,3 +1,15 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2011, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.common.internal.provisional.emf;
 
 import java.util.ArrayList;
@@ -19,13 +31,15 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -33,42 +47,66 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import com.ebmwebsourcing.petals.common.internal.Messages;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
+/**
+ * @author Mickaël Istria - EBM WebSourcing
+ */
 public class EObjecttUIHelper {
-	
+
 	/**
-	 * @author istria
-	 *
+	 * A validator for mandatory fields.
 	 */
 	private static final class MandatoryFieldValidator implements IValidator {
-		private EStructuralFeature feature;
-		
+		private final EStructuralFeature feature;
+
+		/**
+		 * Constructor.
+		 * @param feature
+		 */
 		public MandatoryFieldValidator(EStructuralFeature feature) {
 			this.feature = feature;
 		}
-		
+
+		/*
+		 * (non-Javadoc)
+		 * @see org.eclipse.core.databinding.validation.IValidator
+		 * #validate(java.lang.Object)
+		 */
 		@Override
-		public IStatus validate(Object value) {
-			if (value == null || (value instanceof String && ((String)value).isEmpty()) ) {
-				return ValidationStatus.warning(com.ebmwebsourcing.petals.common.internal.Messages.bind(Messages.fieldNotSet, feature.getName()));
-			} else {
-				return ValidationStatus.ok();
-			}
+		public IStatus validate( Object value ) {
+
+			IStatus result;
+			if (value == null ||
+					( value instanceof String && ((String)value).isEmpty()))
+				result = ValidationStatus.warning( NLS.bind( Messages.fieldNotSet, this.feature.getName()));
+			else
+				result = ValidationStatus.ok();
+
+			return result;
 		}
 	}
 
+
+	/**
+	 * An entry description.
+	 */
 	private static class EntryDescription {
 		public Object widget;
 		public EAttribute attribute;
 
+		/**
+		 * Constructor.
+		 * @param widget
+		 * @param att
+		 */
 		public EntryDescription(Object widget, EAttribute att) {
 			this.widget = widget;
 			this.attribute = att;
 		}
 	}
 
+
 	/**
-	 * Generate a 2 column list with left column containing description of widgets
-	 * and right column containing widget
+	 * Generates a 2 column list with left column containing description of widgets and right column containing widget.
 	 * @param eObject the eObject to edit
 	 * @param toolkit a {@link FormToolkit} to create widgets
 	 * @param parent
@@ -76,47 +114,48 @@ public class EObjecttUIHelper {
 	 * @param dbc
 	 * @param toProcessFeatures list of features to edit.
 	 */
-	public static void generateWidgets(EObject eObject, FormToolkit toolkit, Composite parent, EditingDomain domain, DataBindingContext dbc, EStructuralFeature... toProcessFeatures) {
+	public static void generateWidgets(
+			EObject eObject,
+			FormToolkit toolkit,
+			Composite parent,
+			EditingDomain domain,
+			DataBindingContext dbc,
+			EStructuralFeature... toProcessFeatures) {
+
 		List<EntryDescription> entries = produceWidgets(toolkit, parent, toProcessFeatures);
 		setUpDatabinding(eObject, domain, dbc, entries);
 	}
 
-	/**
-	 * @param entries
-	 * @param listener
-	 */
-	private static void addListener(List<EntryDescription> entries, Listener listener) {
-		for (EntryDescription entry : entries) {
-			if (entry.widget instanceof Text) {
-				((Text)entry.widget).addListener(SWT.Modify, listener);
-			} else if (entry.widget instanceof Spinner) {
-				((Spinner)entry.widget).addListener(SWT.Selection, listener);
-			} else if (entry.widget instanceof Button) {
-				((Button)entry.widget).addListener(SWT.Selection, listener);
-			} else if (entry.widget instanceof ComboViewer) {
-				((ComboViewer)entry.widget).getControl().addListener(SWT.Selection, listener);
-			}
-		}
-		
-	}
 
+	/**
+	 * Sets up the data binding.
+	 * @param eObject
+	 * @param domain
+	 * @param dbc
+	 * @param entries
+	 */
 	private static void setUpDatabinding(EObject eObject, EditingDomain domain, DataBindingContext dbc, List<EntryDescription> entries) {
+
 		for (EntryDescription entry : entries) {
 			IObservableValue widgetObservable = null;
 			if (entry.widget instanceof Text) {
 				widgetObservable = SWTObservables.observeDelayedValue(300, SWTObservables.observeText((Text)entry.widget, SWT.Modify));
+
 			} else if (entry.widget instanceof Spinner) {
 				widgetObservable = SWTObservables.observeSelection((Spinner)entry.widget);
+
 			} else if (entry.widget instanceof ISelectionProvider) {
 				widgetObservable = ViewersObservables.observeSingleSelection((ISelectionProvider)entry.widget);
+
 			} else if (entry.widget instanceof Button) {
 				widgetObservable = SWTObservables.observeSelection((Button)entry.widget);
 			}
+
 			if (widgetObservable != null) {
 				UpdateValueStrategy strategy = new UpdateValueStrategy();
-				if (entry.attribute.getLowerBound() > 0) {
+				if (entry.attribute.getLowerBound() > 0)
 					strategy.setBeforeSetValidator(new MandatoryFieldValidator(entry.attribute));
-				}
+
 				Binding binding = null;
 				if (domain != null) {
 					binding = dbc.bindValue(
@@ -124,6 +163,7 @@ public class EObjecttUIHelper {
 						EMFEditObservables.observeValue(domain, eObject, entry.attribute),
 						strategy,
 						null);
+
 				} else {
 					binding = dbc.bindValue(
 						widgetObservable,
@@ -131,28 +171,49 @@ public class EObjecttUIHelper {
 						strategy,
 						null);
 				}
-				if (entry.attribute.getLowerBound() > 0) {
+
+				if (entry.attribute.getLowerBound() > 0)
 					ControlDecorationSupport.create(binding, SWT.TOP | SWT.LEFT);
-				}
 			}
 		}
 	}
 
-	public static List<EntryDescription> produceWidgets(FormToolkit toolkit, Composite parent, EStructuralFeature... toProcessFeatures) {
+
+	/**
+	 * Produces the widgets.
+	 * @param toolkit
+	 * @param parent
+	 * @param toProcessFeatures
+	 * @return
+	 */
+	public static List<EntryDescription> produceWidgets(
+			FormToolkit toolkit,
+			Composite parent,
+			EStructuralFeature... toProcessFeatures ) {
+
 		List<EntryDescription> entries = new ArrayList<EntryDescription>();
 		for (EStructuralFeature feature : toProcessFeatures) {
 			Object widget = null;
 			EAttribute attr = (EAttribute)feature;
 			String label = StringUtils.camelCaseToHuman(attr.getName());;
-			if (attr.getLowerBound() > 0) {
+			if( attr.getLowerBound() > 0)
 				label += " *";
-			}
+
+			label += ":";
 			toolkit.createLabel(parent, label).setBackground(parent.getBackground());
+
 			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
-			Class<?> instanceClass = attr.getEType().getInstanceClass(); 
+			Class<?> instanceClass = attr.getEType().getInstanceClass();
 			if (instanceClass.equals(String.class)) {
-				widget = toolkit.createText(parent, "", SWT.BORDER);
-				((Text)widget).setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+
+				if( label.toLowerCase().contains( "password" )
+						|| label.toLowerCase().contains( "passphrase" ))
+					widget = toolkit.createText(parent, "", SWT.PASSWORD);
+				else
+					widget = toolkit.createText(parent, "", SWT.BORDER);
+
+				((Text)widget).setLayoutData(new GridData( GridData.FILL_HORIZONTAL ));
+
 			} else if (instanceClass.equals(Integer.class) || instanceClass.equals(int.class)) {
 				widget = new Spinner(parent, SWT.BORDER);
 				GridData gd = new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false);
@@ -160,20 +221,26 @@ public class EObjecttUIHelper {
 				gd.minimumWidth = 100;
 				((Spinner)widget).setLayoutData(gd);
 				((Spinner)widget).setMaximum(Integer.MAX_VALUE);
+
 			} else if (instanceClass.isEnum()) {
 				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
 				ComboViewer viewer = (ComboViewer)widget;
 				viewer.setContentProvider(new EEnumLiteralsProvider());
 				viewer.setLabelProvider(new EEnumNameLabelProvider());
 				viewer.setInput(attr.getEType());
+
 			} else if (instanceClass.equals(Boolean.class) || instanceClass.equals(boolean.class)) {
-				widget = toolkit.createButton(parent, "", SWT.CHECK);
-				((Button)widget).setBackground(parent.getBackground());
+				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
+				ComboViewer viewer = (ComboViewer) widget;
+				viewer.setContentProvider( new ArrayContentProvider());
+				viewer.setLabelProvider(new LabelProvider());
+				viewer.setInput( new Boolean[] { Boolean.TRUE, Boolean.FALSE });
 			}
-			if (widget != null) {
+
+			if (widget != null)
 				entries.add(new EntryDescription(widget, attr));
-			}
 		}
+
 		return entries;
 	}
 }

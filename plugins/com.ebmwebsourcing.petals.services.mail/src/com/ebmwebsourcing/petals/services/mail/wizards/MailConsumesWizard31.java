@@ -22,7 +22,7 @@ import com.ebmwebsourcing.petals.services.mail.generated.MailService;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -30,7 +30,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class MailConsumesWizard31 extends ComponentCreationWizard {
+public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 
 	public MailConsumesWizard31() {
 		super();

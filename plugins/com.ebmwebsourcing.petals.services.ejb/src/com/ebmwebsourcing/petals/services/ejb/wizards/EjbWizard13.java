@@ -13,9 +13,7 @@ package com.ebmwebsourcing.petals.services.ejb.wizards;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -32,7 +30,7 @@ import com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage;
 import com.ebmwebsourcing.petals.services.ejb.ejb.EjbVersion;
 import com.ebmwebsourcing.petals.services.ejb.ejb.XmlEngine;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -40,18 +38,17 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class EjbWizard13 extends ComponentCreationWizard {
+public class EjbWizard13 extends AbstractServiceUnitWizard {
 
 	private String ejbClassName;
-	private Collection<String> jeeLibs = Collections.EMPTY_LIST;
-	private Collection<String> ejbLibs = Collections.EMPTY_LIST;
+	private Collection<File> jeeLibs, ejbLibs;
 	private String wsdlName;
-	
+
 	public EjbWizard13() {
 		super();
-		settings.showJbiPage = false;
+		this.settings.showJbiPage = false;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -72,22 +69,20 @@ public class EjbWizard13 extends ComponentCreationWizard {
 
 		List<String> paths = new ArrayList<String> ();
 		List<IFile> jars = ResourceUtils.getFilesByRegexp( resourceFolder, ".*\\.(jar|zip)" );
-		for( IFile f : jars ) {
+		for( IFile f : jars )
 			paths.add( f.getLocation().toString());
-		}
 
-		for( String f : jeeLibs) {
-			paths.add( f );
-		}
+		for( File f : this.jeeLibs)
+			paths.add( f.getAbsolutePath());
 
 		String[] classpath = new String[ paths.size()];
 		classpath = paths.toArray( classpath );
 		String outputPathAS = resourceFolder.getLocation().toString();
 
 		File f = WsdlExtUtils.generateWsdlFile(
-					wsdlName,
+					this.wsdlName,
 					outputPathAS,
-					ejbClassName,
+					this.ejbClassName,
 					classpath,
 					outputPathAS,
 					abstractEndpoint.getEndpointName(),
@@ -103,7 +98,8 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
@@ -113,7 +109,8 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterJbi()
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
+	 * #getCustomWizardPagesAfterJbi()
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
@@ -122,7 +119,8 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesAfterProject()
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
+	 * #getCustomWizardPagesAfterProject()
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
@@ -141,7 +139,8 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#getCustomWizardPagesBeforeProject()
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
+	 * #getCustomWizardPagesBeforeProject()
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
@@ -151,7 +150,8 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#importAdditionalFiles(org.eclipse.core.resources.IFolder, org.eclipse.core.runtime.IProgressMonitor)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
+	 * #importAdditionalFiles(org.eclipse.core.resources.IFolder, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
 	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
@@ -167,17 +167,17 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	}
 
 	/**
-	 * @param filePaths
+	 * @param files
 	 */
-	public void setEJBFiles(String[] filePaths) {
-		this.ejbLibs = Arrays.asList(filePaths);
+	public void setEJBFiles( Collection<File> files ) {
+		this.ejbLibs = files;
 	}
 
 	/**
-	 * @param filePaths
+	 * @param files
 	 */
-	public void setJEEFiles(String[] filePaths) {
-		this.jeeLibs = Arrays.asList(filePaths);
+	public void setJEEFiles( Collection<File> files ) {
+		this.jeeLibs = files;
 	}
 
 	/**
@@ -186,5 +186,4 @@ public class EjbWizard13 extends ComponentCreationWizard {
 	public void setWsdlName(String trim) {
 		this.wsdlName = trim;
 	}
-
 }

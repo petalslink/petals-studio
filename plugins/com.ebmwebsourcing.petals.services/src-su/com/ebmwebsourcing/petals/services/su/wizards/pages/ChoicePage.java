@@ -63,7 +63,7 @@ import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.su.extensions.IComponentDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.FinishServiceCreationStrategy;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 
@@ -233,7 +233,7 @@ public class ChoicePage extends WizardSelectionPage {
 		versionCombo.setLabelProvider( new LabelProvider() {
 			@Override
 			public String getText( Object element ) {
-				return ((ComponentCreationWizard) element).getComponentVersionDescription().getComponentVersion();
+				return ((AbstractServiceUnitWizard) element).getComponentVersionDescription().getComponentVersion();
 			}
 		});
 
@@ -279,18 +279,18 @@ public class ChoicePage extends WizardSelectionPage {
 
 
 		// Prepare the input
-		Comparator<ComponentCreationWizard> comparator = new Comparator<ComponentCreationWizard>() {
+		Comparator<AbstractServiceUnitWizard> comparator = new Comparator<AbstractServiceUnitWizard>() {
 			@Override
-			public int compare( ComponentCreationWizard o1, ComponentCreationWizard o2 ) {
+			public int compare( AbstractServiceUnitWizard o1, AbstractServiceUnitWizard o2 ) {
 				String v1 = o1.getComponentVersionDescription().getComponentVersion();
 				String v2 = o2.getComponentVersionDescription().getComponentVersion();
 				return - v1.compareTo( v2 ); // negative so that must recent is first
 			}
 		};
 
-		final Map<String,Collection<ComponentCreationWizard>> componentNameToHandler = new TreeMap<String,Collection<ComponentCreationWizard>> ();
+		final Map<String,Collection<AbstractServiceUnitWizard>> componentNameToHandler = new TreeMap<String,Collection<AbstractServiceUnitWizard>> ();
 		final Map<PetalsKeyWords,Set<String>> keywordToComponentName = new HashMap<PetalsKeyWords,Set<String>> ();
-		for( ComponentCreationWizard handler : ExtensionManager.INSTANCE.findComponentWizards(petalsMode)) {
+		for( AbstractServiceUnitWizard handler : ExtensionManager.INSTANCE.findComponentWizards(petalsMode)) {
 			for( PetalsKeyWords keyword : handler.getComponentVersionDescription().getKeyWords()) {
 				Set<String> list = keywordToComponentName.get( keyword );
 				if( list == null )
@@ -300,9 +300,9 @@ public class ChoicePage extends WizardSelectionPage {
 				list.add( componentName );
 				keywordToComponentName.put( keyword, list );
 
-				Collection<ComponentCreationWizard> handlers = componentNameToHandler.get( componentName );
+				Collection<AbstractServiceUnitWizard> handlers = componentNameToHandler.get( componentName );
 				if( handlers == null )
-					handlers = new TreeSet<ComponentCreationWizard>( comparator );
+					handlers = new TreeSet<AbstractServiceUnitWizard>( comparator );
 
 				handlers.add( handler );
 				componentNameToHandler.put( componentName, handlers );
@@ -363,7 +363,7 @@ public class ChoicePage extends WizardSelectionPage {
 
 				// Get the selection
 				String componentName = (String) ((IStructuredSelection) event.getSelection()).getFirstElement();
-				Collection<ComponentCreationWizard> handlers = componentNameToHandler.get( componentName );
+				Collection<AbstractServiceUnitWizard> handlers = componentNameToHandler.get( componentName );
 				versionCombo.setInput( handlers );
 
 				// Default selection - there is always one
@@ -380,7 +380,7 @@ public class ChoicePage extends WizardSelectionPage {
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				// Get the selection
-				ComponentCreationWizard selectedWizard = (ComponentCreationWizard) ((IStructuredSelection) event.getSelection()).getFirstElement();
+				AbstractServiceUnitWizard selectedWizard = (AbstractServiceUnitWizard) ((IStructuredSelection) event.getSelection()).getFirstElement();
 				setSelectedNode(getWizardNode(selectedWizard));
 				
 
@@ -415,7 +415,7 @@ public class ChoicePage extends WizardSelectionPage {
 	}
 
 
-	protected IWizardNode getWizardNode(ComponentCreationWizard wizard) {
+	protected IWizardNode getWizardNode(AbstractServiceUnitWizard wizard) {
 		wizard.setStrategy(strategy);
 		return new ComponentWizardDescriptionWizardNode(wizard);
 	}

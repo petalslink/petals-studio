@@ -19,14 +19,14 @@ import org.eclipse.core.runtime.Status;
 import com.ebmwebsourcing.petals.services.quartz.QuartzDescription10_11;
 import com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class QuartzWizard10_11 extends ComponentCreationWizard {
+public class QuartzWizard10_11 extends AbstractServiceUnitWizard {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler

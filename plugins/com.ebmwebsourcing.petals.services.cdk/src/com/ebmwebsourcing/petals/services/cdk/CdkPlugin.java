@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.InitializeModelExtensionCommand;
 
 /**
  * The activator class controls the plug-in life cycle

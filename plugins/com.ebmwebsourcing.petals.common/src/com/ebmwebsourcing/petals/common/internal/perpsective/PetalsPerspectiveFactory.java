@@ -27,6 +27,7 @@ public class PetalsPerspectiveFactory implements IPerspectiveFactory {
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
 	 */
+	@Override
 	public void createInitialLayout( IPageLayout layout ) {
 
 		// Left top
@@ -65,13 +66,13 @@ public class PetalsPerspectiveFactory implements IPerspectiveFactory {
 		// bottomFolder.addView( "com.ebmwebsourcing.petals.repositories.view" );
 
 		// Add wizard shortcuts
+		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.provider.project" );
+		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.consumer.project" );
 		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.sa.project" );
-		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.service-provider.project" );
-		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.services.service-consumer.project" );
 		layout.addNewWizardShortcut( "com.ebmwebsourcing.petals.common.croquisWizard" );
+		layout.addNewWizardShortcut( "org.eclipse.wst.wsdl.ui" );
 		layout.addNewWizardShortcut( "org.eclipse.ui.wizards.new.folder" );
 		layout.addNewWizardShortcut( "org.eclipse.ui.wizards.new.file" );
-		layout.addNewWizardShortcut( "org.eclipse.wst.wsdl.ui" );
 
 		// Add perspective shortcuts
 		layout.addPerspectiveShortcut( "org.eclipse.jdt.ui.JavaPerspective" );

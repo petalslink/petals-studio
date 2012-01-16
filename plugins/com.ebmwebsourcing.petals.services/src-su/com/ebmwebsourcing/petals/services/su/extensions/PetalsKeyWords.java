@@ -11,7 +11,6 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.su.extensions;
 
-
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */

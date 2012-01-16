@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 
 /**
  * A bean that holds information about a Petals component's version.

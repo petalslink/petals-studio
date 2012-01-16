@@ -32,7 +32,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 	private IProject project;
 
 	@Override
-	public void finishWizard(ComponentCreationWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception {
+	public void finishWizard(AbstractServiceUnitWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception {
 		Jbi jbiInstance;
 		jbiInstance = JbiFactory.eINSTANCE.createJbi();
 		jbiInstance.setVersion(new BigDecimal("1.0"));
@@ -77,7 +77,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 			}
 		}
 
-	public void createProject(ComponentCreationWizard wizard, IProgressMonitor monitor) throws CoreException, IOException {
+	public void createProject(AbstractServiceUnitWizard wizard, IProgressMonitor monitor) throws CoreException, IOException {
 		if (project != null) {
 			return;
 		}
@@ -96,7 +96,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 	}
 
 	@Override
-	public IProject getSUProject(ComponentCreationWizard wizard, IProgressMonitor monitor) {
+	public IProject getSUProject(AbstractServiceUnitWizard wizard, IProgressMonitor monitor) {
 		if (project == null) {
 			try {
 				createProject(wizard, monitor);

@@ -4,13 +4,13 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardNode;
 import org.eclipse.swt.graphics.Point;
 
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 
 public class ComponentWizardDescriptionWizardNode implements IWizardNode {
 
-	private ComponentCreationWizard wizard;
+	private AbstractServiceUnitWizard wizard;
 
-	public ComponentWizardDescriptionWizardNode(ComponentCreationWizard wizard) {
+	public ComponentWizardDescriptionWizardNode(AbstractServiceUnitWizard wizard) {
 		this.wizard = wizard;
 	}
 

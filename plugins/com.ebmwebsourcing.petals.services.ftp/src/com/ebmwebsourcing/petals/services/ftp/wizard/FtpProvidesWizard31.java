@@ -28,7 +28,7 @@ import com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package;
 import com.ebmwebsourcing.petals.services.ftp.generated.FtpService31;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -37,7 +37,7 @@ import com.sun.java.xml.ns.jbi.Jbi;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FtpProvidesWizard31 extends ComponentCreationWizard {
+public class FtpProvidesWizard31 extends AbstractServiceUnitWizard {
 	
 	public FtpProvidesWizard31() {
 		super();

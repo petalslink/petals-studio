@@ -40,6 +40,8 @@ import org.eclipse.ui.dialogs.AbstractElementListSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.dialogs.SelectionStatusDialog;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.StyledFilteredList;
+
 /**
  * An element list selection dialog that supports {@link StyledCellLabelProvider}s.
  * <p>

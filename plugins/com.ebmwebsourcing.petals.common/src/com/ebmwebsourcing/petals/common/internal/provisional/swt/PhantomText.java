@@ -61,11 +61,13 @@ public class PhantomText extends Composite {
 		// Focus listener
 		this.text.addFocusListener( new FocusListener() {
 
+			@Override
 			public void focusLost( FocusEvent e ) {
 				PhantomText.this.updateEnabled = false;
-				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_GRAY ));
+				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ));
 			}
 
+			@Override
 			public void focusGained( FocusEvent e ) {
 				PhantomText.this.text.setText( PhantomText.this.value == null ? "" : PhantomText.this.value );
 				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_BLACK ));
@@ -75,6 +77,7 @@ public class PhantomText extends Composite {
 
 		// Modify listener
 		this.text.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				if( PhantomText.this.updateEnabled )
 					PhantomText.this.value = ((Text) e.widget).getText().trim();

@@ -7,7 +7,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 public interface FinishServiceCreationStrategy {
 
-	public void finishWizard(ComponentCreationWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception;
+	public void finishWizard(AbstractServiceUnitWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception;
 
-	public IProject getSUProject(ComponentCreationWizard wizard, IProgressMonitor monitor);
+	public IProject getSUProject(AbstractServiceUnitWizard wizard, IProgressMonitor monitor);
 }

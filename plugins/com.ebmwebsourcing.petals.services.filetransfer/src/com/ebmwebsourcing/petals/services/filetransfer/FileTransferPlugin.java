@@ -19,7 +19,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.InitializeModelExtensionCommand;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.InitializeModelExtensionCommand;
 
 /**
  * The activator class controls the plug-in life cycle

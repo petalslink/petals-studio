@@ -21,14 +21,14 @@ import org.eclipse.core.runtime.Status;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FileTransferProvidesWizard24 extends ComponentCreationWizard {
+public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 	
 	public FileTransferProvidesWizard24() {
 		super();
