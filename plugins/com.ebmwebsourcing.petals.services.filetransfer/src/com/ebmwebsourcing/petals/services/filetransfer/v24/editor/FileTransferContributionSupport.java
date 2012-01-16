@@ -15,9 +15,9 @@ import org.eclipse.emf.ecore.EClass;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
 
 /**
  * @author Micka�l Istria - EBM WebSourcing
@@ -26,7 +26,7 @@ public class FileTransferContributionSupport extends EditorContributionSupport {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport
 	 * #getProvidesContribution()
 	 */
 	@Override
@@ -36,7 +36,7 @@ public class FileTransferContributionSupport extends EditorContributionSupport {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport
 	 * #getConsumesContribution()
 	 */
 	@Override

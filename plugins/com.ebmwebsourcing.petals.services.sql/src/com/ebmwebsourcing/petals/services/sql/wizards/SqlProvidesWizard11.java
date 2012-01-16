@@ -25,7 +25,7 @@ import com.ebmwebsourcing.petals.services.sql.generated.SqlService;
 import com.ebmwebsourcing.petals.services.sql.sql.SqlPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -33,7 +33,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SqlProvidesWizard11 extends ComponentCreationWizard {
+public class SqlProvidesWizard11 extends AbstractServiceUnitWizard {
 
 	public SqlProvidesWizard11() {
 		super();

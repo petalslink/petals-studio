@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="com.ebmwebsourcing.petals.common.projectCategories" name="Petals Project Categories" schema="schema/com.ebmwebsourcing.petals.common.projectCategories.exsd"/>
+   <extension-point id="com.ebmwebsourcing.petals.common.formeditor" name="Petals Project Categories" schema="schema/com.ebmwebsourcing.petals.common.formeditor.exsd"/>
    <extension-point id="com.ebmwebsourcing.petals.common.croquisExtension" name="Petals Croquis Extension" schema="schema/com.ebmwebsourcing.petals.common.croquisExtension.exsd"/>
 
 <!--
@@ -240,8 +241,18 @@
              default="false"
              filenames="jbi.xml"
              icon="icons/obj16/jbi_descriptor.png"
-             id="com.ebmwebsourcing.petals.common.xmleditor"
-             name="Petals XML Editor">
+             id="com.ebmwebsourcing.petals.common.sourceeditor"
+             name="Petals Source Editor">
+          <contentTypeBinding
+                contentTypeId="com.ebmwebsourcing.petals.common.jbiContentType">
+          </contentTypeBinding>
+       </editor>
+       <editor
+             class="com.ebmwebsourcing.petals.common.internal.formeditor.JbiFormEditor"
+             default="true"
+             icon="icons/obj16/jbi_descriptor.png"
+             id="com.ebmwebsourcing.petals.common.formeditor"
+             name="Petals Form Editor">
           <contentTypeBinding
                 contentTypeId="com.ebmwebsourcing.petals.common.jbiContentType">
           </contentTypeBinding>

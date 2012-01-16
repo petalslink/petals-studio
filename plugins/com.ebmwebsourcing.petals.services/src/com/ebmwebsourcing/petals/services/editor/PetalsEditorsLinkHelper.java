@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.editor;
@@ -29,8 +29,8 @@ public class PetalsEditorsLinkHelper implements ILinkHelper {
 	 * @see org.eclipse.ui.navigator.ILinkHelper
 	 * #activateEditor(org.eclipse.ui.IWorkbenchPage, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void activateEditor( IWorkbenchPage aPage, IStructuredSelection aSelection ) {
-
 		// nothing
 	}
 
@@ -39,6 +39,7 @@ public class PetalsEditorsLinkHelper implements ILinkHelper {
 	 * @see org.eclipse.ui.navigator.ILinkHelper
 	 * #findSelection(org.eclipse.ui.IEditorInput)
 	 */
+	@Override
 	public IStructuredSelection findSelection( IEditorInput anInput ) {
 
 		IStructuredSelection selection = null;

@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.validation.PetalsValidationPlugin;
 import com.ebmwebsourcing.petals.services.validation.ValidationDescription11;
@@ -39,7 +39,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ValidationProvidesWizard11 extends ComponentCreationWizard {
+public class ValidationProvidesWizard11 extends AbstractServiceUnitWizard {
 	
 	boolean createXSD = true;
 	String xsdTargetNamespace = "http://petalslink.ow2.org";

@@ -51,7 +51,7 @@ import com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin;
 import com.ebmwebsourcing.petals.services.jsr181.generated.JaxWsImplementation;
 import com.ebmwebsourcing.petals.services.jsr181.jsr181.Jsr181Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
@@ -59,7 +59,7 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class Jsr181ProvidesWizard extends ComponentCreationWizard {
+public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 
 	private boolean wsdlFirst;
 	private String wsdlUrl;

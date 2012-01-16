@@ -24,7 +24,7 @@ import com.ebmwebsourcing.petals.services.sftp.SftpDescription11;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService11;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -32,7 +32,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SftpProvidesWizard11 extends ComponentCreationWizard {
+public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 
 	public SftpProvidesWizard11() {
 		super();

@@ -52,8 +52,6 @@ public class JbiXmlUtils {
 
 		try {
 			ResourceSet resourceSet = new ResourceSetImpl();
-			Object o = resourceSet.getResourceFactoryRegistry().getFactory( emfUri );
-
 			Resource resource = resourceSet.getResource( emfUri, true );
 			resource.load( resourceSet.getLoadOptions());
 			DocumentRoot root = (DocumentRoot) resource.getContents().get( 0 );

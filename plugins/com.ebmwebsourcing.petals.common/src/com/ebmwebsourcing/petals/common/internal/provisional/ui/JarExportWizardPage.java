@@ -54,6 +54,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.ui.jdt.CheckboxTreeAndListGroup;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.jdt.ContainerFilter;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 

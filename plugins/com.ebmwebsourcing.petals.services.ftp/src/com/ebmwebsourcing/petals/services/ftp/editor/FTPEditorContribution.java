@@ -2,9 +2,9 @@ package com.ebmwebsourcing.petals.services.ftp.editor;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.EditorContributionSupport;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.jbi.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
 
 public class FTPEditorContribution extends EditorContributionSupport {
 

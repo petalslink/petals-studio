@@ -24,7 +24,6 @@ import java.util.TreeSet;
 import javax.xml.namespace.QName;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -35,7 +34,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Consumes;
@@ -62,6 +61,7 @@ public class ExtensionManager {
 	 */
 	private final Map<String, ComponentVersionDescription> namespaceToDescription;
 
+
 	/**
 	 * Constructor.
 	 */
@@ -69,7 +69,7 @@ public class ExtensionManager {
 		this.namespaceToDescription = new HashMap<String, ComponentVersionDescription>();
 		for (ComponentVersionDescription desc : findComponentVersionClass( "componentVersionDescription", ComponentVersionDescription.class )) {
 			if (desc.getNamespace() != null) {
-				namespaceToDescription.put(desc.getNamespace(), desc);
+				this.namespaceToDescription.put(desc.getNamespace(), desc);
 			}
 		}
 	}
@@ -79,9 +79,9 @@ public class ExtensionManager {
 	 * Finds the wizard handlers.
 	 * @return the wizard handlers (never null, possibly empty)
 	 */
-	public List<ComponentCreationWizard> findComponentWizards(PetalsMode mode) {
+	public List<AbstractServiceUnitWizard> findComponentWizards( PetalsMode mode ) {
 		String key = (mode == PetalsMode.provides ? "providesExtensionWizard" : "consumesExtensionWizard");
-		return findComponentVersionClass(key, ComponentCreationWizard.class );
+		return findComponentVersionClass( key, AbstractServiceUnitWizard.class );
 	}
 
 
@@ -90,7 +90,7 @@ public class ExtensionManager {
 	 * @return the wizard handlers (never null, possibly empty)
 	 */
 	@SuppressWarnings( "unchecked" )
-	private <T> List<T> findComponentVersionClass(String attributeName, Class<T> theClass ) {
+	private <T> List<T> findComponentVersionClass( String attributeName, Class<T> theClass ) {
 
 		List<T> result = new ArrayList<T> ();
 		IConfigurationElement[] extensions = Platform.getExtensionRegistry().getConfigurationElementsFor( EXTENSION_ID );
@@ -98,11 +98,8 @@ public class ExtensionManager {
 
 			for( IConfigurationElement child : elt.getChildren( "ComponentVersionSupport" )) {
 				String theClassName = child.getAttribute( attributeName );
-				//FileLocator.resolve(Platform.getBundle(child.getContributor().getName()).getResource("plugin.xml"))
-				if( StringUtils.isEmpty( theClassName )) {
-					PetalsServicesPlugin.log( "No [" + attributeName + "] was provided for " + child.getContributor().getName(), IStatus.WARNING );
+				if( StringUtils.isEmpty( theClassName ))
 					continue;
-				}
 
 				try {
 					Object o = child.createExecutableExtension( attributeName );

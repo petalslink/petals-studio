@@ -137,60 +137,6 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:petals.projects.new?before=petals.new.separator1">
-         <command
-               commandId="org.eclipse.ui.newWizard"
-               icon="icons/obj16/component.png"
-               label="JBI Component"
-               mnemonic="C"
-               style="push"
-               tooltip="Create a new Petals component">
-            <parameter
-                  name="newWizardId"
-                  value="com.ebmwebsourcing.petals.components.wizards.petalsComponent">
-            </parameter>
-         </command>
-         <command
-               commandId="org.eclipse.ui.newWizard"
-               icon="icons/obj16/sl.png"
-               label="Shared Library"
-               mnemonic="L"
-               style="push"
-               tooltip="Create a new Shared Library">
-            <parameter
-                  name="newWizardId"
-                  value="com.ebmwebsourcing.petals.components.wizards.petalsSharedLibrary">
-            </parameter>
-         </command>
-      </menuContribution>
-      <menuContribution
-            locationURI="popup:petals.projects.resource.new?after=petals.wizard.new">
-         <command
-               commandId="org.eclipse.ui.newWizard"
-               icon="icons/obj16/component.png"
-               label="JBI Component"
-               mnemonic="C"
-               style="push"
-               tooltip="Create a new Petals component">
-            <parameter
-                  name="newWizardId"
-                  value="com.ebmwebsourcing.petals.components.wizards.petalsComponent">
-            </parameter>
-         </command>
-         <command
-               commandId="org.eclipse.ui.newWizard"
-               icon="icons/obj16/sl.png"
-               label="Shared Library"
-               mnemonic="L"
-               style="push"
-               tooltip="Create a new Shared Library">
-            <parameter
-                  name="newWizardId"
-                  value="com.ebmwebsourcing.petals.components.wizards.petalsSharedLibrary">
-            </parameter>
-         </command>
-      </menuContribution>
-      <menuContribution
             allPopups="false"
             locationURI="toolbar:com.ebmwebsourcing.petals.common.petals-toolbar?after=additions">
          <command

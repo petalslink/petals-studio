@@ -59,87 +59,6 @@
       </startup>
    </extension>
    <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="popup:com.ebmwebsourcing.petals.common.actiongroup?before=com.ebmwebsourcing.petals.common.group.natures">
-         <command
-               commandId="com.ebmwebsourcing.petals.common.addPetalsNature"
-               label="Add Petals BPEL Nature"
-               style="push"
-               tooltip="Add the Petals BPEL nature to the project">
-            <parameter
-                  name="natureId"
-                  value="com.ebmwebsourcing.petals.extension.bpeldesigner.petalsBpelNature">
-            </parameter>
-            <visibleWhen
-                  checkEnabled="false">
-               <iterate
-                     ifEmpty="false"
-                     operator="and">
-                  <and>
-                     <instanceof
-                           value="org.eclipse.core.resources.IProject">
-                     </instanceof>
-                     <test
-                           property="com.ebmwebsourcing.petals.common.jbi-type"
-                           value="SU">
-                     </test>
-                     <not>
-                        <test
-                              property="org.eclipse.core.resources.projectNature"
-                              value="com.ebmwebsourcing.petals.extension.bpeldesigner.petalsBpelNature">
-                        </test>
-                     </not>
-                  </and>
-               </iterate>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="com.ebmwebsourcing.petals.services.bpel.validate"
-               label="Validate BPEL"
-               style="push"
-               tooltip="Validate BPEL files with the Petals BPEL Validator">
-            <visibleWhen
-                  checkEnabled="true">
-            </visibleWhen>
-         </command>
-      </menuContribution>
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="com.ebmwebsourcing.petals.services.bpel.handlers.ValidateBpelHandler"
-            commandId="com.ebmwebsourcing.petals.services.bpel.validate">
-         <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false"
-                     operator="and">
-                  <and>
-                     <instanceof
-                           value="org.eclipse.core.resources.IFile">
-                     </instanceof>
-                     <test
-                           property="org.eclipse.core.resources.extension"
-                           value="bpel">
-                     </test>
-                  </and>
-               </iterate>
-            </with>
-         </enabledWhen>
-      </handler>
-   </extension>
-   <extension
-         point="org.eclipse.ui.commands">
-      <command
-            categoryId="com.ebmwebsourcing.jbi.core.petals-category"
-            description="Validate BPEL files with the Petals BPEL Validator"
-            id="com.ebmwebsourcing.petals.services.bpel.validate"
-            name="Validate BPEL">
-      </command>
-   </extension>
-   <extension
          id="com.ebmwebsourcing.petals.common.schema"
          name="Petals XML Schema"
          point="org.eclipse.wst.xml.core.catalogContributions">
@@ -166,19 +85,6 @@
                uri="xsd/ws-bpel_varprop.xsd">
          </uri>
       </catalogContribution>
-   </extension>
-   <extension
-         point="org.eclipse.ui.importWizards">
-      <wizard
-            category="com.ebmwebsourcing.petals.common.importWizard"
-            class="com.ebmwebsourcing.petals.services.bpel.croquis.wizards.BpelImportWizard"
-            icon="icons/obj16/import_bpel.gif"
-            id="com.ebmwebsourcing.petals.services.bpel.importBpel"
-            name="BPEL">
-         <description>
-            Import a BPEL process file with all its dependencies inside a project
-         </description>
-      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.exportWizards">
