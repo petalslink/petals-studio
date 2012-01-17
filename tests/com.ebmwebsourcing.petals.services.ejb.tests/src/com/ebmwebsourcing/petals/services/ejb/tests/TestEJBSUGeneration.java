@@ -13,6 +13,7 @@ package com.ebmwebsourcing.petals.services.ejb.tests;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -52,8 +53,8 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 			public void run() {
 				WizardDialog wizardDialog = (WizardDialog)TestEJBSUGeneration.this.bot.activeShell().widget.getData();
 				EJBCustomSpecificationPage12 page = (EJBCustomSpecificationPage12)wizardDialog.getCurrentPage();
-				page.getWizard().setEJBFiles(new String[] { businessFile.getAbsolutePath() });
-				page.getWizard().setJEEFiles(new String[] { jeeFile.getAbsolutePath() });
+				page.getWizard().setEJBFiles( Arrays.asList( TestEJBSUGeneration.this.businessFile ));
+				page.getWizard().setJEEFiles( Arrays.asList(  TestEJBSUGeneration.this.jeeFile ));
 			}
 		});
 		this.bot.text().setText("org.ow2.petals.examples.ejb.addorder.AddOrderRemote");
