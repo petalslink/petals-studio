@@ -75,77 +75,103 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		setNeedsProgressMonitor( true );
 		setForcePreviousAndNextButtons( true );
 		setDefaultPageImageDescriptor( PetalsServicesPlugin.getImageDescriptor( "icons/wizban/wiz_service_unit.png" ));
-		settings = new SuWizardSettings();
+		this.settings = new SuWizardSettings();
 	}
-	
+
+
+	/**
+	 * Sets the strategy.
+	 * @param strategy
+	 */
 	public void setStrategy(FinishServiceCreationStrategy strategy) {
 		this.finishStrategy = strategy;
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.core.runtime.IExecutableExtension
+	 * #setInitializationData(org.eclipse.core.runtime.IConfigurationElement, java.lang.String, java.lang.Object)
+	 */
 	@Override
 	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		if (propertyName.toLowerCase().contains("provide")) {
 			this.petalsMode = PetalsMode.provides;
-			endpoint = JbiFactory.eINSTANCE.createProvides();
+			this.endpoint = JbiFactory.eINSTANCE.createProvides();
 			setWindowTitle(Messages.provideTitle);
+
 		} else {
 			this.petalsMode = PetalsMode.consumes;
-			endpoint = JbiFactory.eINSTANCE.createConsumes();
+			this.endpoint = JbiFactory.eINSTANCE.createConsumes();
 			setWindowTitle(Messages.consumeTitle);
 		}
-		presetServiceValues(endpoint);
+
+		presetServiceValues(this.endpoint);
 		this.finishStrategy = new CreateJBIStrategy();
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard
+	 * #addPage(org.eclipse.jface.wizard.IWizardPage)
+	 */
 	@Override
 	public void addPage(IWizardPage page) {
 		super.addPage(page);
 		page.setWizard(this);
-		page.setTitle(getComponentVersionDescription().getComponentAlias());
-		if (page.getDescription() == null) {
-			if (petalsMode == PetalsMode.consumes) {
+
+		String title = this.petalsMode == PetalsMode.provides ? "Petals Service Provider" : "Petals Service Consumer";
+		title += " (" + getComponentVersionDescription().getComponentAlias() + ")";
+		page.setTitle( title );
+
+		if( page.getDescription() == null ) {
+			if (this.petalsMode == PetalsMode.consumes)
 				page.setDescription(getComponentVersionDescription().getConsumeDescription());
-			} else if (petalsMode == PetalsMode.provides) {
+			else if (this.petalsMode == PetalsMode.provides)
 				page.setDescription(getComponentVersionDescription().getProvideDescription());
-			}
 		}
 	}
-	
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard
+	 * #addPages()
+	 */
 	@Override
 	public void addPages() {
 		AbstractSuWizardPage[] pages = this.getCustomWizardPagesBeforeProject();
 		if (pages != null) {
-			for (IWizardPage page : pages) {
-				addPage(page);
+			for (IWizardPage page : pages)
+				addPage( page );
+		}
+
+		if( this.settings.showJbiPage) {
+			if (this.petalsMode == PetalsMode.consumes)
+				addPage( new JbiConsumePage());
+
+			else if (this.petalsMode == PetalsMode.provides) {
+				this.jbiProvidePage = new JbiProvidePage();
+				addPage(this.jbiProvidePage);
 			}
 		}
-		
-		if (settings.showJbiPage) {
-			if (petalsMode == PetalsMode.consumes) {
-				addPage(new JbiConsumePage());
-			} else if (petalsMode == PetalsMode.provides) {
-				jbiProvidePage = new JbiProvidePage();
-				addPage(jbiProvidePage);
-			}
+
+		if( this.finishStrategy instanceof CreateJBIStrategy ) {
+			this.projectPage = new ProjectPage();
+			addPage( this.projectPage );
 		}
-		
-		if (finishStrategy instanceof CreateJBIStrategy) {
-			projectPage = new ProjectPage();
-			addPage(projectPage);
-		}
-		
+
 		pages = getCustomWizardPagesAfterProject();
-		if (pages != null) {
-			for (IWizardPage page : pages) {
+		if( pages != null ) {
+			for (IWizardPage page : pages)
 				addPage(page);
-			}
 		}
-		
+
 		pages = getCustomWizardPagesAfterJbi();
-		if (pages != null) {
-			for (IWizardPage page : this.getCustomWizardPagesAfterJbi()) {
+		if( pages != null ) {
+			for (IWizardPage page : this.getCustomWizardPagesAfterJbi())
 				addPage(page);
-			}
 		}
 	}
 
@@ -159,19 +185,19 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		// Define the wizard completion process
 		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
 			IProject project;
-			
+
 			@Override
 			protected void execute( IProgressMonitor monitor )
 			throws CoreException, InterruptedException {
 				try {
-					project = finishStrategy.getSUProject(AbstractServiceUnitWizard.this, monitor);
+					this.project = AbstractServiceUnitWizard.this.finishStrategy.getSUProject(AbstractServiceUnitWizard.this, monitor);
 					doFinish(monitor );
 
 				} catch( Exception e ) {
 					PetalsServicesPlugin.log( e, IStatus.ERROR );
 
 				} finally {
-					project.refreshLocal( IResource.DEPTH_INFINITE, null );
+					this.project.refreshLocal( IResource.DEPTH_INFINITE, null );
 					monitor.done();
 				}
 			}
@@ -192,6 +218,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		return true;
 	}
 
+
 	/**
 	 * Creates the project.
 	 * @param elementsToSelect the elements to select (not null)
@@ -200,13 +227,14 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * @throws IOException
 	 */
 	private void doFinish(final IProgressMonitor monitor ) throws Exception {
+
 		// Common stuff
-		IProject project = finishStrategy.getSUProject(this, monitor);
+		IProject project = this.finishStrategy.getSUProject(this, monitor);
 		IFile jbiFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
-		
+
 		// Import the WSDL and update the jbi.xml file in consequence
 		final IFolder resourceDirectory = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
-		if( petalsMode == PetalsMode.provides && settings.showWsdl && settings.showJbiPage) {
+		if( this.petalsMode == PetalsMode.provides && this.settings.showWsdl && this.settings.showJbiPage) {
 			importWSDLFileInProvideSUProject(monitor, jbiFile, resourceDirectory);
 		}
 
@@ -216,24 +244,31 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 		monitor.subTask( "Performing extra-actions..." );
 		resourceDirectory.refreshLocal( IResource.DEPTH_INFINITE, monitor );
-		performLastActions(resourceDirectory, endpoint, monitor);
-		
+		performLastActions(resourceDirectory, this.endpoint, monitor);
+
 		// last action so that previous ones can keep on modifying JBI
-		finishStrategy.finishWizard(this, endpoint, monitor);
+		this.finishStrategy.finishWizard(this, this.endpoint, monitor);
 	}
 
+
+	/**
+	 * Imports a WSDL file in the created project.
+	 * @param monitor
+	 * @param jbiFile
+	 * @param resourceDirectory
+	 */
 	public void importWSDLFileInProvideSUProject(IProgressMonitor monitor, IFile jbiFile, IFolder resourceDirectory) {
 		File wsdlFile = null;
 		monitor.subTask( "Importing the WSDL..." );
 
 		String wsdlFileLocation = getSelectedWSDLForProvide();
-		if( jbiProvidePage.isImportWsdl() && wsdlFileLocation != null ) {
+		if( this.jbiProvidePage.isImportWsdl() && wsdlFileLocation != null ) {
 			WsdlImportUtils wsdlImportUtils = new WsdlImportUtils();
 			Map<String,File> fileToUrl = wsdlImportUtils.importWsdlOrXsdAndDependencies( resourceDirectory.getLocation().toFile(), getSelectedWSDLForProvide());
 			wsdlFile = fileToUrl.get( getSelectedWSDLForProvide());
 			wsdlFileLocation = IoUtils.getRelativeLocationToFile(jbiFile.getLocation().toFile(), wsdlFile );
 			monitor.subTask( "Updating the WSDL..." );
-			WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, endpoint.getServiceName(), endpoint.getEndpointName());
+			WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, this.endpoint.getServiceName(), this.endpoint.getEndpointName());
 			monitor.worked( 1 );
 		}
 
@@ -241,8 +276,12 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		monitor.worked( 1 );
 	}
 
+
+	/**
+	 * @return the WSDL URL
+	 */
 	public String getSelectedWSDLForProvide() {
-		return jbiProvidePage.getWsdlUrl();
+		return this.jbiProvidePage.getWsdlUrl();
 	}
 
 
@@ -269,18 +308,29 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	}
 
 
+	/**
+	 * @return the Petals mode
+	 */
 	public PetalsMode getPetalsMode() {
 		return this.petalsMode;
 	}
-	
+
+
+	/**
+	 * @return the newly created end-point (provides or consumes)
+	 */
 	public AbstractEndpoint getNewlyCreatedEndpoint() {
 		return this.endpoint;
 	}
-	
+
+
+	/**
+	 * @return the wizard settings
+	 */
 	public SuWizardSettings getSettings() {
 		return this.settings;
 	}
-	
+
 	// Component business methods
 	protected abstract void presetServiceValues(AbstractEndpoint endpoint);
 	protected abstract AbstractSuWizardPage[] getCustomWizardPagesAfterJbi();

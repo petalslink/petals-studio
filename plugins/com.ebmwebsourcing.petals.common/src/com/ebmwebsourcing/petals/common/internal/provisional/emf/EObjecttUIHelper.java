@@ -197,7 +197,9 @@ public class EObjecttUIHelper {
 		for (EStructuralFeature feature : toProcessFeatures) {
 			Object widget = null;
 			EAttribute attr = (EAttribute)feature;
-			String label = StringUtils.camelCaseToHuman(attr.getName());;
+
+			String label = StringUtils.camelCaseToHuman( attr.getName());
+			label = StringUtils.capitalize( label );
 			if( attr.getLowerBound() > 0)
 				label += " *";
 

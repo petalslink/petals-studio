@@ -328,6 +328,7 @@ public class SwtFactory {
 	public static TextWithButtonComposite createDirectoryBrowser( final Composite parent ) {
 
 		final TextWithButtonComposite browser = new TextWithButtonComposite( parent );
+		browser.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		browser.getText().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 
 		browser.getButton().setText( "Browse..." );
@@ -402,7 +403,10 @@ public class SwtFactory {
 			final Collection<File> files ) {
 
 		final ListWithButtonComposite lbc = new ListWithButtonComposite( parent );
+		lbc.setLayoutData( new GridData( GridData.FILL_BOTH ));
 		final TableViewer viewer = lbc.getViewer();
+
+		viewer.getTable().setLayoutData( new GridData( GridData.FILL_BOTH ));
 		viewer.setContentProvider( new ArrayContentProvider ());
 		viewer.setLabelProvider( new LabelProvider () {
 			@Override

@@ -122,6 +122,7 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		// Create the composite container and define its layout.
@@ -134,10 +135,10 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 
 
 		// Business Libraries
-		new Label( container, SWT.NONE ) .setText( Messages.ejbLibsText );
+		new Label( container, SWT.NONE ).setText( Messages.ejbLibsText );
 		this.ejbFilesViewer = SwtFactory.createFileListViewer( container, "Jar", this.ejbFiles );
-
 		this.ejbFilesViewer.addModificationListener( new Listener() {
+			@Override
 			public void handleEvent( Event event ) {
 				getWizard().setEJBFiles( EJBCustomSpecificationPage12.this.ejbFiles );
 				validate();
@@ -146,10 +147,15 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 
 		// Server Libraries
 		final Set<File> jeeFiles = new HashSet<File> ();
-		new Label( container, SWT.NONE ) .setText( Messages.serverLibsText );
-		this.jeeFilesViewer = SwtFactory.createFileListViewer( container, "Jar", jeeFiles );
+		Label l = new Label( container, SWT.NONE );
+		l.setText( Messages.serverLibsText );
+		GridData layoutData = new GridData();
+		layoutData.verticalIndent = 9;
+		l.setLayoutData( layoutData );
 
+		this.jeeFilesViewer = SwtFactory.createFileListViewer( container, "Jar", jeeFiles );
 		this.jeeFilesViewer.addModificationListener( new Listener() {
+			@Override
 			public void handleEvent( Event event ) {
 				getWizard().setJEEFiles( jeeFiles );
 				validate();
@@ -158,17 +164,17 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 
 
 		// Class browser
-		Composite subC = new Composite( container, SWT.NONE );
-		subC.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		layout = new GridLayout( 3, false );
-		layout.marginHeight = layout.marginWidth = 0;
-		layout.marginTop = 10;
-		subC.setLayout( layout );
+		Composite subC = SwtFactory.createComposite( container );
+		SwtFactory.applyNewGridLayout( subC, 2, false, 9, 0, 0, 0 );
+		subC.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
 		new Label( subC, SWT.NONE ).setText( "EJB's Remote Interface:" );
 		final TextWithButtonComposite classBrowser = new TextWithButtonComposite( subC );
-		classBrowser.getText().setText( "Browse..." );
-		classBrowser.getText().addSelectionListener( new SelectionAdapter() {
+		classBrowser.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		classBrowser.getText().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		classBrowser.getButton().setText( "Browse..." );
+		classBrowser.getButton().addSelectionListener( new SelectionAdapter() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				String cName = openClassSelectionDialog();
@@ -183,18 +189,18 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 		// The WSDL name
 		new Label( subC, SWT.NONE ).setText( "WSDL File Name:" );
 		final Text wsdlText = new Text( subC, SWT.SINGLE | SWT.BORDER );
-		GridData layoutData = new GridData( GridData.FILL_HORIZONTAL );
-		layoutData.horizontalSpan = 2;
-		wsdlText.setLayoutData( layoutData );
+		wsdlText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		wsdlText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				EJBCustomSpecificationPage12.this.wsdlName = wsdlText.getText().trim();
-				getWizard().setWsdlName(wsdlText.getText().trim());
+				getWizard().setWsdlName( wsdlText.getText().trim());
 				validate();
 			}
 		});
 
 		classBrowser.getText().addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				EJBCustomSpecificationPage12.this.className = classBrowser.getText().getText().trim();
 				String newWsdlName = getSimpleClassName( EJBCustomSpecificationPage12.this.className ) + ".wsdl";

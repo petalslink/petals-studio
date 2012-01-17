@@ -81,16 +81,18 @@ public class ChoicePage extends WizardSelectionPage {
 	private FixedShellTooltip helpTooltip;
 	private final PetalsMode petalsMode;
 
-	private FinishServiceCreationStrategy strategy;
+	private final FinishServiceCreationStrategy strategy;
 
 	/**
 	 * Constructor.
-	 * @param strategy 
+	 * @param strategy
 	 */
 	public ChoicePage( PetalsMode petalsMode, FinishServiceCreationStrategy strategy ) {
 		super( PAGE_NAME );
 		this.petalsMode = petalsMode;
 		this.strategy = strategy;
+
+		setTitle( petalsMode == PetalsMode.provides ? "Petals Service Provider" : "Petals Service Consumer" );
 		setDescription( "Select the Petals component to configure and its version." );
 
 		this.descImg = PetalsServicesPlugin.loadImage( "icons/others/descriptor_3.png" );
@@ -290,7 +292,7 @@ public class ChoicePage extends WizardSelectionPage {
 
 		final Map<String,Collection<AbstractServiceUnitWizard>> componentNameToHandler = new TreeMap<String,Collection<AbstractServiceUnitWizard>> ();
 		final Map<PetalsKeyWords,Set<String>> keywordToComponentName = new HashMap<PetalsKeyWords,Set<String>> ();
-		for( AbstractServiceUnitWizard handler : ExtensionManager.INSTANCE.findComponentWizards(petalsMode)) {
+		for( AbstractServiceUnitWizard handler : ExtensionManager.INSTANCE.findComponentWizards(this.petalsMode)) {
 			for( PetalsKeyWords keyword : handler.getComponentVersionDescription().getKeyWords()) {
 				Set<String> list = keywordToComponentName.get( keyword );
 				if( list == null )
@@ -382,7 +384,7 @@ public class ChoicePage extends WizardSelectionPage {
 				// Get the selection
 				AbstractServiceUnitWizard selectedWizard = (AbstractServiceUnitWizard) ((IStructuredSelection) event.getSelection()).getFirstElement();
 				setSelectedNode(getWizardNode(selectedWizard));
-				
+
 
 				// Update the right image
 				Image newImg;
@@ -416,7 +418,7 @@ public class ChoicePage extends WizardSelectionPage {
 
 
 	protected IWizardNode getWizardNode(AbstractServiceUnitWizard wizard) {
-		wizard.setStrategy(strategy);
+		wizard.setStrategy(this.strategy);
 		return new ComponentWizardDescriptionWizardNode(wizard);
 	}
 

@@ -24,7 +24,9 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -96,6 +98,20 @@ public class QNameText extends Composite {
 					listener.modifyText( e );
 			}
 		});
+
+
+		// Focus listener
+		Listener listener = new Listener() {
+			@Override
+			public void handleEvent( Event event ) {
+				((Text) event.widget).selectAll();
+			}
+		};
+
+		this.localPartPhantomText.addListener( SWT.MouseDown, listener );
+		this.localPartPhantomText.addListener( SWT.FocusIn, listener );
+		this.namespacePhantomText.getTextWidget().addListener( SWT.MouseDown, listener );
+		this.namespacePhantomText.getTextWidget().addListener( SWT.FocusIn, listener );
 
 		// Display default values
 		setValue( null );
