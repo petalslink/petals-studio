@@ -1,15 +1,15 @@
-/******************************************************************************
- * Copyright (c) 2011-2012, EBM WebSourcing
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     EBM WebSourcing - initial API and implementation
- *******************************************************************************/
-
-package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
+/****************************************************************************
+ * 
+ * Copyright (c) 2008-2011, EBM WebSourcing
+ * 
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ * 
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * 
+ *****************************************************************************/
+package com.ebmwebsourcing.petals.services.jms.editor;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -20,23 +20,23 @@ import org.eclipse.ui.forms.widgets.Section;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
-import com.ebmwebsourcing.petals.services.filetransfer.Messages;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.jms.jms.JmsPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickael Istria - EBM WebSourcing
+ * @author Mickael Istria (EBM Websourcing)
+ *
  */
-public class FileTransferConsumesJbiEditorContribution implements JbiEditorDetailsContribution {
+public class JMSConsumesEditorExtension implements JbiEditorDetailsContribution {
 
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
 		mainTab.setLayout(new GridLayout(1, false));
 		mainTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Section identificationSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-		identificationSection.setText(Messages.identification);
+		identificationSection.setText("Identification");
 		identificationSection.setLayoutData(new GridData(GridData.FILL_BOTH));
 		Composite identificationComposite = toolkit.createComposite(identificationSection);
 		identificationComposite.setLayout(new GridLayout(2, false));
@@ -49,13 +49,13 @@ public class FileTransferConsumesJbiEditorContribution implements JbiEditorDetai
 		advancedTab.setLayout(new GridLayout(1, false));
 		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		Section ftSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-		ftSection.setText(Messages.fileTransfer);
-		ftSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite ftComposite = toolkit.createComposite(ftSection);
-		ftComposite.setLayout(new GridLayout(2, false));
-		ftSection.setClient(ftComposite);
-		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ftComposite, ise, FileTransferPackage.Literals.FILE_TRANSFER_CONSUMES);
+		Section componentSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
+		componentSection.setText("JMS");
+		componentSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Composite componentComposite = toolkit.createComposite(componentSection);
+		componentComposite.setLayout(new GridLayout(2, false));
+		componentSection.setClient(componentComposite);
+		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, componentComposite, ise, JmsPackage.Literals.JMS_CONSUMES);
 		
 		Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
 		cdkSection.setText("CDK");
@@ -65,5 +65,5 @@ public class FileTransferConsumesJbiEditorContribution implements JbiEditorDetai
 		cdkSection.setClient(cdkComposite);
 		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_CONSUMES);
 	}
-
+	
 }

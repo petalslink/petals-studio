@@ -1,15 +1,15 @@
-/******************************************************************************
- * Copyright (c) 2011-2012, EBM WebSourcing
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     EBM WebSourcing - initial API and implementation
- *******************************************************************************/
-
-package com.ebmwebsourcing.petals.services.ftp.editor;
+/****************************************************************************
+ * 
+ * Copyright (c) 2008-2011, EBM WebSourcing
+ * 
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ * 
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * 
+ *****************************************************************************/
+package com.ebmwebsourcing.petals.services.jms.editor;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -20,15 +20,16 @@ import org.eclipse.ui.forms.widgets.Section;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
-import com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package;
+import com.ebmwebsourcing.petals.services.jms.jms.JmsPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickael Istria - EBM WebSourcing
+ * @author Mickael Istria (EBM Websourcing)
+ *
  */
-public class FtpProvidesEditorContribution implements JbiEditorDetailsContribution {
+public class JMSProvidesEditorExtension implements JbiEditorDetailsContribution {
 
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
 		mainTab.setLayout(new GridLayout(1, false));
@@ -58,7 +59,7 @@ public class FtpProvidesEditorContribution implements JbiEditorDetailsContributi
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
 			
-			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ejbComposite, ise, Ftp3Package.Literals.FTP_PROVIDES);
+			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ejbComposite, ise, JmsPackage.Literals.JMS_PROVIDES);
 		}
 		{
 			Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
@@ -71,5 +72,6 @@ public class FtpProvidesEditorContribution implements JbiEditorDetailsContributi
 			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_PROVIDES);
 		}
 	}
+
 
 }
