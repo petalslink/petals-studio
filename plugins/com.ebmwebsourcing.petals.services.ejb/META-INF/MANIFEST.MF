@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  com.ebmwebsourcing.jbi.core.metamodel,
  org.eclipse.core.databinding,
  org.eclipse.emf.databinding,
- org.eclipse.emf.databinding.edit
+ org.eclipse.emf.databinding.edit,
+ com.ebmwebsourcing.petals.services.cdk;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: com.ebmwebsourcing.petals.services.ejb.PetalsEjbPlugin
 Bundle-ActivationPolicy: lazy
