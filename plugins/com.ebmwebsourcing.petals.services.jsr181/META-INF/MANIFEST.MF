@@ -22,7 +22,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt,
  org.eclipse.wst.wsdl.ui,
  org.eclipse.wst.xml.ui,
- org.eclipse.wst.sse.ui
+ org.eclipse.wst.sse.ui,
+ org.eclipse.ui.forms;bundle-version="3.5.100",
+ com.ebmwebsourcing.petals.services.cdk;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin

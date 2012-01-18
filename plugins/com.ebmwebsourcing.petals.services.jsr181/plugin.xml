@@ -27,10 +27,12 @@
          point="com.ebmwebsourcing.petals.services.componentExtension">
       <ComponentSupport
             id="jsr181">
-         <ComponentVersionSupport id="Jsr181 1.1"
-         		namespace="http://petals.ow2.org/components/jsr181/version-1"
-				componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11"
-				providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181ProvidesWizard">
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11"
+               editorExtension="com.ebmwebsourcing.petals.services.jsr181.editor.JaxWsEditorContribution"
+               id="Jsr181 1.1"
+               namespace="http://petals.ow2.org/components/jsr181/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181ProvidesWizard">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
