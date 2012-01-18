@@ -62,11 +62,6 @@ public class PreferencesInitializer extends AbstractPreferenceInitializer {
 					PreferencesManager.PREFS_LOG_JAXWS,
 					false );
 
-		// Do not format automatically the jbi.xml files
-		PreferencesManager.getPreferenceStore().setDefault(
-					PreferencesManager.PREFS_FORMAT_JBI,
-					false );
-
 		// Store the SERVICES plug-in preferences
 		PreferencesManager.getPreferenceStore().setDefault(
 					PreferencesManager.PREFS_ACTIVATE_CACHE,

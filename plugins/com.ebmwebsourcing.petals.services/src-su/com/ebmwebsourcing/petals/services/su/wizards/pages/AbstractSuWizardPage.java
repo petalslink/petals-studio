@@ -16,7 +16,7 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -86,13 +86,13 @@ public abstract class AbstractSuWizardPage extends WizardPage {
 	 * @return the first provides or consumes block (not null)
 	 */
 	protected AbstractEndpoint getNewlyCreatedEndpoint() {
-		return ((ComponentCreationWizard) getWizard()).getNewlyCreatedEndpoint();
+		return ((AbstractServiceUnitWizard) getWizard()).getNewlyCreatedEndpoint();
 	}
 
 	
 	@Override
-	public ComponentCreationWizard getWizard() {
-		return (ComponentCreationWizard) super.getWizard();
+	public AbstractServiceUnitWizard getWizard() {
+		return (AbstractServiceUnitWizard) super.getWizard();
 	}
 
 }

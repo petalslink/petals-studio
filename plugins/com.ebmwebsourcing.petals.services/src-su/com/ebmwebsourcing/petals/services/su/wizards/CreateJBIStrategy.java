@@ -1,3 +1,15 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2011, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.services.su.wizards;
 
 import java.io.IOException;
@@ -27,65 +39,81 @@ import com.sun.java.xml.ns.jbi.JbiFactory;
 import com.sun.java.xml.ns.jbi.Provides;
 import com.sun.java.xml.ns.jbi.util.JbiResourceFactoryImpl;
 
+/**
+ * @author Mickaël Istria - EBM WebSourcing
+ */
 public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 
 	private IProject project;
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.FinishServiceCreationStrategy
+	 * #finishWizard(com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
-	public void finishWizard(ComponentCreationWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception {
+	public void finishWizard(AbstractServiceUnitWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception {
+
 		Jbi jbiInstance;
 		jbiInstance = JbiFactory.eINSTANCE.createJbi();
 		jbiInstance.setVersion(new BigDecimal("1.0"));
 		jbiInstance.setServices(JbiFactory.eINSTANCE.createServices());
 		jbiInstance.getServices().setBindingComponent(wizard.getComponentVersionDescription().isBc());
-		if (endpoint instanceof Provides) {
+		if (endpoint instanceof Provides)
 			jbiInstance.getServices().getProvides().add((Provides)endpoint);
-		} else {
+		else
 			jbiInstance.getServices().getConsumes().add((Consumes)endpoint);
-		}
-		
+
 		createProject(wizard, monitor);
 
-		IFile jbiFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
-		
+		IFile jbiFile = this.project.getFile( PetalsConstants.LOC_JBI_FILE );
 		monitor.subTask( "Creating the jbi.xml..." );
 		org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(jbiFile.getFullPath().toString(), true);
 		Resource resource = new JbiResourceFactoryImpl().createResource( emfUri );
 		resource.getContents().add(jbiInstance);
 		resource.save( Collections.EMPTY_MAP );
 		monitor.worked( 1 );
-	
-		
-		// addutuinak
-		
-			// Open the jbi.xml?
-			// Do not open it in the WorkspaceModifyOperation
-			// The project viewer must be updated before selecting anything in it
-			final IFile jbiXmlFile = getSUProject(wizard, new NullProgressMonitor()).getFile( PetalsConstants.LOC_JBI_FILE );
-			if( wizard.getSettings().openJbiEditor) {
-				wizard.getShell().getDisplay().syncExec(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-							IDE.openEditor( page, jbiXmlFile );
-						} catch( PartInitException e ) {
-							PetalsServicesPlugin.log( e, IStatus.ERROR );
-						}
-					}
-				});
-			}
-		}
 
-	public void createProject(ComponentCreationWizard wizard, IProgressMonitor monitor) throws CoreException, IOException {
-		if (project != null) {
-			return;
+
+		// addutuinak
+
+		// Open the jbi.xml?
+		// Do not open it in the WorkspaceModifyOperation
+		// The project viewer must be updated before selecting anything in it
+		final IFile jbiXmlFile = getSUProject(wizard, new NullProgressMonitor()).getFile( PetalsConstants.LOC_JBI_FILE );
+		if( wizard.getSettings().openJbiEditor) {
+			wizard.getShell().getDisplay().syncExec(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+						IDE.openEditor( page, jbiXmlFile );
+					} catch( PartInitException e ) {
+						PetalsServicesPlugin.log( e, IStatus.ERROR );
+					}
+				}
+			});
 		}
+	}
+
+
+	/**
+	 *
+	 * @param wizard
+	 * @param monitor
+	 * @throws CoreException
+	 * @throws IOException
+	 */
+	public void createProject( AbstractServiceUnitWizard wizard, IProgressMonitor monitor ) throws CoreException, IOException {
+		if (this.project != null)
+			return;
+
 		monitor.beginTask( "", IProgressMonitor.UNKNOWN );
 		monitor.subTask( "Creating the project structure..." );
 
 		URI locationURI = wizard.projectPage.isAtDefaultlocation() ? null : wizard.projectPage.computeProjectLocation().toURI();
-		project = PetalsServicesProjectUtils.createSuProject(
+		this.project = PetalsServicesProjectUtils.createSuProject(
 				wizard.projectPage.getProjectName(),
 				locationURI,
 				wizard.getComponentVersionDescription().getComponentName(),
@@ -95,16 +123,23 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 				monitor );
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.FinishServiceCreationStrategy
+	 * #getSUProject(com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
-	public IProject getSUProject(ComponentCreationWizard wizard, IProgressMonitor monitor) {
-		if (project == null) {
+	public IProject getSUProject( AbstractServiceUnitWizard wizard, IProgressMonitor monitor ) {
+
+		if (this.project == null) {
 			try {
 				createProject(wizard, monitor);
 			} catch (Exception ex) {
 				PetalsServicesPlugin.log(ex, IStatus.ERROR);
 			}
 		}
-		return project;
-	}
 
+		return this.project;
+	}
 }

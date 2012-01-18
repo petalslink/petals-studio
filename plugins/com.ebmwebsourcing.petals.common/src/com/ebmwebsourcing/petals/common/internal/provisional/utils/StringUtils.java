@@ -106,6 +106,7 @@ public class StringUtils {
 		return fileName.substring( 0, index ) + suffix + fileName.substring( index );
 	}
 
+
 	/**
 	 * Turns a CamelCase String to a more human friendly string
 	 * See TestStringUtils for specification.
@@ -167,6 +168,35 @@ public class StringUtils {
 				builder.append(currentChar);
 			}
 		}
+
 		return builder.toString();
+	}
+
+
+	/**
+	 * Capitalizes all the words of a string.
+	 * @param s a string (can be null)
+	 * @return the capitalized string, or null if the original string was null
+	 */
+	public static String capitalize( String s ) {
+
+		if( s == null )
+			return null;
+
+		StringBuilder sb = new StringBuilder();
+		for( String part : s.split( "\\s" )) {
+			part = part.trim();
+			if( part.length() == 0 )
+				continue;
+
+			if( part.length() == 1 )
+				part = part.toUpperCase();
+			else
+				part = part.substring( 0, 1 ).toUpperCase() + part.substring( 1 ).toLowerCase();
+
+			sb.append( part + " " );
+		}
+
+		return sb.toString().trim();
 	}
 }

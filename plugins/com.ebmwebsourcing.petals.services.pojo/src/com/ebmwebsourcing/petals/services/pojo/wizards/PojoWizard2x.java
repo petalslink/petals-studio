@@ -28,7 +28,7 @@ import com.ebmwebsourcing.petals.services.pojo.PetalsPojoPlugin;
 import com.ebmwebsourcing.petals.services.pojo.PojoDescription22;
 import com.ebmwebsourcing.petals.services.pojo.pojo.PojoPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Provides;
@@ -36,7 +36,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PojoWizard2x extends ComponentCreationWizard {
+public class PojoWizard2x extends AbstractServiceUnitWizard {
 
 	private boolean useExistingImplementation = false;
 	private PojoProvideSpecificPage2x pojoProvideSpecificPage2x;

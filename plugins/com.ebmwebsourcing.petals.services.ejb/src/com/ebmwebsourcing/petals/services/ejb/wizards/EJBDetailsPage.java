@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.ejb.wizards;
 
@@ -48,14 +48,13 @@ public class EJBDetailsPage extends AbstractSuWizardPage {
 	 */
 	private DataBindingContext dbc;
 
-	@Override
 	public void createControl(Composite parent) {
-		dbc = new DataBindingContext();
-		
+		this.dbc = new DataBindingContext();
+
 		Composite res = new Composite(parent, SWT.NONE);
 		res.setLayout(new GridLayout(2, false));
 		FormToolkit toolkit = new FormToolkit(getShell().getDisplay());
-		List<EntryDescription> entries = EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), toolkit, res, null, dbc, 
+		List<EntryDescription> entries = EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), toolkit, res, null, this.dbc,
 			EjbPackage.Literals.EJB_PROVIDES__EJB_JNDI_NAME,
 			EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL,
 			EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_URL_PKGS,
@@ -65,12 +64,11 @@ public class EJBDetailsPage extends AbstractSuWizardPage {
 			EjbPackage.Literals.EJB_PROVIDES__SECURITY_NAME,
 			EjbPackage.Literals.EJB_PROVIDES__SECURITY_PRINCIPAL,
 			EjbPackage.Literals.EJB_PROVIDES__SECURITY_CREDENCIALS);
-		
-		
+
+
 		final ISelectionProvider ejbCombo = (ISelectionProvider)entries.get(4).widget;
 		final Text ejbHome = (Text)entries.get(5).widget;
 		ejbCombo.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection sel = (IStructuredSelection)event.getSelection();
 				Object element = sel.getFirstElement();
@@ -78,7 +76,7 @@ public class EJBDetailsPage extends AbstractSuWizardPage {
 			}
 		});
 		ejbCombo.setSelection(new StructuredSelection(EjbVersion.V30));
-		
+
 		//http://netbeans.org/competition/win-with-netbeans/debug-ejb.html
 		Button testButton = new Button(res, SWT.PUSH);
 		testButton.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, true, 2, 1));
@@ -89,7 +87,7 @@ public class EJBDetailsPage extends AbstractSuWizardPage {
 				EJBConnectionTest.testConnection(getNewlyCreatedEndpoint(), getShell());
 			}
 		});
-		
+
 		setControl(res);
 	}
 
@@ -105,6 +103,6 @@ public class EJBDetailsPage extends AbstractSuWizardPage {
 	@Override
 	public void dispose() {
 		super.dispose();
-		dbc.dispose();
+		this.dbc.dispose();
 	}
 }

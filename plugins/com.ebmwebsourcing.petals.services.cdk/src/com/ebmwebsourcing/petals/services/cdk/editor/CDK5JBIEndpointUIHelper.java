@@ -31,27 +31,27 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.common.internal.provisional.databinding.QNameToStringConverter;
+import com.ebmwebsourcing.petals.common.internal.provisional.databinding.StringIsQNameValidator;
+import com.ebmwebsourcing.petals.common.internal.provisional.databinding.StringToQNameConverter;
+import com.ebmwebsourcing.petals.common.internal.provisional.databinding.ToStringConverter;
+import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.cdk.Messages;
 import com.ebmwebsourcing.petals.services.cdk.editor.databinding.StringToMepConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.QNameToStringConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringIsQNameValidator;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.StringToQNameConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.common.databinding.ToStringConverter;
-import com.ebmwebsourcing.petals.services.jbi.editor.su.JBIEndpointUIHelpers;
+import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
-import com.ebmwebsourcing.petals.services.su.ui.PetalsHyperlinkListener;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
 
 public class CDK5JBIEndpointUIHelper {
-	
-	public static void createConsumesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, editor);
-		
+
+	public static void createConsumesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final ISharedEdition ise) {
+		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, ise);
+
 		// The edition fields
 		Label label = toolkit.createLabel( generalDetails, "Operation name:" );
 		label.setToolTipText( "The QName of the operation (should match an operation declared in a WSDL)" );
@@ -97,7 +97,7 @@ public class CDK5JBIEndpointUIHelper {
 				final EnhancedConsumeDialog dlg = new EnhancedConsumeDialog( generalDetails.getShell(), toolkit );
 				if( dlg.open() == Window.OK ) {
 					CompoundCommand compositeCommand = new CompoundCommand();
-					EditingDomain editDomain = editor.getEditingDomain();
+					EditingDomain editDomain = ise.getEditingDomain();
 
 					QName q = dlg.getItfToInvoke();
 					Command command = new SetCommand(editDomain, endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, q);
@@ -110,35 +110,35 @@ public class CDK5JBIEndpointUIHelper {
 					String edpt = dlg.getEdptToInvoke();
 					command = new SetCommand(editDomain, endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, edpt);
 					compositeCommand.append(command);
-					
+
 					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
 					compositeCommand.append(command);
-					
+
 					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, dlg.getInvocationMep().toString());
 					compositeCommand.append(command);
-					
+
 					editDomain.getCommandStack().execute(compositeCommand);
 				}
 			}
 		});
-				
+
 		// Operation
-		editor.getDataBindingContext().bindValue(
+		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(300, SWTObservables.observeText(operationNameText, SWT.Modify)),
-				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION),
+				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION),
 				new UpdateValueStrategy().setConverter(new StringToQNameConverter()).setBeforeSetValidator(new StringIsQNameValidator()),
 				new UpdateValueStrategy().setConverter(new QNameToStringConverter()));
 
 		// MEP
-		editor.getDataBindingContext().bindValue(
+		ise.getDataBindingContext().bindValue(
 				ViewersObservables.observeSingleSelection(mepViewer),
-				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP),
+				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP),
 				new UpdateValueStrategy().setConverter(new StringToMepConverter()),
 				new UpdateValueStrategy().setConverter(new ToStringConverter()));
 	}
-	
-	
-	public static void createProvidesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final JbiFormEditor editor) {
+
+
+	public static void createProvidesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, ISharedEdition ise) {
 		toolkit.createLabel(generalDetails, Messages.wsdlLocation);
 		Composite composite = toolkit.createComposite(generalDetails);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -149,14 +149,14 @@ public class CDK5JBIEndpointUIHelper {
 		browse.setImage(PetalsImages.getSearchWSDL());
 		Link link = new Link(composite, SWT.NONE);
 		link.setText("<A>" + Messages.wsdlTools + "</A>");
-		ToolTip tooltip = new WSDLHelperTooltip(link, toolkit, (Provides)endpoint, editor, link.getShell());
+		ToolTip tooltip = new WSDLHelperTooltip(link, toolkit, (Provides)endpoint, ise, link.getShell());
 		tooltip.setHideDelay(0);
 		tooltip.setHideOnMouseDown(false);
-		
-		editor.getDataBindingContext().bindValue(
+
+		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(wsdlLocationText, SWT.Modify)),
-				EMFEditObservables.observeValue(editor.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL));
-		
+				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL));
+
 	}
 
 }

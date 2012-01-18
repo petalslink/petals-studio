@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.xslt.PetalsXsltPlugin;
 import com.ebmwebsourcing.petals.services.xslt.XsltDescription23_24;
@@ -40,7 +40,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class XsltWizard24 extends ComponentCreationWizard {
+public class XsltWizard24 extends AbstractServiceUnitWizard {
 
 	private boolean createXsl = true;
 	private boolean createWSDL;

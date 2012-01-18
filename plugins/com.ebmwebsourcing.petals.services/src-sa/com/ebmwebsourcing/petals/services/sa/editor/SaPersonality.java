@@ -1,26 +1,27 @@
 /****************************************************************************
- * 
- * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
+ * Copyright (c) 2009-2011, EBM WebSourcing
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.sa.editor;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 
-import com.ebmwebsourcing.petals.services.editor.AbstractServicesFormPage;
-import com.ebmwebsourcing.petals.services.editor.IJbiEditorPersonality;
-import com.ebmwebsourcing.petals.services.editor.JbiFormEditor;
+import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality;
+import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.editor.ServicesLabelProvider;
-import com.ebmwebsourcing.petals.services.utils.ServiceProjectRelationUtils;
+import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * The SA personality for the JBI editor.
@@ -35,8 +36,8 @@ public class SaPersonality implements IJbiEditorPersonality {
 	 * @see com.ebmwebsourcing.petals.services.editor.IServicesFormEditorPersonality
 	 * #getStatusLineLabelProvider()
 	 */
+	@Override
 	public ILabelProvider getStatusLineLabelProvider() {
-
 		if( this.statusLineLabelProvider == null )
 			this.statusLineLabelProvider = new ServicesLabelProvider();
 
@@ -49,24 +50,10 @@ public class SaPersonality implements IJbiEditorPersonality {
 	 * @see com.ebmwebsourcing.petals.services.editor.IServicesFormEditorPersonality
 	 * #dispose()
 	 */
+	@Override
 	public void dispose() {
-
-		if( this.statusLineLabelProvider != null ) {
+		if( this.statusLineLabelProvider != null )
 			this.statusLineLabelProvider.dispose();
-			this.statusLineLabelProvider = null;
-		}
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.editor.IJbiEditorPersonality
-	 * #getGeneralMasterPage(com.ebmwebsourcing.petals.services.editor.AbstractServicesFormEditor)
-	 */
-	public AbstractServicesFormPage getGeneralMasterPage( JbiFormEditor editor ) {
-
-		SaPage saPage = new SaPage( editor, "petals-sa-general-page", "General" );
-		return saPage;
 	}
 
 
@@ -75,8 +62,41 @@ public class SaPersonality implements IJbiEditorPersonality {
 	 * @see com.ebmwebsourcing.petals.services.editor.IServicesFormEditorPersonality
 	 * #matchesPersonality(org.eclipse.core.resources.IFile)
 	 */
-	public boolean matchesPersonality( IFile jbiXmlFile ) {
-		IProject p = jbiXmlFile.getProject();
-		return p.isOpen() && ServiceProjectRelationUtils.isSaProject( p );
+	@Override
+	public boolean matchesPersonality( Jbi jbi, IFile jbiXmlFile ) {
+		return jbi.getServiceAssembly() != null;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.IJbiEditorPersonality
+	 * #getTitle()
+	 */
+	@Override
+	public String getTitle() {
+		return "Service Assembly";
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.IJbiEditorPersonality
+	 * #getTitleImage()
+	 */
+	@Override
+	public Image getTitleImage() {
+		return PetalsServicesPlugin.loadImage( "icons/obj16/service_assembly.png" );
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.IJbiEditorPersonality
+	 * #createControl(org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.services.su.editor.ISharedEdition)
+	 */
+	@Override
+	public void createControl( Composite parent, ISharedEdition ise ) {
+		new SaEditionComposite( parent, ise );
 	}
 }

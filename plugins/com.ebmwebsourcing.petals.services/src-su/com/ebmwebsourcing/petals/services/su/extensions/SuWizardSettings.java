@@ -12,12 +12,12 @@
 
 package com.ebmwebsourcing.petals.services.su.extensions;
 
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 
 
 /**
  * Settings for the SU Creation Wizards.
- * This could be merged into the actual {@link ComponentCreationWizard}
+ * This could be merged into the actual {@link AbstractServiceUnitWizard}
  * 
  * @author Vincent Zurczak - EBM WebSourcing
  * @author Mickael Istria - EBM WebSourcing. Replaced properties by typed values

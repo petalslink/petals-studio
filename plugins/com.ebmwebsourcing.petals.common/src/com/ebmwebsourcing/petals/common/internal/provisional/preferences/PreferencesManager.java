@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.common.internal.provisional.preferences;
 
@@ -47,11 +47,6 @@ public class PreferencesManager {
 	 * True to log all the JAX-WS traces, false otherwise.
 	 */
 	public static final String PREFS_LOG_JAXWS = "PetalsLogJaxWsTraces";
-
-	/**
-	 * True to format automatically jbi.xml at edition-time, false otherwise.
-	 */
-	public static final String PREFS_FORMAT_JBI = "PetalsFormatJbiXml";
 
 	/**
 	 * True to use customized POM, false otherwise.
@@ -132,14 +127,6 @@ public class PreferencesManager {
 	 */
 	public static boolean logAllJaxWsTraces() {
 		return PetalsCommonPlugin.getDefault().getPreferenceStore().getBoolean( PREFS_LOG_JAXWS );
-	}
-
-
-	/**
-	 * @return true if all the JAX-WS traces should be logged, false otherwise
-	 */
-	public static boolean formatJbiXmlAutomatically() {
-		return PetalsCommonPlugin.getDefault().getPreferenceStore().getBoolean( PREFS_FORMAT_JBI );
 	}
 
 

@@ -14,11 +14,16 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -29,6 +34,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -41,6 +47,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.LinkWithImageComposite;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.ListWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.QNameText;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 
@@ -310,6 +317,162 @@ public class SwtFactory {
 		});
 
 		return browser;
+	}
+
+
+	/**
+	 * Creates a directory browser, with a text and a button to open a directory dialog.
+	 * @param parent the parent
+	 * @return the created composite, with a text containing the file selection
+	 */
+	public static TextWithButtonComposite createDirectoryBrowser( final Composite parent ) {
+
+		final TextWithButtonComposite browser = new TextWithButtonComposite( parent );
+		browser.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		browser.getText().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		browser.getButton().setText( "Browse..." );
+		browser.getButton().addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				DirectoryDialog dlg = new DirectoryDialog( parent.getShell(), SWT.NONE );
+				dlg.setText( "Select a Directory" );
+
+				String path = PreferencesManager.getSavedLocation();
+				if( ! StringUtils.isEmpty( path ))
+					dlg.setFilterPath( path );
+
+				String fn = dlg.open();
+				if( fn != null ) {
+					browser.getText().setText( fn );
+					browser.getText().setSelection( browser.getText().getText().length());
+				}
+			}
+		});
+
+		return browser;
+	}
+
+
+	/**
+	 * Creates a file list with a browser to open a file dialog.
+	 * <p>
+	 * This is a convenience method to create a file list browser from a file type.<br />
+	 * <code>
+	 * createFileListViewer( parent, "WSDL" );
+	 * </code>
+	 * is equivalent to
+	 * <code>
+	 * createFileListViewer( parent, new String[]{ WSDL Files (*.wsdl)}, new String[] { "*.wsdl" });
+	 * </code>
+	 * </p>
+	 *
+	 * @param parent the parent
+	 * @param fileType the file type (file extension = file type in lower case)
+	 * @param files a non-null collection of files (can be empty)
+	 * @return the tree viewer that displays the selected files
+	 */
+	public static ListWithButtonComposite createFileListViewer(
+			final Composite parent,
+			String fileType,
+			final Collection<File> files  ) {
+
+		String ext = "*" + fileType.toLowerCase();
+		String[] filterNames = new String[] { fileType + " Files (" + ext + ")" };
+		return createFileListViewer( parent, filterNames, new String[]{ ext }, files );
+	}
+
+
+	/**
+	 * Creates a file list with a browser to open a file dialog.
+	 * <p>
+	 * When a file is added or removed, a selection listener is invoked.
+	 * </p>
+	 *
+	 * @param parent the parent
+	 * @param filterNames the filter names
+	 * @param fileExtensions the file extensions
+	 * @param files a non-null collection of files (can be empty)
+	 * @return the tree viewer that displays the selected files
+	 */
+	public static ListWithButtonComposite createFileListViewer(
+			final Composite parent,
+			final String[] filterNames,
+			final String[] fileExtensions,
+			final Collection<File> files ) {
+
+		final ListWithButtonComposite lbc = new ListWithButtonComposite( parent );
+		lbc.setLayoutData( new GridData( GridData.FILL_BOTH ));
+		final TableViewer viewer = lbc.getViewer();
+
+		viewer.getTable().setLayoutData( new GridData( GridData.FILL_BOTH ));
+		viewer.setContentProvider( new ArrayContentProvider ());
+		viewer.setLabelProvider( new LabelProvider () {
+			@Override
+			public String getText( Object element ) {
+				if( element instanceof File )
+					return ((File) element).getAbsolutePath();
+				return super.getText( element );
+			}
+		});
+
+
+		// ADD button
+		lbc.getAddButton().setText( "Add" );
+		lbc.getAddButton().addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected( SelectionEvent e ) {
+
+				FileDialog dlg = new FileDialog( parent.getShell(), SWT.MULTI );
+				dlg.setText( "Select one or several files" );
+				dlg.setFilterNames( filterNames );
+				dlg.setFilterExtensions( fileExtensions );
+
+				String path = PreferencesManager.getSavedLocation();
+				if( path.trim().length() > 0 )
+					dlg.setFilterPath( path );
+
+				String fn = dlg.open();
+				if( fn == null )
+					return;
+
+				// Process the files
+				path = dlg.getFilterPath();
+				PreferencesManager.setSavedLocation( path );
+
+				File parent = new File( path );
+				for( String filename : dlg.getFileNames()) {
+					File chosenFile = new File( parent, filename );
+					files.add( chosenFile );
+				}
+
+				viewer.setInput( files );
+				viewer.refresh();
+				lbc.notifyListeners();
+			}
+		});
+
+
+		// REMOVE button
+		lbc.getRemoveButton().setText( "Remove" );
+		lbc.getRemoveButton().addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				Iterator<?> it = ((IStructuredSelection) viewer.getSelection()).iterator();
+				while( it.hasNext()) {
+					File f = (File) it.next();
+					files.remove( f );
+				}
+
+				viewer.setInput( files );
+				viewer.refresh();
+				lbc.notifyListeners();
+			}
+		});
+
+		return lbc;
 	}
 
 

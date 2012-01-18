@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.editor;
@@ -17,16 +17,16 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.w3c.dom.Element;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.sse.StructuredModelHelper;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ImageRegistry;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.MarkerUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+import com.sun.java.xml.ns.jbi.ServiceAssembly;
+import com.sun.java.xml.ns.jbi.ServiceUnit;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -34,7 +34,7 @@ import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 public class ServicesLabelProvider extends LabelProvider {
 
 	private final ImageDescriptor saImgDesc, suImgDesc;
-	private Map<Element,List<IMarker>> elementToMarkers;
+	private Map<EObject,List<IMarker>> elementToMarkers;
 	private final ImageRegistry imageRegistry;
 
 
@@ -65,7 +65,7 @@ public class ServicesLabelProvider extends LabelProvider {
 	/**
 	 * @param elementToMarkers the elementToMarkers to set
 	 */
-	public void setElementToMarkers( Map<Element, List<IMarker>> elementToMarkers ) {
+	public void setElementToMarkers( Map<EObject,List<IMarker>> elementToMarkers ) {
 		this.elementToMarkers = elementToMarkers;
 	}
 
@@ -79,14 +79,10 @@ public class ServicesLabelProvider extends LabelProvider {
 	public String getText( Object element ) {
 
 		String result = "";
-		if( element instanceof Element ) {
-			Element child = DomUtils.getChildElement((Element) element, "identification" );
-			if( child != null ) {
-				child = DomUtils.getChildElement( child, "name" );
-				if( child != null )
-					result = StructuredModelHelper.getElementSimpleValue( child );
-			}
-		}
+		if( element instanceof ServiceUnit )
+			result = ((ServiceUnit) element).getIdentification().getName();
+		else if( element instanceof ServiceAssembly )
+			result = ((ServiceAssembly) element).getIdentification().getName();
 
 		return result;
 	}
@@ -101,13 +97,13 @@ public class ServicesLabelProvider extends LabelProvider {
 	public Image getImage( Object element ) {
 
 		Image result = null;
-		if( element instanceof Element ) {
-			String name = DomUtils.getNodeName((Element) element);
-			ImageDescriptor desc = null;
-			if( "service-assembly".equalsIgnoreCase( name ))
-				desc = this.saImgDesc;
-			else if( "service-unit".equalsIgnoreCase( name ))
-				desc = this.suImgDesc;
+		ImageDescriptor desc = null;
+		if( element instanceof ServiceUnit )
+			desc = this.suImgDesc;
+		else if( element instanceof ServiceAssembly )
+			desc = this.saImgDesc;
+
+		if( desc != null ) {
 
 			// Get markers attached to this element
 			int level = IStatus.OK;
@@ -117,14 +113,13 @@ public class ServicesLabelProvider extends LabelProvider {
 					level = MarkerUtils.getMaximumSeverity( markers );
 			}
 
-			if( desc != null ) {
-				if( level == IStatus.ERROR )
-					result = this.imageRegistry.getErrorImage( desc );
-				else if( level == IStatus.WARNING )
-					result = this.imageRegistry.getWarningImage( desc );
-				else
-					result = this.imageRegistry.getBaseImage( desc );
-			}
+			// Need to create a composite image?
+			if( level == IStatus.ERROR )
+				result = this.imageRegistry.getErrorImage( desc );
+			else if( level == IStatus.WARNING )
+				result = this.imageRegistry.getWarningImage( desc );
+			else
+				result = this.imageRegistry.getBaseImage( desc );
 		}
 
 		return result;

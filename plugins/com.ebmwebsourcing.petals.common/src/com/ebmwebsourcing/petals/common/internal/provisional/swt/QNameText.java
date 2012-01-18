@@ -24,7 +24,9 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -36,7 +38,8 @@ public class QNameText extends Composite {
 	private final static String DEFAULT_LOCAL_PART = "local part";
 	private final static String DEFAULT_NAMESPACE = "http://your.namespace.uri";
 
-	private final PhantomText localPartPhantomText, namespacePhantomText;
+	private final PhantomText namespacePhantomText;
+	private final Text localPartPhantomText;
 	private final Label separatorLabel;
 	private final ConcurrentLinkedQueue<ModifyListener> modifyListeners = new ConcurrentLinkedQueue<ModifyListener> ();
 
@@ -55,22 +58,20 @@ public class QNameText extends Composite {
 		setLayout( layout );
 
 		// The local part
-		this.localPartPhantomText = new PhantomText( this, SWT.SINGLE );
-		this.localPartPhantomText.setDefaultValue( DEFAULT_LOCAL_PART );
+		this.localPartPhantomText = new Text( this, SWT.SINGLE );
+		this.localPartPhantomText.setText( DEFAULT_LOCAL_PART );
 		this.localPartPhantomText.setLayoutData( new GridData());
 		this.localPartPhantomText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 
-				int valueLength = QNameText.this.localPartPhantomText.getTextValue().length();
-				int defaultValueLength = QNameText.this.localPartPhantomText.getDefaultValue().length();
-				int cpt = Math.max( valueLength, defaultValueLength ) + 1;
-
+				int cpt = ((Text) e.widget).getText().length() + 1;
 				GC gc = new GC( QNameText.this );
 				gc.setFont( getFont());
 				int width = Dialog.convertWidthInCharsToPixels( gc.getFontMetrics(), cpt );
 				gc.dispose();
 
-				((GridData) ((Text) e.widget).getParent().getLayoutData()).widthHint = width;
+				((GridData) ((Text) e.widget).getLayoutData()).widthHint = width;
 				layout();
 
 				for( ModifyListener listener : QNameText.this.modifyListeners )
@@ -91,11 +92,26 @@ public class QNameText extends Composite {
 		this.namespacePhantomText.setLayoutData( layoutData );
 
 		this.namespacePhantomText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				for( ModifyListener listener : QNameText.this.modifyListeners )
 					listener.modifyText( e );
 			}
 		});
+
+
+		// Focus listener
+		Listener listener = new Listener() {
+			@Override
+			public void handleEvent( Event event ) {
+				((Text) event.widget).selectAll();
+			}
+		};
+
+		this.localPartPhantomText.addListener( SWT.MouseDown, listener );
+		this.localPartPhantomText.addListener( SWT.FocusIn, listener );
+		this.namespacePhantomText.getTextWidget().addListener( SWT.MouseDown, listener );
+		this.namespacePhantomText.getTextWidget().addListener( SWT.FocusIn, listener );
 
 		// Display default values
 		setValue( null );
@@ -107,7 +123,7 @@ public class QNameText extends Composite {
 	 * @param localPart the local part (can be null)
 	 */
 	public void setLocalPart( String localPart ) {
-		this.localPartPhantomText.setTextValue( localPart );
+		this.localPartPhantomText.setText( localPart != null ? localPart : "" );
 	}
 
 
@@ -171,7 +187,7 @@ public class QNameText extends Composite {
 
 		QName result;
 		String ns = this.namespacePhantomText.getTextValue();
-		String name = this.localPartPhantomText.getTextValue();
+		String name = this.localPartPhantomText.getText();
 		if( ns == null || ns.length() == 0 )
 			result = new QName( name );
 		else
@@ -200,7 +216,7 @@ public class QNameText extends Composite {
 	 * @return the text widget for the local part
 	 */
 	public Text getLocalPartText() {
-		return this.localPartPhantomText.getTextWidget();
+		return this.localPartPhantomText;
 	}
 
 
@@ -232,7 +248,7 @@ public class QNameText extends Composite {
 	 * @param defaultLocalPart the defaultLocalPart to set
 	 */
 	public void setDefaultLocalPart( String defaultLocalPart ) {
-		this.localPartPhantomText.setDefaultValue( defaultLocalPart == null ? "" : defaultLocalPart );
+		this.localPartPhantomText.setText( defaultLocalPart == null ? "" : defaultLocalPart );
 	}
 
 

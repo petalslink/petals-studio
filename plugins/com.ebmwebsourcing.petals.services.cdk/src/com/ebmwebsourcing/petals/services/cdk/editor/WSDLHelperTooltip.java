@@ -36,6 +36,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.ide.IDE;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.StyledElementListSelectionDialog;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
@@ -44,11 +45,9 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.wizards.WsdlImportWizard;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.cdk.CdkPlugin;
 import com.ebmwebsourcing.petals.services.cdk.Messages;
-import com.ebmwebsourcing.petals.services.jbi.editor.JbiFormEditor;
-import com.ebmwebsourcing.petals.services.jbi.editor.su.EMFPCStyledLabelProvider;
+import com.ebmwebsourcing.petals.services.su.editor.su.EMFPCStyledLabelProvider;
 import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager;
 import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager.WsdlParsingListener;
 import com.sun.java.xml.ns.jbi.JbiPackage;
@@ -59,14 +58,13 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 	private final WsdlParsingJobManager wsdlParsingJob;
 	private final FormToolkit toolkit;
 	private final Provides service;
-	private final JbiFormEditor editor;
+	private ISharedEdition ise;
 	private final Shell shell;
 
-	public WSDLHelperTooltip(Control control, FormToolkit tk, Provides service, JbiFormEditor editor, Shell shell) {
+	public WSDLHelperTooltip(Control control, FormToolkit tk, Provides service, ISharedEdition ise, Shell shell) {
 		super(control, NO_RECREATE, false);
 		this.toolkit = tk;
 		this.service = service;
-		this.editor = editor;
 		this.wsdlParsingJob = new WsdlParsingJobManager();
 		this.shell = shell;
 	}
@@ -91,7 +89,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 				URI wsdlURI = wsdlFile.toURI();
 				if( wsdlURI != null ) {
 					WsdlImportWizard wiz = new WsdlImportWizard();
-					IFolder resFolder = WSDLHelperTooltip.this.editor.getEditedFile().getProject().getFolder(PetalsConstants.LOC_RES_FOLDER);
+					IFolder resFolder = WSDLHelperTooltip.this.ise.getEditedFile().getProject().getFolder(PetalsConstants.LOC_RES_FOLDER);
 
 					wiz.setInitialContainer( resFolder );
 					wiz.setInitialWsdlUri( wsdlURI.toString());
@@ -103,7 +101,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 					if( dlg.open() == Window.OK ) {
 						File importedFile = wiz.getWsdlFileAfterImport();
 						String value = IoUtils.getBasicRelativePath( resFolder.getLocation().toFile(), importedFile );
-						SetCommand command = new SetCommand(WSDLHelperTooltip.this.editor.getEditingDomain(), WSDLHelperTooltip.this.service, Cdk5Package.Literals.CDK5_PROVIDES__WSDL, value);
+						SetCommand command = new SetCommand( WSDLHelperTooltip.this.ise.getEditingDomain(), WSDLHelperTooltip.this.service, Cdk5Package.Literals.CDK5_PROVIDES__WSDL, value);
 					}
 				}
 			}
@@ -132,22 +130,22 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 
 					JbiBasicBean bean = (JbiBasicBean) dlg.getResult()[ 0 ];
 					cc.append( new SetCommand(
-							WSDLHelperTooltip.this.editor.getEditingDomain(), WSDLHelperTooltip.this.service,
+							WSDLHelperTooltip.this.ise.getEditingDomain(), WSDLHelperTooltip.this.service,
 							JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME,
 							bean.getServiceName()));
 
 					cc.append( new SetCommand(
-							WSDLHelperTooltip.this.editor.getEditingDomain(), WSDLHelperTooltip.this.service,
+							WSDLHelperTooltip.this.ise.getEditingDomain(), WSDLHelperTooltip.this.service,
 							JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME,
 							bean.getInterfaceName()));
 
 					String edptName = bean.getEndpointName() != null ? bean.getEndpointName() : "";
 					cc.append( new SetCommand(
-							WSDLHelperTooltip.this.editor.getEditingDomain(), WSDLHelperTooltip.this.service,
+							WSDLHelperTooltip.this.ise.getEditingDomain(), WSDLHelperTooltip.this.service,
 							JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME,
 							edptName));
 
-					WSDLHelperTooltip.this.editor.getEditingDomain().getCommandStack().execute(cc);
+					WSDLHelperTooltip.this.ise.getEditingDomain().getCommandStack().execute(cc);
 				}
 
 				lp.dispose();
@@ -193,9 +191,10 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 				} else {
 					// Force the validation of the file
 					try {
-						WSDLHelperTooltip.this.editor.getEditedFile().touch( null );
+						WSDLHelperTooltip.this.ise.getEditedFile().touch( null );
+
 					} catch( CoreException e1 ) {
-						PetalsServicesPlugin.log( e1, IStatus.WARNING );
+						CdkPlugin.log( e1, IStatus.WARNING );
 					}
 				}
 			}
@@ -268,7 +267,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 			// ... or report an error
 			else {
 				MessageDialog.openError(
-							this.editor.getSite().getShell(),
+							this.shell,
 							"WSDL Parsing Failure",
 				"The WSDL parsing failed: no service description was found in the referenced WSDL file." );
 			}
@@ -285,10 +284,10 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		if( wsdlBeans.size() > 0 ) {
 			JbiBasicBean firstBean = wsdlBeans.get( 0 );
 			CompoundCommand cc = new CompoundCommand();
-			cc.append(new SetCommand(this.editor.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, firstBean.getInterfaceName()));
-			cc.append(new SetCommand(this.editor.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, firstBean.getServiceName()));
-			cc.append(new SetCommand(this.editor.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, firstBean.getEndpointName()));
-			this.editor.getEditingDomain().getCommandStack().execute(cc);
+			cc.append(new SetCommand(this.ise.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, firstBean.getInterfaceName()));
+			cc.append(new SetCommand(this.ise.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, firstBean.getServiceName()));
+			cc.append(new SetCommand(this.ise.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, firstBean.getEndpointName()));
+			this.ise.getEditingDomain().getCommandStack().execute(cc);
 		}
 	}
 
@@ -299,7 +298,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 			wsdl = (String) this.service.eGet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL);
 			File wsdlFile = new File(wsdl); // TODO support cases of relative path
 			if (!wsdlFile.exists()) {
-				wsdlFile = this.editor.getEditedFile().getParent().getFile(new Path(wsdl)).getLocation().toFile();
+				wsdlFile = this.ise.getEditedFile().getParent().getFile(new Path(wsdl)).getLocation().toFile();
 			}
 			return wsdlFile;
 		} catch (Exception ex) {

@@ -6,11 +6,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
-public class GenericComponentWizard extends ComponentCreationWizard {
+public class GenericComponentWizard extends AbstractServiceUnitWizard {
 
 	private final GenericComponentDescription genDesc = new GenericComponentDescription();
 	
