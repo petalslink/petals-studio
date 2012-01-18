@@ -176,7 +176,7 @@ public class JBIEndpointUIHelpers {
 		return new CommonEndpointControls(interfaceComposite, serviceComposite);
 	}
 
-	public static void createDefaultWidgetsByEIntrospection(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, ISharedEdition ise, EClass[] extensionClasses) {
+	public static void createDefaultWidgetsByEIntrospection(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, ISharedEdition ise, EClass... extensionClasses) {
 		List<EStructuralFeature> toProcessFeaturesList = new ArrayList<EStructuralFeature>();
 		for (EClass extensionClass : extensionClasses) {
 			for (EStructuralFeature feature : extensionClass.getEAllStructuralFeatures()) {

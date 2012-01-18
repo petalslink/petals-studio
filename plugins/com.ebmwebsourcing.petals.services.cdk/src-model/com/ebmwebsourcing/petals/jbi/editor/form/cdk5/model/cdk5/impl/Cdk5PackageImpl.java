@@ -12,10 +12,12 @@ import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Factory;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 
@@ -50,6 +52,13 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * @generated
 	 */
 	private EClass cdk5ConsumesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum mepEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -246,6 +255,15 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getMep() {
+		return mepEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Cdk5Factory getCdk5Factory() {
 		return (Cdk5Factory)getEFactoryInstance();
 	}
@@ -285,6 +303,9 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		cdk5ConsumesEClass = createEClass(CDK5_CONSUMES);
 		createEAttribute(cdk5ConsumesEClass, CDK5_CONSUMES__OPERATION);
 		createEAttribute(cdk5ConsumesEClass, CDK5_CONSUMES__MEP);
+
+		// Create enums
+		mepEEnum = createEEnum(MEP);
 	}
 
 	/**
@@ -342,7 +363,14 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 
 		initEClass(cdk5ConsumesEClass, CDK5Consumes.class, "CDK5Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCDK5Consumes_Operation(), theXMLTypePackage.getString(), "operation", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Consumes_Mep(), theXMLTypePackage.getString(), "mep", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Consumes_Mep(), this.getMep(), "mep", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(mepEEnum, Mep.class, "Mep");
+		addEEnumLiteral(mepEEnum, Mep.IN_ONLY);
+		addEEnumLiteral(mepEEnum, Mep.IN_OPTIONAL_OUT);
+		addEEnumLiteral(mepEEnum, Mep.IN_OUT);
+		addEEnumLiteral(mepEEnum, Mep.ROBUST_IN_ONLY);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -475,7 +503,6 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		   new String[] {
 			 "kind", "element",
 			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
-			 "name", "mep",
 			 "group", "#cdkExtContainer"
 		   });
 	}

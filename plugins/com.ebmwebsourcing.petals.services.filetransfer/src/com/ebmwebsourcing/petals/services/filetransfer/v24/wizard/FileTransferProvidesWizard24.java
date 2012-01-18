@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.GetFilesWsdl24;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.WriteWsdl24;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
@@ -27,6 +28,7 @@ import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescript
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -57,6 +59,7 @@ public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 	@Override
 	public void presetServiceValues( AbstractEndpoint ae ) {
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "change-it" ));
+		Cdk5Utils.setInitialProvidesValues((Provides)ae);
 	}
 
 	/*

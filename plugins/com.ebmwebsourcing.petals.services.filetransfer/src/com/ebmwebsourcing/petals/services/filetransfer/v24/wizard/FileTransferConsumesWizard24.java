@@ -16,9 +16,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -52,6 +53,8 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public void presetServiceValues( AbstractEndpoint ae ) {
+		ae.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
+		ae.eSet(Cdk5Package.Literals.CDK5_CONSUMES__MEP, Mep.IN_ONLY);
 	}
 
 
