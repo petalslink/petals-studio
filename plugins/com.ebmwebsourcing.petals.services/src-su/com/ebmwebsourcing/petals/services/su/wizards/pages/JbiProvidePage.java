@@ -351,4 +351,13 @@ public class JbiProvidePage extends JbiAbstractPage {
 	public String getWsdlUrl() {
 		return this.wsdlUrl;
 	}
+
+
+	/**
+	 * @return
+	 */
+	public String getWsdlFileName() {
+		String[] segments = wsdlUrl.split("/");
+		return segments[segments.length - 1];
+	}
 }

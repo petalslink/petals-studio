@@ -40,7 +40,7 @@
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validateWsdl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validateWsdl" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
@@ -50,7 +50,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="forwardSecuritySubject"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" derived="true">
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
+        unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>
@@ -59,7 +60,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="forwardMessageProperties"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" derived="true">
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
+        unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>
@@ -67,8 +69,8 @@
         <details key="group" value="#cdkExtContainer"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="forwardAttachments" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        derived="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="forwardAttachments" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
+        unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>

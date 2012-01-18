@@ -66,6 +66,8 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 							EEnum eEnum = (EEnum)expectedType;
 							EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
 							element.eSet(targetFeature, literal.getInstance());
+						} else if (expectedType.getInstanceClass().equals(boolean.class)) {
+							element.eSet(targetFeature, Boolean.valueOf((String)value));
 						} else {
 							element.eSet(targetFeature, value);
 						}

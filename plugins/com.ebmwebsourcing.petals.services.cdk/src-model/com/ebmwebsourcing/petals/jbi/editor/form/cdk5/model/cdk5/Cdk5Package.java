@@ -487,44 +487,44 @@ public interface Cdk5Package extends EPackage {
 	EClass getCDK5Provides();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getValidateWsdl <em>Validate Wsdl</em>}'.
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isValidateWsdl <em>Validate Wsdl</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Validate Wsdl</em>'.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getValidateWsdl()
+	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isValidateWsdl()
 	 * @see #getCDK5Provides()
 	 * @generated
 	 */
 	EAttribute getCDK5Provides_ValidateWsdl();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardSecuritySubject <em>Forward Security Subject</em>}'.
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardSecuritySubject <em>Forward Security Subject</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Forward Security Subject</em>'.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardSecuritySubject()
+	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardSecuritySubject()
 	 * @see #getCDK5Provides()
 	 * @generated
 	 */
 	EAttribute getCDK5Provides_ForwardSecuritySubject();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardMessageProperties <em>Forward Message Properties</em>}'.
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardMessageProperties <em>Forward Message Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Forward Message Properties</em>'.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardMessageProperties()
+	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardMessageProperties()
 	 * @see #getCDK5Provides()
 	 * @generated
 	 */
 	EAttribute getCDK5Provides_ForwardMessageProperties();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardAttachments <em>Forward Attachments</em>}'.
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardAttachments <em>Forward Attachments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Forward Attachments</em>'.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardAttachments()
+	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardAttachments()
 	 * @see #getCDK5Provides()
 	 * @generated
 	 */

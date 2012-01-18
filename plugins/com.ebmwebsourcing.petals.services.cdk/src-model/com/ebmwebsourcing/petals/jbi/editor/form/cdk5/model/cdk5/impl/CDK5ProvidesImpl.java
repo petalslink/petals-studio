@@ -22,10 +22,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#getValidateWsdl <em>Validate Wsdl</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#getForwardSecuritySubject <em>Forward Security Subject</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#getForwardMessageProperties <em>Forward Message Properties</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#getForwardAttachments <em>Forward Attachments</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#isValidateWsdl <em>Validate Wsdl</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#isForwardSecuritySubject <em>Forward Security Subject</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#isForwardMessageProperties <em>Forward Message Properties</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#isForwardAttachments <em>Forward Attachments</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#getWsdl <em>Wsdl</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl#getRetryPolicy <em>Retry Policy</em>}</li>
  * </ul>
@@ -35,84 +35,111 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	/**
-	 * The default value of the '{@link #getValidateWsdl() <em>Validate Wsdl</em>}' attribute.
+	 * The default value of the '{@link #isValidateWsdl() <em>Validate Wsdl</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValidateWsdl()
+	 * @see #isValidateWsdl()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VALIDATE_WSDL_EDEFAULT = null;
+	protected static final boolean VALIDATE_WSDL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getValidateWsdl() <em>Validate Wsdl</em>}' attribute.
+	 * The cached value of the '{@link #isValidateWsdl() <em>Validate Wsdl</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValidateWsdl()
+	 * @see #isValidateWsdl()
 	 * @generated
 	 * @ordered
 	 */
-	protected String validateWsdl = VALIDATE_WSDL_EDEFAULT;
+	protected boolean validateWsdl = VALIDATE_WSDL_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getForwardSecuritySubject() <em>Forward Security Subject</em>}' attribute.
+	 * The default value of the '{@link #isForwardSecuritySubject() <em>Forward Security Subject</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getForwardSecuritySubject()
+	 * @see #isForwardSecuritySubject()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FORWARD_SECURITY_SUBJECT_EDEFAULT = null;
+	protected static final boolean FORWARD_SECURITY_SUBJECT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getForwardSecuritySubject() <em>Forward Security Subject</em>}' attribute.
+	 * The cached value of the '{@link #isForwardSecuritySubject() <em>Forward Security Subject</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getForwardSecuritySubject()
+	 * @see #isForwardSecuritySubject()
 	 * @generated
 	 * @ordered
 	 */
-	protected String forwardSecuritySubject = FORWARD_SECURITY_SUBJECT_EDEFAULT;
+	protected boolean forwardSecuritySubject = FORWARD_SECURITY_SUBJECT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getForwardMessageProperties() <em>Forward Message Properties</em>}' attribute.
+	 * This is true if the Forward Security Subject attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getForwardMessageProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FORWARD_MESSAGE_PROPERTIES_EDEFAULT = null;
+	protected boolean forwardSecuritySubjectESet;
 
 	/**
-	 * The cached value of the '{@link #getForwardMessageProperties() <em>Forward Message Properties</em>}' attribute.
+	 * The default value of the '{@link #isForwardMessageProperties() <em>Forward Message Properties</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getForwardMessageProperties()
+	 * @see #isForwardMessageProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected String forwardMessageProperties = FORWARD_MESSAGE_PROPERTIES_EDEFAULT;
+	protected static final boolean FORWARD_MESSAGE_PROPERTIES_EDEFAULT = false;
 
 	/**
-	 * The default value of the '{@link #getForwardAttachments() <em>Forward Attachments</em>}' attribute.
+	 * The cached value of the '{@link #isForwardMessageProperties() <em>Forward Message Properties</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getForwardAttachments()
+	 * @see #isForwardMessageProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FORWARD_ATTACHMENTS_EDEFAULT = null;
+	protected boolean forwardMessageProperties = FORWARD_MESSAGE_PROPERTIES_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getForwardAttachments() <em>Forward Attachments</em>}' attribute.
+	 * This is true if the Forward Message Properties attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getForwardAttachments()
 	 * @generated
 	 * @ordered
 	 */
-	protected String forwardAttachments = FORWARD_ATTACHMENTS_EDEFAULT;
+	protected boolean forwardMessagePropertiesESet;
+
+	/**
+	 * The default value of the '{@link #isForwardAttachments() <em>Forward Attachments</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isForwardAttachments()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean FORWARD_ATTACHMENTS_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isForwardAttachments() <em>Forward Attachments</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isForwardAttachments()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean forwardAttachments = FORWARD_ATTACHMENTS_EDEFAULT;
+
+	/**
+	 * This is true if the Forward Attachments attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean forwardAttachmentsESet;
 
 	/**
 	 * The default value of the '{@link #getWsdl() <em>Wsdl</em>}' attribute.
@@ -178,7 +205,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getValidateWsdl() {
+	public boolean isValidateWsdl() {
 		return validateWsdl;
 	}
 
@@ -187,8 +214,8 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValidateWsdl(String newValidateWsdl) {
-		String oldValidateWsdl = validateWsdl;
+	public void setValidateWsdl(boolean newValidateWsdl) {
+		boolean oldValidateWsdl = validateWsdl;
 		validateWsdl = newValidateWsdl;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL, oldValidateWsdl, validateWsdl));
@@ -199,7 +226,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getForwardSecuritySubject() {
+	public boolean isForwardSecuritySubject() {
 		return forwardSecuritySubject;
 	}
 
@@ -208,11 +235,13 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setForwardSecuritySubject(String newForwardSecuritySubject) {
-		String oldForwardSecuritySubject = forwardSecuritySubject;
+	public void setForwardSecuritySubject(boolean newForwardSecuritySubject) {
+		boolean oldForwardSecuritySubject = forwardSecuritySubject;
 		forwardSecuritySubject = newForwardSecuritySubject;
+		boolean oldForwardSecuritySubjectESet = forwardSecuritySubjectESet;
+		forwardSecuritySubjectESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT, oldForwardSecuritySubject, forwardSecuritySubject));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT, oldForwardSecuritySubject, forwardSecuritySubject, !oldForwardSecuritySubjectESet));
 	}
 
 	/**
@@ -220,7 +249,30 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getForwardMessageProperties() {
+	public void unsetForwardSecuritySubject() {
+		boolean oldForwardSecuritySubject = forwardSecuritySubject;
+		boolean oldForwardSecuritySubjectESet = forwardSecuritySubjectESet;
+		forwardSecuritySubject = FORWARD_SECURITY_SUBJECT_EDEFAULT;
+		forwardSecuritySubjectESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT, oldForwardSecuritySubject, FORWARD_SECURITY_SUBJECT_EDEFAULT, oldForwardSecuritySubjectESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetForwardSecuritySubject() {
+		return forwardSecuritySubjectESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isForwardMessageProperties() {
 		return forwardMessageProperties;
 	}
 
@@ -229,11 +281,13 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setForwardMessageProperties(String newForwardMessageProperties) {
-		String oldForwardMessageProperties = forwardMessageProperties;
+	public void setForwardMessageProperties(boolean newForwardMessageProperties) {
+		boolean oldForwardMessageProperties = forwardMessageProperties;
 		forwardMessageProperties = newForwardMessageProperties;
+		boolean oldForwardMessagePropertiesESet = forwardMessagePropertiesESet;
+		forwardMessagePropertiesESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, oldForwardMessageProperties, forwardMessageProperties));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, oldForwardMessageProperties, forwardMessageProperties, !oldForwardMessagePropertiesESet));
 	}
 
 	/**
@@ -241,7 +295,30 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getForwardAttachments() {
+	public void unsetForwardMessageProperties() {
+		boolean oldForwardMessageProperties = forwardMessageProperties;
+		boolean oldForwardMessagePropertiesESet = forwardMessagePropertiesESet;
+		forwardMessageProperties = FORWARD_MESSAGE_PROPERTIES_EDEFAULT;
+		forwardMessagePropertiesESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, oldForwardMessageProperties, FORWARD_MESSAGE_PROPERTIES_EDEFAULT, oldForwardMessagePropertiesESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetForwardMessageProperties() {
+		return forwardMessagePropertiesESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isForwardAttachments() {
 		return forwardAttachments;
 	}
 
@@ -250,11 +327,36 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setForwardAttachments(String newForwardAttachments) {
-		String oldForwardAttachments = forwardAttachments;
+	public void setForwardAttachments(boolean newForwardAttachments) {
+		boolean oldForwardAttachments = forwardAttachments;
 		forwardAttachments = newForwardAttachments;
+		boolean oldForwardAttachmentsESet = forwardAttachmentsESet;
+		forwardAttachmentsESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS, oldForwardAttachments, forwardAttachments));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS, oldForwardAttachments, forwardAttachments, !oldForwardAttachmentsESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetForwardAttachments() {
+		boolean oldForwardAttachments = forwardAttachments;
+		boolean oldForwardAttachmentsESet = forwardAttachmentsESet;
+		forwardAttachments = FORWARD_ATTACHMENTS_EDEFAULT;
+		forwardAttachmentsESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS, oldForwardAttachments, FORWARD_ATTACHMENTS_EDEFAULT, oldForwardAttachmentsESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetForwardAttachments() {
+		return forwardAttachmentsESet;
 	}
 
 	/**
@@ -308,13 +410,13 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
-				return getValidateWsdl();
+				return isValidateWsdl();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
-				return getForwardSecuritySubject();
+				return isForwardSecuritySubject();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES:
-				return getForwardMessageProperties();
+				return isForwardMessageProperties();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS:
-				return getForwardAttachments();
+				return isForwardAttachments();
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				return getWsdl();
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
@@ -332,16 +434,16 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
-				setValidateWsdl((String)newValue);
+				setValidateWsdl((Boolean)newValue);
 				return;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
-				setForwardSecuritySubject((String)newValue);
+				setForwardSecuritySubject((Boolean)newValue);
 				return;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES:
-				setForwardMessageProperties((String)newValue);
+				setForwardMessageProperties((Boolean)newValue);
 				return;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS:
-				setForwardAttachments((String)newValue);
+				setForwardAttachments((Boolean)newValue);
 				return;
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				setWsdl((String)newValue);
@@ -365,13 +467,13 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 				setValidateWsdl(VALIDATE_WSDL_EDEFAULT);
 				return;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
-				setForwardSecuritySubject(FORWARD_SECURITY_SUBJECT_EDEFAULT);
+				unsetForwardSecuritySubject();
 				return;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES:
-				setForwardMessageProperties(FORWARD_MESSAGE_PROPERTIES_EDEFAULT);
+				unsetForwardMessageProperties();
 				return;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS:
-				setForwardAttachments(FORWARD_ATTACHMENTS_EDEFAULT);
+				unsetForwardAttachments();
 				return;
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				setWsdl(WSDL_EDEFAULT);
@@ -392,13 +494,13 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
-				return VALIDATE_WSDL_EDEFAULT == null ? validateWsdl != null : !VALIDATE_WSDL_EDEFAULT.equals(validateWsdl);
+				return validateWsdl != VALIDATE_WSDL_EDEFAULT;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
-				return FORWARD_SECURITY_SUBJECT_EDEFAULT == null ? forwardSecuritySubject != null : !FORWARD_SECURITY_SUBJECT_EDEFAULT.equals(forwardSecuritySubject);
+				return isSetForwardSecuritySubject();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES:
-				return FORWARD_MESSAGE_PROPERTIES_EDEFAULT == null ? forwardMessageProperties != null : !FORWARD_MESSAGE_PROPERTIES_EDEFAULT.equals(forwardMessageProperties);
+				return isSetForwardMessageProperties();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS:
-				return FORWARD_ATTACHMENTS_EDEFAULT == null ? forwardAttachments != null : !FORWARD_ATTACHMENTS_EDEFAULT.equals(forwardAttachments);
+				return isSetForwardAttachments();
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				return WSDL_EDEFAULT == null ? wsdl != null : !WSDL_EDEFAULT.equals(wsdl);
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
@@ -420,11 +522,11 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 		result.append(" (validateWsdl: ");
 		result.append(validateWsdl);
 		result.append(", forwardSecuritySubject: ");
-		result.append(forwardSecuritySubject);
+		if (forwardSecuritySubjectESet) result.append(forwardSecuritySubject); else result.append("<unset>");
 		result.append(", forwardMessageProperties: ");
-		result.append(forwardMessageProperties);
+		if (forwardMessagePropertiesESet) result.append(forwardMessageProperties); else result.append("<unset>");
 		result.append(", forwardAttachments: ");
-		result.append(forwardAttachments);
+		if (forwardAttachmentsESet) result.append(forwardAttachments); else result.append("<unset>");
 		result.append(", wsdl: ");
 		result.append(wsdl);
 		result.append(", retryPolicy: ");

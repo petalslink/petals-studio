@@ -333,10 +333,10 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		initEAttribute(getCDKService_SuInterceptors(), ecorePackage.getEString(), "suInterceptors", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cdk5ProvidesEClass, CDK5Provides.class, "CDK5Provides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCDK5Provides_ValidateWsdl(), ecorePackage.getEString(), "validateWsdl", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_ForwardSecuritySubject(), ecorePackage.getEString(), "forwardSecuritySubject", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_ForwardMessageProperties(), ecorePackage.getEString(), "forwardMessageProperties", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_ForwardAttachments(), ecorePackage.getEString(), "forwardAttachments", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ValidateWsdl(), theXMLTypePackage.getBoolean(), "validateWsdl", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ForwardSecuritySubject(), theXMLTypePackage.getBoolean(), "forwardSecuritySubject", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ForwardMessageProperties(), theXMLTypePackage.getBoolean(), "forwardMessageProperties", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ForwardAttachments(), theXMLTypePackage.getBoolean(), "forwardAttachments", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDK5Provides_Wsdl(), ecorePackage.getEString(), "wsdl", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDK5Provides_RetryPolicy(), ecorePackage.getEString(), "retryPolicy", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 

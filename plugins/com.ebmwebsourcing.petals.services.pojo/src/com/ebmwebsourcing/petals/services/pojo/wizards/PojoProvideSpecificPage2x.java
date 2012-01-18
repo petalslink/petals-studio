@@ -102,6 +102,9 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 	private boolean useExistingImplementation = false;
 
 	private List jarList;
+	private String[] jars = new String[0];
+
+	private Button createJavaProjectButton;
 
 
 	/*
@@ -152,30 +155,16 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 		container.setLayout( layout );
 		container.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
-		// Create a Java project
-		final Button createJavaProjectButton = new Button( container, SWT.RADIO );
-		createJavaProjectButton.setText( "Create a Java project." );
+		createJavaProjectButton = new Button( container, SWT.RADIO );
+		createJavaProjectButton.setText( "Create a Java project and a POJO class." );
 		createJavaProjectButton.setLayoutData(new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false, 3, 1));
-	
-		{	
-			Label clazzLabel = new Label(container, SWT.NONE);
-			clazzLabel.setText(Messages.className);
-			Text clazzText = new Text(container, SWT.BORDER);
-			clazzText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false, 2, 1));
-			dbc.bindValue(SWTObservables.observeText(clazzText, SWT.Modify),
-					EMFObservables.observeValue(getNewlyCreatedEndpoint(), PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME));
-			ISWTObservableValue newProjectButtonSelection = SWTObservables.observeSelection(createJavaProjectButton);
-			dbc.bindValue(newProjectButtonSelection, SWTObservables.observeEnabled(clazzLabel));
-			dbc.bindValue(newProjectButtonSelection, SWTObservables.observeEnabled(clazzText));
-			
-			clazzText.addModifyListener(new ModifyListener() {
-				@Override
-				public void modifyText(ModifyEvent e) {
-					setPageComplete(isPageComplete());
-				}
-			});
-		}
-
+		createJavaProjectButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setPageComplete(isPageComplete());
+			}
+		});
+		
 		// Add check button
 		final Button useExistingImplemButton = new Button( container, SWT.RADIO );
 		useExistingImplemButton.setText( "Use an existing POJO implementation." );
@@ -279,12 +268,14 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 						jarList.add(fd.getFilterPath() + File.separator + name);
 					}
 				}
+				jars = jarList.getItems();
 			}
 		});
 		removeLibButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				jarList.remove(jarList.getSelectionIndices());
+				jars = jarList.getItems();
 			}
 		});
 		
@@ -295,7 +286,7 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 	}
 	
 	public String[] getJarPath() {
-		return jarList.getItems();
+		return jars;
 	}
 	
 	public Collection<String> getAvailableClasses() {
@@ -327,6 +318,9 @@ public class PojoProvideSpecificPage2x extends AbstractSuWizardPage {
 	
 	@Override
 	public boolean isPageComplete() {
+		if (createJavaProjectButton.getSelection()) {
+			return true;
+		}
 		Object className = getNewlyCreatedEndpoint().eGet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME);
 		return className != null && ! ((String)className).trim().isEmpty(); 
 	}

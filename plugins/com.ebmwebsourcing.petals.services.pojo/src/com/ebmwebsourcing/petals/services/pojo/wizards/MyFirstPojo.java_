@@ -1,0 +1,88 @@
+/**
+ * Copyright (c) 2011, EBM WebSourcing
+ *
+ * Requires libs:
+ * - petals-cdk-api
+ * - petals-cdk-core
+ * - petals-cdk-jbidescriptor
+ * - petals-jbi
+ */
+package com.ebmwebsourcing.formation;
+
+import java.io.StringReader;
+
+import javax.jbi.component.ComponentContext;
+import javax.xml.namespace.QName;
+import javax.xml.transform.stream.StreamSource;
+
+import org.ow2.petals.component.framework.api.Message.MEPConstants;
+import org.ow2.petals.component.framework.api.message.Exchange;
+import org.ow2.petals.component.framework.jbidescriptor.generated.Consumes;
+import org.ow2.petals.component.framework.listener.AbstractJBIListener;
+
+/**
+ * A simple sample POJO to complete.
+ * @author Pierre-Yves Gibello - EBM WebSourcing
+ */
+public class MyFirstPojo {
+
+	private AbstractJBIListener jbiListener;
+	private ComponentContext ctx;
+
+	
+	/**
+	 * @param jbiListener
+	 */
+	public void setJBIListener( AbstractJBIListener jbiListener ) {
+		this.jbiListener = jbiListener;
+	}
+
+	
+	/**
+	 * @param ctx
+	 */
+	public void setComponentContext( ComponentContext ctx ) {
+		this.ctx = ctx;
+	}
+
+	
+	/**
+	 * Processes the exchange.
+	 * @param exchange
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean onExchange( Exchange exchange ) throws Exception {
+
+		// Consume a sample service
+		Consumes ep = new Consumes();
+		ep.setInterfaceName( new QName( "http://petals.test.com", "WriteContentInterface" ));
+		ep.setServiceName( new QName( "http://petals.test.com", "WriteContent" ));
+		ep.setEndpointName("TestFileEndpoint");
+
+		System.out.println( "POJO: before consume" );
+		Exchange out = jbiListener.createConsumeExchange( ep, MEPConstants.IN_ONLY_PATTERN );
+		out.setInMessageContent( new StreamSource( new StringReader( "<pojo>Hello from Pojo !</pojo>" )));
+
+		jbiListener.sendSync( out );
+		System.out.println( "POJO: consume done" );
+
+		// Answer if needed (In[Optional]Out)
+		if( exchange.isInOutPattern() 
+				|| exchange.isInOptionalOutPattern()) {
+			
+			System.out.println( "POJO: sending response" );
+			exchange.setOutMessageContent( new StreamSource( new StringReader( "<pojo>Ok</pojo>" )));
+		}
+
+		return true;
+	}
+
+	
+	/**
+	 * Initializes the POJO instance.
+	 */
+	public void init() {
+		System.out.println("SamplePojo inits.");
+	}
+}

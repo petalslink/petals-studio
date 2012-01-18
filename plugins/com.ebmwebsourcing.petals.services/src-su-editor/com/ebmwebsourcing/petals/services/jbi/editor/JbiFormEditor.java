@@ -490,8 +490,10 @@ public class JbiFormEditor extends FormEditor implements ISelectionProvider,
 		Composite container = getContainer();
 		if (container instanceof CTabFolder) {
 			CTabFolder folder = (CTabFolder) container;
-			folder.setTabHeight(0);
-			folder.redraw();
+			if (!folder.isDisposed()) {
+				folder.setTabHeight(0);
+				folder.redraw();
+			}
 		}
 	}
 

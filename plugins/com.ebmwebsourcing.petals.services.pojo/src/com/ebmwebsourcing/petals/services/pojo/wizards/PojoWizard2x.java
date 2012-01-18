@@ -11,21 +11,27 @@
 
 package com.ebmwebsourcing.petals.services.pojo.wizards;
 
-import java.util.Collection;
-
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.pojo.PetalsPojoPlugin;
 import com.ebmwebsourcing.petals.services.pojo.PojoDescription22;
+import com.ebmwebsourcing.petals.services.pojo.pojo.PojoPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -33,6 +39,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class PojoWizard2x extends ComponentCreationWizard {
 
 	private boolean useExistingImplementation = false;
+	private PojoProvideSpecificPage2x pojoProvideSpecificPage2x;
 	
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -55,15 +62,35 @@ public class PojoWizard2x extends ComponentCreationWizard {
 		// -> import JARS
 		// -> Generate skeletton of class
 		// FIXME
+		abstractEndpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, jbiProvidePage.getWsdlFileName());
 		IStatus result = Status.OK_STATUS;
-		boolean createJavaProject = true; // (Boolean) eclipseSuBean.customObjects.get( "create-java-project" );
-		if( createJavaProject ) {
+		if( !useExistingImplementation ) {
 			try {
 				JavaUtils.createJavaProject( resourceFolder.getProject());
-
+				IFolder srcFolder = resourceFolder.getProject().getFolder(PetalsConstants.LOC_SRC_FOLDER);
+				IFolder targetFolder = srcFolder.getFolder("com/ebmwebsourcing/formation");
+				if (!targetFolder.exists()) {
+					targetFolder.getLocation().toFile().mkdirs();
+					srcFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+				}
+				IFile file = targetFolder.getFile("MyFirstPojo.java");
+				if (!file.exists()) {
+					file.create(getClass().getResourceAsStream("MyFirstPojo.java_"), true, monitor);
+				}
+				abstractEndpoint.eSet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME, "com.ebmwebsourcing.formation.MyFirstPojo");
 			} catch( CoreException e ) {
 				PetalsPojoPlugin.log( e, IStatus.ERROR );
 			}
+		} else {
+			for (String jarPath : pojoProvideSpecificPage2x.getJarPath()) {
+				try {
+					java.io.File jarFile = new java.io.File(jarPath);
+					IoUtils.copyFile(jarFile, new java.io.File(resourceFolder.getLocation().toFile(), jarFile.getName()), false);
+				} catch (Exception ex) {
+					PetalsPojoPlugin.log(ex, IStatus.ERROR);
+				}
+			}
+			
 		}
 
 		return result;
@@ -72,15 +99,15 @@ public class PojoWizard2x extends ComponentCreationWizard {
 
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
-		// TODO Auto-generated method stub
-		
+		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
 	}
 
 
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+		pojoProvideSpecificPage2x = new PojoProvideSpecificPage2x();
 		return new AbstractSuWizardPage[] {
-			new PojoProvideSpecificPage2x()
+			pojoProvideSpecificPage2x
 		};
 	}
 

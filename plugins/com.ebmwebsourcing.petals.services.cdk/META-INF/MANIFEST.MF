@@ -10,6 +10,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5,
  com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl,
  com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.util,
+ com.ebmwebsourcing.petals.services.cdk,
  com.ebmwebsourcing.petals.services.cdk.editor
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,

@@ -16,10 +16,10 @@ import com.sun.java.xml.ns.jbi.Provides;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getValidateWsdl <em>Validate Wsdl</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardSecuritySubject <em>Forward Security Subject</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardMessageProperties <em>Forward Message Properties</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardAttachments <em>Forward Attachments</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isValidateWsdl <em>Validate Wsdl</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardSecuritySubject <em>Forward Security Subject</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardMessageProperties <em>Forward Message Properties</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardAttachments <em>Forward Attachments</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getWsdl <em>Wsdl</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getRetryPolicy <em>Retry Policy</em>}</li>
  * </ul>
@@ -39,23 +39,23 @@ public interface CDK5Provides extends CDKService, Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Validate Wsdl</em>' attribute.
-	 * @see #setValidateWsdl(String)
+	 * @see #setValidateWsdl(boolean)
 	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package#getCDK5Provides_ValidateWsdl()
-	 * @model derived="true"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='validate-wsdl' group='#cdkExtContainer'"
 	 * @generated
 	 */
-	String getValidateWsdl();
+	boolean isValidateWsdl();
 
 	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getValidateWsdl <em>Validate Wsdl</em>}' attribute.
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isValidateWsdl <em>Validate Wsdl</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Validate Wsdl</em>' attribute.
-	 * @see #getValidateWsdl()
+	 * @see #isValidateWsdl()
 	 * @generated
 	 */
-	void setValidateWsdl(String value);
+	void setValidateWsdl(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Forward Security Subject</b></em>' attribute.
@@ -66,23 +66,50 @@ public interface CDK5Provides extends CDKService, Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Forward Security Subject</em>' attribute.
-	 * @see #setForwardSecuritySubject(String)
+	 * @see #isSetForwardSecuritySubject()
+	 * @see #unsetForwardSecuritySubject()
+	 * @see #setForwardSecuritySubject(boolean)
 	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package#getCDK5Provides_ForwardSecuritySubject()
-	 * @model derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='forward-security-subject' group='#cdkExtContainer'"
 	 * @generated
 	 */
-	String getForwardSecuritySubject();
+	boolean isForwardSecuritySubject();
 
 	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardSecuritySubject <em>Forward Security Subject</em>}' attribute.
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardSecuritySubject <em>Forward Security Subject</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Forward Security Subject</em>' attribute.
-	 * @see #getForwardSecuritySubject()
+	 * @see #isSetForwardSecuritySubject()
+	 * @see #unsetForwardSecuritySubject()
+	 * @see #isForwardSecuritySubject()
 	 * @generated
 	 */
-	void setForwardSecuritySubject(String value);
+	void setForwardSecuritySubject(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardSecuritySubject <em>Forward Security Subject</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetForwardSecuritySubject()
+	 * @see #isForwardSecuritySubject()
+	 * @see #setForwardSecuritySubject(boolean)
+	 * @generated
+	 */
+	void unsetForwardSecuritySubject();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardSecuritySubject <em>Forward Security Subject</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Forward Security Subject</em>' attribute is set.
+	 * @see #unsetForwardSecuritySubject()
+	 * @see #isForwardSecuritySubject()
+	 * @see #setForwardSecuritySubject(boolean)
+	 * @generated
+	 */
+	boolean isSetForwardSecuritySubject();
 
 	/**
 	 * Returns the value of the '<em><b>Forward Message Properties</b></em>' attribute.
@@ -93,23 +120,50 @@ public interface CDK5Provides extends CDKService, Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Forward Message Properties</em>' attribute.
-	 * @see #setForwardMessageProperties(String)
+	 * @see #isSetForwardMessageProperties()
+	 * @see #unsetForwardMessageProperties()
+	 * @see #setForwardMessageProperties(boolean)
 	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package#getCDK5Provides_ForwardMessageProperties()
-	 * @model derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='forward-message-properties' group='#cdkExtContainer'"
 	 * @generated
 	 */
-	String getForwardMessageProperties();
+	boolean isForwardMessageProperties();
 
 	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardMessageProperties <em>Forward Message Properties</em>}' attribute.
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardMessageProperties <em>Forward Message Properties</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Forward Message Properties</em>' attribute.
-	 * @see #getForwardMessageProperties()
+	 * @see #isSetForwardMessageProperties()
+	 * @see #unsetForwardMessageProperties()
+	 * @see #isForwardMessageProperties()
 	 * @generated
 	 */
-	void setForwardMessageProperties(String value);
+	void setForwardMessageProperties(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardMessageProperties <em>Forward Message Properties</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetForwardMessageProperties()
+	 * @see #isForwardMessageProperties()
+	 * @see #setForwardMessageProperties(boolean)
+	 * @generated
+	 */
+	void unsetForwardMessageProperties();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardMessageProperties <em>Forward Message Properties</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Forward Message Properties</em>' attribute is set.
+	 * @see #unsetForwardMessageProperties()
+	 * @see #isForwardMessageProperties()
+	 * @see #setForwardMessageProperties(boolean)
+	 * @generated
+	 */
+	boolean isSetForwardMessageProperties();
 
 	/**
 	 * Returns the value of the '<em><b>Forward Attachments</b></em>' attribute.
@@ -120,23 +174,50 @@ public interface CDK5Provides extends CDKService, Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Forward Attachments</em>' attribute.
-	 * @see #setForwardAttachments(String)
+	 * @see #isSetForwardAttachments()
+	 * @see #unsetForwardAttachments()
+	 * @see #setForwardAttachments(boolean)
 	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package#getCDK5Provides_ForwardAttachments()
-	 * @model derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='forward-attachments' group='#cdkExtContainer'"
 	 * @generated
 	 */
-	String getForwardAttachments();
+	boolean isForwardAttachments();
 
 	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getForwardAttachments <em>Forward Attachments</em>}' attribute.
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardAttachments <em>Forward Attachments</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Forward Attachments</em>' attribute.
-	 * @see #getForwardAttachments()
+	 * @see #isSetForwardAttachments()
+	 * @see #unsetForwardAttachments()
+	 * @see #isForwardAttachments()
 	 * @generated
 	 */
-	void setForwardAttachments(String value);
+	void setForwardAttachments(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardAttachments <em>Forward Attachments</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetForwardAttachments()
+	 * @see #isForwardAttachments()
+	 * @see #setForwardAttachments(boolean)
+	 * @generated
+	 */
+	void unsetForwardAttachments();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#isForwardAttachments <em>Forward Attachments</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Forward Attachments</em>' attribute is set.
+	 * @see #unsetForwardAttachments()
+	 * @see #isForwardAttachments()
+	 * @see #setForwardAttachments(boolean)
+	 * @generated
+	 */
+	boolean isSetForwardAttachments();
 
 	/**
 	 * Returns the value of the '<em><b>Wsdl</b></em>' attribute.

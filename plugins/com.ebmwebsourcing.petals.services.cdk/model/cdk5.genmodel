@@ -4,7 +4,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.ebmwebsourcing.petals.services.cdk/src-model"
     modelPluginID="com.ebmwebsourcing.petals.services.cdk" modelName="Cdk5" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="6.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.ecore/model/XMLType.genmodel#//type ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.genmodel#//jbi">
-  <foreignModel>@model</foreignModel>
+  <foreignModel>cdk5.ecore</foreignModel>
   <genPackages prefix="Cdk5" basePackage="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model"
       resource="XML" disposableProviderFactory="true" ecorePackage="cdk5.ecore#/">
     <genClasses image="false" ecoreClass="cdk5.ecore#//CDKService">

@@ -62,7 +62,7 @@ public abstract class ComponentCreationWizard extends Wizard implements IExecuta
 	protected AbstractEndpoint endpoint;
 
 	ProjectPage projectPage;
-	private JbiProvidePage jbiProvidePage;
+	protected JbiProvidePage jbiProvidePage;
 
 	protected FinishServiceCreationStrategy finishStrategy;
 	protected SuWizardSettings settings;
