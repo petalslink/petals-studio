@@ -47,7 +47,7 @@ public class PojoProvidesEditorContribution implements JbiEditorDetailsContribut
 
 		{
 			Section ejbSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-			ejbSection.setText("FTP");
+			ejbSection.setText("POJO");
 			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
