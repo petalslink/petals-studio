@@ -20,11 +20,13 @@
             id="ftp">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription31"
+               editorExtension="com.ebmwebsourcing.petals.services.ftp.editor.FTPEditorContribution"
                id="FTP 3.1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard31">
          </ComponentVersionSupport>
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription32"
+               editorExtension="com.ebmwebsourcing.petals.services.ftp.editor.FTPEditorContribution"
                id="FTP 3.2"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard32">
          </ComponentVersionSupport>
