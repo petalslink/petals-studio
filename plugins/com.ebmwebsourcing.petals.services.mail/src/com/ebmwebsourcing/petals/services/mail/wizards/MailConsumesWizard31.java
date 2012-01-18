@@ -17,6 +17,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.mail.MailDescription31;
 import com.ebmwebsourcing.petals.services.mail.generated.MailService;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
@@ -55,6 +57,8 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public void presetServiceValues( AbstractEndpoint ae ) {
+		ae.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
+		ae.eSet(Cdk5Package.Literals.CDK5_CONSUMES__MEP, Mep.IN_ONLY);
 		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PORT, 25);
 		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__DELETE, false);
 		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT, false);
@@ -70,7 +74,6 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-
 		IFile wsdlFile = resourceFolder.getFile( "MailService.wsdl" );
 		createFile( wsdlFile, new MailService().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
