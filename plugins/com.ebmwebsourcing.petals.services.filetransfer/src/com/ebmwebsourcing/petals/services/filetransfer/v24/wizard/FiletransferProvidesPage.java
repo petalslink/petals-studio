@@ -3,6 +3,9 @@ package com.ebmwebsourcing.petals.services.filetransfer.v24.wizard;
 import javax.xml.namespace.QName;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
@@ -18,9 +21,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
@@ -30,12 +31,14 @@ import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.CopyMode;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
-public class FiletransferProvidesPage extends AbstractSuWizardPage {
+public class FiletransferProvidesPage extends AbstractSuWizardPage implements Adapter {
 
 	protected Contract contract;
 	private DataBindingContext dbc;
-
+	
 	public void createControl(Composite parent) {
+		getNewlyCreatedEndpoint().eAdapters().add(this);
+		
 		this.dbc = new DataBindingContext();
 		// Create the composite container and define its layout.
 		final Composite container = new Composite(parent, SWT.NONE);
@@ -108,7 +111,11 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 	 */
 	@Override
 	public boolean validate() {
-
+		return true;
+	}
+	
+	@Override
+	public boolean isPageComplete() {
 		boolean valid = false;
 		if( this.contract == Contract.READ_FILES) {
 			Object readDirectory = getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY);
@@ -119,8 +126,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			Object mode = getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
 			valid = writeDirectory != null && ! ((String)writeDirectory).trim().isEmpty() && mode != null;
 		}
-
-
 		return valid;
 	}
 
@@ -139,19 +144,10 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 				c.dispose();
 		}
 
-
-		Listener listener = new Listener() {
-			public void handleEvent( Event event ) {
-				validate();
-			}
-		};
-
-
 		// Add the new children: "write" mode first
 		if (this.contract == Contract.WRITE_FILES) {
 			SwtFactory.createLabel( container, "Write Directory * :", "The directory in which the message content will be written");
 			TextWithButtonComposite tbc = SwtFactory.createDirectoryBrowser( container );
-			tbc.getText().addListener( SWT.Modify, listener );
 			this.dbc.bindValue(
 					SWTObservables.observeText( tbc.getText(), SWT.Modify),
 					EMFObservables.observeValue(
@@ -172,8 +168,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 							getNewlyCreatedEndpoint(),
 							FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE));
 
-			viewer.getCombo().addListener( SWT.Selection, listener );
-
 			SwtFactory.createLabel( container, "File Name:", "The base name of the file to write (will be appended the system date)" );
 			final Text patterntext = new Text(container, SWT.BORDER);
 			patterntext.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
@@ -190,14 +184,17 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 					patterntext.setEnabled(sel == CopyMode.CONTENT_ONLY);
 				}
 			});
-
+			
+			if (viewer.getSelection().isEmpty()) {
+				viewer.setSelection(new StructuredSelection(CopyMode.CONTENT_AND_ATTACHMENTS));
+			}
+			patterntext.setEnabled(getNewlyCreatedEndpoint().eGet(FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE) == CopyMode.CONTENT_ONLY);
 		}
 
 		// "Get files" mode then
 		else {
 			SwtFactory.createLabel( container, "Read Directory * :", "The directory to read");
 			TextWithButtonComposite tbc = SwtFactory.createDirectoryBrowser( container );
-			tbc.getText().addListener( SWT.Modify, listener );
 			this.dbc.bindValue(
 					SWTObservables.observeText( tbc.getText(), SWT.Modify),
 					EMFObservables.observeValue(
@@ -206,7 +203,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 
 			SwtFactory.createLabel( container, "Backup Directory:", "The directory into which read files are moved (the temporary directory by default)");
 			tbc = SwtFactory.createDirectoryBrowser( container );
-			tbc.getText().addListener( SWT.Modify, listener );
 			this.dbc.bindValue(
 					SWTObservables.observeText( tbc.getText(), SWT.Modify),
 					EMFObservables.observeValue(
@@ -228,5 +224,37 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			this.dbc.dispose();
 
 		super.dispose();
+	}
+
+	
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
+	 */
+	public void notifyChanged(Notification notification) {
+		setPageComplete(isPageComplete());
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.common.notify.Adapter#getTarget()
+	 */
+	public Notifier getTarget() {
+		return getNewlyCreatedEndpoint();
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.common.notify.Adapter#setTarget(org.eclipse.emf.common.notify.Notifier)
+	 */
+	public void setTarget(Notifier newTarget) {
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.common.notify.Adapter#isAdapterForType(java.lang.Object)
+	 */
+	public boolean isAdapterForType(Object type) {
+		return true;
 	}
 }
