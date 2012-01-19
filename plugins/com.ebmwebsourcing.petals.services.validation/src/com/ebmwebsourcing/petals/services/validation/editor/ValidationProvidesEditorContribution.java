@@ -11,6 +11,9 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.validation.editor;
 
+import org.eclipse.emf.databinding.edit.EMFEditObservables;
+import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -18,6 +21,8 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -47,13 +52,17 @@ public class ValidationProvidesEditorContribution implements JbiEditorDetailsCon
 
 		{
 			Section ejbSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-			ejbSection.setText("XSD Validation");
+			ejbSection.setText("Validate message against an XSD Schema");
 			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
 			
-			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ejbComposite, ise, ValidationPackage.Literals.VALIDATION_PROVIDES);
+			SwtFactory.createLabel(ejbComposite, "XSD Schema", "Relative path to the XSD File");
+			TextWithButtonComposite browser = SwtFactory.createFileBrowser(ejbComposite, false, false, ".xsd");
+			browser.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+			ise.getDataBindingContext().bindValue(SWTObservables.observeText(browser.getText(), SWT.Modify),
+					EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, ValidationPackage.Literals.VALIDATION_PROVIDES__SCHEMA));
 		}
 	}
 

@@ -20,15 +20,16 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.sql.SqlDescription11;
 import com.ebmwebsourcing.petals.services.sql.generated.SqlService;
 import com.ebmwebsourcing.petals.services.sql.sql.SqlPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -61,6 +62,7 @@ public class SqlProvidesWizard11 extends AbstractServiceUnitWizard {
 		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/sql/version-1", "SqlInterface" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/sql/version-1", "change-it" ));
 		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "SqlService.wsdl");
+		Cdk5Utils.setInitialProvidesValues((Provides)ae);
 		ae.eSet(SqlPackage.Literals.SQL_PROVIDES__MAX_ACTIVE, 8);
 		ae.eSet(SqlPackage.Literals.SQL_PROVIDES__MAX_IDLE, 8);
 		ae.eSet(SqlPackage.Literals.SQL_PROVIDES__MIN_IDLE, 0);

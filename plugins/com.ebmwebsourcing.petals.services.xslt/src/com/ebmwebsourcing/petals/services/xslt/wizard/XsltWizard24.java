@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -36,6 +37,7 @@ import com.ebmwebsourcing.petals.services.xslt.generated.XsltService24;
 import com.ebmwebsourcing.petals.services.xslt.generated.XsltStyleSheet;
 import com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -120,6 +122,7 @@ public class XsltWizard24 extends AbstractServiceUnitWizard {
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
 		endpoint.setInterfaceName( new QName( "http://petals.ow2.org/components/xslt/version-2", "XsltService" ));
 		endpoint.setServiceName( new QName( "http://petals.ow2.org/components/xslt/version-2", "change-it" ));
+		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
 		endpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "XsltService.wsdl");
 	}
 

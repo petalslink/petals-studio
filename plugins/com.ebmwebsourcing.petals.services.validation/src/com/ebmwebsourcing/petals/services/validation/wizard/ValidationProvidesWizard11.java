@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -35,6 +36,7 @@ import com.ebmwebsourcing.petals.services.validation.ValidationDescription11;
 import com.ebmwebsourcing.petals.services.validation.generated.ValidationService;
 import com.ebmwebsourcing.petals.services.validation.validation.ValidationPackage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -69,9 +71,10 @@ public class ValidationProvidesWizard11 extends AbstractServiceUnitWizard {
 	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override
-	public void presetServiceValues( AbstractEndpoint ae ) {
+	public void presetServiceValues( AbstractEndpoint ae) {
 		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/validation/version-1", "ValidationInterface" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/validation/version-1", "change-it" ));
+		Cdk5Utils.setInitialProvidesValues((Provides)ae);
 		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "ValidationService.wsdl");
 	}
 

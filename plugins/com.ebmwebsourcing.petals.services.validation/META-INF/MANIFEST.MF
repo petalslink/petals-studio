@@ -17,7 +17,8 @@ Require-Bundle: com.ebmwebsourcing.petals.services,
  org.eclipse.jface.databinding,
  org.eclipse.core.databinding.beans,
  com.ebmwebsourcing.petals.services.cdk,
- org.eclipse.ui.forms;bundle-version="3.5.100"
+ org.eclipse.ui.forms;bundle-version="3.5.100",
+ org.eclipse.emf.databinding.edit;bundle-version="1.2.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.validation.PetalsValidationPlugin
