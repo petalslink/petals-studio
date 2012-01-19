@@ -44,9 +44,11 @@ public interface MailServiceCommon extends AbstractEndpoint {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Scheme</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.Scheme
+	 * @see #isSetScheme()
+	 * @see #unsetScheme()
 	 * @see #setScheme(Scheme)
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailPackage#getMailServiceCommon_Scheme()
-	 * @model required="true" derived="true"
+	 * @model unsettable="true" required="true" derived="true"
 	 *        extendedMetaData="kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
@@ -58,10 +60,35 @@ public interface MailServiceCommon extends AbstractEndpoint {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Scheme</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.Scheme
+	 * @see #isSetScheme()
+	 * @see #unsetScheme()
 	 * @see #getScheme()
 	 * @generated
 	 */
 	void setScheme(Scheme value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getScheme <em>Scheme</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetScheme()
+	 * @see #getScheme()
+	 * @see #setScheme(Scheme)
+	 * @generated
+	 */
+	void unsetScheme();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getScheme <em>Scheme</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Scheme</em>' attribute is set.
+	 * @see #unsetScheme()
+	 * @see #getScheme()
+	 * @see #setScheme(Scheme)
+	 * @generated
+	 */
+	boolean isSetScheme();
 
 	/**
 	 * Returns the value of the '<em><b>Host</b></em>' attribute.

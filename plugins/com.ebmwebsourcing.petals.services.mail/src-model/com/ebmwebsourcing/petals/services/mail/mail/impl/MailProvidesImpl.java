@@ -66,6 +66,15 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	protected Scheme scheme = SCHEME_EDEFAULT;
 
 	/**
+	 * This is true if the Scheme attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean schemeESet;
+
+	/**
 	 * The default value of the '{@link #getHost() <em>Host</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -301,8 +310,33 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void setScheme(Scheme newScheme) {
 		Scheme oldScheme = scheme;
 		scheme = newScheme == null ? SCHEME_EDEFAULT : newScheme;
+		boolean oldSchemeESet = schemeESet;
+		schemeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__SCHEME, oldScheme, scheme));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__SCHEME, oldScheme, scheme, !oldSchemeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetScheme() {
+		Scheme oldScheme = scheme;
+		boolean oldSchemeESet = schemeESet;
+		scheme = SCHEME_EDEFAULT;
+		schemeESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_PROVIDES__SCHEME, oldScheme, SCHEME_EDEFAULT, oldSchemeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetScheme() {
+		return schemeESet;
 	}
 
 	/**
@@ -603,7 +637,7 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MailPackage.MAIL_PROVIDES__SCHEME:
-				setScheme(SCHEME_EDEFAULT);
+				unsetScheme();
 				return;
 			case MailPackage.MAIL_PROVIDES__HOST:
 				setHost(HOST_EDEFAULT);
@@ -648,7 +682,7 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MailPackage.MAIL_PROVIDES__SCHEME:
-				return scheme != SCHEME_EDEFAULT;
+				return isSetScheme();
 			case MailPackage.MAIL_PROVIDES__HOST:
 				return HOST_EDEFAULT == null ? host != null : !HOST_EDEFAULT.equals(host);
 			case MailPackage.MAIL_PROVIDES__PORT:
@@ -724,7 +758,7 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (scheme: ");
-		result.append(scheme);
+		if (schemeESet) result.append(scheme); else result.append("<unset>");
 		result.append(", host: ");
 		result.append(host);
 		result.append(", port: ");

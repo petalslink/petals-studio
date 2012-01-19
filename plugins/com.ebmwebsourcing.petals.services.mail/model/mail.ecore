@@ -110,7 +110,7 @@
       <details key="name" value=""/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scheme" lowerBound="1"
-        eType="#//Scheme" derived="true">
+        eType="#//Scheme" unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="namespace" value="##targetNamespace"/>

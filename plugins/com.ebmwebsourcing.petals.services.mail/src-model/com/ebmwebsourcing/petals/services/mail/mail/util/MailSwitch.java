@@ -10,6 +10,7 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
+import com.ebmwebsourcing.petals.services.mail.mail.*;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;

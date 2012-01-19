@@ -420,7 +420,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		initEAttribute(getMailConsumes_Isxmlcontent(), theXMLTypePackage.getBoolean(), "isxmlcontent", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(mailServiceCommonEClass, MailServiceCommon.class, "MailServiceCommon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMailServiceCommon_Scheme(), this.getScheme(), "scheme", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailServiceCommon_Scheme(), this.getScheme(), "scheme", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailServiceCommon_Host(), theXMLTypePackage.getString(), "host", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailServiceCommon_Port(), theXMLTypePackage.getInt(), "port", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailServiceCommon_User(), theXMLTypePackage.getString(), "user", null, 0, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
