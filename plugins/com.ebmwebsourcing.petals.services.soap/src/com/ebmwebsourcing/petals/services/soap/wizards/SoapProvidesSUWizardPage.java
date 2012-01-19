@@ -107,5 +107,11 @@ public class SoapProvidesSUWizardPage extends SimpleFeatureListSuWizardPage {
 			ex.printStackTrace(); // TODO replaceme
 		}
 	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		getNewlyCreatedEndpoint().eAdapters().remove(this);
+	}
 
 }

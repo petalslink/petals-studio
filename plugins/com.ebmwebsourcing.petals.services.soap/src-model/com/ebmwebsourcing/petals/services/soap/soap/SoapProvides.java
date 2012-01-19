@@ -104,9 +104,11 @@ public interface SoapProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Chunked Mode</em>' attribute.
+	 * @see #isSetChunkedMode()
+	 * @see #unsetChunkedMode()
 	 * @see #setChunkedMode(boolean)
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_ChunkedMode()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true" derived="true"
 	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element' name='chunked-mode'"
 	 * @generated
 	 */
@@ -117,10 +119,35 @@ public interface SoapProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Chunked Mode</em>' attribute.
+	 * @see #isSetChunkedMode()
+	 * @see #unsetChunkedMode()
 	 * @see #isChunkedMode()
 	 * @generated
 	 */
 	void setChunkedMode(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#isChunkedMode <em>Chunked Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetChunkedMode()
+	 * @see #isChunkedMode()
+	 * @see #setChunkedMode(boolean)
+	 * @generated
+	 */
+	void unsetChunkedMode();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#isChunkedMode <em>Chunked Mode</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Chunked Mode</em>' attribute is set.
+	 * @see #unsetChunkedMode()
+	 * @see #isChunkedMode()
+	 * @see #setChunkedMode(boolean)
+	 * @generated
+	 */
+	boolean isSetChunkedMode();
 
 	/**
 	 * Returns the value of the '<em><b>Synchonous Timeout</b></em>' attribute.
@@ -158,9 +185,11 @@ public interface SoapProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cleanup Transport</em>' attribute.
+	 * @see #isSetCleanupTransport()
+	 * @see #unsetCleanupTransport()
 	 * @see #setCleanupTransport(boolean)
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_CleanupTransport()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true" derived="true"
 	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element' name='cleanup-transport'"
 	 * @generated
 	 */
@@ -171,10 +200,35 @@ public interface SoapProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Cleanup Transport</em>' attribute.
+	 * @see #isSetCleanupTransport()
+	 * @see #unsetCleanupTransport()
 	 * @see #isCleanupTransport()
 	 * @generated
 	 */
 	void setCleanupTransport(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#isCleanupTransport <em>Cleanup Transport</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetCleanupTransport()
+	 * @see #isCleanupTransport()
+	 * @see #setCleanupTransport(boolean)
+	 * @generated
+	 */
+	void unsetCleanupTransport();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#isCleanupTransport <em>Cleanup Transport</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Cleanup Transport</em>' attribute is set.
+	 * @see #unsetCleanupTransport()
+	 * @see #isCleanupTransport()
+	 * @see #setCleanupTransport(boolean)
+	 * @generated
+	 */
+	boolean isSetCleanupTransport();
 
 	/**
 	 * Returns the value of the '<em><b>Mode</b></em>' attribute.

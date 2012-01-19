@@ -162,6 +162,15 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	protected String wsdl = WSDL_EDEFAULT;
 
 	/**
+	 * This is true if the Wsdl attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean wsdlESet;
+
+	/**
 	 * The default value of the '{@link #getRetryPolicy() <em>Retry Policy</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -376,8 +385,33 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	public void setWsdl(String newWsdl) {
 		String oldWsdl = wsdl;
 		wsdl = newWsdl;
+		boolean oldWsdlESet = wsdlESet;
+		wsdlESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__WSDL, oldWsdl, wsdl));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__WSDL, oldWsdl, wsdl, !oldWsdlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetWsdl() {
+		String oldWsdl = wsdl;
+		boolean oldWsdlESet = wsdlESet;
+		wsdl = WSDL_EDEFAULT;
+		wsdlESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__WSDL, oldWsdl, WSDL_EDEFAULT, oldWsdlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetWsdl() {
+		return wsdlESet;
 	}
 
 	/**
@@ -476,7 +510,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 				unsetForwardAttachments();
 				return;
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
-				setWsdl(WSDL_EDEFAULT);
+				unsetWsdl();
 				return;
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
 				setRetryPolicy(RETRY_POLICY_EDEFAULT);
@@ -502,7 +536,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS:
 				return isSetForwardAttachments();
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
-				return WSDL_EDEFAULT == null ? wsdl != null : !WSDL_EDEFAULT.equals(wsdl);
+				return isSetWsdl();
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
 				return RETRY_POLICY_EDEFAULT == null ? retryPolicy != null : !RETRY_POLICY_EDEFAULT.equals(retryPolicy);
 		}
@@ -528,7 +562,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 		result.append(", forwardAttachments: ");
 		if (forwardAttachmentsESet) result.append(forwardAttachments); else result.append("<unset>");
 		result.append(", wsdl: ");
-		result.append(wsdl);
+		if (wsdlESet) result.append(wsdl); else result.append("<unset>");
 		result.append(", retryPolicy: ");
 		result.append(retryPolicy);
 		result.append(')');

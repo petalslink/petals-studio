@@ -220,10 +220,11 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage implements Ad
 	 */
 	@Override
 	public void dispose() {
-		if( this.dbc != null )
+		if( this.dbc != null ) {
 			this.dbc.dispose();
-
+		}
 		super.dispose();
+		getNewlyCreatedEndpoint().eAdapters().remove(this);
 	}
 
 	

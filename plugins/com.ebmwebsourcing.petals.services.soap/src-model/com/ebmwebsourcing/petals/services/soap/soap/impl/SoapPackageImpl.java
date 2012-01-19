@@ -538,9 +538,9 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		initEClass(soapProvidesEClass, SoapProvides.class, "SoapProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSoapProvides_Address(), theXMLTypePackage.getString(), "address", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_SoapVersion(), this.getSoapVersion(), "soapVersion", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapProvides_ChunkedMode(), theXMLTypePackage.getBoolean(), "chunkedMode", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_ChunkedMode(), theXMLTypePackage.getBoolean(), "chunkedMode", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_SynchonousTimeout(), theXMLTypePackage.getInt(), "synchonousTimeout", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapProvides_CleanupTransport(), theXMLTypePackage.getBoolean(), "cleanupTransport", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_CleanupTransport(), theXMLTypePackage.getBoolean(), "cleanupTransport", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_Mode(), this.getSoapMode(), "mode", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_ProxyHost(), theXMLTypePackage.getString(), "proxyHost", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_ProxyUser(), theXMLTypePackage.getString(), "proxyUser", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -553,8 +553,8 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		initEAttribute(getSoapConsumes_SoapAction(), theXMLTypePackage.getString(), "soapAction", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_SynchonousTimeout(), theXMLTypePackage.getInt(), "synchonousTimeout", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_Mode(), this.getSoapMode(), "mode", null, 1, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapConsumes_EnableHttpTransport(), theXMLTypePackage.getBoolean(), "enableHttpTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapConsumes_EnableJmsTransport(), theXMLTypePackage.getBoolean(), "enableJmsTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_EnableHttpTransport(), theXMLTypePackage.getBoolean(), "enableHttpTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_EnableJmsTransport(), theXMLTypePackage.getBoolean(), "enableJmsTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(soapComponentEClass, SoapComponent.class, "SoapComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSoapComponent_HttpPort(), theXMLTypePackage.getInt(), "httpPort", null, 0, 1, SoapComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);

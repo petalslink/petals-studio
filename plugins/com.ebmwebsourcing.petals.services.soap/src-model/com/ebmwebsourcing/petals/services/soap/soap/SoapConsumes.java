@@ -153,9 +153,11 @@ public interface SoapConsumes extends Consumes {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Enable Http Transport</em>' attribute.
+	 * @see #isSetEnableHttpTransport()
+	 * @see #unsetEnableHttpTransport()
 	 * @see #setEnableHttpTransport(boolean)
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapConsumes_EnableHttpTransport()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element' name='enable-http-transport'"
 	 * @generated
 	 */
@@ -166,10 +168,35 @@ public interface SoapConsumes extends Consumes {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Enable Http Transport</em>' attribute.
+	 * @see #isSetEnableHttpTransport()
+	 * @see #unsetEnableHttpTransport()
 	 * @see #isEnableHttpTransport()
 	 * @generated
 	 */
 	void setEnableHttpTransport(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableHttpTransport <em>Enable Http Transport</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetEnableHttpTransport()
+	 * @see #isEnableHttpTransport()
+	 * @see #setEnableHttpTransport(boolean)
+	 * @generated
+	 */
+	void unsetEnableHttpTransport();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableHttpTransport <em>Enable Http Transport</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Enable Http Transport</em>' attribute is set.
+	 * @see #unsetEnableHttpTransport()
+	 * @see #isEnableHttpTransport()
+	 * @see #setEnableHttpTransport(boolean)
+	 * @generated
+	 */
+	boolean isSetEnableHttpTransport();
 
 	/**
 	 * Returns the value of the '<em><b>Enable Jms Transport</b></em>' attribute.
@@ -180,9 +207,11 @@ public interface SoapConsumes extends Consumes {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Enable Jms Transport</em>' attribute.
+	 * @see #isSetEnableJmsTransport()
+	 * @see #unsetEnableJmsTransport()
 	 * @see #setEnableJmsTransport(boolean)
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapConsumes_EnableJmsTransport()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element' name='enable-jms-transport'"
 	 * @generated
 	 */
@@ -193,9 +222,34 @@ public interface SoapConsumes extends Consumes {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Enable Jms Transport</em>' attribute.
+	 * @see #isSetEnableJmsTransport()
+	 * @see #unsetEnableJmsTransport()
 	 * @see #isEnableJmsTransport()
 	 * @generated
 	 */
 	void setEnableJmsTransport(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableJmsTransport <em>Enable Jms Transport</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetEnableJmsTransport()
+	 * @see #isEnableJmsTransport()
+	 * @see #setEnableJmsTransport(boolean)
+	 * @generated
+	 */
+	void unsetEnableJmsTransport();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableJmsTransport <em>Enable Jms Transport</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Enable Jms Transport</em>' attribute is set.
+	 * @see #unsetEnableJmsTransport()
+	 * @see #isEnableJmsTransport()
+	 * @see #setEnableJmsTransport(boolean)
+	 * @generated
+	 */
+	boolean isSetEnableJmsTransport();
 
 } // SoapConsumes

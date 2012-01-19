@@ -107,6 +107,15 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	protected boolean chunkedMode = CHUNKED_MODE_EDEFAULT;
 
 	/**
+	 * This is true if the Chunked Mode attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean chunkedModeESet;
+
+	/**
 	 * The default value of the '{@link #getSynchonousTimeout() <em>Synchonous Timeout</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -145,6 +154,15 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	 * @ordered
 	 */
 	protected boolean cleanupTransport = CLEANUP_TRANSPORT_EDEFAULT;
+
+	/**
+	 * This is true if the Cleanup Transport attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean cleanupTransportESet;
 
 	/**
 	 * The default value of the '{@link #getMode() <em>Mode</em>}' attribute.
@@ -344,8 +362,33 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	public void setChunkedMode(boolean newChunkedMode) {
 		boolean oldChunkedMode = chunkedMode;
 		chunkedMode = newChunkedMode;
+		boolean oldChunkedModeESet = chunkedModeESet;
+		chunkedModeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__CHUNKED_MODE, oldChunkedMode, chunkedMode));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__CHUNKED_MODE, oldChunkedMode, chunkedMode, !oldChunkedModeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetChunkedMode() {
+		boolean oldChunkedMode = chunkedMode;
+		boolean oldChunkedModeESet = chunkedModeESet;
+		chunkedMode = CHUNKED_MODE_EDEFAULT;
+		chunkedModeESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_PROVIDES__CHUNKED_MODE, oldChunkedMode, CHUNKED_MODE_EDEFAULT, oldChunkedModeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetChunkedMode() {
+		return chunkedModeESet;
 	}
 
 	/**
@@ -386,8 +429,33 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	public void setCleanupTransport(boolean newCleanupTransport) {
 		boolean oldCleanupTransport = cleanupTransport;
 		cleanupTransport = newCleanupTransport;
+		boolean oldCleanupTransportESet = cleanupTransportESet;
+		cleanupTransportESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__CLEANUP_TRANSPORT, oldCleanupTransport, cleanupTransport));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__CLEANUP_TRANSPORT, oldCleanupTransport, cleanupTransport, !oldCleanupTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetCleanupTransport() {
+		boolean oldCleanupTransport = cleanupTransport;
+		boolean oldCleanupTransportESet = cleanupTransportESet;
+		cleanupTransport = CLEANUP_TRANSPORT_EDEFAULT;
+		cleanupTransportESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_PROVIDES__CLEANUP_TRANSPORT, oldCleanupTransport, CLEANUP_TRANSPORT_EDEFAULT, oldCleanupTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetCleanupTransport() {
+		return cleanupTransportESet;
 	}
 
 	/**
@@ -610,13 +678,13 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 				setSoapVersion(SOAP_VERSION_EDEFAULT);
 				return;
 			case SoapPackage.SOAP_PROVIDES__CHUNKED_MODE:
-				setChunkedMode(CHUNKED_MODE_EDEFAULT);
+				unsetChunkedMode();
 				return;
 			case SoapPackage.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT:
 				setSynchonousTimeout(SYNCHONOUS_TIMEOUT_EDEFAULT);
 				return;
 			case SoapPackage.SOAP_PROVIDES__CLEANUP_TRANSPORT:
-				setCleanupTransport(CLEANUP_TRANSPORT_EDEFAULT);
+				unsetCleanupTransport();
 				return;
 			case SoapPackage.SOAP_PROVIDES__MODE:
 				setMode(MODE_EDEFAULT);
@@ -653,11 +721,11 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 			case SoapPackage.SOAP_PROVIDES__SOAP_VERSION:
 				return soapVersion != SOAP_VERSION_EDEFAULT;
 			case SoapPackage.SOAP_PROVIDES__CHUNKED_MODE:
-				return chunkedMode != CHUNKED_MODE_EDEFAULT;
+				return isSetChunkedMode();
 			case SoapPackage.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT:
 				return synchonousTimeout != SYNCHONOUS_TIMEOUT_EDEFAULT;
 			case SoapPackage.SOAP_PROVIDES__CLEANUP_TRANSPORT:
-				return cleanupTransport != CLEANUP_TRANSPORT_EDEFAULT;
+				return isSetCleanupTransport();
 			case SoapPackage.SOAP_PROVIDES__MODE:
 				return mode != MODE_EDEFAULT;
 			case SoapPackage.SOAP_PROVIDES__PROXY_HOST:
@@ -689,11 +757,11 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 		result.append(", soapVersion: ");
 		result.append(soapVersion);
 		result.append(", chunkedMode: ");
-		result.append(chunkedMode);
+		if (chunkedModeESet) result.append(chunkedMode); else result.append("<unset>");
 		result.append(", synchonousTimeout: ");
 		result.append(synchonousTimeout);
 		result.append(", cleanupTransport: ");
-		result.append(cleanupTransport);
+		if (cleanupTransportESet) result.append(cleanupTransport); else result.append("<unset>");
 		result.append(", mode: ");
 		result.append(mode);
 		result.append(", proxyHost: ");

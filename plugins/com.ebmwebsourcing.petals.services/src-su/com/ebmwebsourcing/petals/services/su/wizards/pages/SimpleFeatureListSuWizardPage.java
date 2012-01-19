@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
@@ -97,7 +98,9 @@ public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage implemen
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
-		setPageComplete(isPageComplete());
+		if (Display.getCurrent() != null) { // UI Thread
+			setPageComplete(isPageComplete());
+		}
 	}
 
 

@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.soap.SoapDescription40;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
@@ -71,6 +72,7 @@ public class SoapProvidesWizard40 extends AbstractServiceUnitWizard {
 
 	@Override
 	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
+		newlyCreatedEndpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, jbiProvidePage.getWsdlFileName());
 		return Status.OK_STATUS;
 	}
 

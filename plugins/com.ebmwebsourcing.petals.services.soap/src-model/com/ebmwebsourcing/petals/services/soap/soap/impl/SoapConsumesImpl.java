@@ -141,6 +141,15 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	protected boolean enableHttpTransport = ENABLE_HTTP_TRANSPORT_EDEFAULT;
 
 	/**
+	 * This is true if the Enable Http Transport attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableHttpTransportESet;
+
+	/**
 	 * The default value of the '{@link #isEnableJmsTransport() <em>Enable Jms Transport</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -159,6 +168,15 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	 * @ordered
 	 */
 	protected boolean enableJmsTransport = ENABLE_JMS_TRANSPORT_EDEFAULT;
+
+	/**
+	 * This is true if the Enable Jms Transport attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableJmsTransportESet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -280,8 +298,33 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	public void setEnableHttpTransport(boolean newEnableHttpTransport) {
 		boolean oldEnableHttpTransport = enableHttpTransport;
 		enableHttpTransport = newEnableHttpTransport;
+		boolean oldEnableHttpTransportESet = enableHttpTransportESet;
+		enableHttpTransportESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT, oldEnableHttpTransport, enableHttpTransport));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT, oldEnableHttpTransport, enableHttpTransport, !oldEnableHttpTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetEnableHttpTransport() {
+		boolean oldEnableHttpTransport = enableHttpTransport;
+		boolean oldEnableHttpTransportESet = enableHttpTransportESet;
+		enableHttpTransport = ENABLE_HTTP_TRANSPORT_EDEFAULT;
+		enableHttpTransportESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT, oldEnableHttpTransport, ENABLE_HTTP_TRANSPORT_EDEFAULT, oldEnableHttpTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetEnableHttpTransport() {
+		return enableHttpTransportESet;
 	}
 
 	/**
@@ -301,8 +344,33 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	public void setEnableJmsTransport(boolean newEnableJmsTransport) {
 		boolean oldEnableJmsTransport = enableJmsTransport;
 		enableJmsTransport = newEnableJmsTransport;
+		boolean oldEnableJmsTransportESet = enableJmsTransportESet;
+		enableJmsTransportESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT, oldEnableJmsTransport, enableJmsTransport));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT, oldEnableJmsTransport, enableJmsTransport, !oldEnableJmsTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetEnableJmsTransport() {
+		boolean oldEnableJmsTransport = enableJmsTransport;
+		boolean oldEnableJmsTransportESet = enableJmsTransportESet;
+		enableJmsTransport = ENABLE_JMS_TRANSPORT_EDEFAULT;
+		enableJmsTransportESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT, oldEnableJmsTransport, ENABLE_JMS_TRANSPORT_EDEFAULT, oldEnableJmsTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetEnableJmsTransport() {
+		return enableJmsTransportESet;
 	}
 
 	/**
@@ -380,10 +448,10 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 				setMode(MODE_EDEFAULT);
 				return;
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
-				setEnableHttpTransport(ENABLE_HTTP_TRANSPORT_EDEFAULT);
+				unsetEnableHttpTransport();
 				return;
 			case SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT:
-				setEnableJmsTransport(ENABLE_JMS_TRANSPORT_EDEFAULT);
+				unsetEnableJmsTransport();
 				return;
 		}
 		super.eUnset(featureID);
@@ -406,9 +474,9 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 			case SoapPackage.SOAP_CONSUMES__MODE:
 				return mode != MODE_EDEFAULT;
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
-				return enableHttpTransport != ENABLE_HTTP_TRANSPORT_EDEFAULT;
+				return isSetEnableHttpTransport();
 			case SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT:
-				return enableJmsTransport != ENABLE_JMS_TRANSPORT_EDEFAULT;
+				return isSetEnableJmsTransport();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -432,9 +500,9 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 		result.append(", mode: ");
 		result.append(mode);
 		result.append(", enableHttpTransport: ");
-		result.append(enableHttpTransport);
+		if (enableHttpTransportESet) result.append(enableHttpTransport); else result.append("<unset>");
 		result.append(", enableJmsTransport: ");
-		result.append(enableJmsTransport);
+		if (enableJmsTransportESet) result.append(enableJmsTransport); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

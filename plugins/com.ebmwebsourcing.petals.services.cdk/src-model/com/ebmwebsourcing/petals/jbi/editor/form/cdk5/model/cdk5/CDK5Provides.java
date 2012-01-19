@@ -228,9 +228,11 @@ public interface CDK5Provides extends CDKService, Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Wsdl</em>' attribute.
+	 * @see #isSetWsdl()
+	 * @see #unsetWsdl()
 	 * @see #setWsdl(String)
 	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package#getCDK5Provides_Wsdl()
-	 * @model derived="true"
+	 * @model unsettable="true" derived="true"
 	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='wsdl' group='#cdkExtContainer'"
 	 * @generated
 	 */
@@ -241,10 +243,35 @@ public interface CDK5Provides extends CDKService, Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Wsdl</em>' attribute.
+	 * @see #isSetWsdl()
+	 * @see #unsetWsdl()
 	 * @see #getWsdl()
 	 * @generated
 	 */
 	void setWsdl(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getWsdl <em>Wsdl</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetWsdl()
+	 * @see #getWsdl()
+	 * @see #setWsdl(String)
+	 * @generated
+	 */
+	void unsetWsdl();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides#getWsdl <em>Wsdl</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Wsdl</em>' attribute is set.
+	 * @see #unsetWsdl()
+	 * @see #getWsdl()
+	 * @see #setWsdl(String)
+	 * @generated
+	 */
+	boolean isSetWsdl();
 
 	/**
 	 * Returns the value of the '<em><b>Retry Policy</b></em>' attribute.
