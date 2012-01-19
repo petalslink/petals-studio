@@ -20,6 +20,7 @@
             id="sql">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription11"
+               editorExtension="com.ebmwebsourcing.petals.services.sql.editor.SqlEditorContribution"
                id="SQL 1.1"
                namespace="http://petals.ow2.org/components/sql/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard11">

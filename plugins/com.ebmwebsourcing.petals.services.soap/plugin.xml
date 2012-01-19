@@ -21,6 +21,7 @@
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.soap.SoapDescription40"
                consumesExtensionWizard="com.ebmwebsourcing.petals.services.soap.wizards.SoapConsumesWizard40"
+               editorExtension="com.ebmwebsourcing.petals.services.soap.editor.SoapEditorContribution"
                id="SOAP 4.0"
                namespace="http://petals.ow2.org/components/soap/version-4"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.soap.wizards.SoapProvidesWizard40">

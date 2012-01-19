@@ -25,6 +25,7 @@
          </ComponentVersionSupport>
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.sftp.SftpDescription12"
+               editorExtension="com.ebmwebsourcing.petals.services.sftp.editor.SftpEditorContribution"
                id="SFTP 1.2"
                namespace="http://petals.ow2.org/components/sftp/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.sftp.wizards.SftpProvidesWizard12">
