@@ -16,7 +16,8 @@ Require-Bundle: com.ebmwebsourcing.petals.services,
  org.eclipse.core.databinding.beans,
  org.eclipse.emf.databinding,
  org.eclipse.jface.databinding,
- com.ebmwebsourcing.petals.services.cdk
+ com.ebmwebsourcing.petals.services.cdk,
+ org.eclipse.ui.forms;bundle-version="3.5.100"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.xslt.PetalsXsltPlugin

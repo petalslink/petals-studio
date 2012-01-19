@@ -20,6 +20,7 @@
             id="xslt">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.xslt.XsltDescription23_24"
+               editorExtension="com.ebmwebsourcing.petals.services.xslt.editor.XsltEditorContribution"
                id="XSLT 2.4"
                namespace="http://petals.ow2.org/components/xslt/version-2"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.xslt.wizard.XsltWizard24">

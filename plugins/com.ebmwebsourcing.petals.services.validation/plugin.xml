@@ -20,6 +20,7 @@
             id="validation">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.validation.ValidationDescription11"
+               editorExtension="com.ebmwebsourcing.petals.services.validation.editor.ValidationEditorContribution"
                id="Validation 1.1"
                namespace="http://petals.ow2.org/components/validation/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.validation.wizard.ValidationProvidesWizard11">
