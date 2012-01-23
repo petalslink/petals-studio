@@ -13,6 +13,7 @@ package com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,13 +46,16 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.NamespaceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.eip.designer.edit.commands.EipConnectionSetAttributeCommand;
 import com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipConnectionEditPart;
-import com.ebmwebsourcing.petals.services.eip.designer.model.AbstractNode;
 import com.ebmwebsourcing.petals.services.eip.designer.model.EipConnection;
 import com.ebmwebsourcing.petals.services.eip.designer.model.EipNode;
+import com.ebmwebsourcing.petals.services.eip.designer.model.Endpoint;
 import com.ebmwebsourcing.petals.services.su.ui.OperationLabelProvider;
 import com.ebmwebsourcing.petals.services.utils.ConsumeUtils;
 
@@ -121,14 +125,10 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 		layout.marginHeight = 5;
 		buttonsContainer.setLayout( layout );
 
-		SelectionListener buttonListener = new SelectionListener() {
+		SelectionListener buttonListener = new DefaultSelectionListener() {
 			public void widgetSelected( SelectionEvent e ) {
-				widgetDefaultSelected( e );
-			}
 
-			public void widgetDefaultSelected( SelectionEvent e ) {
 				if( ConnectionConsumeSection.this.enableListener ) {
-
 					EipConnectionSetAttributeCommand cmd =
 						new EipConnectionSetAttributeCommand((String) e.widget.getData());
 
@@ -346,19 +346,37 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 
 			// Update the content of the operation helper
 			this.opNameToMep.clear();
-			if( this.connection.getTarget() != null ) {
-				AbstractNode n = this.connection.getTarget();
+
+			// End-point: search in the local repository
+			if( this.connection.getTarget() instanceof Endpoint ) {
+				Endpoint edpt = (Endpoint) this.connection.getTarget();
+
 				QName itf = null;
-				if( ! StringUtils.isEmpty( n.getInterfaceNamespace())
-							&& ! StringUtils.isEmpty( n.getInterfaceName()))
-					itf = new QName( n.getInterfaceNamespace(), n.getInterfaceName());
+				if( ! StringUtils.isEmpty( edpt.getInterfaceNamespace())
+						&& ! StringUtils.isEmpty( edpt.getInterfaceName()))
+					itf = new QName( edpt.getInterfaceNamespace(), edpt.getInterfaceName());
 
 				QName srv = null;
-				if( ! StringUtils.isEmpty( n.getServiceNamespace())
-							&& ! StringUtils.isEmpty( n.getServiceName()))
-					srv = new QName( n.getServiceNamespace(), n.getServiceName());
+				if( ! StringUtils.isEmpty( edpt.getServiceNamespace())
+						&& ! StringUtils.isEmpty( edpt.getServiceName()))
+					srv = new QName( edpt.getServiceNamespace(), edpt.getServiceName());
 
-				this.opNameToMep.putAll( ConsumeUtils.getValidOperationsForConsume( itf, srv, n.getEndpointName()));
+				this.opNameToMep.putAll( ConsumeUtils.getValidOperationsForConsume( itf, srv, edpt.getEndpointName()));
+			}
+
+			// EIP: check the associated WSDL, if it exists
+			else if( this.connection.getTarget() != null ) {
+				EipNode eip = ((EipNode) this.connection.getTarget());
+
+				URI javaNetUri = null;
+				if( eip.getWsdlUri() != null )
+					javaNetUri = UriUtils.urlToUri( eip.getWsdlUri());
+
+				if( javaNetUri != null ) {
+					this.opNameToMep.putAll( WsdlUtils.INSTANCE.getOperations(
+							javaNetUri, eip.getInterfaceName(), eip.getInterfaceNamespace(),
+							eip.getServiceName(), eip.getServiceNamespace(), eip.getEndpointName()));
+				}
 			}
 
 			// Hack for EIP nodes without a WSDL - not handled before because the EIP is not (yet) a Petals end-point

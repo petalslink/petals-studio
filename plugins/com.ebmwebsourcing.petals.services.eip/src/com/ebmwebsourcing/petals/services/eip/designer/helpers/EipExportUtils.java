@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.eip.designer.helpers;
 
@@ -87,7 +87,8 @@ public class EipExportUtils {
 			((EipProvides25Router) jbiXmlBean).setFaultToException( b );
 
 			String routingCriteria = eip.getProperties().get( EipProperty.ROUTING_CRITERIA );
-			boolean isXpath = EipProperty.ROUTING_CRITERIA_BY_CONTENT.equals( routingCriteria );
+			boolean isXpath = routingCriteria == null
+					|| EipProperty.ROUTING_CRITERIA_BY_CONTENT.equals( routingCriteria );
 			((EipProvides25Router) jbiXmlBean).setXpathCondition( isXpath );
 
 			for( EipConnection conn : eip.getOutgoingConnections()) {

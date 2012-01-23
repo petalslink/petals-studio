@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.eip.designer.wizards;
 
@@ -322,16 +322,12 @@ public class MavenProjectExportWizard extends Wizard {
 		for( int i=0; i<suMavenBeans.size(); i++ )
 			suNames[ i ] = suMavenBeans.get( i ).getArtifactId();
 
-		String jbiXmlContent = JbiUtils.generateJbiXmlForSA( saBean.getProjectName(), "petals-se-eip", suNames );
+		String jbiXmlContent = JbiUtils.generateJbiXmlForSA( "petals-se-eip", saBean.getProjectName(), suNames );
 		IFile jbiXmlFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
-		if( ! jbiXmlFile.exists()) {
-			jbiXmlFile.create(
-						new ByteArrayInputStream( jbiXmlContent.getBytes()), true, monitor );
-		}
-		else {
-			jbiXmlFile.setContents(
-						new ByteArrayInputStream( jbiXmlContent.getBytes()), true, true, monitor );
-		}
+		if( ! jbiXmlFile.exists())
+			jbiXmlFile.create( new ByteArrayInputStream( jbiXmlContent.getBytes()), true, monitor );
+		else
+			jbiXmlFile.setContents( new ByteArrayInputStream( jbiXmlContent.getBytes()), true, true, monitor );
 
 		// SU dependencies
 		try {
@@ -394,8 +390,10 @@ public class MavenProjectExportWizard extends Wizard {
 		saBean.addAllSuBeans( suImportBeans );
 
 		String title = "EipChain";
-		if( ! StringUtils.isEmpty( this.eipChain.getTitle()))
+		if( ! StringUtils.isEmpty( this.eipChain.getTitle())) {
 			title = this.eipChain.getTitle().trim();
+			title = title.replace( " ", "" ).replaceAll( "\\W", "_" );
+		}
 
 		String name = JbiUtils.createSaName( "EIP", title, false );
 		saBean.setProjectName( name );

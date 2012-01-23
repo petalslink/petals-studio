@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
@@ -105,7 +105,7 @@ public class WsdlImportUtils {
 	 * <p>
 	 * Dependency cycles result in an exception and in the abortion of the current processing.
 	 * </p>
-	 * 
+	 *
 	 * @param referencerUri the URI of the file that may have imports to process
 	 * @param targetDirectory the folder where the files should be saved.
 	 * @param locationAttrValue
@@ -164,16 +164,15 @@ public class WsdlImportUtils {
 							relativePosition,
 							targetDirectory,
 							false, true, false );
-
-				if( importedFile == null )
-					throw new NullPointerException( "The imported file was not found." );
 			}
 
 		} catch( Exception e ) {
-			e.printStackTrace();
 			String msg = "The file at " + referencerUri.toString() + " could not be imported.";
 			this.errors.add( new WsdlImportError( msg, e, WsdlImportStatus.error ));
 		}
+
+		if( importedFile == null )
+			throw new NullPointerException( "The imported file was not found." );
 
 
 		// Associate the URI (before import) with the file path (after import)
@@ -259,7 +258,7 @@ public class WsdlImportUtils {
 	 * This method only gets the flat imports, not the recursive imports (the files
 	 * referenced by the referenced files of this WSDL).
 	 * </p>
-	 * 
+	 *
 	 * @param docRoot
 	 * @return a non-null list of referenced files' locations.
 	 * <p>

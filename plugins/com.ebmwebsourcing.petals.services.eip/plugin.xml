@@ -249,4 +249,15 @@
           class="com.ebmwebsourcing.petals.services.eip.croquis.EipCroquis">
     </Croquis>
  </extension>
+ <extension
+       point="com.ebmwebsourcing.petals.services.componentExtension">
+    <ComponentSupport
+          id="EIP">
+       <ComponentVersionSupport
+             componentVersionDescription="com.ebmwebsourcing.petals.services.eip.su.EipDescription"
+             id="Any EIP"
+             providesExtensionWizard="com.ebmwebsourcing.petals.services.eip.su.EipSuWizard">
+       </ComponentVersionSupport>
+    </ComponentSupport>
+ </extension>
 </plugin>

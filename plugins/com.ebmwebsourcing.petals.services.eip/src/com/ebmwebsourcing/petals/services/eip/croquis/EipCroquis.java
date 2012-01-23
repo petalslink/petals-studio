@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.eip.croquis;
 
@@ -22,12 +22,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -39,6 +36,7 @@ import com.ebmwebsourcing.petals.common.croquis.internal.provisional.ICroquisExt
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.eip.PetalsEipPlugin;
 import com.ebmwebsourcing.petals.services.eip.designer.EipDesignerSerializer;
 
@@ -161,29 +159,23 @@ public class EipCroquis implements ICroquisExtension {
 	 */
 	public void createControl( Composite parent, final CroquisNewWizardPage page ) {
 
-		Label l = new Label( parent, SWT.NONE );
-		l.setText( "File Name:" );
-		l.setToolTipText( "The name of the file to create" );
+		SwtFactory.createLabel( parent, "Chain Title:", "The name of the EIP chain to create" );
+		Text chainText = SwtFactory.createSimpleTextField( parent, true );
 
-		Text text = new Text( parent, SWT.BORDER );
-		text.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		text.addModifyListener( new ModifyListener() {
+		SwtFactory.createLabel( parent, "File Name:", "The name of the file to create" );
+		final Text fileText = SwtFactory.createSimpleTextField( parent, true );
+		fileText.addModifyListener( new ModifyListener() {
 			public void modifyText( ModifyEvent e ) {
 				EipCroquis.this.fileName = ((Text) e.widget).getText().trim();
 				validate( page );
 			}
 		});
 
-		l = new Label( parent, SWT.NONE );
-		l.setText( "Chain Name:" );
-		l.setToolTipText( "The name of the EIP chain to create" );
-
-		text = new Text( parent, SWT.BORDER );
-		text.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		text.addModifyListener( new ModifyListener() {
+		chainText.addModifyListener( new ModifyListener() {
 			public void modifyText( ModifyEvent e ) {
 				EipCroquis.this.chainName = ((Text) e.widget).getText().trim();
-				validate( page );
+				String s = EipCroquis.this.chainName.replace( " ", "" ).replaceAll( "\\W", "_" );
+				fileText.setText( s );
 			}
 		});
 	}
@@ -198,6 +190,8 @@ public class EipCroquis implements ICroquisExtension {
 		String msg = null;
 		if( StringUtils.isEmpty( this.fileName ))
 			msg = "You must set the name of the file to create.";
+		else if( ! this.fileName.matches( "\\w+" ))
+			msg = "The file name can only contain alphanumeric characters (and underscores).";
 		else if( this.fileName.contains( "." ) && ! this.fileName.endsWith( ".peip" ))
 			msg = "The file must have a .peip extension.";
 		else if( getFile().exists())

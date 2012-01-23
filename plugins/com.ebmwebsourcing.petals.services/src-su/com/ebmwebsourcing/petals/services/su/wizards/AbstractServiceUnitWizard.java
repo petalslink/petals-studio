@@ -61,7 +61,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 */
 	protected AbstractEndpoint endpoint;
 
-	ProjectPage projectPage;
+	protected ProjectPage projectPage;
 	protected JbiProvidePage jbiProvidePage;
 
 	protected FinishServiceCreationStrategy finishStrategy;

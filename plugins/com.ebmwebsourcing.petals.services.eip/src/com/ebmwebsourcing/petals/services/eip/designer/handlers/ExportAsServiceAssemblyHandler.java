@@ -144,7 +144,9 @@ public class ExportAsServiceAssemblyHandler extends AbstractHandler {
 						&& eip.isCopyWsdl()) {
 
 				// Create a temporary directory to import the WSDL
-				tempDir = new File( new File( System.getProperty( "java.io.tmp" )), UUID.randomUUID().toString());
+				tempDir = new File( new File( System.getProperty( "java.io.tmpdir" )), UUID.randomUUID().toString());
+				if( ! tempDir.mkdir())
+					throw new IOException( "Could not create a temporary directory." );
 
 				// Copy the WSDL into it (this copy also normalizes the file hierarchy)
 				Map<String,File> wsdlUriToFile = new WsdlImportUtils().importWsdlOrXsdAndDependencies( tempDir, eip.getWsdlUri());

@@ -79,23 +79,46 @@ public class EipChainTransactionalValidator {
 
 
 		// Validate the properties of the EIP nodes
+		Map<String,List<EipNode>> eipServiceNameToEip = new HashMap<String,List<EipNode>> ();
 		for( EipNode eip : eipChain.getEipNodes()) {
 			validateEipNode( eip );
 
-			// Valid node => we have an end-point
-			if( this.nodeToErrorMessage.get( eip ) == null ) {
+			// Valid node => we have an EIP
+			List<String> messages = this.nodeToErrorMessage.get( eip );
+			if( messages == null || messages.isEmpty()) {
+
 				EndpointBean bean = new EndpointBean();
 				bean.setEndpointName( eip.getEndpointName());
 				bean.setInterfaceName( new QName( eip.getInterfaceNamespace(), eip.getInterfaceName()));
 				bean.setServiceName( new QName( eip.getServiceNamespace(), eip.getServiceName()));
 
+				// This is to check the end-point uniqueness (itf + srv + edpt)
 				List<AbstractNode> list = edptToNodes.get( bean );
 				if( list == null )
 					list = new ArrayList<AbstractNode> ();
 
 				list.add( eip );
 				edptToNodes.put( bean, list );
+
+				// This is to check the uniqueness of the service name (local part)
+				List<EipNode> eips = eipServiceNameToEip.get( eip.getServiceName());
+				if( eips == null )
+					eips = new ArrayList<EipNode> ();
+
+				eips.add( eip );
+				eipServiceNameToEip.put( eip.getServiceName(), eips );
 			}
+		}
+
+
+		// We must also avoid a same service name for EIPs, because of the export (can lead to conflict during the export).
+		// This is a constraint due to the fact we have one project / SU per EIP.
+		for( Map.Entry<String,List<EipNode>> entry : eipServiceNameToEip.entrySet()) {
+			if( entry.getValue().size() == 1 )
+				continue;
+
+			for( EipNode eip : entry.getValue())
+				addErrorMessage( eip, "Same service names are not allowed within a same chain. " + entry.getKey() + " is already used." );
 		}
 
 
@@ -104,7 +127,9 @@ public class EipChainTransactionalValidator {
 			validateEndpoint( edpt );
 
 			// Valid node => we have an end-point
-			if( this.nodeToErrorMessage.get( edpt ) == null ) {
+			List<String> messages = this.nodeToErrorMessage.get( edpt );
+			if( messages == null || messages.isEmpty()) {
+
 				EndpointBean bean = new EndpointBean();
 				bean.setEndpointName( edpt.getEndpointName());
 				bean.setInterfaceName( new QName( edpt.getInterfaceNamespace(), edpt.getInterfaceName()));
@@ -141,7 +166,7 @@ public class EipChainTransactionalValidator {
 			if( hasEdpt && eipCpt > 0 ) {
 				for( AbstractNode node : nodes ) {
 					if( node instanceof EipNode )
-						addErrorMessage( node, "This EIP identifier is already taken by a Petals service." );
+						addErrorMessage( node, "This EIP identifier is already taken by a Petals service used in this chain." );
 				}
 
 			} else if (eipCpt > 1 ) {
@@ -252,6 +277,7 @@ public class EipChainTransactionalValidator {
 
 		this.connectionToErrorMessage.put( conn, messages );
 	}
+
 
 	/**
 	 * Clears all the error messages for this connection.
@@ -501,8 +527,7 @@ public class EipChainTransactionalValidator {
 
 			else {
 				if( conn.getSource().getEipType() == EIPtype.ROUTER &&
-							EipProperty.ROUTING_CRITERIA_BY_OPERATION.equals(
-										conn.getSource().getProperties().get( EipProperty.ROUTING_CRITERIA ))) {
+							EipProperty.ROUTING_CRITERIA_BY_OPERATION.equals( conn.getSource().getProperties().get( EipProperty.ROUTING_CRITERIA ))) {
 
 					if( ! NamespaceUtils.isShortenNamespace( conn.getConditionExpression()))
 						msg = "The routing operation is not a valid QName.";

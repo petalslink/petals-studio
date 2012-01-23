@@ -126,6 +126,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider
 	 * #getChildren(java.lang.Object)
 	 */
+	@Override
 	public Object[] getChildren( Object element ) {
 
 		StatisticsTimer statisticsTimer = new StatisticsTimer();
@@ -281,6 +282,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider
 	 * #getParent(java.lang.Object)
 	 */
+	@Override
 	public Object getParent( Object element ) {
 
 		if( element instanceof PetalsProjectCategory )
@@ -334,6 +336,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see org.eclipse.jface.viewers.IContentProvider
 	 * #inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
 	 */
+	@Override
 	public void inputChanged( Viewer viewer, Object oldInput, Object newInput ) {
 		this.viewer = viewer;
 	}
@@ -344,6 +347,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see org.eclipse.jface.viewers.IContentProvider
 	 * #dispose()
 	 */
+	@Override
 	public void dispose() {
 		// nothing
 	}
@@ -354,6 +358,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider
 	 * #getElements(java.lang.Object)
 	 */
+	@Override
 	public Object[] getElements( Object inputElement ) {
 		return new Object[ 0 ];
 	}
@@ -364,6 +369,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider
 	 * #hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren( Object element ) {
 
 		StatisticsTimer statisticsTimer = new StatisticsTimer();
@@ -413,6 +419,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener
 	 * #resourcesAdded(java.util.Collection)
 	 */
+	@Override
 	public void resourcesAdded( final Collection<IResource> resources ) {
 
 		if( !( this.viewer instanceof AbstractTreeViewer ))
@@ -448,6 +455,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 
 			for( final PetalsProjectCategory cat : cats ) {
 				Runnable runnable = new Runnable() {
+					@Override
 					public void run() {
 						boolean visible = true;
 						if( treeViewer.getFilters() != null ) {
@@ -474,6 +482,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		for( final Map.Entry<Object,List<IResource>> entry : parentToResources.entrySet()) {
 
 			Runnable runnable = new Runnable() {
+				@Override
 				public void run() {
 					treeViewer.getControl().setRedraw( false );
 					treeViewer.add( entry.getKey(), entry.getValue().toArray());
@@ -491,6 +500,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener
 	 * #resourcesRemoved(java.util.Collection)
 	 */
+	@Override
 	public void resourcesRemoved( final Collection<IResource> resources ) {
 
 		if( !( this.viewer instanceof AbstractTreeViewer ))
@@ -514,6 +524,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		for( final Map.Entry<Object,List<IResource>> entry : parentToResources.entrySet()) {
 
 			Runnable runnable = new Runnable() {
+				@Override
 				public void run() {
 					treeViewer.getControl().setRedraw( false );
 					if( entry.getKey() == null )
@@ -534,6 +545,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener
 	 * #resourceChanged(org.eclipse.core.resources.IResourceDelta)
 	 */
+	@Override
 	public void resourceChanged( IResourceDelta delta ) {
 
 		if(( delta.getFlags() & IResourceDelta.TYPE ) != 0 )
@@ -560,6 +572,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener
 	 * #markerChanged(org.eclipse.core.resources.IMarkerDelta[])
 	 */
+	@Override
 	public void markerChanged( IMarkerDelta[] markerDeltas ) {
 
 		for( IMarkerDelta delta : markerDeltas )
@@ -572,6 +585,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener
 	 * #prepareNotification()
 	 */
+	@Override
 	public void prepareNotification() {
 		// nothing
 	}
@@ -582,6 +596,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 * @see com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener
 	 * #terminateNotification()
 	 */
+	@Override
 	public void terminateNotification() {
 
 		if( this.viewer.getControl() == null
@@ -597,6 +612,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		// possible to select resources at the end of a wizard (refresh runnables may be executed after the selection).
 		// And the selected element may not be visible at the time when it is tried to be selected.
 		this.viewer.getControl().getDisplay().syncExec( new Runnable(){
+			@Override
 			public void run() {
 				Control ctrl = PetalsProjectContentProvider.this.viewer.getControl();
 				if( ctrl != null && ! ctrl.isDisposed()) {
@@ -618,6 +634,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 */
 	protected final Runnable getRefreshRunnable( final Object element ) {
 		return new Runnable(){
+			@Override
 			public void run() {
 				((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( element, true );
 			}
@@ -626,19 +643,20 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 
 
 	/**
-	 * Return a runnable for refreshing a resource.
+	 * Return a runnable for refreshing the markers on a resource.
 	 * @param resource
 	 * @return Runnable
 	 */
 	protected final Runnable getMarkerRefreshRunnable( final IResource resource ) {
 		return new Runnable(){
+			@Override
 			public void run() {
 
 				IResource res = resource;
-				while( res != null && !( res.getParent() instanceof IWorkspaceRoot ))
+				while( res != null && !( res.getParent() instanceof IWorkspaceRoot )) {
+					((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( res, true );
 					res = res.getParent();
-
-				((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( res, true );
+				}
 			}
 		};
 	}
@@ -651,6 +669,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 	 */
 	protected final Runnable getUpdateRunnable( final IResource resource ) {
 		return new Runnable(){
+			@Override
 			public void run() {
 				((StructuredViewer) PetalsProjectContentProvider.this.viewer).update( resource, null );
 			}

@@ -16,7 +16,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -133,6 +135,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	@SuppressWarnings( "restriction" )
 	public void createControl( Composite parent ) {
 
@@ -165,6 +168,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 		projectLocationText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		projectLocationText.setText( ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
 		projectLocationText.addModifyListener(new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				AbstractPetalsServiceCreationWizardPage.this.projectLocation = projectLocationText.getText();
 				validate();
@@ -241,6 +245,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 		// Define its content provider
 		this.viewer.setContentProvider( new ITreeContentProvider() {
 
+			@Override
 			public Object[] getChildren( Object parentElement ) {
 				Object[] children = new Object[ 0 ];
 				if( parentElement instanceof SaImportBean ) {
@@ -250,10 +255,12 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 				return children;
 			}
 
+			@Override
 			public Object getParent( Object element ) {
 				return null;
 			}
 
+			@Override
 			public boolean hasChildren( Object element ) {
 				boolean hasChildren = false;
 				if( element instanceof SaImportBean ) {
@@ -262,22 +269,27 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 				return hasChildren;
 			}
 
+			@Override
 			public Object[] getElements( Object inputElement ) {
 				Object[] result = new Object[ ((Collection<?>) inputElement).size()];
 				return ((Collection<?>) inputElement).toArray( result );
 			}
 
+			@Override
 			public void dispose() {
 				// nothing
 			}
 
+			@Override
 			public void inputChanged( Viewer _viewer, Object oldInput, Object newInput ) {
+				// nothing
 			}
 		});
 
 
 		// Define its label provider
 		this.viewer.setLabelProvider( new ITableLabelProvider() {
+			@Override
 			public Image getColumnImage( Object element, int columnIndex ) {
 				Image result = null;
 
@@ -310,6 +322,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 			}
 
 
+			@Override
 			public String getColumnText( Object element, int columnIndex ) {
 				String result = "";
 
@@ -340,18 +353,22 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 				return result;
 			}
 
+			@Override
 			public void addListener( ILabelProviderListener listener ) {
 				// nothing
 			}
 
+			@Override
 			public void dispose() {
 				// nothing
 			}
 
+			@Override
 			public boolean isLabelProperty( Object element, String property ) {
 				return false;
 			}
 
+			@Override
 			public void removeListener( ILabelProviderListener listener ) {
 				// nothing
 			}
@@ -386,6 +403,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 		final StringComboBoxCellEditor comboEditor = new StringComboBoxCellEditor( tree, DEFAULT_VERSIONS, SWT.DROP_DOWN );
 
 		this.viewer.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				if( ! event.getSelection().isEmpty()) {
@@ -411,6 +429,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 
 		// Define its cell modifier
 		this.viewer.setCellModifier( new ICellModifier() {
+			@Override
 			public void modify( Object element, String property, Object value ) {
 
 				TreeItem tableItem = (TreeItem) element;
@@ -448,6 +467,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 				}
 			}
 
+			@Override
 			public Object getValue( Object element, String property ) {
 
 				Object value = null;
@@ -471,6 +491,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 				return value;
 			}
 
+			@Override
 			public boolean canModify( Object element, String property ) {
 
 				boolean canModify = true;
@@ -541,6 +562,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 		}
 
 		// Validate the projects
+		Set<String> names = new HashSet<String> ();
 		for( SaImportBean saBean : this.importsBeans ) {
 			if( ! validateServiceProject( saBean ))
 				return false;
@@ -548,12 +570,42 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 			for( SuImportBean suBean : saBean.getSuBeans()) {
 				if( ! validateServiceProject( suBean ))
 					return false;
+
+				if( suBean.isToCreate()
+						&& ! isNameUnique( suBean.getProjectName(), names ))
+					return false;
 			}
+
+			if( saBean.isToCreate()
+					&& ! isNameUnique( saBean.getProjectName(), names ))
+				return false;
 		}
 
 		setErrorMessage( null );
 		setPageComplete( true );
 		return true;
+	}
+
+
+	/**
+	 * Tests the uniqueness of the project names.
+	 * @param name the name to check
+	 * @param names the stores names
+	 * @return true if this name is unique, false otherwise
+	 */
+	private boolean isNameUnique( String name, Set<String> names ) {
+
+		boolean result = true;
+		if( names.contains( name )) {
+			setErrorMessage( "There is a conflict in the project names. " + name + " is already in the list." );
+			result = false;
+
+		} else {
+			names.add( name );
+		}
+
+		setPageComplete( result );
+		return result;
 	}
 
 
@@ -627,7 +679,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 	 * <p>
 	 * After insertion, the viewer is refreshed and expanded.
 	 * </p>
-	 * 
+	 *
 	 * @param importBeans the import beans to set (may be null)
 	 * @param clearBeforeInsertion true to empty the current list before insertion
 	 */

@@ -107,10 +107,11 @@ public class JbiProvidePage extends JbiAbstractPage {
 		FormText ft = new FormText( container, SWT.BORDER | SWT.WRAP );
 		ft.marginWidth = 7;
 		ft.marginHeight = 7;
-		GridData layoutData = new GridData( GridData.FILL_BOTH );
+		GridData layoutData = new GridData( GridData.FILL_HORIZONTAL );
 		layoutData.horizontalSpan = 2;
 		layoutData.verticalIndent = 30;
 		layoutData.widthHint = 380;
+		layoutData.heightHint = 100;
 		ft.setLayoutData( layoutData );
 
 		ft.setBackground( getShell().getDisplay().getSystemColor( SWT.COLOR_INFO_BACKGROUND ));
@@ -119,10 +120,10 @@ public class JbiProvidePage extends JbiAbstractPage {
 		StringBuilder sb = new StringBuilder();
 		sb.append( "<form>" );
 		sb.append( "<p><img href=\"tip\" /> <b>Auto Generated End-points</b></p>" );
-		sb.append( "<p>End-points that are generated at deployment time allow to " +
-				"instantiate several services from a single Service Unit." +
-				"These services will have the same behavior, same interface, same service name, " +
-				"but they will have a different identifier.</p>" );
+		sb.append( "<p>End-points that are generated at deployment time allow to " );
+		sb.append( "instantiate several services from a single Service Unit." );
+		sb.append( "These services will have the same behavior, same interface, same service name, " );
+		sb.append( "but they will have a different identifier.</p>" );
 		sb.append( "</form>" );
 
 		ft.setText( sb.toString(), true, false );
@@ -389,7 +390,7 @@ public class JbiProvidePage extends JbiAbstractPage {
 	 * @return
 	 */
 	public String getWsdlFileName() {
-		String[] segments = wsdlUrl.split("/");
+		String[] segments = this.wsdlUrl.split("/");
 		return segments[segments.length - 1];
 	}
 }

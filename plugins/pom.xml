@@ -18,12 +18,15 @@
 	<packaging>pom</packaging>
 	
 	<modules>
+		<!-- Libraries -->
+		<module>com.ebmwebsourcing.petals.common.libs.cxf</module>
+		<module>com.ebmwebsourcing.petals.common.libs.easybpel</module>
+	
 		<!-- Core of Petals tooling -->
 		<module>com.ebmwebsourcing.jbi.core.metamodel</module>
 		<module>com.ebmwebsourcing.jbi.core.metamodel.edit</module>
 		<module>com.ebmwebsourcing.petals.common.generation</module>
 		<module>com.ebmwebsourcing.petals.common</module>
-		<module>com.ebmwebsourcing.petals.common.libs.cxf</module>
 		<module>com.ebmwebsourcing.petals.common.wsdlext</module>
 		<module>com.ebmwebsourcing.petals.common.xpath</module>
 		
@@ -50,8 +53,6 @@
 		<module>com.ebmwebsourcing.petals.services.xslt</module>
 		
 		<!-- BPEL plug-ins -->
-		<module>com.ebmwebsourcing.petals.easybox</module>
-		<module>com.ebmwebsourcing.petals.bpel.easybpel.validators</module>
 		<module>com.ebmwebsourcing.petals.services.bpel</module>
 	</modules>
 </project>

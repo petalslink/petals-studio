@@ -53,11 +53,11 @@ public class PetalsProjectLabelProvider extends LabelProvider implements IStyled
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.BaseLabelProvider#dispose()
+	 * @see org.eclipse.jface.viewers.BaseLabelProvider
+	 * #dispose()
 	 */
 	@Override
 	public void dispose() {
-
 		this.imageRegistry.dispose();
 		super.dispose();
 	}
@@ -68,6 +68,7 @@ public class PetalsProjectLabelProvider extends LabelProvider implements IStyled
 	 * @see org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 	 * #getStyledText(java.lang.Object)
 	 */
+	@Override
 	public StyledString getStyledText( Object element ) {
 		String label = getText( element );
 		return label != null ? new StyledString( label ) : null;

@@ -104,10 +104,10 @@
       <ComponentSupport
             id="bpel">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.bpel.BpelDescription10"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.bpel.BpelDescription1x"
                id="BPEL 1.0"
                namespace="http://petals.ow2.org/components/petals-bpel-engine/version-1"
-               providesExtensionWizard="com.ebmwebsourcing.petals.services.bpel.wizards.BpelWizard10">
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.bpel.wizards.BpelSuWizard">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
@@ -118,5 +118,12 @@
             genModel="model/bpel.genmodel"
             uri="http://petals.ow2.org/components/petals-bpel-engine/version-1">
       </package>
+   </extension>
+   <extension
+         point="org.eclipse.bpel.validator.factories">
+      <factory
+            class="com.ebmwebsourcing.petals.services.bpel.designer.validation.EasyBPELValidatorFactory"
+            name="EasyBPEL Validator">
+      </factory>
    </extension>
 </plugin>

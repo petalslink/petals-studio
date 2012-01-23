@@ -194,6 +194,7 @@ public class SaEditionComposite extends SashForm {
 		});
 
 		this.viewer.setInput( new Object());
+		this.viewer.expandAll();
 
 
 		// Add the buttons

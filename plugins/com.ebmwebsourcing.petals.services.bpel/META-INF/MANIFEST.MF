@@ -7,26 +7,21 @@ Bundle-Vendor: %pluginProvider
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.ui,
  com.ebmwebsourcing.petals.common.generation,
  com.ebmwebsourcing.petals.services,
  org.eclipse.ui.ide,
  com.ebmwebsourcing.petals.common,
- org.jdom;bundle-version="1.1.0",
  com.ebmwebsourcing.jbi.core.metamodel,
- org.eclipse.core.databinding,
- org.eclipse.jface.databinding,
- org.eclipse.core.databinding.beans,
  org.eclipse.emf.databinding,
  org.eclipse.bpel.ui,
- org.eclipse.bpel.common.ui,
  org.eclipse.gef,
- org.eclipse.emf,
- org.eclipse.emf.ecore,
- com.ebmwebsourcing.petals.easybox,
+ com.ebmwebsourcing.petals.libs.easybpel,
  org.eclipse.wst.wsdl,
  org.eclipse.bpel.model,
- org.eclipse.ui.views.properties.tabbed
+ org.eclipse.ui.views.properties.tabbed,
+ com.ebmwebsourcing.petals.libs.easybpel,
+ org.eclipse.bpel.common.ui,
+ org.eclipse.bpel.validator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy

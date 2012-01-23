@@ -50,30 +50,38 @@ public class PetalsCommonPlugin extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin
+	 * #start(org.osgi.framework.BundleContext)
 	 */
 	@Override
 	public void start( BundleContext context ) throws Exception {
 		super.start( context );
 		plugin = this;
-
-		setDefaultEditors();
 	}
 
 
 	/**
-	 * Set default editors mapping
+	 * Sets default editors for XSD and WSDL.
+	 * <p>
+	 * Was called in {@link #start(BundleContext)}.
+	 * However, this editor is not yet mature. It displays error markers directly and
+	 * does not support XML type edition. The default one is less problematic.
+	 * </p>
+	 * <p>
+	 * See PETALSSTUD-222.
+	 * </p>
 	 */
 	private void setDefaultEditors() {
 		IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
-		registry.setDefaultEditor("*.xsd", DataTypesEditor.EDITOR_ID);
-		registry.setDefaultEditor("*.wsdl", ServiceInterfaceEditor.EDITOR_ID);
+		registry.setDefaultEditor( "*.xsd", DataTypesEditor.EDITOR_ID );
+		registry.setDefaultEditor( "*.wsdl", ServiceInterfaceEditor.EDITOR_ID );
 	}
 
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin
+	 * #stop(org.osgi.framework.BundleContext)
 	 */
 	@Override
 	public void stop( BundleContext context ) throws Exception {
