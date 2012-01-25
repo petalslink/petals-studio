@@ -11,17 +11,15 @@
 
 package com.ebmwebsourcing.petals.services.sftp.wizards;
 
-import javax.xml.namespace.QName;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.sftp.SftpDescription12;
-import com.ebmwebsourcing.petals.services.sftp.generated.SftpService11;
+import com.ebmwebsourcing.petals.services.sftp.SftpDescription13;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService12;
+import com.ebmwebsourcing.petals.services.sftp.generated.SftpService13;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -31,9 +29,9 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
+public class SftpProvidesWizard13 extends SftpProvidesWizard12 {
 
-	public SftpProvidesWizard12() {
+	public SftpProvidesWizard13() {
 		super();
 		settings.showWsdl = false;
 		settings.activateInterfaceName = false;
@@ -45,7 +43,7 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new SftpDescription12();
+		return new SftpDescription13();
 	}
 
 
@@ -78,7 +76,8 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 				SftpPackage.Literals.SFTP_PROVIDES__PASSPHRASE,
 				SftpPackage.Literals.SFTP_PROVIDES__FOLDER,
 				SftpPackage.Literals.SFTP_PROVIDES__MAX_IDLE_TIME,
-				SftpPackage.Literals.SFTP_PROVIDES__OVERWRITE)
+				SftpPackage.Literals.SFTP_PROVIDES__OVERWRITE,
+				SftpPackage.Literals.SFTP_PROVIDES__MAX_CONNECTION)
 		};
 	}
 
@@ -89,7 +88,7 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 
 	@Override
 	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		createFile(resourceDirectory.getFile("SftpService.wsdl"), new SftpService12().generate(endpoint), monitor);
+		createFile(resourceDirectory.getFile("SftpService.wsdl"), new SftpService13().generate(endpoint), monitor);
 		return Status.OK_STATUS;
 	}
 

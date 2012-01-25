@@ -104,6 +104,7 @@ public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 
 	@Override
 	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
+		createFile(resourceDirectory.getFile("SftpService.wsdl"), new SftpService11().generate(endpoint), monitor);
 		return Status.OK_STATUS;
 	}
 

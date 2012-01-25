@@ -30,13 +30,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getFolder <em>Folder</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getHost <em>Host</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getMaxIdleTime <em>Max Idle Time</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#isOverwrite <em>Overwrite</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getPassphrase <em>Passphrase</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getPassword <em>Password</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getPort <em>Port</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getPrivatekey <em>Privatekey</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getUser <em>User</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getMaxIdleTime <em>Max Idle Time</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.impl.SftpProvidesImpl#getMaxConnection <em>Max Connection</em>}</li>
  * </ul>
  * </p>
  *
@@ -82,26 +83,6 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	 * @ordered
 	 */
 	protected String host = HOST_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getMaxIdleTime() <em>Max Idle Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMaxIdleTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int MAX_IDLE_TIME_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getMaxIdleTime() <em>Max Idle Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMaxIdleTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected int maxIdleTime = MAX_IDLE_TIME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isOverwrite() <em>Overwrite</em>}' attribute.
@@ -224,6 +205,46 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	protected String user = USER_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getMaxIdleTime() <em>Max Idle Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxIdleTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int MAX_IDLE_TIME_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getMaxIdleTime() <em>Max Idle Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxIdleTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected int maxIdleTime = MAX_IDLE_TIME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMaxConnection() <em>Max Connection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxConnection()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int MAX_CONNECTION_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getMaxConnection() <em>Max Connection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxConnection()
+	 * @generated
+	 * @ordered
+	 */
+	protected int maxConnection = MAX_CONNECTION_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -303,6 +324,27 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 		maxIdleTime = newMaxIdleTime;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME, oldMaxIdleTime, maxIdleTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getMaxConnection() {
+		return maxConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMaxConnection(int newMaxConnection) {
+		int oldMaxConnection = maxConnection;
+		maxConnection = newMaxConnection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__MAX_CONNECTION, oldMaxConnection, maxConnection));
 	}
 
 	/**
@@ -443,8 +485,6 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				return getFolder();
 			case SftpPackage.SFTP_PROVIDES__HOST:
 				return getHost();
-			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
-				return getMaxIdleTime();
 			case SftpPackage.SFTP_PROVIDES__OVERWRITE:
 				return isOverwrite();
 			case SftpPackage.SFTP_PROVIDES__PASSPHRASE:
@@ -457,6 +497,10 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				return getPrivatekey();
 			case SftpPackage.SFTP_PROVIDES__USER:
 				return getUser();
+			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
+				return getMaxIdleTime();
+			case SftpPackage.SFTP_PROVIDES__MAX_CONNECTION:
+				return getMaxConnection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -474,9 +518,6 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				return;
 			case SftpPackage.SFTP_PROVIDES__HOST:
 				setHost((String)newValue);
-				return;
-			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
-				setMaxIdleTime((Integer)newValue);
 				return;
 			case SftpPackage.SFTP_PROVIDES__OVERWRITE:
 				setOverwrite((Boolean)newValue);
@@ -496,6 +537,12 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 			case SftpPackage.SFTP_PROVIDES__USER:
 				setUser((String)newValue);
 				return;
+			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
+				setMaxIdleTime((Integer)newValue);
+				return;
+			case SftpPackage.SFTP_PROVIDES__MAX_CONNECTION:
+				setMaxConnection((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -513,9 +560,6 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				return;
 			case SftpPackage.SFTP_PROVIDES__HOST:
 				setHost(HOST_EDEFAULT);
-				return;
-			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
-				setMaxIdleTime(MAX_IDLE_TIME_EDEFAULT);
 				return;
 			case SftpPackage.SFTP_PROVIDES__OVERWRITE:
 				setOverwrite(OVERWRITE_EDEFAULT);
@@ -535,6 +579,12 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 			case SftpPackage.SFTP_PROVIDES__USER:
 				setUser(USER_EDEFAULT);
 				return;
+			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
+				setMaxIdleTime(MAX_IDLE_TIME_EDEFAULT);
+				return;
+			case SftpPackage.SFTP_PROVIDES__MAX_CONNECTION:
+				setMaxConnection(MAX_CONNECTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -551,8 +601,6 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				return FOLDER_EDEFAULT == null ? folder != null : !FOLDER_EDEFAULT.equals(folder);
 			case SftpPackage.SFTP_PROVIDES__HOST:
 				return HOST_EDEFAULT == null ? host != null : !HOST_EDEFAULT.equals(host);
-			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
-				return maxIdleTime != MAX_IDLE_TIME_EDEFAULT;
 			case SftpPackage.SFTP_PROVIDES__OVERWRITE:
 				return overwrite != OVERWRITE_EDEFAULT;
 			case SftpPackage.SFTP_PROVIDES__PASSPHRASE:
@@ -565,6 +613,10 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				return PRIVATEKEY_EDEFAULT == null ? privatekey != null : !PRIVATEKEY_EDEFAULT.equals(privatekey);
 			case SftpPackage.SFTP_PROVIDES__USER:
 				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
+			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
+				return maxIdleTime != MAX_IDLE_TIME_EDEFAULT;
+			case SftpPackage.SFTP_PROVIDES__MAX_CONNECTION:
+				return maxConnection != MAX_CONNECTION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -583,8 +635,6 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 		result.append(folder);
 		result.append(", host: ");
 		result.append(host);
-		result.append(", maxIdleTime: ");
-		result.append(maxIdleTime);
 		result.append(", overwrite: ");
 		result.append(overwrite);
 		result.append(", passphrase: ");
@@ -597,6 +647,10 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 		result.append(privatekey);
 		result.append(", user: ");
 		result.append(user);
+		result.append(", maxIdleTime: ");
+		result.append(maxIdleTime);
+		result.append(", maxConnection: ");
+		result.append(maxConnection);
 		result.append(')');
 		return result.toString();
 	}

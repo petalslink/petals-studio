@@ -147,22 +147,13 @@ public interface SftpPackage extends EPackage {
 	int SFTP_PROVIDES__HOST = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Max Idle Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SFTP_PROVIDES__MAX_IDLE_TIME = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Overwrite</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES__OVERWRITE = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
+	int SFTP_PROVIDES__OVERWRITE = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Passphrase</b></em>' attribute.
@@ -171,7 +162,7 @@ public interface SftpPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES__PASSPHRASE = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
+	int SFTP_PROVIDES__PASSPHRASE = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Password</b></em>' attribute.
@@ -180,7 +171,7 @@ public interface SftpPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES__PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
+	int SFTP_PROVIDES__PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -189,7 +180,7 @@ public interface SftpPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES__PORT = JbiPackage.PROVIDES_FEATURE_COUNT + 6;
+	int SFTP_PROVIDES__PORT = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Privatekey</b></em>' attribute.
@@ -198,7 +189,7 @@ public interface SftpPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES__PRIVATEKEY = JbiPackage.PROVIDES_FEATURE_COUNT + 7;
+	int SFTP_PROVIDES__PRIVATEKEY = JbiPackage.PROVIDES_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>User</b></em>' attribute.
@@ -207,7 +198,25 @@ public interface SftpPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES__USER = JbiPackage.PROVIDES_FEATURE_COUNT + 8;
+	int SFTP_PROVIDES__USER = JbiPackage.PROVIDES_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Max Idle Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SFTP_PROVIDES__MAX_IDLE_TIME = JbiPackage.PROVIDES_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Max Connection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SFTP_PROVIDES__MAX_CONNECTION = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Provides</em>' class.
@@ -216,7 +225,7 @@ public interface SftpPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
+	int SFTP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
 
 
 	/**
@@ -261,6 +270,17 @@ public interface SftpPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSftpProvides_MaxIdleTime();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getMaxConnection <em>Max Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Connection</em>'.
+	 * @see com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getMaxConnection()
+	 * @see #getSftpProvides()
+	 * @generated
+	 */
+	EAttribute getSftpProvides_MaxConnection();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#isOverwrite <em>Overwrite</em>}'.
@@ -383,6 +403,14 @@ public interface SftpPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SFTP_PROVIDES__MAX_IDLE_TIME = eINSTANCE.getSftpProvides_MaxIdleTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Connection</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SFTP_PROVIDES__MAX_CONNECTION = eINSTANCE.getSftpProvides_MaxConnection();
 
 		/**
 		 * The meta object literal for the '<em><b>Overwrite</b></em>' attribute feature.

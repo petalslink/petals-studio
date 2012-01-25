@@ -135,7 +135,16 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 	 * @generated
 	 */
 	public EAttribute getSftpProvides_MaxIdleTime() {
-		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSftpProvides_MaxConnection() {
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -144,7 +153,7 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 	 * @generated
 	 */
 	public EAttribute getSftpProvides_Overwrite() {
-		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -153,7 +162,7 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 	 * @generated
 	 */
 	public EAttribute getSftpProvides_Passphrase() {
-		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -162,7 +171,7 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 	 * @generated
 	 */
 	public EAttribute getSftpProvides_Password() {
-		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -171,7 +180,7 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 	 * @generated
 	 */
 	public EAttribute getSftpProvides_Port() {
-		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -180,7 +189,7 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 	 * @generated
 	 */
 	public EAttribute getSftpProvides_Privatekey() {
-		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -189,7 +198,7 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 	 * @generated
 	 */
 	public EAttribute getSftpProvides_User() {
-		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)sftpProvidesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -223,13 +232,14 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 		sftpProvidesEClass = createEClass(SFTP_PROVIDES);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__FOLDER);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__HOST);
-		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__MAX_IDLE_TIME);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__OVERWRITE);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__PASSPHRASE);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__PASSWORD);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__PORT);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__PRIVATEKEY);
 		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__USER);
+		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__MAX_IDLE_TIME);
+		createEAttribute(sftpProvidesEClass, SFTP_PROVIDES__MAX_CONNECTION);
 	}
 
 	/**
@@ -270,13 +280,14 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 		initEClass(sftpProvidesEClass, SftpProvides.class, "SftpProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSftpProvides_Folder(), theXMLTypePackage.getString(), "folder", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Host(), theXMLTypePackage.getString(), "host", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSftpProvides_MaxIdleTime(), theXMLTypePackage.getInt(), "maxIdleTime", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Overwrite(), theXMLTypePackage.getBoolean(), "overwrite", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Passphrase(), theXMLTypePackage.getString(), "passphrase", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Port(), theXMLTypePackage.getInt(), "port", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_Privatekey(), theXMLTypePackage.getString(), "privatekey", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSftpProvides_User(), theXMLTypePackage.getString(), "user", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSftpProvides_MaxIdleTime(), theXMLTypePackage.getInt(), "maxIdleTime", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSftpProvides_MaxConnection(), theXMLTypePackage.getInt(), "maxConnection", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -315,15 +326,6 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0"
-		   });		
-		addAnnotation
-		  (getSftpProvides_MaxIdleTime(), 
-		   source, 
-		   new String[] {
-			 "namespace", "##targetNamespace",
-			 "kind", "element",
-			 "group", "#group:0",
-			 "name", "max-idle-time"
 		   });		
 		addAnnotation
 		  (getSftpProvides_Overwrite(), 
@@ -372,6 +374,24 @@ public class SftpPackageImpl extends EPackageImpl implements SftpPackage {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getSftpProvides_MaxIdleTime(), 
+		   source, 
+		   new String[] {
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "group", "#group:0",
+			 "name", "max-idle-time"
+		   });		
+		addAnnotation
+		  (getSftpProvides_MaxConnection(), 
+		   source, 
+		   new String[] {
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "group", "#group:0",
+			 "name", "max-connection"
 		   });
 	}
 

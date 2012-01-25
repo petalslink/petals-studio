@@ -22,13 +22,14 @@ import com.sun.java.xml.ns.jbi.Provides;
  * <ul>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getFolder <em>Folder</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getHost <em>Host</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getMaxIdleTime <em>Max Idle Time</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#isOverwrite <em>Overwrite</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getPassphrase <em>Passphrase</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getPassword <em>Password</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getPort <em>Port</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getPrivatekey <em>Privatekey</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getUser <em>User</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getMaxIdleTime <em>Max Idle Time</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getMaxConnection <em>Max Connection</em>}</li>
  * </ul>
  * </p>
  *
@@ -117,6 +118,33 @@ public interface SftpProvides extends Provides {
 	 * @generated
 	 */
 	void setMaxIdleTime(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Max Connection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Max Connection</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Max Connection</em>' attribute.
+	 * @see #setMaxConnection(int)
+	 * @see com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage#getSftpProvides_MaxConnection()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='max-connection'"
+	 * @generated
+	 */
+	int getMaxConnection();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getMaxConnection <em>Max Connection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Max Connection</em>' attribute.
+	 * @see #getMaxConnection()
+	 * @generated
+	 */
+	void setMaxConnection(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Overwrite</b></em>' attribute.
