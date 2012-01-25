@@ -229,13 +229,22 @@ public interface MailPackage extends EPackage {
 	int MAIL_PROVIDES__SEND_MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
 
 	/**
+	 * The feature id for the '<em><b>Content Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_PROVIDES__CONTENT_TYPE = JbiPackage.PROVIDES_FEATURE_COUNT + 11;
+
+	/**
 	 * The number of structural features of the '<em>Provides</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAIL_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 11;
+	int MAIL_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailConsumesImpl <em>Consumes</em>}' class.
@@ -607,6 +616,17 @@ public interface MailPackage extends EPackage {
 	EAttribute getMailProvides_SendMode();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getContentType <em>Content Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Content Type</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getContentType()
+	 * @see #getMailProvides()
+	 * @generated
+	 */
+	EAttribute getMailProvides_ContentType();
+
+	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.mail.mail.MailConsumes <em>Consumes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -824,6 +844,14 @@ public interface MailPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MAIL_PROVIDES__SEND_MODE = eINSTANCE.getMailProvides_SendMode();
+
+		/**
+		 * The meta object literal for the '<em><b>Content Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_PROVIDES__CONTENT_TYPE = eINSTANCE.getMailProvides_ContentType();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailConsumesImpl <em>Consumes</em>}' class.

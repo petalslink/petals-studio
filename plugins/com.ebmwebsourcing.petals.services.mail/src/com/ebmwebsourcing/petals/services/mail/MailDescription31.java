@@ -25,7 +25,7 @@ public class MailDescription31 extends MailDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "3.1";
+		return "3.x";
 	}
 
 	/*

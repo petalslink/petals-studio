@@ -22,7 +22,7 @@
                componentVersionDescription="com.ebmwebsourcing.petals.services.mail.MailDescription31"
                consumesExtensionWizard="com.ebmwebsourcing.petals.services.mail.wizards.MailConsumesWizard31"
                editorExtension="com.ebmwebsourcing.petals.services.mail.editor.MailEditorContribution"
-               id="Mail 3.1"
+               id="Mail"
                namespace="http://petals.ow2.org/components/mail/version-3"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.mail.wizards.MailProvideWizard31">
          </ComponentVersionSupport>

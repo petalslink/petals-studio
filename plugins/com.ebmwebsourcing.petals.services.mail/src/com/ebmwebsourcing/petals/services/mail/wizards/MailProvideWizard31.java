@@ -102,7 +102,8 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 				MailPackage.Literals.MAIL_PROVIDES__TO,
 				MailPackage.Literals.MAIL_PROVIDES__SUBJECT,
 				MailPackage.Literals.MAIL_PROVIDES__HELOHOST,
-				MailPackage.Literals.MAIL_PROVIDES__SEND_MODE)
+				MailPackage.Literals.MAIL_PROVIDES__SEND_MODE,
+				MailPackage.Literals.MAIL_PROVIDES__CONTENT_TYPE)
 		};
 	}
 

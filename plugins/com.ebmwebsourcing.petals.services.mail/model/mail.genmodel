@@ -25,6 +25,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/subject"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/helohost"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/sendMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailProvides/contentType"/>
     </genClasses>
     <genClasses ecoreClass="mail.ecore#//MailConsumes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mail.ecore#//MailConsumes/folder"/>
