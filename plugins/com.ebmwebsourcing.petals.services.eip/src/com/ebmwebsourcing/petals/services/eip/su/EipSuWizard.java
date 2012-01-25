@@ -43,18 +43,18 @@ public class EipSuWizard extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public void addPages() {
-		addPage(  new EipWizardPage());
+		addPage( new EipWizardPage());
 	}
 
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #performFinish()
+	 * @see org.eclipse.jface.wizard.Wizard
+	 * #canFinish()
 	 */
 	@Override
-	public boolean performFinish() {
-		return true;
+	public boolean canFinish() {
+		return false;
 	}
 
 

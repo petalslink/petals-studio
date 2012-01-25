@@ -110,7 +110,7 @@ public class EipWizardPage extends AbstractSuWizardPage {
 		sb.append( "<form>" );
 		sb.append( "<p>The picture on the left shows an example of EIP croquis.</p>" );
 		sb.append( "<p>Click <a href=\"croquis\">here to open the croquis wizard</a>.</p>" );
-		sb.append( "<p vspace=\"false\">Or click the <b>Finish</b> button to close this wizard.</p>" );
+		sb.append( "<p vspace=\"false\">Or click the <b>Cancel</b> button to close this wizard.</p>" );
 		sb.append( "</form>" );
 		ft.setText( sb.toString(), true, false );
 
