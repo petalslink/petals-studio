@@ -30,6 +30,9 @@ import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
  *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getServer <em>Server</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getUser <em>User</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getTransferType <em>Transfer Type</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getEncoding <em>Encoding</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxIdleTime <em>Max Idle Time</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxConnection <em>Max Connection</em>}</li>
  * </ul>
  * </p>
  *
@@ -314,5 +317,87 @@ public interface FtpProvides extends Provides {
 	 * @generated
 	 */
 	void setTransferType(TransferType value);
+
+	/**
+	 * Returns the value of the '<em><b>Encoding</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Encoding</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Encoding</em>' attribute.
+	 * @see #setEncoding(String)
+	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_Encoding()
+	 * @model default="" dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
+	 * @generated
+	 */
+	String getEncoding();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getEncoding <em>Encoding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Encoding</em>' attribute.
+	 * @see #getEncoding()
+	 * @generated
+	 */
+	void setEncoding(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Max Idle Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Max Idle Time</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Max Idle Time</em>' attribute.
+	 * @see #setMaxIdleTime(int)
+	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_MaxIdleTime()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='max-idle-time'"
+	 * @generated
+	 */
+	int getMaxIdleTime();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxIdleTime <em>Max Idle Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Max Idle Time</em>' attribute.
+	 * @see #getMaxIdleTime()
+	 * @generated
+	 */
+	void setMaxIdleTime(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Max Connection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Max Connection</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Max Connection</em>' attribute.
+	 * @see #setMaxConnection(int)
+	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package#getFtpProvides_MaxConnection()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='max-connection'"
+	 * @generated
+	 */
+	int getMaxConnection();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxConnection <em>Max Connection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Max Connection</em>' attribute.
+	 * @see #getMaxConnection()
+	 * @generated
+	 */
+	void setMaxConnection(int value);
 
 } // FtpProvides
