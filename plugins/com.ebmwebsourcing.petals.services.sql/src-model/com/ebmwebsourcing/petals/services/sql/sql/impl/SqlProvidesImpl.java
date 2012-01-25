@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.impl.SqlProvidesImpl#getMaxWait <em>Max Wait</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.impl.SqlProvidesImpl#getTimeBetweenEvictionRunsMillis <em>Time Between Eviction Runs Millis</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.impl.SqlProvidesImpl#isMetadata <em>Metadata</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.impl.SqlProvidesImpl#getStoredProcedure <em>Stored Procedure</em>}</li>
  * </ul>
  * </p>
  *
@@ -243,6 +244,26 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	 * @ordered
 	 */
 	protected boolean metadata = METADATA_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStoredProcedure() <em>Stored Procedure</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStoredProcedure()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String STORED_PROCEDURE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStoredProcedure() <em>Stored Procedure</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStoredProcedure()
+	 * @generated
+	 * @ordered
+	 */
+	protected String storedProcedure = STORED_PROCEDURE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -478,6 +499,27 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getStoredProcedure() {
+		return storedProcedure;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStoredProcedure(String newStoredProcedure) {
+		String oldStoredProcedure = storedProcedure;
+		storedProcedure = newStoredProcedure;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SqlPackage.SQL_PROVIDES__STORED_PROCEDURE, oldStoredProcedure, storedProcedure));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -501,6 +543,8 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 				return getTimeBetweenEvictionRunsMillis();
 			case SqlPackage.SQL_PROVIDES__METADATA:
 				return isMetadata();
+			case SqlPackage.SQL_PROVIDES__STORED_PROCEDURE:
+				return getStoredProcedure();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -542,6 +586,9 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 				return;
 			case SqlPackage.SQL_PROVIDES__METADATA:
 				setMetadata((Boolean)newValue);
+				return;
+			case SqlPackage.SQL_PROVIDES__STORED_PROCEDURE:
+				setStoredProcedure((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -585,6 +632,9 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 			case SqlPackage.SQL_PROVIDES__METADATA:
 				setMetadata(METADATA_EDEFAULT);
 				return;
+			case SqlPackage.SQL_PROVIDES__STORED_PROCEDURE:
+				setStoredProcedure(STORED_PROCEDURE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -617,6 +667,8 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 				return timeBetweenEvictionRunsMillis != TIME_BETWEEN_EVICTION_RUNS_MILLIS_EDEFAULT;
 			case SqlPackage.SQL_PROVIDES__METADATA:
 				return metadata != METADATA_EDEFAULT;
+			case SqlPackage.SQL_PROVIDES__STORED_PROCEDURE:
+				return STORED_PROCEDURE_EDEFAULT == null ? storedProcedure != null : !STORED_PROCEDURE_EDEFAULT.equals(storedProcedure);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -651,6 +703,8 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 		result.append(timeBetweenEvictionRunsMillis);
 		result.append(", metadata: ");
 		result.append(metadata);
+		result.append(", storedProcedure: ");
+		result.append(storedProcedure);
 		result.append(')');
 		return result.toString();
 	}

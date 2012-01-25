@@ -90,4 +90,35 @@ public abstract class SqlDescription extends ComponentVersionDescription {
 	public List<PetalsKeyWords> getKeyWords() {
 		return Arrays.asList( new PetalsKeyWords[] { PetalsKeyWords.miscellaneous, PetalsKeyWords.integration, PetalsKeyWords.communication });
 	}
+	
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isProvide()
+	 */
+	@Override
+	public boolean isProvide() {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isConsume()
+	 */
+	@Override
+	public boolean isConsume() {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isProxy()
+	 */
+	@Override
+	public boolean isProxy() {
+		return false;
+	}
 }

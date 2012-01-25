@@ -14,7 +14,7 @@ package com.ebmwebsourcing.petals.services.sql;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SqlDescription11 extends SqlDescription {
+public class SqlDescription12 extends SqlDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -23,7 +23,7 @@ public class SqlDescription11 extends SqlDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "1.1";
+		return "1.2";
 	}
 
 }
