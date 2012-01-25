@@ -21,6 +21,9 @@ import com.sun.java.xml.ns.jbi.Provides;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getStylesheet <em>Stylesheet</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactory <em>Transformer Factory</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMin <em>Transformer Factory Min</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMax <em>Transformer Factory Max</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getOutputAttachmentName <em>Output Attachment Name</em>}</li>
  * </ul>
  * </p>
@@ -56,6 +59,87 @@ public interface XSLTProvides extends Provides {
 	 * @generated
 	 */
 	void setStylesheet(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Transformer Factory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Transformer Factory</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Transformer Factory</em>' attribute.
+	 * @see #setTransformerFactory(String)
+	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage#getXSLTProvides_TransformerFactory()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='transformer-factory'"
+	 * @generated
+	 */
+	String getTransformerFactory();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactory <em>Transformer Factory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Transformer Factory</em>' attribute.
+	 * @see #getTransformerFactory()
+	 * @generated
+	 */
+	void setTransformerFactory(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Transformer Factory Min</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Transformer Factory Min</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Transformer Factory Min</em>' attribute.
+	 * @see #setTransformerFactoryMin(int)
+	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage#getXSLTProvides_TransformerFactoryMin()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='transformer-factory-min'"
+	 * @generated
+	 */
+	int getTransformerFactoryMin();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMin <em>Transformer Factory Min</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Transformer Factory Min</em>' attribute.
+	 * @see #getTransformerFactoryMin()
+	 * @generated
+	 */
+	void setTransformerFactoryMin(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Transformer Factory Max</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Transformer Factory Max</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Transformer Factory Max</em>' attribute.
+	 * @see #setTransformerFactoryMax(int)
+	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage#getXSLTProvides_TransformerFactoryMax()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='transformer-factory-max'"
+	 * @generated
+	 */
+	int getTransformerFactoryMax();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMax <em>Transformer Factory Max</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Transformer Factory Max</em>' attribute.
+	 * @see #getTransformerFactoryMax()
+	 * @generated
+	 */
+	void setTransformerFactoryMax(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Output Attachment Name</b></em>' attribute.

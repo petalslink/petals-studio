@@ -12,8 +12,13 @@
 package com.ebmwebsourcing.petals.services.xslt;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.xml.namespace.QName;
+
+import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
 
@@ -82,5 +87,51 @@ public abstract class XsltDescription extends ComponentVersionDescription {
 	 */
 	public List<PetalsKeyWords> getKeyWords() {
 		return Arrays.asList( new PetalsKeyWords[] { PetalsKeyWords.miscellaneous, PetalsKeyWords.integration });
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isProvide()
+	 */
+	@Override
+	public boolean isProvide() {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isConsume()
+	 */
+	@Override
+	public boolean isConsume() {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isProxy()
+	 */
+	@Override
+	public boolean isProxy() {
+		return false;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #getDefaultOperations()
+	 */
+	@Override
+	public Map<QName,Mep> getDefaultOperations() {
+
+		HashMap<QName,Mep> result = new HashMap<QName,Mep> ();
+		result.put( new QName( "http://petals.ow2.org/components/xslt/version-2", "transform" ), Mep.IN_OUT );
+		result.put( new QName( "http://petals.ow2.org/components/xslt/version-2", "transformToMtomAttachment" ), Mep.IN_OUT );
+
+		return result;
 	}
 }
