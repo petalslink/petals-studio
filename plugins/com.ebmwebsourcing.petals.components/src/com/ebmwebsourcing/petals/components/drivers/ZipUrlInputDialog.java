@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -26,7 +27,6 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.components.PetalsComponentsPlugin;
 import com.ebmwebsourcing.petals.components.utils.ArtifactArchiveUtils;
 
@@ -57,7 +57,7 @@ public class ZipUrlInputDialog extends InputDialog {
 
 				String s = null;
 				try {
-					URI uri = UriUtils.urlToUri( newText );
+					URI uri = UriAndUrlHelper.urlToUri( newText );
 					uri.toURL();
 
 				} catch( Exception e ) {
@@ -94,7 +94,7 @@ public class ZipUrlInputDialog extends InputDialog {
 						public void run() {
 
 							try {
-								URI uri = UriUtils.urlToUri( getValue());
+								URI uri = UriAndUrlHelper.urlToUri( getValue());
 								ZipUrlInputDialog.this.slProperties = ArtifactArchiveUtils.getSharedLibraryVersion( uri );
 
 							} catch( InvalidJbiXmlException e ) {

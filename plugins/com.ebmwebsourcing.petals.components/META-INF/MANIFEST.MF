@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.console,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources,
- com.ebmwebsourcing.jbi.core.metamodel
+ com.ebmwebsourcing.jbi.core.metamodel,
+ org.eclipse.bpel.common.wsdl
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.components.PetalsComponentsPlugin

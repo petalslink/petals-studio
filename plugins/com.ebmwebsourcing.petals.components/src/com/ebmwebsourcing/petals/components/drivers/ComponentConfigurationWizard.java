@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -43,7 +44,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlEx
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ArchiveUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.components.PetalsComponentsPlugin;
 import com.sun.java.xml.ns.jbi.Jbi;
 import com.sun.java.xml.ns.jbi.JbiFactory;
@@ -134,7 +134,7 @@ public class ComponentConfigurationWizard extends Wizard implements INewWizard {
 		// Copy the file on the disk?
 		boolean isTempFile = false;
 		File originalFile;
-		URI uri = UriUtils.urlToUri( this.page.getComponentUrl());
+		URI uri = UriAndUrlHelper.urlToUri( this.page.getComponentUrl());
 		try {
 			originalFile = new File( uri );
 

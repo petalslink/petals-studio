@@ -18,10 +18,11 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
+
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties.IServiceCardId;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 import com.ebmwebsourcing.petals.services.utils.ConsumeUtils;
 
@@ -139,8 +140,8 @@ public class EndpointBean implements IServiceCardId {
 				return null;
 
 			URI uri = new File( wsdlContainerLocation ).toURI();
-			uri = UriUtils.urlToUri( uri.toString().replaceAll( "\\\\", "/" ));
-			URI wsdlUri = UriUtils.buildNewURI( uri, this.wsdlLocation );
+			uri = UriAndUrlHelper.urlToUri( uri.toString().replaceAll( "\\\\", "/" ));
+			URI wsdlUri = UriAndUrlHelper.buildNewURI( uri, this.wsdlLocation );
 			return wsdlUri;
 
 		} catch( Exception e ) {

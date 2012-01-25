@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -294,9 +295,9 @@ public class IoUtils {
 
 		String result = file.getAbsolutePath();
 		try {
-			URI originUri = UriUtils.urlToUri( originFile.toURI().toURL());
-			URI fileUri = UriUtils.urlToUri( file.toURI().toURL());
-			result = UriUtils.getRelativeLocationToUri( originUri, fileUri ).toString();
+			URI originUri = UriAndUrlHelper.urlToUri( originFile.toURI().toURL());
+			URI fileUri = UriAndUrlHelper.urlToUri( file.toURI().toURL());
+			result = UriAndUrlHelper.getRelativeLocationToUri( originUri, fileUri ).toString();
 
 		} catch( MalformedURLException e ) {
 			PetalsCommonPlugin.log( e, IStatus.ERROR );

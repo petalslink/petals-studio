@@ -15,8 +15,12 @@ package com.ebmwebsourcing.petals.services.su.wizards;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.eclipse.bpel.common.wsdl.importhelpers.WsdlImportHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -29,10 +33,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.xml.sax.SAXException;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
@@ -258,30 +262,46 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * @param resourceDirectory
 	 */
 	public void importWSDLFileInProvideSUProject(IProgressMonitor monitor, IFile jbiFile, IFolder resourceDirectory) {
+
 		File wsdlFile = null;
 		monitor.subTask( "Importing the WSDL..." );
-
 		String wsdlFileLocation = getSelectedWSDLForProvide();
-		if( this.jbiProvidePage.isImportWsdl() && wsdlFileLocation != null ) {
-			WsdlImportUtils wsdlImportUtils = new WsdlImportUtils();
-			Map<String,File> fileToUrl = wsdlImportUtils.importWsdlOrXsdAndDependencies( resourceDirectory.getLocation().toFile(), getSelectedWSDLForProvide());
-			wsdlFile = fileToUrl.get( getSelectedWSDLForProvide());
-			wsdlFileLocation = IoUtils.getRelativeLocationToFile(jbiFile.getLocation().toFile(), wsdlFile );
-			monitor.subTask( "Updating the WSDL..." );
-			WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, this.endpoint.getServiceName(), this.endpoint.getEndpointName());
+		if( wsdlFileLocation != null && this.jbiProvidePage.isImportWsdl()) {
+
+			try {
+				WsdlImportHelper helper = new WsdlImportHelper();
+				Map<String,File> fileToUrl = helper.importWsdlOrXsdAndDependencies(
+						resourceDirectory.getLocation().toFile(),
+						getSelectedWSDLForProvide());
+
+				wsdlFile = fileToUrl.get( getSelectedWSDLForProvide());
+				wsdlFileLocation = IoUtils.getRelativeLocationToFile( jbiFile.getLocation().toFile(), wsdlFile );
+				monitor.subTask( "Updating the WSDL..." );
+				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, this.endpoint.getServiceName(), this.endpoint.getEndpointName());
+
+			} catch( ParserConfigurationException e ) {
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
+
+			} catch( IOException e ) {
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
+
+			} catch( URISyntaxException e ) {
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
+
+			} catch( SAXException e ) {
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
+			}
+
 			monitor.worked( 1 );
 		}
-
-		// TODO: set the WSDL URL
-		monitor.worked( 1 );
 	}
 
 
 	/**
-	 * @return the WSDL URL
+	 * @return the WSDL URL or null if it was not provided
 	 */
 	public String getSelectedWSDLForProvide() {
-		return this.jbiProvidePage.getWsdlUrl();
+		return this.jbiProvidePage != null ? this.jbiProvidePage.getWsdlUrl() : null;
 	}
 
 

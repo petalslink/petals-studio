@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.eclipse.bpel.common.wsdl.wizards.WsdlImportWizard;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
@@ -43,7 +44,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstan
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
-import com.ebmwebsourcing.petals.common.internal.provisional.wizards.WsdlImportWizard;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.CdkPlugin;
 import com.ebmwebsourcing.petals.services.cdk.Messages;

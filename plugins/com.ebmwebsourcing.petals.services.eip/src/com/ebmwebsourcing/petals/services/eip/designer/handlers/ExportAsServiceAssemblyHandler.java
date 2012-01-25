@@ -14,10 +14,14 @@ package com.ebmwebsourcing.petals.services.eip.designer.handlers;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.eclipse.bpel.common.wsdl.importhelpers.WsdlImportHelper;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -31,11 +35,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.xml.sax.SAXException;
 
 import com.ebmwebsourcing.petals.common.generation.JbiUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
 import com.ebmwebsourcing.petals.services.eip.PetalsEipPlugin;
 import com.ebmwebsourcing.petals.services.eip.designer.EipDesignerSerializer;
 import com.ebmwebsourcing.petals.services.eip.designer.helpers.EipExportUtils;
@@ -115,7 +119,7 @@ public class ExportAsServiceAssemblyHandler extends AbstractHandler {
 					File saFile = createSaFile( saFilePath, saName, suNameToSuFile );
 					Assert.isNotNull( saFile );
 
-				} catch( IOException e ) {
+				} catch( Exception e ) {
 					PetalsEipPlugin.log( e, IStatus.ERROR );
 					MessageDialog.openError( new Shell(), "Export Error", "An error occurred while exporting the EIP chain. Check the logs for more details." );
 				}
@@ -131,8 +135,13 @@ public class ExportAsServiceAssemblyHandler extends AbstractHandler {
 	 * @param eip the EIP to process
 	 * @return the ZIP file with the SU content
 	 * @throws IOException if something went wrong
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws URISyntaxException
+	 * @throws
 	 */
-	private File createTemporarySuZip( EipNode eip ) throws IOException {
+	private File createTemporarySuZip( EipNode eip )
+	throws IOException, URISyntaxException, SAXException, ParserConfigurationException {
 
 		File tempDir = null;
 		try  {
@@ -149,7 +158,7 @@ public class ExportAsServiceAssemblyHandler extends AbstractHandler {
 					throw new IOException( "Could not create a temporary directory." );
 
 				// Copy the WSDL into it (this copy also normalizes the file hierarchy)
-				Map<String,File> wsdlUriToFile = new WsdlImportUtils().importWsdlOrXsdAndDependencies( tempDir, eip.getWsdlUri());
+				Map<String,File> wsdlUriToFile = new WsdlImportHelper().importWsdlOrXsdAndDependencies( tempDir, eip.getWsdlUri());
 
 				// Prepare the ZIP entries
 				for( Map.Entry<String,File> entry : wsdlUriToFile.entrySet()) {

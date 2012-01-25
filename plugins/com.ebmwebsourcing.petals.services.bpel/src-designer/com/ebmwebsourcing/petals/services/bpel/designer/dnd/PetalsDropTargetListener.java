@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.eclipse.bpel.common.wsdl.importhelpers.WsdlImportHelper;
 import org.eclipse.bpel.model.BPELFactory;
 import org.eclipse.bpel.model.Invoke;
 import org.eclipse.bpel.model.PartnerLink;
@@ -71,7 +72,6 @@ import org.eclipse.wst.wsdl.Operation;
 import org.eclipse.wst.wsdl.PortType;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 
 /**
@@ -259,7 +259,7 @@ public class PetalsDropTargetListener extends TextDropTargetListener {
 					folder.create( true, true, new NullProgressMonitor());
 
 				// Import the WSDL
-				Map<String,File> result = new WsdlImportUtils().importWsdlOrXsdAndDependencies( folder.getLocation().toFile(), wsdlUri );
+				Map<String,File> result = new WsdlImportHelper().importWsdlOrXsdAndDependencies( folder.getLocation().toFile(), wsdlUri );
 				File f = result.get( wsdlUri );
 				if( f != null )
 					return f.toURI().toString();
@@ -508,6 +508,7 @@ public class PetalsDropTargetListener extends TextDropTargetListener {
 
 		// Show the properties of the invoke
 		Runnable runnable = new Runnable() {
+			@Override
 			public void run() {
 				try {
 

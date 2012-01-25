@@ -19,6 +19,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.IStatus;
@@ -56,7 +57,6 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.StyledElementListSelectionDialog;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.eip.PetalsEipPlugin;
@@ -441,7 +441,7 @@ public class EipInterfaceSection extends AbstractPropertySection implements Prop
 
 			File f = null;
 			try {
-				URI uri = UriUtils.urlToUri( this.wsdlText.getText());
+				URI uri = UriAndUrlHelper.urlToUri( this.wsdlText.getText());
 				f = new File( uri );
 
 			} catch( Exception e ) {

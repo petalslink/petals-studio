@@ -37,7 +37,8 @@ Require-Bundle: org.eclipse.emf.validation,
  org.eclipse.emf.databinding.edit,
  org.eclipse.jface.databinding,
  org.eclipse.emf.transaction,
- org.eclipse.emf.edit.ui
+ org.eclipse.emf.edit.ui,
+ org.eclipse.bpel.common.wsdl
 Bundle-ClassPath: .,
  lib/wsdl4j.jar
 Bundle-ActivationPolicy: lazy
@@ -59,5 +60,4 @@ Export-Package: com.ebmwebsourcing.petals.common.croquis.internal.provisional,
  com.ebmwebsourcing.petals.common.internal.provisional.ui,
  com.ebmwebsourcing.petals.common.internal.provisional.ui.jdt,
  com.ebmwebsourcing.petals.common.internal.provisional.utils,
- com.ebmwebsourcing.petals.common.internal.provisional.wizards,
  javax.wsdl

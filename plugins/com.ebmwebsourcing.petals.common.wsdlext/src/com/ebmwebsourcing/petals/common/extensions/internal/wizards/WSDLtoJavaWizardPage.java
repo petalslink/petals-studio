@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.extensions.internal.wizards;
@@ -16,6 +16,7 @@ import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -44,7 +45,6 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.WorkspaceExplorer;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 
 /**
  * The page used in the WSDL to Java wizard.
@@ -52,7 +52,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
  * It is made up of a text field for the WSDL URL,
  * and selection table for the destination container.
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class WSDLtoJavaWizardPage extends WizardPage {
@@ -85,6 +85,7 @@ public class WSDLtoJavaWizardPage extends WizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		Composite container = new Composite( parent, SWT.NONE );
@@ -102,13 +103,14 @@ public class WSDLtoJavaWizardPage extends WizardPage {
 		text.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		text.addModifyListener( new ModifyListener () {
 
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				String uri = text.getText();
 				if( uri.trim().length() == 0 )
 					return;
 
 				try {
-					WSDLtoJavaWizardPage.this.wsdlUri = UriUtils.urlToUri( uri );
+					WSDLtoJavaWizardPage.this.wsdlUri = UriAndUrlHelper.urlToUri( uri );
 
 				} catch( Exception e1 ) {
 					WSDLtoJavaWizardPage.this.wsdlUri = null;
@@ -216,6 +218,7 @@ public class WSDLtoJavaWizardPage extends WizardPage {
 		}
 
 		viewer.addSelectionChangedListener( new ISelectionChangedListener () {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				IStructuredSelection s = (IStructuredSelection) event.getSelection();

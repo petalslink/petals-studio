@@ -29,6 +29,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -58,7 +59,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.EmfUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.NamespaceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.XPathUtils;
@@ -465,7 +465,7 @@ public class SuBuilder extends JbiXmlBuilder {
 									File wsdlFile = JbiXmlUtils.getWsdlFile( jbiXmlFile, wsdlValue );
 									if( wsdlFile == null ) {
 										try {
-											URI wsdlUri = UriUtils.urlToUri( wsdlValue );
+											URI wsdlUri = UriAndUrlHelper.urlToUri( wsdlValue );
 											providesToWsdlUri.put( provides, wsdlUri );
 
 										} catch( Exception e ) {
@@ -800,7 +800,7 @@ public class SuBuilder extends JbiXmlBuilder {
 
 			case URI:
 				try {
-					UriUtils.urlToUri( value );
+					UriAndUrlHelper.urlToUri( value );
 
 				} catch( Exception e ) {
 					markerBean = new MarkerBean(

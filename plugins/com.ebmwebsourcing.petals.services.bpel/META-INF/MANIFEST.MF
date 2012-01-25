@@ -21,7 +21,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.views.properties.tabbed,
  com.ebmwebsourcing.petals.libs.easybpel,
  org.eclipse.bpel.common.ui,
- org.eclipse.bpel.validator
+ org.eclipse.bpel.validator,
+ org.eclipse.bpel.common.wsdl,
+ com.ebmwebsourcing.petals.services.cdk
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy

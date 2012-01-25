@@ -1,18 +1,19 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsoucing.petals.repositories.explorer.wizards;
 
 import java.net.URI;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -34,7 +35,6 @@ import org.eclipse.swt.widgets.Text;
 import com.ebmwebsoucing.petals.repositories.explorer.model.QueryApiBean;
 import com.ebmwebsoucing.petals.repositories.explorer.model.RepositoryQueryApi;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 
 /**
  * A dialog to ask for a query API and a query URL.
@@ -134,7 +134,7 @@ public class QueryApiBeanDefinitionDialog extends TitleAreaDialog {
 			setErrorMessage( "You must specify the Query URI." );
 		} else {
 			try {
-				uri = UriUtils.urlToUri( this.uriAsString );
+				uri = UriAndUrlHelper.urlToUri( this.uriAsString );
 				complete = true;
 
 			} catch( Exception e ) {

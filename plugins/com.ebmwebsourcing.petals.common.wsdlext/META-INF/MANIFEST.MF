@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.ui,
  com.ebmwebsourcing.petals.libs.cxf,
  org.eclipse.jdt.launching,
- org.eclipse.debug.core
+ org.eclipse.debug.core,
+ org.eclipse.bpel.common.wsdl
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.ebmwebsourcing.petals.common.extensions.internal.provisional

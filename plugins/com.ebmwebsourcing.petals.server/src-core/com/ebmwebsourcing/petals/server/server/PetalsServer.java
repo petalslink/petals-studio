@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.server.server;
@@ -18,6 +18,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.List;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -26,7 +27,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ServerDelegate;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.server.PetalsServerPlugin;
 import com.ebmwebsourcing.petals.server.handlers.IPetalsVersionHandler;
 import com.ebmwebsourcing.petals.server.runtime.PetalsRuntime;
@@ -160,7 +160,7 @@ implements IPetalsServer, IPetalsServerWorkingCopy {
 	 * #isRunning()
 	 */
 	public boolean isRunning() {
-		URI uri = UriUtils.urlToUri( getWsUrl());
+		URI uri = UriAndUrlHelper.urlToUri( getWsUrl());
 		return NetworkUtils.pingServer( uri, getPort(), 1, 0 );
 	}
 
@@ -235,7 +235,7 @@ implements IPetalsServer, IPetalsServerWorkingCopy {
 	 * If the protocol was specified with the host name, it is kept (assumed to be http or https).
 	 * <br />Otherwise, http is used by default.
 	 * </p>
-	 * 
+	 *
 	 * @return the WS URL, including the port, the WS prefix and the host.
 	 */
 	public URL getWsUrl() {

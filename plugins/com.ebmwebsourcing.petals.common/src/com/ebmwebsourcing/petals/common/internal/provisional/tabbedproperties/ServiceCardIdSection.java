@@ -11,6 +11,7 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.common.internal.provisional.tabbedproperties;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -25,8 +26,6 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 
 /**
  * The section to display the card ID of a service.
@@ -203,7 +202,7 @@ public class ServiceCardIdSection extends AbstractPropertySection {
 				this.wsdlText.setText( " - " );
 
 			} else {
-				boolean abs = UriUtils.isAbsoluteUri( this.service.getWsdlLocation());
+				boolean abs = UriAndUrlHelper.isAbsoluteUri( this.service.getWsdlLocation());
 				sb = new StringBuilder( this.service.getWsdlLocation());
 				sb.append( " (" + (abs ? "absolute" : "relative") + ")" );
 				this.wsdlText.setText( sb.toString());

@@ -37,6 +37,7 @@ import javax.wsdl.extensions.soap12.SOAP12Binding;
 import javax.wsdl.xml.WSDLWriter;
 import javax.xml.namespace.QName;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.runtime.IStatus;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
@@ -92,7 +93,7 @@ public class WsdlUtils {
 	 * </p>
 	 */
 	public List<JbiBasicBean> parse( String wsdlUrlAsString ) throws IllegalArgumentException, InvocationTargetException {
-		URI uri = UriUtils.urlToUri( wsdlUrlAsString );
+		URI uri = UriAndUrlHelper.urlToUri( wsdlUrlAsString );
 		return parse( uri );
 	}
 

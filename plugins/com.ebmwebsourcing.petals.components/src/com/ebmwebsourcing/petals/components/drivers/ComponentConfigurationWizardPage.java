@@ -15,11 +15,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -51,7 +53,6 @@ import org.eclipse.swt.widgets.Text;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.components.PetalsComponentsPlugin;
 import com.ebmwebsourcing.petals.components.utils.ArtifactArchiveUtils;
 
@@ -146,7 +147,7 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 				String fn = dlg.open();
 				if( fn != null ) {
 					PreferencesManager.setSavedLocation( fn );
-					fn = UriUtils.convertFilePathToUrl( fn );
+					fn = convertFilePathToUrl( fn );
 					componentUrlText.setText( fn );
 				}
 			}
@@ -419,6 +420,7 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 
 		// Other listeners
 		slViewer.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				deleteButton.setEnabled( true );
@@ -538,7 +540,7 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 				msg = "You must indicate the location of the output archive.";
 			else if( new File( this.updatedFileLocation ).exists() && ! this.overwrite )
 				msg = "The output file already exists.";
-			else if( this.componentUrl.equals( UriUtils.convertFilePathToUrl( this.updatedFileLocation )))
+			else if( this.componentUrl.equals( convertFilePathToUrl( this.updatedFileLocation )))
 				msg = "The output component cannot overwrite the input component.";
 			else if( this.slNameToVersion.isEmpty())
 				msg = "You must specify at least one shared library to use.";
@@ -559,7 +561,7 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 		String msg = null;
 		InputStream is = null;
 		try {
-			is = UriUtils.urlToUri( this.componentUrl ).toURL().openStream();
+			is = UriAndUrlHelper.urlToUri( this.componentUrl ).toURL().openStream();
 
 		} catch( MalformedURLException e ) {
 			msg = e.getMessage();
@@ -603,5 +605,30 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 	 */
 	public Map<String,String> getSlNameToVersion() {
 		return this.slNameToVersion;
+	}
+
+
+	/**
+	 * Builds an URL from a string and escapes illegal characters.
+	 * @param path the file path or file URL
+	 * @return an URL
+	 */
+	public static String convertFilePathToUrl( String path ) {
+
+		URL url;
+		try {
+			url = new URL( path );
+		} catch( MalformedURLException e1 ) {
+			try {
+				URI uri = new File( path ).toURI();
+				uri.normalize();
+				url = uri.toURL();
+
+			} catch( Exception e ) {
+				throw new IllegalArgumentException( "Broken URL: " + path );
+			}
+		}
+
+		return url.toString();
 	}
 }

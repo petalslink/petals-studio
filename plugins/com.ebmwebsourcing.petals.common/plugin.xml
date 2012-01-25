@@ -216,16 +216,6 @@
              id="com.ebmwebsourcing.petals.common.importWizard"
              name="Petals">
        </category>
-       <wizard
-             category="com.ebmwebsourcing.petals.common.importWizard"
-             class="com.ebmwebsourcing.petals.common.internal.provisional.wizards.WsdlImportWizard"
-             icon="icons/obj16/importWsdl3.gif"
-             id="com.ebmwebsourcing.petals.common.importWsdl"
-             name="WSDL">
-          <description>
-             Import a WSDL definition with all its dependencies inside a project
-          </description>
-       </wizard>
     </extension>
     <extension
           point="org.eclipse.ui.exportWizards">

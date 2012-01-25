@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.editor;
@@ -18,6 +18,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.BadLocationException;
@@ -40,7 +41,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.sse.StructuredModel
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 
 /**
  * Hyper links to open Java files referenced in composites and component types.
@@ -52,6 +52,7 @@ public class LocalFileHyperlinkDetector implements IHyperlinkDetector {
 	 * @see org.eclipse.jface.text.hyperlink.IHyperlinkDetector
 	 * #detectHyperlinks(org.eclipse.jface.text.ITextViewer, org.eclipse.jface.text.IRegion, boolean)
 	 */
+	@Override
 	public IHyperlink[] detectHyperlinks(
 				ITextViewer textViewer, final IRegion region, boolean canShowMultipleHyperlinks ) {
 
@@ -105,10 +106,10 @@ public class LocalFileHyperlinkDetector implements IHyperlinkDetector {
 		// Resolve the file URI
 		if( fileUri != null ) {
 			IFile file = ResourceUtils.getIFileFromEditor();
-			if( UriUtils.isAbsoluteUri( fileUri )) {
+			if( UriAndUrlHelper.isAbsoluteUri( fileUri )) {
 
 				// URL => Open the URL in the browser
-				URI uri = UriUtils.urlToUri( fileUri );
+				URI uri = UriAndUrlHelper.urlToUri( fileUri );
 				try {
 					PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL( uri.toURL());
 
@@ -157,18 +158,22 @@ public class LocalFileHyperlinkDetector implements IHyperlinkDetector {
 
 		return new IHyperlink() {
 
+			@Override
 			public IRegion getHyperlinkRegion() {
 				return nodeRegion;
 			}
 
+			@Override
 			public String getHyperlinkText() {
 				return fileUri;
 			}
 
+			@Override
 			public String getTypeLabel() {
 				return "Petals resource"; //$NON-NLS-1$
 			}
 
+			@Override
 			public void open() {
 				if( localFile ) {
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();

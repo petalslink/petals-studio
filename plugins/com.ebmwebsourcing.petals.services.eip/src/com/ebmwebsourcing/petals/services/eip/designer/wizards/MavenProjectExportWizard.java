@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.bpel.common.wsdl.importhelpers.WsdlImportHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -43,7 +44,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstan
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
 import com.ebmwebsourcing.petals.services.eip.PetalsEipPlugin;
 import com.ebmwebsourcing.petals.services.eip.designer.helpers.EipExportUtils;
 import com.ebmwebsourcing.petals.services.eip.designer.model.EipChain;
@@ -253,9 +253,9 @@ public class MavenProjectExportWizard extends Wizard {
 		String newWsdlLocation = null;
 		if( ! StringUtils.isEmpty( eip.getWsdlUri())) {
 
-			WsdlImportUtils importUtils = new WsdlImportUtils();
+			WsdlImportHelper helper = new WsdlImportHelper();
 			File targetDirectory = project.getFolder( PetalsConstants.LOC_RES_FOLDER ).getLocation().toFile();
-			Map<String,File> map = importUtils.importWsdlOrXsdAndDependencies( targetDirectory, eip.getWsdlUri());
+			Map<String,File> map = helper.importWsdlOrXsdAndDependencies( targetDirectory, eip.getWsdlUri());
 
 			File jbiXmlFile = project.getFile( PetalsConstants.LOC_JBI_FILE ).getLocation().toFile();
 			newWsdlLocation = IoUtils.getRelativeLocationToFile( jbiXmlFile, map.get( eip.getWsdlUri()));

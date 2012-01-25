@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.server.utils;
@@ -21,7 +21,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -35,7 +35,7 @@ public class NetworkUtils {
 	 * The ping is made at most <i>retry</i> times, every <i>timeout</i>
 	 * milliseconds, until the ping is successful or the loop end is reached.
 	 * </p>
-	 * 
+	 *
 	 * @param uri the server URI
 	 * @param port the port to ping
 	 * @param retry the number of tries
@@ -80,7 +80,7 @@ public class NetworkUtils {
 	 * This connection is built at most <i>retry</i> times, every <i>timeout</i>
 	 * milliseconds, until the ping is successful.
 	 * </p>
-	 * 
+	 *
 	 * @param url the URL to ping
 	 * @param retry the number of tries
 	 * @param timeout the time (in milliseconds) between each tentative (can be zero)
@@ -131,7 +131,7 @@ public class NetworkUtils {
 	 * host name => the IP address of the host (e.g. 192.168.1.22)
 	 * IP address => the IP address (e.g. 192.168.1.22)
 	 * </p>
-	 * 
+	 *
 	 * @param hostOrIpAddress the host name or its IP address
 	 * @return the IP address associated with this host
 	 */
@@ -139,7 +139,7 @@ public class NetworkUtils {
 
 		String host = hostOrIpAddress;
 		try {
-			host = UriUtils.urlToUri( hostOrIpAddress ).getHost();
+			host = UriAndUrlHelper.urlToUri( hostOrIpAddress ).getHost();
 		} catch( Exception e1 ) {
 			// nothing
 		}
@@ -163,7 +163,7 @@ public class NetworkUtils {
 	 * Checks whether a host is the local host.
 	 * @param hostOrIpAddress the host name or its IP address
 	 * @return true if the host is the local host, false otherwise or if it could not be determined.
-	 * 
+	 *
 	 * FIXME: use network interfaces?
 	 * See http://www.jguru.com/faq/view.jsp?EID=790132
 	 */

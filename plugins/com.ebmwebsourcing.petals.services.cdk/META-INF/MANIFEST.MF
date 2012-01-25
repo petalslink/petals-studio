@@ -27,6 +27,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.databinding.edit,
  com.ebmwebsourcing.petals.common.generation,
  org.eclipse.jface.databinding,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.eclipse.bpel.common.wsdl
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.cdk.CdkPlugin

@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -49,7 +50,6 @@ import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.NamespaceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.UriUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.eip.designer.edit.commands.EipConnectionSetAttributeCommand;
 import com.ebmwebsourcing.petals.services.eip.designer.edit.parts.EipConnectionEditPart;
@@ -370,7 +370,7 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 
 				URI javaNetUri = null;
 				if( eip.getWsdlUri() != null )
-					javaNetUri = UriUtils.urlToUri( eip.getWsdlUri());
+					javaNetUri = UriAndUrlHelper.urlToUri( eip.getWsdlUri());
 
 				if( javaNetUri != null ) {
 					this.opNameToMep.putAll( WsdlUtils.INSTANCE.getOperations(

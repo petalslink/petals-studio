@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URI;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -243,7 +244,7 @@ public class JbiXmlUtils {
 		if( wsdlElementValue != null
 				&& wsdlElementValue.trim().length() != 0 ) {
 			try {
-				URI wsdlURI = UriUtils.urlToUri( wsdlElementValue );
+				URI wsdlURI = UriAndUrlHelper.urlToUri( wsdlElementValue );
 				if( "file".equals( wsdlURI.getScheme()))
 					file = new File( wsdlURI );
 
@@ -276,7 +277,7 @@ public class JbiXmlUtils {
 		if( wsdlElementValue != null
 				&& wsdlElementValue.trim().length() != 0 ) {
 			try {
-				URI wsdlURI = UriUtils.urlToUri( wsdlElementValue );
+				URI wsdlURI = UriAndUrlHelper.urlToUri( wsdlElementValue );
 				if( "file".equals( wsdlURI.getScheme()))
 					file = new File( wsdlURI );
 
