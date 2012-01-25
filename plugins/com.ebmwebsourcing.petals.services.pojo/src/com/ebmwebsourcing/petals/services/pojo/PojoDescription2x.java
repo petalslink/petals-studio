@@ -14,7 +14,7 @@ package com.ebmwebsourcing.petals.services.pojo;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PojoDescription22 extends PojoDescription {
+public class PojoDescription2x extends PojoDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -23,7 +23,7 @@ public class PojoDescription22 extends PojoDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "2.2";
+		return "2.x";
 	}
 
 	/*

@@ -25,7 +25,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstan
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.pojo.PetalsPojoPlugin;
-import com.ebmwebsourcing.petals.services.pojo.PojoDescription22;
+import com.ebmwebsourcing.petals.services.pojo.PojoDescription2x;
 import com.ebmwebsourcing.petals.services.pojo.pojo.PojoPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
@@ -47,7 +47,7 @@ public class PojoWizard2x extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new PojoDescription22();
+		return new PojoDescription2x();
 	}
 
 

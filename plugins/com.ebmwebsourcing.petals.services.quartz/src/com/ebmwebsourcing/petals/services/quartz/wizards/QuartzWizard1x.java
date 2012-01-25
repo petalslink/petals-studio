@@ -26,7 +26,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class QuartzWizard10_11 extends AbstractServiceUnitWizard {
+public class QuartzWizard1x extends AbstractServiceUnitWizard {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
