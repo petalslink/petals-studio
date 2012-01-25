@@ -16,7 +16,7 @@ import com.ebmwebsourcing.petals.common.generation.Mep;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class MailDescription31 extends MailDescription {
+public class MailDescription32 extends MailDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -25,7 +25,7 @@ public class MailDescription31 extends MailDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "3.1";
+		return "3.2";
 	}
 
 	/*

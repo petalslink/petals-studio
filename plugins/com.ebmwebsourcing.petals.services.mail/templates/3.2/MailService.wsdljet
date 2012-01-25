@@ -1,0 +1,59 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.mail.generated"
+imports="com.sun.java.xml.ns.jbi.AbstractEndpoint"
+class="MailService32"
+skeleton="../generator.skeleton" %>
+<% AbstractEndpoint data = (AbstractEndpoint) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://petals.ow2.org/components/mail/version-3" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="component"
+	targetNamespace="http://petals.ow2.org/components/mail/version-3">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://petals.ow2.org/components/mail/version-3">
+			<xsd:element name="mail">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="tns:body"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="body">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:any></xsd:any>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<!-- ======== message ========== -->
+	<wsdl:message name="SendMailRequest">
+		<wsdl:part name="mail" element="tns:mail"></wsdl:part>
+	</wsdl:message>
+	<!-- ======== port TYPES ========== -->
+	<wsdl:portType name="<%= data.getInterfaceName() %>">
+		<wsdl:operation name="SendMail">
+			<wsdl:input message="tns:SendMailRequest"></wsdl:input>
+		</wsdl:operation>
+	</wsdl:portType>
+	<!-- ======== BINDING ========== -->
+	<wsdl:binding name="MailServiceSoapBinding" type="tns:<%= data.getInterfaceName() %>">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="SendMail">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/mail/generic/version-3/SendMail" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- ======== SERVICE ========== -->
+	<wsdl:service name="<%= data.getServiceName() %>">
+		<wsdl:port binding="tns:MailServiceSoapBinding" name="<%= data.getEndpointName() %>">
+			<soap:address location="jbi://myMailSUEndpointName" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
