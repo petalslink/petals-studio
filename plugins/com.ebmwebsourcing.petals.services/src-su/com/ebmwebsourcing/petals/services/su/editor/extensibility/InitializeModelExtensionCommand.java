@@ -113,11 +113,15 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 		}
 	}
 
-	private Entry getMatchingGroupEntry(EStructuralFeature featureWithSameName) {
+	private Entry getMatchingGroupEntry(EStructuralFeature referenceFeature) {
 		for (FeatureMap.Entry entry : element.getGroup()) {
 			String actualCurrentFeatureName = entry.getEStructuralFeature().getName();
-			if (actualCurrentFeatureName.equals(featureWithSameName.getName()) || // static feature name
-				actualCurrentFeatureName.equals(ExtendedMetaData.INSTANCE.getName(featureWithSameName))) { // or XML feature name
+			String actualNamespace = ExtendedMetaData.INSTANCE.getNamespace(entry.getEStructuralFeature());
+			String referenceNamespace = ExtendedMetaData.INSTANCE.getName(referenceFeature);
+			if (actualNamespace.equals(referenceNamespace) &&
+					(actualCurrentFeatureName.equals(referenceFeature.getName()) || // static feature name
+					actualCurrentFeatureName.equals(ExtendedMetaData.INSTANCE.getName(referenceFeature))
+				)) { // or XML feature name
 				return entry;
 			}
 		}
