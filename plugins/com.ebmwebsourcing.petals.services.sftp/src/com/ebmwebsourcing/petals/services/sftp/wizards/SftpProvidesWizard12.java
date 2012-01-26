@@ -70,7 +70,7 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				SftpPackage.Literals.SFTP_PROVIDES__HOST,
+				SftpPackage.Literals.SFTP_PROVIDES__SERVER,
 				SftpPackage.Literals.SFTP_PROVIDES__PORT,
 				SftpPackage.Literals.SFTP_PROVIDES__USER,
 				SftpPackage.Literals.SFTP_PROVIDES__PASSWORD,

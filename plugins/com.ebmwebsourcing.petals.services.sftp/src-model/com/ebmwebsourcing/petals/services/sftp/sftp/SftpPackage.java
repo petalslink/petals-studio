@@ -138,13 +138,13 @@ public interface SftpPackage extends EPackage {
 	int SFTP_PROVIDES__FOLDER = JbiPackage.PROVIDES_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Host</b></em>' attribute.
+	 * The feature id for the '<em><b>Server</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SFTP_PROVIDES__HOST = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
+	int SFTP_PROVIDES__SERVER = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Overwrite</b></em>' attribute.
@@ -250,15 +250,15 @@ public interface SftpPackage extends EPackage {
 	EAttribute getSftpProvides_Folder();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getHost <em>Host</em>}'.
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getServer <em>Server</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Host</em>'.
-	 * @see com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getHost()
+	 * @return the meta object for the attribute '<em>Server</em>'.
+	 * @see com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getServer()
 	 * @see #getSftpProvides()
 	 * @generated
 	 */
-	EAttribute getSftpProvides_Host();
+	EAttribute getSftpProvides_Server();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getMaxIdleTime <em>Max Idle Time</em>}'.
@@ -389,12 +389,12 @@ public interface SftpPackage extends EPackage {
 		EAttribute SFTP_PROVIDES__FOLDER = eINSTANCE.getSftpProvides_Folder();
 
 		/**
-		 * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Server</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SFTP_PROVIDES__HOST = eINSTANCE.getSftpProvides_Host();
+		EAttribute SFTP_PROVIDES__SERVER = eINSTANCE.getSftpProvides_Server();
 
 		/**
 		 * The meta object literal for the '<em><b>Max Idle Time</b></em>' attribute feature.
