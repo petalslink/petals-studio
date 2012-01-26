@@ -14,6 +14,7 @@ package com.ebmwebsourcing.petals.services.filetransfer;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
 
@@ -82,5 +83,45 @@ public abstract class FileTransferDescription extends ComponentVersionDescriptio
 	 */
 	public List<PetalsKeyWords> getKeyWords() {
 		return Arrays.asList( new PetalsKeyWords[] { PetalsKeyWords.communication });
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isProvide()
+	 */
+	@Override
+	public boolean isProvide() {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isConsume()
+	 */
+	@Override
+	public boolean isConsume() {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #isProxy()
+	 */
+	@Override
+	public boolean isProxy() {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
+	 * #getSupportedMep()
+	 */
+	@Override
+	public Mep[] getSupportedMep() {
+		return new Mep[] { Mep.IN_ONLY };
 	}
 }

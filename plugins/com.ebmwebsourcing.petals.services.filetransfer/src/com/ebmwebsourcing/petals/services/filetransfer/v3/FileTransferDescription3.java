@@ -9,14 +9,15 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.v24;
+package com.ebmwebsourcing.petals.services.filetransfer.v3;
 
+import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FileTransferDescription24 extends FileTransferDescription {
+public class FileTransferDescription3 extends FileTransferDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -25,6 +26,7 @@ public class FileTransferDescription24 extends FileTransferDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "2.4";
+		return "3";
 	}
+
 }
