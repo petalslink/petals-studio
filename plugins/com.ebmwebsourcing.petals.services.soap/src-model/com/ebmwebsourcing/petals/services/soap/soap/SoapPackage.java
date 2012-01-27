@@ -138,13 +138,40 @@ public interface SoapPackage extends EPackage {
 	int SOAP_PROVIDES__ADDRESS = JbiPackage.PROVIDES_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Wsa Reply To</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__WSA_REPLY_TO = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Wsa From</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__WSA_FROM = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Wsa Fault To</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__WSA_FAULT_TO = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Soap Version</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__SOAP_VERSION = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
+	int SOAP_PROVIDES__SOAP_VERSION = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Chunked Mode</b></em>' attribute.
@@ -153,7 +180,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__CHUNKED_MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
+	int SOAP_PROVIDES__CHUNKED_MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Synchonous Timeout</b></em>' attribute.
@@ -162,7 +189,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__SYNCHONOUS_TIMEOUT = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
+	int SOAP_PROVIDES__SYNCHONOUS_TIMEOUT = JbiPackage.PROVIDES_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Cleanup Transport</b></em>' attribute.
@@ -171,7 +198,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__CLEANUP_TRANSPORT = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
+	int SOAP_PROVIDES__CLEANUP_TRANSPORT = JbiPackage.PROVIDES_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Mode</b></em>' attribute.
@@ -180,7 +207,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
+	int SOAP_PROVIDES__MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Proxy Host</b></em>' attribute.
@@ -189,34 +216,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__PROXY_HOST = JbiPackage.PROVIDES_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Proxy User</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SOAP_PROVIDES__PROXY_USER = JbiPackage.PROVIDES_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Proxy Password</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SOAP_PROVIDES__PROXY_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Proxy Domain</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SOAP_PROVIDES__PROXY_DOMAIN = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
+	int SOAP_PROVIDES__PROXY_HOST = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Proxy Port</b></em>' attribute.
@@ -228,13 +228,139 @@ public interface SoapPackage extends EPackage {
 	int SOAP_PROVIDES__PROXY_PORT = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
 
 	/**
+	 * The feature id for the '<em><b>Proxy User</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__PROXY_USER = JbiPackage.PROVIDES_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Proxy Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__PROXY_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 12;
+
+	/**
+	 * The feature id for the '<em><b>Proxy Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__PROXY_DOMAIN = JbiPackage.PROVIDES_FEATURE_COUNT + 13;
+
+	/**
+	 * The feature id for the '<em><b>Headers Filter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HEADERS_FILTER = JbiPackage.PROVIDES_FEATURE_COUNT + 14;
+
+	/**
+	 * The feature id for the '<em><b>Inject Headers</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__INJECT_HEADERS = JbiPackage.PROVIDES_FEATURE_COUNT + 15;
+
+	/**
+	 * The feature id for the '<em><b>Headers To Inject</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HEADERS_TO_INJECT = JbiPackage.PROVIDES_FEATURE_COUNT + 16;
+
+	/**
+	 * The feature id for the '<em><b>Http Basic Auth Username</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME = JbiPackage.PROVIDES_FEATURE_COUNT + 17;
+
+	/**
+	 * The feature id for the '<em><b>Http Basic Auth Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HTTP_BASIC_AUTH_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 18;
+
+	/**
+	 * The feature id for the '<em><b>Enable Compatibility For</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__ENABLE_COMPATIBILITY_FOR = JbiPackage.PROVIDES_FEATURE_COUNT + 19;
+
+	/**
+	 * The feature id for the '<em><b>Enable Wsa</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__ENABLE_WSA = JbiPackage.PROVIDES_FEATURE_COUNT + 20;
+
+	/**
+	 * The feature id for the '<em><b>Https Truststore File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE = JbiPackage.PROVIDES_FEATURE_COUNT + 21;
+
+	/**
+	 * The feature id for the '<em><b>Https Truststore Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 22;
+
+	/**
+	 * The feature id for the '<em><b>Https Keystore File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HTTPS_KEYSTORE_FILE = JbiPackage.PROVIDES_FEATURE_COUNT + 23;
+
+	/**
+	 * The feature id for the '<em><b>Https Keystore Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 24;
+
+	/**
 	 * The number of structural features of the '<em>Provides</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 11;
+	int SOAP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 25;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl <em>Consumes</em>}' class.
@@ -346,13 +472,49 @@ public interface SoapPackage extends EPackage {
 	int SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT = JbiPackage.CONSUMES_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Enable Https Transport</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT = JbiPackage.CONSUMES_FEATURE_COUNT + 5;
+
+	/**
 	 * The feature id for the '<em><b>Enable Jms Transport</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__ENABLE_JMS_TRANSPORT = JbiPackage.CONSUMES_FEATURE_COUNT + 5;
+	int SOAP_CONSUMES__ENABLE_JMS_TRANSPORT = JbiPackage.CONSUMES_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Enable Compatibility For</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR = JbiPackage.CONSUMES_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Enable Wsa</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__ENABLE_WSA = JbiPackage.CONSUMES_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Http Services Redirection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION = JbiPackage.CONSUMES_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Consumes</em>' class.
@@ -361,7 +523,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES_FEATURE_COUNT = JbiPackage.CONSUMES_FEATURE_COUNT + 6;
+	int SOAP_CONSUMES_FEATURE_COUNT = JbiPackage.CONSUMES_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapComponentImpl <em>Component</em>}' class.
@@ -620,6 +782,17 @@ public interface SoapPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.soap.soap.Compatibility <em>Compatibility</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.Compatibility
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.impl.SoapPackageImpl#getCompatibility()
+	 * @generated
+	 */
+	int COMPATIBILITY = 5;
+
+
+	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides <em>Provides</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -639,6 +812,39 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSoapProvides_Address();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaReplyTo <em>Wsa Reply To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Wsa Reply To</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaReplyTo()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_WsaReplyTo();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaFrom <em>Wsa From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Wsa From</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaFrom()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_WsaFrom();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaFaultTo <em>Wsa Fault To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Wsa Fault To</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaFaultTo()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_WsaFaultTo();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getSoapVersion <em>Soap Version</em>}'.
@@ -740,6 +946,127 @@ public interface SoapPackage extends EPackage {
 	EAttribute getSoapProvides_ProxyDomain();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHeadersFilter <em>Headers Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Headers Filter</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHeadersFilter()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HeadersFilter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getInjectHeaders <em>Inject Headers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Inject Headers</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getInjectHeaders()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_InjectHeaders();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHeadersToInject <em>Headers To Inject</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Headers To Inject</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHeadersToInject()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HeadersToInject();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpBasicAuthUsername <em>Http Basic Auth Username</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Http Basic Auth Username</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpBasicAuthUsername()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HttpBasicAuthUsername();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpBasicAuthPassword <em>Http Basic Auth Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Http Basic Auth Password</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpBasicAuthPassword()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HttpBasicAuthPassword();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getEnableCompatibilityFor <em>Enable Compatibility For</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Compatibility For</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getEnableCompatibilityFor()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_EnableCompatibilityFor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#isEnableWsa <em>Enable Wsa</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Wsa</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#isEnableWsa()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_EnableWsa();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsTruststoreFile <em>Https Truststore File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Https Truststore File</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsTruststoreFile()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HttpsTruststoreFile();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsTruststorePassword <em>Https Truststore Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Https Truststore Password</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsTruststorePassword()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HttpsTruststorePassword();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsKeystoreFile <em>Https Keystore File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Https Keystore File</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsKeystoreFile()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HttpsKeystoreFile();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsKeystorePassword <em>Https Keystore Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Https Keystore Password</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getHttpsKeystorePassword()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_HttpsKeystorePassword();
+
+	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyPort <em>Proxy Port</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -816,6 +1143,17 @@ public interface SoapPackage extends EPackage {
 	EAttribute getSoapConsumes_EnableHttpTransport();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableHttpsTransport <em>Enable Https Transport</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Https Transport</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableHttpsTransport()
+	 * @see #getSoapConsumes()
+	 * @generated
+	 */
+	EAttribute getSoapConsumes_EnableHttpsTransport();
+
+	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableJmsTransport <em>Enable Jms Transport</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -825,6 +1163,39 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSoapConsumes_EnableJmsTransport();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#getEnableCompatibilityFor <em>Enable Compatibility For</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Compatibility For</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#getEnableCompatibilityFor()
+	 * @see #getSoapConsumes()
+	 * @generated
+	 */
+	EAttribute getSoapConsumes_EnableCompatibilityFor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableWsa <em>Enable Wsa</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Wsa</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#isEnableWsa()
+	 * @see #getSoapConsumes()
+	 * @generated
+	 */
+	EAttribute getSoapConsumes_EnableWsa();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#getHttpServicesRedirection <em>Http Services Redirection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Http Services Redirection</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes#getHttpServicesRedirection()
+	 * @see #getSoapConsumes()
+	 * @generated
+	 */
+	EAttribute getSoapConsumes_HttpServicesRedirection();
 
 	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapComponent <em>Component</em>}'.
@@ -978,6 +1349,16 @@ public interface SoapPackage extends EPackage {
 	EEnum getSoapMode();
 
 	/**
+	 * Returns the meta object for enum '{@link com.ebmwebsourcing.petals.services.soap.soap.Compatibility <em>Compatibility</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Compatibility</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.Compatibility
+	 * @generated
+	 */
+	EEnum getCompatibility();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1016,6 +1397,30 @@ public interface SoapPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SOAP_PROVIDES__ADDRESS = eINSTANCE.getSoapProvides_Address();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsa Reply To</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__WSA_REPLY_TO = eINSTANCE.getSoapProvides_WsaReplyTo();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsa From</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__WSA_FROM = eINSTANCE.getSoapProvides_WsaFrom();
+
+		/**
+		 * The meta object literal for the '<em><b>Wsa Fault To</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__WSA_FAULT_TO = eINSTANCE.getSoapProvides_WsaFaultTo();
 
 		/**
 		 * The meta object literal for the '<em><b>Soap Version</b></em>' attribute feature.
@@ -1090,6 +1495,94 @@ public interface SoapPackage extends EPackage {
 		EAttribute SOAP_PROVIDES__PROXY_DOMAIN = eINSTANCE.getSoapProvides_ProxyDomain();
 
 		/**
+		 * The meta object literal for the '<em><b>Headers Filter</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HEADERS_FILTER = eINSTANCE.getSoapProvides_HeadersFilter();
+
+		/**
+		 * The meta object literal for the '<em><b>Inject Headers</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__INJECT_HEADERS = eINSTANCE.getSoapProvides_InjectHeaders();
+
+		/**
+		 * The meta object literal for the '<em><b>Headers To Inject</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HEADERS_TO_INJECT = eINSTANCE.getSoapProvides_HeadersToInject();
+
+		/**
+		 * The meta object literal for the '<em><b>Http Basic Auth Username</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME = eINSTANCE.getSoapProvides_HttpBasicAuthUsername();
+
+		/**
+		 * The meta object literal for the '<em><b>Http Basic Auth Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HTTP_BASIC_AUTH_PASSWORD = eINSTANCE.getSoapProvides_HttpBasicAuthPassword();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Compatibility For</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__ENABLE_COMPATIBILITY_FOR = eINSTANCE.getSoapProvides_EnableCompatibilityFor();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Wsa</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__ENABLE_WSA = eINSTANCE.getSoapProvides_EnableWsa();
+
+		/**
+		 * The meta object literal for the '<em><b>Https Truststore File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE = eINSTANCE.getSoapProvides_HttpsTruststoreFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Https Truststore Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD = eINSTANCE.getSoapProvides_HttpsTruststorePassword();
+
+		/**
+		 * The meta object literal for the '<em><b>Https Keystore File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HTTPS_KEYSTORE_FILE = eINSTANCE.getSoapProvides_HttpsKeystoreFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Https Keystore Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD = eINSTANCE.getSoapProvides_HttpsKeystorePassword();
+
+		/**
 		 * The meta object literal for the '<em><b>Proxy Port</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1148,12 +1641,44 @@ public interface SoapPackage extends EPackage {
 		EAttribute SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT = eINSTANCE.getSoapConsumes_EnableHttpTransport();
 
 		/**
+		 * The meta object literal for the '<em><b>Enable Https Transport</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT = eINSTANCE.getSoapConsumes_EnableHttpsTransport();
+
+		/**
 		 * The meta object literal for the '<em><b>Enable Jms Transport</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute SOAP_CONSUMES__ENABLE_JMS_TRANSPORT = eINSTANCE.getSoapConsumes_EnableJmsTransport();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Compatibility For</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR = eINSTANCE.getSoapConsumes_EnableCompatibilityFor();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Wsa</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_CONSUMES__ENABLE_WSA = eINSTANCE.getSoapConsumes_EnableWsa();
+
+		/**
+		 * The meta object literal for the '<em><b>Http Services Redirection</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION = eINSTANCE.getSoapConsumes_HttpServicesRedirection();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapComponentImpl <em>Component</em>}' class.
@@ -1272,6 +1797,16 @@ public interface SoapPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum SOAP_MODE = eINSTANCE.getSoapMode();
+
+		/**
+		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.soap.soap.Compatibility <em>Compatibility</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.ebmwebsourcing.petals.services.soap.soap.Compatibility
+		 * @see com.ebmwebsourcing.petals.services.soap.soap.impl.SoapPackageImpl#getCompatibility()
+		 * @generated
+		 */
+		EEnum COMPATIBILITY = eINSTANCE.getCompatibility();
 
 	}
 

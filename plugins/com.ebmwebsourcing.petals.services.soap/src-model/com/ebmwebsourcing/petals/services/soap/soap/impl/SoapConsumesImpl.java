@@ -9,6 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.soap.soap.impl;
 
+import com.ebmwebsourcing.petals.services.soap.soap.Compatibility;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapMode;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
@@ -33,7 +34,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#getSynchonousTimeout <em>Synchonous Timeout</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#getMode <em>Mode</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#isEnableHttpTransport <em>Enable Http Transport</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#isEnableHttpsTransport <em>Enable Https Transport</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#isEnableJmsTransport <em>Enable Jms Transport</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#getEnableCompatibilityFor <em>Enable Compatibility For</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#isEnableWsa <em>Enable Wsa</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl#getHttpServicesRedirection <em>Http Services Redirection</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,6 +155,35 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	protected boolean enableHttpTransportESet;
 
 	/**
+	 * The default value of the '{@link #isEnableHttpsTransport() <em>Enable Https Transport</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableHttpsTransport()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLE_HTTPS_TRANSPORT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnableHttpsTransport() <em>Enable Https Transport</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableHttpsTransport()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableHttpsTransport = ENABLE_HTTPS_TRANSPORT_EDEFAULT;
+
+	/**
+	 * This is true if the Enable Https Transport attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableHttpsTransportESet;
+
+	/**
 	 * The default value of the '{@link #isEnableJmsTransport() <em>Enable Jms Transport</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -177,6 +211,75 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	 * @ordered
 	 */
 	protected boolean enableJmsTransportESet;
+
+	/**
+	 * The default value of the '{@link #getEnableCompatibilityFor() <em>Enable Compatibility For</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEnableCompatibilityFor()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Compatibility ENABLE_COMPATIBILITY_FOR_EDEFAULT = Compatibility.AXIS1;
+
+	/**
+	 * The cached value of the '{@link #getEnableCompatibilityFor() <em>Enable Compatibility For</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEnableCompatibilityFor()
+	 * @generated
+	 * @ordered
+	 */
+	protected Compatibility enableCompatibilityFor = ENABLE_COMPATIBILITY_FOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnableWsa() <em>Enable Wsa</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableWsa()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLE_WSA_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnableWsa() <em>Enable Wsa</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableWsa()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableWsa = ENABLE_WSA_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getHttpServicesRedirection() <em>Http Services Redirection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHttpServicesRedirection()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String HTTP_SERVICES_REDIRECTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getHttpServicesRedirection() <em>Http Services Redirection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHttpServicesRedirection()
+	 * @generated
+	 * @ordered
+	 */
+	protected String httpServicesRedirection = HTTP_SERVICES_REDIRECTION_EDEFAULT;
+
+	/**
+	 * This is true if the Http Services Redirection attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean httpServicesRedirectionESet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -332,6 +435,52 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isEnableHttpsTransport() {
+		return enableHttpsTransport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableHttpsTransport(boolean newEnableHttpsTransport) {
+		boolean oldEnableHttpsTransport = enableHttpsTransport;
+		enableHttpsTransport = newEnableHttpsTransport;
+		boolean oldEnableHttpsTransportESet = enableHttpsTransportESet;
+		enableHttpsTransportESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT, oldEnableHttpsTransport, enableHttpsTransport, !oldEnableHttpsTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetEnableHttpsTransport() {
+		boolean oldEnableHttpsTransport = enableHttpsTransport;
+		boolean oldEnableHttpsTransportESet = enableHttpsTransportESet;
+		enableHttpsTransport = ENABLE_HTTPS_TRANSPORT_EDEFAULT;
+		enableHttpsTransportESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT, oldEnableHttpsTransport, ENABLE_HTTPS_TRANSPORT_EDEFAULT, oldEnableHttpsTransportESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetEnableHttpsTransport() {
+		return enableHttpsTransportESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isEnableJmsTransport() {
 		return enableJmsTransport;
 	}
@@ -378,6 +527,94 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Compatibility getEnableCompatibilityFor() {
+		return enableCompatibilityFor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableCompatibilityFor(Compatibility newEnableCompatibilityFor) {
+		Compatibility oldEnableCompatibilityFor = enableCompatibilityFor;
+		enableCompatibilityFor = newEnableCompatibilityFor == null ? ENABLE_COMPATIBILITY_FOR_EDEFAULT : newEnableCompatibilityFor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR, oldEnableCompatibilityFor, enableCompatibilityFor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isEnableWsa() {
+		return enableWsa;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableWsa(boolean newEnableWsa) {
+		boolean oldEnableWsa = enableWsa;
+		enableWsa = newEnableWsa;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__ENABLE_WSA, oldEnableWsa, enableWsa));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getHttpServicesRedirection() {
+		return httpServicesRedirection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHttpServicesRedirection(String newHttpServicesRedirection) {
+		String oldHttpServicesRedirection = httpServicesRedirection;
+		httpServicesRedirection = newHttpServicesRedirection;
+		boolean oldHttpServicesRedirectionESet = httpServicesRedirectionESet;
+		httpServicesRedirectionESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION, oldHttpServicesRedirection, httpServicesRedirection, !oldHttpServicesRedirectionESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetHttpServicesRedirection() {
+		String oldHttpServicesRedirection = httpServicesRedirection;
+		boolean oldHttpServicesRedirectionESet = httpServicesRedirectionESet;
+		httpServicesRedirection = HTTP_SERVICES_REDIRECTION_EDEFAULT;
+		httpServicesRedirectionESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION, oldHttpServicesRedirection, HTTP_SERVICES_REDIRECTION_EDEFAULT, oldHttpServicesRedirectionESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetHttpServicesRedirection() {
+		return httpServicesRedirectionESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -391,8 +628,16 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 				return getMode();
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
 				return isEnableHttpTransport();
+			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT:
+				return isEnableHttpsTransport();
 			case SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT:
 				return isEnableJmsTransport();
+			case SoapPackage.SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR:
+				return getEnableCompatibilityFor();
+			case SoapPackage.SOAP_CONSUMES__ENABLE_WSA:
+				return isEnableWsa();
+			case SoapPackage.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION:
+				return getHttpServicesRedirection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -420,8 +665,20 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
 				setEnableHttpTransport((Boolean)newValue);
 				return;
+			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT:
+				setEnableHttpsTransport((Boolean)newValue);
+				return;
 			case SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT:
 				setEnableJmsTransport((Boolean)newValue);
+				return;
+			case SoapPackage.SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR:
+				setEnableCompatibilityFor((Compatibility)newValue);
+				return;
+			case SoapPackage.SOAP_CONSUMES__ENABLE_WSA:
+				setEnableWsa((Boolean)newValue);
+				return;
+			case SoapPackage.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION:
+				setHttpServicesRedirection((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -450,8 +707,20 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
 				unsetEnableHttpTransport();
 				return;
+			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT:
+				unsetEnableHttpsTransport();
+				return;
 			case SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT:
 				unsetEnableJmsTransport();
+				return;
+			case SoapPackage.SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR:
+				setEnableCompatibilityFor(ENABLE_COMPATIBILITY_FOR_EDEFAULT);
+				return;
+			case SoapPackage.SOAP_CONSUMES__ENABLE_WSA:
+				setEnableWsa(ENABLE_WSA_EDEFAULT);
+				return;
+			case SoapPackage.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION:
+				unsetHttpServicesRedirection();
 				return;
 		}
 		super.eUnset(featureID);
@@ -475,8 +744,16 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 				return mode != MODE_EDEFAULT;
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
 				return isSetEnableHttpTransport();
+			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT:
+				return isSetEnableHttpsTransport();
 			case SoapPackage.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT:
 				return isSetEnableJmsTransport();
+			case SoapPackage.SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR:
+				return enableCompatibilityFor != ENABLE_COMPATIBILITY_FOR_EDEFAULT;
+			case SoapPackage.SOAP_CONSUMES__ENABLE_WSA:
+				return enableWsa != ENABLE_WSA_EDEFAULT;
+			case SoapPackage.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION:
+				return isSetHttpServicesRedirection();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -501,8 +778,16 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 		result.append(mode);
 		result.append(", enableHttpTransport: ");
 		if (enableHttpTransportESet) result.append(enableHttpTransport); else result.append("<unset>");
+		result.append(", enableHttpsTransport: ");
+		if (enableHttpsTransportESet) result.append(enableHttpsTransport); else result.append("<unset>");
 		result.append(", enableJmsTransport: ");
 		if (enableJmsTransportESet) result.append(enableJmsTransport); else result.append("<unset>");
+		result.append(", enableCompatibilityFor: ");
+		result.append(enableCompatibilityFor);
+		result.append(", enableWsa: ");
+		result.append(enableWsa);
+		result.append(", httpServicesRedirection: ");
+		if (httpServicesRedirectionESet) result.append(httpServicesRedirection); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

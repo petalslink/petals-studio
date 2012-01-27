@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
@@ -43,6 +44,16 @@ public class SoapConsumesEditorContribution implements JbiEditorDetailsContribut
 		identificationSection.setClient(identificationComposite);
 
 		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, identificationComposite, ise);
+		
+		Section soapSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
+		soapSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+		soapSection.setText("SOAP");
+		Composite soapComposite = toolkit.createComposite(soapSection);
+		soapSection.setClient(soapComposite);
+		soapComposite.setLayout(new GridLayout(2, false));
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, soapComposite, ise.getEditingDomain(), ise.getDataBindingContext(), 
+				SoapPackage.Literals.SOAP_CONSUMES__SOAP_SERVICE_NAME,
+				SoapPackage.Literals.SOAP_CONSUMES__SOAP_ACTION);
 	}
 
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {

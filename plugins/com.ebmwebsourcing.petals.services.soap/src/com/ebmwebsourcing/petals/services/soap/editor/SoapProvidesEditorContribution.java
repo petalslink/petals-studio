@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
@@ -46,6 +47,15 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, identificationComposite, ise);
 		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, identificationComposite, ise);
 
+		Section soapSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
+		soapSection.setText("SOAP");
+		soapSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Composite soapComposite = toolkit.createComposite(soapSection);
+		soapSection.setClient(soapComposite);
+		soapComposite.setLayout(new GridLayout(2, false));
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, soapComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+				SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
+				SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION);
 	}
 
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
@@ -53,14 +63,75 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		{
-			Section ejbSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-			ejbSection.setText("SOAP");
+			Section ejbSection = toolkit.createSection(advancedTab, Section.TITLE_BAR);
+			ejbSection.setText("SOAP: Other");
 			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
 			
-			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ejbComposite, ise, SoapPackage.Literals.SOAP_PROVIDES);
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+					SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
+					SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
+					SoapPackage.Literals.SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME,
+					SoapPackage.Literals.SOAP_PROVIDES__HTTP_BASIC_AUTH_PASSWORD,
+					SoapPackage.Literals.SOAP_PROVIDES__ENABLE_COMPATIBILITY_FOR);
+		}
+		{
+			Section ejbSection = toolkit.createSection(advancedTab, Section.TITLE_BAR);
+			ejbSection.setText("SOAP: WSA");
+			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+			Composite ejbComposite = toolkit.createComposite(ejbSection);
+			ejbComposite.setLayout(new GridLayout(2, false));
+			ejbSection.setClient(ejbComposite);
+			
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+					SoapPackage.Literals.SOAP_PROVIDES__ENABLE_WSA,
+					SoapPackage.Literals.SOAP_PROVIDES__WSA_FROM,
+					SoapPackage.Literals.SOAP_PROVIDES__WSA_REPLY_TO,
+					SoapPackage.Literals.SOAP_PROVIDES__WSA_FAULT_TO);
+		}
+		{
+			Section ejbSection = toolkit.createSection(advancedTab, Section.TITLE_BAR);
+			ejbSection.setText("SOAP: Proxy");
+			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+			Composite ejbComposite = toolkit.createComposite(ejbSection);
+			ejbComposite.setLayout(new GridLayout(2, false));
+			ejbSection.setClient(ejbComposite);
+			
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+					SoapPackage.Literals.SOAP_PROVIDES__PROXY_HOST,
+					SoapPackage.Literals.SOAP_PROVIDES__PROXY_PORT,
+					SoapPackage.Literals.SOAP_PROVIDES__PROXY_USER,
+					SoapPackage.Literals.SOAP_PROVIDES__PROXY_PASSWORD,
+					SoapPackage.Literals.SOAP_PROVIDES__PROXY_DOMAIN);
+		}
+		{
+			Section ejbSection = toolkit.createSection(advancedTab, Section.TITLE_BAR);
+			ejbSection.setText("SOAP: Headers");
+			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+			Composite ejbComposite = toolkit.createComposite(ejbSection);
+			ejbComposite.setLayout(new GridLayout(2, false));
+			ejbSection.setClient(ejbComposite);
+			
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_FILTER,
+					SoapPackage.Literals.SOAP_PROVIDES__INJECT_HEADERS,
+					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_TO_INJECT);
+		}
+		{
+			Section ejbSection = toolkit.createSection(advancedTab, Section.TITLE_BAR);
+			ejbSection.setText("SOAP: https");
+			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
+			Composite ejbComposite = toolkit.createComposite(ejbSection);
+			ejbComposite.setLayout(new GridLayout(2, false));
+			ejbSection.setClient(ejbComposite);
+			
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), 
+					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_FILE,
+					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD,
+					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE,
+					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD);					
 		}
 		{
 			Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);

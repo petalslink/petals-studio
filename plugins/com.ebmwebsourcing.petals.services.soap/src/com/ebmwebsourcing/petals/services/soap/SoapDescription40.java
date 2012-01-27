@@ -24,7 +24,7 @@ public class SoapDescription40 extends SoapDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "4.0";
+		return "4.x";
 	}
 
 	/*
