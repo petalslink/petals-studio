@@ -87,13 +87,13 @@
       </catalogContribution>
    </extension>
    <extension
-         point="org.eclipse.ui.exportWizards">
+         point="org.eclipse.ui.newWizards">
       <wizard
-            category="com.ebmwebsourcing.petals.common.exportWizard"
-            class="com.ebmwebsourcing.petals.services.bpel.croquis.wizards.BpelCroquisExportWizard"
+            category="com.ebmwebsourcing.petals.common.wizards.utilities"
+            class="com.ebmwebsourcing.petals.services.bpel.wizards.BpelToPetalsProjectsWizard"
             icon="icons/obj16/export_bpel.gif"
             id="com.ebmwebsourcing.petals.services.bpel.bpelProject"
-            name="BPEL to Petals Projects">
+            name="From BPEL to Petals Projects">
          <description>
             Create a set of Petals projects from a BPEL process file
          </description>

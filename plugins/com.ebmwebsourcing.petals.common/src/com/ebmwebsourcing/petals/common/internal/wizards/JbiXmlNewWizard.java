@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2011, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.wizards;
@@ -42,7 +42,10 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * A wizard to create the skeleton of a 'jbi.xml' file.
  * @author Vincent Zurczak - EBM WebSourcing
+ * @deprecated is this wizard really used? Not IMO.
+ * If no complaint is received in between times, delete this class from the plug-in (for v1.4.0)
  */
+@Deprecated
 public class JbiXmlNewWizard extends Wizard implements INewWizard {
 
 	/** The unique page of the wizard. */
@@ -122,6 +125,7 @@ public class JbiXmlNewWizard extends Wizard implements INewWizard {
 			if( activePart instanceof ISetSelectionTarget ) {
 				final ISelection targetSelection = new StructuredSelection( createdFile );
 				getShell().getDisplay().asyncExec( new Runnable() {
+					@Override
 					public void run() {
 						((ISetSelectionTarget) activePart).selectReveal( targetSelection );
 					}
@@ -158,6 +162,7 @@ public class JbiXmlNewWizard extends Wizard implements INewWizard {
 	 * @see org.eclipse.ui.IWorkbenchWizard
 	 * #init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init( IWorkbench workbench, IStructuredSelection selection ) {
 		this.selection = selection;
 		this.workbench = workbench;

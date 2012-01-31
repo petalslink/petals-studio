@@ -21,16 +21,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
@@ -173,123 +167,11 @@ public class IoUtils {
 
 
 	/**
-	 * Creates a clean file name from a string.
-	 * <p>
-	 * The string argument corresponds to a file name or a file path.
-	 * </p>
-	 *
-	 * @param filePath
-	 * @return a file name with no special character
-	 */
-	public static String createCleanFileName( String filePath ) {
-
-		GregorianCalendar calendar = new GregorianCalendar();
-		SimpleDateFormat sdf = new SimpleDateFormat( "dd_MM_yyyy__'at'__HH_mm_ss" );
-
-		if( filePath == null || filePath.length() == 0 )
-			return "importedFile__" + sdf.format( calendar.getTime());
-
-		filePath = filePath.replaceAll( "\\\\", "/" );
-		boolean startsWithSlash = filePath.charAt( 0 ) == '/';
-		String[] parts = filePath.split( "/" );
-		String fileName = parts[ parts.length - 1 ];
-
-		// Replace strange characters in file name.
-		// Case "jsp?value=""
-		int markIndex = fileName.lastIndexOf( '?' );
-		if( markIndex != -1 ) {
-
-			// Parse with respect to the first '?'
-			String beforeMark, afterMark;
-			if( markIndex == 0 ) {
-				beforeMark = "";
-				afterMark = fileName;
-			}
-			else if( markIndex + 1 < fileName.length()) {
-				beforeMark = fileName.substring( 0, markIndex );
-				afterMark = fileName.substring( markIndex + 1 );
-			}
-			else {
-				beforeMark = fileName;
-				afterMark = "";
-			}
-
-			// Build the file name
-			if( "wsdl".equalsIgnoreCase( afterMark )) {
-				if( beforeMark.length() > 0 )
-					fileName = beforeMark + ".wsdl";
-				else
-					fileName = "importedWsdl.wsdl";
-			}
-
-			// File imported by a WSDL (?wsdl=toto.xsd)
-			else if( afterMark.startsWith( "wsdl=" )) {
-				afterMark = afterMark.substring( 5 );
-				if( afterMark.length() > 0 )
-					fileName = afterMark;
-			}
-		}
-
-		filePath = startsWithSlash ? "/" : "";
-		StringBuffer buf = new StringBuffer( filePath );
-		for( int i=0; i<parts.length - 1; i++ )
-			buf.append( parts[ i ] + "/" );
-		buf.append( fileName );
-
-		// In fact, replace every character except numbers, letters, '.', '_' and '-'.
-		filePath = buf.toString().replaceAll( "[^-./_\\w]", "_" );
-
-		return filePath;
-	}
-
-
-	/**
-	 * @param path1 the path of a file
-	 * @param path2 the path of a file
-	 * @return if path1 is in an ancestor of path2, the relative path of path2 with respect to path1.
-	 * The absolute path of path2 otherwise.
-	 */
-	public static IPath getBasicRelativePath( IPath path1, IPath path2 ) {
-
-		IPath parentPath;
-		if( path1.toFile().isFile())
-			parentPath = path1.removeLastSegments( 1 );
-		else
-			parentPath = path1;
-
-		if( parentPath.isPrefixOf( path2 )) {
-			path2 = path2.removeFirstSegments( parentPath.segmentCount());
-			path2 = path2.setDevice( null );
-		}
-
-		return path2;
-	}
-
-
-	/**
-	 * @param file1
-	 * @param file2
-	 * @return if file1 is in an ancestor of file2, the relative path of file2 with respect to file1.
-	 * The absolute path of file2 otherwise.
-	 */
-	public static String getBasicRelativePath( File file1, File file2 ) {
-
-		IPath path1 = new Path( file1.getAbsolutePath());
-		IPath path2 = new Path( file2.getAbsolutePath());
-		return getBasicRelativePath( path1, path2 ).toString();
-	}
-
-
-	/**
 	 * Return the relative position of <code>file</code> with respect to originFile.
-	 * <p>
-	 * Legacy and more complete than {@link #getBasicRelativePath(File, File)}.
-	 * </p>
-	 *
 	 * @param originFile the absolute file which acts as the <i>origin</i>.
 	 * @param file the file whose relative path must be computed with respect to originFile.
 	 * @return the relative path of <code>file</code> with respect to originFile.
-	 * @see UriUtils#getRelativeLocationToUri(URI, URI)
+	 * @see UriAndUrlHelper#getRelativeLocationToUri(URI, URI)
 	 */
 	public static String getRelativeLocationToFile( File originFile, File file ) {
 
@@ -439,17 +321,48 @@ public class IoUtils {
 	/**
 	 * @param stream
 	 * @return
+	 * FIXME: is this method really useful?
 	 */
-	public static String streamToText(InputStream stream) throws IOException {
-		List<Byte> bytes = new ArrayList<Byte>();
-		int current;
-		while ((current = stream.read()) != -1) {
-			bytes.add((byte)current);
+	public static String streamToText( InputStream stream ) throws IOException {
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		copyStream( stream, os );
+		return os.toString();
+	}
+
+
+	/**
+	 * Converts an URI into a file.
+	 * <p>
+	 * The returned file might not exist.
+	 * </p>
+	 *
+	 * @param uri any URI
+	 * @return the file if the URI points to a file, null otherwise
+	 */
+	public static File convertToFile( String uri ) {
+		return convertToFile( UriAndUrlHelper.urlToUri( uri ));
+	}
+
+
+	/**
+	 * Converts an URI into a file.
+	 * <p>
+	 * The returned file might not exist.
+	 * </p>
+	 *
+	 * @param uri any URI
+	 * @return the file if the URI points to a file, null otherwise
+	 */
+	public static File convertToFile( URI uri ) {
+
+		File result = null;
+		try {
+			result = new File( uri );
+
+		} catch( Exception e ) {
+			PetalsCommonPlugin.log( e, IStatus.WARNING );
 		}
-		byte[] byteArray = new byte[bytes.size()];
-		for (int i = 0; i < bytes.size(); i++) {
-			byteArray[i] = bytes.get(i);
-		}
-		return new String(byteArray);
+
+		return result;
 	}
 }

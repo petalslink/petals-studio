@@ -17,7 +17,7 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
-            category="com.ebmwebsourcing.petals.common.wizards"
+            category="com.ebmwebsourcing.petals.common.wizards.maven"
             class="com.ebmwebsourcing.petals.components.wizards.PetalsArtifactNewWizard:component"
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             icon="icons/obj16/component.png"
@@ -29,7 +29,7 @@
          </description>
       </wizard>
       <wizard
-            category="com.ebmwebsourcing.petals.common.wizards"
+            category="com.ebmwebsourcing.petals.common.wizards.maven"
             class="com.ebmwebsourcing.petals.components.wizards.PetalsArtifactNewWizard:shared-library"
             finalPerspective="com.ebmwebsourcing.petals.common.mainPerspective"
             icon="icons/obj16/sl.png"

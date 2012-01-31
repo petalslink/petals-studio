@@ -14,7 +14,10 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
@@ -29,6 +32,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xml.type.AnyType;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
@@ -37,11 +41,30 @@ import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.DocumentRoot;
 import com.sun.java.xml.ns.jbi.Jbi;
 import com.sun.java.xml.ns.jbi.Provides;
+import com.sun.java.xml.ns.jbi.util.JbiResourceFactoryImpl;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class JbiXmlUtils {
+
+	/**
+	 * Writes a {@link Jbi} instance into a file.
+	 * @param jbiInstance the JBI instance to write
+	 * @param targetFile the target file
+	 * @throws IOException if the content could not be saved
+	 */
+	public static void writeJbiXmlModel( Jbi jbiInstance, File targetFile ) throws IOException {
+
+		org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createFileURI( targetFile.getAbsolutePath());
+		Resource resource = new JbiResourceFactoryImpl().createResource( emfUri );
+		resource.getContents().add( jbiInstance );
+
+		Map<Object,Object> options = new HashMap<Object,Object> ();
+		options.put( XMLResource.OPTION_ENCODING, "UTF-8" );
+		resource.save( options );
+	}
+
 
 	/**
 	 * Loads the JBI model instance from a jbi.xml file.

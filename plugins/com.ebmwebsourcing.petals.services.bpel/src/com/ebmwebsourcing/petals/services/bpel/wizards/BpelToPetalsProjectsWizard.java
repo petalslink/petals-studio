@@ -9,24 +9,24 @@
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
  *
  *****************************************************************************/
-package com.ebmwebsourcing.petals.services.bpel.croquis.wizards;
+package com.ebmwebsourcing.petals.services.bpel.wizards;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.Set;
 
-import javax.xml.namespace.QName;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
+import org.eclipse.bpel.common.wsdl.importhelpers.WsdlImportHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -48,46 +48,52 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 import com.ebmwebsourcing.petals.common.generation.JbiUtils;
 import com.ebmwebsourcing.petals.common.generation.JbiXmlGenerationHelper;
-import com.ebmwebsourcing.petals.common.generation.cdk5.components.BpelProvides10;
 import com.ebmwebsourcing.petals.common.generation.cdk5.components.SoapConsumes40;
 import com.ebmwebsourcing.petals.common.generation.cdk5.components.SoapProvides40;
 import com.ebmwebsourcing.petals.common.generation.cdk5.components.SoapProvides40.SoapVersion;
 import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.CollectionUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlImportUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.bpel.PetalsBpelPlugin;
-import com.ebmwebsourcing.petals.services.bpel.designer.builder.PetalsBpelNature;
-import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules;
-import com.ebmwebsourcing.petals.services.bpel.designer.provisional.PetalsBpelModules.JbiXmlBean;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
 import com.ebmwebsourcing.petals.services.wizards.beans.SaImportBean;
 import com.ebmwebsourcing.petals.services.wizards.beans.SuImportBean;
+import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
- * A wizard to export a BPEL croquis in a set of Petals Maven projects.
+ * A wizard to create a set of Petals Maven projects from a BPEL process.
  * @author Vincent Zurczak - EBM WebSourcing
+ * FIXME: this class is a mess, the code could be organized in a better way.
  */
-public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
+public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard {
 
 	private final List<IStatus> errors = new ArrayList<IStatus> ();
 	private final List<IResource> resourcesToSelect = new ArrayList<IResource> ();
-	private BpelCroquisExportWizardPage page;
-	private final WsdlImportUtils wsdlImportUtils = new WsdlImportUtils();
+	private BpelToPetalsProjectsWizardPage page;
+	private WsdlImportHelper wsdlImportHelper;
 
 
 	/**
 	 * Constructor.
 	 */
-	public BpelCroquisExportWizard() {
+	public BpelToPetalsProjectsWizard() {
 		super();
 		setNeedsProgressMonitor( true );
 		setWindowTitle( "BPEL Croquis Export" );
+
+		try {
+			this.wsdlImportHelper = new WsdlImportHelper();
+
+		} catch( ParserConfigurationException e ) {
+			PetalsBpelPlugin.log( e, IStatus.ERROR );
+		}
 	}
 
 
@@ -98,7 +104,7 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 	 */
 	@Override
 	public void addPages() {
-		this.page = new BpelCroquisExportWizardPage();
+		this.page = new BpelToPetalsProjectsWizardPage();
 		addPage( this.page );
 	}
 
@@ -170,7 +176,8 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 		monitor.beginTask( "Creating the concrete projects...", IProgressMonitor.UNKNOWN );
 		List<SaImportBean> importBeans = this.page.getImportsBeans();
 
-		// Create the SU
+
+		// Create the SU projects
 		List<MavenBean> suMavenBeans = new ArrayList<MavenBean>();
 		Map<String,String> suNameToComponent = new HashMap<String,String> ();
 		for( SaImportBean saBean : importBeans ) {
@@ -213,6 +220,7 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 					this.errors.add( status );
 				}
 			}
+
 
 			// Create the SA?
 			if( saBean.isToCreate()) {
@@ -261,130 +269,45 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 					false,
 					monitor );
 
-		// Copy the project's contents
-		monitor.subTask( "Copying the croquis contents..." );
-		File src = this.page.getSelectedBpel().getProject().getFolder( PetalsConstants.LOC_RES_FOLDER ).getLocation().toFile();
-		File target = project.getFolder( PetalsConstants.LOC_RES_FOLDER ).getLocation().toFile();
-		IoUtils.copyFile( src, target, false );
-		project.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 
-		// Add the BPEL nature to the project
-		IProjectDescription description = project.getDescription();
-		String[] natures = description.getNatureIds();
-		String[] newNatures = new String[ natures.length + 1 ];
-		System.arraycopy( natures, 0, newNatures, 0, natures.length );
-		newNatures[ natures.length ] = PetalsBpelNature.NATURE_ID;
-		description.setNatureIds( newNatures );
-		project.setDescription( description, monitor );
+		// Copy the BPEL file
+		monitor.subTask( "Copying the BPEL process..." );
+		URI bpelUri = this.page.getHelper().getBpelUri();
+		InputStream is = bpelUri.toURL().openStream();
+		String bpelName = UriAndUrlHelper.extractFileName( bpelUri.toString());
+		File target = project.getFolder( PetalsConstants.LOC_RES_FOLDER ).getFile( bpelName ).getLocation().toFile();
+		IoUtils.copyStream( is, target );
+		monitor.worked( 5 );
 
-		// Import the "remote" WSDLs
-		Map<String,File> uriToFile;
-		if( this.page.getRemoteImports() != null
-					&& this.page.getRemoteImports().size() > 0 ) {
 
-			String[] remoteImportsArray = new String[ this.page.getRemoteImports().size()];
-			remoteImportsArray = this.page.getRemoteImports().toArray( remoteImportsArray );
-			uriToFile = this.wsdlImportUtils.importWsdlOrXsdAndDependencies( target, remoteImportsArray );
-
-		} else {
-			uriToFile = new HashMap<String,File>( 0 );
+		// Import the WSDL files
+		Set<String> urisToImport = new HashSet<String> ();
+		for( String s : this.page.getHelper().findPartnerImports( true )) {
+			URI uri = UriAndUrlHelper.buildNewURI( bpelUri, s );
+			urisToImport.add( uri.toString());
 		}
 
-		// Update the WSDL URLS in the BPEL files
-		monitor.subTask( "Updating " + this.page.getSelectedBpel().getName() + "..." );
-		File targetBpelFile = project.getFile( this.page.getSelectedBpel().getProjectRelativePath()).getLocation().toFile();
-
-		FileInputStream is = new FileInputStream( this.page.getSelectedBpel().getLocation().toFile());
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		IoUtils.copyStream( is, os );
-		is.close();
-
-		String buf = os.toString();
-		for( Map.Entry<String,File> entry : uriToFile.entrySet()) {
-
-			// Replace absolute URIs
-			String regex = Pattern.quote( "\"" +  entry.getKey() + "\"" );
-			String relativeFilePath = IoUtils.getRelativeLocationToFile( targetBpelFile, entry.getValue());
-			buf = buf.replaceAll( regex, "\"" + relativeFilePath + "\"" );
-
-			// Replace relative URIs
-			try {
-				// Relative URI <=> the URI leads to a file
-				File f = new File( new URI( entry.getKey()));
-				if( f.exists()) {
-					regex = IoUtils.getRelativeLocationToFile( this.page.getSelectedBpel().getLocation().toFile(), f );
-					regex = Pattern.quote( "\"" + regex + "\"");
-					buf = buf.replaceAll( regex, "\"" + relativeFilePath + "\"" );
-				}
-
-			} catch( URISyntaxException e ) {
-				// nothing
-			}
+		for( String s : this.page.getHelper().findProcessInterfaceImports( false )) {
+			URI uri = UriAndUrlHelper.buildNewURI( bpelUri, s );
+			urisToImport.add( uri.toString());
 		}
 
-		ByteArrayInputStream fis = new ByteArrayInputStream( buf.getBytes());
-		IoUtils.copyStream( fis, targetBpelFile );
-		fis.close();
+		for( String s : this.page.getHelper().findOtherImports( false )) {
+			URI uri = UriAndUrlHelper.buildNewURI( bpelUri, s );
+			urisToImport.add( uri.toString());
+		}
 
-		// Speed up the garbage collection
-		is = null;
-		os = null;
+		this.wsdlImportHelper.importWsdlOrXsdAndDependencies(
+				target.getParentFile(),
+				CollectionUtils.convertToArray( urisToImport, String.class ));
+
 
 		// Create the jbi.xml file
 		monitor.subTask( "Generating the jbi.xml file..." );
-		URL url = this.page.getSelectedBpel().getLocation().toFile().toURI().toURL();
-		List<JbiXmlBean> jbiXmlBeans = PetalsBpelModules.getJbiXmlBean( url );
+		final IFile jbiFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
+		Jbi jbiInstance = this.page.getHelper().createJbiXml( jbiFile, bpelName );
+		JbiXmlUtils.writeJbiXmlModel( jbiInstance, jbiFile.getLocation().toFile());
 
-		List<BpelProvides10> bpelProvides = new ArrayList<BpelProvides10>();
-		for( JbiXmlBean jxb : jbiXmlBeans ) {
-
-			BpelProvides10 bp = new BpelProvides10();
-			bp.setEndpointName( jxb.getEndpointName());
-			bp.setBc( false );
-			bp.setPoolSize( 1 );
-			bp.setProcessName( this.page.getSelectedBpel().getName());
-			bp.setProvides( true );
-			bp.setValidateWsdl( true );
-
-			QName itf = jxb.getInterfaceName();
-			if( itf != null ) {
-				bp.setInterfaceName( itf.getLocalPart());
-				bp.setInterfaceNamespace( itf.getNamespaceURI());
-			}
-
-			QName srv = jxb.getServiceName();
-			if( srv != null ) {
-				bp.setServiceName( srv.getLocalPart());
-				bp.setServiceNamespace( srv.getNamespaceURI());
-			}
-
-			URI wsdlUri = jxb.getWsdlUri();
-			if( wsdlUri != null ) {
-				File f = uriToFile.get( wsdlUri.toString());
-				String relativeFilePath;
-				if( f != null )
-					relativeFilePath = IoUtils.getRelativeLocationToFile( target, f );
-				else {
-					// f is mandatory a local WSDL => file
-					f = new File( wsdlUri );
-					relativeFilePath = IoUtils.getRelativeLocationToFile( src, f );
-				}
-				bp.setWsdl( relativeFilePath );
-			}
-
-			bpelProvides.add( bp );
-		}
-
-		JbiXmlGenerationHelper genDelegate = new JbiXmlGenerationHelper();
-		genDelegate.setComponentName( suBean.getComponentName());
-		BpelProvides10[] bps = new BpelProvides10[ bpelProvides.size()];
-		String jbiXmlContent = genDelegate.createJbiDescriptor( bpelProvides.toArray( bps )).toString();
-
-		IFile jbiXmlFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
-		if( ! jbiXmlFile.exists())
-			jbiXmlFile.create( new ByteArrayInputStream( jbiXmlContent.getBytes()), true, monitor );
-		else
-			jbiXmlFile.setContents( new ByteArrayInputStream( jbiXmlContent.getBytes()), true, true, monitor );
 
 		// Select the project
 		this.resourcesToSelect.add( project );
@@ -419,7 +342,7 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 					monitor );
 
 		// Create the jbi.xml file
-		JbiBasicBean jbiBean = (JbiBasicBean) suBean.getKeyToObject().get( BpelCroquisExportWizardPage.JBI_BEAN );
+		JbiBasicBean jbiBean = (JbiBasicBean) suBean.getKeyToObject().get( BpelToPetalsProjectsWizardPage.JBI_BEAN );
 		String jbiXmlContent;
 		if( consume ) {
 			SoapConsumes40 sp = new SoapConsumes40();
@@ -440,10 +363,10 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 		else {
 			// Import the WSDL
 			IFolder resFolder = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
-			String wsdlLocation = (String) suBean.getKeyToObject().get( BpelCroquisExportWizardPage.WSDL_LOCATION );
+			String wsdlLocation = (String) suBean.getKeyToObject().get( BpelToPetalsProjectsWizardPage.WSDL_LOCATION );
 
 			Map<String,File> urlToFile =
-				this.wsdlImportUtils.importWsdlOrXsdAndDependencies( resFolder.getLocation().toFile(), wsdlLocation );
+				this.wsdlImportHelper.importWsdlOrXsdAndDependencies( resFolder.getLocation().toFile(), wsdlLocation );
 
 			File importedWsdlFile = urlToFile.get( wsdlLocation );
 
@@ -476,8 +399,9 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 
 		try {
 			project.refreshLocal( IResource.DEPTH_INFINITE, monitor );
+
 		} catch( Exception e ) {
-			e.printStackTrace();
+			PetalsBpelPlugin.log( e, IStatus.WARNING );
 		}
 	}
 
@@ -522,14 +446,10 @@ public class BpelCroquisExportWizard extends Wizard implements IExportWizard {
 		// Create the jbi.xml
 		String jbiXmlContent = JbiUtils.generateJbiXmlForSA( saBean.getProjectName(), suNameToComponentName );
 		IFile jbiXmlFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
-		if( ! jbiXmlFile.exists()) {
-			jbiXmlFile.create(
-						new ByteArrayInputStream( jbiXmlContent.getBytes()), true, monitor );
-		}
-		else {
-			jbiXmlFile.setContents(
-						new ByteArrayInputStream( jbiXmlContent.getBytes()), true, true, monitor );
-		}
+		if( ! jbiXmlFile.exists())
+			jbiXmlFile.create( new ByteArrayInputStream( jbiXmlContent.getBytes()), true, monitor );
+		else
+			jbiXmlFile.setContents( new ByteArrayInputStream( jbiXmlContent.getBytes()), true, true, monitor );
 
 		// SU dependencies
 		try {

@@ -170,6 +170,9 @@
     </extension>
     <extension
           point="org.eclipse.ui.newWizards">
+          
+       <!-- Disable the JBI descriptor wizard -->
+       <!--
        <wizard
              category="com.ebmwebsourcing.petals.common.wizards"
              class="com.ebmwebsourcing.petals.common.internal.wizards.JbiXmlNewWizard"
@@ -184,6 +187,8 @@
              Create a new JBI descriptor
           </description>
        </wizard>
+       -->
+       
        <category
              id="com.ebmwebsourcing.petals.common.wizards"
              name="Petals">
@@ -195,6 +200,10 @@
        <category
              id="com.ebmwebsourcing.petals.common.wizards.attic"
              name="Petals Attic">
+       </category>
+       <category
+             id="com.ebmwebsourcing.petals.common.wizards.maven"
+             name="Petals Maven Shortcuts">
        </category>
        <wizard
              category="com.ebmwebsourcing.petals.common.wizards"

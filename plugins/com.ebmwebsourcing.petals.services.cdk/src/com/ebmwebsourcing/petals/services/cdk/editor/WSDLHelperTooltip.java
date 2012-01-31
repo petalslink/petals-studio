@@ -100,7 +100,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 					WizardDialog dlg = new WizardDialog( workbench.getActiveWorkbenchWindow().getShell(), wiz );
 					if( dlg.open() == Window.OK ) {
 						File importedFile = wiz.getWsdlFileAfterImport();
-						String value = IoUtils.getBasicRelativePath( resFolder.getLocation().toFile(), importedFile );
+						String value = IoUtils.getRelativeLocationToFile( resFolder.getLocation().toFile(), importedFile );
 						SetCommand command = new SetCommand( WSDLHelperTooltip.this.ise.getEditingDomain(), WSDLHelperTooltip.this.service, Cdk5Package.Literals.CDK5_PROVIDES__WSDL, value);
 					}
 				}
