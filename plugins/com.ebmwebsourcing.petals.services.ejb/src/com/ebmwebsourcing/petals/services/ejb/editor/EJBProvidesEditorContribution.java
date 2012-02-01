@@ -32,6 +32,13 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  */
 public class EJBProvidesEditorContribution implements JbiEditorDetailsContribution {
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addMainSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
 
 		final EditingDomain editingDomain = ise.getEditingDomain();
@@ -52,6 +59,14 @@ public class EJBProvidesEditorContribution implements JbiEditorDetailsContributi
 
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addAdvancedSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 		advancedTab.setLayout(new GridLayout(1, false));
 		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -63,7 +78,7 @@ public class EJBProvidesEditorContribution implements JbiEditorDetailsContributi
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
+
 			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ejbComposite, ise, EjbPackage.Literals.EJB_PROVIDES);
 		}
 		{
@@ -73,9 +88,8 @@ public class EJBProvidesEditorContribution implements JbiEditorDetailsContributi
 			Composite cdkComposite = toolkit.createComposite(cdkSection);
 			cdkComposite.setLayout(new GridLayout(2, false));
 			cdkSection.setClient(cdkComposite);
-			
+
 			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_PROVIDES);
 		}
 	}
-
 }

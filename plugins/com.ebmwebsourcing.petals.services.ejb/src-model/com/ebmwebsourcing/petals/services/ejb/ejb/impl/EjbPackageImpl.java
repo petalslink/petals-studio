@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2012, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -316,16 +316,16 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(ejbProvidesEClass, EjbProvides.class, "EjbProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEjbProvides_EjbJndiName(), theXMLTypePackage.getString(), "ejbJndiName", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEjbProvides_JavaNamingFactoryInitial(), theXMLTypePackage.getString(), "javaNamingFactoryInitial", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEjbProvides_EjbJndiName(), theXMLTypePackage.getString(), "ejbJndiName", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEjbProvides_JavaNamingFactoryInitial(), theXMLTypePackage.getString(), "javaNamingFactoryInitial", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEjbProvides_JavaNamingFactoryUrlPkgs(), theXMLTypePackage.getString(), "javaNamingFactoryUrlPkgs", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEjbProvides_JavaNamingProviderUrl(), theXMLTypePackage.getString(), "javaNamingProviderUrl", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEjbProvides_EjbVersion(), this.getEjbVersion(), "ejbVersion", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEjbProvides_JavaNamingProviderUrl(), theXMLTypePackage.getString(), "javaNamingProviderUrl", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEjbProvides_EjbVersion(), this.getEjbVersion(), "ejbVersion", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEjbProvides_EjbHomeInterface(), theXMLTypePackage.getString(), "ejbHomeInterface", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEjbProvides_SecurityName(), theXMLTypePackage.getString(), "securityName", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEjbProvides_SecurityPrincipal(), theXMLTypePackage.getString(), "securityPrincipal", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEjbProvides_SecurityCredencials(), theXMLTypePackage.getString(), "securityCredencials", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEjbProvides_MarshallingEngine(), this.getXmlEngine(), "marshallingEngine", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEjbProvides_MarshallingEngine(), this.getXmlEngine(), "marshallingEngine", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(xmlEngineEEnum, XmlEngine.class, "XmlEngine");

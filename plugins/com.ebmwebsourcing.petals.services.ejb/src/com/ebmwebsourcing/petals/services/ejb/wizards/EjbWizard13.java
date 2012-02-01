@@ -12,17 +12,21 @@
 package com.ebmwebsourcing.petals.services.ejb.wizards;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.common.extensions.internal.provisional.WsdlExtUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.ejb.EjbDescription13;
@@ -45,10 +49,15 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	private Collection<File> jeeLibs, ejbLibs;
 	private String wsdlName;
 
+
+	/**
+	 * Constructor.
+	 */
 	public EjbWizard13() {
 		super();
 		this.settings.showJbiPage = false;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -66,41 +75,57 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-		Object ejbVersion = abstractEndpoint.eGet(EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION);
-		if (ejbVersion != EjbVersion.V30 && ejbVersion != EjbVersion.V31) {
-			abstractEndpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__EJB_HOME_INTERFACE, null);
+	public IStatus performLastActions( IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor ) {
+
+		IStatus status = Status.OK_STATUS;
+		try {
+			// Copy the JARs into the "jbi" directory
+			for( File f : this.ejbLibs )
+				IoUtils.copyFileInDirectory( f, resourceFolder.getLocation().toFile(), false );
+
+
+			// Prepare the WSDL generation
+			try {
+				resourceFolder.refreshLocal( IResource.DEPTH_INFINITE, monitor );
+			} catch( CoreException e ) {
+				// nothing
+			}
+
+			List<String> paths = new ArrayList<String> ();
+			List<IFile> jars = ResourceUtils.getFilesByRegexp( resourceFolder, ".*\\.(jar|zip)" );
+			for( IFile f : jars )
+				paths.add( f.getLocation().toString());
+
+			for( File f : this.jeeLibs )
+				paths.add( f.getAbsolutePath());
+
+			String[] classpath = new String[ paths.size()];
+			classpath = paths.toArray( classpath );
+			String outputPathAS = resourceFolder.getLocation().toString();
+
+			File f = WsdlExtUtils.generateWsdlFile(
+						this.wsdlName,
+						outputPathAS,
+						this.ejbClassName,
+						classpath,
+						outputPathAS,
+						abstractEndpoint.getEndpointName(),
+						abstractEndpoint.getServiceName().getLocalPart(),
+						monitor);
+
+			if( ! f.exists()) {
+				String msg = "The generation of the WSDL from the EJB interface failed.";
+				PetalsEjbPlugin.log( msg, IStatus.ERROR );
+			}
+
+		} catch( IOException e ) {
+			PetalsEjbPlugin.log( e, IStatus.ERROR );
+			status = new Status( IStatus.ERROR, PetalsEjbPlugin.PLUGIN_ID, "EJB libraries could not be imported in the project." );
 		}
 
-		List<String> paths = new ArrayList<String> ();
-		List<IFile> jars = ResourceUtils.getFilesByRegexp( resourceFolder, ".*\\.(jar|zip)" );
-		for( IFile f : jars )
-			paths.add( f.getLocation().toString());
-
-		for( File f : this.jeeLibs)
-			paths.add( f.getAbsolutePath());
-
-		String[] classpath = new String[ paths.size()];
-		classpath = paths.toArray( classpath );
-		String outputPathAS = resourceFolder.getLocation().toString();
-
-		File f = WsdlExtUtils.generateWsdlFile(
-					this.wsdlName,
-					outputPathAS,
-					this.ejbClassName,
-					classpath,
-					outputPathAS,
-					abstractEndpoint.getEndpointName(),
-					abstractEndpoint.getServiceName().toString(),
-					monitor);
-
-		if( ! f.exists()) {
-			String msg = "The generation of the WSDL from the EJB interface failed.";
-			PetalsEjbPlugin.log( msg, IStatus.ERROR );
-		}
-
-		return Status.OK_STATUS;
+		return status;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
@@ -108,20 +133,17 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
-		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
-		endpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__MARSHALLING_ENGINE, XmlEngine.JAXB);
-		endpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL, "rmi://server:1099");
-		endpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION, EjbVersion.V30);
+		Cdk5Utils.setInitialProvidesValues((Provides) endpoint);
+
+		// We must initialize all the mandatory fields, so that order insertion is right.
+		// For optional fields, they will be appended in any order (insertion order instead of model order).
+		endpoint.eSet( EjbPackage.Literals.EJB_PROVIDES__EJB_JNDI_NAME, null );
+		endpoint.eSet( EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL, null );
+		endpoint.eSet( EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL, "rmi://server:1099" );
+		endpoint.eSet( EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION, EjbVersion.V30 );
+		endpoint.eSet( EjbPackage.Literals.EJB_PROVIDES__MARSHALLING_ENGINE, XmlEngine.JAXB );
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
-	 * #getCustomWizardPagesAfterJbi()
-	 */
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return null;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
@@ -129,10 +151,9 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
-		return new AbstractSuWizardPage[] {
-			new EJBDetailsPage()
-		};
+		return new AbstractSuWizardPage[] { new EJBDetailsPage()};
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
@@ -140,27 +161,9 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return new AbstractSuWizardPage[] {
-				new EJBCustomSpecificationPage12()
-		};
+		return new AbstractSuWizardPage[] { new EJBCustomSpecificationPage12()};
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
-	 * #importAdditionalFiles(org.eclipse.core.resources.IFolder, org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard#isJavaProject()
-	 */
-	@Override
-	protected boolean isJavaProject() {
-		return false;
-	}
 
 	/**
 	 * @param files
@@ -179,7 +182,14 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	/**
 	 * @param trim
 	 */
-	public void setWsdlName(String trim) {
+	public void setWsdlName( String trim ) {
 		this.wsdlName = trim;
+	}
+
+	/**
+	 * @param ejbClassName the ejbClassName to set
+	 */
+	public void setEjbClassName( String ejbClassName ) {
+		this.ejbClassName = ejbClassName;
 	}
 }

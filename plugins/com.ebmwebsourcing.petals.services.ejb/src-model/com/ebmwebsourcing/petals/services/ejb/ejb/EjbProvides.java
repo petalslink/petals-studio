@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2012, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -46,9 +46,11 @@ public interface EjbProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ejb Jndi Name</em>' attribute.
+	 * @see #isSetEjbJndiName()
+	 * @see #unsetEjbJndiName()
 	 * @see #setEjbJndiName(String)
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage#getEjbProvides_EjbJndiName()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="name='ejb.jndi.name' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -59,10 +61,35 @@ public interface EjbProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Ejb Jndi Name</em>' attribute.
+	 * @see #isSetEjbJndiName()
+	 * @see #unsetEjbJndiName()
 	 * @see #getEjbJndiName()
 	 * @generated
 	 */
 	void setEjbJndiName(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getEjbJndiName <em>Ejb Jndi Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetEjbJndiName()
+	 * @see #getEjbJndiName()
+	 * @see #setEjbJndiName(String)
+	 * @generated
+	 */
+	void unsetEjbJndiName();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getEjbJndiName <em>Ejb Jndi Name</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Ejb Jndi Name</em>' attribute is set.
+	 * @see #unsetEjbJndiName()
+	 * @see #getEjbJndiName()
+	 * @see #setEjbJndiName(String)
+	 * @generated
+	 */
+	boolean isSetEjbJndiName();
 
 	/**
 	 * Returns the value of the '<em><b>Java Naming Factory Initial</b></em>' attribute.
@@ -73,9 +100,11 @@ public interface EjbProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Java Naming Factory Initial</em>' attribute.
+	 * @see #isSetJavaNamingFactoryInitial()
+	 * @see #unsetJavaNamingFactoryInitial()
 	 * @see #setJavaNamingFactoryInitial(String)
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage#getEjbProvides_JavaNamingFactoryInitial()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="name='java.naming.factory.initial' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -86,10 +115,35 @@ public interface EjbProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Java Naming Factory Initial</em>' attribute.
+	 * @see #isSetJavaNamingFactoryInitial()
+	 * @see #unsetJavaNamingFactoryInitial()
 	 * @see #getJavaNamingFactoryInitial()
 	 * @generated
 	 */
 	void setJavaNamingFactoryInitial(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getJavaNamingFactoryInitial <em>Java Naming Factory Initial</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetJavaNamingFactoryInitial()
+	 * @see #getJavaNamingFactoryInitial()
+	 * @see #setJavaNamingFactoryInitial(String)
+	 * @generated
+	 */
+	void unsetJavaNamingFactoryInitial();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getJavaNamingFactoryInitial <em>Java Naming Factory Initial</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Java Naming Factory Initial</em>' attribute is set.
+	 * @see #unsetJavaNamingFactoryInitial()
+	 * @see #getJavaNamingFactoryInitial()
+	 * @see #setJavaNamingFactoryInitial(String)
+	 * @generated
+	 */
+	boolean isSetJavaNamingFactoryInitial();
 
 	/**
 	 * Returns the value of the '<em><b>Java Naming Factory Url Pkgs</b></em>' attribute.
@@ -127,9 +181,11 @@ public interface EjbProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Java Naming Provider Url</em>' attribute.
+	 * @see #isSetJavaNamingProviderUrl()
+	 * @see #unsetJavaNamingProviderUrl()
 	 * @see #setJavaNamingProviderUrl(String)
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage#getEjbProvides_JavaNamingProviderUrl()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="name='java.naming.provider.url' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -140,10 +196,35 @@ public interface EjbProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Java Naming Provider Url</em>' attribute.
+	 * @see #isSetJavaNamingProviderUrl()
+	 * @see #unsetJavaNamingProviderUrl()
 	 * @see #getJavaNamingProviderUrl()
 	 * @generated
 	 */
 	void setJavaNamingProviderUrl(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getJavaNamingProviderUrl <em>Java Naming Provider Url</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetJavaNamingProviderUrl()
+	 * @see #getJavaNamingProviderUrl()
+	 * @see #setJavaNamingProviderUrl(String)
+	 * @generated
+	 */
+	void unsetJavaNamingProviderUrl();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getJavaNamingProviderUrl <em>Java Naming Provider Url</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Java Naming Provider Url</em>' attribute is set.
+	 * @see #unsetJavaNamingProviderUrl()
+	 * @see #getJavaNamingProviderUrl()
+	 * @see #setJavaNamingProviderUrl(String)
+	 * @generated
+	 */
+	boolean isSetJavaNamingProviderUrl();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Version</b></em>' attribute.
@@ -156,9 +237,11 @@ public interface EjbProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ejb Version</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.EjbVersion
+	 * @see #isSetEjbVersion()
+	 * @see #unsetEjbVersion()
 	 * @see #setEjbVersion(EjbVersion)
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage#getEjbProvides_EjbVersion()
-	 * @model required="true" derived="true"
+	 * @model unsettable="true" required="true" derived="true"
 	 *        extendedMetaData="name='ejb.version' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -170,10 +253,35 @@ public interface EjbProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Ejb Version</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.EjbVersion
+	 * @see #isSetEjbVersion()
+	 * @see #unsetEjbVersion()
 	 * @see #getEjbVersion()
 	 * @generated
 	 */
 	void setEjbVersion(EjbVersion value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getEjbVersion <em>Ejb Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetEjbVersion()
+	 * @see #getEjbVersion()
+	 * @see #setEjbVersion(EjbVersion)
+	 * @generated
+	 */
+	void unsetEjbVersion();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getEjbVersion <em>Ejb Version</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Ejb Version</em>' attribute is set.
+	 * @see #unsetEjbVersion()
+	 * @see #getEjbVersion()
+	 * @see #setEjbVersion(EjbVersion)
+	 * @generated
+	 */
+	boolean isSetEjbVersion();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Home Interface</b></em>' attribute.
@@ -294,9 +402,11 @@ public interface EjbProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Marshalling Engine</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.XmlEngine
+	 * @see #isSetMarshallingEngine()
+	 * @see #unsetMarshallingEngine()
 	 * @see #setMarshallingEngine(XmlEngine)
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage#getEjbProvides_MarshallingEngine()
-	 * @model derived="true"
+	 * @model unsettable="true" derived="true"
 	 *        extendedMetaData="name='marshalling.engine' namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -308,9 +418,34 @@ public interface EjbProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Marshalling Engine</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.ejb.ejb.XmlEngine
+	 * @see #isSetMarshallingEngine()
+	 * @see #unsetMarshallingEngine()
 	 * @see #getMarshallingEngine()
 	 * @generated
 	 */
 	void setMarshallingEngine(XmlEngine value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getMarshallingEngine <em>Marshalling Engine</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetMarshallingEngine()
+	 * @see #getMarshallingEngine()
+	 * @see #setMarshallingEngine(XmlEngine)
+	 * @generated
+	 */
+	void unsetMarshallingEngine();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.ejb.ejb.EjbProvides#getMarshallingEngine <em>Marshalling Engine</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Marshalling Engine</em>' attribute is set.
+	 * @see #unsetMarshallingEngine()
+	 * @see #getMarshallingEngine()
+	 * @see #setMarshallingEngine(XmlEngine)
+	 * @generated
+	 */
+	boolean isSetMarshallingEngine();
 
 } // EjbProvides

@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.soap.editor;
 
@@ -44,14 +44,14 @@ public class SoapConsumesEditorContribution implements JbiEditorDetailsContribut
 		identificationSection.setClient(identificationComposite);
 
 		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, identificationComposite, ise);
-		
+
 		Section soapSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
 		soapSection.setLayoutData(new GridData(GridData.FILL_BOTH));
 		soapSection.setText("SOAP");
 		Composite soapComposite = toolkit.createComposite(soapSection);
 		soapSection.setClient(soapComposite);
 		soapComposite.setLayout(new GridLayout(2, false));
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, soapComposite, ise.getEditingDomain(), ise.getDataBindingContext(), 
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, soapComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				SoapPackage.Literals.SOAP_CONSUMES__SOAP_SERVICE_NAME,
 				SoapPackage.Literals.SOAP_CONSUMES__SOAP_ACTION);
 	}
@@ -67,7 +67,7 @@ public class SoapConsumesEditorContribution implements JbiEditorDetailsContribut
 		componentComposite.setLayout(new GridLayout(2, false));
 		componentSection.setClient(componentComposite);
 		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, componentComposite, ise, SoapPackage.Literals.SOAP_CONSUMES);
-		
+
 		Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
 		cdkSection.setText("CDK");
 		cdkSection.setLayoutData(new GridData(GridData.FILL_BOTH));

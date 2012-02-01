@@ -185,9 +185,9 @@ public class JBIEndpointUIHelpers {
 				}
 			}
 		}
-		EStructuralFeature[] toProcessFeatures = toProcessFeaturesList.toArray(new EStructuralFeature[toProcessFeaturesList.size()] );
 
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, advancedDetails, ise.getEditingDomain(), ise.getDataBindingContext(), toProcessFeatures);
+		EStructuralFeature[] toProcessFeatures = toProcessFeaturesList.toArray(new EStructuralFeature[toProcessFeaturesList.size()] );
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, advancedDetails, ise.getEditingDomain(), ise.getDataBindingContext(), true, toProcessFeatures);
 	}
 
 

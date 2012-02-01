@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.soap.editor;
 
@@ -53,7 +53,7 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 		Composite soapComposite = toolkit.createComposite(soapSection);
 		soapSection.setClient(soapComposite);
 		soapComposite.setLayout(new GridLayout(2, false));
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, soapComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, soapComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
 				SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION);
 	}
@@ -69,8 +69,8 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
-			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
 					SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME,
@@ -84,8 +84,8 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
-			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__ENABLE_WSA,
 					SoapPackage.Literals.SOAP_PROVIDES__WSA_FROM,
 					SoapPackage.Literals.SOAP_PROVIDES__WSA_REPLY_TO,
@@ -98,8 +98,8 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
-			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_HOST,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_PORT,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_USER,
@@ -113,8 +113,8 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
-			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(),
+
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_FILTER,
 					SoapPackage.Literals.SOAP_PROVIDES__INJECT_HEADERS,
 					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_TO_INJECT);
@@ -126,12 +126,12 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
-			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), 
+
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_FILE,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE,
-					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD);					
+					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD);
 		}
 		{
 			Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
@@ -140,7 +140,7 @@ public class SoapProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite cdkComposite = toolkit.createComposite(cdkSection);
 			cdkComposite.setLayout(new GridLayout(2, false));
 			cdkSection.setClient(cdkComposite);
-			
+
 			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_PROVIDES);
 		}
 	}

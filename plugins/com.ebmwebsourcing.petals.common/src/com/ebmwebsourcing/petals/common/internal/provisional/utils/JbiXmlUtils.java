@@ -23,6 +23,10 @@ import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -35,6 +39,7 @@ import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xml.type.AnyType;
 
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.JbiCustomDiagnostician;
 import com.sun.java.xml.ns.jbi.Consumes;
@@ -63,6 +68,22 @@ public class JbiXmlUtils {
 		Map<Object,Object> options = new HashMap<Object,Object> ();
 		options.put( XMLResource.OPTION_ENCODING, "UTF-8" );
 		resource.save( options );
+	}
+
+
+	/**
+	 * Writes a {@link Jbi} instance into a file.
+	 * @param jbiInstance the JBI instance to write
+	 * @param targetFile the target file
+	 * @throws IOException if the content could not be saved
+	 */
+	public static void writeJbiXmlModel( Jbi jbiInstance, IFile targetFile ) throws IOException {
+		writeJbiXmlModel( jbiInstance, targetFile.getLocation().toFile());
+		try {
+			targetFile.refreshLocal( IResource.DEPTH_ZERO, new NullProgressMonitor());
+		} catch( CoreException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
 	}
 
 

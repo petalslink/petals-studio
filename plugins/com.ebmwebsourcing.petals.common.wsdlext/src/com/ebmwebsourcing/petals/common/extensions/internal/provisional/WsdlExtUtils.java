@@ -37,6 +37,7 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.osgi.framework.Bundle;
 
 import com.ebmwebsourcing.petals.common.extensions.PetalsCommonWsdlExtPlugin;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 
 /**
@@ -97,20 +98,26 @@ public class WsdlExtUtils {
 				String serviceName,
 				IProgressMonitor monitor ) {
 
-
-		List<String> arguments = new ArrayList<String>();
-		List<String> classpath = new ArrayList<String>( Arrays.asList(classPathDirectories));
+		List<String> arguments = new ArrayList<String> ();
+		List<String> classpath = new ArrayList<String> ();
+		classpath.addAll( Arrays.asList( classPathDirectories ));
 		classpath.addAll( getCXFLibs());
 
 		arguments.add( "-wsdl" );
 		arguments.add( "-quiet" );
-		arguments.add( "-o" ); arguments.add( wsdlName );
-		if (serviceName != null) {
-			arguments.add( "-servicename" ); arguments.add( serviceName );
+		arguments.add( "-o" );
+		arguments.add( wsdlName );
+
+		if( serviceName != null ) {
+			arguments.add( "-servicename" );
+			arguments.add( serviceName );
 		}
-		if (endpointName != null) {
-			arguments.add( "-portname" ); arguments.add( endpointName );
+
+		if( endpointName != null ) {
+			arguments.add( "-portname" );
+			arguments.add( endpointName );
 		}
+
 		arguments.add( "-createxsdimports" );
 		arguments.add( "-d" ); //$NON-NLS-1$
 		arguments.add( outputDestination );
@@ -119,14 +126,14 @@ public class WsdlExtUtils {
 		try {
 			// Run CXF in a separate process
 			IVMInstall vmInstall = JavaRuntime.getDefaultVMInstall();
-            IVMRunner vmRunner = vmInstall.getVMRunner(ILaunchManager.RUN_MODE);
+            IVMRunner vmRunner = vmInstall.getVMRunner( ILaunchManager.RUN_MODE );
             VMRunnerConfiguration vmRunnerConfiguration = new VMRunnerConfiguration(
             		JavaToWS.class.getName(),
-                    classpath.toArray(new String[0]));
-            vmRunnerConfiguration.setProgramArguments( arguments.toArray(new String[0]));
+                    classpath.toArray( new String[ classpath.size()]));
+            vmRunnerConfiguration.setProgramArguments( arguments.toArray( new String[ arguments.size()]));
 
             ILaunch launch = new Launch(null, ILaunchManager.RUN_MODE, null);
-            vmRunner.run(vmRunnerConfiguration, launch, monitor);
+            vmRunner.run( vmRunnerConfiguration, launch, monitor );
 
             // Wait for the Java process to have completed its work
             for( int i=0; i<10; i++ ) {
@@ -145,21 +152,34 @@ public class WsdlExtUtils {
 
 
 	/**
-	 * @return
+	 * @return the CXF libraries
 	 */
 	private static Collection<? extends String> getCXFLibs() {
+
 		List<String> res = new ArrayList<String>();
-		Bundle cxfBundle = Platform.getBundle("com.ebmwebsourcing.petals.common.libs.cxf");
-		Enumeration<URL> cxfLibs = cxfBundle.findEntries("lib", "*", false);
+		Bundle cxfBundle = Platform.getBundle( "com.ebmwebsourcing.petals.libs.cxf" );
+		Enumeration<URL> cxfLibs = cxfBundle.findEntries( "lib", "*", false );
 		URL currentLib = null;
-		while (cxfLibs.hasMoreElements()) {
+		while( cxfLibs.hasMoreElements()) {
 			currentLib = cxfLibs.nextElement();
 			try {
-				res.add(FileLocator.toFileURL(currentLib).getFile());
-			} catch (Exception ex) {
+				URL url = FileLocator.toFileURL( currentLib );
+				if( ! url.toString().endsWith( ".jar" ))
+					continue;
+
+				File f = IoUtils.convertToFile( url.toString());
+				String path = f != null ? f.getAbsolutePath() : null;
+
+				if( path != null )
+					res.add( path );
+				else
+					PetalsCommonWsdlExtPlugin.log( "A CXF library could not be resolved as a file: " + url, IStatus.ERROR );
+
+			} catch( Exception ex ) {
 				PetalsCommonWsdlExtPlugin.log(ex, IStatus.ERROR);
 			}
 		}
+
 		return res;
 	}
 

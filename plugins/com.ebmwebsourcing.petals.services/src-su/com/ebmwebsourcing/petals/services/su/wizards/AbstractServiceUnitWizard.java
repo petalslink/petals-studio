@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -67,7 +68,6 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 	protected ProjectPage projectPage;
 	protected JbiProvidePage jbiProvidePage;
-
 	protected FinishServiceCreationStrategy finishStrategy;
 	protected SuWizardSettings settings;
 
@@ -87,7 +87,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * Sets the strategy.
 	 * @param strategy
 	 */
-	public void setStrategy(FinishServiceCreationStrategy strategy) {
+	public void setStrategy( FinishServiceCreationStrategy strategy ) {
 		this.finishStrategy = strategy;
 	}
 
@@ -98,7 +98,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * #setInitializationData(org.eclipse.core.runtime.IConfigurationElement, java.lang.String, java.lang.Object)
 	 */
 	@Override
-	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
+	public void setInitializationData( IConfigurationElement config, String propertyName, Object data ) throws CoreException {
 		if (propertyName.toLowerCase().contains("provide")) {
 			this.petalsMode = PetalsMode.provides;
 			this.endpoint = JbiFactory.eINSTANCE.createProvides();
@@ -121,7 +121,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * #addPage(org.eclipse.jface.wizard.IWizardPage)
 	 */
 	@Override
-	public void addPage(IWizardPage page) {
+	public void addPage( IWizardPage page ) {
 		super.addPage(page);
 		page.setWizard(this);
 
@@ -250,7 +250,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		resourceDirectory.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 		performLastActions(resourceDirectory, this.endpoint, monitor);
 
-		// last action so that previous ones can keep on modifying JBI
+		// Last action so that previous ones can keep on modifying JBI
 		this.finishStrategy.finishWizard(this, this.endpoint, monitor);
 	}
 
@@ -351,14 +351,60 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		return this.settings;
 	}
 
-	// Component business methods
-	protected abstract void presetServiceValues(AbstractEndpoint endpoint);
-	protected abstract AbstractSuWizardPage[] getCustomWizardPagesAfterJbi();
-	protected abstract AbstractSuWizardPage[] getCustomWizardPagesAfterProject();
-	protected abstract AbstractSuWizardPage[] getCustomWizardPagesBeforeProject();
-	protected abstract IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor);
-	protected abstract IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor);
-	protected abstract boolean isJavaProject() ;
-	public abstract ComponentVersionDescription getComponentVersionDescription();
 
+	/**
+	 * @return the pages located after the JBI page (can be null)
+	 */
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+		return null;
+	}
+
+
+	/**
+	 * @return the pages located after the PROJECT page (can be null)
+	 */
+	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+		return null;
+	}
+
+
+	/**
+	 * @return the pages located before the PROJECT page (can be null)
+	 */
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+		return null;
+	}
+
+
+	/**
+	 * @return true if the project to create must have the Java nature, false otherwise (false by default)
+	 */
+	protected boolean isJavaProject() {
+		return false;
+	}
+
+
+	/**
+	 * Presets some values in the jbi.xml
+	 * @param endpoint the end-point to configure
+	 */
+	protected void presetServiceValues( AbstractEndpoint endpoint ) {
+		// nothing
+	}
+
+
+	/**
+	 * Imports additional files in the created project.
+	 * @param resourceDirectory the resource directory of the project
+	 * @param monitor the progress monitor
+	 * @return a status indicating the success or failure of the import(s)
+	 */
+	protected IStatus importAdditionalFiles( IFolder resourceDirectory, IProgressMonitor monitor ) {
+		return Status.OK_STATUS;
+	}
+
+
+	// Component business methods
+	protected abstract IStatus performLastActions( IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor );
+	public abstract ComponentVersionDescription getComponentVersionDescription();
 }

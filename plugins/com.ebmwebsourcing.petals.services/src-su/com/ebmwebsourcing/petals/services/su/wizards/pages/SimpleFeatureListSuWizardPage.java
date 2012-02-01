@@ -41,7 +41,7 @@ public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage implemen
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout(2, false));
 		getNewlyCreatedEndpoint().eAdapters().add(this);
-		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), new FormToolkit(getShell().getDisplay()), container, null, this.dbc, this.features);
+		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), new FormToolkit(getShell().getDisplay()), container, null, this.dbc, false, this.features);
 
 		setControl(container);
 	}

@@ -28,12 +28,18 @@ import org.junit.Test;
 import com.ebmwebsourcing.petals.services.ejb.wizards.EJBCustomSpecificationPage12;
 import com.ebmwebsourcing.petals.tests.common.FileTestUtil;
 
+/**
+ * @author Mickaël Istria - EBM WebSourcing
+ */
 public class TestEJBSUGeneration extends SWTBotGefTestCase {
-
 
 	protected File businessFile;
 	protected File jeeFile;
 
+
+	/**
+	 * @throws Exception
+	 */
 	public void initFiles() throws Exception {
 		URL url = TestEJBSUGeneration.class.getResource("/addorder.jar");
 		url = FileLocator.toFileURL(url);
@@ -43,6 +49,10 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 		this.jeeFile = new File(url.getFile());
 	}
 
+
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testFileLocked() throws Exception {
 		initFiles();
@@ -55,10 +65,11 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 			public void run() {
 				WizardDialog wizardDialog = (WizardDialog)TestEJBSUGeneration.this.bot.activeShell().widget.getData();
 				EJBCustomSpecificationPage12 page = (EJBCustomSpecificationPage12)wizardDialog.getCurrentPage();
-				page.getWizard().setEJBFiles( Arrays.asList( TestEJBSUGeneration.this.businessFile ));
-				page.getWizard().setJEEFiles( Arrays.asList(  TestEJBSUGeneration.this.jeeFile ));
+				page.getEjbWizard().setEJBFiles( Arrays.asList( TestEJBSUGeneration.this.businessFile ));
+				page.getEjbWizard().setJEEFiles( Arrays.asList(  TestEJBSUGeneration.this.jeeFile ));
 			}
 		});
+
 		this.bot.text().setText("org.ow2.petals.examples.ejb.addorder.AddOrderRemote");
 		this.bot.button("Next >").click();
 		final String suName = "ejbSu " + System.currentTimeMillis();
@@ -92,7 +103,4 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
 		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
 	}
-
-
-
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2012, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -66,6 +66,15 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	protected String ejbJndiName = EJB_JNDI_NAME_EDEFAULT;
 
 	/**
+	 * This is true if the Ejb Jndi Name attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean ejbJndiNameESet;
+
+	/**
 	 * The default value of the '{@link #getJavaNamingFactoryInitial() <em>Java Naming Factory Initial</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,6 +93,15 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	 * @ordered
 	 */
 	protected String javaNamingFactoryInitial = JAVA_NAMING_FACTORY_INITIAL_EDEFAULT;
+
+	/**
+	 * This is true if the Java Naming Factory Initial attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean javaNamingFactoryInitialESet;
 
 	/**
 	 * The default value of the '{@link #getJavaNamingFactoryUrlPkgs() <em>Java Naming Factory Url Pkgs</em>}' attribute.
@@ -126,6 +144,15 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	protected String javaNamingProviderUrl = JAVA_NAMING_PROVIDER_URL_EDEFAULT;
 
 	/**
+	 * This is true if the Java Naming Provider Url attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean javaNamingProviderUrlESet;
+
+	/**
 	 * The default value of the '{@link #getEjbVersion() <em>Ejb Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -144,6 +171,15 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	 * @ordered
 	 */
 	protected EjbVersion ejbVersion = EJB_VERSION_EDEFAULT;
+
+	/**
+	 * This is true if the Ejb Version attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean ejbVersionESet;
 
 	/**
 	 * The default value of the '{@link #getEjbHomeInterface() <em>Ejb Home Interface</em>}' attribute.
@@ -246,6 +282,15 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	protected XmlEngine marshallingEngine = MARSHALLING_ENGINE_EDEFAULT;
 
 	/**
+	 * This is true if the Marshalling Engine attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean marshallingEngineESet;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -281,8 +326,33 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	public void setEjbJndiName(String newEjbJndiName) {
 		String oldEjbJndiName = ejbJndiName;
 		ejbJndiName = newEjbJndiName;
+		boolean oldEjbJndiNameESet = ejbJndiNameESet;
+		ejbJndiNameESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__EJB_JNDI_NAME, oldEjbJndiName, ejbJndiName));
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__EJB_JNDI_NAME, oldEjbJndiName, ejbJndiName, !oldEjbJndiNameESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetEjbJndiName() {
+		String oldEjbJndiName = ejbJndiName;
+		boolean oldEjbJndiNameESet = ejbJndiNameESet;
+		ejbJndiName = EJB_JNDI_NAME_EDEFAULT;
+		ejbJndiNameESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.EJB_PROVIDES__EJB_JNDI_NAME, oldEjbJndiName, EJB_JNDI_NAME_EDEFAULT, oldEjbJndiNameESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetEjbJndiName() {
+		return ejbJndiNameESet;
 	}
 
 	/**
@@ -302,8 +372,33 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	public void setJavaNamingFactoryInitial(String newJavaNamingFactoryInitial) {
 		String oldJavaNamingFactoryInitial = javaNamingFactoryInitial;
 		javaNamingFactoryInitial = newJavaNamingFactoryInitial;
+		boolean oldJavaNamingFactoryInitialESet = javaNamingFactoryInitialESet;
+		javaNamingFactoryInitialESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL, oldJavaNamingFactoryInitial, javaNamingFactoryInitial));
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL, oldJavaNamingFactoryInitial, javaNamingFactoryInitial, !oldJavaNamingFactoryInitialESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetJavaNamingFactoryInitial() {
+		String oldJavaNamingFactoryInitial = javaNamingFactoryInitial;
+		boolean oldJavaNamingFactoryInitialESet = javaNamingFactoryInitialESet;
+		javaNamingFactoryInitial = JAVA_NAMING_FACTORY_INITIAL_EDEFAULT;
+		javaNamingFactoryInitialESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL, oldJavaNamingFactoryInitial, JAVA_NAMING_FACTORY_INITIAL_EDEFAULT, oldJavaNamingFactoryInitialESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetJavaNamingFactoryInitial() {
+		return javaNamingFactoryInitialESet;
 	}
 
 	/**
@@ -344,8 +439,33 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	public void setJavaNamingProviderUrl(String newJavaNamingProviderUrl) {
 		String oldJavaNamingProviderUrl = javaNamingProviderUrl;
 		javaNamingProviderUrl = newJavaNamingProviderUrl;
+		boolean oldJavaNamingProviderUrlESet = javaNamingProviderUrlESet;
+		javaNamingProviderUrlESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL, oldJavaNamingProviderUrl, javaNamingProviderUrl));
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL, oldJavaNamingProviderUrl, javaNamingProviderUrl, !oldJavaNamingProviderUrlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetJavaNamingProviderUrl() {
+		String oldJavaNamingProviderUrl = javaNamingProviderUrl;
+		boolean oldJavaNamingProviderUrlESet = javaNamingProviderUrlESet;
+		javaNamingProviderUrl = JAVA_NAMING_PROVIDER_URL_EDEFAULT;
+		javaNamingProviderUrlESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL, oldJavaNamingProviderUrl, JAVA_NAMING_PROVIDER_URL_EDEFAULT, oldJavaNamingProviderUrlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetJavaNamingProviderUrl() {
+		return javaNamingProviderUrlESet;
 	}
 
 	/**
@@ -365,8 +485,33 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	public void setEjbVersion(EjbVersion newEjbVersion) {
 		EjbVersion oldEjbVersion = ejbVersion;
 		ejbVersion = newEjbVersion == null ? EJB_VERSION_EDEFAULT : newEjbVersion;
+		boolean oldEjbVersionESet = ejbVersionESet;
+		ejbVersionESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__EJB_VERSION, oldEjbVersion, ejbVersion));
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__EJB_VERSION, oldEjbVersion, ejbVersion, !oldEjbVersionESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetEjbVersion() {
+		EjbVersion oldEjbVersion = ejbVersion;
+		boolean oldEjbVersionESet = ejbVersionESet;
+		ejbVersion = EJB_VERSION_EDEFAULT;
+		ejbVersionESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.EJB_PROVIDES__EJB_VERSION, oldEjbVersion, EJB_VERSION_EDEFAULT, oldEjbVersionESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetEjbVersion() {
+		return ejbVersionESet;
 	}
 
 	/**
@@ -470,8 +615,33 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	public void setMarshallingEngine(XmlEngine newMarshallingEngine) {
 		XmlEngine oldMarshallingEngine = marshallingEngine;
 		marshallingEngine = newMarshallingEngine == null ? MARSHALLING_ENGINE_EDEFAULT : newMarshallingEngine;
+		boolean oldMarshallingEngineESet = marshallingEngineESet;
+		marshallingEngineESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__MARSHALLING_ENGINE, oldMarshallingEngine, marshallingEngine));
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.EJB_PROVIDES__MARSHALLING_ENGINE, oldMarshallingEngine, marshallingEngine, !oldMarshallingEngineESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetMarshallingEngine() {
+		XmlEngine oldMarshallingEngine = marshallingEngine;
+		boolean oldMarshallingEngineESet = marshallingEngineESet;
+		marshallingEngine = MARSHALLING_ENGINE_EDEFAULT;
+		marshallingEngineESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.EJB_PROVIDES__MARSHALLING_ENGINE, oldMarshallingEngine, MARSHALLING_ENGINE_EDEFAULT, oldMarshallingEngineESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetMarshallingEngine() {
+		return marshallingEngineESet;
 	}
 
 	/**
@@ -557,19 +727,19 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_PROVIDES__EJB_JNDI_NAME:
-				setEjbJndiName(EJB_JNDI_NAME_EDEFAULT);
+				unsetEjbJndiName();
 				return;
 			case EjbPackage.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL:
-				setJavaNamingFactoryInitial(JAVA_NAMING_FACTORY_INITIAL_EDEFAULT);
+				unsetJavaNamingFactoryInitial();
 				return;
 			case EjbPackage.EJB_PROVIDES__JAVA_NAMING_FACTORY_URL_PKGS:
 				setJavaNamingFactoryUrlPkgs(JAVA_NAMING_FACTORY_URL_PKGS_EDEFAULT);
 				return;
 			case EjbPackage.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL:
-				setJavaNamingProviderUrl(JAVA_NAMING_PROVIDER_URL_EDEFAULT);
+				unsetJavaNamingProviderUrl();
 				return;
 			case EjbPackage.EJB_PROVIDES__EJB_VERSION:
-				setEjbVersion(EJB_VERSION_EDEFAULT);
+				unsetEjbVersion();
 				return;
 			case EjbPackage.EJB_PROVIDES__EJB_HOME_INTERFACE:
 				setEjbHomeInterface(EJB_HOME_INTERFACE_EDEFAULT);
@@ -584,7 +754,7 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 				setSecurityCredencials(SECURITY_CREDENCIALS_EDEFAULT);
 				return;
 			case EjbPackage.EJB_PROVIDES__MARSHALLING_ENGINE:
-				setMarshallingEngine(MARSHALLING_ENGINE_EDEFAULT);
+				unsetMarshallingEngine();
 				return;
 		}
 		super.eUnset(featureID);
@@ -599,15 +769,15 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_PROVIDES__EJB_JNDI_NAME:
-				return EJB_JNDI_NAME_EDEFAULT == null ? ejbJndiName != null : !EJB_JNDI_NAME_EDEFAULT.equals(ejbJndiName);
+				return isSetEjbJndiName();
 			case EjbPackage.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL:
-				return JAVA_NAMING_FACTORY_INITIAL_EDEFAULT == null ? javaNamingFactoryInitial != null : !JAVA_NAMING_FACTORY_INITIAL_EDEFAULT.equals(javaNamingFactoryInitial);
+				return isSetJavaNamingFactoryInitial();
 			case EjbPackage.EJB_PROVIDES__JAVA_NAMING_FACTORY_URL_PKGS:
 				return JAVA_NAMING_FACTORY_URL_PKGS_EDEFAULT == null ? javaNamingFactoryUrlPkgs != null : !JAVA_NAMING_FACTORY_URL_PKGS_EDEFAULT.equals(javaNamingFactoryUrlPkgs);
 			case EjbPackage.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL:
-				return JAVA_NAMING_PROVIDER_URL_EDEFAULT == null ? javaNamingProviderUrl != null : !JAVA_NAMING_PROVIDER_URL_EDEFAULT.equals(javaNamingProviderUrl);
+				return isSetJavaNamingProviderUrl();
 			case EjbPackage.EJB_PROVIDES__EJB_VERSION:
-				return ejbVersion != EJB_VERSION_EDEFAULT;
+				return isSetEjbVersion();
 			case EjbPackage.EJB_PROVIDES__EJB_HOME_INTERFACE:
 				return EJB_HOME_INTERFACE_EDEFAULT == null ? ejbHomeInterface != null : !EJB_HOME_INTERFACE_EDEFAULT.equals(ejbHomeInterface);
 			case EjbPackage.EJB_PROVIDES__SECURITY_NAME:
@@ -617,7 +787,7 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 			case EjbPackage.EJB_PROVIDES__SECURITY_CREDENCIALS:
 				return SECURITY_CREDENCIALS_EDEFAULT == null ? securityCredencials != null : !SECURITY_CREDENCIALS_EDEFAULT.equals(securityCredencials);
 			case EjbPackage.EJB_PROVIDES__MARSHALLING_ENGINE:
-				return marshallingEngine != MARSHALLING_ENGINE_EDEFAULT;
+				return isSetMarshallingEngine();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -633,15 +803,15 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (ejbJndiName: ");
-		result.append(ejbJndiName);
+		if (ejbJndiNameESet) result.append(ejbJndiName); else result.append("<unset>");
 		result.append(", javaNamingFactoryInitial: ");
-		result.append(javaNamingFactoryInitial);
+		if (javaNamingFactoryInitialESet) result.append(javaNamingFactoryInitial); else result.append("<unset>");
 		result.append(", javaNamingFactoryUrlPkgs: ");
 		result.append(javaNamingFactoryUrlPkgs);
 		result.append(", javaNamingProviderUrl: ");
-		result.append(javaNamingProviderUrl);
+		if (javaNamingProviderUrlESet) result.append(javaNamingProviderUrl); else result.append("<unset>");
 		result.append(", ejbVersion: ");
-		result.append(ejbVersion);
+		if (ejbVersionESet) result.append(ejbVersion); else result.append("<unset>");
 		result.append(", ejbHomeInterface: ");
 		result.append(ejbHomeInterface);
 		result.append(", securityName: ");
@@ -651,7 +821,7 @@ public class EjbProvidesImpl extends ProvidesImpl implements EjbProvides {
 		result.append(", securityCredencials: ");
 		result.append(securityCredencials);
 		result.append(", marshallingEngine: ");
-		result.append(marshallingEngine);
+		if (marshallingEngineESet) result.append(marshallingEngine); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

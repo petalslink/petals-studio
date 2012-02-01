@@ -45,20 +45,21 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.ListWithButtonC
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.ejb.Messages;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 /**
- * Located after the VERSION page.
+ * Located after the CHOICE page.
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 
 	private ListWithButtonComposite ejbFilesViewer, jeeFilesViewer;
-	final Set<File> ejbFiles = new HashSet<File> ();
+	private final Set<File> ejbFiles = new HashSet<File> ();
 	private String className;
-	protected String wsdlName;
+	private String wsdlName;
 
 
 	/*
@@ -97,9 +98,10 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 			ns.append( "/" );
 
 			String namespace = ns.toString();
-			getNewlyCreatedEndpoint().eSet(JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, simpleName + "Port");
-			getNewlyCreatedEndpoint().eSet(JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, new QName(namespace, simpleName));
-			getNewlyCreatedEndpoint().eSet(JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, new QName(namespace, simpleName + "PortType"));
+			getNewlyCreatedEndpoint().eSet( JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, simpleName + "Port");
+			getNewlyCreatedEndpoint().eSet( JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, new QName( namespace, simpleName ));
+			getNewlyCreatedEndpoint().eSet( JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, new QName( namespace, simpleName + "PortType" ));
+			getNewlyCreatedEndpoint().eSet( Cdk5Package.Literals.CDK5_PROVIDES__WSDL, this.wsdlName );
 		}
 
 		setPageComplete( error == null );
@@ -140,7 +142,7 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 		this.ejbFilesViewer.addModificationListener( new Listener() {
 			@Override
 			public void handleEvent( Event event ) {
-				getWizard().setEJBFiles( EJBCustomSpecificationPage12.this.ejbFiles );
+				getEjbWizard().setEJBFiles( EJBCustomSpecificationPage12.this.ejbFiles );
 				validate();
 			}
 		});
@@ -157,7 +159,7 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 		this.jeeFilesViewer.addModificationListener( new Listener() {
 			@Override
 			public void handleEvent( Event event ) {
-				getWizard().setJEEFiles( jeeFiles );
+				getEjbWizard().setJEEFiles( jeeFiles );
 				validate();
 			}
 		});
@@ -194,7 +196,7 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 			@Override
 			public void modifyText( ModifyEvent e ) {
 				EJBCustomSpecificationPage12.this.wsdlName = wsdlText.getText().trim();
-				getWizard().setWsdlName( wsdlText.getText().trim());
+				getEjbWizard().setWsdlName( wsdlText.getText().trim());
 				validate();
 			}
 		});
@@ -203,6 +205,7 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 			@Override
 			public void modifyText( ModifyEvent e ) {
 				EJBCustomSpecificationPage12.this.className = classBrowser.getText().getText().trim();
+				getEjbWizard().setEjbClassName( EJBCustomSpecificationPage12.this.className );
 				String newWsdlName = getSimpleClassName( EJBCustomSpecificationPage12.this.className ) + ".wsdl";
 				wsdlText.setText( newWsdlName );
 				wsdlText.setSelection( newWsdlName.length());
@@ -270,13 +273,10 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage
-	 * #getWizard()
+	/**
+	 * @return the EJB wizard
 	 */
-	@Override
-	public EjbWizard13 getWizard() {
-		return (EjbWizard13) super.getWizard();
+	public EjbWizard13 getEjbWizard() {
+		return (EjbWizard13) getWizard();
 	}
 }

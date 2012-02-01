@@ -71,7 +71,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 
 
 		// Mode
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editingDomain, dbc, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editingDomain, dbc, true, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
 		// write
 		toolkit.createLabel(fileTransferComposite, Messages.writeDirectory);
 		Composite writeDirectoryComposite = toolkit.createComposite(fileTransferComposite);
@@ -135,7 +135,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 		Composite cdkComposite = toolkit.createComposite(identificationSection);
 		cdkComposite.setLayout(new GridLayout(2, false));
 		identificationSection.setClient(cdkComposite);
-		
+
 		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_PROVIDES);
 	}
 

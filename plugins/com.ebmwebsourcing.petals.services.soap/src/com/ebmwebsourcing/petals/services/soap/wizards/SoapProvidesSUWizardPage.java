@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.soap.wizards;
 
@@ -50,35 +50,36 @@ public class SoapProvidesSUWizardPage extends SimpleFeatureListSuWizardPage {
 			SoapPackage.Literals.SOAP_PROVIDES__PROXY_DOMAIN
 			);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl(Composite parent) {
-		dbc = new DataBindingContext();
+		this.dbc = new DataBindingContext();
 		getNewlyCreatedEndpoint().eAdapters().add(this);
 		Composite res = new Composite(parent, SWT.NONE);
 		res.setLayout(new GridLayout(2, false));
 		FormToolkit tk = new FormToolkit(getShell().getDisplay());
-		
-		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, res, null, dbc,
+
+		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, res, null, this.dbc, false,
 			SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
 			SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
 			SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
 			SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT,
 			SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT);
-		
+
 		Group proxyGroup = new Group(res, SWT.NONE);
 		proxyGroup.setText("Proxy");
 		proxyGroup.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false, 2, 1));
 		proxyGroup.setLayout(new GridLayout(2, false));
-		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, proxyGroup, null, dbc,
+		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, proxyGroup, null, this.dbc, false,
 			SoapPackage.Literals.SOAP_PROVIDES__PROXY_HOST,
 			SoapPackage.Literals.SOAP_PROVIDES__PROXY_PORT,
 			SoapPackage.Literals.SOAP_PROVIDES__PROXY_USER,
 			SoapPackage.Literals.SOAP_PROVIDES__PROXY_PASSWORD,
 			SoapPackage.Literals.SOAP_PROVIDES__PROXY_DOMAIN);
-		
+
 		setControl(res);
 	}
 
@@ -94,7 +95,7 @@ public class SoapProvidesSUWizardPage extends SimpleFeatureListSuWizardPage {
 				String oldSoapAddress = (String) getNewlyCreatedEndpoint().eGet(SoapPackage.Literals.SOAP_PROVIDES__ADDRESS);
 				String newSoapAddress = service.getSoapAddress();
 				if (newSoapAddress != null && !newSoapAddress.equals(oldSoapAddress)) {
-					getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__ADDRESS, newSoapAddress);	
+					getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__ADDRESS, newSoapAddress);
 				}
 				// version
 				SoapVersion oldSoapVersion = (SoapVersion) getNewlyCreatedEndpoint().eGet(SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION);
@@ -107,7 +108,7 @@ public class SoapProvidesSUWizardPage extends SimpleFeatureListSuWizardPage {
 			ex.printStackTrace(); // TODO replaceme
 		}
 	}
-	
+
 	@Override
 	public void dispose() {
 		super.dispose();

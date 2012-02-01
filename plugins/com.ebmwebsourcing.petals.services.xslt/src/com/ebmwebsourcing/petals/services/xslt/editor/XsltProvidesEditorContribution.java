@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.xslt.editor;
 
@@ -58,7 +58,7 @@ public class XsltProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
+
 			SwtFactory.createLabel(ejbComposite, "XSLT stylesheet", "Relative path to the XSLT StyleSheet to use");
 			TextWithButtonComposite browser = SwtFactory.createFileBrowser(ejbComposite, false, false, ".xsl,.xslt");
 			browser.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
@@ -78,10 +78,10 @@ public class XsltProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite ejbComposite = toolkit.createComposite(ejbSection);
 			ejbComposite.setLayout(new GridLayout(2, false));
 			ejbSection.setClient(ejbComposite);
-			
-			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), XsltPackage.Literals.XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME);
+
+			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true, XsltPackage.Literals.XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME);
 		}
-		
+
 		{
 			Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
 			cdkSection.setText("CDK");
@@ -89,9 +89,9 @@ public class XsltProvidesEditorContribution implements JbiEditorDetailsContribut
 			Composite cdkComposite = toolkit.createComposite(cdkSection);
 			cdkComposite.setLayout(new GridLayout(2, false));
 			cdkSection.setClient(cdkComposite);
-			
+
 			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_PROVIDES);
 		}
 	}
-	
+
 }

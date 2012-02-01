@@ -15,21 +15,20 @@ package com.ebmwebsourcing.petals.services.su.wizards;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -37,7 +36,6 @@ import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Jbi;
 import com.sun.java.xml.ns.jbi.JbiFactory;
 import com.sun.java.xml.ns.jbi.Provides;
-import com.sun.java.xml.ns.jbi.util.JbiResourceFactoryImpl;
 
 /**
  * @author Mickaël Istria - EBM WebSourcing
@@ -55,6 +53,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 	@Override
 	public void finishWizard(AbstractServiceUnitWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception {
 
+		// Create and write the jbi.xml file
 		Jbi jbiInstance;
 		jbiInstance = JbiFactory.eINSTANCE.createJbi();
 		jbiInstance.setVersion(new BigDecimal("1.0"));
@@ -69,31 +68,34 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 
 		IFile jbiFile = this.project.getFile( PetalsConstants.LOC_JBI_FILE );
 		monitor.subTask( "Creating the jbi.xml..." );
-		org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(jbiFile.getFullPath().toString(), true);
-		Resource resource = new JbiResourceFactoryImpl().createResource( emfUri );
-		resource.getContents().add(jbiInstance);
-		resource.save( Collections.EMPTY_MAP );
+		JbiXmlUtils.writeJbiXmlModel( jbiInstance, jbiFile );
 		monitor.worked( 1 );
 
 
-		// addutuinak
-
 		// Open the jbi.xml?
-		// Do not open it in the WorkspaceModifyOperation
-		// The project viewer must be updated before selecting anything in it
-		final IFile jbiXmlFile = getSUProject(wizard, new NullProgressMonitor()).getFile( PetalsConstants.LOC_JBI_FILE );
-		if( wizard.getSettings().openJbiEditor) {
-			wizard.getShell().getDisplay().syncExec(new Runnable() {
+		IProject project = getSUProject( wizard, monitor );
+		final IFile jbiXmlFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
+		if( wizard.getSettings().openJbiEditor ) {
+
+			// Do not open it in the WorkspaceModifyOperation
+			wizard.getShell().getDisplay().syncExec( new Runnable() {
 				@Override
 				public void run() {
 					try {
 						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 						IDE.openEditor( page, jbiXmlFile );
+
 					} catch( PartInitException e ) {
 						PetalsServicesPlugin.log( e, IStatus.ERROR );
 					}
 				}
 			});
+
+			// Select it in the Petals project view
+			ResourceUtils.selectResourceInPetalsExplorer( true, jbiXmlFile );
+
+		} else {
+			ResourceUtils.selectResourceInPetalsExplorer( true, project );
 		}
 	}
 

@@ -74,12 +74,12 @@ public class EObjecttUIHelper {
 		@Override
 		public IStatus validate( Object value ) {
 
-			IStatus result;
-			if (value == null ||
-					( value instanceof String && ((String)value).isEmpty()))
-				result = ValidationStatus.warning( NLS.bind( Messages.fieldNotSet, this.feature.getName()));
-			else
-				result = ValidationStatus.ok();
+			IStatus result = ValidationStatus.ok();
+			if( value instanceof String && StringUtils.isEmpty((String) value)) {
+				String label = StringUtils.camelCaseToHuman( this.feature.getName());
+				label = StringUtils.capitalize( label );
+				result = ValidationStatus.error( NLS.bind( Messages.fieldNotSet, label ));
+			}
 
 			return result;
 		}
@@ -121,10 +121,11 @@ public class EObjecttUIHelper {
 			Composite parent,
 			EditingDomain domain,
 			DataBindingContext dbc,
-			EStructuralFeature... toProcessFeatures) {
+			boolean showDecorator,
+			EStructuralFeature... toProcessFeatures ) {
 
 		List<EntryDescription> entries = produceWidgets(toolkit, parent, toProcessFeatures);
-		setUpDatabinding(eObject, domain, dbc, entries);
+		setUpDatabinding(eObject, domain, dbc, showDecorator, entries);
 		return entries;
 	}
 
@@ -136,46 +137,40 @@ public class EObjecttUIHelper {
 	 * @param dbc
 	 * @param entries
 	 */
-	private static void setUpDatabinding(EObject eObject, EditingDomain domain, DataBindingContext dbc, List<EntryDescription> entries) {
+	private static void setUpDatabinding(
+			EObject eObject,
+			EditingDomain domain,
+			DataBindingContext dbc,
+			boolean showDecorator,
+			List<EntryDescription> entries ) {
 
 		for (EntryDescription entry : entries) {
 			IObservableValue widgetObservable = null;
 			if (entry.widget instanceof Text) {
-				widgetObservable = SWTObservables.observeDelayedValue(300, SWTObservables.observeText((Text)entry.widget, SWT.Modify));
+				widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText((Text) entry.widget, SWT.Modify ));
 
 			} else if (entry.widget instanceof Spinner) {
-				widgetObservable = SWTObservables.observeSelection((Spinner)entry.widget);
+				widgetObservable = SWTObservables.observeSelection((Spinner) entry.widget);
 
 			} else if (entry.widget instanceof ISelectionProvider) {
-				widgetObservable = ViewersObservables.observeSingleSelection((ISelectionProvider)entry.widget);
+				widgetObservable = ViewersObservables.observeSingleSelection((ISelectionProvider) entry.widget);
 
 			} else if (entry.widget instanceof Button) {
-				widgetObservable = SWTObservables.observeSelection((Button)entry.widget);
+				widgetObservable = SWTObservables.observeSelection((Button) entry.widget);
 			}
 
-			if (widgetObservable != null) {
+			if( widgetObservable != null ) {
 				UpdateValueStrategy strategy = new UpdateValueStrategy();
-				if (entry.attribute.getLowerBound() > 0)
-					strategy.setBeforeSetValidator(new MandatoryFieldValidator(entry.attribute));
+				if( entry.attribute.getLowerBound() > 0 )
+					strategy.setBeforeSetValidator( new MandatoryFieldValidator( entry.attribute ));
 
-				Binding binding = null;
-				if (domain != null) {
-					binding = dbc.bindValue(
-						widgetObservable,
-						EMFEditObservables.observeValue(domain, eObject, entry.attribute),
-						strategy,
-						null);
+				IObservableValue iov = domain == null ?
+						EMFObservables.observeValue(eObject, entry.attribute)
+						: EMFEditObservables.observeValue(domain, eObject, entry.attribute);
 
-				} else {
-					binding = dbc.bindValue(
-						widgetObservable,
-						EMFObservables.observeValue(eObject, entry.attribute),
-						strategy,
-						null);
-				}
-
-				if (entry.attribute.getLowerBound() > 0)
-					ControlDecorationSupport.create(binding, SWT.TOP | SWT.LEFT);
+				Binding binding = dbc.bindValue( widgetObservable, iov, strategy, null);
+				if( showDecorator && entry.attribute.getLowerBound() > 0 )
+					ControlDecorationSupport.create( binding, SWT.TOP | SWT.LEFT );
 			}
 		}
 	}
@@ -241,8 +236,8 @@ public class EObjecttUIHelper {
 				viewer.setInput( new Boolean[] { Boolean.TRUE, Boolean.FALSE });
 			}
 
-			if (widget != null)
-				entries.add(new EntryDescription(widget, attr));
+			if( widget != null )
+				entries.add( new EntryDescription(widget, attr));
 		}
 
 		return entries;
