@@ -11,7 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24;
 
-import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription;
 
 /**
@@ -27,45 +26,5 @@ public class FileTransferDescription24 extends FileTransferDescription {
 	@Override
 	public String getComponentVersion() {
 		return "2.4";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProvide()
-	 */
-	@Override
-	public boolean isProvide() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isConsume()
-	 */
-	@Override
-	public boolean isConsume() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProxy()
-	 */
-	@Override
-	public boolean isProxy() {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #getSupportedMep()
-	 */
-	@Override
-	public Mep[] getSupportedMep() {
-		return new Mep[] { Mep.IN_ONLY };
 	}
 }

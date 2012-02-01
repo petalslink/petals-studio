@@ -224,6 +224,33 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFtpProvides_Encoding() {
+		return (EAttribute)ftpProvidesEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFtpProvides_MaxIdleTime() {
+		return (EAttribute)ftpProvidesEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFtpProvides_MaxConnection() {
+		return (EAttribute)ftpProvidesEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getConnectionType() {
 		return connectionTypeEEnum;
 	}
@@ -276,6 +303,9 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		createEAttribute(ftpProvidesEClass, FTP_PROVIDES__SERVER);
 		createEAttribute(ftpProvidesEClass, FTP_PROVIDES__USER);
 		createEAttribute(ftpProvidesEClass, FTP_PROVIDES__TRANSFER_TYPE);
+		createEAttribute(ftpProvidesEClass, FTP_PROVIDES__ENCODING);
+		createEAttribute(ftpProvidesEClass, FTP_PROVIDES__MAX_IDLE_TIME);
+		createEAttribute(ftpProvidesEClass, FTP_PROVIDES__MAX_CONNECTION);
 
 		// Create enums
 		connectionTypeEEnum = createEEnum(CONNECTION_TYPE);
@@ -328,6 +358,9 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 		initEAttribute(getFtpProvides_Server(), theXMLTypePackage.getString(), "server", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFtpProvides_User(), theXMLTypePackage.getString(), "user", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFtpProvides_TransferType(), this.getTransferType(), "transferType", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_Encoding(), theXMLTypePackage.getString(), "encoding", "", 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_MaxIdleTime(), theXMLTypePackage.getInt(), "maxIdleTime", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFtpProvides_MaxConnection(), theXMLTypePackage.getInt(), "maxConnection", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(connectionTypeEEnum, ConnectionType.class, "ConnectionType");
@@ -443,6 +476,32 @@ public class Ftp3PackageImpl extends EPackageImpl implements Ftp3Package {
 			 "kind", "element",
 			 "name", "transfer-type",
 			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getFtpProvides_Encoding(), 
+		   source, 
+		   new String[] {
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getFtpProvides_MaxIdleTime(), 
+		   source, 
+		   new String[] {
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "group", "#group:0",
+			 "name", "max-idle-time"
+		   });		
+		addAnnotation
+		  (getFtpProvides_MaxConnection(), 
+		   source, 
+		   new String[] {
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "group", "#group:0",
+			 "name", "max-connection"
 		   });
 	}
 

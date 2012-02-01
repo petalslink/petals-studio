@@ -10,6 +10,9 @@
       resource="XML" disposableProviderFactory="true" ecorePackage="xslt.ecore#/">
     <genClasses ecoreClass="xslt.ecore#//XSLTProvides">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xslt.ecore#//XSLTProvides/stylesheet"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xslt.ecore#//XSLTProvides/transformerFactory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xslt.ecore#//XSLTProvides/transformerFactoryMin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xslt.ecore#//XSLTProvides/transformerFactoryMax"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xslt.ecore#//XSLTProvides/outputAttachmentName"/>
     </genClasses>
   </genPackages>

@@ -164,8 +164,8 @@ public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 	}
 	
 	@Override
-	public XsltWizard24 getWizard() {
-		return (XsltWizard24)super.getWizard();
+	public XsltWizard23 getWizard() {
+		return (XsltWizard23)super.getWizard();
 	}
 
 	/* (non-Javadoc)

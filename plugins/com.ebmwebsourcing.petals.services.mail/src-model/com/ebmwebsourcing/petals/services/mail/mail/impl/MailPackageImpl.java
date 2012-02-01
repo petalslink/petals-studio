@@ -200,6 +200,15 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMailProvides_ContentType() {
+		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMailConsumes() {
 		return mailConsumesEClass;
 	}
@@ -347,6 +356,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__SUBJECT);
 		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__HELOHOST);
 		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__SEND_MODE);
+		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__CONTENT_TYPE);
 
 		mailConsumesEClass = createEClass(MAIL_CONSUMES);
 		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__FOLDER);
@@ -412,6 +422,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		initEAttribute(getMailProvides_Subject(), theXMLTypePackage.getString(), "subject", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailProvides_Helohost(), theXMLTypePackage.getString(), "helohost", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailProvides_SendMode(), this.getSendMode(), "sendMode", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailProvides_ContentType(), theXMLTypePackage.getString(), "contentType", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mailConsumesEClass, MailConsumes.class, "MailConsumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMailConsumes_Folder(), theXMLTypePackage.getString(), "folder", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -420,7 +431,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		initEAttribute(getMailConsumes_Isxmlcontent(), theXMLTypePackage.getBoolean(), "isxmlcontent", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(mailServiceCommonEClass, MailServiceCommon.class, "MailServiceCommon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMailServiceCommon_Scheme(), this.getScheme(), "scheme", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailServiceCommon_Scheme(), this.getScheme(), "scheme", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailServiceCommon_Host(), theXMLTypePackage.getString(), "host", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailServiceCommon_Port(), theXMLTypePackage.getInt(), "port", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailServiceCommon_User(), theXMLTypePackage.getString(), "user", null, 0, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -507,6 +518,15 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0",
 			 "name", "send-mode"
+		   });		
+		addAnnotation
+		  (getMailProvides_ContentType(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0",
+			 "name", "content-type"
 		   });		
 		addAnnotation
 		  (mailConsumesEClass, 

@@ -84,6 +84,8 @@ public class SoapFactoryImpl extends EFactoryImpl implements SoapFactory {
 				return createSoapVersionFromString(eDataType, initialValue);
 			case SoapPackage.SOAP_MODE:
 				return createSoapModeFromString(eDataType, initialValue);
+			case SoapPackage.COMPATIBILITY:
+				return createCompatibilityFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -101,6 +103,8 @@ public class SoapFactoryImpl extends EFactoryImpl implements SoapFactory {
 				return convertSoapVersionToString(eDataType, instanceValue);
 			case SoapPackage.SOAP_MODE:
 				return convertSoapModeToString(eDataType, instanceValue);
+			case SoapPackage.COMPATIBILITY:
+				return convertCompatibilityToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -173,6 +177,26 @@ public class SoapFactoryImpl extends EFactoryImpl implements SoapFactory {
 	 * @generated
 	 */
 	public String convertSoapModeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Compatibility createCompatibilityFromString(EDataType eDataType, String initialValue) {
+		Compatibility result = Compatibility.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCompatibilityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

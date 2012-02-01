@@ -14,7 +14,7 @@ public class FTPEditorContribution extends EditorContributionSupport {
 
 	@Override
 	protected JbiEditorDetailsContribution getProvidesContribution() {
-		return new DefaultJbiEditorContribution(Ftp3Package.Literals.FTP_PROVIDES, Cdk5Package.Literals.CDK5_PROVIDES);
+		return new FtpProvidesEditorContribution();
 	}
 
 	@Override

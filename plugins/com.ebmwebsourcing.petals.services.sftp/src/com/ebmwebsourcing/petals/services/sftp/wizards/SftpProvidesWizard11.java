@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.sftp.SftpDescription11;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService11;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
@@ -28,6 +29,7 @@ import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -59,6 +61,7 @@ public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 	public void presetServiceValues( AbstractEndpoint ae ) {
 		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "SftpInterface" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "change-it" ));
+		Cdk5Utils.setInitialProvidesValues((Provides)ae);
 		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "SftpService.wsdl");
 		ae.eSet(SftpPackage.Literals.SFTP_PROVIDES__PORT, 22);
 	}
@@ -85,7 +88,7 @@ public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				SftpPackage.Literals.SFTP_PROVIDES__HOST,
+				SftpPackage.Literals.SFTP_PROVIDES__SERVER,
 				SftpPackage.Literals.SFTP_PROVIDES__PORT,
 				SftpPackage.Literals.SFTP_PROVIDES__USER,
 				SftpPackage.Literals.SFTP_PROVIDES__PASSWORD,
@@ -101,6 +104,7 @@ public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 
 	@Override
 	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
+		createFile(resourceDirectory.getFile("SftpService.wsdl"), new SftpService11().generate(endpoint), monitor);
 		return Status.OK_STATUS;
 	}
 

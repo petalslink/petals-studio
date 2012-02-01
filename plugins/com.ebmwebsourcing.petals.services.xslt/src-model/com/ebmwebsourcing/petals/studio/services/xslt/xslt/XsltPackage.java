@@ -138,13 +138,40 @@ public interface XsltPackage extends EPackage {
 	int XSLT_PROVIDES__STYLESHEET = JbiPackage.PROVIDES_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Transformer Factory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XSLT_PROVIDES__TRANSFORMER_FACTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Transformer Factory Min</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XSLT_PROVIDES__TRANSFORMER_FACTORY_MIN = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Transformer Factory Max</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XSLT_PROVIDES__TRANSFORMER_FACTORY_MAX = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Output Attachment Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
+	int XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>XSLT Provides</em>' class.
@@ -153,7 +180,7 @@ public interface XsltPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int XSLT_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
+	int XSLT_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
 
 
 	/**
@@ -176,6 +203,39 @@ public interface XsltPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getXSLTProvides_Stylesheet();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactory <em>Transformer Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transformer Factory</em>'.
+	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactory()
+	 * @see #getXSLTProvides()
+	 * @generated
+	 */
+	EAttribute getXSLTProvides_TransformerFactory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMin <em>Transformer Factory Min</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transformer Factory Min</em>'.
+	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMin()
+	 * @see #getXSLTProvides()
+	 * @generated
+	 */
+	EAttribute getXSLTProvides_TransformerFactoryMin();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMax <em>Transformer Factory Max</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transformer Factory Max</em>'.
+	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMax()
+	 * @see #getXSLTProvides()
+	 * @generated
+	 */
+	EAttribute getXSLTProvides_TransformerFactoryMax();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getOutputAttachmentName <em>Output Attachment Name</em>}'.
@@ -227,6 +287,30 @@ public interface XsltPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute XSLT_PROVIDES__STYLESHEET = eINSTANCE.getXSLTProvides_Stylesheet();
+
+		/**
+		 * The meta object literal for the '<em><b>Transformer Factory</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute XSLT_PROVIDES__TRANSFORMER_FACTORY = eINSTANCE.getXSLTProvides_TransformerFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Transformer Factory Min</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute XSLT_PROVIDES__TRANSFORMER_FACTORY_MIN = eINSTANCE.getXSLTProvides_TransformerFactoryMin();
+
+		/**
+		 * The meta object literal for the '<em><b>Transformer Factory Max</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute XSLT_PROVIDES__TRANSFORMER_FACTORY_MAX = eINSTANCE.getXSLTProvides_TransformerFactoryMax();
 
 		/**
 		 * The meta object literal for the '<em><b>Output Attachment Name</b></em>' attribute feature.

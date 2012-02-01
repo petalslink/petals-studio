@@ -10,6 +10,7 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
@@ -434,6 +435,17 @@ public interface Cdk5Package extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep <em>Mep</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep
+	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.Cdk5PackageImpl#getMep()
+	 * @generated
+	 */
+	int MEP = 3;
+
+
+	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService <em>CDK Service</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -585,6 +597,16 @@ public interface Cdk5Package extends EPackage {
 	EAttribute getCDK5Consumes_Mep();
 
 	/**
+	 * Returns the meta object for enum '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep <em>Mep</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Mep</em>'.
+	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep
+	 * @generated
+	 */
+	EEnum getMep();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -723,6 +745,16 @@ public interface Cdk5Package extends EPackage {
 		 * @generated
 		 */
 		EAttribute CDK5_CONSUMES__MEP = eINSTANCE.getCDK5Consumes_Mep();
+
+		/**
+		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep <em>Mep</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep
+		 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.Cdk5PackageImpl#getMep()
+		 * @generated
+		 */
+		EEnum MEP = eINSTANCE.getMep();
 
 	}
 

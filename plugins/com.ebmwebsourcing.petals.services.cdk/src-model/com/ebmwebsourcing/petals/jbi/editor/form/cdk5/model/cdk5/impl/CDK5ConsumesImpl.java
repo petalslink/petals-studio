@@ -9,6 +9,7 @@ package com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -58,7 +59,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String MEP_EDEFAULT = null;
+	protected static final Mep MEP_EDEFAULT = Mep.IN_ONLY;
 
 	/**
 	 * The cached value of the '{@link #getMep() <em>Mep</em>}' attribute.
@@ -68,7 +69,16 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * @generated
 	 * @ordered
 	 */
-	protected String mep = MEP_EDEFAULT;
+	protected Mep mep = MEP_EDEFAULT;
+
+	/**
+	 * This is true if the Mep attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean mepESet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -115,7 +125,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getMep() {
+	public Mep getMep() {
 		return mep;
 	}
 
@@ -124,11 +134,36 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setMep(String newMep) {
-		String oldMep = mep;
-		mep = newMep;
+	public void setMep(Mep newMep) {
+		Mep oldMep = mep;
+		mep = newMep == null ? MEP_EDEFAULT : newMep;
+		boolean oldMepESet = mepESet;
+		mepESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__MEP, oldMep, mep));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__MEP, oldMep, mep, !oldMepESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetMep() {
+		Mep oldMep = mep;
+		boolean oldMepESet = mepESet;
+		mep = MEP_EDEFAULT;
+		mepESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_CONSUMES__MEP, oldMep, MEP_EDEFAULT, oldMepESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetMep() {
+		return mepESet;
 	}
 
 	/**
@@ -159,7 +194,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 				setOperation((String)newValue);
 				return;
 			case Cdk5Package.CDK5_CONSUMES__MEP:
-				setMep((String)newValue);
+				setMep((Mep)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -177,7 +212,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 				setOperation(OPERATION_EDEFAULT);
 				return;
 			case Cdk5Package.CDK5_CONSUMES__MEP:
-				setMep(MEP_EDEFAULT);
+				unsetMep();
 				return;
 		}
 		super.eUnset(featureID);
@@ -194,7 +229,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 			case Cdk5Package.CDK5_CONSUMES__OPERATION:
 				return OPERATION_EDEFAULT == null ? operation != null : !OPERATION_EDEFAULT.equals(operation);
 			case Cdk5Package.CDK5_CONSUMES__MEP:
-				return MEP_EDEFAULT == null ? mep != null : !MEP_EDEFAULT.equals(mep);
+				return isSetMep();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -212,7 +247,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 		result.append(" (operation: ");
 		result.append(operation);
 		result.append(", mep: ");
-		result.append(mep);
+		if (mepESet) result.append(mep); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

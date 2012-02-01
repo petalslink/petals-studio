@@ -39,6 +39,7 @@ import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
  *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailProvidesImpl#getSubject <em>Subject</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailProvidesImpl#getHelohost <em>Helohost</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailProvidesImpl#getSendMode <em>Send Mode</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailProvidesImpl#getContentType <em>Content Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -64,6 +65,15 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	 * @ordered
 	 */
 	protected Scheme scheme = SCHEME_EDEFAULT;
+
+	/**
+	 * This is true if the Scheme attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean schemeESet;
 
 	/**
 	 * The default value of the '{@link #getHost() <em>Host</em>}' attribute.
@@ -266,6 +276,26 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	protected SendMode sendMode = SEND_MODE_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getContentType() <em>Content Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTENT_TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContentType() <em>Content Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String contentType = CONTENT_TYPE_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -301,8 +331,33 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void setScheme(Scheme newScheme) {
 		Scheme oldScheme = scheme;
 		scheme = newScheme == null ? SCHEME_EDEFAULT : newScheme;
+		boolean oldSchemeESet = schemeESet;
+		schemeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__SCHEME, oldScheme, scheme));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__SCHEME, oldScheme, scheme, !oldSchemeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetScheme() {
+		Scheme oldScheme = scheme;
+		boolean oldSchemeESet = schemeESet;
+		scheme = SCHEME_EDEFAULT;
+		schemeESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_PROVIDES__SCHEME, oldScheme, SCHEME_EDEFAULT, oldSchemeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetScheme() {
+		return schemeESet;
 	}
 
 	/**
@@ -520,6 +575,27 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getContentType() {
+		return contentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContentType(String newContentType) {
+		String oldContentType = contentType;
+		contentType = newContentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__CONTENT_TYPE, oldContentType, contentType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -545,6 +621,8 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 				return getHelohost();
 			case MailPackage.MAIL_PROVIDES__SEND_MODE:
 				return getSendMode();
+			case MailPackage.MAIL_PROVIDES__CONTENT_TYPE:
+				return getContentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -590,6 +668,9 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 			case MailPackage.MAIL_PROVIDES__SEND_MODE:
 				setSendMode((SendMode)newValue);
 				return;
+			case MailPackage.MAIL_PROVIDES__CONTENT_TYPE:
+				setContentType((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -603,7 +684,7 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case MailPackage.MAIL_PROVIDES__SCHEME:
-				setScheme(SCHEME_EDEFAULT);
+				unsetScheme();
 				return;
 			case MailPackage.MAIL_PROVIDES__HOST:
 				setHost(HOST_EDEFAULT);
@@ -635,6 +716,9 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 			case MailPackage.MAIL_PROVIDES__SEND_MODE:
 				setSendMode(SEND_MODE_EDEFAULT);
 				return;
+			case MailPackage.MAIL_PROVIDES__CONTENT_TYPE:
+				setContentType(CONTENT_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -648,7 +732,7 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case MailPackage.MAIL_PROVIDES__SCHEME:
-				return scheme != SCHEME_EDEFAULT;
+				return isSetScheme();
 			case MailPackage.MAIL_PROVIDES__HOST:
 				return HOST_EDEFAULT == null ? host != null : !HOST_EDEFAULT.equals(host);
 			case MailPackage.MAIL_PROVIDES__PORT:
@@ -669,6 +753,8 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 				return HELOHOST_EDEFAULT == null ? helohost != null : !HELOHOST_EDEFAULT.equals(helohost);
 			case MailPackage.MAIL_PROVIDES__SEND_MODE:
 				return sendMode != SEND_MODE_EDEFAULT;
+			case MailPackage.MAIL_PROVIDES__CONTENT_TYPE:
+				return CONTENT_TYPE_EDEFAULT == null ? contentType != null : !CONTENT_TYPE_EDEFAULT.equals(contentType);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -724,7 +810,7 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (scheme: ");
-		result.append(scheme);
+		if (schemeESet) result.append(scheme); else result.append("<unset>");
 		result.append(", host: ");
 		result.append(host);
 		result.append(", port: ");
@@ -745,6 +831,8 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 		result.append(helohost);
 		result.append(", sendMode: ");
 		result.append(sendMode);
+		result.append(", contentType: ");
+		result.append(contentType);
 		result.append(')');
 		return result.toString();
 	}

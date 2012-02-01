@@ -26,33 +26,4 @@ public class SqlDescription11 extends SqlDescription {
 		return "1.1";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProvide()
-	 */
-	@Override
-	public boolean isProvide() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isConsume()
-	 */
-	@Override
-	public boolean isConsume() {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProxy()
-	 */
-	@Override
-	public boolean isProxy() {
-		return false;
-	}
 }

@@ -219,13 +219,22 @@ public interface SqlPackage extends EPackage {
 	int SQL_PROVIDES__METADATA = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
 
 	/**
+	 * The feature id for the '<em><b>Stored Procedure</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SQL_PROVIDES__STORED_PROCEDURE = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
+
+	/**
 	 * The number of structural features of the '<em>Provides</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SQL_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
+	int SQL_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 11;
 
 
 	/**
@@ -349,6 +358,17 @@ public interface SqlPackage extends EPackage {
 	EAttribute getSqlProvides_Metadata();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getStoredProcedure <em>Stored Procedure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Stored Procedure</em>'.
+	 * @see com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getStoredProcedure()
+	 * @see #getSqlProvides()
+	 * @generated
+	 */
+	EAttribute getSqlProvides_StoredProcedure();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -459,6 +479,14 @@ public interface SqlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SQL_PROVIDES__METADATA = eINSTANCE.getSqlProvides_Metadata();
+
+		/**
+		 * The meta object literal for the '<em><b>Stored Procedure</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SQL_PROVIDES__STORED_PROCEDURE = eINSTANCE.getSqlProvides_StoredProcedure();
 
 	}
 

@@ -9,12 +9,15 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.pojo;
+package com.ebmwebsourcing.petals.services.filetransfer.v3;
+
+import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PojoDescription22 extends PojoDescription {
+public class FileTransferDescription3 extends FileTransferDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -23,36 +26,7 @@ public class PojoDescription22 extends PojoDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "2.2";
+		return "3";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProvide()
-	 */
-	@Override
-	public boolean isProvide() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isConsume()
-	 */
-	@Override
-	public boolean isConsume() {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProxy()
-	 */
-	@Override
-	public boolean isProxy() {
-		return false;
-	}
 }

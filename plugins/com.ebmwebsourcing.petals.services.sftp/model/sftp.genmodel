@@ -10,14 +10,15 @@
       resource="XML" disposableProviderFactory="true" ecorePackage="sftp.ecore#/">
     <genClasses ecoreClass="sftp.ecore#//SftpProvides">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/folder"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/host"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/maxIdleTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/server"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/overwrite"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/passphrase"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/password"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/port"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/privatekey"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/maxIdleTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sftp.ecore#//SftpProvides/maxConnection"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

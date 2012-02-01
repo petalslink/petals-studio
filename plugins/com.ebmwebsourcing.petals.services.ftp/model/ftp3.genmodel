@@ -28,6 +28,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/server"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/user"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/transferType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/encoding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/maxIdleTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ftp3.ecore#//FtpProvides/maxConnection"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -19,6 +19,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//SqlProvides/maxWait"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//SqlProvides/timeBetweenEvictionRunsMillis"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//SqlProvides/metadata"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//SqlProvides/storedProcedure"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

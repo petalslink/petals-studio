@@ -9,6 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.soap.soap.impl;
 
+import com.ebmwebsourcing.petals.services.soap.soap.Compatibility;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapComponent;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapFactory;
@@ -69,6 +70,13 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * @generated
 	 */
 	private EEnum soapModeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum compatibilityEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -157,7 +165,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_SoapVersion() {
+	public EAttribute getSoapProvides_WsaReplyTo() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -166,7 +174,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ChunkedMode() {
+	public EAttribute getSoapProvides_WsaFrom() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -175,7 +183,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_SynchonousTimeout() {
+	public EAttribute getSoapProvides_WsaFaultTo() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -184,7 +192,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_CleanupTransport() {
+	public EAttribute getSoapProvides_SoapVersion() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -193,7 +201,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_Mode() {
+	public EAttribute getSoapProvides_ChunkedMode() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -202,7 +210,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyHost() {
+	public EAttribute getSoapProvides_SynchonousTimeout() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -211,7 +219,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyUser() {
+	public EAttribute getSoapProvides_CleanupTransport() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -220,7 +228,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyPassword() {
+	public EAttribute getSoapProvides_Mode() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -229,8 +237,134 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyDomain() {
+	public EAttribute getSoapProvides_ProxyHost() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_ProxyUser() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_ProxyPassword() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_ProxyDomain() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HeadersFilter() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_InjectHeaders() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HeadersToInject() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HttpBasicAuthUsername() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HttpBasicAuthPassword() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_EnableCompatibilityFor() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_EnableWsa() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HttpsTruststoreFile() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HttpsTruststorePassword() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(22);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HttpsKeystoreFile() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(23);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HttpsKeystorePassword() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(24);
 	}
 
 	/**
@@ -301,8 +435,44 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapConsumes_EnableJmsTransport() {
+	public EAttribute getSoapConsumes_EnableHttpsTransport() {
 		return (EAttribute)soapConsumesEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapConsumes_EnableJmsTransport() {
+		return (EAttribute)soapConsumesEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapConsumes_EnableCompatibilityFor() {
+		return (EAttribute)soapConsumesEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapConsumes_EnableWsa() {
+		return (EAttribute)soapConsumesEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapConsumes_HttpServicesRedirection() {
+		return (EAttribute)soapConsumesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -436,6 +606,15 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getCompatibility() {
+		return compatibilityEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SoapFactory getSoapFactory() {
 		return (SoapFactory)getEFactoryInstance();
 	}
@@ -461,16 +640,30 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		// Create classes and their features
 		soapProvidesEClass = createEClass(SOAP_PROVIDES);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__ADDRESS);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__WSA_REPLY_TO);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__WSA_FROM);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__WSA_FAULT_TO);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__SOAP_VERSION);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__CHUNKED_MODE);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__SYNCHONOUS_TIMEOUT);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__CLEANUP_TRANSPORT);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__MODE);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__PROXY_HOST);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__PROXY_PORT);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__PROXY_USER);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__PROXY_PASSWORD);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__PROXY_DOMAIN);
-		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__PROXY_PORT);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HEADERS_FILTER);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__INJECT_HEADERS);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HEADERS_TO_INJECT);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HTTP_BASIC_AUTH_PASSWORD);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__ENABLE_COMPATIBILITY_FOR);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__ENABLE_WSA);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HTTPS_KEYSTORE_FILE);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD);
 
 		soapConsumesEClass = createEClass(SOAP_CONSUMES);
 		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__SOAP_SERVICE_NAME);
@@ -478,7 +671,11 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__SYNCHONOUS_TIMEOUT);
 		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__MODE);
 		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT);
+		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT);
 		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__ENABLE_JMS_TRANSPORT);
+		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR);
+		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__ENABLE_WSA);
+		createEAttribute(soapConsumesEClass, SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION);
 
 		soapComponentEClass = createEClass(SOAP_COMPONENT);
 		createEAttribute(soapComponentEClass, SOAP_COMPONENT__HTTP_PORT);
@@ -496,6 +693,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		// Create enums
 		soapVersionEEnum = createEEnum(SOAP_VERSION);
 		soapModeEEnum = createEEnum(SOAP_MODE);
+		compatibilityEEnum = createEEnum(COMPATIBILITY);
 	}
 
 	/**
@@ -537,24 +735,42 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(soapProvidesEClass, SoapProvides.class, "SoapProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSoapProvides_Address(), theXMLTypePackage.getString(), "address", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_WsaReplyTo(), theXMLTypePackage.getString(), "wsaReplyTo", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_WsaFrom(), theXMLTypePackage.getString(), "wsaFrom", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_WsaFaultTo(), theXMLTypePackage.getString(), "wsaFaultTo", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_SoapVersion(), this.getSoapVersion(), "soapVersion", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapProvides_ChunkedMode(), theXMLTypePackage.getBoolean(), "chunkedMode", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_ChunkedMode(), theXMLTypePackage.getBoolean(), "chunkedMode", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_SynchonousTimeout(), theXMLTypePackage.getInt(), "synchonousTimeout", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapProvides_CleanupTransport(), theXMLTypePackage.getBoolean(), "cleanupTransport", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_CleanupTransport(), theXMLTypePackage.getBoolean(), "cleanupTransport", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_Mode(), this.getSoapMode(), "mode", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_ProxyHost(), theXMLTypePackage.getString(), "proxyHost", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_ProxyPort(), theXMLTypePackage.getInt(), "proxyPort", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_ProxyUser(), theXMLTypePackage.getString(), "proxyUser", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_ProxyPassword(), theXMLTypePackage.getString(), "proxyPassword", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_ProxyDomain(), theXMLTypePackage.getString(), "proxyDomain", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapProvides_ProxyPort(), theXMLTypePackage.getInt(), "proxyPort", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HeadersFilter(), theXMLTypePackage.getString(), "headersFilter", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_InjectHeaders(), theXMLTypePackage.getString(), "injectHeaders", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HeadersToInject(), theXMLTypePackage.getString(), "headersToInject", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HttpBasicAuthUsername(), theXMLTypePackage.getString(), "httpBasicAuthUsername", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HttpBasicAuthPassword(), theXMLTypePackage.getString(), "httpBasicAuthPassword", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_EnableCompatibilityFor(), this.getCompatibility(), "enableCompatibilityFor", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_EnableWsa(), theXMLTypePackage.getBoolean(), "enableWsa", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HttpsTruststoreFile(), theXMLTypePackage.getString(), "httpsTruststoreFile", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HttpsTruststorePassword(), theXMLTypePackage.getString(), "httpsTruststorePassword", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HttpsKeystoreFile(), theXMLTypePackage.getString(), "httpsKeystoreFile", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_HttpsKeystorePassword(), theXMLTypePackage.getString(), "httpsKeystorePassword", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(soapConsumesEClass, SoapConsumes.class, "SoapConsumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSoapConsumes_SoapServiceName(), theXMLTypePackage.getString(), "soapServiceName", null, 1, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_SoapAction(), theXMLTypePackage.getString(), "soapAction", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_SynchonousTimeout(), theXMLTypePackage.getInt(), "synchonousTimeout", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_Mode(), this.getSoapMode(), "mode", null, 1, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapConsumes_EnableHttpTransport(), theXMLTypePackage.getBoolean(), "enableHttpTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapConsumes_EnableJmsTransport(), theXMLTypePackage.getBoolean(), "enableJmsTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_EnableHttpTransport(), theXMLTypePackage.getBoolean(), "enableHttpTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_EnableHttpsTransport(), theXMLTypePackage.getBoolean(), "enableHttpsTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_EnableJmsTransport(), theXMLTypePackage.getBoolean(), "enableJmsTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_EnableCompatibilityFor(), this.getCompatibility(), "enableCompatibilityFor", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_EnableWsa(), theXMLTypePackage.getBoolean(), "enableWsa", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_HttpServicesRedirection(), theXMLTypePackage.getString(), "httpServicesRedirection", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(soapComponentEClass, SoapComponent.class, "SoapComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSoapComponent_HttpPort(), theXMLTypePackage.getInt(), "httpPort", null, 0, 1, SoapComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -578,6 +794,9 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		addEEnumLiteral(soapModeEEnum, SoapMode.SOAP);
 		addEEnumLiteral(soapModeEEnum, SoapMode.REST);
 		addEEnumLiteral(soapModeEEnum, SoapMode.TOPIC);
+
+		initEEnum(compatibilityEEnum, Compatibility.class, "Compatibility");
+		addEEnumLiteral(compatibilityEEnum, Compatibility.AXIS1);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -608,6 +827,33 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 			 "group", "#group:0",
 			 "namespace", "##targetNamespace",
 			 "kind", "element"
+		   });		
+		addAnnotation
+		  (getSoapProvides_WsaReplyTo(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "wsa-replyto"
+		   });		
+		addAnnotation
+		  (getSoapProvides_WsaFrom(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "wsa-from"
+		   });		
+		addAnnotation
+		  (getSoapProvides_WsaFaultTo(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "wsa-faultto"
 		   });		
 		addAnnotation
 		  (getSoapProvides_SoapVersion(), 
@@ -663,6 +909,15 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 			 "name", "proxy-host"
 		   });		
 		addAnnotation
+		  (getSoapProvides_ProxyPort(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "proxy-port"
+		   });		
+		addAnnotation
 		  (getSoapProvides_ProxyUser(), 
 		   source, 
 		   new String[] {
@@ -690,13 +945,103 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 			 "name", "proxy-domain"
 		   });		
 		addAnnotation
-		  (getSoapProvides_ProxyPort(), 
+		  (getSoapProvides_HeadersFilter(), 
 		   source, 
 		   new String[] {
 			 "group", "#group:0",
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
-			 "name", "proxy-port"
+			 "name", "headers-filter"
+		   });		
+		addAnnotation
+		  (getSoapProvides_InjectHeaders(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "inject-headers"
+		   });		
+		addAnnotation
+		  (getSoapProvides_HeadersToInject(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "headers-to-inject"
+		   });		
+		addAnnotation
+		  (getSoapProvides_HttpBasicAuthUsername(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "http-basic-auth-username"
+		   });		
+		addAnnotation
+		  (getSoapProvides_HttpBasicAuthPassword(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "http-basic-auth-password"
+		   });		
+		addAnnotation
+		  (getSoapProvides_EnableCompatibilityFor(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "enable-compatibility-for"
+		   });		
+		addAnnotation
+		  (getSoapProvides_EnableWsa(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "enable-wsa"
+		   });		
+		addAnnotation
+		  (getSoapProvides_HttpsTruststoreFile(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "https-truststore-file"
+		   });		
+		addAnnotation
+		  (getSoapProvides_HttpsTruststorePassword(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "https-truststore-password"
+		   });		
+		addAnnotation
+		  (getSoapProvides_HttpsKeystoreFile(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "https-keystore-file"
+		   });		
+		addAnnotation
+		  (getSoapProvides_HttpsKeystorePassword(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "https-keystore-password"
 		   });		
 		addAnnotation
 		  (soapConsumesEClass, 
@@ -749,6 +1094,15 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 			 "name", "enable-http-transport"
 		   });		
 		addAnnotation
+		  (getSoapConsumes_EnableHttpsTransport(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "enable-https-transport"
+		   });		
+		addAnnotation
 		  (getSoapConsumes_EnableJmsTransport(), 
 		   source, 
 		   new String[] {
@@ -756,6 +1110,33 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "name", "enable-jms-transport"
+		   });		
+		addAnnotation
+		  (getSoapConsumes_EnableCompatibilityFor(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "enable-compatibility-for"
+		   });		
+		addAnnotation
+		  (getSoapConsumes_EnableWsa(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "enable-wsa"
+		   });		
+		addAnnotation
+		  (getSoapConsumes_HttpServicesRedirection(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "name", "http-service-redirection"
 		   });		
 		addAnnotation
 		  (soapComponentEClass, 

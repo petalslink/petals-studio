@@ -11,6 +11,7 @@
 
 package com.ebmwebsourcing.petals.services.ftp.wizard;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -69,12 +70,6 @@ public class FtpProvidesWizard31 extends AbstractServiceUnitWizard {
 		abstractEndpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "FtpService.wsdl");
 		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__PORT, 21);
 		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__FILENAME, "*.*");
-		if (getComponentVersionDescription() instanceof FtpDescription32) {
-			endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__DELETE_PROCESSED_FILES, false);
-		}
-		if (getComponentVersionDescription() instanceof FtpDescription33) {
-			endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__OVERWRITE, true);
-		}
 	}
 
 

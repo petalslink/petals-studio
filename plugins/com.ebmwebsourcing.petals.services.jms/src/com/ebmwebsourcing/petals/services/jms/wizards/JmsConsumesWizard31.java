@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.jms.JmsDescription31;
 import com.ebmwebsourcing.petals.services.jms.jms.JmsPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -32,6 +33,8 @@ public class JmsConsumesWizard31 extends AbstractServiceUnitWizard {
 
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
+		endpoint.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
+		endpoint.eSet(Cdk5Package.Literals.CDK5_CONSUMES__MEP, Mep.IN_ONLY);
 	}
 
 	@Override

@@ -20,6 +20,7 @@
             id="ejb">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.ejb.EjbDescription13"
+               editorExtension="com.ebmwebsourcing.petals.services.ejb.editor.EJBEditorExtension"
                id="EJB 1.3"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.ejb.wizards.EjbWizard13">
          </ComponentVersionSupport>

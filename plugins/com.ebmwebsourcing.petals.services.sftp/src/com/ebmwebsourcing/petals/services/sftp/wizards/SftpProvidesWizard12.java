@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.sftp.SftpDescription12;
+import com.ebmwebsourcing.petals.services.sftp.generated.SftpService11;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService12;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -69,7 +70,7 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				SftpPackage.Literals.SFTP_PROVIDES__HOST,
+				SftpPackage.Literals.SFTP_PROVIDES__SERVER,
 				SftpPackage.Literals.SFTP_PROVIDES__PORT,
 				SftpPackage.Literals.SFTP_PROVIDES__USER,
 				SftpPackage.Literals.SFTP_PROVIDES__PASSWORD,
@@ -88,6 +89,7 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 
 	@Override
 	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
+		createFile(resourceDirectory.getFile("SftpService.wsdl"), new SftpService12().generate(endpoint), monitor);
 		return Status.OK_STATUS;
 	}
 

@@ -40,8 +40,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -73,7 +77,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * The composite to display in the JBI form editor for service-units.
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class SuEditionComposite extends SashForm implements ISharedEdition {
 
@@ -334,7 +338,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		container.setLayout( layout );
 		container.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
-		CTabFolder tabFolder = new CTabFolder( container, SWT.BOTTOM | SWT.BORDER );
+		final CTabFolder tabFolder = new CTabFolder( container, SWT.BOTTOM | SWT.BORDER );
 		getFormToolkit().adapt( tabFolder );
 		getFormToolkit().paintBordersFor( tabFolder );
 		tabFolder.setSimple( true );
@@ -351,11 +355,27 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		CTabItem tbtmAdvanced = new CTabItem( tabFolder, SWT.NONE );
 		tbtmAdvanced.setText( "Advanced" );
-
-		this.advancedDetails = getFormToolkit().createComposite( tabFolder, SWT.NONE );
-		tbtmAdvanced.setControl( this.advancedDetails );
+		final ScrolledComposite advancedScrollContainer = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
+		advancedScrollContainer.setExpandHorizontal(true);
+		advancedScrollContainer.setExpandVertical(true);
+		tbtmAdvanced.setControl( advancedScrollContainer );
+		advancedScrollContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+		
+		this.advancedDetails = getFormToolkit().createComposite( advancedScrollContainer, SWT.NONE );
+		advancedScrollContainer.setContent(advancedDetails);
 		getFormToolkit().paintBordersFor( this.advancedDetails );
 		this.advancedDetails.setLayout( new GridLayout( 2, false ));
+		advancedScrollContainer.addControlListener(new ControlListener() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				Point contentSize = advancedDetails.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				advancedScrollContainer.setMinSize(contentSize);
+			}
+			
+			@Override
+			public void controlMoved(ControlEvent e) {
+			}
+		});
 
 		CTabItem tbtmSource = new CTabItem( tabFolder, SWT.NONE );
 		tbtmSource.setText( "Source" );
@@ -463,7 +483,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 	/**
 	 * A selection to remove an element from a viewer.
-	 * @author Mickaël Istria - EBM WebSourcing
+	 * @author Mickaï¿½l Istria - EBM WebSourcing
 	 */
 	private final class EListRemoveSelectionListener extends DefaultSelectionListener {
 		private final Viewer servicesViewer;
@@ -498,7 +518,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 	/**
 	 * A selection to move an element downward in a viewer.
-	 * @author Mickaël Istria - EBM WebSourcing
+	 * @author Mickaï¿½l Istria - EBM WebSourcing
 	 */
 	private final class EListDownSelectionListener extends DefaultSelectionListener {
 
@@ -521,7 +541,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 	/**
 	 * A selection to move an element upward in a viewer.
-	 * @author Mickaël Istria - EBM WebSourcing
+	 * @author Mickaï¿½l Istria - EBM WebSourcing
 	 */
 	private final class EListUpSelectionListener extends DefaultSelectionListener {
 

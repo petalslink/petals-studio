@@ -48,6 +48,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils.Ja
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.jsr181.Jsr181Constants;
 import com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11;
 import com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin;
@@ -58,6 +59,7 @@ import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -290,6 +292,7 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
+		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
 	}
 
 	@Override

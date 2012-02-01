@@ -28,6 +28,14 @@
             namespace="http://petals.ow2.org/components/filetransfer/version-2"
             providesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FileTransferProvidesWizard24">
       </ComponentVersionSupport>
+      <ComponentVersionSupport
+            componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.v3.FileTransferDescription3"
+            consumesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v3.wizard.FileTransferConsumesWizard3"
+            editorExtension="com.ebmwebsourcing.petals.services.filetransfer.v3.editor.FileTransfer3ContributionSupport"
+            id="File Transfer 3"
+            namespace="http://petals.ow2.org/components/filetransfer/version-3"
+            providesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v3.wizard.FileTransferProvidesWizard3">
+      </ComponentVersionSupport>
    </ComponentSupport>
 </extension>
 
@@ -37,6 +45,11 @@
          class="com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage"
          genModel="model/filetransfer.genmodel"
          uri="http://petals.ow2.org/components/filetransfer/version-2">
+   </package>
+   <package
+         class="com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package"
+         genModel="model/filetransfer3.genmodel"
+         uri="http://petals.ow2.org/components/filetransfer/version-3">
    </package>
 </extension>
 </plugin>

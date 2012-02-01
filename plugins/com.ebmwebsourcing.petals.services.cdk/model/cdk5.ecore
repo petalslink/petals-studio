@@ -79,7 +79,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="wsdl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        derived="true">
+        unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>
@@ -110,14 +110,19 @@
         <details key="group" value="#cdkExtContainer"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mep" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mep" eType="#//Mep" unsettable="true"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>
-        <details key="name" value="mep"/>
         <details key="group" value="#cdkExtContainer"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Mep">
+    <eLiterals name="InOnly" literal="InOnly"/>
+    <eLiterals name="InOptionalOut" value="1" literal="InOptionalOut"/>
+    <eLiterals name="InOut" value="2" literal="InOut"/>
+    <eLiterals name="RobustInOnly" value="3" literal="RobustInOnly"/>
   </eClassifiers>
 </ecore:EPackage>

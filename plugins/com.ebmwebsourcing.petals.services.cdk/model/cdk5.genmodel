@@ -7,6 +7,12 @@
   <foreignModel>cdk5.ecore</foreignModel>
   <genPackages prefix="Cdk5" basePackage="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model"
       resource="XML" disposableProviderFactory="true" ecorePackage="cdk5.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="cdk5.ecore#//Mep">
+      <genEnumLiterals ecoreEnumLiteral="cdk5.ecore#//Mep/InOnly"/>
+      <genEnumLiterals ecoreEnumLiteral="cdk5.ecore#//Mep/InOptionalOut"/>
+      <genEnumLiterals ecoreEnumLiteral="cdk5.ecore#//Mep/InOut"/>
+      <genEnumLiterals ecoreEnumLiteral="cdk5.ecore#//Mep/RobustInOnly"/>
+    </genEnums>
     <genClasses image="false" ecoreClass="cdk5.ecore#//CDKService">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDKService/cdkExtContainer"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cdk5.ecore#//CDKService/timeout"/>

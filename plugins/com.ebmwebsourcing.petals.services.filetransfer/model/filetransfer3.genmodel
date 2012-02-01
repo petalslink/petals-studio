@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2012, EBM WebSourcing&#xA;&#xA;This source code is available under agreement available at&#xA;http://www.petalslink.com/legal/licenses/petals-studio&#xA;&#xA;You should have received a copy of the agreement along with this program.&#xA;If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France)."
+    modelDirectory="/com.ebmwebsourcing.petals.services.filetransfer/src-model" modelPluginID="com.ebmwebsourcing.petals.services.filetransfer"
+    modelName="Filetransfer3" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" language="" usedGenPackages="filetransfer.genmodel#//filetransfer ../../com.ebmwebsourcing.petals.services.cdk/model/cdk5.genmodel#//cdk5 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.genmodel#//jbi platform:/plugin/org.eclipse.emf.ecore/model/XMLType.genmodel#//type"
+    interfaceNamePattern="">
+  <foreignModel>filetransfer3.ecore</foreignModel>
+  <genPackages prefix="Filetransfer3" basePackage="com.ebmwebsourcing.petals.services.filetransfer"
+      resource="XML" disposableProviderFactory="true" ecorePackage="filetransfer3.ecore#/">
+    <genClasses ecoreClass="filetransfer3.ecore#//FileTransfer3Provides">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer3.ecore#//FileTransfer3Provides/filename"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer3.ecore#//FileTransfer3Provides/backupDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer3.ecore#//FileTransfer3Provides/folder"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

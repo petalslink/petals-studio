@@ -10,6 +10,7 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
+import com.ebmwebsourcing.petals.services.mail.mail.*;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;

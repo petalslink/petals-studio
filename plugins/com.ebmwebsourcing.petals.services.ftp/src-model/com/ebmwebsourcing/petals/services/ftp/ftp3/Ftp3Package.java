@@ -220,13 +220,40 @@ public interface Ftp3Package extends EPackage {
 	int FTP_PROVIDES__TRANSFER_TYPE = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
 
 	/**
+	 * The feature id for the '<em><b>Encoding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FTP_PROVIDES__ENCODING = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Max Idle Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FTP_PROVIDES__MAX_IDLE_TIME = JbiPackage.PROVIDES_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Max Connection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FTP_PROVIDES__MAX_CONNECTION = JbiPackage.PROVIDES_FEATURE_COUNT + 12;
+
+	/**
 	 * The number of structural features of the '<em>Ftp Provides</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FTP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
+	int FTP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.ConnectionType <em>Connection Type</em>}' enum.
@@ -370,6 +397,39 @@ public interface Ftp3Package extends EPackage {
 	EAttribute getFtpProvides_TransferType();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getEncoding <em>Encoding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Encoding</em>'.
+	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getEncoding()
+	 * @see #getFtpProvides()
+	 * @generated
+	 */
+	EAttribute getFtpProvides_Encoding();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxIdleTime <em>Max Idle Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Idle Time</em>'.
+	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxIdleTime()
+	 * @see #getFtpProvides()
+	 * @generated
+	 */
+	EAttribute getFtpProvides_MaxIdleTime();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxConnection <em>Max Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Connection</em>'.
+	 * @see com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides#getMaxConnection()
+	 * @see #getFtpProvides()
+	 * @generated
+	 */
+	EAttribute getFtpProvides_MaxConnection();
+
+	/**
 	 * Returns the meta object for enum '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.ConnectionType <em>Connection Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -500,6 +560,30 @@ public interface Ftp3Package extends EPackage {
 		 * @generated
 		 */
 		EAttribute FTP_PROVIDES__TRANSFER_TYPE = eINSTANCE.getFtpProvides_TransferType();
+
+		/**
+		 * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FTP_PROVIDES__ENCODING = eINSTANCE.getFtpProvides_Encoding();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Idle Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FTP_PROVIDES__MAX_IDLE_TIME = eINSTANCE.getFtpProvides_MaxIdleTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Connection</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FTP_PROVIDES__MAX_CONNECTION = eINSTANCE.getFtpProvides_MaxConnection();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.ftp.ftp3.ConnectionType <em>Connection Type</em>}' enum.

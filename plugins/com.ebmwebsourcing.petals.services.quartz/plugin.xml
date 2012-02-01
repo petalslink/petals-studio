@@ -20,7 +20,8 @@
             id="quartz">
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription1x"
-               consumesExtensionWizard="com.ebmwebsourcing.petals.services.quartz.wizards.QuartzWizard10_11"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.quartz.wizards.QuartzWizard1x"
+               editorExtension="com.ebmwebsourcing.petals.services.quartz.editor.QuartzEditorContribution"
                id="Quartz 1.1"
                namespace="http://petals.ow2.org/components/quartz/version-1"
                wizardExtension="com.ebmwebsourcing.petals.services.quartz.QuartzWizard11">

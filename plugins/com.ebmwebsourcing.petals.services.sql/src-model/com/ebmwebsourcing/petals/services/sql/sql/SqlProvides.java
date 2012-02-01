@@ -30,6 +30,7 @@ import com.sun.java.xml.ns.jbi.Provides;
  *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getMaxWait <em>Max Wait</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getTimeBetweenEvictionRunsMillis <em>Time Between Eviction Runs Millis</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#isMetadata <em>Metadata</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getStoredProcedure <em>Stored Procedure</em>}</li>
  * </ul>
  * </p>
  *
@@ -307,5 +308,32 @@ public interface SqlProvides extends Provides {
 	 * @generated
 	 */
 	void setMetadata(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Stored Procedure</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Stored Procedure</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Stored Procedure</em>' attribute.
+	 * @see #setStoredProcedure(String)
+	 * @see com.ebmwebsourcing.petals.services.sql.sql.SqlPackage#getSqlProvides_StoredProcedure()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 *        extendedMetaData="namespace='##targetNamespace' group='#group:0' kind='element'"
+	 * @generated
+	 */
+	String getStoredProcedure();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getStoredProcedure <em>Stored Procedure</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Stored Procedure</em>' attribute.
+	 * @see #getStoredProcedure()
+	 * @generated
+	 */
+	void setStoredProcedure(String value);
 
 } // SqlProvides

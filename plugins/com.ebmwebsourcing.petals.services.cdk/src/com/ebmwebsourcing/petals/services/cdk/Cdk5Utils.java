@@ -26,5 +26,6 @@ public class Cdk5Utils {
 		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT, false);
 		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, false);
 		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_ATTACHMENTS, false);
+		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, null);
 	}
 }

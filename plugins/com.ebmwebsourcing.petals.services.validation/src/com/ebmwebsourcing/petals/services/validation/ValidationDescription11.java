@@ -30,7 +30,7 @@ public class ValidationDescription11 extends ValidationDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "1.1";
+		return "1.x";
 	}
 
 	/*

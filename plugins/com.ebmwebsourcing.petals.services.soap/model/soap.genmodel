@@ -17,18 +17,35 @@
       <genEnumLiterals ecoreEnumLiteral="soap.ecore#//SoapMode/REST"/>
       <genEnumLiterals ecoreEnumLiteral="soap.ecore#//SoapMode/TOPIC"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="soap.ecore#//Compatibility">
+      <genEnumLiterals ecoreEnumLiteral="soap.ecore#//Compatibility/AXIS1"/>
+    </genEnums>
     <genClasses ecoreClass="soap.ecore#//SoapProvides">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/address"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/wsaReplyTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/wsaFrom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/wsaFaultTo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/soapVersion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/chunkedMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/synchonousTimeout"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/cleanupTransport"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/mode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/proxyHost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/proxyPort"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/proxyUser"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/proxyPassword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/proxyDomain"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/proxyPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/headersFilter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/injectHeaders"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/headersToInject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpBasicAuthUsername"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpBasicAuthPassword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/enableCompatibilityFor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/enableWsa"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpsTruststoreFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpsTruststorePassword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpsKeystoreFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpsKeystorePassword"/>
     </genClasses>
     <genClasses ecoreClass="soap.ecore#//SoapConsumes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/soapServiceName"/>
@@ -36,7 +53,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/synchonousTimeout"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/mode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/enableHttpTransport"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/enableHttpsTransport"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/enableJmsTransport"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/enableCompatibilityFor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/enableWsa"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/httpServicesRedirection"/>
     </genClasses>
     <genClasses ecoreClass="soap.ecore#//SoapComponent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapComponent/httpPort"/>

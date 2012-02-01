@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.common.extensions.internal.provisional.WsdlExtUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.ejb.EjbDescription13;
 import com.ebmwebsourcing.petals.services.ejb.PetalsEjbPlugin;
 import com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage;
@@ -33,6 +34,7 @@ import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescript
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -106,6 +108,7 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
+		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
 		endpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__MARSHALLING_ENGINE, XmlEngine.JAXB);
 		endpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL, "rmi://server:1099");
 		endpoint.eSet(EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION, EjbVersion.V30);

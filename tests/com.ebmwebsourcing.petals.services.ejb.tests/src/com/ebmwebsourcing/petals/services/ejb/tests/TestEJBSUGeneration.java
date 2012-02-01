@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.waits.ICondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCombo;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -46,7 +47,8 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 	public void testFileLocked() throws Exception {
 		initFiles();
 		this.bot.menu("New").menu("Petals Service Provider").click();
-		this.bot.comboBox(1).setSelection("EJB  //  petals-bc-ejb");
+		SWTBotCombo comboBox = this.bot.comboBox(1);
+		comboBox.setSelection("EJB    //  petals-bc-ejb");
 		this.bot.button("Next >").click();
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override

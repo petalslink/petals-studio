@@ -40,6 +40,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.impl.FtpProvidesImpl#getServer <em>Server</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.impl.FtpProvidesImpl#getUser <em>User</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.impl.FtpProvidesImpl#getTransferType <em>Transfer Type</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.impl.FtpProvidesImpl#getEncoding <em>Encoding</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.impl.FtpProvidesImpl#getMaxIdleTime <em>Max Idle Time</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.ftp.ftp3.impl.FtpProvidesImpl#getMaxConnection <em>Max Connection</em>}</li>
  * </ul>
  * </p>
  *
@@ -245,6 +248,66 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	 * @ordered
 	 */
 	protected TransferType transferType = TRANSFER_TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEncoding()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ENCODING_EDEFAULT = "";
+
+	/**
+	 * The cached value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEncoding()
+	 * @generated
+	 * @ordered
+	 */
+	protected String encoding = ENCODING_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMaxIdleTime() <em>Max Idle Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxIdleTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int MAX_IDLE_TIME_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getMaxIdleTime() <em>Max Idle Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxIdleTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected int maxIdleTime = MAX_IDLE_TIME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMaxConnection() <em>Max Connection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxConnection()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int MAX_CONNECTION_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getMaxConnection() <em>Max Connection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxConnection()
+	 * @generated
+	 * @ordered
+	 */
+	protected int maxConnection = MAX_CONNECTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -480,6 +543,69 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEncoding() {
+		return encoding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEncoding(String newEncoding) {
+		String oldEncoding = encoding;
+		encoding = newEncoding;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__ENCODING, oldEncoding, encoding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getMaxIdleTime() {
+		return maxIdleTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMaxIdleTime(int newMaxIdleTime) {
+		int oldMaxIdleTime = maxIdleTime;
+		maxIdleTime = newMaxIdleTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__MAX_IDLE_TIME, oldMaxIdleTime, maxIdleTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getMaxConnection() {
+		return maxConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMaxConnection(int newMaxConnection) {
+		int oldMaxConnection = maxConnection;
+		maxConnection = newMaxConnection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__MAX_CONNECTION, oldMaxConnection, maxConnection));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -503,6 +629,12 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 				return getUser();
 			case Ftp3Package.FTP_PROVIDES__TRANSFER_TYPE:
 				return getTransferType();
+			case Ftp3Package.FTP_PROVIDES__ENCODING:
+				return getEncoding();
+			case Ftp3Package.FTP_PROVIDES__MAX_IDLE_TIME:
+				return getMaxIdleTime();
+			case Ftp3Package.FTP_PROVIDES__MAX_CONNECTION:
+				return getMaxConnection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -544,6 +676,15 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 				return;
 			case Ftp3Package.FTP_PROVIDES__TRANSFER_TYPE:
 				setTransferType((TransferType)newValue);
+				return;
+			case Ftp3Package.FTP_PROVIDES__ENCODING:
+				setEncoding((String)newValue);
+				return;
+			case Ftp3Package.FTP_PROVIDES__MAX_IDLE_TIME:
+				setMaxIdleTime((Integer)newValue);
+				return;
+			case Ftp3Package.FTP_PROVIDES__MAX_CONNECTION:
+				setMaxConnection((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -587,6 +728,15 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 			case Ftp3Package.FTP_PROVIDES__TRANSFER_TYPE:
 				setTransferType(TRANSFER_TYPE_EDEFAULT);
 				return;
+			case Ftp3Package.FTP_PROVIDES__ENCODING:
+				setEncoding(ENCODING_EDEFAULT);
+				return;
+			case Ftp3Package.FTP_PROVIDES__MAX_IDLE_TIME:
+				setMaxIdleTime(MAX_IDLE_TIME_EDEFAULT);
+				return;
+			case Ftp3Package.FTP_PROVIDES__MAX_CONNECTION:
+				setMaxConnection(MAX_CONNECTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -619,6 +769,12 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
 			case Ftp3Package.FTP_PROVIDES__TRANSFER_TYPE:
 				return transferType != TRANSFER_TYPE_EDEFAULT;
+			case Ftp3Package.FTP_PROVIDES__ENCODING:
+				return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
+			case Ftp3Package.FTP_PROVIDES__MAX_IDLE_TIME:
+				return maxIdleTime != MAX_IDLE_TIME_EDEFAULT;
+			case Ftp3Package.FTP_PROVIDES__MAX_CONNECTION:
+				return maxConnection != MAX_CONNECTION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -653,6 +809,12 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 		result.append(user);
 		result.append(", transferType: ");
 		result.append(transferType);
+		result.append(", encoding: ");
+		result.append(encoding);
+		result.append(", maxIdleTime: ");
+		result.append(maxIdleTime);
+		result.append(", maxConnection: ");
+		result.append(maxConnection);
 		result.append(')');
 		return result.toString();
 	}

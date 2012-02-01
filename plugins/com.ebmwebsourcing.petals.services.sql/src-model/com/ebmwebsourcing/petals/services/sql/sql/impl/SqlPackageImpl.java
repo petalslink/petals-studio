@@ -206,6 +206,15 @@ public class SqlPackageImpl extends EPackageImpl implements SqlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSqlProvides_StoredProcedure() {
+		return (EAttribute)sqlProvidesEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SqlFactory getSqlFactory() {
 		return (SqlFactory)getEFactoryInstance();
 	}
@@ -240,6 +249,7 @@ public class SqlPackageImpl extends EPackageImpl implements SqlPackage {
 		createEAttribute(sqlProvidesEClass, SQL_PROVIDES__MAX_WAIT);
 		createEAttribute(sqlProvidesEClass, SQL_PROVIDES__TIME_BETWEEN_EVICTION_RUNS_MILLIS);
 		createEAttribute(sqlProvidesEClass, SQL_PROVIDES__METADATA);
+		createEAttribute(sqlProvidesEClass, SQL_PROVIDES__STORED_PROCEDURE);
 	}
 
 	/**
@@ -288,6 +298,7 @@ public class SqlPackageImpl extends EPackageImpl implements SqlPackage {
 		initEAttribute(getSqlProvides_MaxWait(), theXMLTypePackage.getInt(), "maxWait", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSqlProvides_TimeBetweenEvictionRunsMillis(), theXMLTypePackage.getInt(), "timeBetweenEvictionRunsMillis", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSqlProvides_Metadata(), theXMLTypePackage.getBoolean(), "metadata", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSqlProvides_StoredProcedure(), theXMLTypePackage.getString(), "storedProcedure", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -385,6 +396,14 @@ public class SqlPackageImpl extends EPackageImpl implements SqlPackage {
 		   });		
 		addAnnotation
 		  (getSqlProvides_Metadata(), 
+		   source, 
+		   new String[] {
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0",
+			 "kind", "element"
+		   });		
+		addAnnotation
+		  (getSqlProvides_StoredProcedure(), 
 		   source, 
 		   new String[] {
 			 "namespace", "##targetNamespace",

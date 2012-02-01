@@ -16,14 +16,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.soap.SoapDescription40;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -41,6 +43,7 @@ public class SoapProvidesWizard40 extends AbstractServiceUnitWizard {
 
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
+		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
 		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION, SoapVersion.SOAP_11);
 		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE, false);
 		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT, 0);
@@ -69,6 +72,7 @@ public class SoapProvidesWizard40 extends AbstractServiceUnitWizard {
 
 	@Override
 	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
+		newlyCreatedEndpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, jbiProvidePage.getWsdlFileName());
 		return Status.OK_STATUS;
 	}
 

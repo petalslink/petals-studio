@@ -14,5 +14,6 @@ Require-Bundle: com.ebmwebsourcing.petals.services,
  org.eclipse.core.runtime,
  com.ebmwebsourcing.petals.common,
  org.eclipse.ui.forms,
- org.eclipse.emf.edit
+ org.eclipse.emf.edit,
+ com.ebmwebsourcing.petals.services.cdk;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

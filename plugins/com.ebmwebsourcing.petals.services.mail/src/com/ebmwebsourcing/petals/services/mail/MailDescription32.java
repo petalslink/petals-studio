@@ -9,19 +9,14 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.xslt;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.namespace.QName;
+package com.ebmwebsourcing.petals.services.mail;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class XsltDescription23_24 extends XsltDescription {
+public class MailDescription32 extends MailDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -30,7 +25,7 @@ public class XsltDescription23_24 extends XsltDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "2.3,2.4";
+		return "3.2";
 	}
 
 	/*
@@ -50,7 +45,7 @@ public class XsltDescription23_24 extends XsltDescription {
 	 */
 	@Override
 	public boolean isConsume() {
-		return false;
+		return true;
 	}
 
 	/*
@@ -66,15 +61,10 @@ public class XsltDescription23_24 extends XsltDescription {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #getDefaultOperations()
+	 * #getSupportedMep()
 	 */
 	@Override
-	public Map<QName,Mep> getDefaultOperations() {
-
-		HashMap<QName,Mep> result = new HashMap<QName,Mep> ();
-		result.put( new QName( "http://petals.ow2.org/components/xslt/version-2", "transform" ), Mep.IN_OUT );
-		result.put( new QName( "http://petals.ow2.org/components/xslt/version-2", "transformToMtomAttachment" ), Mep.IN_OUT );
-
-		return result;
+	public Mep[] getSupportedMep() {
+		return new Mep[] { Mep.IN_ONLY };
 	}
 }

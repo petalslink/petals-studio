@@ -26,6 +26,7 @@ import com.sun.java.xml.ns.jbi.Provides;
  *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getSubject <em>Subject</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getHelohost <em>Helohost</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getSendMode <em>Send Mode</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getContentType <em>Content Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -198,5 +199,32 @@ public interface MailProvides extends Provides, MailServiceCommon {
 	 * @generated
 	 */
 	void setSendMode(SendMode value);
+
+	/**
+	 * Returns the value of the '<em><b>Content Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Content Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Content Type</em>' attribute.
+	 * @see #setContentType(String)
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailPackage#getMailProvides_ContentType()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='element' namespace='##targetNamespace' group='#group:0' name='content-type'"
+	 * @generated
+	 */
+	String getContentType();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getContentType <em>Content Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Content Type</em>' attribute.
+	 * @see #getContentType()
+	 * @generated
+	 */
+	void setContentType(String value);
 
 } // MailProvides

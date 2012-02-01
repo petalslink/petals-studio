@@ -14,12 +14,12 @@ public class MailEditorContribution extends EditorContributionSupport {
 
 	@Override
 	protected JbiEditorDetailsContribution getProvidesContribution() {
-		return new DefaultJbiEditorContribution(MailPackage.Literals.MAIL_PROVIDES, Cdk5Package.Literals.CDK5_PROVIDES);
+		return new MailProvidesEditorContribution();
 	}
 
 	@Override
 	protected JbiEditorDetailsContribution getConsumesContribution() {
-		return new DefaultJbiEditorContribution(MailPackage.Literals.MAIL_CONSUMES, Cdk5Package.Literals.CDK5_CONSUMES);
+		return new MailConsumesEditorContribution();
 	}
 
 }

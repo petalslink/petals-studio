@@ -1,0 +1,210 @@
+<%@ jet
+package="com.ebmwebsourcing.petals.services.sql.generated"
+imports="com.sun.java.xml.ns.jbi.AbstractEndpoint"
+class="SqlService12"
+skeleton="../generator.skeleton" %>
+<% AbstractEndpoint data = (AbstractEndpoint) argument; %>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+	xmlns:tns="http://petals.ow2.org/components/sql/version-1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="SQLInterface" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	targetNamespace="http://petals.ow2.org/components/sql/version-1">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://petals.ow2.org/components/sql/version-1">
+		
+			<xsd:element name="sql" type ="xsd:string" />
+		
+			<xsd:element name="result">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="row" type="tns:rowType" maxOccurs="unbounded"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="rowType">
+				<xsd:sequence>
+					<xsd:element name="column" type="tns:columnType"
+						maxOccurs="unbounded" minOccurs="0">
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:attribute name="index" type="xsd:int" use="optional"></xsd:attribute>
+			</xsd:complexType>
+			<xsd:complexType name="columnType">
+				<xsd:attribute name="name" type="xsd:string" use="optional"></xsd:attribute>
+				<xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
+			</xsd:complexType>
+			
+			<xsd:element name="updated" type ="xsd:string" />
+			
+			<xsd:element name="storedProcedure">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="parameter" type="tns:parameter" maxOccurs="unbounded"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="parameter">
+				<xsd:simpleContent>
+					<xsd:extension base="xsd:string">
+						<xsd:attribute name="rank" type="xsd:int" use="required" />
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			
+			<xsd:element name="storedProcedureResult" type ="xsd:string" />
+		</xsd:schema>
+		
+	</wsdl:types>
+
+	<wsdl:message name="statementRequest">
+		<wsdl:part name="sql" element="tns:sql" />
+	</wsdl:message>	
+	<wsdl:message name="selectResponse">
+		<wsdl:part name="result" element="tns:result" />
+	</wsdl:message>
+	<wsdl:message name="statementResponse">
+		<wsdl:part name="updated" element="tns:updated" />
+	</wsdl:message>
+	<wsdl:message name="storedProcedureRequest">
+		<wsdl:part name="storedProcedure" element="tns:storedProcedure" />
+	</wsdl:message>
+	<wsdl:message name="storedProcedureResponse">
+		<wsdl:part name="storedProcedureResult" element="tns:storedProcedureResult" />
+	</wsdl:message>
+	<wsdl:message name="xmlStoredProcedureResponse">
+		<wsdl:part name="xmlStoredProcedureResult" element="tns:storedProcedure" />
+	</wsdl:message>
+
+	<wsdl:portType name="<%= data.getInterfaceName() %>">
+		<wsdl:operation name="select">
+			<wsdl:input message="tns:statementRequest" />
+			<wsdl:output message="tns:selectResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="insert">
+			<wsdl:input message="tns:statementRequest" />
+		</wsdl:operation>
+		<wsdl:operation name="delete">
+			<wsdl:input message="tns:statementRequest" />
+		</wsdl:operation>
+		<wsdl:operation name="update">
+			<wsdl:input message="tns:statementRequest" />
+		</wsdl:operation>
+		<wsdl:operation name="insertWithResponse">
+			<wsdl:input message="tns:statementRequest" />
+			<wsdl:output message="tns:statementResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="deleteWithResponse">
+			<wsdl:input message="tns:statementRequest" />
+			<wsdl:output message="tns:statementResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="updateWithResponse">
+			<wsdl:input message="tns:statementRequest" />
+			<wsdl:output message="tns:statementResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="storedProcedure">
+			<wsdl:input message="tns:storedProcedureRequest" />
+			<wsdl:output message="tns:storedProcedureResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="XMLStoredProcedure">
+			<wsdl:input message="tns:storedProcedureRequest" />
+			<wsdl:output message="tns:xmlStoredProcedureResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<!-- This binding section is defined only to expose this WSDL via SOAP component to external service consumers
+-->
+	<!-- 
+	<wsdl:binding name="SQLBinding" type="tns:<%= data.getInterfaceName() %>">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="select">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/select" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="insert">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/insert" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="delete">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/delete" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="update">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/update" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="insertWithResponse">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/insertWithResponse" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteWithResponse">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/deleteWithResponse" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="updateWithResponse">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/updateWithResponse" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="storedProcedure">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/storedProcedure" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="XMLStoredProcedure">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/sql/version-1/XMLStoredProcedure" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	-->
+
+</wsdl:definitions>
