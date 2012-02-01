@@ -7,7 +7,7 @@
 
 <!--
  <copyright>
-	 Copyright (c) 2009-2011, EBM WebSourcing
+	 Copyright (c) 2009-2012, EBM WebSourcing
 	  
 	 This source code is available under agreement available at
 	 http://www.petalslink.com/legal/licenses/petals-studio
@@ -203,7 +203,7 @@
        </category>
        <category
              id="com.ebmwebsourcing.petals.common.wizards.maven"
-             name="Petals Maven Shortcuts">
+             name="Petals (Maven Shortcuts)">
        </category>
        <wizard
              category="com.ebmwebsourcing.petals.common.wizards"
