@@ -61,6 +61,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
+import com.ebmwebsourcing.petals.services.bpel.PetalsBpelHelper;
 import com.ebmwebsourcing.petals.services.bpel.PetalsBpelPlugin;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
 import com.ebmwebsourcing.petals.services.wizards.beans.SaImportBean;
@@ -86,7 +87,7 @@ public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard 
 	public BpelToPetalsProjectsWizard() {
 		super();
 		setNeedsProgressMonitor( true );
-		setWindowTitle( "BPEL Croquis Export" );
+		setWindowTitle( "From BPEL to Petals Projects" );
 
 		try {
 			this.wsdlImportHelper = new WsdlImportHelper();
@@ -157,7 +158,7 @@ public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard 
 			MultiStatus status = new MultiStatus(
 						PetalsBpelPlugin.PLUGIN_ID, 0,
 						this.errors.toArray( children ),
-						"The croquis conversion encountered errors.", null );
+						"The conversion encountered errors.", null );
 
 			ErrorDialog.openError( new Shell(), "Conversion Error", "", status );
 		}
@@ -173,7 +174,7 @@ public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard 
 	 */
 	protected void doFinish( IProgressMonitor monitor ) throws CoreException {
 
-		monitor.beginTask( "Creating the concrete projects...", IProgressMonitor.UNKNOWN );
+		monitor.beginTask( "Creating the projects...", IProgressMonitor.UNKNOWN );
 		List<SaImportBean> importBeans = this.page.getImportsBeans();
 
 
@@ -305,7 +306,7 @@ public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard 
 		// Create the jbi.xml file
 		monitor.subTask( "Generating the jbi.xml file..." );
 		final IFile jbiFile = project.getFile( PetalsConstants.LOC_JBI_FILE );
-		Jbi jbiInstance = this.page.getHelper().createJbiXml( jbiFile, bpelName );
+		Jbi jbiInstance = new PetalsBpelHelper( target ).createJbiXml( jbiFile, bpelName );
 		JbiXmlUtils.writeJbiXmlModel( jbiInstance, jbiFile.getLocation().toFile());
 
 
@@ -475,6 +476,10 @@ public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard 
 		} catch( Exception e ) {
 			PetalsBpelPlugin.log( e, IStatus.WARNING );
 		}
+
+		// Select it
+		this.resourcesToSelect.clear();
+		this.resourcesToSelect.add( project );
 	}
 
 
