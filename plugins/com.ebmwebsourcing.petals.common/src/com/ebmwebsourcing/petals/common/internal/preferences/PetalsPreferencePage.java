@@ -77,15 +77,6 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 		this.logJaxWsField.setPreferenceStore( getPreferenceStore());
 		this.logJaxWsField.load();
 
-		// Format the code in JBI descriptors
-		group = new Group( container, SWT.NONE );
-		group.setLayout( new GridLayout());
-		layoutData = new GridData( GridData.FILL_HORIZONTAL );
-		layoutData.horizontalSpan = 3;
-		layoutData.verticalIndent = 10;
-		group.setLayoutData( layoutData );
-		group.setText( "Formatting" );
-
 		return container;
 	}
 

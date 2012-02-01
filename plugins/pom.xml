@@ -19,8 +19,8 @@
 	
 	<modules>
 		<!-- Libraries -->
-		<module>com.ebmwebsourcing.petals.common.libs.cxf</module>
-		<module>com.ebmwebsourcing.petals.common.libs.easybpel</module>
+		<module>com.ebmwebsourcing.petals.libs.cxf</module>
+		<module>com.ebmwebsourcing.petals.libs.easybpel</module>
 	
 		<!-- Core of Petals tooling -->
 		<module>com.ebmwebsourcing.jbi.core.metamodel</module>
