@@ -235,7 +235,7 @@ public class QuartzPackageImpl extends EPackageImpl implements QuartzPackage {
 		  (getQuartzConsumes_Content(), 
 		   source, 
 		   new String[] {
-			 "name", "cron-expression",
+			 "name", "content",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0",
 			 "kind", "element"

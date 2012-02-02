@@ -10,18 +10,17 @@
  *
  *****************************************************************************/
 
-package com.ebmwebsourcing.petals.services.quartz.wizards;
+package com.ebmwebsourcing.petals.services.quartz.v11;
 
 import java.net.URL;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.databinding.EMFObservables;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -33,19 +32,20 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.quartz.Messages;
+import com.ebmwebsourcing.petals.services.quartz.PetalsQuartzPlugin;
 import com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-@SuppressWarnings( "restriction" )
-public class QuartzComponentSpecificPage10 extends AbstractSuWizardPage {
+public class QuartzComponentSpecificPage1x extends AbstractSuWizardPage {
 
-	private StyledText contentTextField;
-	private DataBindingContext dbc;
+	private String msgSkeleton, cron;
 
 	/*
 	 * (non-Javadoc)
@@ -54,11 +54,13 @@ public class QuartzComponentSpecificPage10 extends AbstractSuWizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		this.dbc = new DataBindingContext();
 
 		Composite res = new Composite(parent, SWT.NONE);
 		res.setLayout( new GridLayout( 2, false ));
+		setControl(res);
 
+
+		// The CRON
 		Label cronLabel = new Label(res, SWT.NONE);
 		cronLabel.setText(Messages.cronExpression);
 		Text cronText = new Text(res, SWT.BORDER);
@@ -72,21 +74,33 @@ public class QuartzComponentSpecificPage10 extends AbstractSuWizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				try {
 					final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser();
-					browser.openURL(new URL("http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger"));
+					browser.openURL( new URL("http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger"));
+
 				} catch (Exception ex) {
-					ErrorDialog dialog = new ErrorDialog(
+					PetalsQuartzPlugin.log( ex, IStatus.ERROR );
+					new ErrorDialog(
 							getShell(),
 							Messages.couldNotOpenEditorTitle,
 							Messages.couldNotOpenEditorMessage,
-							new Status(IStatus.ERROR, "com.ebmwebsourcing.petals.services.quartz", ex.getMessage()), 0);
+							new Status(IStatus.ERROR, PetalsQuartzPlugin.PLUGIN_ID, ex.getMessage()), 0).open();
 				}
 			}
 		});
 
-		this.dbc.bindValue(
-				SWTObservables.observeText(cronText, SWT.Modify),
-				EMFObservables.observeValue(getNewlyCreatedEndpoint(), QuartzPackage.Literals.QUARTZ_CONSUMES__CRON_EXPRESSION));
+		this.cron = (String) getNewlyCreatedEndpoint().eGet( QuartzPackage.Literals.QUARTZ_CONSUMES__CRON_EXPRESSION );
+		if( this.cron != null )
+			cronText.setText( this.cron );
 
+		cronText.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				QuartzComponentSpecificPage1x.this.cron = ((Text) e.widget).getText().trim();
+				validate();
+			}
+		});
+
+
+		// The message skeleton
 		Label l = new Label( res, SWT.NONE );
 		l.setText( Messages.content );
 
@@ -95,16 +109,22 @@ public class QuartzComponentSpecificPage10 extends AbstractSuWizardPage {
 		layoutData.verticalIndent = 5;
 		l.setLayoutData( layoutData );
 
-		this.contentTextField = SwtFactory.createXmlTextViewer( res );
+		StyledText msgText = SwtFactory.createXmlTextViewer( res );
 		layoutData = new GridData( GridData.FILL_BOTH );
 		layoutData.horizontalSpan = 2;
-		this.contentTextField.getParent().setLayoutData( layoutData );
+		msgText.getParent().setLayoutData( layoutData );
 
-		this.dbc.bindValue(
-				SWTObservables.observeText(this.contentTextField, SWT.Modify),
-				EMFObservables.observeValue(getNewlyCreatedEndpoint(), QuartzPackage.Literals.QUARTZ_CONSUMES__CONTENT));
+		this.msgSkeleton = (String) getNewlyCreatedEndpoint().eGet( QuartzPackage.Literals.QUARTZ_CONSUMES__CONTENT );
+		if( this.msgSkeleton != null )
+			msgText.setText( this.msgSkeleton );
 
-		setControl(res);
+		msgText.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				QuartzComponentSpecificPage1x.this.msgSkeleton = ((StyledText) e.widget).getText().trim();
+				validate();
+			}
+		});
 	}
 
 
@@ -115,12 +135,33 @@ public class QuartzComponentSpecificPage10 extends AbstractSuWizardPage {
 	 */
 	@Override
 	public boolean validate() {
-		return true;
-	}
 
-	@Override
-	public void dispose() {
-		this.dbc.dispose();
-		super.dispose();
+		if( StringUtils.isEmpty( this.cron )) {
+			this.updateStatus( "You have to provide a CRON expression to trigger service invocations." );
+			return false;
+
+		} else if( StringUtils.isEmpty( this.msgSkeleton )) {
+			this.updateStatus( "You have to provide a valid XML message to send to the service." );
+			return false;
+
+		} else {
+			StringBuilder sb = new StringBuilder();
+			sb.append( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
+			sb.append( this.msgSkeleton );
+
+			if( ! DomUtils.isValidXmlDocument( sb.toString())) {
+				updateStatus( "The XML message is an invalid XML document." );
+				return false;
+			}
+		}
+
+		// this.content = "<![CDATA[" + this.contentTextField.getText().trim() + "]]>";
+
+		// EMF serialization will deal with CDATA escape (save options)
+		getNewlyCreatedEndpoint().eSet( QuartzPackage.Literals.QUARTZ_CONSUMES__CRON_EXPRESSION, this.cron );
+		getNewlyCreatedEndpoint().eSet( QuartzPackage.Literals.QUARTZ_CONSUMES__CONTENT, this.msgSkeleton );
+
+		updateStatus( null );
+		return true;
 	}
 }

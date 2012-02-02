@@ -12,6 +12,7 @@
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -311,7 +312,7 @@ public class DomUtils {
 	 * @param file the file to load
 	 * @return the document or null if it could not be loaded
 	 */
-	public static Document buildDocument( File file ) {
+	public static Document buildDocument( File file, boolean tryWithEclipse ) {
 
 		Document doc = null;
 
@@ -342,5 +343,61 @@ public class DomUtils {
 		}
 
 		return doc;
+	}
+
+
+	/**
+	 * Builds a document for the given file.
+	 * <p>
+	 * Equivalent to <code><buildDocument( file,false );</code>.
+	 * </p>
+	 *
+	 * @param file the file to load
+	 * @return the document or null if it could not be loaded
+	 */
+	public static Document buildDocument( File file ) {
+		return buildDocument( file, false );
+	}
+
+
+	/**
+	 * Builds a document from a string.
+	 * @param text the text to parse as a XML document
+	 * @return the document or null if it could not be loaded
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	public static Document buildDocument( String text )
+	throws SAXException, IOException, ParserConfigurationException {
+
+		DocumentBuilderFactory db = DocumentBuilderFactory.newInstance();
+		db.setNamespaceAware( true );
+		return db.newDocumentBuilder().parse( new ByteArrayInputStream( text.getBytes()));
+	}
+
+
+	/**
+	 * Validates if a text represents a valid XML document.
+	 * @param text the text to parse
+	 * @return true if it could be parsed as a XML document, false otherwise
+	 */
+	public static boolean isValidXmlDocument( String text ) {
+
+		boolean result = false;
+		try {
+			result = buildDocument( text ) != null;
+
+		} catch( SAXException e ) {
+			// nothing
+
+		} catch( IOException e ) {
+			// nothing
+
+		} catch( ParserConfigurationException e ) {
+			// nothing
+		}
+
+		return result;
 	}
 }

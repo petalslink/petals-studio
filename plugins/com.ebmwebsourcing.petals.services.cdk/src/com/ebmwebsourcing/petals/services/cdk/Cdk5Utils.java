@@ -12,6 +12,7 @@
 package com.ebmwebsourcing.petals.services.cdk;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
 
 /**
@@ -26,5 +27,12 @@ public class Cdk5Utils {
 		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, false);
 		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_ATTACHMENTS, false);
 		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, null);
+	}
+
+
+	public static void setInitialConsumesValues(Consumes consumes) {
+		consumes.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
+		consumes.eSet(Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, null);
+		consumes.eSet(Cdk5Package.Literals.CDK5_CONSUMES__MEP, null);
 	}
 }

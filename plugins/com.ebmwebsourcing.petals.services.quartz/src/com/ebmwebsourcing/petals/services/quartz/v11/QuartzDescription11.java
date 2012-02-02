@@ -9,14 +9,15 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.quartz;
+package com.ebmwebsourcing.petals.services.quartz.v11;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.services.quartz.QuartzDescription;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class QuartzDescription1x extends QuartzDescription {
+public class QuartzDescription11 extends QuartzDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -25,7 +26,7 @@ public class QuartzDescription1x extends QuartzDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "1.x";
+		return "1.1";
 	}
 
 	/*

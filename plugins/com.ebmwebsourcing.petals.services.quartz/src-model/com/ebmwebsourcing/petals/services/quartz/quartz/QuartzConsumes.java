@@ -68,7 +68,7 @@ public interface QuartzConsumes extends Consumer {
 	 * @see #setContent(String)
 	 * @see com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage#getQuartzConsumes_Content()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
-	 *        extendedMetaData="name='cron-expression' namespace='##targetNamespace' group='#group:0' kind='element'"
+	 *        extendedMetaData="name='content' namespace='##targetNamespace' group='#group:0' kind='element'"
 	 * @generated
 	 */
 	String getContent();

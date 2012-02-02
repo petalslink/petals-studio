@@ -19,10 +19,17 @@
       <ComponentSupport
             id="quartz">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.QuartzDescription1x"
-               consumesExtensionWizard="com.ebmwebsourcing.petals.services.quartz.wizards.QuartzWizard1x"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.v11.QuartzDescription11"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.quartz.v11.QuartzWizard11"
                editorExtension="com.ebmwebsourcing.petals.services.quartz.editor.QuartzEditorContribution"
                id="Quartz 1.1"
+               namespace="http://petals.ow2.org/components/quartz/version-1">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.quartz.v12.QuartzDescription12"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.quartz.v12.QuartzWizard12"
+               editorExtension="com.ebmwebsourcing.petals.services.quartz.editor.QuartzEditorContribution"
+               id="Quartz 1.2"
                namespace="http://petals.ow2.org/components/quartz/version-1">
          </ComponentVersionSupport>
       </ComponentSupport>

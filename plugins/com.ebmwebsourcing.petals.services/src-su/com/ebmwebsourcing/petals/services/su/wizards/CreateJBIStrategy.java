@@ -18,6 +18,7 @@ import java.net.URI;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -70,6 +71,8 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 		monitor.subTask( "Creating the jbi.xml..." );
 		JbiXmlUtils.writeJbiXmlModel( jbiInstance, jbiFile );
 		monitor.worked( 1 );
+
+		this.project.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 
 
 		// Open the jbi.xml?

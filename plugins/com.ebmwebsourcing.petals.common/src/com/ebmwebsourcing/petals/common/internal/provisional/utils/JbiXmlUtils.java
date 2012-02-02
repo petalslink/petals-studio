@@ -67,6 +67,7 @@ public class JbiXmlUtils {
 
 		Map<Object,Object> options = new HashMap<Object,Object> ();
 		options.put( XMLResource.OPTION_ENCODING, "UTF-8" );
+		options.put( XMLResource.OPTION_ESCAPE_USING_CDATA, Boolean.TRUE );
 		resource.save( options );
 	}
 

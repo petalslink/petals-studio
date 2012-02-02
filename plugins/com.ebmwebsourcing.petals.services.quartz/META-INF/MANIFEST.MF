@@ -26,3 +26,4 @@ Require-Bundle: org.eclipse.ui,
  com.ebmwebsourcing.petals.common;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.ebmwebsourcing.petals.services.quartz.PetalsQuartzPlugin
