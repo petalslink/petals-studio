@@ -20,14 +20,21 @@ import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.text.source.SourceViewer;
+import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -44,6 +51,13 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ListDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.wst.sse.core.StructuredModelManager;
+import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
+import org.eclipse.wst.sse.ui.StructuredTextViewerConfiguration;
+import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
+import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
+import org.eclipse.wst.xml.core.internal.provisional.contenttype.ContentTypeIdForXML;
+import org.eclipse.wst.xml.ui.StructuredTextViewerConfigurationXML;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.LinkWithImageComposite;
@@ -121,6 +135,45 @@ public class SwtFactory {
 			c.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 
 		return c;
+	}
+
+
+	/**
+	 * Creates a styled text with syntax highlighting for XML document.
+	 * @param parent
+	 * @param readOnly
+	 * @return
+	 */
+	@SuppressWarnings( "restriction" )
+	public static StyledText createXmlTextViewer( Composite parent ) {
+
+		Composite editor = new Composite( parent, SWT.NONE );
+		editor.setLayout( new FillLayout ());
+
+		SourceViewerConfiguration sourceViewerConfiguration = new StructuredTextViewerConfiguration() {
+			StructuredTextViewerConfiguration baseConfiguration = new StructuredTextViewerConfigurationXML();
+
+			@Override
+			public String[] getConfiguredContentTypes( ISourceViewer sourceViewer ) {
+				return this.baseConfiguration.getConfiguredContentTypes( sourceViewer );
+			}
+
+			@Override
+			public LineStyleProvider[] getLineStyleProviders( ISourceViewer sourceViewer, String partitionType ) {
+				return this.baseConfiguration.getLineStyleProviders( sourceViewer, partitionType );
+			}
+		};
+
+		SourceViewer viewer = null;
+		String contentTypeID = ContentTypeIdForXML.ContentTypeID_XML;
+		viewer = new StructuredTextViewer( editor, null, null, false, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
+		((StructuredTextViewer) viewer).getTextWidget().setFont( JFaceResources.getFont( "org.eclipse.wst.sse.ui.textfont" )); //$NON-NLS-1$
+		IStructuredModel scratchModel = StructuredModelManager.getModelManager().createUnManagedStructuredModelFor( contentTypeID );
+		IDocument document = scratchModel.getStructuredDocument();
+		viewer.configure( sourceViewerConfiguration );
+		viewer.setDocument( document );
+
+		return viewer.getTextWidget();
 	}
 
 

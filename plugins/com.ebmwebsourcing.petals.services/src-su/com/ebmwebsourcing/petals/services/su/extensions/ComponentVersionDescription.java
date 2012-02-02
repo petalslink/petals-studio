@@ -33,16 +33,24 @@ public abstract class ComponentVersionDescription implements IComponentDescripti
 	protected String namespce;
 	protected IConfigurationElement configurationElement;
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.core.runtime.IExecutableExtension
+	 * #setInitializationData(org.eclipse.core.runtime.IConfigurationElement, java.lang.String, java.lang.Object)
+	 */
 	@Override
 	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) {
 		this.configurationElement = config;
 		this.namespce = config.getAttribute("namespace");
 	}
-	
+
+	/**
+	 * @return the name space
+	 */
 	public String getNamespace() {
 		return this.namespce;
 	}
-	
+
 	/**
 	 * @return the component's version
 	 */
@@ -91,6 +99,17 @@ public abstract class ComponentVersionDescription implements IComponentDescripti
 		return "autogenerate";
 	}
 
+	/**
+	 * Makes sure everything is configured correctly to use the component wizard.
+	 * @return null if everything is fine, an error message otherwise
+	 */
+	public String validatePrerequisites() {
+		return null;
+	}
+
+	/**
+	 * @return the editor contribution for this version
+	 */
 	public EditorContributionSupport createNewExtensionSupport() {
 		try {
 			return (EditorContributionSupport) this.configurationElement.createExecutableExtension("editorExtension");

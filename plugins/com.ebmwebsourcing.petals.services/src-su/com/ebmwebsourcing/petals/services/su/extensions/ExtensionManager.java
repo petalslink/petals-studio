@@ -43,6 +43,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * The class in charge of getting the contributions made to the extension-point defined by this plug-in.
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class ExtensionManager {
 
@@ -146,7 +147,7 @@ public class ExtensionManager {
 	public SortedSet<String> findComponentVersions( String componentName ) {
 
 		SortedSet<String> result = new TreeSet<String> ();
-		for( ComponentVersionDescription desc : this.namespaceToDescription.values() ) {
+		for( ComponentVersionDescription desc : this.namespaceToDescription.values()) {
 			if( desc.getComponentName().equals( componentName ))
 				result.add( desc.getComponentVersion());
 		}
@@ -203,25 +204,34 @@ public class ExtensionManager {
 	}
 
 
+	/**
+	 * @return
+	 */
 	public Collection<ComponentVersionDescription> findAllComponentVersionDescriptions() {
 		return this.namespaceToDescription.values();
 	}
 
 
+	/**
+	 * @param selectedEndpoint
+	 * @return
+	 */
 	public ComponentVersionDescription findComponentDescription(AbstractEndpoint selectedEndpoint) {
+
 		for (FeatureMap.Entry entry : selectedEndpoint.getGroup()) {
 			EStructuralFeature feature = entry.getEStructuralFeature();
 			if (feature instanceof Holder) {
-				ComponentVersionDescription ext = this.namespaceToDescription.get(((Holder)feature).getExtendedMetaData().getNamespace());
-				if (ext != null) {
-					if (selectedEndpoint instanceof Provides && ext.isProvide()) {
-						return ext;
-					} else if (selectedEndpoint instanceof Consumes && ext.isConsume()) {
-						return ext;
-					}
-				}
+				ComponentVersionDescription ext = this.namespaceToDescription.get(((Holder) feature).getExtendedMetaData().getNamespace());
+				if( ext == null )
+					continue;
+
+				if (selectedEndpoint instanceof Provides && ext.isProvide())
+					return ext;
+				else if (selectedEndpoint instanceof Consumes && ext.isConsume())
+					return ext;
 			}
 		}
+
 		return null;
 	}
 }

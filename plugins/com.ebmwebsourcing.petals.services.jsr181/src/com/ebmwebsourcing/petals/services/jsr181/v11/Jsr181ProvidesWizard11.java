@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.jsr181.wizards;
+package com.ebmwebsourcing.petals.services.jsr181.v11;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -46,11 +47,12 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils.JaxWsException;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
+import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.jsr181.Jsr181Constants;
-import com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11;
 import com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin;
 import com.ebmwebsourcing.petals.services.jsr181.generated.JaxWsImplementation;
 import com.ebmwebsourcing.petals.services.jsr181.jsr181.Jsr181Package;
@@ -64,16 +66,20 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
+public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 
-	private boolean wsdlFirst;
-	private String wsdlUrl;
+	private Jsr181ProvidePage11 page;
 
-	public Jsr181ProvidesWizard() {
+
+	/**
+	 * Constructor.
+	 */
+	public Jsr181ProvidesWizard11() {
 		super();
 		this.settings.showJbiPage = false;
 		this.settings.openJbiEditor = false;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -84,10 +90,12 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 		return new Jsr181Description11();
 	}
 
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
@@ -98,7 +106,7 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 			IJavaProject jp = JavaUtils.createJavaProject( resourceFolder.getProject());
 
 			// Start working on the JAX-WS part
-			if( this.wsdlFirst ) {
+			if( this.page.isWsdlFirst()) {
 				wsdlFirstApproach( jp, abstractEndpoint, monitor );
 			} else {
 				implementationFirstApproach( jp.getProject(), abstractEndpoint, monitor );
@@ -112,24 +120,6 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #validatePrerequisites()
-	 */
-	public Exception validatePrerequisites() {
-		try {
-			JaxWsUtils.getJavaExecutable( true );
-			JaxWsUtils.getJavaExecutable( false );
-
-		} catch( IOException e ) {
-			return e;
-		}
-
-		return null;
-	}
-
-
 	/**
 	 * Completes the wizard for an implementation-first approach.
 	 *
@@ -137,13 +127,12 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 	 * @param ae
 	 * @param resourcesToSelect
 	 * @param monitor
-	 * TODO: fix it
 	 */
 	private void implementationFirstApproach( IProject project, AbstractEndpoint ae, IProgressMonitor monitor ) {
 
 		IFolder srcFolder = project.getFolder( PetalsConstants.LOC_SRC_FOLDER );
 
-		String className = (String) ae.eGet(Jsr181Package.Literals.JSR181_PROVIDES__CLAZZ);
+		String className = this.page.getClassToGenerate();
 		int lastDotIndex = className.lastIndexOf( '.' );
 		String packageName, simpleClassName;
 
@@ -157,7 +146,8 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 			packageName = "";
 		}
 
-		// set Values
+
+		// Set values
 		String[] nsParts = packageName.trim().split( "\\." );
 		StringBuffer nsStringBuffer = new StringBuffer( "http://" );
 		for( int i=nsParts.length - 1; i>0; i-- )
@@ -168,6 +158,8 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 		ae.setServiceName( new QName(namespace, simpleClassName) );
 		ae.setInterfaceName( new QName(namespace, simpleClassName) );
 		ae.setEndpointName(simpleClassName + "Port");
+		ae.eSet( Jsr181Package.Literals.JSR181_PROVIDES__CLAZZ, className );
+
 
 		// Fill-in the generation properties
 		Properties generationProperties = new Properties();
@@ -181,39 +173,49 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 		generationProperties.put( Jsr181Constants.PORT_NAME, ae.getEndpointName());
 		generationProperties.put( Jsr181Constants.TNS, ae.getServiceName().getNamespaceURI());
 
+
 		// Create the package
 		StringBuffer sb = new StringBuffer();
-		for( String path : packageName.trim().split( "\\." ))
+		for( String path : packageName.trim().split( "\\." )) {
 			sb.append( path + "/" );
+		}
 
-				File packageDirectory = srcFolder.getLocation().append( sb.toString()).toFile();
-				if( ! packageDirectory.exists()
-						&& ! packageDirectory.mkdirs()) {
-					PetalsJsr181Plugin.log( new IOException( "Could not create the Java package." ), IStatus.ERROR );
-				}
+		File packageDirectory = srcFolder.getLocation().append( sb.toString()).toFile();
+		if( ! packageDirectory.exists()
+				&& ! packageDirectory.mkdirs()) {
+			PetalsJsr181Plugin.log( new IOException( "Could not create the Java package." ), IStatus.ERROR );
+			return;
+		}
+
+		try {
+			srcFolder.refreshLocal( IResource.DEPTH_INFINITE, monitor );
+		} catch( CoreException e ) {
+			// nothing
+		}
+
+
+		// Create the JAX-WS implementation
+		final IFile file = srcFolder.getFile( sb.toString() + simpleClassName + ".java" );
+		createFile( file, new JaxWsImplementation().generate( generationProperties ), monitor );
+
+		// Open the implementation in the Java editor
+		Display.getDefault().asyncExec( new Runnable() {
+			@Override
+			public void run() {
 
 				try {
-					srcFolder.refreshLocal( IResource.DEPTH_INFINITE, monitor );
-				} catch( CoreException e ) {
-					// nothing
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					IDE.openEditor( page, file );
+
+				} catch( PartInitException e ) {
+					PetalsJsr181Plugin.log( e, IStatus.ERROR );
+
 				}
+			}
+		});
 
-				if( packageDirectory.exists() && ! packageDirectory.isFile()) {
-
-					// Create the JAX-WS implementation
-					IFile file = srcFolder.getFile( sb.toString() + simpleClassName + ".java" );
-					createFile( file, new JaxWsImplementation().generate( generationProperties ), monitor );
-
-					// Open the implementation in the Java editor
-					try {
-						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-						IDE.openEditor( page, file );
-
-					} catch( PartInitException e ) {
-						PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-					}
-				}
+		// Select the created file
+		ResourceUtils.selectResourceInPetalsExplorer( true, file );
 	}
 
 
@@ -224,14 +226,13 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 	 * @param ae
 	 * @param resourcesToSelect
 	 * @param monitor
-	 * TODO: fix it
 	 */
 	private void wsdlFirstApproach( IJavaProject jp, AbstractEndpoint ae, IProgressMonitor monitor ) {
 
 		try {
 			// Create the WS implementation
 			IProject project = jp.getProject();
-			URI wsdlUri = UriAndUrlHelper.urlToUri( this.wsdlUrl );
+			URI wsdlUri = UriAndUrlHelper.urlToUri( this.page.getWsdlUriAsString());
 
 			IFolder srcFolder = project.getFolder( PetalsConstants.LOC_SRC_FOLDER );
 			File srcDirectory = srcFolder.getLocation().toFile();
@@ -248,7 +249,7 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 			project.build( IncrementalProjectBuilder.FULL_BUILD, JavaCore.BUILDER_ID, buildOptions, monitor );
 
 			// Update JBI
-			JbiBasicBean bean = WsdlUtils.INSTANCE.parse(this.wsdlUrl).get(0);
+			JbiBasicBean bean = WsdlUtils.INSTANCE.parse( this.page.getWsdlUriAsString()).get( 0 );
 			ae.eSet(JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, bean.getInterfaceName());
 			ae.eSet(JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, bean.getServiceName());
 			ae.eSet(JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, bean.getEndpointName());
@@ -257,8 +258,11 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 			// Import the WSDL in the project
 			IFolder resFolder = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
 			File resFile = resFolder.getLocation().toFile();
-			Map<String,File> uriToFile = new WsdlImportHelper().importWsdlOrXsdAndDependencies( resFile, this.wsdlUrl );
-			String wsdlName = wsdlUri.toURL().getFile();
+			Map<String,File> uriToFile = new WsdlImportHelper().importWsdlOrXsdAndDependencies( resFile, this.page.getWsdlUriAsString());
+			File f = uriToFile.get( this.page.getWsdlUriAsString());
+			String wsdlName = f == null ? wsdlUri.toURL().getFile() : f.getName();
+			ae.eSet( Cdk5Package.Literals.CDK5_PROVIDES__WSDL, wsdlName );
+
 			resFolder.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 
 		} catch( PartInitException e ) {
@@ -290,58 +294,37 @@ public class Jsr181ProvidesWizard extends AbstractServiceUnitWizard {
 		}
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
 		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return null;
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
-		return new AbstractSuWizardPage[] {
-			new Jsr181ProvidePage()
-		};
+		this.page = new Jsr181ProvidePage11();
+		return new AbstractSuWizardPage[] { this.page };
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		Exception prereq = validatePrerequisites();
-		if (prereq != null) {
-			return new AbstractSuWizardPage[] {
-				new ErrorPage(prereq)
-			};
-		} else {
-			return null;
-		}
-	}
 
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #isJavaProject()
+	 */
 	@Override
 	protected boolean isJavaProject() {
 		return true;
-	}
-
-	public boolean isWsdlFirst() {
-		return this.wsdlFirst;
-	}
-
-	public void setWsdlFirst(boolean wsdlFirst) {
-		this.wsdlFirst = wsdlFirst;
-	}
-
-	public String getWsdlUrl() {
-		return this.wsdlUrl;
-	}
-
-	public void setWsdlUrl(String wsdlUrl) {
-		this.wsdlUrl = wsdlUrl;
 	}
 }

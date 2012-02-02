@@ -28,11 +28,18 @@
       <ComponentSupport
             id="jsr181">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.Jsr181Description11"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.v11.Jsr181Description11"
                editorExtension="com.ebmwebsourcing.petals.services.jsr181.editor.JaxWsEditorContribution"
                id="Jsr181 1.1"
                namespace="http://petals.ow2.org/components/jsr181/version-1"
-               providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.wizards.Jsr181ProvidesWizard">
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.v11.Jsr181ProvidesWizard11">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.v12.Jsr181Description12"
+               editorExtension="com.ebmwebsourcing.petals.services.jsr181.editor.JaxWsEditorContribution"
+               id="Jsr181 1.2"
+               namespace="http://petals.ow2.org/components/jsr181/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.v12.Jsr181ProvidesWizard12">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>

@@ -9,12 +9,15 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.jsr181;
+package com.ebmwebsourcing.petals.services.jsr181.v12;
+
+import com.ebmwebsourcing.petals.services.jsr181.v11.Jsr181Description11;
+
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class Jsr181Description11 extends Jsr181Description {
+public class Jsr181Description12 extends Jsr181Description11 {
 
 	/*
 	 * (non-Javadoc)
@@ -23,36 +26,6 @@ public class Jsr181Description11 extends Jsr181Description {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "1.x";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProvide()
-	 */
-	@Override
-	public boolean isProvide() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isConsume()
-	 */
-	@Override
-	public boolean isConsume() {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProxy()
-	 */
-	@Override
-	public boolean isProxy() {
-		return false;
+		return "1.2";
 	}
 }

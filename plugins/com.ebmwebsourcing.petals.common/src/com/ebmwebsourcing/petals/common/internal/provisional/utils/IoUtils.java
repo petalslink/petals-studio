@@ -319,18 +319,6 @@ public class IoUtils {
 
 
 	/**
-	 * @param stream
-	 * @return
-	 * FIXME: is this method really useful?
-	 */
-	public static String streamToText( InputStream stream ) throws IOException {
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		copyStream( stream, os );
-		return os.toString();
-	}
-
-
-	/**
 	 * Converts an URI into a file.
 	 * <p>
 	 * The returned file might not exist.
