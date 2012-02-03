@@ -9,7 +9,7 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="jndiProviderURL" lowerBound="1"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
-        defaultValueLiteral="" derived="true">
+        defaultValueLiteral="" unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="jndi-provider-url"/>
         <details key="namespace" value="##targetNamespace"/>
@@ -19,7 +19,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="jndiInitialContextFactory"
         lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
-        defaultValueLiteral="" derived="true">
+        defaultValueLiteral="" unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="jndi-initial-context-factory"/>
         <details key="namespace" value="##targetNamespace"/>
@@ -29,7 +29,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="jndiDestinationName" lowerBound="1"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
-        defaultValueLiteral="" derived="true">
+        defaultValueLiteral="" unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="jndi-destination-name"/>
         <details key="namespace" value="##targetNamespace"/>
@@ -39,7 +39,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="jndiConnectionFactory"
         lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
-        defaultValueLiteral="" derived="true">
+        defaultValueLiteral="" unsettable="true" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="jndi-connection-factory"/>
         <details key="namespace" value="##targetNamespace"/>

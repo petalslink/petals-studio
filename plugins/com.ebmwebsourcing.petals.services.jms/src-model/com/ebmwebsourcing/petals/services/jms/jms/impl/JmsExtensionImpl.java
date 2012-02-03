@@ -61,6 +61,15 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	protected String jndiProviderURL = JNDI_PROVIDER_URL_EDEFAULT;
 
 	/**
+	 * This is true if the Jndi Provider URL attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean jndiProviderURLESet;
+
+	/**
 	 * The default value of the '{@link #getJndiInitialContextFactory() <em>Jndi Initial Context Factory</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -79,6 +88,15 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	 * @ordered
 	 */
 	protected String jndiInitialContextFactory = JNDI_INITIAL_CONTEXT_FACTORY_EDEFAULT;
+
+	/**
+	 * This is true if the Jndi Initial Context Factory attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean jndiInitialContextFactoryESet;
 
 	/**
 	 * The default value of the '{@link #getJndiDestinationName() <em>Jndi Destination Name</em>}' attribute.
@@ -101,6 +119,15 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	protected String jndiDestinationName = JNDI_DESTINATION_NAME_EDEFAULT;
 
 	/**
+	 * This is true if the Jndi Destination Name attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean jndiDestinationNameESet;
+
+	/**
 	 * The default value of the '{@link #getJndiConnectionFactory() <em>Jndi Connection Factory</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,6 +146,15 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	 * @ordered
 	 */
 	protected String jndiConnectionFactory = JNDI_CONNECTION_FACTORY_EDEFAULT;
+
+	/**
+	 * This is true if the Jndi Connection Factory attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean jndiConnectionFactoryESet;
 
 	/**
 	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
@@ -216,8 +252,33 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	public void setJndiProviderURL(String newJndiProviderURL) {
 		String oldJndiProviderURL = jndiProviderURL;
 		jndiProviderURL = newJndiProviderURL;
+		boolean oldJndiProviderURLESet = jndiProviderURLESet;
+		jndiProviderURLESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_PROVIDER_URL, oldJndiProviderURL, jndiProviderURL));
+			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_PROVIDER_URL, oldJndiProviderURL, jndiProviderURL, !oldJndiProviderURLESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetJndiProviderURL() {
+		String oldJndiProviderURL = jndiProviderURL;
+		boolean oldJndiProviderURLESet = jndiProviderURLESet;
+		jndiProviderURL = JNDI_PROVIDER_URL_EDEFAULT;
+		jndiProviderURLESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, JmsPackage.JMS_EXTENSION__JNDI_PROVIDER_URL, oldJndiProviderURL, JNDI_PROVIDER_URL_EDEFAULT, oldJndiProviderURLESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetJndiProviderURL() {
+		return jndiProviderURLESet;
 	}
 
 	/**
@@ -237,8 +298,33 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	public void setJndiInitialContextFactory(String newJndiInitialContextFactory) {
 		String oldJndiInitialContextFactory = jndiInitialContextFactory;
 		jndiInitialContextFactory = newJndiInitialContextFactory;
+		boolean oldJndiInitialContextFactoryESet = jndiInitialContextFactoryESet;
+		jndiInitialContextFactoryESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY, oldJndiInitialContextFactory, jndiInitialContextFactory));
+			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY, oldJndiInitialContextFactory, jndiInitialContextFactory, !oldJndiInitialContextFactoryESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetJndiInitialContextFactory() {
+		String oldJndiInitialContextFactory = jndiInitialContextFactory;
+		boolean oldJndiInitialContextFactoryESet = jndiInitialContextFactoryESet;
+		jndiInitialContextFactory = JNDI_INITIAL_CONTEXT_FACTORY_EDEFAULT;
+		jndiInitialContextFactoryESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, JmsPackage.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY, oldJndiInitialContextFactory, JNDI_INITIAL_CONTEXT_FACTORY_EDEFAULT, oldJndiInitialContextFactoryESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetJndiInitialContextFactory() {
+		return jndiInitialContextFactoryESet;
 	}
 
 	/**
@@ -258,8 +344,33 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	public void setJndiDestinationName(String newJndiDestinationName) {
 		String oldJndiDestinationName = jndiDestinationName;
 		jndiDestinationName = newJndiDestinationName;
+		boolean oldJndiDestinationNameESet = jndiDestinationNameESet;
+		jndiDestinationNameESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_DESTINATION_NAME, oldJndiDestinationName, jndiDestinationName));
+			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_DESTINATION_NAME, oldJndiDestinationName, jndiDestinationName, !oldJndiDestinationNameESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetJndiDestinationName() {
+		String oldJndiDestinationName = jndiDestinationName;
+		boolean oldJndiDestinationNameESet = jndiDestinationNameESet;
+		jndiDestinationName = JNDI_DESTINATION_NAME_EDEFAULT;
+		jndiDestinationNameESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, JmsPackage.JMS_EXTENSION__JNDI_DESTINATION_NAME, oldJndiDestinationName, JNDI_DESTINATION_NAME_EDEFAULT, oldJndiDestinationNameESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetJndiDestinationName() {
+		return jndiDestinationNameESet;
 	}
 
 	/**
@@ -279,8 +390,33 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	public void setJndiConnectionFactory(String newJndiConnectionFactory) {
 		String oldJndiConnectionFactory = jndiConnectionFactory;
 		jndiConnectionFactory = newJndiConnectionFactory;
+		boolean oldJndiConnectionFactoryESet = jndiConnectionFactoryESet;
+		jndiConnectionFactoryESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_CONNECTION_FACTORY, oldJndiConnectionFactory, jndiConnectionFactory));
+			eNotify(new ENotificationImpl(this, Notification.SET, JmsPackage.JMS_EXTENSION__JNDI_CONNECTION_FACTORY, oldJndiConnectionFactory, jndiConnectionFactory, !oldJndiConnectionFactoryESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetJndiConnectionFactory() {
+		String oldJndiConnectionFactory = jndiConnectionFactory;
+		boolean oldJndiConnectionFactoryESet = jndiConnectionFactoryESet;
+		jndiConnectionFactory = JNDI_CONNECTION_FACTORY_EDEFAULT;
+		jndiConnectionFactoryESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, JmsPackage.JMS_EXTENSION__JNDI_CONNECTION_FACTORY, oldJndiConnectionFactory, JNDI_CONNECTION_FACTORY_EDEFAULT, oldJndiConnectionFactoryESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetJndiConnectionFactory() {
+		return jndiConnectionFactoryESet;
 	}
 
 	/**
@@ -414,16 +550,16 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JmsPackage.JMS_EXTENSION__JNDI_PROVIDER_URL:
-				setJndiProviderURL(JNDI_PROVIDER_URL_EDEFAULT);
+				unsetJndiProviderURL();
 				return;
 			case JmsPackage.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY:
-				setJndiInitialContextFactory(JNDI_INITIAL_CONTEXT_FACTORY_EDEFAULT);
+				unsetJndiInitialContextFactory();
 				return;
 			case JmsPackage.JMS_EXTENSION__JNDI_DESTINATION_NAME:
-				setJndiDestinationName(JNDI_DESTINATION_NAME_EDEFAULT);
+				unsetJndiDestinationName();
 				return;
 			case JmsPackage.JMS_EXTENSION__JNDI_CONNECTION_FACTORY:
-				setJndiConnectionFactory(JNDI_CONNECTION_FACTORY_EDEFAULT);
+				unsetJndiConnectionFactory();
 				return;
 			case JmsPackage.JMS_EXTENSION__USER:
 				setUser(USER_EDEFAULT);
@@ -447,13 +583,13 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JmsPackage.JMS_EXTENSION__JNDI_PROVIDER_URL:
-				return JNDI_PROVIDER_URL_EDEFAULT == null ? jndiProviderURL != null : !JNDI_PROVIDER_URL_EDEFAULT.equals(jndiProviderURL);
+				return isSetJndiProviderURL();
 			case JmsPackage.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY:
-				return JNDI_INITIAL_CONTEXT_FACTORY_EDEFAULT == null ? jndiInitialContextFactory != null : !JNDI_INITIAL_CONTEXT_FACTORY_EDEFAULT.equals(jndiInitialContextFactory);
+				return isSetJndiInitialContextFactory();
 			case JmsPackage.JMS_EXTENSION__JNDI_DESTINATION_NAME:
-				return JNDI_DESTINATION_NAME_EDEFAULT == null ? jndiDestinationName != null : !JNDI_DESTINATION_NAME_EDEFAULT.equals(jndiDestinationName);
+				return isSetJndiDestinationName();
 			case JmsPackage.JMS_EXTENSION__JNDI_CONNECTION_FACTORY:
-				return JNDI_CONNECTION_FACTORY_EDEFAULT == null ? jndiConnectionFactory != null : !JNDI_CONNECTION_FACTORY_EDEFAULT.equals(jndiConnectionFactory);
+				return isSetJndiConnectionFactory();
 			case JmsPackage.JMS_EXTENSION__USER:
 				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
 			case JmsPackage.JMS_EXTENSION__PASSWORD:
@@ -475,13 +611,13 @@ public abstract class JmsExtensionImpl extends AbstractExtensibleElementImpl imp
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (jndiProviderURL: ");
-		result.append(jndiProviderURL);
+		if (jndiProviderURLESet) result.append(jndiProviderURL); else result.append("<unset>");
 		result.append(", jndiInitialContextFactory: ");
-		result.append(jndiInitialContextFactory);
+		if (jndiInitialContextFactoryESet) result.append(jndiInitialContextFactory); else result.append("<unset>");
 		result.append(", jndiDestinationName: ");
-		result.append(jndiDestinationName);
+		if (jndiDestinationNameESet) result.append(jndiDestinationName); else result.append("<unset>");
 		result.append(", jndiConnectionFactory: ");
-		result.append(jndiConnectionFactory);
+		if (jndiConnectionFactoryESet) result.append(jndiConnectionFactory); else result.append("<unset>");
 		result.append(", user: ");
 		result.append(user);
 		result.append(", password: ");

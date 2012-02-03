@@ -347,10 +347,10 @@ public class JmsPackageImpl extends EPackageImpl implements JmsPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(jmsExtensionEClass, JmsExtension.class, "JmsExtension", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJmsExtension_JndiProviderURL(), theXMLTypePackage.getString(), "jndiProviderURL", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getJmsExtension_JndiInitialContextFactory(), theXMLTypePackage.getString(), "jndiInitialContextFactory", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getJmsExtension_JndiDestinationName(), theXMLTypePackage.getString(), "jndiDestinationName", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getJmsExtension_JndiConnectionFactory(), theXMLTypePackage.getString(), "jndiConnectionFactory", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJmsExtension_JndiProviderURL(), theXMLTypePackage.getString(), "jndiProviderURL", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJmsExtension_JndiInitialContextFactory(), theXMLTypePackage.getString(), "jndiInitialContextFactory", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJmsExtension_JndiDestinationName(), theXMLTypePackage.getString(), "jndiDestinationName", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJmsExtension_JndiConnectionFactory(), theXMLTypePackage.getString(), "jndiConnectionFactory", "", 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJmsExtension_User(), theXMLTypePackage.getString(), "user", "", 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJmsExtension_Password(), theXMLTypePackage.getString(), "password", "", 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJmsExtension_Transacted(), theXMLTypePackage.getBoolean(), "transacted", "", 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
