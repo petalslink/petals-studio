@@ -125,7 +125,7 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getXSLTProvides_TransformerFactory() {
+	public EAttribute getXSLTProvides_TransformerFactoryMin() {
 		return (EAttribute)xsltProvidesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -134,7 +134,7 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getXSLTProvides_TransformerFactoryMin() {
+	public EAttribute getXSLTProvides_TransformerFactoryMax() {
 		return (EAttribute)xsltProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -143,7 +143,7 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getXSLTProvides_TransformerFactoryMax() {
+	public EAttribute getXSLTProvides_OutputAttachmentName() {
 		return (EAttribute)xsltProvidesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -152,7 +152,7 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getXSLTProvides_OutputAttachmentName() {
+	public EAttribute getXSLTProvides_XsltEngineFactoryClassName() {
 		return (EAttribute)xsltProvidesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -186,10 +186,10 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 		// Create classes and their features
 		xsltProvidesEClass = createEClass(XSLT_PROVIDES);
 		createEAttribute(xsltProvidesEClass, XSLT_PROVIDES__STYLESHEET);
-		createEAttribute(xsltProvidesEClass, XSLT_PROVIDES__TRANSFORMER_FACTORY);
 		createEAttribute(xsltProvidesEClass, XSLT_PROVIDES__TRANSFORMER_FACTORY_MIN);
 		createEAttribute(xsltProvidesEClass, XSLT_PROVIDES__TRANSFORMER_FACTORY_MAX);
 		createEAttribute(xsltProvidesEClass, XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME);
+		createEAttribute(xsltProvidesEClass, XSLT_PROVIDES__XSLT_ENGINE_FACTORY_CLASS_NAME);
 	}
 
 	/**
@@ -229,10 +229,10 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(xsltProvidesEClass, XSLTProvides.class, "XSLTProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getXSLTProvides_Stylesheet(), theXMLTypePackage.getString(), "stylesheet", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getXSLTProvides_TransformerFactory(), theXMLTypePackage.getString(), "transformerFactory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getXSLTProvides_TransformerFactoryMin(), theXMLTypePackage.getInt(), "transformerFactoryMin", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getXSLTProvides_TransformerFactoryMax(), theXMLTypePackage.getInt(), "transformerFactoryMax", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getXSLTProvides_OutputAttachmentName(), theXMLTypePackage.getString(), "outputAttachmentName", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getXSLTProvides_XsltEngineFactoryClassName(), theXMLTypePackage.getString(), "xsltEngineFactoryClassName", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -265,15 +265,6 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 			 "group", "#group:0"
 		   });		
 		addAnnotation
-		  (getXSLTProvides_TransformerFactory(), 
-		   source, 
-		   new String[] {
-			 "namespace", "##targetNamespace",
-			 "kind", "element",
-			 "group", "#group:0",
-			 "name", "transformer-factory"
-		   });		
-		addAnnotation
 		  (getXSLTProvides_TransformerFactoryMin(), 
 		   source, 
 		   new String[] {
@@ -295,6 +286,15 @@ public class XsltPackageImpl extends EPackageImpl implements XsltPackage {
 		  (getXSLTProvides_OutputAttachmentName(), 
 		   source, 
 		   new String[] {
+			 "namespace", "##targetNamespace",
+			 "kind", "element",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getXSLTProvides_XsltEngineFactoryClassName(), 
+		   source, 
+		   new String[] {
+			 "name", "xslt-engine-factory-class-name",
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0"

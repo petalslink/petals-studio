@@ -11,14 +11,14 @@
 
 package com.ebmwebsourcing.petals.services.xslt.wizard;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.xml.namespace.QName;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
@@ -33,7 +33,7 @@ import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.xslt.PetalsXsltPlugin;
 import com.ebmwebsourcing.petals.services.xslt.XsltDescription23;
-import com.ebmwebsourcing.petals.services.xslt.generated.XsltService24;
+import com.ebmwebsourcing.petals.services.xslt.generated.XsltService23;
 import com.ebmwebsourcing.petals.services.xslt.generated.XsltStyleSheet;
 import com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -44,18 +44,20 @@ import com.sun.java.xml.ns.jbi.Provides;
  */
 public class XsltWizard23 extends AbstractServiceUnitWizard {
 
-	private boolean createXsl = true;
-	private boolean createWSDL;
-	private String xslUrl;
-	public final static String DEFAULT_XSL_NAME = "transformation.xsl";
+	private final static String DEFAULT_XSL_NAME = "transformation.xsl";
+	private XsltProvideSpecificPage page;
 
 
+	/**
+	 * Constructor.
+	 */
 	public XsltWizard23() {
 		super();
-		settings.showWsdl = false;
-		settings.activateInterfaceName = false;
+		this.settings.showWsdl = false;
+		this.settings.activateInterfaceName = false;
 	}
-	
+
+
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -75,12 +77,13 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
 
 		// Generate a default XSL style sheet?
-		if( createXsl ) {
+		if( this.page.isCreateXsltFile()) {
 			String content = new XsltStyleSheet().generate( null );
-			IFile destination = resourceFolder.getFile( XsltWizard23.DEFAULT_XSL_NAME );
+			IFile destination = resourceFolder.getFile( DEFAULT_XSL_NAME );
 			createFile( destination, content, monitor );
-			getNewlyCreatedEndpoint().eSet(XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET, XsltWizard23.DEFAULT_XSL_NAME);
-		} else /* import */ {
+			getNewlyCreatedEndpoint().eSet(XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET, DEFAULT_XSL_NAME );
+
+		} else {
 			try {
 				importXSL(resourceFolder, monitor);
 			} catch (Exception ex) {
@@ -88,103 +91,85 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 			}
 		}
 
-		// If no WSDL file has been set, set the default SendMail WSDL
-		// FIXME
-		if (createWSDL) {
+		// Create a WSDL?
+		if( this.page.isCreateWsdlFile()) {
+			abstractEndpoint.eSet( Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "XsltService.wsdl" );
 			IFile wsdlFile = resourceFolder.getFile( "XsltService.wsdl" );
-			createFile( wsdlFile, new XsltService24().generate( abstractEndpoint ), monitor );
+			String wsdlContent = getWsdlContent( abstractEndpoint );
+			createFile( wsdlFile, wsdlContent, monitor );
 		}
 
 		return Status.OK_STATUS;
 	}
-	
-	public void importXSL(IFolder resourceFolder, IProgressMonitor monitor)	throws MalformedURLException, CoreException, FileNotFoundException {
-		File input;
-		if (xslUrl.startsWith("file:")) {
-			input = new File(new URL(xslUrl).getFile());
-		} else {
-			input = new File(xslUrl);
-		}
-		if (input.exists() && input.length() > 0) {
-			IFile targetFile = resourceFolder.getFile(input.getName());
-			if (targetFile.exists()) {
-				targetFile = resourceFolder.getFile(input.getName().substring(0, (int) input.length() - ".xsd".length()) + System.currentTimeMillis() + ".xsd");
+
+
+	/**
+	 * @param abstractEndpoint
+	 * @return the content for the WSDL to generate
+	 */
+	protected String getWsdlContent( AbstractEndpoint abstractEndpoint ) {
+		return new XsltService23().generate( abstractEndpoint );
+	}
+
+
+	/**
+	 * @param resourceFolder
+	 * @param monitor
+	 * @throws MalformedURLException
+	 * @throws CoreException
+	 * @throws FileNotFoundException
+	 */
+	public void importXSL(IFolder resourceFolder, IProgressMonitor monitor)
+	throws MalformedURLException, CoreException, FileNotFoundException {
+
+		String name = UriAndUrlHelper.extractFileName( this.page.getXslUrl());
+		if( ! name.endsWith( ".xslt" ))
+			name += ".xslt";
+
+		InputStream is = null;
+		try {
+			is = UriAndUrlHelper.urlToUri( this.page.getXslUrl()).toURL().openStream();
+			IFile targetFile = resourceFolder.getFile( name );
+
+			targetFile.create( is, true, monitor );
+			getNewlyCreatedEndpoint().eSet(XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET, name );
+
+		} catch( IOException e ) {
+			PetalsXsltPlugin.log( e, IStatus.ERROR );
+
+		} finally {
+			if( is != null ) {
+				try {
+					is.close();
+				} catch( IOException e ) {
+					PetalsXsltPlugin.log( e, IStatus.WARNING );
+				}
 			}
-			targetFile.create(new FileInputStream(input), false, monitor);
-			getNewlyCreatedEndpoint().eSet(XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET, targetFile.getName());
-		} else {
-			PetalsXsltPlugin.log("Provided file not existing or empty", IStatus.ERROR);
 		}
 	}
 
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
 		endpoint.setInterfaceName( new QName( "http://petals.ow2.org/components/xslt/version-2", "XsltService" ));
 		endpoint.setServiceName( new QName( "http://petals.ow2.org/components/xslt/version-2", "change-it" ));
 		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
-		endpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "XsltService.wsdl");
 	}
 
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return null;
-	}
-
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
-		return new AbstractSuWizardPage[] {
-				new XsltProvideSpecificPage()
-		};
-	}
-
-
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return null;
-	}
-
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
-
-	@Override
-	protected boolean isJavaProject() {
-		return false;
-	}
-
-
-	public boolean isCreateXsl() {
-		return createXsl;
-	}
-
-
-	public void setCreateXsl(boolean createXsl) {
-		this.createXsl = createXsl;
-	}
-
-
-	public boolean isCreateWSDL() {
-		return createWSDL;
-	}
-
-
-	public void setCreateWSDL(boolean createWSDL) {
-		this.createWSDL = createWSDL;
-	}
-
-
-	public String getXslUrl() {
-		return xslUrl;
-	}
-
-
-	public void setXslUrl(String xslUrl) {
-		this.xslUrl = xslUrl;
+		this.page = new XsltProvideSpecificPage();
+		return new AbstractSuWizardPage[] { this.page };
 	}
 }

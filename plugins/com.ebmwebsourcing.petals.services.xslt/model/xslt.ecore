@@ -16,15 +16,6 @@
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transformerFactory" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
-        derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="namespace" value="##targetNamespace"/>
-        <details key="kind" value="element"/>
-        <details key="group" value="#group:0"/>
-        <details key="name" value="transformer-factory"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transformerFactoryMin"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Int"
         derived="true">
@@ -48,6 +39,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="outputAttachmentName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="kind" value="element"/>
+        <details key="group" value="#group:0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xsltEngineFactoryClassName"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="xslt-engine-factory-class-name"/>
         <details key="namespace" value="##targetNamespace"/>
         <details key="kind" value="element"/>
         <details key="group" value="#group:0"/>

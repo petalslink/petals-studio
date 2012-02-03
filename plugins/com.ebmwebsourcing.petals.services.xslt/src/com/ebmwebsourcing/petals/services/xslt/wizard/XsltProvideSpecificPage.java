@@ -1,29 +1,28 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.xslt.wizard;
 
 import java.io.File;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.UpdateValueStrategy;
-import org.eclipse.core.databinding.beans.PojoObservables;
-import org.eclipse.core.databinding.conversion.IConverter;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.emf.databinding.EMFObservables;
-import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -34,8 +33,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
-import com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage;
 
 /**
  * Replace the default COMPONENT page.
@@ -43,7 +43,11 @@ import com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage;
  */
 public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 
-	private DataBindingContext dbc;
+	private String attachmentName;
+	private String xslUrl;
+	private boolean createXsltFile = true;
+	private boolean createWsdlFile = false;
+
 
 	/*
 	 * (non-Javadoc)
@@ -53,16 +57,9 @@ public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 	public void createControl( Composite parent ) {
 
 		// Create the composite container and define its layout.
-		final Composite container = new Composite( parent, SWT.NONE );
-
-		// Set help link for documentation page.
 		setDescription( "Specify how to get the XSL style sheet." );
-
-		GridLayout layout = new GridLayout ();
-		layout.marginLeft = 15;
-		layout.marginRight = 15;
-		layout.marginTop = 20;
-		container.setLayout( layout );
+		final Composite container = new Composite( parent, SWT.NONE );
+		GridLayoutFactory.swtDefaults().extendedMargins( 15, 15, 20, 0 ).applyTo( container );
 		container.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
 
@@ -74,7 +71,7 @@ public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 		importXslStyleSheetButton.setText( "Import an existing XSL style sheet." );
 
 		Composite comp = new Composite( container, SWT.NONE );
-		layout = new GridLayout( 3, false );
+		GridLayout layout = new GridLayout( 3, false );
 		layout.marginLeft = 15;
 		comp.setLayout( layout );
 		comp.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
@@ -84,6 +81,12 @@ public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 
 		final Text xslText = new Text( comp, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY );
 		xslText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		xslText.addModifyListener( new ModifyListener() {
+			public void modifyText( ModifyEvent e ) {
+				XsltProvideSpecificPage.this.xslUrl = xslText.getText().trim();
+				validate();
+			}
+		});
 
 		final Button xslBrowserButton = new Button( comp, SWT.PUSH );
 		xslBrowserButton.setText( "Browse..." );
@@ -116,10 +119,19 @@ public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 		// Create a WSDL
 		Button createWsdlButton = new Button( container, SWT.CHECK );
 		createWsdlButton.setText( "Create a default WSDL (might need to be updated)" );
+		createWsdlButton.setSelection( this.createWsdlFile );
 
 		GridData layoutData = new GridData();
 		layoutData.verticalIndent = 10;
 		createWsdlButton.setLayoutData( layoutData );
+
+		createWsdlButton.addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected( SelectionEvent e ) {
+				XsltProvideSpecificPage.this.createWsdlFile = ! XsltProvideSpecificPage.this.createWsdlFile;
+				validate();
+			}
+		});
 
 
 		// The attachment name
@@ -128,32 +140,33 @@ public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 
 		final Text attachText = new Text( container, SWT.SINGLE | SWT.BORDER );
 		attachText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		
-		dbc = new DataBindingContext();
-		IObservableValue createXslButtonObservable = SWTObservables.observeSelection(createXslStyleSheetButton);
-		dbc.bindValue(createXslButtonObservable, PojoObservables.observeValue(getWizard(), "createXsl"));
-		
-		UpdateValueStrategy notRule = new UpdateValueStrategy().setConverter(new IConverter() {
-			public Object getToType() {
-				return boolean.class;
-			}
-			
-			public Object getFromType() {
-				return boolean.class;
-			}
-			
-			public Object convert(Object fromObject) {
-				return ! ((Boolean)fromObject);
+		attachText.addModifyListener( new ModifyListener() {
+			public void modifyText( ModifyEvent e ) {
+				XsltProvideSpecificPage.this.attachmentName = attachText.getText().trim();
+				validate();
 			}
 		});
-		dbc.bindValue(SWTObservables.observeEnabled(xslLabel), createXslButtonObservable, notRule, notRule);
-		dbc.bindValue(SWTObservables.observeEnabled(xslText), createXslButtonObservable, notRule, notRule);
-		
-		dbc.bindValue(SWTObservables.observeSelection(createWsdlButton), PojoObservables.observeValue(getWizard(), "createWSDL"));
-		dbc.bindValue(SWTObservables.observeText(attachText, SWT.Modify), EMFObservables.observeValue(getNewlyCreatedEndpoint(), XsltPackage.Literals.XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME));
+
+
+		// Listeners
+		SelectionListener commonListener = new DefaultSelectionListener() {
+			public void widgetSelected( SelectionEvent e ) {
+				XsltProvideSpecificPage.this.createXsltFile = createXslStyleSheetButton.getSelection();
+
+				xslLabel.setEnabled( ! XsltProvideSpecificPage.this.createXsltFile );
+				xslText.setEnabled( ! XsltProvideSpecificPage.this.createXsltFile );
+				xslBrowserButton.setEnabled( ! XsltProvideSpecificPage.this.createXsltFile );
+
+				validate();
+			}
+		};
+
+		createXslStyleSheetButton.addSelectionListener( commonListener );
+		importXslStyleSheetButton.addSelectionListener( commonListener );
+
 
 		// Initialize the page
-		createXslStyleSheetButton.setSelection( getWizard().isCreateXsl() );
+		createXslStyleSheetButton.setSelection( this.createXsltFile );
 		createXslStyleSheetButton.notifyListeners( SWT.Selection, new Event());
 		if( getErrorMessage() != null ) {
 			updateStatus( null );
@@ -162,23 +175,71 @@ public class XsltProvideSpecificPage extends AbstractSuWizardPage {
 
 		setControl( container );
 	}
-	
-	@Override
-	public XsltWizard23 getWizard() {
-		return (XsltWizard23)super.getWizard();
-	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuPage#validate()
 	 */
 	@Override
 	public boolean validate() {
-		return true;
+
+		boolean valid = true;
+		if( ! this.createXsltFile ) {
+			if( StringUtils.isEmpty( this.xslUrl )) {
+				updateStatus( "You must select the XSL style sheet to import." );
+				valid = false;
+			}
+			else {
+				try {
+					UriAndUrlHelper.urlToUri( this.xslUrl );
+
+				} catch( Exception e ) {
+					updateStatus( "The URL for the XSL style sheet is not valid." );
+					valid = false;
+				}
+			}
+		}
+
+		if( valid )
+			updateStatus( null );
+
+		if( this.createWsdlFile && ! this.createXsltFile )
+			setMessage( "The generated WSDL might not reflect the content of the imported XSL style sheet.", IMessageProvider.WARNING );
+		else
+			setMessage( null, IMessageProvider.WARNING );
+
+		return valid;
 	}
-	
-	@Override
-	public void dispose() {
-		super.dispose();
-		dbc.dispose();
+
+
+	/**
+	 * @return the attachmentName
+	 */
+	public String getAttachmentName() {
+		return this.attachmentName;
+	}
+
+
+	/**
+	 * @return the xslUrl
+	 */
+	public String getXslUrl() {
+		return this.xslUrl;
+	}
+
+
+	/**
+	 * @return the createXsltFile
+	 */
+	public boolean isCreateXsltFile() {
+		return this.createXsltFile;
+	}
+
+
+	/**
+	 * @return the createWsdlFile
+	 */
+	public boolean isCreateWsdlFile() {
+		return this.createWsdlFile;
 	}
 }

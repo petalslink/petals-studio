@@ -72,7 +72,7 @@ skeleton="../generator.skeleton" %>
 	
 	
 	<!-- Port type -->
-	<wsdl:portType name="<%= data.getInterfaceName() %>">
+	<wsdl:portType name="<%= data.getInterfaceName().getLocalPart() %>">
 		
 		<!-- Transform -->
 		<wsdl:operation name="transform">
@@ -91,7 +91,7 @@ skeleton="../generator.skeleton" %>
 	
 	
 	<!-- Binding -->
-	<wsdl:binding name="<%=data.getServiceName()%>Binding" type="tns:<%= data.getInterfaceName() %>">
+	<wsdl:binding name="<%=data.getServiceName().getLocalPart() %>Binding" type="tns:<%= data.getInterfaceName().getLocalPart() %>">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 			
@@ -116,9 +116,9 @@ skeleton="../generator.skeleton" %>
 	
 	
 	<!-- The service -->
-	<wsdl:service name="<%= data.getServiceName() %>">
-		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:<%=data.getServiceName()%>Binding">
-			<soap:address location="http://localhost:9090/<%= data.getEndpointName() %>" />
+	<wsdl:service name="<%= data.getServiceName().getLocalPart() %>">
+		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:<%=data.getServiceName().getLocalPart() %>Binding">
+			<soap:address location="http://petals.does.not.care/" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

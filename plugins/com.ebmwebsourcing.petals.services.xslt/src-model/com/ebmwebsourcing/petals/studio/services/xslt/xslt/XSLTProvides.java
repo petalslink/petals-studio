@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,10 +21,10 @@ import com.sun.java.xml.ns.jbi.Provides;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getStylesheet <em>Stylesheet</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactory <em>Transformer Factory</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMin <em>Transformer Factory Min</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactoryMax <em>Transformer Factory Max</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getOutputAttachmentName <em>Output Attachment Name</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getXsltEngineFactoryClassName <em>Xslt Engine Factory Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,33 +59,6 @@ public interface XSLTProvides extends Provides {
 	 * @generated
 	 */
 	void setStylesheet(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Transformer Factory</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Transformer Factory</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Transformer Factory</em>' attribute.
-	 * @see #setTransformerFactory(String)
-	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage#getXSLTProvides_TransformerFactory()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
-	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='transformer-factory'"
-	 * @generated
-	 */
-	String getTransformerFactory();
-
-	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getTransformerFactory <em>Transformer Factory</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Transformer Factory</em>' attribute.
-	 * @see #getTransformerFactory()
-	 * @generated
-	 */
-	void setTransformerFactory(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Transformer Factory Min</b></em>' attribute.
@@ -167,5 +140,32 @@ public interface XSLTProvides extends Provides {
 	 * @generated
 	 */
 	void setOutputAttachmentName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Xslt Engine Factory Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Xslt Engine Factory Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Xslt Engine Factory Class Name</em>' attribute.
+	 * @see #setXsltEngineFactoryClassName(String)
+	 * @see com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage#getXSLTProvides_XsltEngineFactoryClassName()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="name='xslt-engine-factory-class-name' namespace='##targetNamespace' kind='element' group='#group:0'"
+	 * @generated
+	 */
+	String getXsltEngineFactoryClassName();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.studio.services.xslt.xslt.XSLTProvides#getXsltEngineFactoryClassName <em>Xslt Engine Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Xslt Engine Factory Class Name</em>' attribute.
+	 * @see #getXsltEngineFactoryClassName()
+	 * @generated
+	 */
+	void setXsltEngineFactoryClassName(String value);
 
 } // XSLTProvides
