@@ -60,7 +60,7 @@
 		<wsdl:part name="filterFault" element="tns:validationFault" />
 	</wsdl:message>
 	
-	<wsdl:portType name="<%=data.getInterfaceName()%>">
+	<wsdl:portType name="<%=data.getInterfaceName().getLocalPart()%>">
 		<wsdl:operation name="validate">
 			<wsdl:input message="tns:validateRequest" />
 			<wsdl:output message="tns:validateResponse" />
@@ -74,7 +74,7 @@
 	</wsdl:portType>
 
 	<!-- Bindings -->
-	<wsdl:binding name="<%=data.getServiceName()%>Binding" type="tns:<%=data.getInterfaceName()%>">
+	<wsdl:binding name="<%=data.getServiceName().getLocalPart()%>Binding" type="tns:<%=data.getInterfaceName().getLocalPart()%>">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 
@@ -101,9 +101,9 @@
 	</wsdl:binding>
 
 	<!-- Service -->
-	<wsdl:service name="<%=data.getServiceName()%>">
-		<wsdl:port name="<%=data.getEndpointName()%>" binding="tns:<%=data.getServiceName()%>Binding">
-			<soap:address location="http://petals.ow2.org/<%=data.getServiceName()%>/<%=data.getEndpointName()%>"/>
+	<wsdl:service name="<%=data.getServiceName().getLocalPart()%>">
+		<wsdl:port name="<%=data.getEndpointName()%>" binding="tns:<%=data.getServiceName().getLocalPart()%>Binding">
+			<soap:address location="http://petals.does.not.care/"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

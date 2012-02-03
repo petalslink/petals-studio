@@ -37,31 +37,25 @@ public class ValidationService {
   protected final String TEXT_4 = "\">" + NL + "\t\t<soap:binding style=\"document\"" + NL + "\t\t\ttransport=\"http://schemas.xmlsoap.org/soap/http\" />" + NL + "" + NL + "\t\t<wsdl:operation name=\"validate\">" + NL + "\t\t\t<wsdl:input>" + NL + "\t\t\t\t<soap:body use=\"literal\" />" + NL + "\t\t\t</wsdl:input>" + NL + "\t\t\t<wsdl:output>" + NL + "\t\t\t\t<soap:body use=\"literal\" />" + NL + "\t\t\t</wsdl:output>" + NL + "\t\t</wsdl:operation>" + NL + "\t\t" + NL + "\t\t<wsdl:operation name=\"filter\">" + NL + "\t\t\t<wsdl:input>" + NL + "\t\t\t\t<soap:body use=\"literal\" />" + NL + "\t\t\t</wsdl:input>" + NL + "\t\t\t<wsdl:output>" + NL + "\t\t\t\t<soap:body use=\"literal\" />" + NL + "\t\t\t</wsdl:output>" + NL + "\t\t\t<wsdl:fault name=\"fault\">" + NL + "\t\t\t\t<soap:fault use=\"literal\" name=\"fault\" />" + NL + "\t\t\t</wsdl:fault>" + NL + "\t\t</wsdl:operation>" + NL + "\t</wsdl:binding>" + NL + "" + NL + "\t<!-- Service -->" + NL + "\t<wsdl:service name=\"";
   protected final String TEXT_5 = "\">" + NL + "\t\t<wsdl:port name=\"";
   protected final String TEXT_6 = "\" binding=\"tns:";
-  protected final String TEXT_7 = "Binding\">" + NL + "\t\t\t<soap:address location=\"http://petals.ow2.org/";
-  protected final String TEXT_8 = "/";
-  protected final String TEXT_9 = "\"/>" + NL + "\t\t</wsdl:port>" + NL + "\t</wsdl:service>" + NL + "</wsdl:definitions>";
+  protected final String TEXT_7 = "Binding\">" + NL + "\t\t\t<soap:address location=\"http://petals.does.not.care/\"/>" + NL + "\t\t</wsdl:port>" + NL + "\t</wsdl:service>" + NL + "</wsdl:definitions>";
 
 	 public String generate( Object argument )
   {
     final StringBuffer stringBuffer = new StringBuffer();
      AbstractEndpoint data = (AbstractEndpoint) argument; 
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(data.getInterfaceName());
+    stringBuffer.append(data.getInterfaceName().getLocalPart());
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(data.getServiceName());
+    stringBuffer.append(data.getServiceName().getLocalPart());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(data.getInterfaceName());
+    stringBuffer.append(data.getInterfaceName().getLocalPart());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(data.getServiceName());
+    stringBuffer.append(data.getServiceName().getLocalPart());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(data.getEndpointName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(data.getServiceName());
+    stringBuffer.append(data.getServiceName().getLocalPart());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(data.getServiceName());
-    stringBuffer.append(TEXT_8);
-    stringBuffer.append(data.getEndpointName());
-    stringBuffer.append(TEXT_9);
     return stringBuffer.toString();
   }
 }

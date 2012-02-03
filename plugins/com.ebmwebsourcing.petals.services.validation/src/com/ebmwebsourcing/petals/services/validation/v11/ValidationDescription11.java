@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.validation;
+package com.ebmwebsourcing.petals.services.validation.v11;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.services.validation.ValidationDescription;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -30,7 +31,7 @@ public class ValidationDescription11 extends ValidationDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "1.x";
+		return "1.1";
 	}
 
 	/*

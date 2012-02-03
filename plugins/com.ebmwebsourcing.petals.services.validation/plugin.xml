@@ -19,11 +19,18 @@
       <ComponentSupport
             id="validation">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.validation.ValidationDescription11"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.validation.v11.ValidationDescription11"
                editorExtension="com.ebmwebsourcing.petals.services.validation.editor.ValidationEditorContribution"
                id="Validation 1.1"
                namespace="http://petals.ow2.org/components/validation/version-1"
-               providesExtensionWizard="com.ebmwebsourcing.petals.services.validation.wizard.ValidationProvidesWizard11">
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.validation.v11.ValidationProvidesWizard11">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.validation.v12.ValidationDescription12"
+               editorExtension="com.ebmwebsourcing.petals.services.validation.editor.ValidationEditorContribution"
+               id="Validation 1.2"
+               namespace="http://petals.ow2.org/components/validation/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.validation.v12.ValidationProvidesWizard12">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
