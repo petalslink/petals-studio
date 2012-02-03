@@ -57,8 +57,8 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 import com.ebmwebsourcing.petals.services.Messages;
-import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -360,18 +360,18 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		advancedScrollContainer.setExpandVertical(true);
 		tbtmAdvanced.setControl( advancedScrollContainer );
 		advancedScrollContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
-		
+
 		this.advancedDetails = getFormToolkit().createComposite( advancedScrollContainer, SWT.NONE );
-		advancedScrollContainer.setContent(advancedDetails);
+		advancedScrollContainer.setContent(this.advancedDetails);
 		getFormToolkit().paintBordersFor( this.advancedDetails );
 		this.advancedDetails.setLayout( new GridLayout( 2, false ));
 		advancedScrollContainer.addControlListener(new ControlListener() {
 			@Override
 			public void controlResized(ControlEvent e) {
-				Point contentSize = advancedDetails.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				Point contentSize = SuEditionComposite.this.advancedDetails.computeSize(SWT.DEFAULT, SWT.DEFAULT);
 				advancedScrollContainer.setMinSize(contentSize);
 			}
-			
+
 			@Override
 			public void controlMoved(ControlEvent e) {
 			}

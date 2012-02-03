@@ -31,6 +31,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -39,6 +40,7 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
@@ -215,18 +217,16 @@ public class EObjecttUIHelper {
 
 			} else if (instanceClass.equals(Integer.class) || instanceClass.equals(int.class)) {
 				widget = new Spinner(parent, SWT.BORDER);
-				GridData gd = new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false);
-				gd.widthHint = 100;
-				gd.minimumWidth = 100;
-				((Spinner)widget).setLayoutData(gd);
-				((Spinner)widget).setMaximum(Integer.MAX_VALUE);
+				GridDataFactory.swtDefaults().hint( 100, SWT.DEFAULT ).minSize( 100, SWT.DEFAULT ).applyTo((Spinner) widget);
+				((Spinner) widget).setMaximum( Integer.MAX_VALUE );
 
 			} else if (instanceClass.isEnum()) {
 				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
-				ComboViewer viewer = (ComboViewer)widget;
+				ComboViewer viewer = (ComboViewer) widget;
 				viewer.setContentProvider(new EEnumLiteralsProvider());
 				viewer.setLabelProvider(new EEnumNameLabelProvider());
 				viewer.setInput(attr.getEType());
+				viewer.getCombo().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 
 			} else if (instanceClass.equals(Boolean.class) || instanceClass.equals(boolean.class)) {
 				widget = new ComboViewer(parent, SWT.READ_ONLY | SWT.FLAT);
@@ -234,6 +234,9 @@ public class EObjecttUIHelper {
 				viewer.setContentProvider( new ArrayContentProvider());
 				viewer.setLabelProvider(new LabelProvider());
 				viewer.setInput( new Boolean[] { Boolean.TRUE, Boolean.FALSE });
+
+				Combo combo = ((ComboViewer) widget).getCombo();
+				GridDataFactory.swtDefaults().hint( 100, SWT.DEFAULT ).minSize( 100, SWT.DEFAULT ).applyTo( combo );
 			}
 
 			if( widget != null )

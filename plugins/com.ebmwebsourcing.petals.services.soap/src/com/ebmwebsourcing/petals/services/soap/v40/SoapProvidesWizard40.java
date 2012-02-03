@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.soap.wizards;
+package com.ebmwebsourcing.petals.services.soap.v40;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
-import com.ebmwebsourcing.petals.services.soap.SoapDescription40;
+import com.ebmwebsourcing.petals.services.soap.soap.SoapMode;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -41,43 +41,41 @@ public class SoapProvidesWizard40 extends AbstractServiceUnitWizard {
 		return new SoapDescription40();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
 		Cdk5Utils.setInitialProvidesValues((Provides)endpoint);
+		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__ADDRESS, null);
 		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION, SoapVersion.SOAP_11);
 		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE, false);
 		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT, 0);
 		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT, true);
+		getNewlyCreatedEndpoint().eSet(SoapPackage.Literals.SOAP_PROVIDES__MODE, SoapMode.SOAP );
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterJbi()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return new AbstractSuWizardPage[] { new SoapProvidesSUWizardPage() };
+		return new AbstractSuWizardPage[] { new SoapProvidesWizardPage40()};
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
-		return null;
-	}
-
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return null;
-	}
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
-		newlyCreatedEndpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, jbiProvidePage.getWsdlFileName());
+		newlyCreatedEndpoint.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, this.finalWsdlFileLocation );
 		return Status.OK_STATUS;
-	}
-
-	@Override
-	protected boolean isJavaProject() {
-		return false;
 	}
 }

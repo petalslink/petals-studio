@@ -61,9 +61,11 @@ public interface SoapProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Address</em>' attribute.
+	 * @see #isSetAddress()
+	 * @see #unsetAddress()
 	 * @see #setAddress(String)
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_Address()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element'"
 	 * @generated
 	 */
@@ -74,10 +76,35 @@ public interface SoapProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Address</em>' attribute.
+	 * @see #isSetAddress()
+	 * @see #unsetAddress()
 	 * @see #getAddress()
 	 * @generated
 	 */
 	void setAddress(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getAddress <em>Address</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetAddress()
+	 * @see #getAddress()
+	 * @see #setAddress(String)
+	 * @generated
+	 */
+	void unsetAddress();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getAddress <em>Address</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Address</em>' attribute is set.
+	 * @see #unsetAddress()
+	 * @see #getAddress()
+	 * @see #setAddress(String)
+	 * @generated
+	 */
+	boolean isSetAddress();
 
 	/**
 	 * Returns the value of the '<em><b>Wsa Reply To</b></em>' attribute.
@@ -171,9 +198,11 @@ public interface SoapProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Soap Version</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapVersion
+	 * @see #isSetSoapVersion()
+	 * @see #unsetSoapVersion()
 	 * @see #setSoapVersion(SoapVersion)
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_SoapVersion()
-	 * @model required="true" derived="true"
+	 * @model unsettable="true" required="true" derived="true"
 	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element' name='soap-version'"
 	 * @generated
 	 */
@@ -185,10 +214,35 @@ public interface SoapProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Soap Version</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapVersion
+	 * @see #isSetSoapVersion()
+	 * @see #unsetSoapVersion()
 	 * @see #getSoapVersion()
 	 * @generated
 	 */
 	void setSoapVersion(SoapVersion value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getSoapVersion <em>Soap Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetSoapVersion()
+	 * @see #getSoapVersion()
+	 * @see #setSoapVersion(SoapVersion)
+	 * @generated
+	 */
+	void unsetSoapVersion();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getSoapVersion <em>Soap Version</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Soap Version</em>' attribute is set.
+	 * @see #unsetSoapVersion()
+	 * @see #getSoapVersion()
+	 * @see #setSoapVersion(SoapVersion)
+	 * @generated
+	 */
+	boolean isSetSoapVersion();
 
 	/**
 	 * Returns the value of the '<em><b>Chunked Mode</b></em>' attribute.
@@ -336,9 +390,11 @@ public interface SoapProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Mode</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapMode
+	 * @see #isSetMode()
+	 * @see #unsetMode()
 	 * @see #setMode(SoapMode)
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_Mode()
-	 * @model required="true" derived="true"
+	 * @model unsettable="true" required="true" derived="true"
 	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element'"
 	 * @generated
 	 */
@@ -350,10 +406,35 @@ public interface SoapProvides extends Provides {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Mode</em>' attribute.
 	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapMode
+	 * @see #isSetMode()
+	 * @see #unsetMode()
 	 * @see #getMode()
 	 * @generated
 	 */
 	void setMode(SoapMode value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getMode <em>Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetMode()
+	 * @see #getMode()
+	 * @see #setMode(SoapMode)
+	 * @generated
+	 */
+	void unsetMode();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getMode <em>Mode</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Mode</em>' attribute is set.
+	 * @see #unsetMode()
+	 * @see #getMode()
+	 * @see #setMode(SoapMode)
+	 * @generated
+	 */
+	boolean isSetMode();
 
 	/**
 	 * Returns the value of the '<em><b>Proxy Host</b></em>' attribute.

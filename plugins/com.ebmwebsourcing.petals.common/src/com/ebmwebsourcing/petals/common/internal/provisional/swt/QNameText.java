@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+
 /**
  * A widget for QNames, made up of two {@link Text}s separated by a {@link Label}.
  * @author Vincent Zurczak - EBM WebSourcing
@@ -38,6 +40,7 @@ public class QNameText extends Composite {
 	private final static String DEFAULT_LOCAL_PART = "local part";
 	private final static String DEFAULT_NAMESPACE = "http://your.namespace.uri";
 
+	private String defaultLocalPart;
 	private final PhantomText namespacePhantomText;
 	private final Text localPartPhantomText;
 	private final Label separatorLabel;
@@ -51,6 +54,7 @@ public class QNameText extends Composite {
 	public QNameText( Composite parent ) {
 		super( parent, SWT.BORDER );
 		setBackground( getDisplay().getSystemColor( SWT.COLOR_WHITE ));
+		this.defaultLocalPart = DEFAULT_LOCAL_PART;
 
 		GridLayout layout = new GridLayout( 3, false );
 		layout.marginHeight = 1;
@@ -123,7 +127,7 @@ public class QNameText extends Composite {
 	 * @param localPart the local part (can be null)
 	 */
 	public void setLocalPart( String localPart ) {
-		this.localPartPhantomText.setText( localPart != null ? localPart : "" );
+		this.localPartPhantomText.setText( localPart != null ? localPart : this.defaultLocalPart );
 	}
 
 
@@ -188,7 +192,11 @@ public class QNameText extends Composite {
 		QName result;
 		String ns = this.namespacePhantomText.getTextValue();
 		String name = this.localPartPhantomText.getText();
-		if( ns == null || ns.length() == 0 )
+		name = this.defaultLocalPart.equals( name ) ? null : name;
+
+		if( StringUtils.isEmpty( name ))
+			result = null;
+		else if( ns == null || ns.length() == 0 )
 			result = new QName( name );
 		else
 			result = new QName( ns, name );
@@ -248,7 +256,7 @@ public class QNameText extends Composite {
 	 * @param defaultLocalPart the defaultLocalPart to set
 	 */
 	public void setDefaultLocalPart( String defaultLocalPart ) {
-		this.localPartPhantomText.setText( defaultLocalPart == null ? "" : defaultLocalPart );
+		this.defaultLocalPart = defaultLocalPart == null ? DEFAULT_LOCAL_PART : defaultLocalPart;
 	}
 
 
@@ -256,6 +264,6 @@ public class QNameText extends Composite {
 	 * @param defaultNamespace the defaultNamespace to set
 	 */
 	public void setDefaultNamespace( String defaultNamespace ) {
-		this.namespacePhantomText.setDefaultValue( defaultNamespace == null ? "" : defaultNamespace );
+		this.namespacePhantomText.setDefaultValue( defaultNamespace == null ? DEFAULT_NAMESPACE : defaultNamespace );
 	}
 }

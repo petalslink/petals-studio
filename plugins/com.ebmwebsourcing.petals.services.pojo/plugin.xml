@@ -19,11 +19,11 @@
       <ComponentSupport
             id="pojo">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.pojo.PojoDescription2x"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.pojo.PojoDescription22"
                editorExtension="com.ebmwebsourcing.petals.services.pojo.editor.PojoEditorContribution"
                id="POJO 2.2"
                namespace="http://petals.ow2.org/components/pojo/version-2"
-               providesExtensionWizard="com.ebmwebsourcing.petals.services.pojo.wizards.PojoWizard2x">
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.pojo.wizards.PojoWizard22">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>

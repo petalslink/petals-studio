@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -38,6 +39,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.FormText;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.LinkWithImageComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.StyledElementListSelectionDialog;
@@ -48,6 +50,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.Jbi
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.Messages;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.utils.PCStyledLabelProvider;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
@@ -121,9 +124,9 @@ public class JbiProvidePage extends JbiAbstractPage {
 		sb.append( "<form>" );
 		sb.append( "<p><img href=\"tip\" /> <b>Auto Generated End-points</b></p>" );
 		sb.append( "<p>End-points that are generated at deployment time allow to " );
-		sb.append( "instantiate several services from a single Service Unit." );
+		sb.append( "instantiate several services from a single Service Unit. " );
 		sb.append( "These services will have the same behavior, same interface, same service name, " );
-		sb.append( "but they will have a different identifier.</p>" );
+		sb.append( "but they will have a different end point, and thus, a different identifier.</p>" );
 		sb.append( "</form>" );
 
 		ft.setText( sb.toString(), true, false );
@@ -170,14 +173,10 @@ public class JbiProvidePage extends JbiAbstractPage {
 		this.wsdlHelper = SwtFactory.createDecoredLink( table, "", this.tipImage );
 		SwtFactory.applyHorizontalGridData( this.wsdlHelper );
 		this.wsdlHelper.setVisible( false );
-		this.wsdlHelper.getLink().addSelectionListener(  new SelectionListener() {
+		this.wsdlHelper.getLink().addSelectionListener(  new DefaultSelectionListener() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
-				widgetDefaultSelected( e );
-			}
 
-			@Override
-			public void widgetDefaultSelected( SelectionEvent e ) {
 				PCStyledLabelProvider lp = new PCStyledLabelProvider( getControl());
 				StyledElementListSelectionDialog dlg = new StyledElementListSelectionDialog( getShell(), lp );
 
@@ -188,12 +187,8 @@ public class JbiProvidePage extends JbiAbstractPage {
 				dlg.setMessage( "Select the service to expose inside Petals." );
 				dlg.setElements( JbiProvidePage.this.jbiBasicBeans.toArray());
 
-				if( dlg.open() == Window.OK ) {
-					JbiBasicBean bean = (JbiBasicBean) dlg.getResult()[ 0 ];
-					JbiProvidePage.this.itfQText.setValue( bean.getInterfaceName());
-					JbiProvidePage.this.srvQText.setValue( bean.getServiceName());
-					JbiProvidePage.this.edptText.setText( bean.getEndpointName() != null ? bean.getEndpointName() : "" );
-				}
+				if( dlg.open() == Window.OK )
+					selectJbiBasicBean((JbiBasicBean) dlg.getResult()[ 0 ]);
 
 				lp.dispose();
 			}
@@ -248,14 +243,9 @@ public class JbiProvidePage extends JbiAbstractPage {
 			}
 		});
 
-		wsdlBrowser.getButton().addSelectionListener( new SelectionListener() {
+		wsdlBrowser.getButton().addSelectionListener( new DefaultSelectionListener() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
-				runWsdlParsing();
-			}
-
-			@Override
-			public void widgetDefaultSelected( SelectionEvent e ) {
 				runWsdlParsing();
 			}
 		});
@@ -276,11 +266,13 @@ public class JbiProvidePage extends JbiAbstractPage {
 				monitor.beginTask( Messages.ProvideJbiPage_24, 2 );
 				monitor.worked( 1 );
 				JbiProvidePage.this.wsdlParsingError = null;
+				JbiProvidePage.this.jbiBasicBeans.clear();
 				try {
-					JbiProvidePage.this.jbiBasicBeans.clear();
-					JbiProvidePage.this.jbiBasicBeans.addAll( WsdlUtils.INSTANCE.parse( JbiProvidePage.this.wsdlUrl ));
-					if( JbiProvidePage.this.jbiBasicBeans.isEmpty())
-						JbiProvidePage.this.wsdlParsingError = "The WSDL does not contain any service desription.";
+					if( ! StringUtils.isEmpty( JbiProvidePage.this.wsdlUrl )) {
+						JbiProvidePage.this.jbiBasicBeans.addAll( WsdlUtils.INSTANCE.parse( JbiProvidePage.this.wsdlUrl ));
+						if( JbiProvidePage.this.jbiBasicBeans.isEmpty())
+							JbiProvidePage.this.wsdlParsingError = "The WSDL does not contain any service desription.";
+					}
 
 				} catch( IllegalArgumentException e1 ) {
 					JbiProvidePage.this.wsdlParsingError = "The WSDL URI is invalid.";
@@ -320,11 +312,27 @@ public class JbiProvidePage extends JbiAbstractPage {
 		this.wsdlHelper.setVisible( size > 0 );
 		this.wsdlHelper.layout();
 
-		if( this.jbiBasicBeans.size() > 0 ) {
-			JbiBasicBean bean = this.jbiBasicBeans.get( 0 );
-			this.itfQText.setValue( bean.getInterfaceName());
-			this.srvQText.setValue( bean.getServiceName());
-			this.edptText.setText( bean.getEndpointName() != null ? bean.getEndpointName() : "" );
+		if( this.jbiBasicBeans.size() > 0 )
+			selectJbiBasicBean( this.jbiBasicBeans.get( 0 ));
+	}
+
+
+	/**
+	 * Sets values from the selected bean.
+	 * @param bean
+	 */
+	private void selectJbiBasicBean( JbiBasicBean bean ) {
+
+		this.itfQText.setValue( bean.getInterfaceName());
+		this.srvQText.setValue( bean.getServiceName());
+		this.edptText.setText( bean.getEndpointName() != null ? bean.getEndpointName() : "" );
+
+		IWizard wiz = getWizard();
+		if( wiz instanceof AbstractServiceUnitWizard ) {
+			SuWizardSettings settings = ((AbstractServiceUnitWizard) wiz).getSettings();
+			settings.soapAddress = bean.getSoapAddress();
+			settings.soapVersion = bean.getSoapVersion().toString();
+			settings.wsdlUri = this.wsdlUrl;
 		}
 	}
 
@@ -383,14 +391,5 @@ public class JbiProvidePage extends JbiAbstractPage {
 	 */
 	public String getWsdlUrl() {
 		return this.wsdlUrl;
-	}
-
-
-	/**
-	 * @return
-	 */
-	public String getWsdlFileName() {
-		String[] segments = this.wsdlUrl.split("/");
-		return segments[segments.length - 1];
 	}
 }

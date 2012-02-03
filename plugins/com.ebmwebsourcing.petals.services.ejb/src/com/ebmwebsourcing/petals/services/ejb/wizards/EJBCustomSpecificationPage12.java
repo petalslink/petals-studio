@@ -224,6 +224,7 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 		setControl( container );
 	}
 
+
 	/**
 	 * Opens a dialog to select a class contained in the JAR files.
 	 * @return the selected class name, or null if CANCEL was clicked

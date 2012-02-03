@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Petals POJO Libraries
+Bundle-SymbolicName: com.ebmwebsourcing.petals.libs.pojo22
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EBM WebSourcing
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/petals-cdk-api-2.1.1.jar,
+ lib/petals-cdk-core-5.1.1.jar,
+ lib/petals-cdk-jbidescriptor-2.1.jar,
+ lib/petals-jbi-1.0.2.jar

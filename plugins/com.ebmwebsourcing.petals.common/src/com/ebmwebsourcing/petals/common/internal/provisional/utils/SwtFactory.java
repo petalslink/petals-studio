@@ -473,6 +473,7 @@ public class SwtFactory {
 
 		// ADD button
 		lbc.getAddButton().setText( "Add" );
+		lbc.getAddButton().setImage( PetalsImages.getAdd());
 		lbc.getAddButton().addSelectionListener( new SelectionAdapter() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
@@ -509,6 +510,7 @@ public class SwtFactory {
 
 		// REMOVE button
 		lbc.getRemoveButton().setText( "Remove" );
+		lbc.getRemoveButton().setImage( PetalsImages.getDelete());
 		lbc.getRemoveButton().addSelectionListener( new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

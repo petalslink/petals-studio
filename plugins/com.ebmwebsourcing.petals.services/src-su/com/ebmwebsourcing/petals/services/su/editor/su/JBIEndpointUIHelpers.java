@@ -30,9 +30,9 @@ import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQN
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsColors;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 import com.ebmwebsourcing.petals.services.Messages;
-import com.ebmwebsourcing.petals.services.PetalsColors;
-import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 

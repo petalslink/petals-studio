@@ -18,12 +18,12 @@ import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 /**
  * Settings for the SU Creation Wizards.
  * This could be merged into the actual {@link AbstractServiceUnitWizard}
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  * @author Mickael Istria - EBM WebSourcing. Replaced properties by typed values
  */
 public class SuWizardSettings {
-	
+
 	public boolean activateInterfaceName = true;
 	public boolean validateInterface = true;
 	public boolean activateServiceName = true;
@@ -35,4 +35,9 @@ public class SuWizardSettings {
 	public boolean showJbiPage = true;
 	public String consumedWsdlUri = "";
 	public String consumedComponentName = "";
+
+	// Hack for SOAP
+	public String wsdlUri;
+	public String soapAddress;
+	public String soapVersion;
 }

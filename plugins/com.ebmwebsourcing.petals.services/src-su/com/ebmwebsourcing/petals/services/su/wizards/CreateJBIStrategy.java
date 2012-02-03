@@ -29,7 +29,6 @@ import org.eclipse.ui.ide.IDE;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -95,10 +94,10 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 			});
 
 			// Select it in the Petals project view
-			ResourceUtils.selectResourceInPetalsExplorer( true, jbiXmlFile );
+			wizard.getResourcesToSelect().add( jbiXmlFile );
 
 		} else {
-			ResourceUtils.selectResourceInPetalsExplorer( true, project );
+			wizard.getResourcesToSelect().add( project );
 		}
 	}
 

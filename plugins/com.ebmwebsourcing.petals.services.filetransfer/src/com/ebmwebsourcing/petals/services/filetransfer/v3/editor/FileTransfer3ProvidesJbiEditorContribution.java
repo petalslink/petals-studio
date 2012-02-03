@@ -11,30 +11,16 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v3.editor;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.emf.databinding.edit.EMFEditObservables;
-import org.eclipse.emf.edit.command.SetCommand;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.databinding.swt.SWTObservables;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.PetalsImages;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.Messages;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
@@ -70,7 +56,7 @@ public class FileTransfer3ProvidesJbiEditorContribution implements JbiEditorDeta
 		ftComposite.setLayout(new GridLayout(2, false));
 		ftSection.setClient(ftComposite);
 		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ftComposite, ise, Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES);
-		
+
 		Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
 		cdkSection.setText("CDK");
 		cdkSection.setLayoutData(new GridData(GridData.FILL_BOTH));

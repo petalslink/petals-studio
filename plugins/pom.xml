@@ -21,6 +21,7 @@
 		<!-- Libraries -->
 		<module>com.ebmwebsourcing.petals.libs.cxf</module>
 		<module>com.ebmwebsourcing.petals.libs.easybpel</module>
+		<module>com.ebmwebsourcing.petals.libs.pojo22</module>
 	
 		<!-- Core of Petals tooling -->
 		<module>com.ebmwebsourcing.jbi.core.metamodel</module>

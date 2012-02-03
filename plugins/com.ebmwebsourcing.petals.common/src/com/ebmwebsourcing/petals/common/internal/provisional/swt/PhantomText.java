@@ -64,6 +64,7 @@ public class PhantomText extends Composite {
 			@Override
 			public void focusLost( FocusEvent e ) {
 				PhantomText.this.updateEnabled = false;
+				PhantomText.this.text.setText( PhantomText.this.value == null ? PhantomText.this.defaultValue : PhantomText.this.value );
 				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ));
 			}
 
@@ -92,7 +93,7 @@ public class PhantomText extends Composite {
 	 */
 	public void setTextValue( String string ) {
 		this.value = string;
-		this.text.setText( string == null ? "" : string );
+		this.text.setText( string == null ? this.defaultValue : string );
 		this.text.notifyListeners( SWT.FocusOut, new Event());
 	}
 

@@ -233,10 +233,11 @@ public class ResourceUtils {
 
 		File bundleFile;
 		try {
-			bundleFile = FileLocator
-			.getBundleFile(Platform.getBundle(pluginId));
+			bundleFile = FileLocator.getBundleFile(Platform.getBundle(pluginId));
+
 			if (bundleFile.isFile())
 				return bundleFile;
+
 			else if (bundleFile.isDirectory()) {
 				File binaryFolder = new File(bundleFile, binaryFolderName);
 				if (binaryFolder.exists() && binaryFolder.isDirectory())
@@ -244,7 +245,7 @@ public class ResourceUtils {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
 		return null;
@@ -337,7 +338,7 @@ public class ResourceUtils {
 	 * @param expand true to expand the node in the viewer
 	 * @param resources
 	 */
-	public static void selectResourceInPetalsExplorer( final boolean expand, final List<?> resources ) {
+	public static void selectResourceInPetalsExplorer( final boolean expand, final Collection<?> resources ) {
 
 		List<Object> elements = new ArrayList<Object> ();
 		for( Object o : resources ) {
@@ -424,6 +425,7 @@ public class ResourceUtils {
 
 		if( display != null && resources != null ) {
 			display.syncExec( new Runnable() {
+				@Override
 				public void run() {
 
 					try {

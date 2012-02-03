@@ -49,7 +49,7 @@ public class ProjectPage extends AbstractSuWizardPage {
 	public static final String PAGE_NAME = "ProjectPage";
 
 	private WorkingSetGroup workingSetGroup;
-	private String projectName, projectContainer;
+	private String projectName, projectContainer, oldBaseName;
 	private Text projectNameText, projectLocationText;
 
 
@@ -236,6 +236,7 @@ public class ProjectPage extends AbstractSuWizardPage {
 	public void setVisible( boolean visible ) {
 
 		// Update the UI
+		int start = -1, end = -1;
 		if( visible ) {
 
 			// Update the project name from the "service-name"
@@ -252,17 +253,24 @@ public class ProjectPage extends AbstractSuWizardPage {
 				}
 			}
 
+			// Store it, so that we know when we can reset the project name...
+			// and when we must let it unchanged
+			boolean refresh = false;
+			if( this.oldBaseName == null || ! this.oldBaseName.equals( serviceName )) {
+				this.oldBaseName = serviceName;
+				refresh = true;
+			}
+
 			// Create a SU name
 			String newSuType = getWizard().getComponentVersionDescription().getComponentAlias().replaceAll( "\\s", "" );
-			String formattedName = NameUtils.createSuName( newSuType, serviceName, getWizard().getPetalsMode() != PetalsMode.provides);
+			if( refresh ) {
+				String formattedName = NameUtils.createSuName( newSuType, serviceName, getWizard().getPetalsMode() != PetalsMode.provides);
+				this.projectNameText.setText( formattedName );
+			}
 
-			this.projectNameText.setText( formattedName );
 			if( defaultServiceName ) {
-				int start = 4 + newSuType.length();
-				this.projectNameText.setSelection( start, start + serviceName.length());
-
-			} else {
-				this.projectNameText.setSelection( this.projectNameText.getText().length());
+				start = 4 + newSuType.length();
+				end = start + serviceName.length();
 			}
 
 			String error = getErrorMessage();
@@ -274,6 +282,11 @@ public class ProjectPage extends AbstractSuWizardPage {
 
 		// Super
 		super.setVisible( visible );
+
+		// Force the focus
+		this.projectNameText.forceFocus();
+		if( start != -1 && end != -1 )
+			this.projectNameText.setSelection( start, end );
 	}
 
 

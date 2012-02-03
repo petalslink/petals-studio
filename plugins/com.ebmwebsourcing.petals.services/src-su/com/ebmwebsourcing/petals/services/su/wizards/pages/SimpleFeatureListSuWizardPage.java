@@ -66,14 +66,27 @@ public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage implemen
 	 */
 	@Override
 	public boolean isPageComplete() {
+
 		for (EStructuralFeature feature : this.features) {
-			if (feature.getLowerBound() > 0 &&
-					(!getNewlyCreatedEndpoint().eIsSet(feature) ||
-					(getNewlyCreatedEndpoint().eGet(feature) instanceof String && ((String)getNewlyCreatedEndpoint().eGet(feature)).isEmpty()))) {
-				setErrorMessage(Messages.bind(Messages.featureNotSet, StringUtils.camelCaseToHuman(feature.getName())));
+			if( feature.getLowerBound() == 0 )
+				continue;
+
+			// Feature.isSet is not useful for enumerations
+			boolean isSet = feature.getEType().getInstanceClass().isEnum()
+					|| getNewlyCreatedEndpoint().eIsSet( feature );
+
+			Object value = isSet ? getNewlyCreatedEndpoint().eGet( feature ) : null;
+			if( value == null
+					|| value instanceof String && StringUtils.isEmpty((String) value)) {
+
+				String label = StringUtils.camelCaseToHuman( feature.getName());
+				label = StringUtils.capitalize( label );
+
+				setErrorMessage( Messages.bind( Messages.featureNotSet,  label ));
 				return false;
 			}
 		}
+
 		setErrorMessage(null);
 		return true;
 	}

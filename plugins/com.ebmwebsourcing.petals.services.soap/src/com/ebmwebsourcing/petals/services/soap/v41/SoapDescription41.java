@@ -9,13 +9,15 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.soap;
+package com.ebmwebsourcing.petals.services.soap.v41;
+
+import com.ebmwebsourcing.petals.services.soap.SoapDescription;
 
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SoapDescription40 extends SoapDescription {
+public class SoapDescription41 extends SoapDescription {
 
 	/*
 	 * (non-Javadoc)
@@ -24,7 +26,7 @@ public class SoapDescription40 extends SoapDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "4.x";
+		return "4.1";
 	}
 
 	/*

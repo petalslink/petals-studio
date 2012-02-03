@@ -82,6 +82,15 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	protected String address = ADDRESS_EDEFAULT;
 
 	/**
+	 * This is true if the Address attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean addressESet;
+
+	/**
 	 * The default value of the '{@link #getWsaReplyTo() <em>Wsa Reply To</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -160,6 +169,15 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	 * @ordered
 	 */
 	protected SoapVersion soapVersion = SOAP_VERSION_EDEFAULT;
+
+	/**
+	 * This is true if the Soap Version attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean soapVersionESet;
 
 	/**
 	 * The default value of the '{@link #isChunkedMode() <em>Chunked Mode</em>}' attribute.
@@ -258,6 +276,15 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	 * @ordered
 	 */
 	protected SoapMode mode = MODE_EDEFAULT;
+
+	/**
+	 * This is true if the Mode attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean modeESet;
 
 	/**
 	 * The default value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute.
@@ -615,8 +642,33 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	public void setAddress(String newAddress) {
 		String oldAddress = address;
 		address = newAddress;
+		boolean oldAddressESet = addressESet;
+		addressESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__ADDRESS, oldAddress, address));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__ADDRESS, oldAddress, address, !oldAddressESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetAddress() {
+		String oldAddress = address;
+		boolean oldAddressESet = addressESet;
+		address = ADDRESS_EDEFAULT;
+		addressESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_PROVIDES__ADDRESS, oldAddress, ADDRESS_EDEFAULT, oldAddressESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetAddress() {
+		return addressESet;
 	}
 
 	/**
@@ -699,8 +751,33 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	public void setSoapVersion(SoapVersion newSoapVersion) {
 		SoapVersion oldSoapVersion = soapVersion;
 		soapVersion = newSoapVersion == null ? SOAP_VERSION_EDEFAULT : newSoapVersion;
+		boolean oldSoapVersionESet = soapVersionESet;
+		soapVersionESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__SOAP_VERSION, oldSoapVersion, soapVersion));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__SOAP_VERSION, oldSoapVersion, soapVersion, !oldSoapVersionESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetSoapVersion() {
+		SoapVersion oldSoapVersion = soapVersion;
+		boolean oldSoapVersionESet = soapVersionESet;
+		soapVersion = SOAP_VERSION_EDEFAULT;
+		soapVersionESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_PROVIDES__SOAP_VERSION, oldSoapVersion, SOAP_VERSION_EDEFAULT, oldSoapVersionESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetSoapVersion() {
+		return soapVersionESet;
 	}
 
 	/**
@@ -833,8 +910,33 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	public void setMode(SoapMode newMode) {
 		SoapMode oldMode = mode;
 		mode = newMode == null ? MODE_EDEFAULT : newMode;
+		boolean oldModeESet = modeESet;
+		modeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__MODE, oldMode, mode));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__MODE, oldMode, mode, !oldModeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetMode() {
+		SoapMode oldMode = mode;
+		boolean oldModeESet = modeESet;
+		mode = MODE_EDEFAULT;
+		modeESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_PROVIDES__MODE, oldMode, MODE_EDEFAULT, oldModeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetMode() {
+		return modeESet;
 	}
 
 	/**
@@ -1331,7 +1433,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case SoapPackage.SOAP_PROVIDES__ADDRESS:
-				setAddress(ADDRESS_EDEFAULT);
+				unsetAddress();
 				return;
 			case SoapPackage.SOAP_PROVIDES__WSA_REPLY_TO:
 				setWsaReplyTo(WSA_REPLY_TO_EDEFAULT);
@@ -1343,7 +1445,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 				setWsaFaultTo(WSA_FAULT_TO_EDEFAULT);
 				return;
 			case SoapPackage.SOAP_PROVIDES__SOAP_VERSION:
-				setSoapVersion(SOAP_VERSION_EDEFAULT);
+				unsetSoapVersion();
 				return;
 			case SoapPackage.SOAP_PROVIDES__CHUNKED_MODE:
 				unsetChunkedMode();
@@ -1355,7 +1457,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 				unsetCleanupTransport();
 				return;
 			case SoapPackage.SOAP_PROVIDES__MODE:
-				setMode(MODE_EDEFAULT);
+				unsetMode();
 				return;
 			case SoapPackage.SOAP_PROVIDES__PROXY_HOST:
 				setProxyHost(PROXY_HOST_EDEFAULT);
@@ -1418,7 +1520,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case SoapPackage.SOAP_PROVIDES__ADDRESS:
-				return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
+				return isSetAddress();
 			case SoapPackage.SOAP_PROVIDES__WSA_REPLY_TO:
 				return WSA_REPLY_TO_EDEFAULT == null ? wsaReplyTo != null : !WSA_REPLY_TO_EDEFAULT.equals(wsaReplyTo);
 			case SoapPackage.SOAP_PROVIDES__WSA_FROM:
@@ -1426,7 +1528,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 			case SoapPackage.SOAP_PROVIDES__WSA_FAULT_TO:
 				return WSA_FAULT_TO_EDEFAULT == null ? wsaFaultTo != null : !WSA_FAULT_TO_EDEFAULT.equals(wsaFaultTo);
 			case SoapPackage.SOAP_PROVIDES__SOAP_VERSION:
-				return soapVersion != SOAP_VERSION_EDEFAULT;
+				return isSetSoapVersion();
 			case SoapPackage.SOAP_PROVIDES__CHUNKED_MODE:
 				return isSetChunkedMode();
 			case SoapPackage.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT:
@@ -1434,7 +1536,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 			case SoapPackage.SOAP_PROVIDES__CLEANUP_TRANSPORT:
 				return isSetCleanupTransport();
 			case SoapPackage.SOAP_PROVIDES__MODE:
-				return mode != MODE_EDEFAULT;
+				return isSetMode();
 			case SoapPackage.SOAP_PROVIDES__PROXY_HOST:
 				return PROXY_HOST_EDEFAULT == null ? proxyHost != null : !PROXY_HOST_EDEFAULT.equals(proxyHost);
 			case SoapPackage.SOAP_PROVIDES__PROXY_PORT:
@@ -1482,7 +1584,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (address: ");
-		result.append(address);
+		if (addressESet) result.append(address); else result.append("<unset>");
 		result.append(", wsaReplyTo: ");
 		result.append(wsaReplyTo);
 		result.append(", wsaFrom: ");
@@ -1490,7 +1592,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 		result.append(", wsaFaultTo: ");
 		result.append(wsaFaultTo);
 		result.append(", soapVersion: ");
-		result.append(soapVersion);
+		if (soapVersionESet) result.append(soapVersion); else result.append("<unset>");
 		result.append(", chunkedMode: ");
 		if (chunkedModeESet) result.append(chunkedMode); else result.append("<unset>");
 		result.append(", synchonousTimeout: ");
@@ -1498,7 +1600,7 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 		result.append(", cleanupTransport: ");
 		if (cleanupTransportESet) result.append(cleanupTransport); else result.append("<unset>");
 		result.append(", mode: ");
-		result.append(mode);
+		if (modeESet) result.append(mode); else result.append("<unset>");
 		result.append(", proxyHost: ");
 		result.append(proxyHost);
 		result.append(", proxyPort: ");

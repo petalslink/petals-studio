@@ -16,7 +16,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -31,6 +33,7 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -38,6 +41,7 @@ import org.xml.sax.SAXException;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
@@ -70,6 +74,8 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	protected JbiProvidePage jbiProvidePage;
 	protected FinishServiceCreationStrategy finishStrategy;
 	protected SuWizardSettings settings;
+	protected String finalWsdlFileLocation;
+	protected Set<IResource> resourcesToSelect;
 
 
 	/**
@@ -79,7 +85,9 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		setNeedsProgressMonitor( true );
 		setForcePreviousAndNextButtons( true );
 		setDefaultPageImageDescriptor( PetalsServicesPlugin.getImageDescriptor( "icons/wizban/wiz_service_unit.png" ));
-		this.settings = new SuWizardSettings();
+
+		this.settings = new SuWizardSettings ();
+		this.resourcesToSelect = new HashSet<IResource> ();
 	}
 
 
@@ -112,6 +120,14 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 		presetServiceValues(this.endpoint);
 		this.finishStrategy = new CreateJBIStrategy();
+	}
+
+
+	/**
+	 * @return the resourcesToSelect
+	 */
+	public Set<IResource> getResourcesToSelect() {
+		return this.resourcesToSelect;
 	}
 
 
@@ -217,7 +233,12 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 		} catch( Exception e ) {
 			PetalsServicesPlugin.log( e, IStatus.ERROR );
+			MessageDialog.openError( getShell(), "Error", "An error occurred during the wizard completion. Check the logs for more details." );
 		}
+
+		// Show resources in the project explorer (not in the workspace modify operation!)
+		if( ! this.resourcesToSelect.isEmpty())
+			ResourceUtils.selectResourceInPetalsExplorer( true, this.resourcesToSelect );
 
 		return true;
 	}
@@ -238,9 +259,10 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 		// Import the WSDL and update the jbi.xml file in consequence
 		final IFolder resourceDirectory = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
-		if( this.petalsMode == PetalsMode.provides && this.settings.showWsdl && this.settings.showJbiPage) {
+		if( this.petalsMode == PetalsMode.provides
+				&& this.settings.showWsdl
+				&& this.settings.showJbiPage)
 			importWSDLFileInProvideSUProject(monitor, jbiFile, resourceDirectory);
-		}
 
 		monitor.subTask( "Importing additional files..." );
 		importAdditionalFiles( resourceDirectory, monitor );
@@ -265,8 +287,8 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 		File wsdlFile = null;
 		monitor.subTask( "Importing the WSDL..." );
-		String wsdlFileLocation = getSelectedWSDLForProvide();
-		if( wsdlFileLocation != null && this.jbiProvidePage.isImportWsdl()) {
+		this.finalWsdlFileLocation = getSelectedWSDLForProvide();
+		if( this.finalWsdlFileLocation != null && this.jbiProvidePage.isImportWsdl()) {
 
 			try {
 				WsdlImportHelper helper = new WsdlImportHelper();
@@ -275,7 +297,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 						getSelectedWSDLForProvide());
 
 				wsdlFile = fileToUrl.get( getSelectedWSDLForProvide());
-				wsdlFileLocation = IoUtils.getRelativeLocationToFile( jbiFile.getLocation().toFile(), wsdlFile );
+				this.finalWsdlFileLocation = IoUtils.getRelativeLocationToFile( jbiFile.getLocation().toFile(), wsdlFile );
 				monitor.subTask( "Updating the WSDL..." );
 				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, this.endpoint.getServiceName(), this.endpoint.getEndpointName());
 
@@ -301,7 +323,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * @return the WSDL URL or null if it was not provided
 	 */
 	public String getSelectedWSDLForProvide() {
-		return this.jbiProvidePage != null ? this.jbiProvidePage.getWsdlUrl() : null;
+		return this.settings.wsdlUri;
 	}
 
 
@@ -404,7 +426,24 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	}
 
 
-	// Component business methods
+	/**
+	 * Performs the last actions.
+	 * <p>
+	 * It can be create a new file, open an editor...
+	 * Resources to select in the Petals project explorer should be added
+	 * to {@link #resourcesToSelect} directly. The super class is in charge of displaying them.
+	 * </p>
+	 *
+	 * @param resourceDirectory the resource directory
+	 * @param newlyCreatedEndpoint the newly created end-point
+	 * @param monitor the progress monitor
+	 * @return a status indicating how things worked
+	 */
 	protected abstract IStatus performLastActions( IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor );
+
+
+	/**
+	 * @return the description of the component version
+	 */
 	public abstract ComponentVersionDescription getComponentVersionDescription();
 }

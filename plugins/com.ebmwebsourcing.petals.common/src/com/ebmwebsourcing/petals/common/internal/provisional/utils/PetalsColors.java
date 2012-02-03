@@ -1,4 +1,4 @@
-package com.ebmwebsourcing.petals.services;
+package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -6,7 +6,6 @@ import org.eclipse.swt.widgets.Display;
 /**
  * Color set of PetalsLink, from http://extranet.petalslink.com/display/interne/Charte+graphique+Petals
  * @author Mickael Istria
- *
  */
 public class PetalsColors {
 
@@ -17,7 +16,7 @@ public class PetalsColors {
 	private static Color lightPurple;
 	private static Color lightOrange;
 	private static Color lightGrey;
-	
+
 	public synchronized static Color getPurple() {
 		if (purple == null) {
 			purple = new Color(Display.getDefault(), 120, 49, 135);
@@ -31,21 +30,21 @@ public class PetalsColors {
 		}
 		return orange;
 	}
-	
+
 	public synchronized static Color getGrey() {
 		if (grey == null) {
 			grey = new Color(Display.getDefault(), 51, 51, 51);
 		}
 		return grey;
 	}
-	
+
 	public synchronized static Color getDarkPurple() {
 		if (darkPurple == null) {
 			darkPurple = new Color(Display.getDefault(), 73, 37, 98);
 		}
 		return darkPurple;
 	}
-	
+
 	public synchronized static Color getLightPurple() {
 		if (lightPurple == null) {
 			lightPurple = new Color(Display.getDefault(), 193, 175, 198);
@@ -59,7 +58,7 @@ public class PetalsColors {
 		}
 		return lightOrange;
 	}
-	
+
 	public synchronized static Color getLightGrey() {
 		if (lightGrey == null) {
 			lightGrey = new Color(Display.getDefault(), 206, 206, 206);

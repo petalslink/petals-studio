@@ -1,6 +1,8 @@
-package com.ebmwebsourcing.petals.services;
+package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import org.eclipse.swt.graphics.Image;
+
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 public class PetalsImages {
 
@@ -14,35 +16,35 @@ public class PetalsImages {
 
 	public synchronized static Image getPencil() {
 		if (pencil == null) {
-			pencil = PetalsServicesPlugin.getImageDescriptor("icons/obj16/pencil.png").createImage();
+			pencil = PetalsCommonPlugin.getImageDescriptor("icons/obj16/pencil.png").createImage();
 		}
 		return pencil;
 	}
-	
+
 	public synchronized static Image getAdd() {
 		if (add == null) {
-			add = PetalsServicesPlugin.getImageDescriptor("icons/obj16/add.png").createImage();
+			add = PetalsCommonPlugin.getImageDescriptor("icons/obj16/add.png").createImage();
 		}
 		return add;
 	}
-	
+
 	public synchronized static Image getDelete() {
 		if (delete == null) {
-			delete = PetalsServicesPlugin.getImageDescriptor("icons/obj16/delete.png").createImage();
+			delete = PetalsCommonPlugin.getImageDescriptor("icons/obj16/delete.png").createImage();
 		}
 		return delete;
 	}
-	
+
 	public synchronized static Image getBrowse() {
 		if (browse == null) {
-			browse = PetalsServicesPlugin.getImageDescriptor("icons/obj16/folder_explore.png").createImage();
+			browse = PetalsCommonPlugin.getImageDescriptor("icons/obj16/folder_explore.png").createImage();
 		}
 		return browse;
 	}
-	
+
 	public synchronized static Image getSearchWSDL() {
 		if (searchWSDL == null) {
-			searchWSDL = PetalsServicesPlugin.getImageDescriptor("icons/obj16/Interface_explore.gif").createImage();
+			searchWSDL = PetalsCommonPlugin.getImageDescriptor("icons/obj16/Interface_explore.gif").createImage();
 		}
 		return searchWSDL;
 	}
@@ -52,7 +54,7 @@ public class PetalsImages {
 	 */
 	public static Image getOk() {
 		if (ok == null) {
-			ok = PetalsServicesPlugin.getImageDescriptor("icons/obj16/tick.png").createImage();
+			ok = PetalsCommonPlugin.getImageDescriptor("icons/obj16/tick.png").createImage();
 		}
 		return ok;
 	}
@@ -62,7 +64,7 @@ public class PetalsImages {
 	 */
 	public static Image getKO() {
 		if (ko == null) {
-			ko = PetalsServicesPlugin.getImageDescriptor("icons/obj16/cross.png").createImage();
+			ko = PetalsCommonPlugin.getImageDescriptor("icons/obj16/cross.png").createImage();
 		}
 		return ko;
 	}

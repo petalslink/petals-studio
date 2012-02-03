@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import com.ebmwebsourcing.petals.services.PetalsImages;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 
 /**
  * @author Mickael Istria (EBM Websourcing)

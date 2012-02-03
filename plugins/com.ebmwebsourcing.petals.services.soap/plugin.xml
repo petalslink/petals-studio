@@ -19,12 +19,20 @@
       <ComponentSupport
             id="soap">
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.soap.SoapDescription40"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.soap.v40.SoapDescription40"
                consumesExtensionWizard="com.ebmwebsourcing.petals.services.soap.wizards.SoapConsumesWizard40"
                editorExtension="com.ebmwebsourcing.petals.services.soap.editor.SoapEditorContribution"
                id="SOAP 4.0"
                namespace="http://petals.ow2.org/components/soap/version-4"
-               providesExtensionWizard="com.ebmwebsourcing.petals.services.soap.wizards.SoapProvidesWizard40">
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.soap.v40.SoapProvidesWizard40">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.soap.v41.SoapDescription41"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.soap.wizards.SoapConsumesWizard40"
+               editorExtension="com.ebmwebsourcing.petals.services.soap.editor.SoapEditorContribution"
+               id="SOAP 4.1"
+               namespace="http://petals.ow2.org/components/soap/version-4"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.soap.v41.SoapProvidesWizard41">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>

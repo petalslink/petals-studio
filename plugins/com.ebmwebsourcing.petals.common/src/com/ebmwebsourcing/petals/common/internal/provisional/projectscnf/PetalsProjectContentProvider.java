@@ -654,7 +654,12 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 
 				IResource res = resource;
 				while( res != null && !( res.getParent() instanceof IWorkspaceRoot )) {
-					((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( res, true );
+					IJavaElement elt = JavaCore.create( res );
+					if( elt != null )
+						((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( elt, true );
+					else
+						((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( res, true );
+
 					res = res.getParent();
 				}
 			}

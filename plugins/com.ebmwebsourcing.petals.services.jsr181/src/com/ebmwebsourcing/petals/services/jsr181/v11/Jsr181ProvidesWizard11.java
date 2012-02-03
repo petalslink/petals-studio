@@ -47,7 +47,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils.JaxWsException;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
@@ -215,7 +214,7 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 		});
 
 		// Select the created file
-		ResourceUtils.selectResourceInPetalsExplorer( true, file );
+		this.resourcesToSelect.add( file );
 	}
 
 
