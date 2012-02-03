@@ -29,7 +29,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -211,14 +210,9 @@ public class JbiProvidePage extends JbiAbstractPage {
 		// Import the WSDL
 		SwtFactory.createLabel( table, "", null );
 		Button wsdlImportButton = SwtFactory.createCheckBoxButton( table, "Import the WSDL in the project to create", null, this.importWsdl );
-		wsdlImportButton.addSelectionListener( new SelectionListener() {
+		wsdlImportButton.addSelectionListener( new DefaultSelectionListener() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
-				widgetDefaultSelected( e );
-			}
-
-			@Override
-			public void widgetDefaultSelected( SelectionEvent e ) {
 				JbiProvidePage.this.importWsdl = ((Button) e.widget).getSelection();
 			}
 		});

@@ -66,6 +66,15 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	protected String url = URL_EDEFAULT;
 
 	/**
+	 * This is true if the Url attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean urlESet;
+
+	/**
 	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -86,6 +95,15 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	protected String user = USER_EDEFAULT;
 
 	/**
+	 * This is true if the User attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean userESet;
+
+	/**
 	 * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -104,6 +122,15 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	 * @ordered
 	 */
 	protected String password = PASSWORD_EDEFAULT;
+
+	/**
+	 * This is true if the Password attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean passwordESet;
 
 	/**
 	 * The default value of the '{@link #getDriver() <em>Driver</em>}' attribute.
@@ -301,8 +328,33 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	public void setUrl(String newUrl) {
 		String oldUrl = url;
 		url = newUrl;
+		boolean oldUrlESet = urlESet;
+		urlESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SqlPackage.SQL_PROVIDES__URL, oldUrl, url));
+			eNotify(new ENotificationImpl(this, Notification.SET, SqlPackage.SQL_PROVIDES__URL, oldUrl, url, !oldUrlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetUrl() {
+		String oldUrl = url;
+		boolean oldUrlESet = urlESet;
+		url = URL_EDEFAULT;
+		urlESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SqlPackage.SQL_PROVIDES__URL, oldUrl, URL_EDEFAULT, oldUrlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetUrl() {
+		return urlESet;
 	}
 
 	/**
@@ -322,8 +374,33 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	public void setUser(String newUser) {
 		String oldUser = user;
 		user = newUser;
+		boolean oldUserESet = userESet;
+		userESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SqlPackage.SQL_PROVIDES__USER, oldUser, user));
+			eNotify(new ENotificationImpl(this, Notification.SET, SqlPackage.SQL_PROVIDES__USER, oldUser, user, !oldUserESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetUser() {
+		String oldUser = user;
+		boolean oldUserESet = userESet;
+		user = USER_EDEFAULT;
+		userESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SqlPackage.SQL_PROVIDES__USER, oldUser, USER_EDEFAULT, oldUserESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetUser() {
+		return userESet;
 	}
 
 	/**
@@ -343,8 +420,33 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	public void setPassword(String newPassword) {
 		String oldPassword = password;
 		password = newPassword;
+		boolean oldPasswordESet = passwordESet;
+		passwordESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SqlPackage.SQL_PROVIDES__PASSWORD, oldPassword, password));
+			eNotify(new ENotificationImpl(this, Notification.SET, SqlPackage.SQL_PROVIDES__PASSWORD, oldPassword, password, !oldPasswordESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetPassword() {
+		String oldPassword = password;
+		boolean oldPasswordESet = passwordESet;
+		password = PASSWORD_EDEFAULT;
+		passwordESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SqlPackage.SQL_PROVIDES__PASSWORD, oldPassword, PASSWORD_EDEFAULT, oldPasswordESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPassword() {
+		return passwordESet;
 	}
 
 	/**
@@ -603,13 +705,13 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case SqlPackage.SQL_PROVIDES__URL:
-				setUrl(URL_EDEFAULT);
+				unsetUrl();
 				return;
 			case SqlPackage.SQL_PROVIDES__USER:
-				setUser(USER_EDEFAULT);
+				unsetUser();
 				return;
 			case SqlPackage.SQL_PROVIDES__PASSWORD:
-				setPassword(PASSWORD_EDEFAULT);
+				unsetPassword();
 				return;
 			case SqlPackage.SQL_PROVIDES__DRIVER:
 				setDriver(DRIVER_EDEFAULT);
@@ -648,11 +750,11 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case SqlPackage.SQL_PROVIDES__URL:
-				return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
+				return isSetUrl();
 			case SqlPackage.SQL_PROVIDES__USER:
-				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
+				return isSetUser();
 			case SqlPackage.SQL_PROVIDES__PASSWORD:
-				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+				return isSetPassword();
 			case SqlPackage.SQL_PROVIDES__DRIVER:
 				return DRIVER_EDEFAULT == null ? driver != null : !DRIVER_EDEFAULT.equals(driver);
 			case SqlPackage.SQL_PROVIDES__MAX_ACTIVE:
@@ -684,11 +786,11 @@ public class SqlProvidesImpl extends ProvidesImpl implements SqlProvides {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (url: ");
-		result.append(url);
+		if (urlESet) result.append(url); else result.append("<unset>");
 		result.append(", user: ");
-		result.append(user);
+		if (userESet) result.append(user); else result.append("<unset>");
 		result.append(", password: ");
-		result.append(password);
+		if (passwordESet) result.append(password); else result.append("<unset>");
 		result.append(", driver: ");
 		result.append(driver);
 		result.append(", maxActive: ");

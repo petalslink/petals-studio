@@ -42,6 +42,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -60,6 +61,7 @@ import org.eclipse.wst.xml.core.internal.provisional.contenttype.ContentTypeIdFo
 import org.eclipse.wst.xml.ui.StructuredTextViewerConfigurationXML;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.LinkWithImageComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.ListWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.QNameText;
@@ -135,6 +137,45 @@ public class SwtFactory {
 			c.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 
 		return c;
+	}
+
+
+	/**
+	 * Creates a password field with a button to hide or show the password in clear.
+	 * @param container the container
+	 * @param useWholeSpace true to use the whole space
+	 * @param showPwd true to show the password in clear at the beginning
+	 * @return a composite which contains both the text and the button
+	 */
+	public static TextWithButtonComposite createPasswordField( Composite container, boolean showPwd ) {
+
+		final TextWithButtonComposite twb = new TextWithButtonComposite( container, SWT.SINGLE | SWT.BORDER );
+		twb.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		twb.getText().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		final char defEchoChar = twb.getText().getEchoChar();
+		twb.getButton().addSelectionListener( new DefaultSelectionListener() {
+			@Override
+			public void widgetSelected( SelectionEvent e ) {
+
+				char echoChar = twb.getText().getEchoChar();
+				if( echoChar == defEchoChar ) {
+					twb.getButton().setText( "Show Password" );
+					twb.getText().setEchoChar( '\u2022' );
+				} else {
+					twb.getButton().setText( "Hide Password" );
+					twb.getText().setEchoChar( defEchoChar );
+				}
+
+				twb.layout();
+			}
+		});
+
+		if( showPwd )
+			twb.getText().setEchoChar( 'a' );
+
+		twb.getButton().notifyListeners( SWT.Selection, new Event());
+		return twb;
 	}
 
 

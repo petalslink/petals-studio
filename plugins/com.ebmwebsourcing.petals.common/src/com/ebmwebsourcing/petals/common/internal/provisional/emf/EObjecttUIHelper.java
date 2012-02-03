@@ -48,6 +48,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.Messages;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 
 /**
  * @author Mickaël Istria - EBM WebSourcing
@@ -193,7 +194,7 @@ public class EObjecttUIHelper {
 		List<EntryDescription> entries = new ArrayList<EntryDescription>();
 		for (EStructuralFeature feature : toProcessFeatures) {
 			Object widget = null;
-			EAttribute attr = (EAttribute)feature;
+			EAttribute attr = (EAttribute) feature;
 
 			String label = StringUtils.camelCaseToHuman( attr.getName());
 			label = StringUtils.capitalize( label );
@@ -209,7 +210,7 @@ public class EObjecttUIHelper {
 
 				if( label.toLowerCase().contains( "password" )
 						|| label.toLowerCase().contains( "passphrase" ))
-					widget = toolkit.createText(parent, "", SWT.PASSWORD);
+					widget = SwtFactory.createPasswordField( parent, false ).getText();
 				else
 					widget = toolkit.createText(parent, "", SWT.BORDER);
 

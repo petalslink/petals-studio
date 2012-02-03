@@ -48,9 +48,11 @@ public interface SqlProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Url</em>' attribute.
+	 * @see #isSetUrl()
+	 * @see #unsetUrl()
 	 * @see #setUrl(String)
 	 * @see com.ebmwebsourcing.petals.services.sql.sql.SqlPackage#getSqlProvides_Url()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="namespace='##targetNamespace' group='#group:0' kind='element'"
 	 * @generated
 	 */
@@ -61,10 +63,35 @@ public interface SqlProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Url</em>' attribute.
+	 * @see #isSetUrl()
+	 * @see #unsetUrl()
 	 * @see #getUrl()
 	 * @generated
 	 */
 	void setUrl(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getUrl <em>Url</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetUrl()
+	 * @see #getUrl()
+	 * @see #setUrl(String)
+	 * @generated
+	 */
+	void unsetUrl();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getUrl <em>Url</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Url</em>' attribute is set.
+	 * @see #unsetUrl()
+	 * @see #getUrl()
+	 * @see #setUrl(String)
+	 * @generated
+	 */
+	boolean isSetUrl();
 
 	/**
 	 * Returns the value of the '<em><b>User</b></em>' attribute.
@@ -75,9 +102,11 @@ public interface SqlProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>User</em>' attribute.
+	 * @see #isSetUser()
+	 * @see #unsetUser()
 	 * @see #setUser(String)
 	 * @see com.ebmwebsourcing.petals.services.sql.sql.SqlPackage#getSqlProvides_User()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="namespace='##targetNamespace' group='#group:0' kind='element'"
 	 * @generated
 	 */
@@ -88,10 +117,35 @@ public interface SqlProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>User</em>' attribute.
+	 * @see #isSetUser()
+	 * @see #unsetUser()
 	 * @see #getUser()
 	 * @generated
 	 */
 	void setUser(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getUser <em>User</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetUser()
+	 * @see #getUser()
+	 * @see #setUser(String)
+	 * @generated
+	 */
+	void unsetUser();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getUser <em>User</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>User</em>' attribute is set.
+	 * @see #unsetUser()
+	 * @see #getUser()
+	 * @see #setUser(String)
+	 * @generated
+	 */
+	boolean isSetUser();
 
 	/**
 	 * Returns the value of the '<em><b>Password</b></em>' attribute.
@@ -102,9 +156,11 @@ public interface SqlProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Password</em>' attribute.
+	 * @see #isSetPassword()
+	 * @see #unsetPassword()
 	 * @see #setPassword(String)
 	 * @see com.ebmwebsourcing.petals.services.sql.sql.SqlPackage#getSqlProvides_Password()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="namespace='##targetNamespace' group='#group:0' kind='element'"
 	 * @generated
 	 */
@@ -115,10 +171,35 @@ public interface SqlProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Password</em>' attribute.
+	 * @see #isSetPassword()
+	 * @see #unsetPassword()
 	 * @see #getPassword()
 	 * @generated
 	 */
 	void setPassword(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getPassword <em>Password</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetPassword()
+	 * @see #getPassword()
+	 * @see #setPassword(String)
+	 * @generated
+	 */
+	void unsetPassword();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.sql.sql.SqlProvides#getPassword <em>Password</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Password</em>' attribute is set.
+	 * @see #unsetPassword()
+	 * @see #getPassword()
+	 * @see #setPassword(String)
+	 * @generated
+	 */
+	boolean isSetPassword();
 
 	/**
 	 * Returns the value of the '<em><b>Driver</b></em>' attribute.

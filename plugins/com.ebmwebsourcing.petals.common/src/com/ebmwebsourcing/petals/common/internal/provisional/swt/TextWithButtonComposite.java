@@ -35,13 +35,26 @@ public class TextWithButtonComposite extends Composite {
 	 * @param parent the parent
 	 */
 	public TextWithButtonComposite( Composite parent ) {
+		this( parent, SWT.SINGLE | SWT.BORDER );
+	}
+
+
+	/**
+	 * Constructor.
+	 * <p>
+	 * The text and the button are created, but no property or layout data is set.
+	 * </p>
+	 *
+	 * @param parent the parent
+	 */
+	public TextWithButtonComposite( Composite parent, int textStyle ) {
 
 		super( parent, SWT.NONE );
 		GridLayout layout = new GridLayout( 2, false );
 		layout.marginWidth = layout.marginHeight = 0;
 		setLayout( layout );
 
-		this.text = new Text( this, SWT.SINGLE | SWT.BORDER );
+		this.text = new Text( this, textStyle );
 		this.button = new Button( this, SWT.PUSH );
 	}
 
