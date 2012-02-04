@@ -85,6 +85,15 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	protected String server = SERVER_EDEFAULT;
 
 	/**
+	 * This is true if the Server attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean serverESet;
+
+	/**
 	 * The default value of the '{@link #isOverwrite() <em>Overwrite</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -145,6 +154,15 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	protected String password = PASSWORD_EDEFAULT;
 
 	/**
+	 * This is true if the Password attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean passwordESet;
+
+	/**
 	 * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -203,6 +221,15 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	 * @ordered
 	 */
 	protected String user = USER_EDEFAULT;
+
+	/**
+	 * This is true if the User attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean userESet;
 
 	/**
 	 * The default value of the '{@link #getMaxIdleTime() <em>Max Idle Time</em>}' attribute.
@@ -301,8 +328,33 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	public void setServer(String newServer) {
 		String oldServer = server;
 		server = newServer;
+		boolean oldServerESet = serverESet;
+		serverESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__SERVER, oldServer, server));
+			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__SERVER, oldServer, server, !oldServerESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetServer() {
+		String oldServer = server;
+		boolean oldServerESet = serverESet;
+		server = SERVER_EDEFAULT;
+		serverESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SftpPackage.SFTP_PROVIDES__SERVER, oldServer, SERVER_EDEFAULT, oldServerESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetServer() {
+		return serverESet;
 	}
 
 	/**
@@ -406,8 +458,33 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	public void setPassword(String newPassword) {
 		String oldPassword = password;
 		password = newPassword;
+		boolean oldPasswordESet = passwordESet;
+		passwordESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__PASSWORD, oldPassword, password));
+			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__PASSWORD, oldPassword, password, !oldPasswordESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetPassword() {
+		String oldPassword = password;
+		boolean oldPasswordESet = passwordESet;
+		password = PASSWORD_EDEFAULT;
+		passwordESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SftpPackage.SFTP_PROVIDES__PASSWORD, oldPassword, PASSWORD_EDEFAULT, oldPasswordESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPassword() {
+		return passwordESet;
 	}
 
 	/**
@@ -469,8 +546,33 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 	public void setUser(String newUser) {
 		String oldUser = user;
 		user = newUser;
+		boolean oldUserESet = userESet;
+		userESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__USER, oldUser, user));
+			eNotify(new ENotificationImpl(this, Notification.SET, SftpPackage.SFTP_PROVIDES__USER, oldUser, user, !oldUserESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetUser() {
+		String oldUser = user;
+		boolean oldUserESet = userESet;
+		user = USER_EDEFAULT;
+		userESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SftpPackage.SFTP_PROVIDES__USER, oldUser, USER_EDEFAULT, oldUserESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetUser() {
+		return userESet;
 	}
 
 	/**
@@ -559,7 +661,7 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				setFolder(FOLDER_EDEFAULT);
 				return;
 			case SftpPackage.SFTP_PROVIDES__SERVER:
-				setServer(SERVER_EDEFAULT);
+				unsetServer();
 				return;
 			case SftpPackage.SFTP_PROVIDES__OVERWRITE:
 				setOverwrite(OVERWRITE_EDEFAULT);
@@ -568,7 +670,7 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				setPassphrase(PASSPHRASE_EDEFAULT);
 				return;
 			case SftpPackage.SFTP_PROVIDES__PASSWORD:
-				setPassword(PASSWORD_EDEFAULT);
+				unsetPassword();
 				return;
 			case SftpPackage.SFTP_PROVIDES__PORT:
 				setPort(PORT_EDEFAULT);
@@ -577,7 +679,7 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 				setPrivatekey(PRIVATEKEY_EDEFAULT);
 				return;
 			case SftpPackage.SFTP_PROVIDES__USER:
-				setUser(USER_EDEFAULT);
+				unsetUser();
 				return;
 			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
 				setMaxIdleTime(MAX_IDLE_TIME_EDEFAULT);
@@ -600,19 +702,19 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 			case SftpPackage.SFTP_PROVIDES__FOLDER:
 				return FOLDER_EDEFAULT == null ? folder != null : !FOLDER_EDEFAULT.equals(folder);
 			case SftpPackage.SFTP_PROVIDES__SERVER:
-				return SERVER_EDEFAULT == null ? server != null : !SERVER_EDEFAULT.equals(server);
+				return isSetServer();
 			case SftpPackage.SFTP_PROVIDES__OVERWRITE:
 				return overwrite != OVERWRITE_EDEFAULT;
 			case SftpPackage.SFTP_PROVIDES__PASSPHRASE:
 				return PASSPHRASE_EDEFAULT == null ? passphrase != null : !PASSPHRASE_EDEFAULT.equals(passphrase);
 			case SftpPackage.SFTP_PROVIDES__PASSWORD:
-				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+				return isSetPassword();
 			case SftpPackage.SFTP_PROVIDES__PORT:
 				return port != PORT_EDEFAULT;
 			case SftpPackage.SFTP_PROVIDES__PRIVATEKEY:
 				return PRIVATEKEY_EDEFAULT == null ? privatekey != null : !PRIVATEKEY_EDEFAULT.equals(privatekey);
 			case SftpPackage.SFTP_PROVIDES__USER:
-				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
+				return isSetUser();
 			case SftpPackage.SFTP_PROVIDES__MAX_IDLE_TIME:
 				return maxIdleTime != MAX_IDLE_TIME_EDEFAULT;
 			case SftpPackage.SFTP_PROVIDES__MAX_CONNECTION:
@@ -634,19 +736,19 @@ public class SftpProvidesImpl extends ProvidesImpl implements SftpProvides {
 		result.append(" (folder: ");
 		result.append(folder);
 		result.append(", server: ");
-		result.append(server);
+		if (serverESet) result.append(server); else result.append("<unset>");
 		result.append(", overwrite: ");
 		result.append(overwrite);
 		result.append(", passphrase: ");
 		result.append(passphrase);
 		result.append(", password: ");
-		result.append(password);
+		if (passwordESet) result.append(password); else result.append("<unset>");
 		result.append(", port: ");
 		result.append(port);
 		result.append(", privatekey: ");
 		result.append(privatekey);
 		result.append(", user: ");
-		result.append(user);
+		if (userESet) result.append(user); else result.append("<unset>");
 		result.append(", maxIdleTime: ");
 		result.append(maxIdleTime);
 		result.append(", maxConnection: ");

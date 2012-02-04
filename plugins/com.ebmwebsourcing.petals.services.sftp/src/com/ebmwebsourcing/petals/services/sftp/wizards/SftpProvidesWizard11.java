@@ -33,15 +33,21 @@ import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 
+	/**
+	 * Constructor.
+	 */
 	public SftpProvidesWizard11() {
 		super();
-		settings.showWsdl = false;
-		settings.activateInterfaceName = false;
+		this.settings.showWsdl = false;
+		this.settings.activateInterfaceName = false;
+		this.settings.activateServiceNameOnly = true;
 	}
-	
+
+
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -59,32 +65,37 @@ public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public void presetServiceValues( AbstractEndpoint ae ) {
+		Cdk5Utils.setInitialProvidesValues((Provides)ae);
+
 		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "SftpInterface" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/sftp/version-1", "change-it" ));
-		Cdk5Utils.setInitialProvidesValues((Provides)ae);
-		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "SftpService.wsdl");
-		ae.eSet(SftpPackage.Literals.SFTP_PROVIDES__PORT, 22);
+
+		ae.eSet( Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "SftpService.wsdl" );
+		ae.eSet( SftpPackage.Literals.SFTP_PROVIDES__SERVER, "" );
+		ae.eSet( SftpPackage.Literals.SFTP_PROVIDES__PORT, 22 );
+		ae.eSet( SftpPackage.Literals.SFTP_PROVIDES__USER, "" );
+		ae.eSet( SftpPackage.Literals.SFTP_PROVIDES__PASSWORD, "" );
 	}
 
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-
 		IFile wsdlFile = resourceFolder.getFile( "SftpService.wsdl" );
 		createFile( wsdlFile, new SftpService11().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return null;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
@@ -95,21 +106,5 @@ public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 				SftpPackage.Literals.SFTP_PROVIDES__PASSPHRASE,
 				SftpPackage.Literals.SFTP_PROVIDES__FOLDER)
 		};
-	}
-
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return null;
-	}
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		createFile(resourceDirectory.getFile("SftpService.wsdl"), new SftpService11().generate(endpoint), monitor);
-		return Status.OK_STATUS;
-	}
-
-	@Override
-	protected boolean isJavaProject() {
-		return false;
 	}
 }

@@ -42,11 +42,11 @@ public class SftpService12 {
     final StringBuffer stringBuffer = new StringBuffer();
      AbstractEndpoint data = (AbstractEndpoint) argument; 
     stringBuffer.append(TEXT_1);
-    stringBuffer.append( data.getInterfaceName() );
+    stringBuffer.append( data.getInterfaceName().getLocalPart() );
     stringBuffer.append(TEXT_2);
-    stringBuffer.append( data.getInterfaceName() );
+    stringBuffer.append( data.getInterfaceName().getLocalPart() );
     stringBuffer.append(TEXT_3);
-    stringBuffer.append( data.getServiceName() );
+    stringBuffer.append( data.getServiceName().getLocalPart() );
     stringBuffer.append(TEXT_4);
     stringBuffer.append( data.getEndpointName() );
     stringBuffer.append(TEXT_5);

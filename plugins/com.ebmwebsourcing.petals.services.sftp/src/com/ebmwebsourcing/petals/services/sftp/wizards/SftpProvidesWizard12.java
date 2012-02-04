@@ -11,8 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.sftp.wizards;
 
-import javax.xml.namespace.QName;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -20,7 +18,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.sftp.SftpDescription12;
-import com.ebmwebsourcing.petals.services.sftp.generated.SftpService11;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService12;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -30,15 +27,10 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 
-	public SftpProvidesWizard12() {
-		super();
-		settings.showWsdl = false;
-		settings.activateInterfaceName = false;
-	}
-	
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -52,21 +44,22 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-
 		IFile wsdlFile = resourceFolder.getFile( "SftpService.wsdl" );
 		createFile( wsdlFile, new SftpService12().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return null;
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.sftp.wizards.SftpProvidesWizard11
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
@@ -80,21 +73,5 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 				SftpPackage.Literals.SFTP_PROVIDES__MAX_IDLE_TIME,
 				SftpPackage.Literals.SFTP_PROVIDES__OVERWRITE)
 		};
-	}
-
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return null;
-	}
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		createFile(resourceDirectory.getFile("SftpService.wsdl"), new SftpService12().generate(endpoint), monitor);
-		return Status.OK_STATUS;
-	}
-
-	@Override
-	protected boolean isJavaProject() {
-		return false;
 	}
 }

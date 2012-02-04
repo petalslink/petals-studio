@@ -261,7 +261,7 @@ skeleton="../generator.skeleton" %>
 	</wsdl:message>
 
 	<!-- Port type -->
-	<wsdl:portType name="<%= data.getInterfaceName() %>">
+	<wsdl:portType name="<%= data.getInterfaceName().getLocalPart() %>">
 		<wsdl:operation name="get">
 			<wsdl:input message="tns:getRequest" />
 			<wsdl:output message="tns:getResponse" />
@@ -295,7 +295,7 @@ skeleton="../generator.skeleton" %>
 		</wsdl:operation>
 	</wsdl:portType>
 	
-	<wsdl:binding name="SFTPServiceSoapBinding" type="tns:<%= data.getInterfaceName() %>">
+	<wsdl:binding name="SFTPServiceSoapBinding" type="tns:<%= data.getInterfaceName().getLocalPart() %>">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 			
@@ -384,7 +384,7 @@ skeleton="../generator.skeleton" %>
 		</wsdl:operation>
 	</wsdl:binding>
 
-	<wsdl:service name="<%= data.getServiceName() %>">
+	<wsdl:service name="<%= data.getServiceName().getLocalPart() %>">
 		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:SFTPServiceSoapBinding">
 			<soap:address location="jbi://mySFTPSUEndpointName" />
 		</wsdl:port>

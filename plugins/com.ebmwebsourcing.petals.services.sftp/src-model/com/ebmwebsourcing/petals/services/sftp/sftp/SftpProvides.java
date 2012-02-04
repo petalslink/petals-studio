@@ -74,9 +74,11 @@ public interface SftpProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Server</em>' attribute.
+	 * @see #isSetServer()
+	 * @see #unsetServer()
 	 * @see #setServer(String)
 	 * @see com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage#getSftpProvides_Server()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -87,10 +89,35 @@ public interface SftpProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Server</em>' attribute.
+	 * @see #isSetServer()
+	 * @see #unsetServer()
 	 * @see #getServer()
 	 * @generated
 	 */
 	void setServer(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getServer <em>Server</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetServer()
+	 * @see #getServer()
+	 * @see #setServer(String)
+	 * @generated
+	 */
+	void unsetServer();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getServer <em>Server</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Server</em>' attribute is set.
+	 * @see #unsetServer()
+	 * @see #getServer()
+	 * @see #setServer(String)
+	 * @generated
+	 */
+	boolean isSetServer();
 
 	/**
 	 * Returns the value of the '<em><b>Max Idle Time</b></em>' attribute.
@@ -209,9 +236,11 @@ public interface SftpProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Password</em>' attribute.
+	 * @see #isSetPassword()
+	 * @see #unsetPassword()
 	 * @see #setPassword(String)
 	 * @see com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage#getSftpProvides_Password()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -222,10 +251,35 @@ public interface SftpProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Password</em>' attribute.
+	 * @see #isSetPassword()
+	 * @see #unsetPassword()
 	 * @see #getPassword()
 	 * @generated
 	 */
 	void setPassword(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getPassword <em>Password</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetPassword()
+	 * @see #getPassword()
+	 * @see #setPassword(String)
+	 * @generated
+	 */
+	void unsetPassword();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getPassword <em>Password</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Password</em>' attribute is set.
+	 * @see #unsetPassword()
+	 * @see #getPassword()
+	 * @see #setPassword(String)
+	 * @generated
+	 */
+	boolean isSetPassword();
 
 	/**
 	 * Returns the value of the '<em><b>Port</b></em>' attribute.
@@ -290,9 +344,11 @@ public interface SftpProvides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>User</em>' attribute.
+	 * @see #isSetUser()
+	 * @see #unsetUser()
 	 * @see #setUser(String)
 	 * @see com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage#getSftpProvides_User()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0'"
 	 * @generated
 	 */
@@ -303,9 +359,34 @@ public interface SftpProvides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>User</em>' attribute.
+	 * @see #isSetUser()
+	 * @see #unsetUser()
 	 * @see #getUser()
 	 * @generated
 	 */
 	void setUser(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getUser <em>User</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetUser()
+	 * @see #getUser()
+	 * @see #setUser(String)
+	 * @generated
+	 */
+	void unsetUser();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.sftp.sftp.SftpProvides#getUser <em>User</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>User</em>' attribute is set.
+	 * @see #unsetUser()
+	 * @see #getUser()
+	 * @see #setUser(String)
+	 * @generated
+	 */
+	boolean isSetUser();
 
 } // SftpProvides
