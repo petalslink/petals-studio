@@ -55,6 +55,7 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 		super();
 		this.settings.showWsdl = false;
 		this.settings.activateInterfaceName = false;
+		this.settings.activateServiceNameOnly = true;
 	}
 
 
