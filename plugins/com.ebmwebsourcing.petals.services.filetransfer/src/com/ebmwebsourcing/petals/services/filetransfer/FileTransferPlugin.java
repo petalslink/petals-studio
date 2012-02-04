@@ -15,11 +15,9 @@ package com.ebmwebsourcing.petals.services.filetransfer;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
-import com.ebmwebsourcing.petals.services.su.editor.extensibility.InitializeModelExtensionCommand;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -119,5 +117,30 @@ public class FileTransferPlugin extends AbstractUIPlugin {
 	public static void log( Exception e, int severity, String message ) {
 		IStatus status = new Status( severity, PLUGIN_ID, message, e );
 		getDefault().getLog().log( status );
+	}
+
+
+	/**
+	 * Loads the image located by this path in the current plug-in.
+	 * <p>
+	 * If the path is invalid or if the image could not be loaded, a log entry is created.
+	 * </p>
+	 *
+	 * @param path the relative image path in the plug-in
+	 * @return the image or null if it could not be loaded
+	 */
+	public static Image loadImage( String path ) {
+
+		Image img = null;
+		try {
+			ImageDescriptor desc = getImageDescriptor( path );
+			if( desc != null )
+				img = desc.createImage();
+
+		} catch( Exception e ) {
+			log( e, IStatus.WARNING );
+		}
+
+		return img;
 	}
 }

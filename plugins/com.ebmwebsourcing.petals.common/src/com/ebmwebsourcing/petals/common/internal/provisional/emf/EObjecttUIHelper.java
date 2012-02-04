@@ -206,11 +206,15 @@ public class EObjecttUIHelper {
 
 			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
 			Class<?> instanceClass = attr.getEType().getInstanceClass();
-			if (instanceClass.equals(String.class)) {
+			if (instanceClass.equals( String.class )) {
 
-				if( label.toLowerCase().contains( "password" )
-						|| label.toLowerCase().contains( "passphrase" ))
+				String lowered = label.toLowerCase();
+				if( lowered.contains( "password" ) || lowered.contains( "passphrase" ))
 					widget = SwtFactory.createPasswordField( parent, false ).getText();
+
+				else if( lowered.contains( "folder" ) || lowered.contains( "directory" ))
+					widget = SwtFactory.createDirectoryBrowser( parent ).getText();
+
 				else
 					widget = toolkit.createText(parent, "", SWT.BORDER);
 

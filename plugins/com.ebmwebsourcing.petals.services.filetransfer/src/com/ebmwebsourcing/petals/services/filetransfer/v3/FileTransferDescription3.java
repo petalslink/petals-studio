@@ -11,7 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v3;
 
-import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription;
 
 /**
@@ -26,7 +25,7 @@ public class FileTransferDescription3 extends FileTransferDescription {
 	 */
 	@Override
 	public String getComponentVersion() {
-		return "3";
+		return "3.0";
 	}
 
 }

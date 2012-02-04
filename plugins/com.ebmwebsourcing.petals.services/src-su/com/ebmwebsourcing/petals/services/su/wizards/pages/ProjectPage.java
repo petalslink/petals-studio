@@ -284,11 +284,13 @@ public class ProjectPage extends AbstractSuWizardPage {
 		super.setVisible( visible );
 
 		// Force the focus
-		this.projectNameText.forceFocus();
-		if( start != -1 && end != -1 )
-			this.projectNameText.setSelection( start, end );
-		else
-			this.projectLocationText.setSelection( this.projectLocationText.getText().length() - 1 );
+		if( visible ) {
+			this.projectNameText.forceFocus();
+			if( start != -1 && end != -1 )
+				this.projectNameText.setSelection( start, end );
+			else
+				this.projectLocationText.setSelection( 5 );
+		}
 	}
 
 

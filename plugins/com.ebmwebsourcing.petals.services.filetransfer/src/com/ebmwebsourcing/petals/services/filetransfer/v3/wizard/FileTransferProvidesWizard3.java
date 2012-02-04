@@ -23,7 +23,6 @@ import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.FileTransferService;
-import com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FiletransferProvidesPage;
 import com.ebmwebsourcing.petals.services.filetransfer.v3.FileTransferDescription3;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
@@ -34,14 +33,20 @@ import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class FileTransferProvidesWizard3 extends AbstractServiceUnitWizard {
 
+	/**
+	 * Constructor.
+	 */
 	public FileTransferProvidesWizard3() {
 		super();
-		settings.showWsdl = false;
-		settings.activateInterfaceName = false;
+		this.settings.showWsdl = false;
+		this.settings.activateInterfaceName = false;
+		this.settings.activateServiceNameOnly = true;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -69,48 +74,28 @@ public class FileTransferProvidesWizard3 extends AbstractServiceUnitWizard {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-		String wsdlFileName = (String)abstractEndpoint.eGet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL);
-		IFile wsdlFile = resourceFolder.getFile(wsdlFileName);
+		IFile wsdlFile = resourceFolder.getFile( "FileTransferService.wsdl" );
 		createFile( wsdlFile, new FileTransferService().generate( abstractEndpoint ), monitor );
-
 		return Status.OK_STATUS;
 	}
 
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return null;
-	}
-
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__FILENAME,
+				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__FOLDER,
 				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__BACKUP_DIRECTORY,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__FOLDER
-			) };
-	}
-
-
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return null;
-	}
-
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
-
-	@Override
-	protected boolean isJavaProject() {
-		return false;
+				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__FILENAME
+		)};
 	}
 }

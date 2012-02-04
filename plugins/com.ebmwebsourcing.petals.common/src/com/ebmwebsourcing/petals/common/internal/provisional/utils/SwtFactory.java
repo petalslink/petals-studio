@@ -26,6 +26,7 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -176,6 +177,31 @@ public class SwtFactory {
 
 		twb.getButton().notifyListeners( SWT.Selection, new Event());
 		return twb;
+	}
+
+
+	/**
+	 * Creates a combo viewer with a default label provider and an array content provider.
+	 * @param parent the parent
+	 * @param useWholeSpace true to use the whole space horizontally
+	 * @param values the values to put in the viewer
+	 * @return the viewer
+	 */
+	public static ComboViewer createDefaultComboViewer( Composite parent, boolean useWholeSpace, boolean readOnly, Object[] values ) {
+
+		int style = SWT.SINGLE | SWT.BORDER;
+		if( readOnly )
+			style |= SWT.READ_ONLY;
+
+		final ComboViewer viewer = new ComboViewer( parent, style );
+		if( useWholeSpace )
+			viewer.getCombo().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		viewer.setContentProvider( new ArrayContentProvider());
+		viewer.setLabelProvider( new LabelProvider());
+		viewer.setInput( values );
+
+		return viewer;
 	}
 
 

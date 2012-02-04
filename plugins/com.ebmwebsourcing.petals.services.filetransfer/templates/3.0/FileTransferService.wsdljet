@@ -243,8 +243,7 @@ skeleton="../generator.skeleton" %>
 		This binding section is defined only to expose this WSDL via SOAP
 		component to external service consumers
 	-->
-	<wsdl:binding name="FileTransferServiceSoapBinding"
-		type="tns:<%= data.getInterfaceName().getLocalPart() %>">
+	<wsdl:binding name="FileTransferServiceSoapBinding" type="tns:<%= data.getInterfaceName().getLocalPart() %>">
 
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
