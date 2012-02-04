@@ -99,9 +99,11 @@ public interface MailServiceCommon extends AbstractEndpoint {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Host</em>' attribute.
+	 * @see #isSetHost()
+	 * @see #unsetHost()
 	 * @see #setHost(String)
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailPackage#getMailServiceCommon_Host()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
@@ -112,10 +114,35 @@ public interface MailServiceCommon extends AbstractEndpoint {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Host</em>' attribute.
+	 * @see #isSetHost()
+	 * @see #unsetHost()
 	 * @see #getHost()
 	 * @generated
 	 */
 	void setHost(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getHost <em>Host</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetHost()
+	 * @see #getHost()
+	 * @see #setHost(String)
+	 * @generated
+	 */
+	void unsetHost();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getHost <em>Host</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Host</em>' attribute is set.
+	 * @see #unsetHost()
+	 * @see #getHost()
+	 * @see #setHost(String)
+	 * @generated
+	 */
+	boolean isSetHost();
 
 	/**
 	 * Returns the value of the '<em><b>Port</b></em>' attribute.
@@ -126,9 +153,11 @@ public interface MailServiceCommon extends AbstractEndpoint {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Port</em>' attribute.
+	 * @see #isSetPort()
+	 * @see #unsetPort()
 	 * @see #setPort(int)
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailPackage#getMailServiceCommon_Port()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
 	 *        extendedMetaData="kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
@@ -139,10 +168,35 @@ public interface MailServiceCommon extends AbstractEndpoint {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Port</em>' attribute.
+	 * @see #isSetPort()
+	 * @see #unsetPort()
 	 * @see #getPort()
 	 * @generated
 	 */
 	void setPort(int value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getPort <em>Port</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetPort()
+	 * @see #getPort()
+	 * @see #setPort(int)
+	 * @generated
+	 */
+	void unsetPort();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getPort <em>Port</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Port</em>' attribute is set.
+	 * @see #unsetPort()
+	 * @see #getPort()
+	 * @see #setPort(int)
+	 * @generated
+	 */
+	boolean isSetPort();
 
 	/**
 	 * Returns the value of the '<em><b>User</b></em>' attribute.

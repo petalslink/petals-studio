@@ -11,12 +11,11 @@
 
 package com.ebmwebsourcing.petals.services.mail;
 
-import com.ebmwebsourcing.petals.common.generation.Mep;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class MailDescription32 extends MailDescription {
+public class MailDescription32 extends MailDescription31 {
 
 	/*
 	 * (non-Javadoc)
@@ -26,45 +25,5 @@ public class MailDescription32 extends MailDescription {
 	@Override
 	public String getComponentVersion() {
 		return "3.2";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProvide()
-	 */
-	@Override
-	public boolean isProvide() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isConsume()
-	 */
-	@Override
-	public boolean isConsume() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #isProxy()
-	 */
-	@Override
-	public boolean isProxy() {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #getSupportedMep()
-	 */
-	@Override
-	public Mep[] getSupportedMep() {
-		return new Mep[] { Mep.IN_ONLY };
 	}
 }

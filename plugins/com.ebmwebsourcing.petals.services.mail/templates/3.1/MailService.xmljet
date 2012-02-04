@@ -33,14 +33,14 @@ skeleton="../generator.skeleton" %>
 	</wsdl:message>
 	
 	<!-- ======== Port Types ========== -->
-	<wsdl:portType name="<%= data.getInterfaceName() %>">
+	<wsdl:portType name="<%= data.getInterfaceName().getLocalPart() %>">
 		<wsdl:operation name="SendMail">
 			<wsdl:input message="tns:SendMailRequest1" />
 		</wsdl:operation>
 	</wsdl:portType>
 
 	<!-- ======== BINDING ========== -->
-	<wsdl:binding name="MailServiceSoapBinding" type="tns:<%= data.getInterfaceName() %>">
+	<wsdl:binding name="MailServiceSoapBinding" type="tns:<%= data.getInterfaceName().getLocalPart() %>">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="SendMail">
@@ -52,7 +52,7 @@ skeleton="../generator.skeleton" %>
 	</wsdl:binding>
 
 	<!-- ======== SERVICE ========== -->
-	<wsdl:service name="<%= data.getServiceName() %>">
+	<wsdl:service name="<%= data.getServiceName().getLocalPart() %>">
 		<wsdl:port binding="tns:MailServiceSoapBinding" name="<%= data.getEndpointName() %>">
 			<soap:address location="jbi://myMailSUEndpointName" />
 		</wsdl:port>

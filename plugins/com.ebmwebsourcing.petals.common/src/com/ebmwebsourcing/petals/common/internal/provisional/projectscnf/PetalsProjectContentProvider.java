@@ -643,7 +643,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 
 
 	/**
-	 * Return a runnable for refreshing the markers on a resource.
+	 * Returns a runnable for refreshing the markers on a resource.
 	 * @param resource
 	 * @return Runnable
 	 */
@@ -653,13 +653,18 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 			public void run() {
 
 				IResource res = resource;
-				while( res != null && !( res.getParent() instanceof IWorkspaceRoot )) {
-					IJavaElement elt = JavaCore.create( res );
-					if( elt != null )
-						((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( elt, true );
-					else
-						((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( res, true );
+				while( res != null && !( res instanceof IWorkspaceRoot )) {
+					Object toRefresh;
+					IJavaElement elt;
 
+					if( res instanceof IProject )
+						toRefresh = res;
+					else if(( elt = JavaCore.create( res )) != null )
+						toRefresh = elt;
+					else
+						toRefresh = res;
+
+					((StructuredViewer) PetalsProjectContentProvider.this.viewer).refresh( toRefresh, true );
 					res = res.getParent();
 				}
 			}

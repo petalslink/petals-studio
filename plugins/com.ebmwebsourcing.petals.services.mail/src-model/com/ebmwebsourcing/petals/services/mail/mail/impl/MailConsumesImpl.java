@@ -92,6 +92,15 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 	protected String host = HOST_EDEFAULT;
 
 	/**
+	 * This is true if the Host attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean hostESet;
+
+	/**
 	 * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -110,6 +119,15 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 	 * @ordered
 	 */
 	protected int port = PORT_EDEFAULT;
+
+	/**
+	 * This is true if the Port attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean portESet;
 
 	/**
 	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
@@ -313,8 +331,33 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 	public void setHost(String newHost) {
 		String oldHost = host;
 		host = newHost;
+		boolean oldHostESet = hostESet;
+		hostESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_CONSUMES__HOST, oldHost, host));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_CONSUMES__HOST, oldHost, host, !oldHostESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetHost() {
+		String oldHost = host;
+		boolean oldHostESet = hostESet;
+		host = HOST_EDEFAULT;
+		hostESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_CONSUMES__HOST, oldHost, HOST_EDEFAULT, oldHostESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetHost() {
+		return hostESet;
 	}
 
 	/**
@@ -334,8 +377,33 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 	public void setPort(int newPort) {
 		int oldPort = port;
 		port = newPort;
+		boolean oldPortESet = portESet;
+		portESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_CONSUMES__PORT, oldPort, port));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_CONSUMES__PORT, oldPort, port, !oldPortESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetPort() {
+		int oldPort = port;
+		boolean oldPortESet = portESet;
+		port = PORT_EDEFAULT;
+		portESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_CONSUMES__PORT, oldPort, PORT_EDEFAULT, oldPortESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPort() {
+		return portESet;
 	}
 
 	/**
@@ -545,10 +613,10 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 				unsetScheme();
 				return;
 			case MailPackage.MAIL_CONSUMES__HOST:
-				setHost(HOST_EDEFAULT);
+				unsetHost();
 				return;
 			case MailPackage.MAIL_CONSUMES__PORT:
-				setPort(PORT_EDEFAULT);
+				unsetPort();
 				return;
 			case MailPackage.MAIL_CONSUMES__USER:
 				setUser(USER_EDEFAULT);
@@ -583,9 +651,9 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 			case MailPackage.MAIL_CONSUMES__SCHEME:
 				return isSetScheme();
 			case MailPackage.MAIL_CONSUMES__HOST:
-				return HOST_EDEFAULT == null ? host != null : !HOST_EDEFAULT.equals(host);
+				return isSetHost();
 			case MailPackage.MAIL_CONSUMES__PORT:
-				return port != PORT_EDEFAULT;
+				return isSetPort();
 			case MailPackage.MAIL_CONSUMES__USER:
 				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
 			case MailPackage.MAIL_CONSUMES__PASSWORD:
@@ -655,9 +723,9 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 		result.append(" (scheme: ");
 		if (schemeESet) result.append(scheme); else result.append("<unset>");
 		result.append(", host: ");
-		result.append(host);
+		if (hostESet) result.append(host); else result.append("<unset>");
 		result.append(", port: ");
-		result.append(port);
+		if (portESet) result.append(port); else result.append("<unset>");
 		result.append(", user: ");
 		result.append(user);
 		result.append(", password: ");

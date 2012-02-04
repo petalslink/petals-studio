@@ -44,9 +44,11 @@ public interface MailProvides extends Provides, MailServiceCommon {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>From</em>' attribute.
+	 * @see #isSetFrom()
+	 * @see #unsetFrom()
 	 * @see #setFrom(String)
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailPackage#getMailProvides_From()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
@@ -57,10 +59,35 @@ public interface MailProvides extends Provides, MailServiceCommon {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>From</em>' attribute.
+	 * @see #isSetFrom()
+	 * @see #unsetFrom()
 	 * @see #getFrom()
 	 * @generated
 	 */
 	void setFrom(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getFrom <em>From</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetFrom()
+	 * @see #getFrom()
+	 * @see #setFrom(String)
+	 * @generated
+	 */
+	void unsetFrom();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getFrom <em>From</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>From</em>' attribute is set.
+	 * @see #unsetFrom()
+	 * @see #getFrom()
+	 * @see #setFrom(String)
+	 * @generated
+	 */
+	boolean isSetFrom();
 
 	/**
 	 * Returns the value of the '<em><b>Reply</b></em>' attribute.
@@ -98,9 +125,11 @@ public interface MailProvides extends Provides, MailServiceCommon {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>To</em>' attribute.
+	 * @see #isSetTo()
+	 * @see #unsetTo()
 	 * @see #setTo(String)
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailPackage#getMailProvides_To()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
 	 *        extendedMetaData="kind='element' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
@@ -111,10 +140,35 @@ public interface MailProvides extends Provides, MailServiceCommon {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>To</em>' attribute.
+	 * @see #isSetTo()
+	 * @see #unsetTo()
 	 * @see #getTo()
 	 * @generated
 	 */
 	void setTo(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getTo <em>To</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetTo()
+	 * @see #getTo()
+	 * @see #setTo(String)
+	 * @generated
+	 */
+	void unsetTo();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getTo <em>To</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>To</em>' attribute is set.
+	 * @see #unsetTo()
+	 * @see #getTo()
+	 * @see #setTo(String)
+	 * @generated
+	 */
+	boolean isSetTo();
 
 	/**
 	 * Returns the value of the '<em><b>Subject</b></em>' attribute.

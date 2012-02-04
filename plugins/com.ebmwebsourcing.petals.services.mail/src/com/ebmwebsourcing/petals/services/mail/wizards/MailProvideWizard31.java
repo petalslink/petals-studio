@@ -35,15 +35,21 @@ import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 
+	/**
+	 * Constructor.
+	 */
 	public MailProvideWizard31() {
 		super();
-		settings.showWsdl = false;
-		settings.activateInterfaceName = false;
+		this.settings.showWsdl = false;
+		this.settings.activateInterfaceName = false;
+		this.settings.activateServiceNameOnly = true;
 	}
-	
+
+
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -63,10 +69,15 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 	public void presetServiceValues( AbstractEndpoint ae ) {
 		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/mail/version-3", "Mail" ));
 		ae.setServiceName( new QName( "http://petals.ow2.org/components/mail/version-3", "change-it" ));
+
 		Cdk5Utils.setInitialProvidesValues((Provides)ae);
 		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "MailService.wsdl");
+
 		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME, Scheme.SMTP);
+		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__HOST, "");
 		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PORT, 25);
+		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__TO, "");
+		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__FROM, "");
 		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__SEND_MODE, SendMode.CONTENT_AND_ATTACHMENTS);
 	}
 
@@ -74,7 +85,8 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
@@ -83,12 +95,12 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 		return Status.OK_STATUS;
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
@@ -98,29 +110,11 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
 				MailPackage.Literals.MAIL_PROVIDES__FROM,
-				MailPackage.Literals.MAIL_PROVIDES__REPLY,
 				MailPackage.Literals.MAIL_PROVIDES__TO,
+				MailPackage.Literals.MAIL_PROVIDES__REPLY,
 				MailPackage.Literals.MAIL_PROVIDES__SUBJECT,
 				MailPackage.Literals.MAIL_PROVIDES__HELOHOST,
-				MailPackage.Literals.MAIL_PROVIDES__SEND_MODE,
-				MailPackage.Literals.MAIL_PROVIDES__CONTENT_TYPE)
+				MailPackage.Literals.MAIL_PROVIDES__SEND_MODE )
 		};
-	}
-
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
-	@Override
-	protected boolean isJavaProject() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

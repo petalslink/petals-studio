@@ -23,7 +23,6 @@ import com.ebmwebsourcing.petals.services.mail.MailDescription31;
 import com.ebmwebsourcing.petals.services.mail.generated.MailService;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
@@ -31,15 +30,10 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 
-	public MailConsumesWizard31() {
-		super();
-		settings.showWsdl = false;
-		settings.activateInterfaceName = false;
-	}
-	
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
 	 * #getComponentVersionDescription()
@@ -70,7 +64,8 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
@@ -79,12 +74,12 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 		return Status.OK_STATUS;
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
@@ -98,22 +93,5 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 				MailPackage.Literals.MAIL_CONSUMES__PERIOD,
 				MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT)
 		};
-	}
-
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
-	@Override
-	protected boolean isJavaProject() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

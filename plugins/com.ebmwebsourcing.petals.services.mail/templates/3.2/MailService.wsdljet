@@ -9,6 +9,7 @@ skeleton="../generator.skeleton" %>
 	xmlns:tns="http://petals.ow2.org/components/mail/version-3" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="component"
 	targetNamespace="http://petals.ow2.org/components/mail/version-3">
+	
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://petals.ow2.org/components/mail/version-3">
@@ -28,18 +29,21 @@ skeleton="../generator.skeleton" %>
 			</xsd:element>
 		</xsd:schema>
 	</wsdl:types>
+	
 	<!-- ======== message ========== -->
 	<wsdl:message name="SendMailRequest">
 		<wsdl:part name="mail" element="tns:mail"></wsdl:part>
 	</wsdl:message>
+	
 	<!-- ======== port TYPES ========== -->
-	<wsdl:portType name="<%= data.getInterfaceName() %>">
+	<wsdl:portType name="<%= data.getInterfaceName().getLocalPart() %>">
 		<wsdl:operation name="SendMail">
 			<wsdl:input message="tns:SendMailRequest"></wsdl:input>
 		</wsdl:operation>
 	</wsdl:portType>
+	
 	<!-- ======== BINDING ========== -->
-	<wsdl:binding name="MailServiceSoapBinding" type="tns:<%= data.getInterfaceName() %>">
+	<wsdl:binding name="MailServiceSoapBinding" type="tns:<%= data.getInterfaceName().getLocalPart() %>">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="SendMail">
@@ -50,8 +54,9 @@ skeleton="../generator.skeleton" %>
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
+	
 	<!-- ======== SERVICE ========== -->
-	<wsdl:service name="<%= data.getServiceName() %>">
+	<wsdl:service name="<%= data.getServiceName().getLocalPart() %>">
 		<wsdl:port binding="tns:MailServiceSoapBinding" name="<%= data.getEndpointName() %>">
 			<soap:address location="jbi://myMailSUEndpointName" />
 		</wsdl:port>

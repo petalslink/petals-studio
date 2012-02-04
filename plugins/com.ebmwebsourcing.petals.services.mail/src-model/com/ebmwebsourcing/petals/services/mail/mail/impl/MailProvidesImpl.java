@@ -96,6 +96,15 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	protected String host = HOST_EDEFAULT;
 
 	/**
+	 * This is true if the Host attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean hostESet;
+
+	/**
 	 * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -114,6 +123,15 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	 * @ordered
 	 */
 	protected int port = PORT_EDEFAULT;
+
+	/**
+	 * This is true if the Port attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean portESet;
 
 	/**
 	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
@@ -176,6 +194,15 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	protected String from = FROM_EDEFAULT;
 
 	/**
+	 * This is true if the From attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean fromESet;
+
+	/**
 	 * The default value of the '{@link #getReply() <em>Reply</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -214,6 +241,15 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	 * @ordered
 	 */
 	protected String to = TO_EDEFAULT;
+
+	/**
+	 * This is true if the To attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean toESet;
 
 	/**
 	 * The default value of the '{@link #getSubject() <em>Subject</em>}' attribute.
@@ -377,8 +413,33 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void setHost(String newHost) {
 		String oldHost = host;
 		host = newHost;
+		boolean oldHostESet = hostESet;
+		hostESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__HOST, oldHost, host));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__HOST, oldHost, host, !oldHostESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetHost() {
+		String oldHost = host;
+		boolean oldHostESet = hostESet;
+		host = HOST_EDEFAULT;
+		hostESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_PROVIDES__HOST, oldHost, HOST_EDEFAULT, oldHostESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetHost() {
+		return hostESet;
 	}
 
 	/**
@@ -398,8 +459,33 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void setPort(int newPort) {
 		int oldPort = port;
 		port = newPort;
+		boolean oldPortESet = portESet;
+		portESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__PORT, oldPort, port));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__PORT, oldPort, port, !oldPortESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetPort() {
+		int oldPort = port;
+		boolean oldPortESet = portESet;
+		port = PORT_EDEFAULT;
+		portESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_PROVIDES__PORT, oldPort, PORT_EDEFAULT, oldPortESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPort() {
+		return portESet;
 	}
 
 	/**
@@ -461,8 +547,33 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void setFrom(String newFrom) {
 		String oldFrom = from;
 		from = newFrom;
+		boolean oldFromESet = fromESet;
+		fromESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__FROM, oldFrom, from));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__FROM, oldFrom, from, !oldFromESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetFrom() {
+		String oldFrom = from;
+		boolean oldFromESet = fromESet;
+		from = FROM_EDEFAULT;
+		fromESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_PROVIDES__FROM, oldFrom, FROM_EDEFAULT, oldFromESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetFrom() {
+		return fromESet;
 	}
 
 	/**
@@ -503,8 +614,33 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 	public void setTo(String newTo) {
 		String oldTo = to;
 		to = newTo;
+		boolean oldToESet = toESet;
+		toESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__TO, oldTo, to));
+			eNotify(new ENotificationImpl(this, Notification.SET, MailPackage.MAIL_PROVIDES__TO, oldTo, to, !oldToESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetTo() {
+		String oldTo = to;
+		boolean oldToESet = toESet;
+		to = TO_EDEFAULT;
+		toESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MailPackage.MAIL_PROVIDES__TO, oldTo, TO_EDEFAULT, oldToESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetTo() {
+		return toESet;
 	}
 
 	/**
@@ -687,10 +823,10 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 				unsetScheme();
 				return;
 			case MailPackage.MAIL_PROVIDES__HOST:
-				setHost(HOST_EDEFAULT);
+				unsetHost();
 				return;
 			case MailPackage.MAIL_PROVIDES__PORT:
-				setPort(PORT_EDEFAULT);
+				unsetPort();
 				return;
 			case MailPackage.MAIL_PROVIDES__USER:
 				setUser(USER_EDEFAULT);
@@ -699,13 +835,13 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 				setPassword(PASSWORD_EDEFAULT);
 				return;
 			case MailPackage.MAIL_PROVIDES__FROM:
-				setFrom(FROM_EDEFAULT);
+				unsetFrom();
 				return;
 			case MailPackage.MAIL_PROVIDES__REPLY:
 				setReply(REPLY_EDEFAULT);
 				return;
 			case MailPackage.MAIL_PROVIDES__TO:
-				setTo(TO_EDEFAULT);
+				unsetTo();
 				return;
 			case MailPackage.MAIL_PROVIDES__SUBJECT:
 				setSubject(SUBJECT_EDEFAULT);
@@ -734,19 +870,19 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 			case MailPackage.MAIL_PROVIDES__SCHEME:
 				return isSetScheme();
 			case MailPackage.MAIL_PROVIDES__HOST:
-				return HOST_EDEFAULT == null ? host != null : !HOST_EDEFAULT.equals(host);
+				return isSetHost();
 			case MailPackage.MAIL_PROVIDES__PORT:
-				return port != PORT_EDEFAULT;
+				return isSetPort();
 			case MailPackage.MAIL_PROVIDES__USER:
 				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
 			case MailPackage.MAIL_PROVIDES__PASSWORD:
 				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
 			case MailPackage.MAIL_PROVIDES__FROM:
-				return FROM_EDEFAULT == null ? from != null : !FROM_EDEFAULT.equals(from);
+				return isSetFrom();
 			case MailPackage.MAIL_PROVIDES__REPLY:
 				return REPLY_EDEFAULT == null ? reply != null : !REPLY_EDEFAULT.equals(reply);
 			case MailPackage.MAIL_PROVIDES__TO:
-				return TO_EDEFAULT == null ? to != null : !TO_EDEFAULT.equals(to);
+				return isSetTo();
 			case MailPackage.MAIL_PROVIDES__SUBJECT:
 				return SUBJECT_EDEFAULT == null ? subject != null : !SUBJECT_EDEFAULT.equals(subject);
 			case MailPackage.MAIL_PROVIDES__HELOHOST:
@@ -812,19 +948,19 @@ public class MailProvidesImpl extends ProvidesImpl implements MailProvides {
 		result.append(" (scheme: ");
 		if (schemeESet) result.append(scheme); else result.append("<unset>");
 		result.append(", host: ");
-		result.append(host);
+		if (hostESet) result.append(host); else result.append("<unset>");
 		result.append(", port: ");
-		result.append(port);
+		if (portESet) result.append(port); else result.append("<unset>");
 		result.append(", user: ");
 		result.append(user);
 		result.append(", password: ");
 		result.append(password);
 		result.append(", from: ");
-		result.append(from);
+		if (fromESet) result.append(from); else result.append("<unset>");
 		result.append(", reply: ");
 		result.append(reply);
 		result.append(", to: ");
-		result.append(to);
+		if (toESet) result.append(to); else result.append("<unset>");
 		result.append(", subject: ");
 		result.append(subject);
 		result.append(", helohost: ");
