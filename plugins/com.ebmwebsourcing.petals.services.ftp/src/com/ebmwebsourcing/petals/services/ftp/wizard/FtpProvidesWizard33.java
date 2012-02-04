@@ -27,6 +27,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class FtpProvidesWizard33 extends FtpProvidesWizard32 {
 
@@ -38,13 +39,25 @@ public class FtpProvidesWizard33 extends FtpProvidesWizard32 {
 	public ComponentVersionDescription getComponentVersionDescription() {
 		return new FtpDescription33();
 	}
-	
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard32
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
 	@Override
 	public void presetServiceValues(AbstractEndpoint endpoint) {
 		super.presetServiceValues(endpoint);
 		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__OVERWRITE, true);
 	}
-	
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard32
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
@@ -58,15 +71,15 @@ public class FtpProvidesWizard33 extends FtpProvidesWizard32 {
 				Ftp3Package.Literals.FTP_PROVIDES__OVERWRITE)
 		};
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-
 		IFile wsdlFile = resourceFolder.getFile( "FtpService.wsdl" );
 		createFile( wsdlFile, new FtpService33().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;

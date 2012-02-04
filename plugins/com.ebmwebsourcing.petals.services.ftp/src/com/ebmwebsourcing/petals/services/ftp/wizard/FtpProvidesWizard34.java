@@ -11,8 +11,6 @@
 
 package com.ebmwebsourcing.petals.services.ftp.wizard;
 
-import java.nio.charset.Charset;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -29,6 +27,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
 public class FtpProvidesWizard34 extends FtpProvidesWizard33 {
 
@@ -40,13 +39,25 @@ public class FtpProvidesWizard34 extends FtpProvidesWizard33 {
 	public ComponentVersionDescription getComponentVersionDescription() {
 		return new FtpDescription34();
 	}
-	
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard33
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
 	@Override
 	public void presetServiceValues(AbstractEndpoint endpoint) {
 		super.presetServiceValues(endpoint);
-		endpoint.eSet(Ftp3Package.Literals.FTP_PROVIDES__ENCODING, Charset.defaultCharset().toString());
+		endpoint.eSet( Ftp3Package.Literals.FTP_PROVIDES__ENCODING, "UTF-8" );
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard33
+	 * #getCustomWizardPagesAfterProject()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
@@ -63,15 +74,16 @@ public class FtpProvidesWizard34 extends FtpProvidesWizard33 {
 				Ftp3Package.Literals.FTP_PROVIDES__MAX_CONNECTION)
 		};
 	}
-	
+
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-
 		IFile wsdlFile = resourceFolder.getFile( "FtpService.wsdl" );
 		createFile( wsdlFile, new FtpService34().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;

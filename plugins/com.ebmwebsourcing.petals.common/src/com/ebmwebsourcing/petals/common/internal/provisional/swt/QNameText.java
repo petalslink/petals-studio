@@ -166,8 +166,36 @@ public class QNameText extends Composite {
 	 * @param editable true if they are, false otherwise
 	 */
 	public void setEditable( boolean editable ) {
+		setLocalPartEditable( editable );
+		setNamespacePartEditable( editable );
+	}
+
+
+	/**
+	 * Sets the local part editable.
+	 * @param editable
+	 */
+	public void setLocalPartEditable( boolean editable ) {
 		this.localPartPhantomText.setEditable( editable );
-		this.namespacePhantomText.setEditable( editable );
+
+		Color color = getDisplay().getSystemColor( SWT.COLOR_WHITE );
+		String tooltip = editable ? null : "This field cannot be edited";
+		this.localPartPhantomText.setBackground( color );
+		this.localPartPhantomText.setToolTipText( tooltip );
+	}
+
+
+	/**
+	 * Sets the namespace part editable.
+	 * @param editable
+	 */
+	public void setNamespacePartEditable( boolean editable ) {
+		this.namespacePhantomText.getTextWidget().setEditable( editable );
+
+		Color color = getDisplay().getSystemColor( SWT.COLOR_WHITE );
+		String tooltip = editable ? null : "This field cannot be edited";
+		this.namespacePhantomText.getTextWidget().setBackground( color );
+		this.namespacePhantomText.getTextWidget().setToolTipText( tooltip );
 	}
 
 

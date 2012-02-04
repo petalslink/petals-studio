@@ -20,6 +20,9 @@
 			<!-- 3.3 -->
 			<xs:element ref="ftp:delete-processed-files" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="ftp:overwrite" maxOccurs="1" minOccurs="0" />
+			
+			<!-- 3.4 -->
+			<xs:element ref="ftp:encoding" maxOccurs="1" minOccurs="0" />
 		</xs:sequence>
 	</xs:group>
 	
@@ -28,6 +31,12 @@
 	<xs:element name="server" type="xs:string">
 		<xs:annotation>
 			<xs:documentation>FTP server (optional when using the generic <b>FTP</b> service)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="encoding" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The encoding value used to process FTP operations</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	

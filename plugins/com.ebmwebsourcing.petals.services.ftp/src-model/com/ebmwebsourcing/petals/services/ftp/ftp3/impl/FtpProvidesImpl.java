@@ -130,6 +130,15 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	protected String folder = FOLDER_EDEFAULT;
 
 	/**
+	 * This is true if the Folder attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean folderESet;
+
+	/**
 	 * The default value of the '{@link #isOverwrite() <em>Overwrite</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -168,6 +177,15 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	 * @ordered
 	 */
 	protected String password = PASSWORD_EDEFAULT;
+
+	/**
+	 * This is true if the Password attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean passwordESet;
 
 	/**
 	 * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
@@ -210,6 +228,15 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	protected String server = SERVER_EDEFAULT;
 
 	/**
+	 * This is true if the Server attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean serverESet;
+
+	/**
 	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -228,6 +255,15 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	 * @ordered
 	 */
 	protected String user = USER_EDEFAULT;
+
+	/**
+	 * This is true if the User attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean userESet;
 
 	/**
 	 * The default value of the '{@link #getTransferType() <em>Transfer Type</em>}' attribute.
@@ -408,8 +444,33 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	public void setFolder(String newFolder) {
 		String oldFolder = folder;
 		folder = newFolder;
+		boolean oldFolderESet = folderESet;
+		folderESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__FOLDER, oldFolder, folder));
+			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__FOLDER, oldFolder, folder, !oldFolderESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetFolder() {
+		String oldFolder = folder;
+		boolean oldFolderESet = folderESet;
+		folder = FOLDER_EDEFAULT;
+		folderESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Ftp3Package.FTP_PROVIDES__FOLDER, oldFolder, FOLDER_EDEFAULT, oldFolderESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetFolder() {
+		return folderESet;
 	}
 
 	/**
@@ -450,8 +511,33 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	public void setPassword(String newPassword) {
 		String oldPassword = password;
 		password = newPassword;
+		boolean oldPasswordESet = passwordESet;
+		passwordESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__PASSWORD, oldPassword, password));
+			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__PASSWORD, oldPassword, password, !oldPasswordESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetPassword() {
+		String oldPassword = password;
+		boolean oldPasswordESet = passwordESet;
+		password = PASSWORD_EDEFAULT;
+		passwordESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Ftp3Package.FTP_PROVIDES__PASSWORD, oldPassword, PASSWORD_EDEFAULT, oldPasswordESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPassword() {
+		return passwordESet;
 	}
 
 	/**
@@ -492,8 +578,33 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	public void setServer(String newServer) {
 		String oldServer = server;
 		server = newServer;
+		boolean oldServerESet = serverESet;
+		serverESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__SERVER, oldServer, server));
+			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__SERVER, oldServer, server, !oldServerESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetServer() {
+		String oldServer = server;
+		boolean oldServerESet = serverESet;
+		server = SERVER_EDEFAULT;
+		serverESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Ftp3Package.FTP_PROVIDES__SERVER, oldServer, SERVER_EDEFAULT, oldServerESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetServer() {
+		return serverESet;
 	}
 
 	/**
@@ -513,8 +624,33 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 	public void setUser(String newUser) {
 		String oldUser = user;
 		user = newUser;
+		boolean oldUserESet = userESet;
+		userESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__USER, oldUser, user));
+			eNotify(new ENotificationImpl(this, Notification.SET, Ftp3Package.FTP_PROVIDES__USER, oldUser, user, !oldUserESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetUser() {
+		String oldUser = user;
+		boolean oldUserESet = userESet;
+		user = USER_EDEFAULT;
+		userESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Ftp3Package.FTP_PROVIDES__USER, oldUser, USER_EDEFAULT, oldUserESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetUser() {
+		return userESet;
 	}
 
 	/**
@@ -708,22 +844,22 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 				setFilename(FILENAME_EDEFAULT);
 				return;
 			case Ftp3Package.FTP_PROVIDES__FOLDER:
-				setFolder(FOLDER_EDEFAULT);
+				unsetFolder();
 				return;
 			case Ftp3Package.FTP_PROVIDES__OVERWRITE:
 				setOverwrite(OVERWRITE_EDEFAULT);
 				return;
 			case Ftp3Package.FTP_PROVIDES__PASSWORD:
-				setPassword(PASSWORD_EDEFAULT);
+				unsetPassword();
 				return;
 			case Ftp3Package.FTP_PROVIDES__PORT:
 				setPort(PORT_EDEFAULT);
 				return;
 			case Ftp3Package.FTP_PROVIDES__SERVER:
-				setServer(SERVER_EDEFAULT);
+				unsetServer();
 				return;
 			case Ftp3Package.FTP_PROVIDES__USER:
-				setUser(USER_EDEFAULT);
+				unsetUser();
 				return;
 			case Ftp3Package.FTP_PROVIDES__TRANSFER_TYPE:
 				setTransferType(TRANSFER_TYPE_EDEFAULT);
@@ -756,17 +892,17 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 			case Ftp3Package.FTP_PROVIDES__FILENAME:
 				return FILENAME_EDEFAULT == null ? filename != null : !FILENAME_EDEFAULT.equals(filename);
 			case Ftp3Package.FTP_PROVIDES__FOLDER:
-				return FOLDER_EDEFAULT == null ? folder != null : !FOLDER_EDEFAULT.equals(folder);
+				return isSetFolder();
 			case Ftp3Package.FTP_PROVIDES__OVERWRITE:
 				return overwrite != OVERWRITE_EDEFAULT;
 			case Ftp3Package.FTP_PROVIDES__PASSWORD:
-				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+				return isSetPassword();
 			case Ftp3Package.FTP_PROVIDES__PORT:
 				return port != PORT_EDEFAULT;
 			case Ftp3Package.FTP_PROVIDES__SERVER:
-				return SERVER_EDEFAULT == null ? server != null : !SERVER_EDEFAULT.equals(server);
+				return isSetServer();
 			case Ftp3Package.FTP_PROVIDES__USER:
-				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
+				return isSetUser();
 			case Ftp3Package.FTP_PROVIDES__TRANSFER_TYPE:
 				return transferType != TRANSFER_TYPE_EDEFAULT;
 			case Ftp3Package.FTP_PROVIDES__ENCODING:
@@ -796,17 +932,17 @@ public class FtpProvidesImpl extends ProvidesImpl implements FtpProvides {
 		result.append(", filename: ");
 		result.append(filename);
 		result.append(", folder: ");
-		result.append(folder);
+		if (folderESet) result.append(folder); else result.append("<unset>");
 		result.append(", overwrite: ");
 		result.append(overwrite);
 		result.append(", password: ");
-		result.append(password);
+		if (passwordESet) result.append(password); else result.append("<unset>");
 		result.append(", port: ");
 		result.append(port);
 		result.append(", server: ");
-		result.append(server);
+		if (serverESet) result.append(server); else result.append("<unset>");
 		result.append(", user: ");
-		result.append(user);
+		if (userESet) result.append(user); else result.append("<unset>");
 		result.append(", transferType: ");
 		result.append(transferType);
 		result.append(", encoding: ");

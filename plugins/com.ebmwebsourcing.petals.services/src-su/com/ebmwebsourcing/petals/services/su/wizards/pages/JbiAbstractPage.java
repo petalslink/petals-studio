@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.QNameText;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -104,11 +105,15 @@ public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 	protected void createCommonControls( Composite container, int marginTop ) {
 
 		// Interface name
+		SuWizardSettings settings = getWizard().getSettings();
 		Label l = SwtFactory.createLabel( container, "Interface Name:", "The qualified name of the service contract" );
 		SwtFactory.applyGridData( l, 1, marginTop );
 
 		this.itfQText = SwtFactory.createQNameTextField( container, false, "Interface", "http://Your.Interface.Namespace/" );
 		SwtFactory.applyHorizontalGridData( this.itfQText, 1, marginTop );
+		if( ! settings.activateInterfaceName )
+			this.itfQText.setEditable( false );
+
 		this.itfQText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
@@ -121,6 +126,11 @@ public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 		// Service name
 		SwtFactory.createLabel( container, "Service Name:", "The qualified name of the service implementation" );
 		this.srvQText = SwtFactory.createQNameTextField( container, true, "Service  ", "http://Your.Service.Namespace/" );
+		if( settings.activateServiceNameOnly )
+			this.srvQText.setNamespacePartEditable( false );
+		else if( ! settings.activateServiceName )
+			this.srvQText.setEditable( false );
+
 		this.srvQText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
@@ -133,6 +143,9 @@ public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 		// End-point name
 		SwtFactory.createLabel( container, "End-point Name:", "The name of the service deployment point" );
 		this.edptText = SwtFactory.createSimpleTextField( container, true );
+		if( ! settings.activateEndpointName )
+			this.edptText.setEditable( false );
+
 		this.edptText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {

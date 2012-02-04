@@ -70,4 +70,20 @@ public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage {
 	public boolean validate() {
 		return true;
 	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+	 */
+	@Override
+	public void setVisible( boolean visible ) {
+		super.setVisible( visible );
+
+		// Do not display an error when it becomes visible
+		if( visible && getErrorMessage() != null ) {
+			setErrorMessage( null );
+			setPageComplete( false );
+		}
+	}
 }

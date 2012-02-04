@@ -242,7 +242,7 @@ skeleton="../generator.skeleton" %>
 	</wsdl:message>
 
 	<!-- Interface Part -->
-	<wsdl:portType name="Ftp">
+	<wsdl:portType name="<%= data.getInterfaceName().getLocalPart() %>">
 		<wsdl:operation name="get">
 			<wsdl:input message="tns:getRequest" />
 			<wsdl:output message="tns:getResponse" />
@@ -281,99 +281,99 @@ skeleton="../generator.skeleton" %>
 		This binding section is defined only to expose this WSDL via SOAP
 		component to external service consumers
 	-->
-	<wsdl:binding name="FtpServiceSoapBinding" type="tns:Ftp">
-
-	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
-	<wsdl:operation name="get">
-		<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/get" />
-		<wsdl:input>
-			<soap:body use="literal" />
-		</wsdl:input>
-		<wsdl:output>
-			<soap:body use="literal" />
-		</wsdl:output>
-		<wsdl:fault name="fault">
-			<soap:fault use="literal" name="fault" />
-		</wsdl:fault>
-		<wsdl:fault name="fault1">
-			<soap:fault use="literal" name="fault1" />
-		</wsdl:fault>
-
-	</wsdl:operation>
-	<wsdl:operation name="getAsAttachment">
-		<soap:operation
-			soapAction="http://petals.ow2.org/components/ftp/version-3/getAsAttachment" />
-		<wsdl:input>
-			<soap:body use="literal" />
-		</wsdl:input>
-		<wsdl:output>
-			<soap:body use="literal" />
-		</wsdl:output>
-		<wsdl:fault name="fault">
-			<soap:fault use="literal" name="fault" />
-		</wsdl:fault>
-		<wsdl:fault name="fault1">
-			<soap:fault use="literal" name="fault1" />
-		</wsdl:fault>
-	</wsdl:operation>
-
-	<wsdl:operation name="mget">
-		<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/mget" />
-		<wsdl:input>
-			<soap:body use="literal" />
-		</wsdl:input>
-		<wsdl:output>
-			<soap:body use="literal" />
-		</wsdl:output>
-		<wsdl:fault name="fault">
-			<soap:fault use="literal" name="fault" />
-		</wsdl:fault>
-		<wsdl:fault name="fault1">
-			<soap:fault use="literal" name="fault1" />
-		</wsdl:fault>
-	</wsdl:operation>
-
-	<wsdl:operation name="put">
-		<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/put" />
-		<wsdl:input>
-			<soap:body use="literal" />
-		</wsdl:input>
-	</wsdl:operation>
-	<wsdl:operation name="mput">
-		<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/mput" />
-		<wsdl:input>
-			<soap:body use="literal" />
-		</wsdl:input>
-	</wsdl:operation>
-	<wsdl:operation name="dir">
-		<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/dir" />
-		<wsdl:input>
-			<soap:body use="literal" />
-		</wsdl:input>
-		<wsdl:output>
-			<soap:body use="literal" />
-		</wsdl:output>
-		<wsdl:fault name="fault">
-			<soap:fault use="literal" name="fault" />
-		</wsdl:fault>
-	</wsdl:operation>
-
-	<wsdl:operation name="del">
-
-		<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/del" />
-		<wsdl:input>
-
-			<soap:body use="literal" />
-		</wsdl:input>
-	</wsdl:operation>
-</wsdl:binding>
+	<wsdl:binding name="FtpServiceSoapBinding" type="tns:<%= data.getInterfaceName().getLocalPart() %>">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		
+		<wsdl:operation name="get">
+			<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/get" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+			<wsdl:fault name="fault1">
+				<soap:fault use="literal" name="fault1" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="getAsAttachment">
+			<soap:operation
+				soapAction="http://petals.ow2.org/components/ftp/version-3/getAsAttachment" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+			<wsdl:fault name="fault1">
+				<soap:fault use="literal" name="fault1" />
+			</wsdl:fault>
+		</wsdl:operation>
+	
+		<wsdl:operation name="mget">
+			<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/mget" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+			<wsdl:fault name="fault1">
+				<soap:fault use="literal" name="fault1" />
+			</wsdl:fault>
+		</wsdl:operation>
+	
+		<wsdl:operation name="put">
+			<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/put" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		
+		<wsdl:operation name="mput">
+			<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/mput" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		
+		<wsdl:operation name="dir">
+			<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/dir" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+		</wsdl:operation>
+	
+		<wsdl:operation name="del">
+			<soap:operation soapAction="http://petals.ow2.org/components/ftp/version-3/del" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
 
 	<!--
 		This section must be overridden at the SU definition and the matching
 		Service and
 	-->
-	<wsdl:service name="myFTPSUServiceName">
-		<wsdl:port name="myFTPSUEndpointName" binding="tns:FtpServiceSoapBinding">
+	<wsdl:service name="<%= data.getServiceName().getLocalPart() %>">
+		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:FtpServiceSoapBinding">
 			<soap:address location="jbi://myFTPSUEndpointName" />
 		</wsdl:port>
 	</wsdl:service>

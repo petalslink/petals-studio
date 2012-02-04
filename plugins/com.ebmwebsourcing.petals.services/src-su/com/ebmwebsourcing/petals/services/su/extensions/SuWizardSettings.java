@@ -25,11 +25,14 @@ import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 public class SuWizardSettings {
 
 	public boolean activateInterfaceName = true;
-	public boolean validateInterface = true;
 	public boolean activateServiceName = true;
-	public boolean validateServiceName = true;
+	public boolean activateServiceNameOnly = false;
 	public boolean activateEndpointName = true;
+
+	public boolean validateInterface = true;
+	public boolean validateServiceName = true;
 	public boolean validateEndpointName = true;
+
 	public boolean showWsdl = true;
 	public boolean openJbiEditor = true;
 	public boolean showJbiPage = true;
