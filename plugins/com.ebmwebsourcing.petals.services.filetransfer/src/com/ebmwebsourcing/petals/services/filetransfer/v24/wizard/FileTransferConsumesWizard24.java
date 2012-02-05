@@ -66,7 +66,7 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesBeforeProject()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__READ_DIRECTORY,
 				Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY,

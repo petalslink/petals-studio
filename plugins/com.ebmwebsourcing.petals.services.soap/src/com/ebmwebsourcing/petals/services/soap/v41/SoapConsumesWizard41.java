@@ -56,7 +56,7 @@ public class SoapConsumesWizard41 extends SoapConsumesWizard40 {
 	 * #getCustomWizardPagesAfterJbi()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SoapConsumesWizardPage41()};
 	}
 }

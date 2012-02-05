@@ -63,7 +63,7 @@ public class SoapProvidesWizard40 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesAfterJbi()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SoapProvidesWizardPage40()};
 	}
 

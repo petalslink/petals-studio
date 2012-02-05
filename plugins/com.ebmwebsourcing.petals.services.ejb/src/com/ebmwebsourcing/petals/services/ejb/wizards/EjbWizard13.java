@@ -145,12 +145,13 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.ComponentCreationWizard
-	 * #getCustomWizardPagesAfterProject()
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new EJBDetailsPage()};
 	}
 
@@ -160,7 +161,7 @@ public class EjbWizard13 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesBeforeProject()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeJbi() {
 		return new AbstractSuWizardPage[] { new EJBCustomSpecificationPage12()};
 	}
 

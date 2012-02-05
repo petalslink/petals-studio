@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.mail.generated.MailService;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
@@ -98,10 +98,10 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesAfterProject()
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__HOST,

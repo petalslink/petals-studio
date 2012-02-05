@@ -26,8 +26,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -166,10 +166,10 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesAfterProject()
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		this.page = new XsltProvideSpecificPage();
 		return new AbstractSuWizardPage[] { this.page };
 	}

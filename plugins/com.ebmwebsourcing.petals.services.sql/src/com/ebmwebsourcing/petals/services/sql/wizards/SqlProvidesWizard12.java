@@ -88,7 +88,7 @@ public class SqlProvidesWizard12 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesAfterJbi()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] {
 				new SimpleFeatureListSuWizardPage(
 						SqlPackage.Literals.SQL_PROVIDES__URL,

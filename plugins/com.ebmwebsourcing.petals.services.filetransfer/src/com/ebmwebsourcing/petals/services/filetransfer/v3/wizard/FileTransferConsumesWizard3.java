@@ -74,7 +74,7 @@ public class FileTransferConsumesWizard3 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesBeforeProject()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 
 		SimpleFeatureListSuWizardPage firstPage = new SimpleFeatureListSuWizardPage(
 				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__FOLDER,

@@ -120,7 +120,7 @@ public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesBeforeProject()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeJbi() {
 		this.page = new FiletransferProvidesPage();
 		return new AbstractSuWizardPage[] { this.page };
 	}

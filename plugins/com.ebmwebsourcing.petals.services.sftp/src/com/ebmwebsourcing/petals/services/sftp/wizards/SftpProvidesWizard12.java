@@ -57,11 +57,11 @@ public class SftpProvidesWizard12 extends SftpProvidesWizard11 {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.sftp.wizards.SftpProvidesWizard11
-	 * #getCustomWizardPagesAfterProject()
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				SftpPackage.Literals.SFTP_PROVIDES__SERVER,
 				SftpPackage.Literals.SFTP_PROVIDES__PORT,

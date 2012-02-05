@@ -54,7 +54,7 @@ public class JmsProvidesWizard31 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesAfterJbi()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_PROVIDER_URL,
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY,

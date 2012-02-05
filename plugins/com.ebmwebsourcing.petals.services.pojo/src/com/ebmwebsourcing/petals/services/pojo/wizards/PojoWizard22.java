@@ -172,7 +172,7 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 	 * #getCustomWizardPagesAfterJbi()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		this.page = new PojoProvideSpecificPage22();
 		return new AbstractSuWizardPage[] { this.page };
 	}

@@ -49,8 +49,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils.Ja
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.jsr181.Jsr181Constants;
 import com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin;
 import com.ebmwebsourcing.petals.services.jsr181.generated.JaxWsImplementation;
@@ -308,10 +308,10 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesAfterProject()
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		this.page = new Jsr181ProvidePage11();
 		return new AbstractSuWizardPage[] { this.page };
 	}

@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.ftp.FtpDescription31;
 import com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package;
 import com.ebmwebsourcing.petals.services.ftp.generated.FtpService31;
@@ -98,10 +98,10 @@ public class FtpProvidesWizard31 extends AbstractServiceUnitWizard {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesAfterProject()
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				Ftp3Package.Literals.FTP_PROVIDES__SERVER,
 				Ftp3Package.Literals.FTP_PROVIDES__PORT,

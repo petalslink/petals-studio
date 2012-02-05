@@ -55,11 +55,11 @@ public class FtpProvidesWizard34 extends FtpProvidesWizard33 {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard33
-	 * #getCustomWizardPagesAfterProject()
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				Ftp3Package.Literals.FTP_PROVIDES__SERVER,
 				Ftp3Package.Literals.FTP_PROVIDES__PORT,

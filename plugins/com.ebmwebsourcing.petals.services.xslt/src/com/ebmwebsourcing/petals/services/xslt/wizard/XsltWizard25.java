@@ -36,11 +36,11 @@ public class XsltWizard25 extends XsltWizard23 {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.xslt.wizard.XsltWizard23
-	 * #getCustomWizardPagesAfterProject()
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] {
 				new XsltProvideSpecificPage(),
 				new SimpleFeatureListSuWizardPage(

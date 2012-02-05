@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.sftp.SftpDescription11;
 import com.ebmwebsourcing.petals.services.sftp.generated.SftpService11;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
@@ -91,13 +91,14 @@ public class SftpProvidesWizard11 extends AbstractServiceUnitWizard {
 		return Status.OK_STATUS;
 	}
 
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesAfterProject()
+	 * #getLastCustomWizardPages()
 	 */
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				SftpPackage.Literals.SFTP_PROVIDES__SERVER,
 				SftpPackage.Literals.SFTP_PROVIDES__PORT,

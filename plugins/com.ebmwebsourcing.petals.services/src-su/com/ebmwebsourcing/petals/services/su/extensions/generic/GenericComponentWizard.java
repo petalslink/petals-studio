@@ -19,7 +19,7 @@ public class GenericComponentWizard extends AbstractServiceUnitWizard {
 	}
 
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return null;
 	}
 
@@ -29,7 +29,7 @@ public class GenericComponentWizard extends AbstractServiceUnitWizard {
 	}
 
 	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeJbi() {
 		return new AbstractSuWizardPage[] {
 				new GenericSuWizardPage()
 		};

@@ -163,7 +163,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 */
 	@Override
 	public void addPages() {
-		AbstractSuWizardPage[] pages = this.getCustomWizardPagesBeforeProject();
+		AbstractSuWizardPage[] pages = this.getCustomWizardPagesBeforeJbi();
 		if (pages != null) {
 			for (IWizardPage page : pages)
 				addPage( page );
@@ -184,15 +184,9 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 			addPage( this.projectPage );
 		}
 
-		pages = getCustomWizardPagesAfterProject();
+		pages = getLastCustomWizardPages();
 		if( pages != null ) {
-			for (IWizardPage page : pages)
-				addPage(page);
-		}
-
-		pages = getCustomWizardPagesAfterJbi();
-		if( pages != null ) {
-			for (IWizardPage page : this.getCustomWizardPagesAfterJbi())
+			for (IWizardPage page : this.getLastCustomWizardPages())
 				addPage(page);
 		}
 	}
@@ -377,25 +371,17 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 
 	/**
-	 * @return the pages located after the JBI page (can be null)
+	 * @return the last pages, located after the PROJECT page (can be null)
 	 */
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
+	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return null;
 	}
 
 
 	/**
-	 * @return the pages located after the PROJECT page (can be null)
+	 * @return the pages located before the JBI page (can be null)
 	 */
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
-		return null;
-	}
-
-
-	/**
-	 * @return the pages located before the PROJECT page (can be null)
-	 */
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
+	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeJbi() {
 		return null;
 	}
 

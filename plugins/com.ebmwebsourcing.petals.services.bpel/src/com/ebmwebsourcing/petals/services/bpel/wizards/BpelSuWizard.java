@@ -20,13 +20,13 @@ import org.eclipse.bpel.ui.wizards.NewBpelFileTemplatePage;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.wizard.IWizardPage;
 
 import com.ebmwebsourcing.petals.services.bpel.BpelDescription1x;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ProjectPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
@@ -39,17 +39,6 @@ public class BpelSuWizard extends AbstractServiceUnitWizard {
 	protected NewBpelFileTemplatePage wsdlPage;
 	protected NewBpelFilePortTypePage portTypePage;
 	private ProjectPage projectPage;
-
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
-	 */
-	@Override
-	protected void presetServiceValues( AbstractEndpoint endpoint ) {
-		// nothing
-	}
 
 
 	/*
@@ -130,61 +119,11 @@ public class BpelSuWizard extends AbstractServiceUnitWizard {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesAfterJbi()
-	 */
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
-		return null;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesAfterProject()
-	 */
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
-		return null;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #getCustomWizardPagesBeforeProject()
-	 */
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return null;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #importAdditionalFiles(org.eclipse.core.resources.IFolder, org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	@Override
-	protected IStatus importAdditionalFiles( IFolder resourceDirectory, IProgressMonitor monitor ) {
-		return null;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
 	protected IStatus performLastActions( IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor ) {
-		return null;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #isJavaProject()
-	 */
-	@Override
-	protected boolean isJavaProject() {
-		return false;
+		return Status.OK_STATUS;
 	}
 
 
