@@ -20,15 +20,13 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -58,6 +56,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultTreeContentProvider;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.explorer.SourceManager;
@@ -76,7 +75,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	private final static String WILDCARD = "*";
 
 	private final FormToolkit toolkit;
-	private Image edptImage, opImage, itfImage, srvImage;
+	private final Image edptImage, opImage, itfImage, srvImage;
 
 	private QName itfToInvoke, srvToInvoke;
 	private String edptToInvoke;
@@ -86,6 +85,16 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 
 	private String filterItfName, filterItfNs;
 	private String filterSrvName, filterSrvNs, filterEdpt, filterComp;
+	private List<Mep> constrainedMep;
+
+
+	/**
+	 * Constructor.
+	 * @param parentShell
+	 */
+	public EnhancedConsumeDialog( Shell parentShell ) {
+		this( parentShell, null );
+	}
 
 
 	/**
@@ -94,27 +103,17 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	 * @param toolkit
 	 */
 	public EnhancedConsumeDialog( Shell parentShell, FormToolkit toolkit ) {
-
 		super( parentShell );
-		this.toolkit = toolkit;
+		if( toolkit != null )
+			this.toolkit = toolkit;
+		else
+			this.toolkit = new FormToolkit( parentShell.getDisplay());
+
 		setShellStyle( SWT.PRIMARY_MODAL | SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX );
-
-		try {
-			ImageDescriptor desc = PetalsServicesPlugin.getImageDescriptor( "icons/obj16/contract.gif" );
-			this.itfImage = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/obj16/service.gif" );
-			this.srvImage = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/obj16/Endpoint_3.gif" );
-			this.edptImage = desc.createImage();
-
-			desc = PetalsServicesPlugin.getImageDescriptor( "icons/obj16/operation_2.gif" );
-			this.opImage = desc.createImage();
-
-		} catch( Exception e ) {
-			PetalsServicesPlugin.log( e, IStatus.WARNING );
-		}
+		this.itfImage = PetalsServicesPlugin.loadImage( "icons/obj16/contract.gif" );
+		this.srvImage = PetalsServicesPlugin.loadImage( "icons/obj16/service.gif" );
+		this.edptImage = PetalsServicesPlugin.loadImage( "icons/obj16/Endpoint_3.gif" );
+		this.opImage = PetalsServicesPlugin.loadImage( "icons/obj16/operation_2.gif" );
 	}
 
 
@@ -326,6 +325,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 
 		// Listeners
 		ModifyListener modifyListener = new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 
 				String value = ((Text) e.widget).getText().trim();
@@ -354,6 +354,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 		compText.addModifyListener( modifyListener );
 
 		treeViewer.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				EnhancedConsumeDialog.this.operationToInvoke = null;
@@ -505,10 +506,12 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 		}
 
 		table.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				widgetDefaultSelected( e );
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				TableItem[] items = table.getSelection();
 				if( items != null && items.length > 0 ) {
@@ -522,6 +525,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 
 		final Button b = this.toolkit.createButton( subContainer, "Let the component choose the operation to invoke.", SWT.CHECK );
 		b.addSelectionListener( new SelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
 				EnhancedConsumeDialog.this.needOperation = ! b.getSelection();
@@ -534,6 +538,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 				validate();
 			}
 
+			@Override
 			public void widgetDefaultSelected( SelectionEvent e ) {
 				widgetSelected( e );
 			}
@@ -550,6 +555,22 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	 */
 	public void setFilterItfName( String filterItfName ) {
 		this.filterItfName = filterItfName;
+	}
+
+
+	/**
+	 * @return the constrainedMep
+	 */
+	public List<Mep> getConstrainedMep() {
+		return this.constrainedMep;
+	}
+
+
+	/**
+	 * @param constrainedMep the constrainedMep to set
+	 */
+	public void setConstrainedMep( List<Mep> constrainedMep ) {
+		this.constrainedMep = constrainedMep;
 	}
 
 
@@ -630,15 +651,23 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	 */
 	private void validate() {
 
-		String msg = null;
+		String msg = null, warning = null;
 		if( this.itfToInvoke == null
 				&& this.srvToInvoke == null
 				&& this.itfToInvoke == null )
 			msg = "You must select a service to consume (invoke).";
+
 		else if( this.operationToInvoke == null && this.needOperation )
 			msg = "You must select an operation to invoke.";
 
+		else if( this.constrainedMep != null
+				&& ! this.constrainedMep.isEmpty()
+				&& ! this.constrainedMep.contains( this.invocationMep ))
+			warning = "This operation is associated with a MEP which is not supported by the current component.";
+
+		setMessage( warning, IMessageProvider.WARNING );
 		setErrorMessage( msg );
+
 		Button okButton = getButton( IDialogConstants.OK_ID );
 		if( okButton != null )
 			okButton.setEnabled( msg == null );
@@ -648,28 +677,18 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	/**
 	 * A content provider for the viewer.
 	 */
-	private static class ServiceContentProvider implements ITreeContentProvider {
-
-		public void inputChanged( Viewer viewer, Object oldInput, Object newInput ) {
-			// nothing
-		}
-
-		public void dispose() {
-			// nothing
-		}
-
+	private static class ServiceContentProvider extends DefaultTreeContentProvider {
+		@Override
 		public boolean hasChildren( Object element ) {
 			return element instanceof SrvBean || element instanceof ItfBean;
 		}
 
-		public Object getParent( Object element ) {
-			return null;
-		}
-
+		@Override
 		public Object[] getElements( Object inputElement ) {
 			return ((Map<?,?>) inputElement).values().toArray();
 		}
 
+		@Override
 		public Object[] getChildren( Object parentElement ) {
 
 			Object[] result = null;

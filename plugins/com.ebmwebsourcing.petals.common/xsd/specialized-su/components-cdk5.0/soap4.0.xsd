@@ -62,6 +62,11 @@
 			<xs:element ref="soap:rest-remove-prefix-on-response" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:service-parameters" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:enable-http-transport" maxOccurs="1" minOccurs="0" />
+			
+			<!-- Version 4.1 -->
+			<xs:element ref="soap:enable-https-transport" maxOccurs="1" minOccurs="0" />
+			<!-- Version 4.1 -->
+			
 			<xs:element ref="soap:enable-jms-transport" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:http-services-redirection" maxOccurs="1" minOccurs="0" />
 		</xs:sequence>
@@ -245,6 +250,13 @@
 		<xs:annotation>
 			<xs:documentation>Enable the HTTP transport layer to send or receive SOAP messages</xs:documentation>
 			<xs:documentation xml:lang="fr">Autorise le transport HTTP pour recevoir ou envoyer les messages SOAP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="enable-https-transport" type="xs:boolean" default="true">
+		<xs:annotation>
+			<xs:documentation>Enable the HTTPS transport layer to send or receive SOAP messages</xs:documentation>
+			<xs:documentation xml:lang="fr">Autorise le transport HTTPS pour recevoir ou envoyer les messages SOAP</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	

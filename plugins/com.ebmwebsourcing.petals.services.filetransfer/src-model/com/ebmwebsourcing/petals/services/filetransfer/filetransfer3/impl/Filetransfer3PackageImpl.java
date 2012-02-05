@@ -9,9 +9,10 @@
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.impl;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
+
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Consumes;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Provides;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Factory;

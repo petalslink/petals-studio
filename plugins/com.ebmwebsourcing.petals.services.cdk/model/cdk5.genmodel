@@ -2,10 +2,13 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.ebmwebsourcing.petals.services.cdk/src-model"
-    modelPluginID="com.ebmwebsourcing.petals.services.cdk" modelName="Cdk5" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.ecore/model/XMLType.genmodel#//type ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.genmodel#//jbi">
+    modelPluginID="com.ebmwebsourcing.petals.services.cdk" modelName="Cdk5" editPluginClass="com.ebmwebsourcing.petals.services.cdk.cdk5.provider.Cdk5EditPlugin"
+    editorPluginClass="com.ebmwebsourcing.petals.services.cdk.cdk5.presentation.Cdk5EditorPlugin"
+    testSuiteClass="com.ebmwebsourcing.petals.services.cdk.cdk5.tests.Cdk5AllTests"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.ecore/model/XMLType.genmodel#//type ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.genmodel#//jbi">
   <foreignModel>cdk5.ecore</foreignModel>
-  <genPackages prefix="Cdk5" basePackage="com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model"
+  <genPackages prefix="Cdk5" basePackage="com.ebmwebsourcing.petals.services.cdk"
       resource="XML" disposableProviderFactory="true" ecorePackage="cdk5.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="cdk5.ecore#//Mep">
       <genEnumLiterals ecoreEnumLiteral="cdk5.ecore#//Mep/InOnly"/>

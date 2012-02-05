@@ -11,7 +11,9 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.cdk;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import org.eclipse.emf.ecore.xml.type.internal.QName;
+
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
 
@@ -20,6 +22,10 @@ import com.sun.java.xml.ns.jbi.Provides;
  */
 public class Cdk5Utils {
 
+	/**
+	 * Initializes a provide block.
+	 * @param provides
+	 */
 	public static void setInitialProvidesValues(Provides provides) {
 		provides.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
 		provides.eSet(Cdk5Package.Literals.CDK5_PROVIDES__VALIDATE_WSDL, true);
@@ -30,9 +36,18 @@ public class Cdk5Utils {
 	}
 
 
+	/**
+	 * Initializes a consume block.
+	 * <p>
+	 * Be careful, the operation is set here.
+	 * If it should not be written, it should be set to null.
+	 * </p>
+	 *
+	 * @param consumes
+	 */
 	public static void setInitialConsumesValues(Consumes consumes) {
-		consumes.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
-		consumes.eSet(Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, null);
-		consumes.eSet(Cdk5Package.Literals.CDK5_CONSUMES__MEP, null);
+		consumes.eSet( Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000 );
+		consumes.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, new QName( "workaround" ));
+		consumes.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, null );
 	}
 }

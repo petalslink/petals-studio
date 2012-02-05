@@ -106,7 +106,7 @@ public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 
 		// Interface name
 		SuWizardSettings settings = getWizard().getSettings();
-		Label l = SwtFactory.createLabel( container, "Interface Name:", "The qualified name of the service contract" );
+		Label l = SwtFactory.createLabel( container, "Interface Name *:", "The qualified name of the service contract" );
 		SwtFactory.applyGridData( l, 1, marginTop );
 
 		this.itfQText = SwtFactory.createQNameTextField( container, false, "Interface", "http://Your.Interface.Namespace/" );

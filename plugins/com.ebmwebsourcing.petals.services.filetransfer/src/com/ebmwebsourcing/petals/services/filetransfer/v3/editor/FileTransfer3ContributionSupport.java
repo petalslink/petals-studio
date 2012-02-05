@@ -13,7 +13,7 @@ package com.ebmwebsourcing.petals.services.filetransfer.v3.editor;
 
 import org.eclipse.emf.ecore.EClass;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;

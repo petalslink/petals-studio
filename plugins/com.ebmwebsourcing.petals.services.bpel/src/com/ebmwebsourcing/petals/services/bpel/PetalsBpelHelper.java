@@ -42,8 +42,8 @@ import org.eclipse.wst.wsdl.Service;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.EmfUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.bpel.bpel.BpelPackage;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.sun.java.xml.ns.jbi.Jbi;
 import com.sun.java.xml.ns.jbi.JbiFactory;
 import com.sun.java.xml.ns.jbi.Provides;

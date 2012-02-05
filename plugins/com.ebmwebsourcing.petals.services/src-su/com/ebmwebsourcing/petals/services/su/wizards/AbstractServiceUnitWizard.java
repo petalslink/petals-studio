@@ -74,8 +74,8 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	protected JbiProvidePage jbiProvidePage;
 	protected FinishServiceCreationStrategy finishStrategy;
 	protected SuWizardSettings settings;
-	protected String finalWsdlFileLocation;
 	protected Set<IResource> resourcesToSelect;
+	protected String finalWsdlFileLocation;
 
 
 	/**

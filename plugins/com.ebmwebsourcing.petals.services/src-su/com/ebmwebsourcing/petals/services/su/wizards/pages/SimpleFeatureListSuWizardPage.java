@@ -15,8 +15,8 @@ package com.ebmwebsourcing.petals.services.su.wizards.pages;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jface.databinding.wizard.WizardPageSupport;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
@@ -51,8 +51,8 @@ public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage {
 		WizardPageSupport.create( this, this.dbc );
 
 		Composite container = new Composite(parent, SWT.NONE);
-		container.setLayout(new GridLayout(2, false));
-		setControl(container);
+		GridLayoutFactory.swtDefaults().numColumns( 2 ).extendedMargins( 15, 15, 20, 0 ).applyTo( container );
+		setControl( container );
 
 		EObjecttUIHelper.generateWidgets(
 				getNewlyCreatedEndpoint(),

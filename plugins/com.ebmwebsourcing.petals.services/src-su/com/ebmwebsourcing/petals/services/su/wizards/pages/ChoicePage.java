@@ -21,7 +21,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -36,7 +35,6 @@ import org.eclipse.jface.wizard.IWizardNode;
 import org.eclipse.jface.wizard.WizardSelectionPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
@@ -54,6 +52,7 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.FixedShellTooltip;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils;
@@ -178,20 +177,14 @@ public class ChoicePage extends WizardSelectionPage {
 				new Label( rowComposite, SWT.WRAP ).setText( "." );
 				new Label( parent, SWT.WRAP ).setText( "Please, make them correct." );
 
-				link.addSelectionListener( new SelectionListener() {
-
+				link.addSelectionListener( new DefaultSelectionListener() {
 					@Override
 					public void widgetSelected( SelectionEvent e ) {
-						widgetDefaultSelected( e );
-					}
-
-					@Override
-					public void widgetDefaultSelected( SelectionEvent e ) {
 						try {
-							Dialog dlg = PreferencesUtil.createPreferenceDialogOn(
+							PreferencesUtil.createPreferenceDialogOn(
 										new Shell(),
 										"com.ebmwebsourcing.petals.services.prefs.maven",
-										null, null );
+										null, null ).open();
 
 						} catch( Exception e1 ) {
 							PetalsServicesPlugin.log( e1, IStatus.ERROR );

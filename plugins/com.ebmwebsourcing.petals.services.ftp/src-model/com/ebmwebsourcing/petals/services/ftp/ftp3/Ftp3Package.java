@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -10,7 +10,6 @@
 package com.ebmwebsourcing.petals.services.ftp.ftp3;
 
 import com.sun.java.xml.ns.jbi.JbiPackage;
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;

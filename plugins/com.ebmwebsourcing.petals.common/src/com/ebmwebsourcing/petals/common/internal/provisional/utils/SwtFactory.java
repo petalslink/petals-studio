@@ -313,9 +313,7 @@ public class SwtFactory {
 	 */
 	public static QNameText createQNameTextField( Composite container, boolean useWholeSpace, String defaultLocalPart, String defaultNamespace ) {
 
-		QNameText t = new QNameText( container );
-		t.setDefaultLocalPart( defaultLocalPart );
-		t.setDefaultNamespace( defaultNamespace );
+		QNameText t = new QNameText( container, defaultLocalPart, defaultNamespace );
 		if( useWholeSpace )
 			t.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 

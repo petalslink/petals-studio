@@ -12,47 +12,39 @@
 
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.dialogs.PreferencesUtil;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.QNameText;
-import com.ebmwebsourcing.petals.common.internal.provisional.ui.FixedShellTooltip;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
-import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
-import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.utils.ConsumeUtils;
+import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -62,12 +54,13 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class JbiConsumePage extends JbiAbstractPage {
 
 	private Button invokeByServiceButton, invokeByEndpointButton;
+	private QNameText operationQText;
+	private ComboViewer mepViewer;
+
 	private Image tooltipImage;
 	private Font boldFont;
 
-	private EndpointBean consumedBean;
-	private FixedShellTooltip helpTooltip;
-	private boolean tooltipWasVisible = false;
+	private List<Mep> supportedMep;
 	private boolean invokeByServiceName = false;
 	private boolean invokeByEndpointName = false;
 
@@ -90,9 +83,6 @@ public class JbiConsumePage extends JbiAbstractPage {
 	@Override
 	public void dispose() {
 
-		if( this.helpTooltip != null )
-			this.helpTooltip.dispose();
-
 		if( this.tooltipImage != null && ! this.tooltipImage.isDisposed())
 			this.tooltipImage.dispose();
 
@@ -110,6 +100,14 @@ public class JbiConsumePage extends JbiAbstractPage {
 	 */
 	@Override
 	public void createCustomControls( Composite container ) {
+
+		// Prepare the supported MEP
+		Mep[] meps = getWizard().getComponentVersionDescription().getSupportedMep();
+		if( meps == null )
+			meps = new Mep[ 0 ];
+
+		this.supportedMep = Arrays.asList( meps );
+
 
 		// Usual controls
 		addWorkspaceBrowser( container );
@@ -130,100 +128,6 @@ public class JbiConsumePage extends JbiAbstractPage {
 				}
 			}
 		});
-
-
-		// Add a tool tip to display in case of problem
-		this.helpTooltip = new FixedShellTooltip( getShell(), true, 90 ) {
-			@Override
-			public void populateTooltip( Composite parent ) {
-
-				GridLayout layout = new GridLayout();
-				layout.verticalSpacing = 2;
-				parent.setLayout( layout );
-				parent.setLayoutData( new GridData( GridData.FILL_BOTH ));
-				parent.setBackground( getShell().getDisplay().getSystemColor( SWT.COLOR_LIST_BACKGROUND ));
-
-				try {
-					ImageDescriptor desc = AbstractUIPlugin.imageDescriptorFromPlugin(
-							PetalsConstants.PETALS_COMMON_PLUGIN_ID, "icons/petals/teaching.png" );
-
-					if( desc != null )
-						JbiConsumePage.this.tooltipImage = desc.createImage();
-
-					parent.setBackgroundMode( SWT.INHERIT_DEFAULT );
-					Label imgLabel = new Label( parent, SWT.NONE );
-					imgLabel.setImage( JbiConsumePage.this.tooltipImage );
-					imgLabel.setLayoutData( new GridData( SWT.CENTER, SWT.DEFAULT, true, true ));
-
-				} catch( Exception e ) {
-					PetalsServicesPlugin.log( e, IStatus.WARNING );
-				}
-
-				FontData[] fd = PlatformUtils.getModifiedFontData( getFont().getFontData(), SWT.BOLD );
-				JbiConsumePage.this.boldFont = new Font( getShell().getDisplay(), fd );
-				Label titleLabel = new Label( parent, SWT.NONE );
-				titleLabel.setFont( JbiConsumePage.this.boldFont );
-				GridData layoutData = new GridData( SWT.CENTER, SWT.DEFAULT, true, true );
-				layoutData.verticalIndent = 5;
-				titleLabel.setLayoutData( layoutData );
-				titleLabel.setText( "What does this error mean?" );
-
-				StringBuilder sb = new StringBuilder();
-				sb.append( "The " + getWizard().getComponentVersionDescription().getComponentAlias() + " component can only invoke (consume) services with the " );
-				// TODO: fix this
-				// sb.append( getWizardHandler().getComponentVersionDescription(). + " MEP.\n" );
-				sb.append( "But the service you chose has no (predefined) operation that supports this invocation MEP." );
-
-				Label l = new Label( parent, SWT.WRAP );
-				l.setText( sb.toString());
-				layoutData = new GridData();
-				layoutData.verticalIndent = 8;
-				l.setLayoutData( layoutData );
-
-				RowLayout rowLayout = new RowLayout( SWT.HORIZONTAL );
-				rowLayout.marginLeft = 0;
-				rowLayout.marginTop = 8;
-				rowLayout.marginRight = 0;
-				rowLayout.marginBottom = 0;
-				rowLayout.spacing = 0;
-
-				Composite rowComposite = new Composite( parent, SWT.NONE );
-				rowComposite.setLayout( rowLayout );
-				rowComposite.setLayoutData( new GridData( SWT.CENTER, SWT.DEFAULT, true, true ));
-
-				new Label( rowComposite, SWT.NONE ).setText( "Please, note that there is an " );
-				Link link = new Link( rowComposite, SWT.WRAP | SWT.NO_FOCUS );
-				link.setText( "<A>option in the Petals preferences</A>" );
-				new Label( rowComposite, SWT.WRAP ).setText( "." );
-				new Label( rowComposite, SWT.WRAP ).setText( " to not display incompatible services." );
-
-				link.addSelectionListener( new SelectionListener() {
-
-					@Override
-					public void widgetSelected( SelectionEvent e ) {
-						widgetDefaultSelected( e );
-					}
-
-					@Override
-					public void widgetDefaultSelected( SelectionEvent e ) {
-						try {
-							Dialog dlg = PreferencesUtil.createPreferenceDialogOn(
-									new Shell(),
-									"com.ebmwebsourcing.petals.services.prefs.services",
-									null, null );
-
-							if( dlg.open() == Window.OK )
-								validate();
-
-						} catch( Exception e1 ) {
-							PetalsServicesPlugin.log( e1, IStatus.ERROR );
-						}
-					}
-				});
-			}
-		};
-
-		this.helpTooltip.hide();
 	}
 
 
@@ -242,9 +146,29 @@ public class JbiConsumePage extends JbiAbstractPage {
 		this.invokeByEndpointButton.setEnabled( this.invokeByServiceName );
 
 		// Add the MEP and operation widgets
-		SwtFactory.createLabel( container, "Interface Name:", null ); //$NON-NLS-1$
-		QNameText qt = new QNameText( container );
-		qt.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		Label l = SwtFactory.createLabel( container, "Operation Name:", null ); //$NON-NLS-1$
+		GridDataFactory.swtDefaults().indent( 0, 20 ).applyTo( l );
+
+		this.operationQText = SwtFactory.createQNameTextField( container, false, "Operation", "http://Your.Operation.Namespace/" );
+		GridDataFactory.swtDefaults().align( SWT.FILL, SWT.CENTER ).indent( 0, 20 ).applyTo( this.operationQText );
+		this.operationQText.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				getWizard().getSettings().invokedOperation = JbiConsumePage.this.operationQText.getValue();
+				validate();
+			}
+		});
+
+		SwtFactory.createLabel( container, "Invocation MEP *:", "The Message Exchange Pattern" );
+		this.mepViewer = SwtFactory.createDefaultComboViewer( container, true, true, Mep.values());
+		this.mepViewer.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged( SelectionChangedEvent event ) {
+				Mep mep = (Mep) ((IStructuredSelection) JbiConsumePage.this.mepViewer.getSelection()).getFirstElement();
+				getWizard().getSettings().invocationMep = mep.toString();
+				validate();
+			}
+		});
 
 
 		// Listeners
@@ -298,23 +222,24 @@ public class JbiConsumePage extends JbiAbstractPage {
 		Link selectLink = new Link( container, SWT.NONE );
 		selectLink.setText( "<A>Select a service</A> from the Petals Services view to fill in these fields automatically." );
 		selectLink.setToolTipText( "Select an end-point to consume among the currently referenced end-points" );
-		selectLink.addSelectionListener( new SelectionAdapter() {
-
+		selectLink.addSelectionListener( new DefaultSelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 
-				// Is there a filtering MEP?
-				// FIXME
-				String mepAsString = ""; //getDialogSettings().get( SuWizardSettings.SUPPORTED_MEP );
-				Mep filterMep = Mep.whichMep( mepAsString );
+				EnhancedConsumeDialog dlg = new EnhancedConsumeDialog( getShell());
+				dlg.setConstrainedMep( JbiConsumePage.this.supportedMep );
+				if( dlg.open() == Window.OK ) {
+					JbiConsumePage.this.itfQText.setValue( dlg.getItfToInvoke());
+					JbiConsumePage.this.srvQText.setValue( dlg.getSrvToInvoke());
+					JbiConsumePage.this.edptText.setText( dlg.getEdptToInvoke() == null ? "" : dlg.getEdptToInvoke());
 
-				// Display the selection dialog
-				EndpointBean bean = ConsumeUtils.selectEndpointToConsume( table, filterMep );
-				JbiConsumePage.this.consumedBean = bean;
-				if( bean != null ) {
-					JbiConsumePage.this.itfQText.setValue( JbiConsumePage.this.consumedBean.getInterfaceName());
-					JbiConsumePage.this.srvQText.setValue( JbiConsumePage.this.consumedBean.getServiceName());
-					JbiConsumePage.this.edptText.setText( JbiConsumePage.this.consumedBean.getEndpointName());
+					QName op = dlg.getOperationToInvoke();
+					if( EnhancedConsumeDialog.NO_OPERATION.equals( op ))
+						op = null;
+
+					JbiConsumePage.this.operationQText.setValue( op );
+					JbiConsumePage.this.mepViewer.setSelection( new StructuredSelection( dlg.getInvocationMep()));
+					JbiConsumePage.this.mepViewer.getCombo().notifyListeners( SWT.Selection, new Event());
 				}
 			}
 		});
@@ -352,61 +277,26 @@ public class JbiConsumePage extends JbiAbstractPage {
 			return false;
 		}
 
+		// MEP
+		if( StringUtils.isEmpty(getWizard().getSettings().invocationMep)) {
+			updateStatus( "You have to define the invocation MEP." );
+			return false;
+		}
+
 
 		// Update data.
 		updateStatus( null );
 
+
 		// Make sure this service can be invoked (MEP)
-		// Do not rely on the consumed bean, values may have been changed manually
-		// FIXME:
-		String mepAsString = ""; //getDialogSettings().get( SuWizardSettings.SUPPORTED_MEP );
-		Mep filterMep = Mep.whichMep( mepAsString );
-		Map<QName,Mep> ops = ConsumeUtils.getValidOperationsForConsume( ae.getInterfaceName(), ae.getServiceName(), ae.getEndpointName());
-		if( filterMep != Mep.UNKNOWN ) {
-			if( ! ops.isEmpty()) {
-				if( ! ConsumeUtils.supportsMep( ops, filterMep )) {
-					setMessage( "This service cannot be invoked with the " + mepAsString + " MEP.", IMessageProvider.ERROR );
-					this.helpTooltip.show();
-					this.tooltipWasVisible = true;
-
-				} else {
-					this.helpTooltip.hide();
-					this.tooltipWasVisible = false;
-				}
-
-			} else {
-				setMessage( "This service may not be invocable with the " + mepAsString + " MEP.", IMessageProvider.WARNING );
-				this.helpTooltip.show();
-				this.tooltipWasVisible = true;
-			}
-		}
-
-		if( this.consumedBean != null ) {
-			settings.consumedComponentName = this.consumedBean.getComponentName();
-			settings.consumedWsdlUri = String.valueOf( this.consumedBean.getWsdlUri());
-		} else {
-			settings.consumedComponentName = "" ;
-			settings.consumedWsdlUri = null;
+		Mep invocationMep = Mep.whichMep(getWizard().getSettings().invocationMep);
+		if( invocationMep != null
+				&& ! this.supportedMep.isEmpty()
+				&& ! this.supportedMep.contains( invocationMep )) {
+			String msg = "This invocation MEP is not supported by the component. Only " + Mep.listMep( this.supportedMep ) + " MEPs are supported.";
+			setMessage( msg, IMessageProvider.WARNING );
 		}
 
 		return true;
-	}
-
-
-	/*
-	 * (non-Jsdoc)
-	 * @see org.eclipse.jface.dialogs.DialogPage
-	 * #setVisible(boolean)
-	 */
-	@Override
-	public void setVisible( boolean visible ) {
-		super.setVisible( visible );
-
-		if( this.helpTooltip != null && this.tooltipWasVisible ) {
-			if( visible )
-				this.helpTooltip.show();
-			else
-				this.helpTooltip.hide();
-		}
 	}
 }

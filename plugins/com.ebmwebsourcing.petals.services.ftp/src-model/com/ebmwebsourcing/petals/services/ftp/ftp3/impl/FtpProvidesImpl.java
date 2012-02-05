@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -9,14 +9,13 @@
  */
 package com.ebmwebsourcing.petals.services.ftp.ftp3.impl;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.impl.CDK5ProvidesImpl;
-
 import com.ebmwebsourcing.petals.services.ftp.ftp3.ConnectionType;
 import com.ebmwebsourcing.petals.services.ftp.ftp3.Ftp3Package;
 import com.ebmwebsourcing.petals.services.ftp.ftp3.FtpProvides;
 import com.ebmwebsourcing.petals.services.ftp.ftp3.TransferType;
 
 import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;

@@ -38,8 +38,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.databinding.ToStrin
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Messages;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.databinding.StringToMepConverter;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;

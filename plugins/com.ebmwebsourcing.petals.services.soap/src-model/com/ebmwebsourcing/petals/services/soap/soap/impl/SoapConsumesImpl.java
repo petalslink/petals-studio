@@ -66,6 +66,15 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	protected String soapServiceName = SOAP_SERVICE_NAME_EDEFAULT;
 
 	/**
+	 * This is true if the Soap Service Name attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean soapServiceNameESet;
+
+	/**
 	 * The default value of the '{@link #getSoapAction() <em>Soap Action</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -124,6 +133,15 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	 * @ordered
 	 */
 	protected SoapMode mode = MODE_EDEFAULT;
+
+	/**
+	 * This is true if the Mode attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean modeESet;
 
 	/**
 	 * The default value of the '{@link #isEnableHttpTransport() <em>Enable Http Transport</em>}' attribute.
@@ -317,8 +335,33 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	public void setSoapServiceName(String newSoapServiceName) {
 		String oldSoapServiceName = soapServiceName;
 		soapServiceName = newSoapServiceName;
+		boolean oldSoapServiceNameESet = soapServiceNameESet;
+		soapServiceNameESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__SOAP_SERVICE_NAME, oldSoapServiceName, soapServiceName));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__SOAP_SERVICE_NAME, oldSoapServiceName, soapServiceName, !oldSoapServiceNameESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetSoapServiceName() {
+		String oldSoapServiceName = soapServiceName;
+		boolean oldSoapServiceNameESet = soapServiceNameESet;
+		soapServiceName = SOAP_SERVICE_NAME_EDEFAULT;
+		soapServiceNameESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_CONSUMES__SOAP_SERVICE_NAME, oldSoapServiceName, SOAP_SERVICE_NAME_EDEFAULT, oldSoapServiceNameESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetSoapServiceName() {
+		return soapServiceNameESet;
 	}
 
 	/**
@@ -380,8 +423,33 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	public void setMode(SoapMode newMode) {
 		SoapMode oldMode = mode;
 		mode = newMode == null ? MODE_EDEFAULT : newMode;
+		boolean oldModeESet = modeESet;
+		modeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__MODE, oldMode, mode));
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_CONSUMES__MODE, oldMode, mode, !oldModeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetMode() {
+		SoapMode oldMode = mode;
+		boolean oldModeESet = modeESet;
+		mode = MODE_EDEFAULT;
+		modeESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_CONSUMES__MODE, oldMode, MODE_EDEFAULT, oldModeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetMode() {
+		return modeESet;
 	}
 
 	/**
@@ -693,7 +761,7 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case SoapPackage.SOAP_CONSUMES__SOAP_SERVICE_NAME:
-				setSoapServiceName(SOAP_SERVICE_NAME_EDEFAULT);
+				unsetSoapServiceName();
 				return;
 			case SoapPackage.SOAP_CONSUMES__SOAP_ACTION:
 				setSoapAction(SOAP_ACTION_EDEFAULT);
@@ -702,7 +770,7 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 				setSynchonousTimeout(SYNCHONOUS_TIMEOUT_EDEFAULT);
 				return;
 			case SoapPackage.SOAP_CONSUMES__MODE:
-				setMode(MODE_EDEFAULT);
+				unsetMode();
 				return;
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
 				unsetEnableHttpTransport();
@@ -735,13 +803,13 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case SoapPackage.SOAP_CONSUMES__SOAP_SERVICE_NAME:
-				return SOAP_SERVICE_NAME_EDEFAULT == null ? soapServiceName != null : !SOAP_SERVICE_NAME_EDEFAULT.equals(soapServiceName);
+				return isSetSoapServiceName();
 			case SoapPackage.SOAP_CONSUMES__SOAP_ACTION:
 				return SOAP_ACTION_EDEFAULT == null ? soapAction != null : !SOAP_ACTION_EDEFAULT.equals(soapAction);
 			case SoapPackage.SOAP_CONSUMES__SYNCHONOUS_TIMEOUT:
 				return synchonousTimeout != SYNCHONOUS_TIMEOUT_EDEFAULT;
 			case SoapPackage.SOAP_CONSUMES__MODE:
-				return mode != MODE_EDEFAULT;
+				return isSetMode();
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT:
 				return isSetEnableHttpTransport();
 			case SoapPackage.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT:
@@ -769,13 +837,13 @@ public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (soapServiceName: ");
-		result.append(soapServiceName);
+		if (soapServiceNameESet) result.append(soapServiceName); else result.append("<unset>");
 		result.append(", soapAction: ");
 		result.append(soapAction);
 		result.append(", synchonousTimeout: ");
 		result.append(synchonousTimeout);
 		result.append(", mode: ");
-		result.append(mode);
+		if (modeESet) result.append(mode); else result.append("<unset>");
 		result.append(", enableHttpTransport: ");
 		if (enableHttpTransportESet) result.append(enableHttpTransport); else result.append("<unset>");
 		result.append(", enableHttpsTransport: ");

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -8,9 +8,6 @@
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
  */
 package com.ebmwebsourcing.petals.services.ftp.ftp3.util;
-
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService;
 
 import com.ebmwebsourcing.petals.services.ftp.ftp3.*;
 

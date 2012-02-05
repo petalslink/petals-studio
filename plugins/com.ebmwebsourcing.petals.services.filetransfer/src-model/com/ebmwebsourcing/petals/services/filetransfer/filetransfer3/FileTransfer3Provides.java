@@ -9,7 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
 
 /**
  * <!-- begin-user-doc -->

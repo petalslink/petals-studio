@@ -9,9 +9,9 @@
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.util;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Consumes;
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides;
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.*;
 
@@ -196,13 +196,13 @@ public class Filetransfer3AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService <em>CDK Service</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService <em>CDK Service</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDKService
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService
 	 * @generated
 	 */
 	public Adapter createCDKServiceAdapter() {
@@ -224,13 +224,13 @@ public class Filetransfer3AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides <em>CDK5 Provides</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides <em>CDK5 Provides</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Provides
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides
 	 * @generated
 	 */
 	public Adapter createCDK5ProvidesAdapter() {
@@ -252,13 +252,13 @@ public class Filetransfer3AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Consumes <em>CDK5 Consumes</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes <em>CDK5 Consumes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.CDK5Consumes
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes
 	 * @generated
 	 */
 	public Adapter createCDK5ConsumesAdapter() {

@@ -761,10 +761,10 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		initEAttribute(getSoapProvides_HttpsKeystorePassword(), theXMLTypePackage.getString(), "httpsKeystorePassword", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(soapConsumesEClass, SoapConsumes.class, "SoapConsumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSoapConsumes_SoapServiceName(), theXMLTypePackage.getString(), "soapServiceName", null, 1, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_SoapServiceName(), theXMLTypePackage.getString(), "soapServiceName", null, 1, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_SoapAction(), theXMLTypePackage.getString(), "soapAction", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_SynchonousTimeout(), theXMLTypePackage.getInt(), "synchonousTimeout", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSoapConsumes_Mode(), this.getSoapMode(), "mode", null, 1, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapConsumes_Mode(), this.getSoapMode(), "mode", null, 1, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_EnableHttpTransport(), theXMLTypePackage.getBoolean(), "enableHttpTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_EnableHttpsTransport(), theXMLTypePackage.getBoolean(), "enableHttpsTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapConsumes_EnableJmsTransport(), theXMLTypePackage.getBoolean(), "enableJmsTransport", null, 0, 1, SoapConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);

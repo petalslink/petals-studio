@@ -12,15 +12,19 @@
 
 package com.ebmwebsourcing.petals.services.su.extensions;
 
+import javax.xml.namespace.QName;
+
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 
 
 /**
  * Settings for the SU Creation Wizards.
- * This could be merged into the actual {@link AbstractServiceUnitWizard}
+ * <p>
+ * This could be merged into the actual {@link AbstractServiceUnitWizard}.
+ * </p>
  *
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Mickael Istria - EBM WebSourcing. Replaced properties by typed values
+ * @author Mickael Istria - EBM WebSourcing :: Replaced properties by typed values.
  */
 public class SuWizardSettings {
 
@@ -36,11 +40,13 @@ public class SuWizardSettings {
 	public boolean showWsdl = true;
 	public boolean openJbiEditor = true;
 	public boolean showJbiPage = true;
-	public String consumedWsdlUri = "";
-	public String consumedComponentName = "";
 
 	// Hack for SOAP
 	public String wsdlUri;
 	public String soapAddress;
 	public String soapVersion;
+
+	// Consume fields
+	public QName invokedOperation;
+	public String invocationMep;
 }

@@ -1,18 +1,21 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.common.generation;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public enum Mep {
@@ -69,5 +72,23 @@ public enum Mep {
 		}
 
 		return result;
+	}
+
+
+	/**
+	 * Creates a string representation of a list of Meps.
+	 * @param meps the meps (not null)
+	 * @return a string (never null)
+	 */
+	public static String listMep( Collection<Mep> meps ) {
+
+		StringBuilder sb = new StringBuilder();
+		for( Iterator<Mep> it = meps.iterator(); it.hasNext(); ) {
+			sb.append( it.next());
+			if( it.hasNext())
+				sb.append( ", " );
+		}
+
+		return sb.toString();
 	}
 }

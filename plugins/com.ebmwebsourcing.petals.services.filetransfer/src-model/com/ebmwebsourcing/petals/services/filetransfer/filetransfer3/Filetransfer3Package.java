@@ -9,7 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3;
 
-import com.ebmwebsourcing.petals.jbi.editor.form.cdk5.model.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -243,7 +243,6 @@ public interface Filetransfer3Package extends EPackage {
 	 * @ordered
 	 */
 	int FILE_TRANSFER3_PROVIDES_FEATURE_COUNT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 3;
-
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.impl.FileTransfer3ConsumesImpl <em>File Transfer3 Consumes</em>}' class.

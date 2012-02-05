@@ -34,17 +34,19 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 /**
  * A widget for QNames, made up of two {@link Text}s separated by a {@link Label}.
  * @author Vincent Zurczak - EBM WebSourcing
+ * FIXME: review the model interaction, the widget and the value might be not synchronized correctly
  */
 public class QNameText extends Composite {
 
 	private final static String DEFAULT_LOCAL_PART = "local part";
 	private final static String DEFAULT_NAMESPACE = "http://your.namespace.uri";
 
-	private String defaultLocalPart;
+	private final String defaultLocalPart;
 	private final PhantomText namespacePhantomText;
 	private final Text localPartPhantomText;
 	private final Label separatorLabel;
 	private final ConcurrentLinkedQueue<ModifyListener> modifyListeners = new ConcurrentLinkedQueue<ModifyListener> ();
+
 
 
 	/**
@@ -52,9 +54,20 @@ public class QNameText extends Composite {
 	 * @param parent
 	 */
 	public QNameText( Composite parent ) {
+		this( parent, null, null );
+	}
+
+
+	/**
+	 * Constructor.
+	 * @param parent
+	 * @param defaultLocalPart
+	 * @param defaultNamespace
+	 */
+	public QNameText( Composite parent, String defaultLocalPart, String defaultNamespace ) {
 		super( parent, SWT.BORDER );
 		setBackground( getDisplay().getSystemColor( SWT.COLOR_WHITE ));
-		this.defaultLocalPart = DEFAULT_LOCAL_PART;
+		this.defaultLocalPart = defaultLocalPart == null ? DEFAULT_LOCAL_PART : defaultLocalPart;
 
 		GridLayout layout = new GridLayout( 3, false );
 		layout.marginHeight = 1;
@@ -90,11 +103,11 @@ public class QNameText extends Composite {
 
 		// The name space
 		this.namespacePhantomText = new PhantomText( this, SWT.SINGLE );
-		this.namespacePhantomText.setDefaultValue( DEFAULT_NAMESPACE );
+		this.namespacePhantomText.setDefaultValue( defaultNamespace == null ? DEFAULT_NAMESPACE : defaultNamespace );
+
 		GridData layoutData = new GridData( GridData.FILL_HORIZONTAL );
 		layoutData.minimumWidth = 60;
 		this.namespacePhantomText.setLayoutData( layoutData );
-
 		this.namespacePhantomText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
@@ -277,21 +290,5 @@ public class QNameText extends Composite {
 	 */
 	public void removeModifyListener( ModifyListener modifyListener ) {
 		this.modifyListeners.remove( modifyListener );
-	}
-
-
-	/**
-	 * @param defaultLocalPart the defaultLocalPart to set
-	 */
-	public void setDefaultLocalPart( String defaultLocalPart ) {
-		this.defaultLocalPart = defaultLocalPart == null ? DEFAULT_LOCAL_PART : defaultLocalPart;
-	}
-
-
-	/**
-	 * @param defaultNamespace the defaultNamespace to set
-	 */
-	public void setDefaultNamespace( String defaultNamespace ) {
-		this.namespacePhantomText.setDefaultValue( defaultNamespace == null ? DEFAULT_NAMESPACE : defaultNamespace );
 	}
 }

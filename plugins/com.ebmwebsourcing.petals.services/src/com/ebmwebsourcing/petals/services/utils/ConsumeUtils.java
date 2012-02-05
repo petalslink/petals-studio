@@ -35,6 +35,7 @@ import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 import com.ebmwebsourcing.petals.services.explorer.model.ServiceUnitBean;
 import com.ebmwebsourcing.petals.services.explorer.sources.EndpointSource;
 import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
+import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
 
 /**
  * Utilities to define service consumers.
@@ -51,7 +52,9 @@ public class ConsumeUtils {
 	 *
 	 * @param parent the dialog parent
 	 * @return an-end-point, or null <code>Cancel</code> was clicked
+	 * @deprecated use {@link EnhancedConsumeDialog} instead
 	 */
+	@Deprecated
 	public static EndpointBean selectEndpointToConsume( Control parent ) {
 		return selectEndpointToConsume( parent, Mep.UNKNOWN );
 	}
@@ -62,7 +65,9 @@ public class ConsumeUtils {
 	 * @param parent the dialog parent
 	 * @param mep the MEP to filter the results (MEP.UNKNOWN to display all the services)
 	 * @return an-end-point, or null <code>Cancel</code> was clicked
+	 * @deprecated use {@link EnhancedConsumeDialog} instead
 	 */
+	@Deprecated
 	public static EndpointBean selectEndpointToConsume( Control parent, final Mep mep ) {
 
 		PCStyledLabelProvider lp = new PCStyledLabelProvider( parent, mep );
