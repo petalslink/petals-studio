@@ -7,20 +7,18 @@
 	<xs:group name="SoapInProvides">
 		<xs:sequence>
 			<xs:choice minOccurs="0" maxOccurs="1">
-				<xs:element ref="soap:address">
-					<xs:annotation>
-						<xs:documentation>'address' is depreciated</xs:documentation>
-					</xs:annotation>
-				</xs:element>
+				<!-- address is deprecated -->
+				<xs:element ref="soap:address" />
 				<xs:element ref="soap:wsa-to" />
 			</xs:choice>
+		
 			<xs:element ref="soap:wsa-replyto" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:wsa-from" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:wsa-faultto" maxOccurs="1" minOccurs="0" />
-			<xs:group ref="soap:SoapSpecificParams" minOccurs="0" maxOccurs="1" />
-			
+			<xs:element ref="soap:soap-version" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:chunked-mode" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:cleanup-transport" maxOccurs="1" minOccurs="1" />
 			<xs:element ref="soap:mode" maxOccurs="1" minOccurs="1" />
-			<xs:element ref="soap:rest-http-method" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:proxy-host" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:proxy-port" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:proxy-user" maxOccurs="1" minOccurs="0" />
@@ -29,16 +27,16 @@
 			<xs:element ref="soap:headers-filter" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:inject-headers" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:headers-to-inject" maxOccurs="1" minOccurs="0" />
-		</xs:sequence>
-	</xs:group>
-
-
-	<xs:group name="SoapSpecificParams">
-		<xs:sequence>
-			<xs:element ref="soap:soap-version" maxOccurs="1" minOccurs="1" />
-			<xs:element ref="soap:chunked-mode" maxOccurs="1" minOccurs="1" />
-			<xs:element ref="soap:synchronous-timeout" maxOccurs="1" minOccurs="0" />
-			<xs:element ref="soap:cleanup-transport" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="soap:http-basic-auth-username" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:http-basic-auth-password" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:enable-compatibility-for" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:enable-wsa" maxOccurs="1" minOccurs="0" />	
+									
+			<!-- HTTPS extensions -->
+			<xs:element ref="soap:https-truststore-file" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-truststore-password" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-keystore-file" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-keystore-password" maxOccurs="1" minOccurs="0" />						
 		</xs:sequence>
 	</xs:group>
 
@@ -65,9 +63,9 @@
 			
 			<!-- Version 4.1 -->
 			<xs:element ref="soap:enable-https-transport" maxOccurs="1" minOccurs="0" />
-			<!-- Version 4.1 -->
-			
 			<xs:element ref="soap:enable-jms-transport" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:enable-compatibility-for" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:enable-wsa" maxOccurs="1" minOccurs="0" />	
 			<xs:element ref="soap:http-services-redirection" maxOccurs="1" minOccurs="0" />
 		</xs:sequence>
 	</xs:group>
@@ -83,14 +81,122 @@
 			<xs:element ref="soap:http-thread-pool-size-min" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:http-thread-pool-size-max" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:http-acceptors" maxOccurs="1" minOccurs="0" />
+			
+			<!-- JMS transport layer extensions -->
 			<xs:element ref="soap:java-naming-factory-initial" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:java-naming-provider-url" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:jms-connection-factory-jndiname" maxOccurs="1" minOccurs="0" />
+			
+			<!-- HTTPS extensions -->
+			<xs:element ref="soap:https-enabled" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-port" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-keystore-type" maxOccurs="1" minOccurs="0" />							
+			<xs:element ref="soap:https-keystore-file" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-keystore-password" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-key-password" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-truststore-type" maxOccurs="1" minOccurs="0" />							
+			<xs:element ref="soap:https-truststore-file" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="soap:https-truststore-password" maxOccurs="1" minOccurs="0" />		
 		</xs:sequence>
 	</xs:group>
 
 
 	<!-- SU extensions -->
+	<xs:element name="enable-wsa" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Add the WSA headers</xs:documentation>
+			<xs:documentation xml:lang="fr">Ajoute les en-tÃªtes WSA</xs:documentation>			
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="enable-compatibility-for" type="soap:Compatibility">
+		<xs:annotation>
+			<xs:documentation>Enable the compatibility for a specified webservice stack</xs:documentation>
+			<xs:documentation xml:lang="fr">Active la compatibilitÃ© avec une pile de webservice spÃ©cifiÃ©e</xs:documentation>			
+		</xs:annotation>
+	</xs:element>	
+	
+	<xs:element name="https-keystore-file" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Absolute path of the keystore file</xs:documentation>
+			<xs:documentation xml:lang="fr">Chemin absolu du fichier keystore</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="https-keystore-password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Password of the keystore</xs:documentation>
+			<xs:documentation xml:lang="fr">Mot de passe du keystore</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+		
+	<xs:element name="https-truststore-file" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Absolute path of the truststore file</xs:documentation>
+			<xs:documentation xml:lang="fr">Chemin absolu du fichier truststore</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="https-truststore-password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Password of the trustore</xs:documentation>
+			<xs:documentation xml:lang="fr">Mot de passe du truststore</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="https-enabled" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Define if HTTPS is enabled</xs:documentation>
+			<xs:documentation xml:lang="fr">DÃ©finie si HTTPS est activÃ©</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="https-port" type="xs:int" default="8083">
+		<xs:annotation>
+			<xs:documentation>HTTPS port</xs:documentation>
+			<xs:documentation xml:lang="fr">Port HTTPS</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+	
+	<xs:element name="https-keystore-type" type="soap:KeystoreType" default="JKS">
+		<xs:annotation>
+			<xs:documentation>Type of the keystore (JKS / PKCS12)</xs:documentation>
+			<xs:documentation xml:lang="fr">Type du keystore (JKS / PKCS12)</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+	
+	<xs:element name="https-key-password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Password of the key</xs:documentation>
+			<xs:documentation xml:lang="fr">Mot de passe de la clÃ©</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+	
+	<xs:element name="https-truststore-type" type="soap:KeystoreType" default="JKS">
+		<xs:annotation>
+			<xs:documentation>Type of the truststore (JKS / PKCS12)</xs:documentation>
+			<xs:documentation xml:lang="fr">Type du truststore (JKS / PKCS12)</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+	
+	<xs:element name="http-basic-auth-username" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Username for Basic Authentication</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="http-basic-auth-password" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Password for Basic Authentication</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+	
+	<xs:element name="http-services-redirection" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>HTTP redirection alias(es) for Consumes web service (comma-separated).</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+	
 	<xs:element name="http-port" type="xs:int" default="8084">
 		<xs:annotation>
 			<xs:documentation>Port of the embedded Jetty HTTP server</xs:documentation>
@@ -381,12 +487,6 @@
 		</xs:annotation>
 	</xs:element>
 	
-	<xs:element name="http-services-redirection" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>HTTP redirection alias(es) for Consumes web service (comma-separated).</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	
 	
 	<!-- TYPES -->
 	<xs:simpleType name="SoapVersion">
@@ -427,4 +527,32 @@
 			<xs:enumeration value="DELETE" />
 		</xs:restriction>
 	</xs:simpleType>
+	
+	<xs:simpleType name="Compatibility">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AXIS1">
+				<xs:annotation>
+					<xs:documentation>Enable compatibility for Axis 1 webservice stack (multiref + SOAP Fault only for provider mode)</xs:documentation>
+					<xs:documentation xml:lang="fr">Activer la compatibilitÃ© pour une pile de webservices Axis 1 (multiref + SOAP Fault seulement en mode provide)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="KeystoreType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="JKS">
+				<xs:annotation>
+					<xs:documentation>JKS keystore/truststore</xs:documentation>
+					<xs:documentation xml:lang="fr">keystore/truststore JKS</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PKCS12">
+				<xs:annotation>
+					<xs:documentation>PKCS12 keystore/truststore</xs:documentation>
+					<xs:documentation xml:lang="fr">keystore/truststore PKCS12</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+		</xs:restriction>
+	</xs:simpleType>	
 </xs:schema>
