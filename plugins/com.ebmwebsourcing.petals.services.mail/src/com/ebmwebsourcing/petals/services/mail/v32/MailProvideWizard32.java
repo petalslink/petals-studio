@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.mail.wizards;
+package com.ebmwebsourcing.petals.services.mail.v32;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -17,22 +17,18 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
-import com.ebmwebsourcing.petals.services.mail.MailDescription31;
-import com.ebmwebsourcing.petals.services.mail.generated.MailService;
+import com.ebmwebsourcing.petals.services.mail.generated.MailService32;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
+import com.ebmwebsourcing.petals.services.mail.v31.MailProvideWizard31;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Mickaël Istria - EBM WebSourcing
  */
-public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
+public class MailProvideWizard32 extends MailProvideWizard31 {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -40,24 +36,7 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new MailDescription31();
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
-	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
-	 */
-	@Override
-	public void presetServiceValues( AbstractEndpoint ae ) {
-		ae.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
-		ae.eSet(Cdk5Package.Literals.CDK5_CONSUMES__MEP, Mep.IN_ONLY);
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PORT, 25);
-		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__DELETE, false);
-		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT, false);
-		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__PERIOD, 60000);
-		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__FOLDER, "INBOX");
+		return new MailDescription32();
 	}
 
 
@@ -70,8 +49,20 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
 		IFile wsdlFile = resourceFolder.getFile( "MailService.wsdl" );
-		createFile( wsdlFile, new MailService().generate( abstractEndpoint ), monitor );
+		createFile( wsdlFile, new MailService32().generate( abstractEndpoint ), monitor );
 		return Status.OK_STATUS;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.mail.wizards.MailProvideWizard31
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
+	@Override
+	public void presetServiceValues( AbstractEndpoint ae ) {
+		super.presetServiceValues( ae );
+		ae.eSet( MailPackage.Literals.MAIL_PROVIDES__CONTENT_TYPE, "text/plain" );
 	}
 
 
@@ -88,10 +79,13 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 				MailPackage.Literals.MAIL_SERVICE_COMMON__PORT,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
-				MailPackage.Literals.MAIL_CONSUMES__FOLDER,
-				MailPackage.Literals.MAIL_CONSUMES__DELETE,
-				MailPackage.Literals.MAIL_CONSUMES__PERIOD,
-				MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT)
+				MailPackage.Literals.MAIL_PROVIDES__FROM,
+				MailPackage.Literals.MAIL_PROVIDES__TO,
+				MailPackage.Literals.MAIL_PROVIDES__REPLY,
+				MailPackage.Literals.MAIL_PROVIDES__SUBJECT,
+				MailPackage.Literals.MAIL_PROVIDES__HELOHOST,
+				MailPackage.Literals.MAIL_PROVIDES__SEND_MODE,
+				MailPackage.Literals.MAIL_PROVIDES__CONTENT_TYPE)
 		};
 	}
 }

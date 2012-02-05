@@ -9,46 +9,30 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.mail.wizards;
+package com.ebmwebsourcing.petals.services.mail.v31;
 
-import javax.xml.namespace.QName;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
-import com.ebmwebsourcing.petals.services.mail.MailDescription31;
-import com.ebmwebsourcing.petals.services.mail.generated.MailService;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
-import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.Provides;
+import com.sun.java.xml.ns.jbi.Consumes;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  * @author Mickaël Istria - EBM WebSourcing
  */
-public class MailProvideWizard31 extends AbstractServiceUnitWizard {
-
-	/**
-	 * Constructor.
-	 */
-	public MailProvideWizard31() {
-		super();
-		this.settings.showWsdl = false;
-		this.settings.activateInterfaceName = false;
-		this.settings.activateServiceNameOnly = true;
-	}
-
+public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
@@ -67,18 +51,18 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public void presetServiceValues( AbstractEndpoint ae ) {
-		ae.setInterfaceName( new QName( "http://petals.ow2.org/components/mail/version-3", "Mail" ));
-		ae.setServiceName( new QName( "http://petals.ow2.org/components/mail/version-3", "change-it" ));
-
-		Cdk5Utils.setInitialProvidesValues((Provides)ae);
-		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "MailService.wsdl");
+		Cdk5Utils.setInitialConsumesValues((Consumes) ae);
 
 		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME, Scheme.SMTP);
 		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__HOST, "");
 		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PORT, 25);
-		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__TO, "");
-		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__FROM, "");
-		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__SEND_MODE, SendMode.CONTENT_AND_ATTACHMENTS);
+		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__USER, "");
+		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD, "");
+
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__FOLDER, "INBOX");
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__DELETE, false);
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__PERIOD, 60000);
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT, false);
 	}
 
 
@@ -90,8 +74,18 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
-		IFile wsdlFile = resourceFolder.getFile( "MailService.wsdl" );
-		createFile( wsdlFile, new MailService().generate( abstractEndpoint ), monitor );
+
+		// MEP + operations
+		Mep mep = Mep.get( this.settings.invocationMep );
+		abstractEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
+		abstractEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+
+		// Do not write useless values
+		hackEmfModel( abstractEndpoint,
+				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
+				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
+				MailPackage.Literals.MAIL_CONSUMES__FOLDER );
+
 		return Status.OK_STATUS;
 	}
 
@@ -109,12 +103,10 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 				MailPackage.Literals.MAIL_SERVICE_COMMON__PORT,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
-				MailPackage.Literals.MAIL_PROVIDES__FROM,
-				MailPackage.Literals.MAIL_PROVIDES__TO,
-				MailPackage.Literals.MAIL_PROVIDES__REPLY,
-				MailPackage.Literals.MAIL_PROVIDES__SUBJECT,
-				MailPackage.Literals.MAIL_PROVIDES__HELOHOST,
-				MailPackage.Literals.MAIL_PROVIDES__SEND_MODE )
+				MailPackage.Literals.MAIL_CONSUMES__FOLDER,
+				MailPackage.Literals.MAIL_CONSUMES__DELETE,
+				MailPackage.Literals.MAIL_CONSUMES__PERIOD,
+				MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT)
 		};
 	}
 }

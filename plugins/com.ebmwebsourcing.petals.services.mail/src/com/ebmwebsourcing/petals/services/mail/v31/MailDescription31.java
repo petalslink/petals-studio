@@ -9,9 +9,10 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.mail;
+package com.ebmwebsourcing.petals.services.mail.v31;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
+import com.ebmwebsourcing.petals.services.mail.MailDescription;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing

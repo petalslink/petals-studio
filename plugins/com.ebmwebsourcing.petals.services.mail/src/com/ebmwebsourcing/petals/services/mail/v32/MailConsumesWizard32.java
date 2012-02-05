@@ -9,21 +9,23 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.mail;
+package com.ebmwebsourcing.petals.services.mail.v32;
 
+import com.ebmwebsourcing.petals.services.mail.v31.MailConsumesWizard31;
+import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
+ * @author Mickaël Istria - EBM WebSourcing
  */
-public class MailDescription32 extends MailDescription31 {
+public class MailConsumesWizard32 extends MailConsumesWizard31 {
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
-	 * #getComponentVersion()
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * #getComponentVersionDescription()
 	 */
 	@Override
-	public String getComponentVersion() {
-		return "3.2";
+	public ComponentVersionDescription getComponentVersionDescription() {
+		return new MailDescription32();
 	}
 }

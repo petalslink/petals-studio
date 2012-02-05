@@ -28,8 +28,8 @@
 			<xs:element ref="mail:scheme" maxOccurs="1" minOccurs="1" />
 			<xs:element ref="mail:host" maxOccurs="1" minOccurs="1" />
 			<xs:element ref="mail:port" maxOccurs="1" minOccurs="1" />
-			<xs:element ref="mail:user" maxOccurs="1" minOccurs="1" />
-			<xs:element ref="mail:password" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="mail:user" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:password" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="mail:folder" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="mail:delete" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="mail:period" maxOccurs="1" minOccurs="1" />

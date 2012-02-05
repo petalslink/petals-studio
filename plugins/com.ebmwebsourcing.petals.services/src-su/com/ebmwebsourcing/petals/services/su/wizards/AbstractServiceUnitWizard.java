@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
@@ -42,6 +43,7 @@ import org.xml.sax.SAXException;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
@@ -423,6 +425,37 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 */
 	protected IStatus importAdditionalFiles( IFolder resourceDirectory, IProgressMonitor monitor ) {
 		return Status.OK_STATUS;
+	}
+
+
+	/**
+	 * Allows to remove unset features from the model.
+	 * <p>
+	 * To guarantee insertion order in the wizard, one can preset all the values
+	 * in {@link #presetServiceValues(AbstractEndpoint)}. The insertion order must respect the one
+	 * in XML schema.
+	 * </p>
+	 * <p>
+	 * This method allows to remove the values that were not set or that should not be written.
+	 * </p>
+	 *
+	 * @param ae
+	 * @param features
+	 */
+	protected void hackEmfModel( AbstractEndpoint ae, EStructuralFeature... features ) {
+
+		if( features == null )
+			return;
+
+		for( EStructuralFeature feature : features ) {
+			if( feature.isUnsettable())
+				continue;
+
+			Object value = ae.eGet( feature );
+			if( value == null ||
+					value instanceof String && StringUtils.isEmpty((String) value))
+				ae.eSet( feature, null );
+		}
 	}
 
 
