@@ -19,15 +19,31 @@
 		<xs:sequence>
 			<xs:element ref="ft:folder" maxOccurs="1" minOccurs="1" />
 			<xs:element ref="ft:backup-directory" maxOccurs="1" minOccurs="0" />
-			<xs:element ref="ft:transfer-mode" maxOccurs="1" minOccurs="0" />
-			<xs:element ref="ft:filename" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="ft:polling-period" maxOccurs="1" minOccurs="0" />
-			<xs:element ref="ft:base-message" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:filename" maxOccurs="1" minOccurs="0" />
+			<xs:choice>
+				<xs:element ref="ft:transfer-mode" maxOccurs="1" minOccurs="1" />
+				<xs:element ref="ft:base-message" maxOccurs="1" minOccurs="1" />
+			</xs:choice>
+			<xs:element ref="ft:processor-pool-size" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="ft:processor-pool-timeout" maxOccurs="1" minOccurs="0" />
 		</xs:sequence>
 	</xs:group>
 	
 	
 	<!-- SU extensions -->
+	<xs:element name="processor-pool-timeout" type="xs:long">
+		<xs:annotation>
+			<xs:documentation>Define eviction time in milliseconds for processor thread created by the poller (10 000 by default)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="processor-pool-size" type="xs:int">
+		<xs:annotation>
+			<xs:documentation>This parameter defines the maximum number of processor thread created by the poller to process files</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
 	<xs:element name="folder" type="xs:string">
 		<xs:annotation>
 			<xs:documentation>Working directory where files are written or retrieved. ${env} environment variables are supported. Format like C:\ or /home</xs:documentation>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="filetransfer"
-    nsURI="http://petals.ow2.org/components/filetransfer/version-2" nsPrefix="filetransfer">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="filetransfer2x"
+    nsURI="http://petals.ow2.org/components/filetransfer/version-2" nsPrefix="filetransfer2x">
   <eClassifiers xsi:type="ecore:EClass" name="FileTransferExtension" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//AbstractExtensibleElement">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
@@ -11,15 +11,6 @@
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="file-pattern"/>
-        <details key="kind" value="element"/>
-        <details key="namespace" value="##targetNamespace"/>
-        <details key="group" value="#group:0"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="readDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="read-directory"/>
         <details key="kind" value="element"/>
         <details key="namespace" value="##targetNamespace"/>
         <details key="group" value="#group:0"/>
@@ -57,11 +48,30 @@
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="readDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        derived="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="read-directory"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileTransferConsumes" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Consumes #//FileTransferExtension">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="readDirectory" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        derived="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="read-directory"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transferMode" eType="#//TransferMode"
         defaultValueLiteral="TransferMode.CONTENT" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -88,6 +98,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TransferMode">
     <eLiterals name="CONTENT" literal="content"/>
-    <eLiterals name="ATTACHMENTS" value="1" literal="attachments"/>
+    <eLiterals name="ATTACHMENT" value="1" literal="attachment"/>
   </eClassifiers>
 </ecore:EPackage>

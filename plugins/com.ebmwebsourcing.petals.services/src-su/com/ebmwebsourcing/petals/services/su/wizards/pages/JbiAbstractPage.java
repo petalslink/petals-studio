@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.QNameText;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
@@ -149,7 +150,11 @@ public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 		this.edptText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
-				getNewlyCreatedEndpoint().setEndpointName( JbiAbstractPage.this.edptText.getText());
+				String edpt = JbiAbstractPage.this.edptText.getText();
+				if( StringUtils.isEmpty( edpt ))
+					edpt = null;
+
+				getNewlyCreatedEndpoint().setEndpointName( edpt );
 				validate();
 			}
 		});

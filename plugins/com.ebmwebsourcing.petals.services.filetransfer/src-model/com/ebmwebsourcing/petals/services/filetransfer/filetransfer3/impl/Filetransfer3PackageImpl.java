@@ -11,7 +11,9 @@ package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.impl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
+
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Consumes;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Provides;
@@ -96,14 +98,18 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 		isInited = true;
 
 		// Initialize simple dependencies
-		FileTransferPackage.eINSTANCE.eClass();
 		Cdk5Package.eINSTANCE.eClass();
+
+		// Obtain or create and register interdependencies
+		Filetransfer2xPackageImpl theFiletransfer2xPackage = (Filetransfer2xPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(Filetransfer2xPackage.eNS_URI) instanceof Filetransfer2xPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(Filetransfer2xPackage.eNS_URI) : Filetransfer2xPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theFiletransfer3Package.createPackageContents();
+		theFiletransfer2xPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theFiletransfer3Package.initializePackageContents();
+		theFiletransfer2xPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theFiletransfer3Package.freeze();
@@ -302,7 +308,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 		Cdk5Package theCdk5Package = (Cdk5Package)EPackage.Registry.INSTANCE.getEPackage(Cdk5Package.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 		JbiPackage theJbiPackage = (JbiPackage)EPackage.Registry.INSTANCE.getEPackage(JbiPackage.eNS_URI);
-		FileTransferPackage theFileTransferPackage = (FileTransferPackage)EPackage.Registry.INSTANCE.getEPackage(FileTransferPackage.eNS_URI);
+		Filetransfer2xPackage theFiletransfer2xPackage = (Filetransfer2xPackage)EPackage.Registry.INSTANCE.getEPackage(Filetransfer2xPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -319,9 +325,9 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 		initEAttribute(getFileTransfer3Provides_Folder(), theXMLTypePackage.getString(), "folder", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileTransfer3ConsumesEClass, FileTransfer3Consumes.class, "FileTransfer3Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFileTransfer3Consumes_Folder(), theXMLTypePackage.getString(), "folder", null, 1, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransfer3Consumes_Folder(), theXMLTypePackage.getString(), "folder", null, 1, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Consumes_BackupDirectory(), theXMLTypePackage.getString(), "backupDirectory", null, 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileTransfer3Consumes_TransferMode(), theFileTransferPackage.getTransferMode(), "transferMode", null, 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransfer3Consumes_TransferMode(), theFiletransfer2xPackage.getTransferMode(), "transferMode", "TransferMode.CONTENT", 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Consumes_Filename(), theXMLTypePackage.getString(), "filename", null, 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Consumes_PollingPeriod(), theXMLTypePackage.getInt(), "pollingPeriod", null, 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Consumes_BaseMessage(), theXMLTypePackage.getString(), "baseMessage", null, 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

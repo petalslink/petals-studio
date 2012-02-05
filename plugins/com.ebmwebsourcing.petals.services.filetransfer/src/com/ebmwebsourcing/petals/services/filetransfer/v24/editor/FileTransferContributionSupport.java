@@ -11,13 +11,8 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
 
-import org.eclipse.emf.ecore.EClass;
-
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.su.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
 
 /**
  * @author Micka�l Istria - EBM WebSourcing

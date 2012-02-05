@@ -41,7 +41,7 @@ public interface AbstractEndpoint extends AbstractExtensibleElement {
 	 * @return the value of the '<em>Endpoint Name</em>' attribute.
 	 * @see #setEndpointName(String)
 	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getAbstractEndpoint_EndpointName()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
 	 *        extendedMetaData="kind='attribute' name='endpoint-name'"
 	 * @generated
 	 */
@@ -95,7 +95,7 @@ public interface AbstractEndpoint extends AbstractExtensibleElement {
 	 * @return the value of the '<em>Service Name</em>' attribute.
 	 * @see #setServiceName(QName)
 	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getAbstractEndpoint_ServiceName()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.QName" required="true"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.QName"
 	 *        extendedMetaData="kind='attribute' name='service-name'"
 	 * @generated
 	 */

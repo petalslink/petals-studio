@@ -36,7 +36,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectio
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.filetransfer.FileTransferPlugin;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.CopyMode;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FileTransferProvidesWizard24.Contract;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 

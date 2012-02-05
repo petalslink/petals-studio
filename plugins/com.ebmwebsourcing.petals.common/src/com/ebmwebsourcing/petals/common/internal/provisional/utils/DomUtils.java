@@ -379,14 +379,23 @@ public class DomUtils {
 
 	/**
 	 * Validates if a text represents a valid XML document.
+	 * <p>
+	 * If the XML text does not start with <code><?xml </code>, then a default instruction is added.
+	 * </p>
+	 *
 	 * @param text the text to parse
 	 * @return true if it could be parsed as a XML document, false otherwise
 	 */
 	public static boolean isValidXmlDocument( String text ) {
 
 		boolean result = false;
+		StringBuilder sb = new StringBuilder();
+		sb.append( text );
+		if( ! text.startsWith( "<?xml " ))
+			sb.insert( 0, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
+
 		try {
-			result = buildDocument( text ) != null;
+			result = buildDocument( sb.toString()) != null;
 
 		} catch( SAXException e ) {
 			// nothing

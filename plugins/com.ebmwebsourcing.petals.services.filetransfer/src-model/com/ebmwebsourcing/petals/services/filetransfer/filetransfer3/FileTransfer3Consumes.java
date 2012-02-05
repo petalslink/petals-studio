@@ -11,7 +11,7 @@ package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.TransferMode;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,9 +46,11 @@ public interface FileTransfer3Consumes extends CDK5Consumes {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Folder</em>' attribute.
+	 * @see #isSetFolder()
+	 * @see #unsetFolder()
 	 * @see #setFolder(String)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package#getFileTransfer3Consumes_Folder()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
 	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='folder'"
 	 * @generated
 	 */
@@ -59,10 +61,35 @@ public interface FileTransfer3Consumes extends CDK5Consumes {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Folder</em>' attribute.
+	 * @see #isSetFolder()
+	 * @see #unsetFolder()
 	 * @see #getFolder()
 	 * @generated
 	 */
 	void setFolder(String value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Consumes#getFolder <em>Folder</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetFolder()
+	 * @see #getFolder()
+	 * @see #setFolder(String)
+	 * @generated
+	 */
+	void unsetFolder();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Consumes#getFolder <em>Folder</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Folder</em>' attribute is set.
+	 * @see #unsetFolder()
+	 * @see #getFolder()
+	 * @see #setFolder(String)
+	 * @generated
+	 */
+	boolean isSetFolder();
 
 	/**
 	 * Returns the value of the '<em><b>Backup Directory</b></em>' attribute.
@@ -93,7 +120,8 @@ public interface FileTransfer3Consumes extends CDK5Consumes {
 
 	/**
 	 * Returns the value of the '<em><b>Transfer Mode</b></em>' attribute.
-	 * The literals are from the enumeration {@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer.TransferMode}.
+	 * The default value is <code>"TransferMode.CONTENT"</code>.
+	 * The literals are from the enumeration {@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Transfer Mode</em>' attribute isn't clear,
@@ -101,10 +129,11 @@ public interface FileTransfer3Consumes extends CDK5Consumes {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Transfer Mode</em>' attribute.
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.TransferMode
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode
 	 * @see #setTransferMode(TransferMode)
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package#getFileTransfer3Consumes_TransferMode()
-	 * @model extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='transfer-mode'"
+	 * @model default="TransferMode.CONTENT"
+	 *        extendedMetaData="namespace='##targetNamespace' kind='element' group='#group:0' name='transfer-mode'"
 	 * @generated
 	 */
 	TransferMode getTransferMode();
@@ -114,7 +143,7 @@ public interface FileTransfer3Consumes extends CDK5Consumes {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transfer Mode</em>' attribute.
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer.TransferMode
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode
 	 * @see #getTransferMode()
 	 * @generated
 	 */

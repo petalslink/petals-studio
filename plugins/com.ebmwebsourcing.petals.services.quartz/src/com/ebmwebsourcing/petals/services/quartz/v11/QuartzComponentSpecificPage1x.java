@@ -145,11 +145,7 @@ public class QuartzComponentSpecificPage1x extends AbstractSuWizardPage {
 			return false;
 
 		} else {
-			StringBuilder sb = new StringBuilder();
-			sb.append( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
-			sb.append( this.msgSkeleton );
-
-			if( ! DomUtils.isValidXmlDocument( sb.toString())) {
+			if( ! DomUtils.isValidXmlDocument( this.msgSkeleton )) {
 				updateStatus( "The XML message is an invalid XML document." );
 				return false;
 			}

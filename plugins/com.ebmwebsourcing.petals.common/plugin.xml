@@ -36,7 +36,7 @@
             <constraint
                   lang="Java"
                   class="com.ebmwebsourcing.petals.common.internal.metamodel.validation.constraints.ConsumesConstraints"
-                  severity="ERROR"
+                  severity="WARNING"
                   mode="Batch"
                   name="JBIConsumesValidation"
                   id="com.ebmwebsourcing.jbi.core.metamodel.constraints.Consumes"
@@ -54,7 +54,7 @@
                   lang="Java"
                   mode="Batch"
                   name="JBIConsumerValidation"
-                  severity="ERROR"
+                  severity="WARNING"
                   statusCode="1">
                <description>
                   Validate a&apos;consumer&apos; element.

@@ -1256,9 +1256,9 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 		initEAttribute(getServices_BindingComponent(), theXMLTypePackage.getBoolean(), "bindingComponent", null, 1, 1, Services.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractEndpointEClass, AbstractEndpoint.class, "AbstractEndpoint", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAbstractEndpoint_EndpointName(), theXMLTypePackage.getString(), "endpointName", null, 1, 1, AbstractEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractEndpoint_EndpointName(), theXMLTypePackage.getString(), "endpointName", null, 0, 1, AbstractEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractEndpoint_InterfaceName(), theXMLTypePackage.getQName(), "interfaceName", null, 1, 1, AbstractEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAbstractEndpoint_ServiceName(), theXMLTypePackage.getQName(), "serviceName", null, 1, 1, AbstractEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractEndpoint_ServiceName(), theXMLTypePackage.getQName(), "serviceName", null, 0, 1, AbstractEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(consumesEClass, Consumes.class, "Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

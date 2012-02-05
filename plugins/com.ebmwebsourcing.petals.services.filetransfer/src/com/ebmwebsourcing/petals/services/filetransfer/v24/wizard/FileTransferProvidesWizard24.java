@@ -18,9 +18,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.GetFilesWsdl24;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.WriteWsdl24;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
@@ -93,14 +93,14 @@ public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 		// Unsettable attributes is a poor workaround. Maybe every component should have a helper to sort features.
 		String wsdlContent;
 		if( this.page.getContract() == Contract.WRITE_FILES ) {
-			abstractEndpoint.eSet( FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, this.page.getWriteDirectory());
-			abstractEndpoint.eSet( FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE, this.page.getCopyMode());
-			abstractEndpoint.eSet( FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN, this.page.getFilePattern());
+			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, this.page.getWriteDirectory());
+			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE, this.page.getCopyMode());
+			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN, this.page.getFilePattern());
 			wsdlContent = new WriteWsdl24().generate( abstractEndpoint );
 
 		} else {
-			abstractEndpoint.eSet( FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY, this.page.getReadDirectory());
-			abstractEndpoint.eSet( FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY, this.page.getBackupDirectory());
+			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY, this.page.getReadDirectory());
+			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY, this.page.getBackupDirectory());
 			wsdlContent = new GetFilesWsdl24().generate( abstractEndpoint );
 		}
 

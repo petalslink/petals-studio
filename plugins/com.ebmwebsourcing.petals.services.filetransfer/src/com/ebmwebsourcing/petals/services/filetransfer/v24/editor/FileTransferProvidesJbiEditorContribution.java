@@ -34,7 +34,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.Messages;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -71,7 +71,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 
 
 		// Mode
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editingDomain, dbc, true, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, fileTransferComposite, editingDomain, dbc, true, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE);
 		// write
 		toolkit.createLabel(fileTransferComposite, Messages.writeDirectory);
 		Composite writeDirectoryComposite = toolkit.createComposite(fileTransferComposite);
@@ -94,10 +94,10 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 
 		dbc.bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(readDirectoryText, SWT.Modify)),
-				EMFEditObservables.observeValue( editingDomain, endpoint, FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY));
+				EMFEditObservables.observeValue( editingDomain, endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY));
 		dbc.bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(writeDirectoryText, SWT.Modify)),
-				EMFEditObservables.observeValue( editingDomain, endpoint, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY));
+				EMFEditObservables.observeValue( editingDomain, endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY));
 
 
 		browseWriteButton.addSelectionListener(new SelectionAdapter() {
@@ -106,7 +106,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 				DirectoryDialog directoryDialog = new DirectoryDialog(mainTab.getShell());
 				String directory = directoryDialog.open();
 				if (directory != null) {
-					SetCommand setCommand = new SetCommand( editingDomain, endpoint, FileTransferPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, directory);
+					SetCommand setCommand = new SetCommand( editingDomain, endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, directory);
 					editingDomain.getCommandStack().execute(setCommand);
 
 				}
@@ -118,7 +118,7 @@ public class FileTransferProvidesJbiEditorContribution implements JbiEditorDetai
 				DirectoryDialog directoryDialog = new DirectoryDialog(mainTab.getShell());
 				String directory = directoryDialog.open();
 				if (directory != null) {
-					SetCommand setCommand = new SetCommand( editingDomain, endpoint, FileTransferPackage.Literals.FILE_TRANSFER_EXTENSION__READ_DIRECTORY, directory);
+					SetCommand setCommand = new SetCommand( editingDomain, endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY, directory);
 					editingDomain.getCommandStack().execute(setCommand);
 				}
 			}

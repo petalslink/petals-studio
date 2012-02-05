@@ -207,6 +207,14 @@ public class SwtFactory {
 
 	/**
 	 * Creates a styled text with syntax highlighting for XML document.
+	 * <p>
+	 * Be careful, the layout data must be applied on the parent of the result.
+	 * </p>
+	 * <code>
+	 * StyledText st = SwtFactory.createXmlTextViewer( parent );<br />
+	 * st.getParent().setLayoutData( new GridData());
+	 * </code>
+	 *
 	 * @param parent
 	 * @param readOnly
 	 * @return

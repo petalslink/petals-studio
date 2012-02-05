@@ -21,7 +21,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedE
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.Messages;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -55,8 +55,8 @@ public class FileTransferConsumesJbiEditorContribution implements JbiEditorDetai
 		Composite ftComposite = toolkit.createComposite(ftSection);
 		ftComposite.setLayout(new GridLayout(2, false));
 		ftSection.setClient(ftComposite);
-		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ftComposite, ise, FileTransferPackage.Literals.FILE_TRANSFER_CONSUMES);
-		
+		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ftComposite, ise, Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES);
+
 		Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
 		cdkSection.setText("CDK");
 		cdkSection.setLayoutData(new GridData(GridData.FILL_BOTH));

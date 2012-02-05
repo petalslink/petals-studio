@@ -38,7 +38,8 @@
       <details key="name" value=""/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="folder" lowerBound="1"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String">
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//String"
+        unsettable="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
         <details key="kind" value="element"/>
@@ -54,7 +55,8 @@
         <details key="name" value="backup-directory"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transferMode" eType="ecore:EEnum filetransfer.ecore#//TransferMode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transferMode" eType="ecore:EEnum filetransfer.ecore#//TransferMode"
+        defaultValueLiteral="TransferMode.CONTENT">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value="##targetNamespace"/>
         <details key="kind" value="element"/>

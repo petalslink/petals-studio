@@ -11,7 +11,7 @@ package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.impl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ConsumesImpl;
 
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer.TransferMode;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Consumes;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
@@ -62,6 +62,15 @@ public class FileTransfer3ConsumesImpl extends CDK5ConsumesImpl implements FileT
 	 * @ordered
 	 */
 	protected String folder = FOLDER_EDEFAULT;
+
+	/**
+	 * This is true if the Folder attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean folderESet;
 
 	/**
 	 * The default value of the '{@link #getBackupDirectory() <em>Backup Directory</em>}' attribute.
@@ -239,8 +248,33 @@ public class FileTransfer3ConsumesImpl extends CDK5ConsumesImpl implements FileT
 	public void setFolder(String newFolder) {
 		String oldFolder = folder;
 		folder = newFolder;
+		boolean oldFolderESet = folderESet;
+		folderESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer3Package.FILE_TRANSFER3_CONSUMES__FOLDER, oldFolder, folder));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer3Package.FILE_TRANSFER3_CONSUMES__FOLDER, oldFolder, folder, !oldFolderESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetFolder() {
+		String oldFolder = folder;
+		boolean oldFolderESet = folderESet;
+		folder = FOLDER_EDEFAULT;
+		folderESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Filetransfer3Package.FILE_TRANSFER3_CONSUMES__FOLDER, oldFolder, FOLDER_EDEFAULT, oldFolderESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetFolder() {
+		return folderESet;
 	}
 
 	/**
@@ -463,7 +497,7 @@ public class FileTransfer3ConsumesImpl extends CDK5ConsumesImpl implements FileT
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case Filetransfer3Package.FILE_TRANSFER3_CONSUMES__FOLDER:
-				setFolder(FOLDER_EDEFAULT);
+				unsetFolder();
 				return;
 			case Filetransfer3Package.FILE_TRANSFER3_CONSUMES__BACKUP_DIRECTORY:
 				setBackupDirectory(BACKUP_DIRECTORY_EDEFAULT);
@@ -499,7 +533,7 @@ public class FileTransfer3ConsumesImpl extends CDK5ConsumesImpl implements FileT
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Filetransfer3Package.FILE_TRANSFER3_CONSUMES__FOLDER:
-				return FOLDER_EDEFAULT == null ? folder != null : !FOLDER_EDEFAULT.equals(folder);
+				return isSetFolder();
 			case Filetransfer3Package.FILE_TRANSFER3_CONSUMES__BACKUP_DIRECTORY:
 				return BACKUP_DIRECTORY_EDEFAULT == null ? backupDirectory != null : !BACKUP_DIRECTORY_EDEFAULT.equals(backupDirectory);
 			case Filetransfer3Package.FILE_TRANSFER3_CONSUMES__TRANSFER_MODE:
@@ -529,7 +563,7 @@ public class FileTransfer3ConsumesImpl extends CDK5ConsumesImpl implements FileT
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (folder: ");
-		result.append(folder);
+		if (folderESet) result.append(folder); else result.append("<unset>");
 		result.append(", backupDirectory: ");
 		result.append(backupDirectory);
 		result.append(", transferMode: ");

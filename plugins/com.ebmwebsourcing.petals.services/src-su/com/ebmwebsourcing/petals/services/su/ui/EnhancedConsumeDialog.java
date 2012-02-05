@@ -73,6 +73,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 
 	public final static QName NO_OPERATION = new QName( "http://petals.ow2.org/studio/", "no-operation" );
 	private final static String WILDCARD = "*";
+	private final static String DEFAULT_MSG = "Select a Petals service and one of its operations to invoke.";
 
 	private final FormToolkit toolkit;
 	private final Image edptImage, opImage, itfImage, srvImage;
@@ -154,7 +155,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 		// General properties
 		getShell().setText( "Consume a Petals Service" );
 		setTitle( "Consume a Petals Service" );
-		setMessage( "Select a Petals service and one of its operations to invoke." );
+		setMessage( DEFAULT_MSG );
 
 		Composite outterComposite = new Composite( parent, SWT.BORDER );
 		GridLayout layout = new GridLayout();
@@ -667,6 +668,8 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 
 		setMessage( warning, IMessageProvider.WARNING );
 		setErrorMessage( msg );
+		if( warning == null && msg == null )
+			setMessage( DEFAULT_MSG );
 
 		Button okButton = getButton( IDialogConstants.OK_ID );
 		if( okButton != null )
