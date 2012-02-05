@@ -299,7 +299,7 @@ public class SuBuilder extends JbiXmlBuilder {
 							}
 
 							if( componentDesc != null ) {
-								if( hasProvides && componentDesc.isConsume()) {
+								if( hasProvides && ! componentDesc.isProvide()) {
 									markerBeans.add( new MarkerBean(
 											IMarker.SEVERITY_ERROR,
 											"The target component (" + componentName + ") does not allow 'provides' sections.",
@@ -307,7 +307,7 @@ public class SuBuilder extends JbiXmlBuilder {
 											jbiXmlFile ));
 								}
 
-								if( hasConsumes && componentDesc.isProvide()) {
+								if( hasConsumes && ! componentDesc.isConsume()) {
 									markerBeans.add( new MarkerBean(
 											IMarker.SEVERITY_ERROR,
 											"The target component (" + componentName + ") does not allow 'consumes' sections." ,
