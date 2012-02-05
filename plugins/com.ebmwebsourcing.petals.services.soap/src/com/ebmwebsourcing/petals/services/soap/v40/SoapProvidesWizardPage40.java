@@ -11,14 +11,8 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.soap.v40;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
@@ -43,30 +37,8 @@ public class SoapProvidesWizardPage40 extends SimpleFeatureListSuWizardPage {
 			SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
 			SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT,
 			SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
-			SoapPackage.Literals.SOAP_PROVIDES__MODE
+			SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT
 			);
-	}
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.IDialogPage
-	 * #createControl(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
-	public void createControl(Composite parent) {
-		this.dbc = new DataBindingContext();
-
-		Composite res = new Composite(parent, SWT.NONE);
-		SwtFactory.applyNewGridLayout( res, 2, false, 15, 15, 0, 15 );
-		setControl(res);
-
-		FormToolkit tk = new FormToolkit(getShell().getDisplay());
-		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, res, null, this.dbc, false,
-			SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
-			SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
-			SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
-			SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
-			SoapPackage.Literals.SOAP_PROVIDES__SYNCHONOUS_TIMEOUT );
 	}
 
 
@@ -83,12 +55,12 @@ public class SoapProvidesWizardPage40 extends SimpleFeatureListSuWizardPage {
 			IWizard wiz = getWizard();
 			if( wiz instanceof AbstractServiceUnitWizard ) {
 				SuWizardSettings settings = ((AbstractServiceUnitWizard) wiz).getSettings();
-				if( this.oldSoapAddress == null || this.oldSoapAddress.equals( settings.soapAddress )) {
+				if( this.oldSoapAddress == null || ! this.oldSoapAddress.equals( settings.soapAddress )) {
 					this.oldSoapAddress = settings.soapAddress;
 					refresh = true;
 				}
 
-				if( this.oldSoapVersion == null || this.oldSoapVersion.equals( settings.soapVersion )) {
+				if( this.oldSoapVersion == null || ! this.oldSoapVersion.equals( settings.soapVersion )) {
 					this.oldSoapVersion = settings.soapVersion;
 					refresh = true;
 				}
