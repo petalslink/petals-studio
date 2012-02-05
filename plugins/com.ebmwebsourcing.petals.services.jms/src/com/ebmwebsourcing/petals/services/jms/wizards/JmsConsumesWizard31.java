@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.jms.JmsDescription31;
@@ -25,18 +26,29 @@ import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
+import com.sun.java.xml.ns.jbi.Consumes;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class JmsConsumesWizard31 extends AbstractServiceUnitWizard {
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #presetServiceValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
+	 */
 	@Override
 	protected void presetServiceValues(AbstractEndpoint endpoint) {
-		endpoint.eSet(Cdk5Package.Literals.CDK_SERVICE__TIMEOUT, 30000);
-		endpoint.eSet(Cdk5Package.Literals.CDK5_CONSUMES__MEP, Mep.IN_ONLY);
+		Cdk5Utils.setInitialConsumesValues((Consumes) endpoint);
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getCustomWizardPagesAfterJbi()
+	 */
 	@Override
 	protected AbstractSuWizardPage[] getCustomWizardPagesAfterJbi() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
@@ -50,34 +62,31 @@ public class JmsConsumesWizard31 extends AbstractServiceUnitWizard {
 		};
 	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesAfterProject() {
-		return null;
-	}
 
-	@Override
-	protected AbstractSuWizardPage[] getCustomWizardPagesBeforeProject() {
-		return null;
-	}
-
-	@Override
-	protected IStatus importAdditionalFiles(IFolder resourceDirectory, IProgressMonitor monitor) {
-		return Status.OK_STATUS;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
+
+		Mep mep = Mep.get( this.settings.invocationMep );
+		newlyCreatedEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
+		newlyCreatedEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+
 		return Status.OK_STATUS;
 	}
 
-	@Override
-	protected boolean isJavaProject() {
-		return false;
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getComponentVersionDescription()
+	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
 		return new JmsDescription31();
 	}
-
 }
