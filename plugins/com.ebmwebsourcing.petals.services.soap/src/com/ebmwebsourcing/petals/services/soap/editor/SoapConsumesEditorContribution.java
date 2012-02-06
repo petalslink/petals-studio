@@ -27,11 +27,17 @@ import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickael Istria (EBM Websourcing)
- *
+ * @author Mickael Istria - EBM WebSourcing
  */
-public class SoapConsumesEditorContribution implements JbiEditorDetailsContribution {
+public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution {
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addMainSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
 		mainTab.setLayout(new GridLayout(1, false));
 		mainTab.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -56,6 +62,14 @@ public class SoapConsumesEditorContribution implements JbiEditorDetailsContribut
 				SoapPackage.Literals.SOAP_CONSUMES__SOAP_ACTION);
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addAdvancedSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 		advancedTab.setLayout(new GridLayout(1, false));
 		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));

@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 
 /**
- * @author Mickael Istria (EBM Websourcing)
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class EJBTestDialog extends Dialog {
 

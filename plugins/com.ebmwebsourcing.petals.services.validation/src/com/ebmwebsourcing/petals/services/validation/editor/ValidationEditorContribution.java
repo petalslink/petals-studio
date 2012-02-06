@@ -15,7 +15,7 @@ import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContribu
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 
 /**
- * @author Mickael Istria (EBM Websourcing)
+ * @author Mickael Istria - EBM WebSourcing
  *
  */
 public class ValidationEditorContribution extends EditorContributionSupport {

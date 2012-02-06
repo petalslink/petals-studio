@@ -32,7 +32,7 @@ import com.ebmwebsourcing.petals.studio.services.xslt.xslt.XsltPackage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickael Istria (EBM Websourcing)
+ * @author Mickael Istria - EBM WebSourcing
  *
  */
 public class XsltProvidesEditorContribution implements JbiEditorDetailsContribution {

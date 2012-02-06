@@ -18,9 +18,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.sun.java.xml.ns.jbi.Jbi;
 
-
 /**
- *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public interface ISharedEdition extends IEditingDomainProvider {

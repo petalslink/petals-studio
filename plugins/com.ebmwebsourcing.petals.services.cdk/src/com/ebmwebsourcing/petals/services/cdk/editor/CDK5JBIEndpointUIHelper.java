@@ -1,3 +1,15 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2011-2012, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.services.cdk.editor;
 
 import javax.swing.event.HyperlinkEvent;
@@ -47,8 +59,17 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class CDK5JBIEndpointUIHelper {
 
+	/**
+	 * @param endpoint
+	 * @param toolkit
+	 * @param generalDetails
+	 * @param ise
+	 */
 	public static void createConsumesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final ISharedEdition ise) {
 		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, ise);
 
@@ -138,6 +159,12 @@ public class CDK5JBIEndpointUIHelper {
 	}
 
 
+	/**
+	 * @param endpoint
+	 * @param toolkit
+	 * @param generalDetails
+	 * @param ise
+	 */
 	public static void createProvidesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, ISharedEdition ise) {
 		toolkit.createLabel(generalDetails, Messages.wsdlLocation);
 		Composite composite = toolkit.createComposite(generalDetails);

@@ -23,7 +23,7 @@ import com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickael Istria (EBM WebSourcing)
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class EJBConnectionTest {
 

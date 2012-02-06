@@ -26,6 +26,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -77,7 +78,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * The composite to display in the JBI form editor for service-units.
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class SuEditionComposite extends SashForm implements ISharedEdition {
 
@@ -389,6 +390,8 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		}
 
 		if (this.componentContributions != null) {
+			GridLayoutFactory.swtDefaults().spacing( 0, 20 ).applyTo( generalDetails );
+			generalDetails.setLayoutData( new GridData(GridData.FILL_BOTH));
 			this.componentContributions.addMainSUContent(this.selectedEndpoint, toolkit, generalDetails, this );
 		}
 
@@ -401,6 +404,8 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		}
 
 		if (this.componentContributions != null) {
+			GridLayoutFactory.swtDefaults().spacing( 0, 20 ).applyTo( advancedDetails );
+			advancedDetails.setLayoutData( new GridData(GridData.FILL_BOTH));
 			this.componentContributions.addAdvancedSUContent(this.selectedEndpoint, toolkit, advancedDetails, this );
 		}
 
@@ -483,7 +488,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 	/**
 	 * A selection to remove an element from a viewer.
-	 * @author Micka�l Istria - EBM WebSourcing
+	 * @author Mickael Istria - EBM WebSourcing
 	 */
 	private final class EListRemoveSelectionListener extends DefaultSelectionListener {
 		private final Viewer servicesViewer;
@@ -518,7 +523,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 	/**
 	 * A selection to move an element downward in a viewer.
-	 * @author Micka�l Istria - EBM WebSourcing
+	 * @author Mickael Istria - EBM WebSourcing
 	 */
 	private final class EListDownSelectionListener extends DefaultSelectionListener {
 
@@ -541,7 +546,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 	/**
 	 * A selection to move an element upward in a viewer.
-	 * @author Micka�l Istria - EBM WebSourcing
+	 * @author Mickael Istria - EBM WebSourcing
 	 */
 	private final class EListUpSelectionListener extends DefaultSelectionListener {
 

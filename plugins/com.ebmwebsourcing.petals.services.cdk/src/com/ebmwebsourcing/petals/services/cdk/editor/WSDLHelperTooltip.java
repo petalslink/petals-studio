@@ -1,3 +1,15 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2011-2012, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.services.cdk.editor;
 
 import java.io.File;
@@ -53,6 +65,9 @@ import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager.WsdlParsin
 import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 
 	private final WsdlParsingJobManager wsdlParsingJob;
@@ -305,8 +320,6 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 			// NOTHING here, just no wsdl
 			return null;
 		}
-
 	}
-
 }
 

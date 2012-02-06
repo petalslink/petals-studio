@@ -31,7 +31,7 @@ import com.ebmwebsourcing.petals.services.validation.validation.ValidationPackag
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickael Istria (EBM Websourcing)
+ * @author Mickael Istria - EBM WebSourcing
  *
  */
 public class ValidationProvidesEditorContribution implements JbiEditorDetailsContribution {

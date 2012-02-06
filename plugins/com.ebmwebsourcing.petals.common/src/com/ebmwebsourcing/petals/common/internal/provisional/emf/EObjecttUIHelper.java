@@ -163,15 +163,20 @@ public class EObjecttUIHelper {
 			}
 
 			if( widgetObservable != null ) {
-				UpdateValueStrategy strategy = new UpdateValueStrategy();
+				UpdateValueStrategy targetToModel = new UpdateValueStrategy();
 				if( entry.attribute.getLowerBound() > 0 )
-					strategy.setBeforeSetValidator( new MandatoryFieldValidator( entry.attribute ));
+					targetToModel.setBeforeSetValidator( new MandatoryFieldValidator( entry.attribute ));
 
 				IObservableValue iov = domain == null ?
-						EMFObservables.observeValue(eObject, entry.attribute)
-						: EMFEditObservables.observeValue(domain, eObject, entry.attribute);
+						EMFObservables.observeValue( eObject, entry.attribute )
+						: EMFEditObservables.observeValue( domain, eObject, entry.attribute );
 
-				Binding binding = dbc.bindValue( widgetObservable, iov, strategy, null);
+				Binding binding;
+				if( domain == null )
+					binding = dbc.bindValue( widgetObservable, iov, targetToModel, null );
+				else
+					binding = dbc.bindValue( widgetObservable, iov );
+
 				if( showDecorator && entry.attribute.getLowerBound() > 0 )
 					ControlDecorationSupport.create( binding, SWT.TOP | SWT.LEFT );
 			}

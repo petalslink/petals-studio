@@ -174,11 +174,11 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 			this.editDomain.getCommandStack().addCommandStackListener( new CommandStackListener() {
 				@Override
-				public void commandStackChanged(final EventObject event) {
+				public void commandStackChanged( final EventObject event ) {
 					Display.getDefault().asyncExec( new Runnable() {
 						@Override
 						public void run() {
-							firePropertyChange(IEditorPart.PROP_DIRTY);
+							firePropertyChange( IEditorPart.PROP_DIRTY );
 						}
 					});
 				}

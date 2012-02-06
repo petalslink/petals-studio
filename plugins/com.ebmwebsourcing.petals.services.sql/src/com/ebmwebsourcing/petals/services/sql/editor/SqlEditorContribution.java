@@ -15,7 +15,7 @@ import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetai
 
 /**
  * 
- * @author Mickael Istria (EBM Websourcing)
+ * @author Mickael Istria - EBM WebSourcing
  *
  */
 public class SqlEditorContribution extends EditorContributionSupport {
