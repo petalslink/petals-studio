@@ -57,6 +57,7 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 		plugin = this;
 
 		// Initialize feature IDs
+		// FIXME: Seems to be required for the wizards (but why?)
 		try {
 			for (ComponentVersionDescription description : ExtensionManager.INSTANCE.findAllComponentVersionDescriptions()) {
 				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(description.getNamespace());

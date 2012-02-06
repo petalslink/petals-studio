@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -9,12 +9,12 @@
  */
 package com.ebmwebsourcing.petals.services.soap.soap.impl;
 
+import com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ConsumesImpl;
+
 import com.ebmwebsourcing.petals.services.soap.soap.Compatibility;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapMode;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
-
-import com.sun.java.xml.ns.jbi.impl.ConsumesImpl;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -44,7 +44,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class SoapConsumesImpl extends ConsumesImpl implements SoapConsumes {
+public class SoapConsumesImpl extends CDK5ConsumesImpl implements SoapConsumes {
 	/**
 	 * The default value of the '{@link #getSoapServiceName() <em>Soap Service Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

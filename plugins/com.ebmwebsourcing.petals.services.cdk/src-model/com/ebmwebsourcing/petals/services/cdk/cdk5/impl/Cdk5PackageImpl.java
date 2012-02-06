@@ -13,12 +13,14 @@ import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Factory;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 
+import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
@@ -52,6 +54,13 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * @generated
 	 */
 	private EClass cdk5ConsumesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass retryPolicyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -219,8 +228,8 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Provides_RetryPolicy() {
-		return (EAttribute)cdk5ProvidesEClass.getEStructuralFeatures().get(5);
+	public EReference getCDK5Provides_RetryPolicy() {
+		return (EReference)cdk5ProvidesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -248,6 +257,33 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 */
 	public EAttribute getCDK5Consumes_Mep() {
 		return (EAttribute)cdk5ConsumesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRetryPolicy() {
+		return retryPolicyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRetryPolicy_Attempts() {
+		return (EAttribute)retryPolicyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRetryPolicy_Delay() {
+		return (EAttribute)retryPolicyEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -298,11 +334,15 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES);
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__FORWARD_ATTACHMENTS);
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__WSDL);
-		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__RETRY_POLICY);
+		createEReference(cdk5ProvidesEClass, CDK5_PROVIDES__RETRY_POLICY);
 
 		cdk5ConsumesEClass = createEClass(CDK5_CONSUMES);
 		createEAttribute(cdk5ConsumesEClass, CDK5_CONSUMES__OPERATION);
 		createEAttribute(cdk5ConsumesEClass, CDK5_CONSUMES__MEP);
+
+		retryPolicyEClass = createEClass(RETRY_POLICY);
+		createEAttribute(retryPolicyEClass, RETRY_POLICY__ATTEMPTS);
+		createEAttribute(retryPolicyEClass, RETRY_POLICY__DELAY);
 
 		// Create enums
 		mepEEnum = createEEnum(MEP);
@@ -359,11 +399,15 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		initEAttribute(getCDK5Provides_ForwardMessageProperties(), theXMLTypePackage.getBoolean(), "forwardMessageProperties", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDK5Provides_ForwardAttachments(), theXMLTypePackage.getBoolean(), "forwardAttachments", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDK5Provides_Wsdl(), ecorePackage.getEString(), "wsdl", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_RetryPolicy(), ecorePackage.getEString(), "retryPolicy", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getCDK5Provides_RetryPolicy(), this.getRetryPolicy(), null, "retryPolicy", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cdk5ConsumesEClass, CDK5Consumes.class, "CDK5Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCDK5Consumes_Operation(), theXMLTypePackage.getQName(), "operation", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDK5Consumes_Mep(), this.getMep(), "mep", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+		initEClass(retryPolicyEClass, RetryPolicy.class, "RetryPolicy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRetryPolicy_Attempts(), ecorePackage.getEInt(), "attempts", null, 1, 1, RetryPolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRetryPolicy_Delay(), ecorePackage.getELong(), "delay", null, 0, 1, RetryPolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(mepEEnum, Mep.class, "Mep");
@@ -479,7 +523,7 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		   new String[] {
 			 "kind", "element",
 			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
-			 "name", "validate-wsdl",
+			 "name", "retrypolicy",
 			 "group", "#cdkExtContainer"
 		   });		
 		addAnnotation
@@ -503,6 +547,24 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		   new String[] {
 			 "kind", "element",
 			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
+			 "group", "#cdkExtContainer"
+		   });		
+		addAnnotation
+		  (getRetryPolicy_Attempts(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
+			 "name", "attempts",
+			 "group", "#cdkExtContainer"
+		   });		
+		addAnnotation
+		  (getRetryPolicy_Delay(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
+			 "name", "delay",
 			 "group", "#cdkExtContainer"
 		   });
 	}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -8,6 +8,8 @@
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
  */
 package com.ebmwebsourcing.petals.services.soap.soap.impl;
+
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
 import com.ebmwebsourcing.petals.services.soap.soap.Compatibility;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapComponent;
@@ -125,7 +127,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		JbiPackage.eINSTANCE.eClass();
+		Cdk5Package.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSoapPackage.createPackageContents();
@@ -239,6 +241,15 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 */
 	public EAttribute getSoapProvides_ProxyHost() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_ProxyPort() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -365,15 +376,6 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 */
 	public EAttribute getSoapProvides_HttpsKeystorePassword() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(24);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getSoapProvides_ProxyPort() {
-		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -720,16 +722,17 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		JbiPackage theJbiPackage = (JbiPackage)EPackage.Registry.INSTANCE.getEPackage(JbiPackage.eNS_URI);
+		Cdk5Package theCdk5Package = (Cdk5Package)EPackage.Registry.INSTANCE.getEPackage(Cdk5Package.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		JbiPackage theJbiPackage = (JbiPackage)EPackage.Registry.INSTANCE.getEPackage(JbiPackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		soapProvidesEClass.getESuperTypes().add(theJbiPackage.getProvides());
-		soapConsumesEClass.getESuperTypes().add(theJbiPackage.getConsumes());
+		soapProvidesEClass.getESuperTypes().add(theCdk5Package.getCDK5Provides());
+		soapConsumesEClass.getESuperTypes().add(theCdk5Package.getCDK5Consumes());
 		soapComponentEClass.getESuperTypes().add(theJbiPackage.getComponent());
 
 		// Initialize classes and features; add operations and parameters

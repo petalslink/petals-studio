@@ -63,6 +63,7 @@ public class Cdk5FactoryImpl extends EFactoryImpl implements Cdk5Factory {
 		switch (eClass.getClassifierID()) {
 			case Cdk5Package.CDK5_PROVIDES: return createCDK5Provides();
 			case Cdk5Package.CDK5_CONSUMES: return createCDK5Consumes();
+			case Cdk5Package.RETRY_POLICY: return createRetryPolicy();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -116,6 +117,16 @@ public class Cdk5FactoryImpl extends EFactoryImpl implements Cdk5Factory {
 	public CDK5Consumes createCDK5Consumes() {
 		CDK5ConsumesImpl cdk5Consumes = new CDK5ConsumesImpl();
 		return cdk5Consumes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RetryPolicy createRetryPolicy() {
+		RetryPolicyImpl retryPolicy = new RetryPolicyImpl();
+		return retryPolicy;
 	}
 
 	/**

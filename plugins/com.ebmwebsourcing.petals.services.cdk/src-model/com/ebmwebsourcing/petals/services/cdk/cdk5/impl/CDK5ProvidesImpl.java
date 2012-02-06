@@ -9,10 +9,12 @@ package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
+import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -171,24 +173,14 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	protected boolean wsdlESet;
 
 	/**
-	 * The default value of the '{@link #getRetryPolicy() <em>Retry Policy</em>}' attribute.
+	 * The cached value of the '{@link #getRetryPolicy() <em>Retry Policy</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRetryPolicy()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String RETRY_POLICY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getRetryPolicy() <em>Retry Policy</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRetryPolicy()
-	 * @generated
-	 * @ordered
-	 */
-	protected String retryPolicy = RETRY_POLICY_EDEFAULT;
+	protected RetryPolicy retryPolicy;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -419,7 +411,15 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getRetryPolicy() {
+	public RetryPolicy getRetryPolicy() {
+		if (retryPolicy != null && retryPolicy.eIsProxy()) {
+			InternalEObject oldRetryPolicy = (InternalEObject)retryPolicy;
+			retryPolicy = (RetryPolicy)eResolveProxy(oldRetryPolicy);
+			if (retryPolicy != oldRetryPolicy) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Cdk5Package.CDK5_PROVIDES__RETRY_POLICY, oldRetryPolicy, retryPolicy));
+			}
+		}
 		return retryPolicy;
 	}
 
@@ -428,8 +428,17 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRetryPolicy(String newRetryPolicy) {
-		String oldRetryPolicy = retryPolicy;
+	public RetryPolicy basicGetRetryPolicy() {
+		return retryPolicy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRetryPolicy(RetryPolicy newRetryPolicy) {
+		RetryPolicy oldRetryPolicy = retryPolicy;
 		retryPolicy = newRetryPolicy;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__RETRY_POLICY, oldRetryPolicy, retryPolicy));
@@ -454,7 +463,8 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				return getWsdl();
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				return getRetryPolicy();
+				if (resolve) return getRetryPolicy();
+				return basicGetRetryPolicy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -483,7 +493,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 				setWsdl((String)newValue);
 				return;
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				setRetryPolicy((String)newValue);
+				setRetryPolicy((RetryPolicy)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -513,7 +523,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 				unsetWsdl();
 				return;
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				setRetryPolicy(RETRY_POLICY_EDEFAULT);
+				setRetryPolicy((RetryPolicy)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -538,7 +548,7 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				return isSetWsdl();
 			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				return RETRY_POLICY_EDEFAULT == null ? retryPolicy != null : !RETRY_POLICY_EDEFAULT.equals(retryPolicy);
+				return retryPolicy != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -563,8 +573,6 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 		if (forwardAttachmentsESet) result.append(forwardAttachments); else result.append("<unset>");
 		result.append(", wsdl: ");
 		if (wsdlESet) result.append(wsdl); else result.append("<unset>");
-		result.append(", retryPolicy: ");
-		result.append(retryPolicy);
 		result.append(')');
 		return result.toString();
 	}

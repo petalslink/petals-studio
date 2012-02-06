@@ -71,11 +71,12 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 					SoapPackage.Literals.SOAP_PROVIDES__HTTP_BASIC_AUTH_PASSWORD,
 					SoapPackage.Literals.SOAP_PROVIDES__ENABLE_COMPATIBILITY_FOR);
 
-		composite = createEditorSection( advancedTab, toolkit, "SOAP Headers" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
-					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_FILTER,
-					SoapPackage.Literals.SOAP_PROVIDES__INJECT_HEADERS,
-					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_TO_INJECT);
+		// Not described in the XML schema, and not detailed on the wiki
+//		composite = createEditorSection( advancedTab, toolkit, "SOAP Headers" );
+//		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+//					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_FILTER,
+//					SoapPackage.Literals.SOAP_PROVIDES__INJECT_HEADERS,
+//					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_TO_INJECT);
 
 		composite = createEditorSection( advancedTab, toolkit, "Proxy Settings" );
 		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
@@ -92,12 +93,13 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD);
 
-		composite = createEditorSection( advancedTab, toolkit, "WS-Addressing" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
-					SoapPackage.Literals.SOAP_PROVIDES__ENABLE_WSA,
-					SoapPackage.Literals.SOAP_PROVIDES__WSA_FROM,
-					SoapPackage.Literals.SOAP_PROVIDES__WSA_REPLY_TO,
-					SoapPackage.Literals.SOAP_PROVIDES__WSA_FAULT_TO);
+		// Not described in the XML schema, and not detailed on the wiki
+//		composite = createEditorSection( advancedTab, toolkit, "WS-Addressing" );
+//		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+//					SoapPackage.Literals.SOAP_PROVIDES__ENABLE_WSA,
+//					SoapPackage.Literals.SOAP_PROVIDES__WSA_FROM,
+//					SoapPackage.Literals.SOAP_PROVIDES__WSA_REPLY_TO,
+//					SoapPackage.Literals.SOAP_PROVIDES__WSA_FAULT_TO);
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
 		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );

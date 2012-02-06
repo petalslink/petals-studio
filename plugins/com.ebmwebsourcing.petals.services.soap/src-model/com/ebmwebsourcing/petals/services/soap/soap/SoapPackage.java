@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -8,6 +8,8 @@
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
  */
 package com.ebmwebsourcing.petals.services.soap.soap;
+
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
@@ -81,7 +83,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__GROUP = JbiPackage.PROVIDES__GROUP;
+	int SOAP_PROVIDES__GROUP = Cdk5Package.CDK5_PROVIDES__GROUP;
 
 	/**
 	 * The feature id for the '<em><b>Other</b></em>' attribute list.
@@ -90,7 +92,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__OTHER = JbiPackage.PROVIDES__OTHER;
+	int SOAP_PROVIDES__OTHER = Cdk5Package.CDK5_PROVIDES__OTHER;
 
 	/**
 	 * The feature id for the '<em><b>Local</b></em>' attribute list.
@@ -99,7 +101,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__LOCAL = JbiPackage.PROVIDES__LOCAL;
+	int SOAP_PROVIDES__LOCAL = Cdk5Package.CDK5_PROVIDES__LOCAL;
 
 	/**
 	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
@@ -108,7 +110,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__ENDPOINT_NAME = JbiPackage.PROVIDES__ENDPOINT_NAME;
+	int SOAP_PROVIDES__ENDPOINT_NAME = Cdk5Package.CDK5_PROVIDES__ENDPOINT_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
@@ -117,7 +119,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__INTERFACE_NAME = JbiPackage.PROVIDES__INTERFACE_NAME;
+	int SOAP_PROVIDES__INTERFACE_NAME = Cdk5Package.CDK5_PROVIDES__INTERFACE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
@@ -126,7 +128,88 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__SERVICE_NAME = JbiPackage.PROVIDES__SERVICE_NAME;
+	int SOAP_PROVIDES__SERVICE_NAME = Cdk5Package.CDK5_PROVIDES__SERVICE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Cdk Ext Container</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__CDK_EXT_CONTAINER = Cdk5Package.CDK5_PROVIDES__CDK_EXT_CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Timeout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__TIMEOUT = Cdk5Package.CDK5_PROVIDES__TIMEOUT;
+
+	/**
+	 * The feature id for the '<em><b>Su Interceptors</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__SU_INTERCEPTORS = Cdk5Package.CDK5_PROVIDES__SU_INTERCEPTORS;
+
+	/**
+	 * The feature id for the '<em><b>Validate Wsdl</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__VALIDATE_WSDL = Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL;
+
+	/**
+	 * The feature id for the '<em><b>Forward Security Subject</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__FORWARD_SECURITY_SUBJECT = Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT;
+
+	/**
+	 * The feature id for the '<em><b>Forward Message Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__FORWARD_MESSAGE_PROPERTIES = Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Forward Attachments</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__FORWARD_ATTACHMENTS = Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Wsdl</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__WSDL = Cdk5Package.CDK5_PROVIDES__WSDL;
+
+	/**
+	 * The feature id for the '<em><b>Retry Policy</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_PROVIDES__RETRY_POLICY = Cdk5Package.CDK5_PROVIDES__RETRY_POLICY;
 
 	/**
 	 * The feature id for the '<em><b>Address</b></em>' attribute.
@@ -135,7 +218,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__ADDRESS = JbiPackage.PROVIDES_FEATURE_COUNT + 0;
+	int SOAP_PROVIDES__ADDRESS = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Wsa Reply To</b></em>' attribute.
@@ -144,7 +227,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__WSA_REPLY_TO = JbiPackage.PROVIDES_FEATURE_COUNT + 1;
+	int SOAP_PROVIDES__WSA_REPLY_TO = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Wsa From</b></em>' attribute.
@@ -153,7 +236,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__WSA_FROM = JbiPackage.PROVIDES_FEATURE_COUNT + 2;
+	int SOAP_PROVIDES__WSA_FROM = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Wsa Fault To</b></em>' attribute.
@@ -162,7 +245,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__WSA_FAULT_TO = JbiPackage.PROVIDES_FEATURE_COUNT + 3;
+	int SOAP_PROVIDES__WSA_FAULT_TO = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Soap Version</b></em>' attribute.
@@ -171,7 +254,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__SOAP_VERSION = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
+	int SOAP_PROVIDES__SOAP_VERSION = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Chunked Mode</b></em>' attribute.
@@ -180,7 +263,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__CHUNKED_MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
+	int SOAP_PROVIDES__CHUNKED_MODE = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Synchonous Timeout</b></em>' attribute.
@@ -189,7 +272,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__SYNCHONOUS_TIMEOUT = JbiPackage.PROVIDES_FEATURE_COUNT + 6;
+	int SOAP_PROVIDES__SYNCHONOUS_TIMEOUT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Cleanup Transport</b></em>' attribute.
@@ -198,7 +281,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__CLEANUP_TRANSPORT = JbiPackage.PROVIDES_FEATURE_COUNT + 7;
+	int SOAP_PROVIDES__CLEANUP_TRANSPORT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Mode</b></em>' attribute.
@@ -207,7 +290,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__MODE = JbiPackage.PROVIDES_FEATURE_COUNT + 8;
+	int SOAP_PROVIDES__MODE = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Proxy Host</b></em>' attribute.
@@ -216,7 +299,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__PROXY_HOST = JbiPackage.PROVIDES_FEATURE_COUNT + 9;
+	int SOAP_PROVIDES__PROXY_HOST = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Proxy Port</b></em>' attribute.
@@ -225,7 +308,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__PROXY_PORT = JbiPackage.PROVIDES_FEATURE_COUNT + 10;
+	int SOAP_PROVIDES__PROXY_PORT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Proxy User</b></em>' attribute.
@@ -234,7 +317,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__PROXY_USER = JbiPackage.PROVIDES_FEATURE_COUNT + 11;
+	int SOAP_PROVIDES__PROXY_USER = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Proxy Password</b></em>' attribute.
@@ -243,7 +326,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__PROXY_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 12;
+	int SOAP_PROVIDES__PROXY_PASSWORD = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Proxy Domain</b></em>' attribute.
@@ -252,7 +335,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__PROXY_DOMAIN = JbiPackage.PROVIDES_FEATURE_COUNT + 13;
+	int SOAP_PROVIDES__PROXY_DOMAIN = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Headers Filter</b></em>' attribute.
@@ -261,7 +344,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HEADERS_FILTER = JbiPackage.PROVIDES_FEATURE_COUNT + 14;
+	int SOAP_PROVIDES__HEADERS_FILTER = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>Inject Headers</b></em>' attribute.
@@ -270,7 +353,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__INJECT_HEADERS = JbiPackage.PROVIDES_FEATURE_COUNT + 15;
+	int SOAP_PROVIDES__INJECT_HEADERS = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 15;
 
 	/**
 	 * The feature id for the '<em><b>Headers To Inject</b></em>' attribute.
@@ -279,7 +362,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HEADERS_TO_INJECT = JbiPackage.PROVIDES_FEATURE_COUNT + 16;
+	int SOAP_PROVIDES__HEADERS_TO_INJECT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Http Basic Auth Username</b></em>' attribute.
@@ -288,7 +371,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME = JbiPackage.PROVIDES_FEATURE_COUNT + 17;
+	int SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 17;
 
 	/**
 	 * The feature id for the '<em><b>Http Basic Auth Password</b></em>' attribute.
@@ -297,7 +380,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HTTP_BASIC_AUTH_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 18;
+	int SOAP_PROVIDES__HTTP_BASIC_AUTH_PASSWORD = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 18;
 
 	/**
 	 * The feature id for the '<em><b>Enable Compatibility For</b></em>' attribute.
@@ -306,7 +389,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__ENABLE_COMPATIBILITY_FOR = JbiPackage.PROVIDES_FEATURE_COUNT + 19;
+	int SOAP_PROVIDES__ENABLE_COMPATIBILITY_FOR = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 19;
 
 	/**
 	 * The feature id for the '<em><b>Enable Wsa</b></em>' attribute.
@@ -315,7 +398,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__ENABLE_WSA = JbiPackage.PROVIDES_FEATURE_COUNT + 20;
+	int SOAP_PROVIDES__ENABLE_WSA = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 20;
 
 	/**
 	 * The feature id for the '<em><b>Https Truststore File</b></em>' attribute.
@@ -324,7 +407,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE = JbiPackage.PROVIDES_FEATURE_COUNT + 21;
+	int SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 21;
 
 	/**
 	 * The feature id for the '<em><b>Https Truststore Password</b></em>' attribute.
@@ -333,7 +416,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 22;
+	int SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 22;
 
 	/**
 	 * The feature id for the '<em><b>Https Keystore File</b></em>' attribute.
@@ -342,7 +425,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HTTPS_KEYSTORE_FILE = JbiPackage.PROVIDES_FEATURE_COUNT + 23;
+	int SOAP_PROVIDES__HTTPS_KEYSTORE_FILE = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 23;
 
 	/**
 	 * The feature id for the '<em><b>Https Keystore Password</b></em>' attribute.
@@ -351,7 +434,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD = JbiPackage.PROVIDES_FEATURE_COUNT + 24;
+	int SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 24;
 
 	/**
 	 * The number of structural features of the '<em>Provides</em>' class.
@@ -360,7 +443,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 25;
+	int SOAP_PROVIDES_FEATURE_COUNT = Cdk5Package.CDK5_PROVIDES_FEATURE_COUNT + 25;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl <em>Consumes</em>}' class.
@@ -379,7 +462,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__GROUP = JbiPackage.CONSUMES__GROUP;
+	int SOAP_CONSUMES__GROUP = Cdk5Package.CDK5_CONSUMES__GROUP;
 
 	/**
 	 * The feature id for the '<em><b>Other</b></em>' attribute list.
@@ -388,7 +471,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__OTHER = JbiPackage.CONSUMES__OTHER;
+	int SOAP_CONSUMES__OTHER = Cdk5Package.CDK5_CONSUMES__OTHER;
 
 	/**
 	 * The feature id for the '<em><b>Local</b></em>' attribute list.
@@ -397,7 +480,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__LOCAL = JbiPackage.CONSUMES__LOCAL;
+	int SOAP_CONSUMES__LOCAL = Cdk5Package.CDK5_CONSUMES__LOCAL;
 
 	/**
 	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
@@ -406,7 +489,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__ENDPOINT_NAME = JbiPackage.CONSUMES__ENDPOINT_NAME;
+	int SOAP_CONSUMES__ENDPOINT_NAME = Cdk5Package.CDK5_CONSUMES__ENDPOINT_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
@@ -415,7 +498,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__INTERFACE_NAME = JbiPackage.CONSUMES__INTERFACE_NAME;
+	int SOAP_CONSUMES__INTERFACE_NAME = Cdk5Package.CDK5_CONSUMES__INTERFACE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
@@ -424,7 +507,52 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__SERVICE_NAME = JbiPackage.CONSUMES__SERVICE_NAME;
+	int SOAP_CONSUMES__SERVICE_NAME = Cdk5Package.CDK5_CONSUMES__SERVICE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Cdk Ext Container</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__CDK_EXT_CONTAINER = Cdk5Package.CDK5_CONSUMES__CDK_EXT_CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Timeout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__TIMEOUT = Cdk5Package.CDK5_CONSUMES__TIMEOUT;
+
+	/**
+	 * The feature id for the '<em><b>Su Interceptors</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__SU_INTERCEPTORS = Cdk5Package.CDK5_CONSUMES__SU_INTERCEPTORS;
+
+	/**
+	 * The feature id for the '<em><b>Operation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__OPERATION = Cdk5Package.CDK5_CONSUMES__OPERATION;
+
+	/**
+	 * The feature id for the '<em><b>Mep</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_CONSUMES__MEP = Cdk5Package.CDK5_CONSUMES__MEP;
 
 	/**
 	 * The feature id for the '<em><b>Soap Service Name</b></em>' attribute.
@@ -433,7 +561,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__SOAP_SERVICE_NAME = JbiPackage.CONSUMES_FEATURE_COUNT + 0;
+	int SOAP_CONSUMES__SOAP_SERVICE_NAME = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Soap Action</b></em>' attribute.
@@ -442,7 +570,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__SOAP_ACTION = JbiPackage.CONSUMES_FEATURE_COUNT + 1;
+	int SOAP_CONSUMES__SOAP_ACTION = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Synchonous Timeout</b></em>' attribute.
@@ -451,7 +579,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__SYNCHONOUS_TIMEOUT = JbiPackage.CONSUMES_FEATURE_COUNT + 2;
+	int SOAP_CONSUMES__SYNCHONOUS_TIMEOUT = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Mode</b></em>' attribute.
@@ -460,7 +588,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__MODE = JbiPackage.CONSUMES_FEATURE_COUNT + 3;
+	int SOAP_CONSUMES__MODE = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Enable Http Transport</b></em>' attribute.
@@ -469,7 +597,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT = JbiPackage.CONSUMES_FEATURE_COUNT + 4;
+	int SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Enable Https Transport</b></em>' attribute.
@@ -478,7 +606,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT = JbiPackage.CONSUMES_FEATURE_COUNT + 5;
+	int SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Enable Jms Transport</b></em>' attribute.
@@ -487,7 +615,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__ENABLE_JMS_TRANSPORT = JbiPackage.CONSUMES_FEATURE_COUNT + 6;
+	int SOAP_CONSUMES__ENABLE_JMS_TRANSPORT = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Enable Compatibility For</b></em>' attribute.
@@ -496,7 +624,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR = JbiPackage.CONSUMES_FEATURE_COUNT + 7;
+	int SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Enable Wsa</b></em>' attribute.
@@ -505,7 +633,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__ENABLE_WSA = JbiPackage.CONSUMES_FEATURE_COUNT + 8;
+	int SOAP_CONSUMES__ENABLE_WSA = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Http Services Redirection</b></em>' attribute.
@@ -514,7 +642,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION = JbiPackage.CONSUMES_FEATURE_COUNT + 9;
+	int SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Consumes</em>' class.
@@ -523,7 +651,7 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOAP_CONSUMES_FEATURE_COUNT = JbiPackage.CONSUMES_FEATURE_COUNT + 10;
+	int SOAP_CONSUMES_FEATURE_COUNT = Cdk5Package.CDK5_CONSUMES_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapComponentImpl <em>Component</em>}' class.
@@ -780,7 +908,6 @@ public interface SoapPackage extends EPackage {
 	 */
 	int SOAP_MODE = 4;
 
-
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.soap.soap.Compatibility <em>Compatibility</em>}' enum.
 	 * <!-- begin-user-doc -->
@@ -911,6 +1038,17 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSoapProvides_ProxyHost();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyPort <em>Proxy Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Proxy Port</em>'.
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyPort()
+	 * @see #getSoapProvides()
+	 * @generated
+	 */
+	EAttribute getSoapProvides_ProxyPort();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyUser <em>Proxy User</em>}'.
@@ -1065,17 +1203,6 @@ public interface SoapPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSoapProvides_HttpsKeystorePassword();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyPort <em>Proxy Port</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Proxy Port</em>'.
-	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyPort()
-	 * @see #getSoapProvides()
-	 * @generated
-	 */
-	EAttribute getSoapProvides_ProxyPort();
 
 	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapConsumes <em>Consumes</em>}'.
@@ -1471,6 +1598,14 @@ public interface SoapPackage extends EPackage {
 		EAttribute SOAP_PROVIDES__PROXY_HOST = eINSTANCE.getSoapProvides_ProxyHost();
 
 		/**
+		 * The meta object literal for the '<em><b>Proxy Port</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOAP_PROVIDES__PROXY_PORT = eINSTANCE.getSoapProvides_ProxyPort();
+
+		/**
 		 * The meta object literal for the '<em><b>Proxy User</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1581,14 +1716,6 @@ public interface SoapPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD = eINSTANCE.getSoapProvides_HttpsKeystorePassword();
-
-		/**
-		 * The meta object literal for the '<em><b>Proxy Port</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SOAP_PROVIDES__PROXY_PORT = eINSTANCE.getSoapProvides_ProxyPort();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapConsumesImpl <em>Consumes</em>}' class.

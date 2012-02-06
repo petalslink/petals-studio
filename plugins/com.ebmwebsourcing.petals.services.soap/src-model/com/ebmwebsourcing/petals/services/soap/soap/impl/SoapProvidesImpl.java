@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -9,13 +9,13 @@
  */
 package com.ebmwebsourcing.petals.services.soap.soap.impl;
 
+import com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl;
+
 import com.ebmwebsourcing.petals.services.soap.soap.Compatibility;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapMode;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapProvides;
-
 import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
-import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -60,7 +60,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
+public class SoapProvidesImpl extends CDK5ProvidesImpl implements SoapProvides {
 	/**
 	 * The default value of the '{@link #getAddress() <em>Address</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -965,6 +965,27 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getProxyPort() {
+		return proxyPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProxyPort(int newProxyPort) {
+		int oldProxyPort = proxyPort;
+		proxyPort = newProxyPort;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__PROXY_PORT, oldProxyPort, proxyPort));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getProxyUser() {
 		return proxyUser;
 	}
@@ -1252,27 +1273,6 @@ public class SoapProvidesImpl extends ProvidesImpl implements SoapProvides {
 		httpsKeystorePassword = newHttpsKeystorePassword;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD, oldHttpsKeystorePassword, httpsKeystorePassword));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int getProxyPort() {
-		return proxyPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setProxyPort(int newProxyPort) {
-		int oldProxyPort = proxyPort;
-		proxyPort = newProxyPort;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__PROXY_PORT, oldProxyPort, proxyPort));
 	}
 
 	/**

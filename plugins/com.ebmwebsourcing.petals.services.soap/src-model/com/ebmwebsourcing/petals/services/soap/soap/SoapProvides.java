@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -9,7 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.soap.soap;
 
-import com.sun.java.xml.ns.jbi.Provides;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ import com.sun.java.xml.ns.jbi.Provides;
  * @model extendedMetaData="name=''"
  * @generated
  */
-public interface SoapProvides extends Provides {
+public interface SoapProvides extends CDK5Provides {
 	/**
 	 * Returns the value of the '<em><b>Address</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -464,6 +464,33 @@ public interface SoapProvides extends Provides {
 	void setProxyHost(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Proxy Port</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Proxy Port</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Proxy Port</em>' attribute.
+	 * @see #setProxyPort(int)
+	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_ProxyPort()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element' name='proxy-port'"
+	 * @generated
+	 */
+	int getProxyPort();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyPort <em>Proxy Port</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Proxy Port</em>' attribute.
+	 * @see #getProxyPort()
+	 * @generated
+	 */
+	void setProxyPort(int value);
+
+	/**
 	 * Returns the value of the '<em><b>Proxy User</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -842,32 +869,5 @@ public interface SoapProvides extends Provides {
 	 * @generated
 	 */
 	void setHttpsKeystorePassword(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Proxy Port</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Proxy Port</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Proxy Port</em>' attribute.
-	 * @see #setProxyPort(int)
-	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_ProxyPort()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
-	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element' name='proxy-port'"
-	 * @generated
-	 */
-	int getProxyPort();
-
-	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getProxyPort <em>Proxy Port</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Proxy Port</em>' attribute.
-	 * @see #getProxyPort()
-	 * @generated
-	 */
-	void setProxyPort(int value);
 
 } // SoapProvides

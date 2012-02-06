@@ -47,6 +47,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.databinding.QNameTo
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.StringIsQNameValidator;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.StringToQNameConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.ToStringConverter;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
@@ -182,7 +183,9 @@ public class CDK5JBIEndpointUIHelper {
 
 		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(wsdlLocationText, SWT.Modify)),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL));
+				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL ));
+
+				// EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL));
 
 	}
 

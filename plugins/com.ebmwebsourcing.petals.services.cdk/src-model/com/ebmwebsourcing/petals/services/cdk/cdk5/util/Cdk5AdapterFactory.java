@@ -89,6 +89,10 @@ public class Cdk5AdapterFactory extends AdapterFactoryImpl {
 				return createCDK5ConsumesAdapter();
 			}
 			@Override
+			public Adapter caseRetryPolicy(RetryPolicy object) {
+				return createRetryPolicyAdapter();
+			}
+			@Override
 			public Adapter caseAbstractExtensibleElement(AbstractExtensibleElement object) {
 				return createAbstractExtensibleElementAdapter();
 			}
@@ -163,6 +167,20 @@ public class Cdk5AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCDK5ConsumesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy <em>Retry Policy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy
+	 * @generated
+	 */
+	public Adapter createRetryPolicyAdapter() {
 		return null;
 	}
 

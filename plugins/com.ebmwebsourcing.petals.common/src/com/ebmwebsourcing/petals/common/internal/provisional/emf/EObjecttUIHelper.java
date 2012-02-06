@@ -22,11 +22,13 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.IValidator;
 import org.eclipse.core.databinding.validation.ValidationStatus;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.databinding.EMFObservables;
-import org.eclipse.emf.databinding.edit.EMFEditObservables;
+import org.eclipse.emf.databinding.edit.EditingDomainEObjectObservableValue;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.AbstractOverrideableCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -169,7 +171,8 @@ public class EObjecttUIHelper {
 
 				IObservableValue iov = domain == null ?
 						EMFObservables.observeValue( eObject, entry.attribute )
-						: EMFEditObservables.observeValue( domain, eObject, entry.attribute );
+						// : EMFEditObservables.observeValue( domain, eObject, entry.attribute );
+						: createCustomEmfEditObservable( domain, eObject, entry.attribute );
 
 				Binding binding;
 				if( domain == null )
@@ -184,6 +187,44 @@ public class EObjecttUIHelper {
 	}
 
 
+
+	public static IObservableValue createCustomEmfEditObservable( EditingDomain domain, final EObject eo, final EAttribute ea ) {
+
+		return new EditingDomainEObjectObservableValue( domain, eo, ea ) {
+			 @Override
+			  protected void doSetValue( final Object value ) {
+
+			    Command command = new AbstractOverrideableCommand( this.domain, "MySetCommand" ) {
+			    	private Object oldValue;
+
+					@Override
+					public void doExecute() {
+						this.oldValue = eo.eGet( ea );
+						eo.eSet( ea, value );
+					}
+
+					@Override
+					public void doUndo() {
+						eo.eSet( ea, this.oldValue );
+					}
+
+					@Override
+					public void doRedo() {
+						execute();
+					}
+
+					@Override
+					public boolean doCanExecute() {
+						return true;
+					}
+			    };
+
+			    this.domain.getCommandStack().execute( command );
+			  }
+		};
+	}
+
+
 	/**
 	 * Produces the widgets.
 	 * @param toolkit
@@ -191,7 +232,7 @@ public class EObjecttUIHelper {
 	 * @param toProcessFeatures
 	 * @return
 	 */
-	public static List<EntryDescription> produceWidgets(
+	private static List<EntryDescription> produceWidgets(
 			FormToolkit toolkit,
 			Composite parent,
 			EStructuralFeature... toProcessFeatures ) {

@@ -11,12 +11,9 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.soap.v40;
 
-import org.eclipse.jface.wizard.IWizard;
-
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
 
 /**
@@ -52,29 +49,26 @@ public class SoapProvidesWizardPage40 extends SimpleFeatureListSuWizardPage {
 
 		if( visible ) {
 			boolean refresh = false;
-			IWizard wiz = getWizard();
-			if( wiz instanceof AbstractServiceUnitWizard ) {
-				SuWizardSettings settings = ((AbstractServiceUnitWizard) wiz).getSettings();
-				if( this.oldSoapAddress == null || ! this.oldSoapAddress.equals( settings.soapAddress )) {
-					this.oldSoapAddress = settings.soapAddress;
-					refresh = true;
-				}
+			SuWizardSettings settings = getWizard().getSettings();
+			if( this.oldSoapAddress == null || ! this.oldSoapAddress.equals( settings.soapAddress )) {
+				this.oldSoapAddress = settings.soapAddress;
+				refresh = true;
+			}
 
-				if( this.oldSoapVersion == null || ! this.oldSoapVersion.equals( settings.soapVersion )) {
-					this.oldSoapVersion = settings.soapVersion;
-					refresh = true;
-				}
+			if( this.oldSoapVersion == null || ! this.oldSoapVersion.equals( settings.soapVersion )) {
+				this.oldSoapVersion = settings.soapVersion;
+				refresh = true;
+			}
 
-				if( refresh ) {
-					getNewlyCreatedEndpoint().eSet( SoapPackage.Literals.SOAP_PROVIDES__ADDRESS, settings.soapAddress );
-					SoapVersion soapVersion = null;
-					if( "1.1".equals( settings.soapVersion ))
-						soapVersion = SoapVersion.SOAP_11;
-					else if( "1.2".equals( settings.soapVersion ))
-						soapVersion = SoapVersion.SOAP_12;
+			if( refresh ) {
+				getNewlyCreatedEndpoint().eSet( SoapPackage.Literals.SOAP_PROVIDES__ADDRESS, settings.soapAddress );
+				SoapVersion soapVersion = null;
+				if( "1.1".equals( settings.soapVersion ))
+					soapVersion = SoapVersion.SOAP_11;
+				else if( "1.2".equals( settings.soapVersion ))
+					soapVersion = SoapVersion.SOAP_12;
 
-					getNewlyCreatedEndpoint().eSet( SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION, soapVersion );
-				}
+				getNewlyCreatedEndpoint().eSet( SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION, soapVersion );
 			}
 		}
 

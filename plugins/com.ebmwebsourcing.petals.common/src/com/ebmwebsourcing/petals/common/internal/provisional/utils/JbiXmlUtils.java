@@ -64,11 +64,24 @@ public class JbiXmlUtils {
 		org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createFileURI( targetFile.getAbsolutePath());
 		Resource resource = new JbiResourceFactoryImpl().createResource( emfUri );
 		resource.getContents().add( jbiInstance );
+		resource.save( getJbiXmlSaveOptions());
+	}
+
+
+	/**
+	 * @return the save options for jbi.xml files
+	 */
+	public static Map<Object,Object> getJbiXmlSaveOptions() {
 
 		Map<Object,Object> options = new HashMap<Object,Object> ();
 		options.put( XMLResource.OPTION_ENCODING, "UTF-8" );
 		options.put( XMLResource.OPTION_ESCAPE_USING_CDATA, Boolean.TRUE );
-		resource.save( options );
+
+		// FIXME: are the following ones required?
+		// options.put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+		// options.put(XMLResource.OPTION_XML_MAP, xmlMap);
+
+		return options;
 	}
 
 

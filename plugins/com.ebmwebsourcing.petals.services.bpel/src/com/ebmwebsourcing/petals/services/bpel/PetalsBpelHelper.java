@@ -43,6 +43,7 @@ import org.eclipse.wst.wsdl.Service;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.EmfUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.services.bpel.bpel.BpelPackage;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.sun.java.xml.ns.jbi.Jbi;
 import com.sun.java.xml.ns.jbi.JbiFactory;
@@ -266,6 +267,7 @@ public class PetalsBpelHelper {
 			provides.setInterfaceName( bean.getInterfaceName());
 			provides.setServiceName( bean.getServiceName());
 			provides.setEndpointName( bean.getEndpointName());
+			Cdk5Utils.setInitialProvidesValues( provides );
 
 			String wsdlPath = IoUtils.getRelativeLocationToFile( jbiFile.getLocation().toFile(), bean.getWsdlFile());
 			provides.eSet( Cdk5Package.Literals.CDK5_PROVIDES__WSDL, wsdlPath );

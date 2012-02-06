@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -8,6 +8,10 @@
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
  */
 package com.ebmwebsourcing.petals.services.soap.soap.util;
+
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService;
 
 import com.ebmwebsourcing.petals.services.soap.soap.*;
 
@@ -101,12 +105,24 @@ public class SoapAdapterFactory extends AdapterFactoryImpl {
 				return createAbstractEndpointAdapter();
 			}
 			@Override
+			public Adapter caseCDKService(CDKService object) {
+				return createCDKServiceAdapter();
+			}
+			@Override
 			public Adapter caseProvides(Provides object) {
 				return createProvidesAdapter();
 			}
 			@Override
+			public Adapter caseCDK5Provides(CDK5Provides object) {
+				return createCDK5ProvidesAdapter();
+			}
+			@Override
 			public Adapter caseConsumes(Consumes object) {
 				return createConsumesAdapter();
+			}
+			@Override
+			public Adapter caseCDK5Consumes(CDK5Consumes object) {
+				return createCDK5ConsumesAdapter();
 			}
 			@Override
 			public Adapter caseComponent(Component object) {
@@ -203,6 +219,20 @@ public class SoapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService <em>CDK Service</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService
+	 * @generated
+	 */
+	public Adapter createCDKServiceAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link com.sun.java.xml.ns.jbi.Provides <em>Provides</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -217,6 +247,20 @@ public class SoapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides <em>CDK5 Provides</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides
+	 * @generated
+	 */
+	public Adapter createCDK5ProvidesAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link com.sun.java.xml.ns.jbi.Consumes <em>Consumes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -227,6 +271,20 @@ public class SoapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConsumesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes <em>CDK5 Consumes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes
+	 * @generated
+	 */
+	public Adapter createCDK5ConsumesAdapter() {
 		return null;
 	}
 

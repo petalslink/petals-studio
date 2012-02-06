@@ -16,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +71,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.sun.java.xml.ns.jbi.DocumentRoot;
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -299,8 +299,8 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	public void doSave( IProgressMonitor monitor ) {
 
 		// Save only resources that have actually changed.
-		final Map<Object,Object> saveOptions = new HashMap<Object,Object> ();
-		saveOptions.put( Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		final Map<Object,Object> saveOptions = JbiXmlUtils.getJbiXmlSaveOptions();
+		saveOptions.put( Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER );
 
 		// Do the work within an operation because this is a long running
 		// activity that modifies the workbench.

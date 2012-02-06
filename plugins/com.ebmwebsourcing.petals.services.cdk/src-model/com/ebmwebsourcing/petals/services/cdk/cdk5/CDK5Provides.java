@@ -274,30 +274,29 @@ public interface CDK5Provides extends CDKService, Provides {
 	boolean isSetWsdl();
 
 	/**
-	 * Returns the value of the '<em><b>Retry Policy</b></em>' attribute.
+	 * Returns the value of the '<em><b>Retry Policy</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Retry Policy</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Retry Policy</em>' attribute.
-	 * @see #setRetryPolicy(String)
+	 * @return the value of the '<em>Retry Policy</em>' reference.
+	 * @see #setRetryPolicy(RetryPolicy)
 	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package#getCDK5Provides_RetryPolicy()
-	 * @model derived="true"
-	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='validate-wsdl' group='#cdkExtContainer'"
+	 * @model extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='retrypolicy' group='#cdkExtContainer'"
 	 * @generated
 	 */
-	String getRetryPolicy();
+	RetryPolicy getRetryPolicy();
 
 	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getRetryPolicy <em>Retry Policy</em>}' attribute.
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getRetryPolicy <em>Retry Policy</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Retry Policy</em>' attribute.
+	 * @param value the new value of the '<em>Retry Policy</em>' reference.
 	 * @see #getRetryPolicy()
 	 * @generated
 	 */
-	void setRetryPolicy(String value);
+	void setRetryPolicy(RetryPolicy value);
 
 } // CDK5Provides

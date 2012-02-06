@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="soap"
     nsURI="http://petals.ow2.org/components/soap/version-4" nsPrefix="soap">
-  <eClassifiers xsi:type="ecore:EClass" name="SoapProvides" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Provides">
+  <eClassifiers xsi:type="ecore:EClass" name="SoapProvides" eSuperTypes="../../com.ebmwebsourcing.petals.services.cdk/model/cdk5.ecore#//CDK5Provides">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
@@ -229,7 +229,7 @@
     <eLiterals name="REST" value="1" literal="REST"/>
     <eLiterals name="TOPIC" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SoapConsumes" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Consumes">
+  <eClassifiers xsi:type="ecore:EClass" name="SoapConsumes" eSuperTypes="../../com.ebmwebsourcing.petals.services.cdk/model/cdk5.ecore#//CDK5Consumes">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>

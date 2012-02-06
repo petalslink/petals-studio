@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -298,7 +299,7 @@ public interface Cdk5Package extends EPackage {
 	int CDK5_PROVIDES__WSDL = CDK_SERVICE_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Retry Policy</b></em>' attribute.
+	 * The feature id for the '<em><b>Retry Policy</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -434,6 +435,43 @@ public interface Cdk5Package extends EPackage {
 	int CDK5_CONSUMES_FEATURE_COUNT = CDK_SERVICE_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.RetryPolicyImpl <em>Retry Policy</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.impl.RetryPolicyImpl
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.impl.Cdk5PackageImpl#getRetryPolicy()
+	 * @generated
+	 */
+	int RETRY_POLICY = 3;
+
+	/**
+	 * The feature id for the '<em><b>Attempts</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY_POLICY__ATTEMPTS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Delay</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY_POLICY__DELAY = 1;
+
+	/**
+	 * The number of structural features of the '<em>Retry Policy</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY_POLICY_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.Mep <em>Mep</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -441,7 +479,7 @@ public interface Cdk5Package extends EPackage {
 	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.impl.Cdk5PackageImpl#getMep()
 	 * @generated
 	 */
-	int MEP = 3;
+	int MEP = 4;
 
 
 	/**
@@ -553,15 +591,15 @@ public interface Cdk5Package extends EPackage {
 	EAttribute getCDK5Provides_Wsdl();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getRetryPolicy <em>Retry Policy</em>}'.
+	 * Returns the meta object for the reference '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getRetryPolicy <em>Retry Policy</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Retry Policy</em>'.
+	 * @return the meta object for the reference '<em>Retry Policy</em>'.
 	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getRetryPolicy()
 	 * @see #getCDK5Provides()
 	 * @generated
 	 */
-	EAttribute getCDK5Provides_RetryPolicy();
+	EReference getCDK5Provides_RetryPolicy();
 
 	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes <em>CDK5 Consumes</em>}'.
@@ -594,6 +632,38 @@ public interface Cdk5Package extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCDK5Consumes_Mep();
+
+	/**
+	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy <em>Retry Policy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Retry Policy</em>'.
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy
+	 * @generated
+	 */
+	EClass getRetryPolicy();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy#getAttempts <em>Attempts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Attempts</em>'.
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy#getAttempts()
+	 * @see #getRetryPolicy()
+	 * @generated
+	 */
+	EAttribute getRetryPolicy_Attempts();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy#getDelay <em>Delay</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Delay</em>'.
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy#getDelay()
+	 * @see #getRetryPolicy()
+	 * @generated
+	 */
+	EAttribute getRetryPolicy_Delay();
 
 	/**
 	 * Returns the meta object for enum '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.Mep <em>Mep</em>}'.
@@ -712,12 +782,12 @@ public interface Cdk5Package extends EPackage {
 		EAttribute CDK5_PROVIDES__WSDL = eINSTANCE.getCDK5Provides_Wsdl();
 
 		/**
-		 * The meta object literal for the '<em><b>Retry Policy</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Retry Policy</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CDK5_PROVIDES__RETRY_POLICY = eINSTANCE.getCDK5Provides_RetryPolicy();
+		EReference CDK5_PROVIDES__RETRY_POLICY = eINSTANCE.getCDK5Provides_RetryPolicy();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ConsumesImpl <em>CDK5 Consumes</em>}' class.
@@ -744,6 +814,32 @@ public interface Cdk5Package extends EPackage {
 		 * @generated
 		 */
 		EAttribute CDK5_CONSUMES__MEP = eINSTANCE.getCDK5Consumes_Mep();
+
+		/**
+		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.RetryPolicyImpl <em>Retry Policy</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.impl.RetryPolicyImpl
+		 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.impl.Cdk5PackageImpl#getRetryPolicy()
+		 * @generated
+		 */
+		EClass RETRY_POLICY = eINSTANCE.getRetryPolicy();
+
+		/**
+		 * The meta object literal for the '<em><b>Attempts</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RETRY_POLICY__ATTEMPTS = eINSTANCE.getRetryPolicy_Attempts();
+
+		/**
+		 * The meta object literal for the '<em><b>Delay</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RETRY_POLICY__DELAY = eINSTANCE.getRetryPolicy_Delay();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.Mep <em>Mep</em>}' enum.

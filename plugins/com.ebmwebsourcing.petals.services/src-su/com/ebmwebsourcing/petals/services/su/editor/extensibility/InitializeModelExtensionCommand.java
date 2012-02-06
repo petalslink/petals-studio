@@ -12,7 +12,7 @@
 
 package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.AbstractCommand;
@@ -73,15 +73,15 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 */
 	@Override
 	public void execute() {
-		for (EStructuralFeature targetFeature : this.targetFeatures) {
-			Entry entry = getMatchingGroupEntry(targetFeature);
-			if (entry == null)
+
+		for( EStructuralFeature targetFeature : this.targetFeatures ) {
+			Entry entry = getMatchingGroupEntry( targetFeature );
+			if( entry == null )
 				continue;
 
-			Object value = getActualValue(entry.getValue());
+			Object value = getActualValue( entry.getValue());
 			if (value != null) {
 				this.element.getGroup().remove(entry);
-
 				if (value instanceof String && targetFeature instanceof EAttribute) {
 					EDataType expectedType = ((EAttribute)targetFeature).getEAttributeType();
 					if (expectedType.equals(EcorePackage.Literals.EINT)) {
@@ -118,7 +118,7 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 		if( this.targetFeatures != null )
 		 return;
 
-		this.targetFeatures = new HashSet<EStructuralFeature>();
+		this.targetFeatures = new LinkedHashSet<EStructuralFeature>();
 		for( EClassifier classifier : this.extensionPackage.getEClassifiers()) {
 			if( classifier instanceof EClass ) {
 				EClass eClass = (EClass)classifier;
@@ -137,10 +137,8 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	private boolean needsAdditionalAttributes() {
 		for (EStructuralFeature targetFeature : this.targetFeatures) {
 			Entry actualCurrentEntry = getMatchingGroupEntry(targetFeature);
-			// found another feature for the same name // Should use QName
-			if (actualCurrentEntry != null && !this.targetFeatures.contains(actualCurrentEntry.getEStructuralFeature())) {
+			if( actualCurrentEntry != null )
 				return true;
-			}
 		}
 
 		return false;
@@ -160,7 +158,8 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 * @param referenceFeature
 	 * @return
 	 */
-	private Entry getMatchingGroupEntry(EStructuralFeature referenceFeature) {
+	private Entry getMatchingGroupEntry( EStructuralFeature referenceFeature ) {
+
 		for (FeatureMap.Entry entry : this.element.getGroup()) {
 			String actualName = ExtendedMetaData.INSTANCE.getName( entry.getEStructuralFeature());
 			String actualNamespace = ExtendedMetaData.INSTANCE.getNamespace(entry.getEStructuralFeature());
@@ -176,6 +175,7 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 			if( actualNamespace.equals( referenceNamespace ) && sameName )
 				return entry;
 		}
+
 		return null;
 	}
 

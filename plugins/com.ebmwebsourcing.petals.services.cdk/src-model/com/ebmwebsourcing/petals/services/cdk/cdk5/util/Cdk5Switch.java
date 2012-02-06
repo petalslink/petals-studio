@@ -103,6 +103,12 @@ public class Cdk5Switch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case Cdk5Package.RETRY_POLICY: {
+				RetryPolicy retryPolicy = (RetryPolicy)theEObject;
+				T result = caseRetryPolicy(retryPolicy);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -149,6 +155,21 @@ public class Cdk5Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCDK5Consumes(CDK5Consumes object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Retry Policy</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Retry Policy</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRetryPolicy(RetryPolicy object) {
 		return null;
 	}
 

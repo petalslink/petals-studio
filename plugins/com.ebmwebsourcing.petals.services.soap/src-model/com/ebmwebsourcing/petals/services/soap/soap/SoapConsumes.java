@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -9,7 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.soap.soap;
 
-import com.sun.java.xml.ns.jbi.Consumes;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +36,7 @@ import com.sun.java.xml.ns.jbi.Consumes;
  * @model extendedMetaData="name=''"
  * @generated
  */
-public interface SoapConsumes extends Consumes {
+public interface SoapConsumes extends CDK5Consumes {
 	/**
 	 * Returns the value of the '<em><b>Soap Service Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
