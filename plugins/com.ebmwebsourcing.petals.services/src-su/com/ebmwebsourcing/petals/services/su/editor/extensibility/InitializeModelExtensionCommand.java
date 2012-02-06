@@ -92,7 +92,7 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 						EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
 						this.element.eSet(targetFeature, literal.getInstance());
 
-					} else if (expectedType.getInstanceClass().equals(boolean.class)) {
+					} else if (expectedType.getInstanceClass().equals( boolean.class )) {
 						this.element.eSet(targetFeature, Boolean.valueOf((String)value));
 
 					} else {
@@ -108,18 +108,23 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 
 
 	/**
-	 *
+	 * Creates the target features.
+	 * <p>
+	 * This methods adds all the features from the extensions in the target features set.
+	 * </p>
 	 */
 	public void initializeFeatures() {
-		if (this.targetFeatures == null) {
-			this.targetFeatures = new HashSet<EStructuralFeature>();
-			for (EClassifier classifier : this.extensionPackage.getEClassifiers()) {
-				if (classifier instanceof EClass) {
-					EClass eClass = (EClass)classifier;
-					for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
-						((EStructuralFeatureImpl) feature).setFeatureID( -1 );
-						this.targetFeatures.add( feature );
-					}
+
+		if( this.targetFeatures != null )
+		 return;
+
+		this.targetFeatures = new HashSet<EStructuralFeature>();
+		for( EClassifier classifier : this.extensionPackage.getEClassifiers()) {
+			if( classifier instanceof EClass ) {
+				EClass eClass = (EClass)classifier;
+				for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
+					((EStructuralFeatureImpl) feature).setFeatureID( -1 );
+					this.targetFeatures.add( feature );
 				}
 			}
 		}
@@ -146,12 +151,8 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 * @param value
 	 * @return
 	 */
-	private Object getActualValue(Object value) {
-		if (value instanceof AnyType) {
-			return ((AnyType)value).getMixed().get(0).getValue();
-		} else {
-			return value;
-		}
+	private Object getActualValue( Object value ) {
+		return value instanceof AnyType ? ((AnyType)value).getMixed().get(0).getValue() : value;
 	}
 
 
@@ -161,15 +162,19 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 */
 	private Entry getMatchingGroupEntry(EStructuralFeature referenceFeature) {
 		for (FeatureMap.Entry entry : this.element.getGroup()) {
-			String actualCurrentFeatureName = entry.getEStructuralFeature().getName();
+			String actualName = ExtendedMetaData.INSTANCE.getName( entry.getEStructuralFeature());
 			String actualNamespace = ExtendedMetaData.INSTANCE.getNamespace(entry.getEStructuralFeature());
-			String referenceNamespace = ExtendedMetaData.INSTANCE.getName(referenceFeature);
-			if (actualNamespace.equals(referenceNamespace) &&
-					(actualCurrentFeatureName.equals(referenceFeature.getName()) || // static feature name
-					actualCurrentFeatureName.equals(ExtendedMetaData.INSTANCE.getName(referenceFeature))
-				)) { // or XML feature name
+
+			String referenceName = ExtendedMetaData.INSTANCE.getName( referenceFeature );
+			String referenceNamespace = ExtendedMetaData.INSTANCE.getNamespace( referenceFeature );
+
+			boolean sameName = actualName.equals( referenceName )
+					|| actualName.equals( referenceFeature.getName())
+					|| entry.getEStructuralFeature().getName().equals( referenceName )
+					|| entry.getEStructuralFeature().getName().equals( referenceFeature.getName());
+
+			if( actualNamespace.equals( referenceNamespace ) && sameName )
 				return entry;
-			}
 		}
 		return null;
 	}
