@@ -15,7 +15,6 @@ import javax.xml.namespace.QName;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -37,6 +36,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.filetransfer.FileTransferPlugin;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
+import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideGetControls;
+import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideWriteControls;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FileTransferProvidesWizard24.Contract;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
@@ -48,8 +49,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 	private Contract contract = Contract.WRITE_FILES;
 	private String writeDirectory, readDirectory, backupDirectory, filePattern;
 	private CopyMode copyMode = CopyMode.CONTENT_AND_ATTACHMENTS;
-	// private final TransferMode transferMode = TransferMode.CONTENT;
-	// private final int pollingPeriod = 1000;
 	private Image contractImage;
 
 
@@ -87,14 +86,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			if( StringUtils.isEmpty( this.readDirectory ))
 				error = "You have to define the directory to read.";
 		}
-
-		// CONSUME mode
-//		else {
-//			if( StringUtils.isEmpty( this.readDirectory ))
-//				error = "You have to define the directory to read.";
-//			else if( this.pollingPeriod <= 0 )
-//				error = "The polling period must be superior to zero.";
-//		}
 
 		// Update the UI
 		updateStatus( error );
@@ -156,79 +147,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 		contractCombo.notifyListeners( SWT.Selection, new Event());
 
 
-//			// Directories first
-//			String[] labels = { "Read Directory:", "Backup Directory:" };
-//			String[] tooltips = { "The directory to read", "The directory into which read files are moved (the temporary directory by default)" };
-//			final Text[] texts = new Text[ 2 ];
-//
-//			for( int i=0; i<labels.length; i++ ) {
-//				Label l = new Label( container, SWT.NONE );
-//				l.setText( labels[ i ]);
-//				l.setToolTipText( tooltips[ i ]);
-//
-//				texts[ i ] = createFileBrowser( container );
-//				final int cpt = i;
-//				texts[ i ].addModifyListener( new ModifyListener() {
-//					public void modifyText( ModifyEvent e ) {
-//						setValue( cpt, ((Text) e.widget).getText().trim());
-//						validate();
-//					}
-//				});
-//			}
-//
-//			// Other details
-//			Label l = new Label( container, SWT.NONE );
-//			l.setText( "Transfer Mode:" );
-//			l.setToolTipText( "The way files are sent into Petals ESB" );
-//
-//			final ComboViewer viewer = new ComboViewer( container, SWT.SINGLE | SWT.BORDER );
-//			viewer.getCombo().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-//			viewer.setContentProvider( new ArrayContentProvider());
-//			viewer.setLabelProvider( new LabelProvider());
-//			viewer.setInput( TransferMode.values());
-//			viewer.setSelection( new StructuredSelection( this.transferMode ));
-//
-//			viewer.addSelectionChangedListener( new ISelectionChangedListener() {
-//				public void selectionChanged( SelectionChangedEvent event ) {
-//					Object o = ((IStructuredSelection) event.getSelection()).getFirstElement();
-//					FTComponentPage.this.transferMode = (TransferMode) o;
-//				}
-//			});
-//
-//			l = new Label( container, SWT.NONE );
-//			l.setText( "File Pattern:" );
-//			l.setToolTipText( "The file name pattern to filter the resources to process" );
-//
-//			Text text = new Text( container, SWT.SINGLE | SWT.BORDER );
-//			text.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-//			text.setText( "*" );
-//			text.addModifyListener( new ModifyListener() {
-//				public void modifyText( ModifyEvent e ) {
-//					FTComponentPage.this.filePattern = ((Text) e.widget).getText().trim();
-//					validate();
-//				}
-//			});
-//
-//			l = new Label( container, SWT.NONE );
-//			l.setText( "Polling Period:" );
-//			l.setToolTipText( "The time between each polling" );
-//
-//			final Spinner pollingSpinner = new Spinner( container, SWT.BORDER );
-//			pollingSpinner.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-//			pollingSpinner.setMaximum( Integer.MAX_VALUE );
-//			pollingSpinner.setMinimum( 0 );
-//			pollingSpinner.setIncrement( 100 );
-//			pollingSpinner.setPageIncrement( 1000 );
-//			pollingSpinner.setDigits( 0 );
-//			pollingSpinner.setSelection( this.pollingPeriod );
-//			pollingSpinner.addModifyListener( new ModifyListener() {
-//				public void modifyText( ModifyEvent e ) {
-//					FTComponentPage.this.pollingPeriod = pollingSpinner.getSelection();
-//					validate();
-//				}
-//			});
-
-
 		// Complete the page
 		validate();
 		setErrorMessage( null );
@@ -251,22 +169,25 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 
 		// Add the new children: "write" mode first
 		if( this.contract == Contract.WRITE_FILES ) {
-			SwtFactory.createLabel( container,  "Write Directory *:", "The directory in which the message content will be written" );
-			Text text = SwtFactory.createDirectoryBrowser( container ).getText();
-			if( this.writeDirectory != null )
-				text.setText( this.writeDirectory );
+			FileTransferProvideWriteControls controls = new FileTransferProvideWriteControls();
+			controls.createControls( container );
 
-			text.addModifyListener( new ModifyListener() {
+
+			// Write directory
+			if( this.writeDirectory != null )
+				controls.getDirectoryText().setText( this.writeDirectory );
+
+			controls.getDirectoryText().addModifyListener( new ModifyListener() {
 				public void modifyText( ModifyEvent e ) {
 					FiletransferProvidesPage.this.writeDirectory = ((Text) e.widget).getText().trim();
 					validate();
 				}
 			});
 
-			SwtFactory.createLabel( container, "Write Mode *:", "What part(s) of the message should be written" );
-			final ComboViewer viewer = SwtFactory.createDefaultComboViewer( container, true, true, CopyMode.values());
-			viewer.setSelection( new StructuredSelection( this.copyMode ));
-			viewer.addSelectionChangedListener( new ISelectionChangedListener() {
+
+			// Copy mode
+			controls.getCopyModeViewer().setSelection( new StructuredSelection( this.copyMode ));
+			controls.getCopyModeViewer().addSelectionChangedListener( new ISelectionChangedListener() {
 				public void selectionChanged( SelectionChangedEvent event ) {
 					Object o = ((IStructuredSelection) event.getSelection()).getFirstElement();
 					FiletransferProvidesPage.this.copyMode = (CopyMode) o;
@@ -274,12 +195,11 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			});
 
 
-			SwtFactory.createLabel( container, "File Name:", "The base name of the file to write (will be appended the system date)" );
-			text = SwtFactory.createSimpleTextField( container, true );
+			// File pattern
 			if( this.filePattern != null )
-				text.setText( this.filePattern );
+				controls.getFilenameText().setText( this.filePattern );
 
-			text.addModifyListener( new ModifyListener() {
+			controls.getFilenameText().addModifyListener( new ModifyListener() {
 				public void modifyText( ModifyEvent e ) {
 					FiletransferProvidesPage.this.filePattern = ((Text) e.widget).getText().trim();
 					validate();
@@ -289,41 +209,34 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 
 		// "Get files" mode then
 		else {
-			String[] labels = { "Read Directory *:", "Backup Directory:" };
-			String[] tooltips = { "The directory to read", "The directory into which read files are moved (the temporary directory by default)" };
-			final Text[] texts = new Text[ 2 ];
+			FileTransferProvideGetControls controls = new FileTransferProvideGetControls();
+			controls.createControls( container );
 
-			for( int i=0; i<labels.length; i++ ) {
-				SwtFactory.createLabel( container, labels[ i ], tooltips[ i ]);
+			// Read directory
+			if( this.readDirectory != null )
+				controls.getReadText().setText( this.readDirectory );
 
-				texts[ i ] = SwtFactory.createDirectoryBrowser( container ).getText();
-				String value = i == 0 ? this.readDirectory : this.backupDirectory;
-				if( value != null )
-					texts[ i ].setText( value );
+			controls.getReadText().addModifyListener( new ModifyListener() {
+				public void modifyText( ModifyEvent e ) {
+					FiletransferProvidesPage.this.readDirectory = ((Text) e.widget).getText().trim();
+					validate();
+				}
+			});
 
-				final int cpt = i;
-				texts[ i ].addModifyListener( new ModifyListener() {
-					public void modifyText( ModifyEvent e ) {
-						setValue( cpt, ((Text) e.widget).getText().trim());
-						validate();
-					}
-				});
-			}
+
+			// Backup directory
+			if( this.backupDirectory != null )
+				controls.getBackupText().setText( this.backupDirectory );
+
+			controls.getBackupText().addModifyListener( new ModifyListener() {
+				public void modifyText( ModifyEvent e ) {
+					FiletransferProvidesPage.this.backupDirectory = ((Text) e.widget).getText().trim();
+					validate();
+				}
+			});
 		}
 
 		container.layout();
-	}
-
-
-	/**
-	 * @param i
-	 * @param value
-	 */
-	private void setValue( int i, String value ) {
-		if( i == 0 )
-			this.readDirectory = value;
-		else
-			this.backupDirectory = value;
 	}
 
 

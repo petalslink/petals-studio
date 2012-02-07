@@ -41,7 +41,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
 		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
 
-		composite = createEditorSection( mainTab, toolkit, "SOAP", true );
+		composite = createEditorSection( mainTab, toolkit, "SOAP Parameters", true );
 		EObjecttUIHelper.generateWidgets(
 				endpoint,
 				toolkit,
@@ -91,7 +91,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_FILE,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE,
-					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD);
+					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_PASSWORD );
 
 		// Not described in the XML schema, and not detailed on the wiki
 //		composite = createEditorSection( advancedTab, toolkit, "WS-Addressing" );

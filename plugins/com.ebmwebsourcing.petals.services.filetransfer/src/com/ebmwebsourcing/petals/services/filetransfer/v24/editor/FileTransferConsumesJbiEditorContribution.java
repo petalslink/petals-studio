@@ -11,59 +11,50 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
 
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
-import com.ebmwebsourcing.petals.services.filetransfer.Messages;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
  */
-public class FileTransferConsumesJbiEditorContribution implements JbiEditorDetailsContribution {
+public class FileTransferConsumesJbiEditorContribution extends JbiEditorDetailsContribution {
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addMainSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
-		mainTab.setLayout(new GridLayout(1, false));
-		mainTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		Section identificationSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-		identificationSection.setText(Messages.identification);
-		identificationSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite identificationComposite = toolkit.createComposite(identificationSection);
-		identificationComposite.setLayout(new GridLayout(2, false));
-		identificationSection.setClient(identificationComposite);
-
-		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, identificationComposite, ise);
+		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, composite, ise);
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addAdvancedSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
-		advancedTab.setLayout(new GridLayout(1, false));
-		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		Section ftSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-		ftSection.setText(Messages.fileTransfer);
-		ftSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite ftComposite = toolkit.createComposite(ftSection);
-		ftComposite.setLayout(new GridLayout(2, false));
-		ftSection.setClient(ftComposite);
-		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ftComposite, ise, Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES);
-
-		Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-		cdkSection.setText("CDK");
-		cdkSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite cdkComposite = toolkit.createComposite(cdkSection);
-		cdkComposite.setLayout(new GridLayout(2, false));
-		cdkSection.setClient(cdkComposite);
-		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_CONSUMES);
+		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters" );
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__READ_DIRECTORY,
+		Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY,
+		Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN,
+		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__TRANSFER_MODE,
+		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__POLLING_PERIOD );
 	}
-
 }

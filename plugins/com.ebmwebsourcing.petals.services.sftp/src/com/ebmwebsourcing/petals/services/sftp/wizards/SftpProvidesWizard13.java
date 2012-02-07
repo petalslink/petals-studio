@@ -72,7 +72,7 @@ public class SftpProvidesWizard13 extends SftpProvidesWizard12 {
 				SftpPackage.Literals.SFTP_PROVIDES__FOLDER,
 				SftpPackage.Literals.SFTP_PROVIDES__MAX_IDLE_TIME,
 				SftpPackage.Literals.SFTP_PROVIDES__OVERWRITE,
-				SftpPackage.Literals.SFTP_PROVIDES__MAX_CONNECTION)
+				SftpPackage.Literals.SFTP_PROVIDES__MAX_CONNECTION )
 		};
 	}
 }

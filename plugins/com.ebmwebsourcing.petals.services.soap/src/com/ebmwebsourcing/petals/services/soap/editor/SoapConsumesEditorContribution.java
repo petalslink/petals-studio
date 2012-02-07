@@ -16,11 +16,9 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -38,8 +36,7 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
-		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
+		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "SOAP", true );
 		EObjecttUIHelper.generateWidgets(
@@ -71,8 +68,5 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT,
 					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_WSA,
 					SoapPackage.Literals.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION );
-
-		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

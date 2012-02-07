@@ -101,7 +101,6 @@ public class FileTransferConsumesWizardPage3 extends AbstractSuWizardPage {
 			public void widgetSelected( SelectionEvent e ) {
 
 				int index = ((Combo) e.widget).getSelectionIndex();
-				AbstractEndpoint ae = getNewlyCreatedEndpoint();
 				Color bgColor;
 				if( index == 0 ) {
 					bgColor = getShell().getDisplay().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND );

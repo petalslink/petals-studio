@@ -40,6 +40,7 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -151,18 +152,20 @@ public class EObjecttUIHelper {
 
 		for (EntryDescription entry : entries) {
 			IObservableValue widgetObservable = null;
-			if (entry.widget instanceof Text) {
+			if( entry.widget instanceof Text )
 				widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText((Text) entry.widget, SWT.Modify ));
 
-			} else if (entry.widget instanceof Spinner) {
+			else if( entry.widget instanceof StyledText )
+				widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText((StyledText) entry.widget, SWT.Modify ));
+
+			else if( entry.widget instanceof Spinner )
 				widgetObservable = SWTObservables.observeSelection((Spinner) entry.widget);
 
-			} else if (entry.widget instanceof ISelectionProvider) {
+			else if( entry.widget instanceof ISelectionProvider )
 				widgetObservable = ViewersObservables.observeSingleSelection((ISelectionProvider) entry.widget);
 
-			} else if (entry.widget instanceof Button) {
+			else if( entry.widget instanceof Button )
 				widgetObservable = SWTObservables.observeSelection((Button) entry.widget);
-			}
 
 			if( widgetObservable != null ) {
 				UpdateValueStrategy targetToModel = new UpdateValueStrategy();

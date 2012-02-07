@@ -11,20 +11,17 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.xslt.editor;
 
-import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
@@ -33,65 +30,48 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
- *
  */
-public class XsltProvidesEditorContribution implements JbiEditorDetailsContribution {
+public class XsltProvidesEditorContribution extends JbiEditorDetailsContribution {
 
-	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
-		mainTab.setLayout(new GridLayout(1, false));
-		mainTab.setLayoutData(new GridData(GridData.FILL_BOTH));
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addMainSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
+	public void addMainSUContent( final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise ) {
 
-		Section identificationSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-		identificationSection.setText("Identification");
-		identificationSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite identificationComposite = toolkit.createComposite(identificationSection);
-		identificationComposite.setLayout(new GridLayout(2, false));
-		identificationSection.setClient(identificationComposite);
+		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
+		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
 
-		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, identificationComposite, ise);
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, identificationComposite, ise);
-
-		{
-			Section ejbSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-			ejbSection.setText("XSLT Transformation");
-			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-			Composite ejbComposite = toolkit.createComposite(ejbSection);
-			ejbComposite.setLayout(new GridLayout(2, false));
-			ejbSection.setClient(ejbComposite);
-
-			SwtFactory.createLabel(ejbComposite, "XSLT stylesheet", "Relative path to the XSLT StyleSheet to use");
-			TextWithButtonComposite browser = SwtFactory.createFileBrowser(ejbComposite, false, false, ".xsl,.xslt");
-			browser.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-			ise.getDataBindingContext().bindValue(SWTObservables.observeText(browser.getText(), SWT.Modify),
-					EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET));
-		}
+		composite = createEditorSection( mainTab, toolkit, "XSLT Parameters", true );
+		SwtFactory.createLabel( composite, "XSL Stylesheet *:", "Relative path to the XSLT File");
+		TextWithButtonComposite browser = SwtFactory.createFileBrowser( composite, false, false, "XSLT" );
+		browser.setLayoutData( new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+		ise.getDataBindingContext().bindValue( SWTObservables.observeText(browser.getText(), SWT.Modify),
+		EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET ));
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
+	 * #addAdvancedSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
+	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
+	 */
+	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
-		advancedTab.setLayout(new GridLayout(1, false));
-		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		{
-			Section ejbSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-			ejbSection.setText("XSLT Transformation");
-			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-			Composite ejbComposite = toolkit.createComposite(ejbSection);
-			ejbComposite.setLayout(new GridLayout(2, false));
-			ejbSection.setClient(ejbComposite);
+		Composite composite = createEditorSection( advancedTab, toolkit, "XSLT Parameters" );
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+				XsltPackage.Literals.XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME,
+				XsltPackage.Literals.XSLT_PROVIDES__XSLT_ENGINE_FACTORY_CLASS_NAME,
+				XsltPackage.Literals.XSLT_PROVIDES__TRANSFORMER_FACTORY_MIN,
+				XsltPackage.Literals.XSLT_PROVIDES__TRANSFORMER_FACTORY_MAX );
 
-			EObjecttUIHelper.generateWidgets(endpoint, toolkit, ejbComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true, XsltPackage.Literals.XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME);
-		}
-
-		{
-			Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-			cdkSection.setText("CDK");
-			cdkSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-			Composite cdkComposite = toolkit.createComposite(cdkSection);
-			cdkComposite.setLayout(new GridLayout(2, false));
-			cdkSection.setClient(cdkComposite);
-
-			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_PROVIDES);
-		}
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
-
 }

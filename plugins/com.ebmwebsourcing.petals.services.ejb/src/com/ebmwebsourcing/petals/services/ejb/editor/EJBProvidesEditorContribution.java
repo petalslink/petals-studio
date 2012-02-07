@@ -11,16 +11,12 @@
 
 package com.ebmwebsourcing.petals.services.ejb.editor;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -30,7 +26,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 /**
  * @author Mickael Istria - EBM WebSourcing
  */
-public class EJBProvidesEditorContribution implements JbiEditorDetailsContribution {
+public class EJBProvidesEditorContribution extends JbiEditorDetailsContribution {
 
 	/*
 	 * (non-Javadoc)
@@ -39,24 +35,11 @@ public class EJBProvidesEditorContribution implements JbiEditorDetailsContributi
 	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
 	 */
 	@Override
-	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
+	public void addMainSUContent( final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise ) {
 
-		final EditingDomain editingDomain = ise.getEditingDomain();
-		final DataBindingContext dbc = ise.getDataBindingContext();
-
-		mainTab.setLayout(new GridLayout(1, false));
-		mainTab.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-		Section identificationSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-		identificationSection.setText("Identification");
-		identificationSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite identificationComposite = toolkit.createComposite(identificationSection);
-		identificationComposite.setLayout(new GridLayout(2, false));
-		identificationSection.setClient(identificationComposite);
-
-		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, identificationComposite, ise);
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, identificationComposite, ise);
-
+		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
+		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
 	}
 
 
@@ -68,28 +51,23 @@ public class EJBProvidesEditorContribution implements JbiEditorDetailsContributi
 	 */
 	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
-		advancedTab.setLayout(new GridLayout(1, false));
-		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		{
-			Section ejbSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-			ejbSection.setText("EJB");
-			ejbSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-			Composite ejbComposite = toolkit.createComposite(ejbSection);
-			ejbComposite.setLayout(new GridLayout(2, false));
-			ejbSection.setClient(ejbComposite);
+		Composite composite = createEditorSection( advancedTab, toolkit, "JNDI Parameters" );
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+				EjbPackage.Literals.EJB_PROVIDES__EJB_JNDI_NAME,
+				EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL,
+				EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_URL_PKGS,
+				EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL );
 
-			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, ejbComposite, ise, EjbPackage.Literals.EJB_PROVIDES);
-		}
-		{
-			Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-			cdkSection.setText("CDK");
-			cdkSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-			Composite cdkComposite = toolkit.createComposite(cdkSection);
-			cdkComposite.setLayout(new GridLayout(2, false));
-			cdkSection.setClient(cdkComposite);
+		composite = createEditorSection( advancedTab, toolkit, "EJB Parameters" );
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+				EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION,
+				EjbPackage.Literals.EJB_PROVIDES__EJB_HOME_INTERFACE,
+				EjbPackage.Literals.EJB_PROVIDES__SECURITY_NAME,
+				EjbPackage.Literals.EJB_PROVIDES__SECURITY_PRINCIPAL,
+				EjbPackage.Literals.EJB_PROVIDES__SECURITY_CREDENCIALS );
 
-			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_PROVIDES);
-		}
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

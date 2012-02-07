@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.databinding,
  org.eclipse.jface.databinding,
  com.ebmwebsourcing.petals.services.cdk,
- org.eclipse.ui.forms
+ org.eclipse.ui.forms,
+ org.eclipse.emf.edit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.pojo.PetalsPojoPlugin

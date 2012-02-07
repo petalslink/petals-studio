@@ -15,7 +15,7 @@ import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContribu
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 
 /**
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class FileTransferContributionSupport extends EditorContributionSupport {
 
@@ -28,6 +28,7 @@ public class FileTransferContributionSupport extends EditorContributionSupport {
 	protected JbiEditorDetailsContribution getProvidesContribution() {
 		return new FileTransferProvidesJbiEditorContribution();
 	}
+
 
 	/*
 	 * (non-Javadoc)

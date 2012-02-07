@@ -1,25 +1,43 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2012, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.services.mail.editor;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.su.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class MailEditorContribution extends EditorContributionSupport {
 
-	public MailEditorContribution() {
-		// TODO Auto-generated constructor stub
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport
+	 * #getProvidesContribution()
+	 */
 	@Override
 	protected JbiEditorDetailsContribution getProvidesContribution() {
 		return new MailProvidesEditorContribution();
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport
+	 * #getConsumesContribution()
+	 */
 	@Override
 	protected JbiEditorDetailsContribution getConsumesContribution() {
 		return new MailConsumesEditorContribution();
 	}
-
 }

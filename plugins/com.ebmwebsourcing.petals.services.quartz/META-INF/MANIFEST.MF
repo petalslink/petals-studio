@@ -21,9 +21,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.databinding,
  org.eclipse.emf.databinding,
  org.eclipse.jface.databinding,
- com.ebmwebsourcing.petals.services.cdk;bundle-version="1.0.0",
- org.eclipse.ui.forms;bundle-version="3.5.100",
- com.ebmwebsourcing.petals.common;bundle-version="1.0.0"
+ com.ebmwebsourcing.petals.services.cdk,
+ org.eclipse.ui.forms,
+ com.ebmwebsourcing.petals.common,
+ org.eclipse.emf.edit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.quartz.PetalsQuartzPlugin

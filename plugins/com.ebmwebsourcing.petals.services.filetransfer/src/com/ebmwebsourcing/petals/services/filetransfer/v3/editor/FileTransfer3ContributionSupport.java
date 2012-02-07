@@ -29,6 +29,7 @@ public class FileTransfer3ContributionSupport extends EditorContributionSupport 
 		return new FileTransfer3ProvidesJbiEditorContribution();
 	}
 
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport
