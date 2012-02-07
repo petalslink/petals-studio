@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright (c) 2012, EBM WebSourcing
+ * Copyright (c) 2011-2012, EBM WebSourcing
  *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -72,16 +72,59 @@ public abstract class JbiEditorDetailsContribution {
 	 * @return a composite (which the client of a section)
 	 */
 	protected Composite createEditorSection( Composite parent, FormToolkit toolkit, String title, boolean expandable ) {
+		return createEditorSection( parent, toolkit, title, null, expandable );
+	}
+
+
+	/**
+	 * Creates an editor section.
+	 * @param parent
+	 * @param toolkit
+	 * @param title
+	 * @param description
+	 * @param expandable true to make it expandable, false otherwise
+	 * @return a composite (which the client of a section)
+	 */
+	protected Composite createEditorSection( Composite parent, FormToolkit toolkit, String title, String description, boolean expandable ) {
 
 		int style = expandable ? Section.EXPANDED | Section.TITLE_BAR : Section.TITLE_BAR | ExpandableComposite.TWISTIE;
+		if( description != null )
+			style |= Section.DESCRIPTION;
+
 		Section section = toolkit.createSection( parent, style );
 		section.setText( title );
 		section.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		if( description != null ) {
+			section.setDescription( description );
+			section.clientVerticalSpacing = 10;
+		}
 
 		Composite composite = toolkit.createComposite( section );
 		composite.setLayout( new GridLayout( 2, false ));
 		section.setClient( composite );
 
 		return composite;
+	}
+
+
+	/**
+	 * Creates the common section for "provides" blocks.
+	 * @param parent
+	 * @param toolkit
+	 * @return a composite
+	 */
+	protected Composite createCommonProvideSection( Composite parent, FormToolkit toolkit ) {
+		return createEditorSection( parent, toolkit, "Identification", "Edit the service identifiers and WSDL properties.", true );
+	}
+
+
+	/**
+	 * Creates the common section for "consumes" blocks.
+	 * @param parent
+	 * @param toolkit
+	 * @return a composite
+	 */
+	protected Composite createCommonConsumeSection( Composite parent, FormToolkit toolkit ) {
+		return createEditorSection( parent, toolkit, "Identification", "Define the service search filters and invocation properties.", true );
 	}
 }

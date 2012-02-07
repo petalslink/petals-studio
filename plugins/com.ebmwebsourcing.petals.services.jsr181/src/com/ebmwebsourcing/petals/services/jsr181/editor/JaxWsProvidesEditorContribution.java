@@ -20,7 +20,6 @@ import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.jsr181.jsr181.Jsr181Package;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -37,9 +36,8 @@ public class JaxWsProvidesEditorContribution extends JbiEditorDetailsContributio
 	@Override
 	public void addMainSUContent( final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise ) {
 
-		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		Composite composite = createCommonProvideSection( mainTab, toolkit );
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "JSR-181 Parameters", true );
 		EObjecttUIHelper.generateWidgets(

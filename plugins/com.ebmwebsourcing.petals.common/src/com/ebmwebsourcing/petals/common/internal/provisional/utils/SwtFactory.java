@@ -216,11 +216,29 @@ public class SwtFactory {
 	 * </code>
 	 *
 	 * @param parent
-	 * @param readOnly
+	 * @return
+	 */
+	public static StyledText createXmlTextViewer( Composite parent ) {
+		return createXmlTextViewer( parent, true );
+	}
+
+
+	/**
+	 * Creates a styled text with syntax highlighting for XML document.
+	 * <p>
+	 * Be careful, the layout data must be applied on the parent of the result.
+	 * </p>
+	 * <code>
+	 * StyledText st = SwtFactory.createXmlTextViewer( parent );<br />
+	 * st.getParent().setLayoutData( new GridData());
+	 * </code>
+	 *
+	 * @param parent
+	 * @param horizontalScroll
 	 * @return
 	 */
 	@SuppressWarnings( "restriction" )
-	public static StyledText createXmlTextViewer( Composite parent ) {
+	public static StyledText createXmlTextViewer( Composite parent, boolean showHorizontalScroll ) {
 
 		Composite editor = new Composite( parent, SWT.NONE );
 		editor.setLayout( new FillLayout ());
@@ -241,7 +259,10 @@ public class SwtFactory {
 
 		SourceViewer viewer = null;
 		String contentTypeID = ContentTypeIdForXML.ContentTypeID_XML;
-		viewer = new StructuredTextViewer( editor, null, null, false, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
+		int style = SWT.BORDER | SWT.V_SCROLL;
+		style |= showHorizontalScroll ? SWT.V_SCROLL : SWT.WRAP;
+
+		viewer = new StructuredTextViewer( editor, null, null, false, style );
 		((StructuredTextViewer) viewer).getTextWidget().setFont( JFaceResources.getFont( "org.eclipse.wst.sse.ui.textfont" )); //$NON-NLS-1$
 		IStructuredModel scratchModel = StructuredModelManager.getModelManager().createUnManagedStructuredModelFor( contentTypeID );
 		IDocument document = scratchModel.getStructuredDocument();
@@ -626,6 +647,8 @@ public class SwtFactory {
 					new WorkbenchContentProvider());
 
 		dlg.setInput( container );
+		dlg.setTitle( title );
+		dlg.setMessage( desription );
 		return dlg;
 	}
 
@@ -682,6 +705,8 @@ public class SwtFactory {
 					});
 
 		dlg.setInput( container );
+		dlg.setTitle( title );
+		dlg.setMessage( desription );
 		return dlg;
 	}
 

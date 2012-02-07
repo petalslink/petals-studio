@@ -15,6 +15,7 @@ package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap.Entry;
 import org.eclipse.emf.ecore.xml.type.AnyType;
 
+import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 
 /**
@@ -82,25 +84,40 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 			Object value = getActualValue( entry.getValue());
 			if (value != null) {
 				this.element.getGroup().remove(entry);
-				if (value instanceof String && targetFeature instanceof EAttribute) {
-					EDataType expectedType = ((EAttribute)targetFeature).getEAttributeType();
-					if (expectedType.equals(EcorePackage.Literals.EINT)) {
-						this.element.eSet(targetFeature, Integer.valueOf((String)value));
+				try {
 
-					} else if (expectedType instanceof EEnum) {
-						EEnum eEnum = (EEnum)expectedType;
-						EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
-						this.element.eSet(targetFeature, literal.getInstance());
+					if (value instanceof String && targetFeature instanceof EAttribute) {
+						EDataType expectedType = ((EAttribute) targetFeature).getEAttributeType();
+						String instanceClassName = expectedType.getInstanceClassName().toLowerCase();
 
-					} else if (expectedType.getInstanceClass().equals( boolean.class )) {
-						this.element.eSet(targetFeature, Boolean.valueOf((String)value));
+						if( expectedType.equals( EcorePackage.Literals.EINT )
+								|| "int".equals( instanceClassName )
+								|| "java.lang.integer".equals( instanceClassName )) {
+							this.element.eSet(targetFeature, Integer.valueOf((String)value));
+
+						} else if( expectedType.equals( EcorePackage.Literals.ELONG )
+									|| "long".equals( instanceClassName )
+									|| "java.lang.long".equals( instanceClassName )) {
+								this.element.eSet(targetFeature, Long.valueOf((String)value));
+
+						} else if (expectedType instanceof EEnum) {
+							EEnum eEnum = (EEnum)expectedType;
+							EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
+							this.element.eSet(targetFeature, literal.getInstance());
+
+						} else if (expectedType.getInstanceClass().equals( boolean.class )) {
+							this.element.eSet(targetFeature, Boolean.valueOf((String)value));
+
+						} else {
+							this.element.eSet(targetFeature, value);
+						}
 
 					} else {
 						this.element.eSet(targetFeature, value);
 					}
 
-				} else {
-					this.element.eSet(targetFeature, value);
+				} catch( Exception e ) {
+					PetalsServicesPlugin.log( e, IStatus.ERROR, "A model feature could not be initialized. Type = " + ((EAttribute) targetFeature).getEAttributeType().getInstanceClassName());
 				}
 			}
 		}

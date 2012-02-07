@@ -52,7 +52,7 @@ public class WsdlParsingJobManager {
 		this.wsdlUri = wsdlFile.toURI();
 
 		this.parsingJob = new WsdlParsingJob();
-		this.parsingJob.schedule( 2000 );
+		this.parsingJob.schedule( 1000 );
 	}
 
 
@@ -73,6 +73,14 @@ public class WsdlParsingJobManager {
 
 		this.parsingJob = new WsdlParsingJob();
 		this.parsingJob.schedule( 2000 );
+	}
+
+
+	/**
+	 * @return the wsdlUri
+	 */
+	public URI getWsdlUri() {
+		return this.wsdlUri;
 	}
 
 
@@ -147,15 +155,13 @@ public class WsdlParsingJobManager {
 
 			// Parse the WSDL
 			WsdlParsingJobManager.this.beans.clear();
-			List<JbiBasicBean> _beans = null;
 			try {
-				_beans = WsdlUtils.INSTANCE.parse( WsdlParsingJobManager.this.wsdlUri );
+				if( WsdlParsingJobManager.this.wsdlUri != null )
+					WsdlParsingJobManager.this.beans.addAll( WsdlUtils.INSTANCE.parse( WsdlParsingJobManager.this.wsdlUri ));
+
 			} catch( Exception e ) {
 				// nothing
 			}
-
-			if( _beans != null )
-				WsdlParsingJobManager.this.beans.addAll( _beans );
 
 			// Notify the listeners
 			for( WsdlParsingListener listener : WsdlParsingJobManager.this.listeners )

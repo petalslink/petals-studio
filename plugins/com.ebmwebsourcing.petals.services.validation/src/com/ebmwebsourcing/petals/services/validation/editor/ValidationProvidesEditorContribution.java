@@ -24,7 +24,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.ebmwebsourcing.petals.services.validation.validation.ValidationPackage;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
@@ -42,9 +41,8 @@ public class ValidationProvidesEditorContribution extends JbiEditorDetailsContri
 	@Override
 	public void addMainSUContent( final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise ) {
 
-		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		Composite composite = createCommonProvideSection( mainTab, toolkit );
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "Validation Parameters", true );
 		SwtFactory.createLabel( composite, "XML Schema *:", "Relative path to the XSD File");

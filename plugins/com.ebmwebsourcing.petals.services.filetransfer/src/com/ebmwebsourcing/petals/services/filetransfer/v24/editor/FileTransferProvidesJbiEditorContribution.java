@@ -27,7 +27,6 @@ import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransf
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideGetControls;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideWriteControls;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
-import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -43,10 +42,8 @@ public class FileTransferProvidesJbiEditorContribution extends JbiEditorDetailsC
 	 */
 	@Override
 	public void addMainSUContent( final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise ) {
-
-		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		Composite composite = createCommonProvideSection( mainTab, toolkit );
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
 	}
 
 

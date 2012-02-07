@@ -12,10 +12,18 @@
 
 package com.ebmwebsourcing.petals.services.cdk.editor;
 
+import java.io.File;
+import java.net.URI;
+import java.util.Arrays;
+
 import javax.swing.event.HyperlinkEvent;
 import javax.xml.namespace.QName;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
@@ -23,6 +31,8 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -30,6 +40,10 @@ import org.eclipse.jface.window.ToolTip;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -37,6 +51,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
@@ -49,13 +64,20 @@ import com.ebmwebsourcing.petals.common.internal.provisional.databinding.StringT
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.ToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.cdk.Messages;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.databinding.StringToMepConverter;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
+import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers.CommonUIBean;
 import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
+import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
@@ -161,32 +183,131 @@ public class CDK5JBIEndpointUIHelper {
 
 
 	/**
+	 * Creates the UI for "provide" blocks in the JBI editor (with CDK 5 fields).
 	 * @param endpoint
 	 * @param toolkit
 	 * @param generalDetails
 	 * @param ise
 	 */
-	public static void createProvidesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, ISharedEdition ise) {
-		toolkit.createLabel(generalDetails, Messages.wsdlLocation);
-		Composite composite = toolkit.createComposite(generalDetails);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		composite.setLayout(new GridLayout(2, false));
-		Text wsdlLocationText = toolkit.createText(composite, "", SWT.BORDER);
-		wsdlLocationText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-		Button browse = toolkit.createButton(composite, Messages.select, SWT.PUSH);
-		browse.setImage(PetalsImages.getSearchWSDL());
-		Link link = new Link(composite, SWT.NONE);
-		link.setText("<A>" + Messages.wsdlTools + "</A>");
-		ToolTip tooltip = new WSDLHelperTooltip(link, toolkit, (Provides)endpoint, ise, link.getShell());
-		tooltip.setHideDelay(0);
-		tooltip.setHideOnMouseDown(false);
+	public static void createProvidesUI(
+			final AbstractEndpoint endpoint,
+			final FormToolkit toolkit,
+			final Composite parent,
+			final ISharedEdition ise) {
 
+
+		// First: the WSDL part
+		Color blueFont = parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE );
+
+		// The label browser
+		Label wsdlLabel = toolkit.createLabel( parent, "WSDL location:" );
+		wsdlLabel.setToolTipText( "The relative path of the WSDL in the service unit or an URL" );
+		wsdlLabel.setForeground( blueFont );
+		GridDataFactory.swtDefaults().align( SWT.LEFT, SWT.TOP ).indent( 0, 6 ).applyTo( wsdlLabel );
+
+		Composite subContainer = new Composite( parent, SWT.NONE );
+		GridLayoutFactory.swtDefaults().margins( 0, 0 ).numColumns( 2 ).extendedMargins( 0, 0, 0, 20 ).applyTo( subContainer );
+		subContainer.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		final Text wsdlText = toolkit.createText( subContainer, "", SWT.SINGLE | SWT.BORDER );
+		wsdlText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		Button browseButton = toolkit.createButton( subContainer, "Browse...", SWT.PUSH );
+		browseButton.setToolTipText( "Select a WSDL located in the project resources" );
+		browseButton.addSelectionListener( new DefaultSelectionListener() {
+			@Override
+			public void widgetSelected( SelectionEvent e ) {
+
+				IProject project = ise.getEditedFile().getProject();
+				IFolder resourceFolder = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
+
+				// FIXME: replace this dialog by one that only shows WSDLs?
+				ElementTreeSelectionDialog dlg = SwtFactory.createWorkspaceFileSelectionDialog(
+						wsdlText.getShell(), resourceFolder,
+						"WSDL Selection", "Select a WSDL file located in the project's resource directory.", "wsdl" );
+
+				File file = JbiXmlUtils.getWsdlFile(
+							ise.getEditedFile(),
+							wsdlText.getText());
+
+				if( file != null ) {
+					IFile wsdlFile = ResourceUtils.getIFile( file );
+					if( wsdlFile != null )
+						dlg.setInitialElementSelections( Arrays.asList( wsdlFile ));
+				}
+
+				if( dlg.open() == Window.OK ) {
+					IFile selectedFile = (IFile) dlg.getResult()[ 0 ];
+					int rfsc = resourceFolder.getFullPath().segmentCount();
+					String wsdlValue = selectedFile.getFullPath().removeFirstSegments( rfsc ).toString();
+					wsdlText.setText( wsdlValue );
+				}
+			}
+		});
+
+
+		// The helpers
+		final WsdlParsingJobManager wsdlParsingJob = new WsdlParsingJobManager();
+		wsdlText.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+
+				String wsdlValue = ((Text) e.widget).getText().trim();
+				File f = JbiXmlUtils.getWsdlFile( ise.getEditedFile(), wsdlValue );
+				final URI wsdlUri;
+				if( f != null )
+					wsdlUri = f.toURI();
+				else if( wsdlValue != null )
+					wsdlUri = UriAndUrlHelper.urlToUri( wsdlValue );
+				else
+					wsdlUri = null;
+
+				wsdlParsingJob.setWsdlUri( wsdlUri );
+			}
+		});
+
+		Link link = new Link( subContainer, SWT.NONE );
+		link.setText("<A>" + Messages.wsdlTools + "</A>");
+		ToolTip tooltip = new WSDLHelperTooltip( link, toolkit, (Provides) endpoint, ise, wsdlParsingJob );
+		tooltip.setHideDelay( 0 );
+		tooltip.setHideOnMouseDown( false );
+
+
+		// The data-binding
 		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(wsdlLocationText, SWT.Modify)),
+				SWTObservables.observeDelayedValue(200, SWTObservables.observeText( wsdlText, SWT.Modify )),
 				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL ));
 
-				// EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL));
 
+		// Then, the common widgets
+		final CommonUIBean commonBean = JBIEndpointUIHelpers.createCommonEndpointUI( endpoint, toolkit, parent, ise );
+
+
+		// Then, add the auto-generation button
+		toolkit.createLabel( parent, "" );
+
+		// Add the button and its label
+		final Button generateEdptButton = toolkit.createButton( parent, "", SWT.CHECK );
+		generateEdptButton.setText( "Generate the end-point at deployment time" );
+		generateEdptButton.setToolTipText( "The end-point name will be generated by Petals on deployment" );
+		generateEdptButton.addSelectionListener( new DefaultSelectionListener() {
+			private String oldValue;
+
+			@Override
+			public void widgetSelected( SelectionEvent e ) {
+				boolean selected = generateEdptButton.getSelection();
+				commonBean.edptText.setEnabled( ! selected );
+				commonBean.edptLabel.setEnabled( ! selected );
+
+				if( selected )
+					this.oldValue = commonBean.edptText.getText().trim();
+				else if( StringUtils.isEmpty( this.oldValue ))
+					this.oldValue = commonBean.srvNameText.getText() + "Endpoint";
+
+				String edptValue = selected ? PetalsConstants.AUTO_GENERATE : this.oldValue;
+				Command cmd = SetCommand.create( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, edptValue );
+				ise.getEditingDomain().getCommandStack().execute( cmd );
+			}
+		});
 	}
-
 }

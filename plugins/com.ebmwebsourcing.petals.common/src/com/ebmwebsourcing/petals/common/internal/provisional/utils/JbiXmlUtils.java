@@ -15,6 +15,7 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,12 +28,14 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
@@ -65,6 +68,28 @@ public class JbiXmlUtils {
 		Resource resource = new JbiResourceFactoryImpl().createResource( emfUri );
 		resource.getContents().add( jbiInstance );
 		resource.save( getJbiXmlSaveOptions());
+	}
+
+
+	/**
+	 * Writes a portion of a {@link Jbi} instance and returns it as a string.
+	 * @param object the EObject
+	 * @return the serialized content of the EObject
+	 * @throws IOException
+	 */
+	public static String writePartialJbiXmlModel( EObject object ) throws IOException {
+
+		Map<Object,Object> options = getJbiXmlSaveOptions();
+		EList<EObject> roots = new BasicEList<EObject> ();
+		roots.add( object );
+		options.put( XMLResource.OPTION_ROOT_OBJECTS, roots );
+		options.put( XMLResource.OPTION_DECLARE_XML, false );
+
+		StringWriter sw = new StringWriter();
+		URIConverter.WriteableOutputStream uws = new URIConverter.WriteableOutputStream( sw, "UTF-8" );
+		object.eResource().save( uws, options );
+
+		return sw.toString();
 	}
 
 

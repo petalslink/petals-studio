@@ -12,8 +12,12 @@
 
 package com.ebmwebsourcing.petals.services.su.editor;
 
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
@@ -23,6 +27,9 @@ import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.emf.edit.command.MoveCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.transaction.ResourceSetChangeEvent;
+import org.eclipse.emf.transaction.ResourceSetListenerImpl;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -42,6 +49,7 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -53,13 +61,23 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.Form;
+import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.ide.IDE;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.Messages;
+import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -79,6 +97,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * The composite to display in the JBI form editor for service-units.
  * @author Mickael Istria - EBM WebSourcing
+ * @author Vincent Zurczak - EBM WebSourcing
  */
 public class SuEditionComposite extends SashForm implements ISharedEdition {
 
@@ -87,10 +106,8 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	private EList<? extends AbstractEndpoint> containmentList;
 
 	private JbiEditorDetailsContribution componentContributions;
-	private Composite mainDetails;
-	private Composite advancedDetails;
-	private TableViewer providesViewer;
-	private TableViewer consumesViewer;
+	private Composite mainDetails, advancedDetails;
+	private TableViewer providesViewer, consumesViewer;
 	private final LabelProvider labelProvider;
 
 
@@ -108,10 +125,28 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		getFormToolkit().adapt( this );
 		getFormToolkit().paintBordersFor( this );
 
+		// Create the widgets
 		initModel();
 		createLeftWidgets();
 		createRightWidgets();
 		setWeights( new int[]{ 1, 1 });
+
+		// Initial selection
+		AbstractEndpoint ae = null;
+		TableViewer viewer = null;
+
+		if( ! getJbiModel().getServices().getProvides().isEmpty()) {
+			ae = getJbiModel().getServices().getProvides().get( 0 );
+			viewer = this.providesViewer;
+		} else if( ! getJbiModel().getServices().getConsumes().isEmpty()) {
+			ae = getJbiModel().getServices().getConsumes().get( 0 );
+			viewer = this.consumesViewer;
+		}
+
+		if( viewer != null ) {
+			viewer.setSelection( new StructuredSelection( ae ));
+			viewer.getTable().notifyListeners( SWT.Selection, new Event());
+		}
 	}
 
 
@@ -277,24 +312,24 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 				ViewersObservables.observeInput( this.consumesViewer ),
 				EMFEditObservables.observeValue( getEditingDomain(), getJbiModel().getServices(), JbiPackage.Literals.SERVICES__CONSUMES ));
 
-
-
 		this.providesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = ((IStructuredSelection)event.getSelection());
+				IStructuredSelection selection = ((IStructuredSelection) SuEditionComposite.this.providesViewer.getSelection());
 				if (selection.isEmpty()) {
 					SuEditionComposite.this.selectedEndpoint = null;
 					upProvidesButton.setEnabled(false);
 					downProvidesButton.setEnabled(false);
+
 				} else {
 					SuEditionComposite.this.consumesViewer.setSelection(new StructuredSelection());
-					SuEditionComposite.this.selectedEndpoint = (Provides)selection.getFirstElement();
+					SuEditionComposite.this.selectedEndpoint = (Provides) selection.getFirstElement();
 					SuEditionComposite.this.containmentList = getJbiModel().getServices().getProvides();
 					upProvidesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint) > 0);
 					downProvidesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint) != SuEditionComposite.this.containmentList.size() - 1);
 					refreshDetails();
 				}
+
 				removeProvidesButton.setEnabled(SuEditionComposite.this.selectedEndpoint != null);
 			}
 		});
@@ -303,11 +338,12 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		this.consumesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = ((IStructuredSelection)event.getSelection());
+				IStructuredSelection selection = ((IStructuredSelection) SuEditionComposite.this.consumesViewer.getSelection());
 				if (selection.isEmpty()) {
 					SuEditionComposite.this.selectedEndpoint = null;
 					upConsumesButton.setEnabled(false);
 					downConsumesButton.setEnabled(false);
+
 				} else {
 					SuEditionComposite.this.providesViewer.setSelection(new StructuredSelection());
 					SuEditionComposite.this.selectedEndpoint = (Consumes)selection.getFirstElement();
@@ -316,16 +352,12 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 					downConsumesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint) != SuEditionComposite.this.containmentList.size() - 1);
 					refreshDetails();
 				}
+
 				removeConsumesButton.setEnabled(SuEditionComposite.this.selectedEndpoint != null);
 			}
 		});
-
-
-		this.providesViewer.setSelection(new StructuredSelection());
-		this.consumesViewer.setSelection(new StructuredSelection());
-
-
 	}
+
 
 	/**
 	 * Initializes the widgets on the right side.
@@ -346,6 +378,8 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		tabFolder.setSelectionBackground( Display.getCurrent().getSystemColor( SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT ));
 		tabFolder.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
+
+		// Main tab
 		CTabItem tbtmGeneral = new CTabItem( tabFolder, SWT.NONE );
 		tbtmGeneral.setText( "Main" );
 
@@ -354,6 +388,8 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		getFormToolkit().paintBordersFor( this.mainDetails );
 		this.mainDetails.setLayout( new GridLayout( 2, false ));
 
+
+		// Advanced tab
 		CTabItem tbtmAdvanced = new CTabItem( tabFolder, SWT.NONE );
 		tbtmAdvanced.setText( "Advanced" );
 		final ScrolledComposite advancedScrollContainer = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
@@ -375,19 +411,147 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 			@Override
 			public void controlMoved(ControlEvent e) {
+				// nothing
 			}
 		});
 
+
+
+		// Source tab
 		CTabItem tbtmSource = new CTabItem( tabFolder, SWT.NONE );
 		tbtmSource.setText( "Source" );
-		tabFolder.setSelection( tbtmGeneral );
 
+		Composite sourceContainer = getFormToolkit().createComposite( tabFolder, SWT.NONE );
+		tbtmSource.setControl( sourceContainer );
+		getFormToolkit().paintBordersFor( sourceContainer );
+		GridLayoutFactory.swtDefaults().margins( 10, 10 ).spacing( 0, 14 ).applyTo( sourceContainer );
+
+		createSourceTabContent( sourceContainer );
+
+
+		// Initialize
+		tabFolder.setSelection( 0 );
 	}
 
-	private void re_fillMainDetailsContainer(FormToolkit toolkit, Composite generalDetails) {
-		for (Control control : generalDetails.getChildren()) {
-			control.dispose();
+
+	/**
+	 * @param container
+	 */
+	private void createSourceTabContent( Composite container ) {
+
+		// Create an explanation text
+		StringBuilder sb  = new StringBuilder();
+		sb.append( "<form>" );
+		sb.append( "<p>This is just an overview. To edit the sources, please, use the <a>Petals Source Editor</a>.</p>" );
+		sb.append( "</form>" );
+
+		FormText formText = this.ise.getFormToolkit().createFormText( container, false );
+		formText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		formText.setText( sb.toString(), true, false );
+
+		formText.addHyperlinkListener( new PetalsHyperlinkListener() {
+			@Override
+			public void linkActivated( HyperlinkEvent e ) {
+
+				try {
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					page.closeEditor( page.getActiveEditor(), false );
+					IDE.openEditor( page, SuEditionComposite.this.ise.getEditedFile(), "com.ebmwebsourcing.petals.common.sourceeditor" );
+
+				} catch( Exception e1 ) {
+					PetalsServicesPlugin.log( e1, IStatus.ERROR );
+					MessageDialog.openError( getShell(), "Error", "An error occurred while opening the file in the source editor." );
+				}
+			}
+		});
+
+
+		// Show the source
+		final StyledText sourceViewerText = SwtFactory.createXmlTextViewer( container, false );
+		sourceViewerText.setEditable( false );
+		sourceViewerText.getParent().setLayoutData( new GridData( GridData.FILL_BOTH ));
+		sourceViewerText.setToolTipText( "Sources cannot be edited directly in this editor" );
+
+		ISelectionChangedListener listener = new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged( SelectionChangedEvent event ) {
+
+				if( event.getSelection().isEmpty())
+					return;
+
+				Object o = ((IStructuredSelection) event.getSelection()).getFirstElement();
+				if( o instanceof AbstractEndpoint )
+					refreshSourceViewer( sourceViewerText, (AbstractEndpoint) o, null );
+			}
+		};
+
+		this.providesViewer.addSelectionChangedListener( listener );
+		this.consumesViewer.addSelectionChangedListener( listener );
+
+
+		// Refresh the viewer when the model changes
+		final AtomicBoolean lock = new AtomicBoolean( false );
+
+		// We use a lock because writing the model as a string results in resource change => infinite loop.
+		// Notification filters are not of great help here.
+		((TransactionalEditingDomain) getEditingDomain()).addResourceSetListener( new ResourceSetListenerImpl(  ) {
+			@Override
+			public boolean isPostcommitOnly() {
+				return true;
+			}
+
+			@Override
+			public void resourceSetChanged( ResourceSetChangeEvent event ) {
+				if( ! lock.get())
+					refreshSourceViewer( sourceViewerText, SuEditionComposite.this.selectedEndpoint, lock );
+				else
+					lock.set( false );
+			}
+		});
+	}
+
+
+	/**
+	 * Refreshes the source viewer.
+	 * @param sourceText
+	 * @param endpoint
+	 * @param lock
+	 */
+	private void refreshSourceViewer( final StyledText sourceText, AbstractEndpoint endpoint, AtomicBoolean lock ) {
+
+		// Lock here. It will be released above.
+		if( lock != null )
+			lock.set( true );
+
+		String s;
+		try {
+			if( endpoint != null )
+				s = JbiXmlUtils.writePartialJbiXmlModel( endpoint );
+			else
+				s = "<!-- Nothing to serialize -->";
+
+		} catch( IOException e ) {
+			PetalsServicesPlugin.log( e, IStatus.ERROR );
+			s = "<!-- \nThe selection could be serialized.\nAn error occured.\nCheck the logs for more details.\n -->";
 		}
+
+		final String text = s;
+		Display.getDefault().asyncExec( new Runnable() {
+			@Override
+			public void run() {
+				sourceText.setText( text );
+			}
+		});
+	}
+
+
+	/**
+	 * @param toolkit
+	 * @param generalDetails
+	 */
+	private void re_fillMainDetailsContainer(FormToolkit toolkit, Composite generalDetails) {
+		for (Control control : generalDetails.getChildren())
+			control.dispose();
 
 		if (this.componentContributions != null) {
 			GridLayoutFactory.swtDefaults().spacing( 0, 20 ).applyTo( generalDetails );
@@ -398,10 +562,14 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		generalDetails.layout(true);
 	}
 
+
+	/**
+	 * @param toolkit
+	 * @param advancedDetails
+	 */
 	private void re_fillAdvancedDetailsContainer(FormToolkit toolkit, Composite advancedDetails) {
-		for (Control control : advancedDetails.getChildren()) {
+		for (Control control : advancedDetails.getChildren())
 			control.dispose();
-		}
 
 		if (this.componentContributions != null) {
 			GridLayoutFactory.swtDefaults().spacing( 0, 20 ).applyTo( advancedDetails );
@@ -412,6 +580,10 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		advancedDetails.layout(true);
 	}
 
+
+	/**
+	 *
+	 */
 	private void refreshDetails() {
 		if (this.selectedEndpoint != null) {
 			ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findComponentDescription(this.selectedEndpoint);

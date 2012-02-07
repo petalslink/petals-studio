@@ -34,8 +34,7 @@ public class FileTransferConsumesJbiEditorContribution extends JbiEditorDetailsC
 	 */
 	@Override
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
-
-		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		Composite composite = createCommonConsumeSection( mainTab, toolkit );
 		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, composite, ise);
 	}
 

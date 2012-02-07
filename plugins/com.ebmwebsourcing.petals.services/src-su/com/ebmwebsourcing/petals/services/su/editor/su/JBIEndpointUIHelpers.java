@@ -1,3 +1,15 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2011-2012, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.services.su.editor.su;
 
 import java.util.ArrayList;
@@ -9,19 +21,16 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.jface.databinding.swt.SWTObservables;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -30,159 +39,163 @@ import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQN
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsColors;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
-import com.ebmwebsourcing.petals.services.Messages;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
+import com.sun.java.xml.ns.jbi.Provides;
 
+/**
+ * @author Mickaël Istria - EBM WebSourcing
+ */
 public class JBIEndpointUIHelpers {
 
-	public static class CommonEndpointControls {
-		private final Composite interfaceComposite;
-		private final Composite serviceComposite;
-
-		public CommonEndpointControls(Composite itf, Composite service) {
-			this.interfaceComposite = itf;
-			this.serviceComposite = service;
-		}
-
-		public Composite getInterfaceComposite() {
-			return this.interfaceComposite;
-		}
-
-		public Composite getServiceComposite() {
-			return this.serviceComposite;
-		}
+	/**
+	 * A simple bean.
+	 */
+	public static class CommonUIBean {
+		public Text itfNameText, itfNamespaceText, srvNameText, srvNamespaceText, edptText;
+		public Label edptLabel;
 	}
 
-	public static CommonEndpointControls createCommonEndpointUI(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite generalDetails, final ISharedEdition ise) {
-		Label label = toolkit.createLabel( generalDetails, Messages.interfaceQName );
-		label.setToolTipText( "The Qualified Name '{namespace}element' of the interface (must match an interface declared in the WSDL)" );
 
-		final Composite interfaceComposite = toolkit.createComposite(generalDetails);
-		interfaceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		interfaceComposite.setLayout(new GridLayout(5, false));
-		toolkit.createLabel(interfaceComposite, "{");
-		final StyledText interfaceNSText = new StyledText(interfaceComposite, SWT.SINGLE);
-		interfaceNSText.setEditable(false);
-		interfaceNSText.setForeground(PetalsColors.getLightPurple());
-		toolkit.createLabel(interfaceComposite, "}");
-		StyledText interfaceLocalText = new StyledText(interfaceComposite, SWT.SINGLE);
-		interfaceLocalText.setForeground(PetalsColors.getDarkPurple());
-		Button editInterfaceButton = toolkit.createButton(interfaceComposite, Messages.edit, SWT.PUSH);
-		editInterfaceButton.setImage(PetalsImages.getPencil());
-		editInterfaceButton.setLayoutData(new GridData(SWT.END, SWT.DEFAULT, true, false));
+	/**
+	 * Creates the common widgets for the main tab in the JBI editor.
+	 * @param endpoint
+	 * @param toolkit
+	 * @param generalDetails
+	 * @param ise
+	 */
+	public static CommonUIBean createCommonEndpointUI(
+			final AbstractEndpoint endpoint,
+			FormToolkit toolkit,
+			final Composite container,
+			final ISharedEdition ise ) {
 
-		interfaceNSText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				interfaceComposite.layout(true);
-			}
-		});
-		interfaceLocalText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				interfaceComposite.layout(true);
-			}
-		});
+		// Controls
+		String end = endpoint instanceof Provides ? " *:" : ":";
+		Color blueFont = container.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE );
 
-		label = toolkit.createLabel( generalDetails,Messages.serviceQName );
-		//label.setToolTipText( "The Qualified Name '{namespace}element' of the service (must match a service declared in the WSDL)" );
+		SwtFactory.createLabel( container, "Interface Name *:", "The qualified name of the service contract" ).setForeground( blueFont );
+		final Text itfNameText = SwtFactory.createSimpleTextField( container, true );
 
-		final Composite serviceComposite = toolkit.createComposite(generalDetails);
-		serviceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		serviceComposite.setLayout(new GridLayout(5, false));
-		toolkit.createLabel(serviceComposite, "{");
-		final StyledText serviceNSText = new StyledText(serviceComposite, SWT.SINGLE);
-		serviceNSText.setEditable(false);
-		serviceNSText.setForeground(PetalsColors.getLightPurple());
-		toolkit.createLabel(serviceComposite, "}");
-		StyledText serviceLocalText = new StyledText(serviceComposite, SWT.SINGLE);
-		serviceLocalText.setForeground(PetalsColors.getDarkPurple());
-		Button editServiceButton = toolkit.createButton(serviceComposite, Messages.edit, SWT.PUSH);
-		editServiceButton.setImage(PetalsImages.getPencil());
-		editServiceButton.setLayoutData(new GridData(SWT.END, SWT.DEFAULT, true, false));
+		SwtFactory.createLabel( container, "Interface Namespace *:", "The qualified name of the service contract" ).setForeground( blueFont );
+		final Text itfNamespaceText = SwtFactory.createSimpleTextField( container, true );
 
-		serviceNSText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				serviceComposite.layout(true);
-			}
-		});
-		serviceLocalText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				serviceComposite.layout(true);
-			}
-		});
+		SwtFactory.createLabel( container, "Service Name" + end, "The qualified name of the service implementation" ).setForeground( blueFont );
+		final Text srvNameText = SwtFactory.createSimpleTextField( container, true );
 
-		Label edptNameLabel = toolkit.createLabel( generalDetails, "End-point name:" );
-		edptNameLabel.setToolTipText( "The end-point name, meaning the service location (must match the one declared in the WSDL)" );
+		SwtFactory.createLabel( container, "Service Namespace" + end, "The qualified name of the service implementation" ).setForeground( blueFont );
+		final Text srvNamespaceText = SwtFactory.createSimpleTextField( container, true );
 
-		Text edptNameText = toolkit.createText( generalDetails, "", SWT.SINGLE | SWT.BORDER );
-		edptNameText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		Label edptLabel = SwtFactory.createLabel( container, "End-point Name" + end, "The name of the service deployment point" );
+		edptLabel.setForeground( blueFont );
+		Text edptText = SwtFactory.createSimpleTextField( container, true );
 
 
+		// Data-binding
 		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText(interfaceLocalText),
-				EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME),
+				SWTObservables.observeText( itfNameText ),
+				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME ),
 				null,
-				new UpdateValueStrategy().setConverter(new LocalQNameToStringConverter()));
+				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
+
 		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText(interfaceNSText),
+				SWTObservables.observeText( itfNamespaceText ),
 				EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME),
 				null,
 				new UpdateValueStrategy().setConverter(new NamespaceQNameToStringConverter()));
 
 		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText(serviceLocalText),
-				EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME),
+				SWTObservables.observeText( srvNameText ),
+				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME ),
 				null,
-				new UpdateValueStrategy().setConverter(new LocalQNameToStringConverter()));
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText(serviceNSText),
-				EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME),
-				null,
-				new UpdateValueStrategy().setConverter(new NamespaceQNameToStringConverter()));
+				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
 
 		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue(200, SWTObservables.observeText(edptNameText, SWT.Modify)),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME));
+				SWTObservables.observeText( srvNamespaceText ),
+				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME ),
+				null,
+				new UpdateValueStrategy().setConverter( new NamespaceQNameToStringConverter()));
 
-		editInterfaceButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				QNameEditor qnameEditor = new QNameEditor(generalDetails.getShell(), endpoint.getInterfaceName());
-				if (qnameEditor.open() == Window.OK ) {
-					SetCommand command = new SetCommand(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, qnameEditor.getQName());
-					ise.getEditingDomain().getCommandStack().execute(command);
-					interfaceComposite.layout(true);
-				}
-			}
-		});
-		editServiceButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				QNameEditor qnameEditor = new QNameEditor(generalDetails.getShell(), endpoint.getServiceName());
-				if (qnameEditor.open() == Window.OK ) {
-					SetCommand command = new SetCommand(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, qnameEditor.getQName());
-					ise.getEditingDomain().getCommandStack().execute(command);
-					serviceComposite.layout(true);
-				}
-			}
-		});
+		ise.getDataBindingContext().bindValue(
+				SWTObservables.observeDelayedValue( 200, SWTObservables.observeText( edptText, SWT.Modify )),
+				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME ));
 
-		return new CommonEndpointControls(interfaceComposite, serviceComposite);
+
+		// Complete the UI effects
+		final ModifyListener sameNsModifyListener = new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				String serviceNs = srvNamespaceText.getText();
+				String interfaceNs = itfNamespaceText.getText();
+
+				Color fgColor;
+				if( serviceNs.trim().length() > 0
+							&& serviceNs.equals( interfaceNs ))
+					fgColor = container.getDisplay().getSystemColor( SWT.COLOR_DARK_GREEN );
+				else
+					fgColor = container.getDisplay().getSystemColor( SWT.COLOR_WIDGET_FOREGROUND );
+
+				srvNamespaceText.setForeground( fgColor );
+				itfNamespaceText.setForeground( fgColor );
+			}
+		};
+
+		FocusListener nsFocusListener = new FocusAdapter() {
+			@Override
+			public void focusGained( FocusEvent e ) {
+				((Text) e.widget).addModifyListener( sameNsModifyListener );
+				((Text) e.widget).notifyListeners( SWT.Modify, new Event());
+			}
+
+			@Override
+			public void focusLost( FocusEvent e ) {
+				((Text) e.widget).removeModifyListener( sameNsModifyListener );
+				Color fgColor = container.getDisplay().getSystemColor( SWT.COLOR_WIDGET_FOREGROUND );
+				srvNamespaceText.setForeground( fgColor );
+				itfNamespaceText.setForeground( fgColor );
+			}
+		};
+
+		itfNamespaceText.addFocusListener( nsFocusListener );
+		srvNamespaceText.addFocusListener( nsFocusListener );
+
+
+		// Prepare the result
+		CommonUIBean result = new CommonUIBean();
+		result.edptText = edptText;
+		result.itfNameText = itfNameText;
+		result.itfNamespaceText = itfNamespaceText;
+		result.srvNameText = srvNameText;
+		result.srvNamespaceText = srvNamespaceText;
+		result.edptLabel = edptLabel;
+
+		return result;
 	}
 
-	public static void createDefaultWidgetsByEIntrospection(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, ISharedEdition ise, EClass... extensionClasses) {
+
+	/**
+	 * Creates widgets automatically by introspecting EMF classes.
+	 * @param endpoint
+	 * @param toolkit
+	 * @param advancedDetails
+	 * @param ise
+	 * @param extensionClasses
+	 */
+	public static void createDefaultWidgetsByEIntrospection(
+			AbstractEndpoint endpoint,
+			FormToolkit toolkit,
+			Composite advancedDetails,
+			ISharedEdition ise,
+			EClass... extensionClasses) {
+
 		List<EStructuralFeature> toProcessFeaturesList = new ArrayList<EStructuralFeature>();
 		for (EClass extensionClass : extensionClasses) {
 			for (EStructuralFeature feature : extensionClass.getEAllStructuralFeatures()) {
-				if (isInPackage(feature, extensionClass) && feature instanceof EAttribute && !feature.getEType().equals(EcorePackage.Literals.EFEATURE_MAP_ENTRY)) {
-					toProcessFeaturesList.add(feature);
-				}
+				if (isInPackage(feature, extensionClass)
+						&& feature instanceof EAttribute
+						&& !feature.getEType().equals(EcorePackage.Literals.EFEATURE_MAP_ENTRY))
+					toProcessFeaturesList.add( feature );
 			}
 		}
 
@@ -191,6 +204,11 @@ public class JBIEndpointUIHelpers {
 	}
 
 
+	/**
+	 * @param feature
+	 * @param extensionClass
+	 * @return
+	 */
 	private static boolean isInPackage(EStructuralFeature feature, EClass extensionClass) {
 		return feature.eContainer() instanceof EClass && ((EClass)feature.eContainer()).getEPackage().equals(extensionClass.getEPackage());
 	}
