@@ -11,15 +11,12 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.soap.editor;
 
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -39,27 +36,21 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 	 */
 	@Override
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
-		mainTab.setLayout(new GridLayout(1, false));
-		mainTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		Section identificationSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-		identificationSection.setText("Identification");
-		identificationSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite identificationComposite = toolkit.createComposite(identificationSection);
-		identificationComposite.setLayout(new GridLayout(2, false));
-		identificationSection.setClient(identificationComposite);
+		Composite composite = createEditorSection( mainTab, toolkit, "Identification", true );
+		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
+		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, composite, ise);
 
-		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, identificationComposite, ise);
-
-		Section soapSection = toolkit.createSection(mainTab, Section.EXPANDED | Section.TITLE_BAR);
-		soapSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		soapSection.setText("SOAP");
-		Composite soapComposite = toolkit.createComposite(soapSection);
-		soapSection.setClient(soapComposite);
-		soapComposite.setLayout(new GridLayout(2, false));
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, soapComposite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		composite = createEditorSection( mainTab, toolkit, "SOAP", true );
+		EObjecttUIHelper.generateWidgets(
+				endpoint,
+				toolkit,
+				composite,
+				ise.getEditingDomain(),
+				ise.getDataBindingContext(),
+				true,
 				SoapPackage.Literals.SOAP_CONSUMES__SOAP_SERVICE_NAME,
-				SoapPackage.Literals.SOAP_CONSUMES__SOAP_ACTION);
+				SoapPackage.Literals.SOAP_CONSUMES__SOAP_ACTION );
 	}
 
 
@@ -71,23 +62,17 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 	 */
 	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
-		advancedTab.setLayout(new GridLayout(1, false));
-		advancedTab.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		Section componentSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-		componentSection.setText("SOAP");
-		componentSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite componentComposite = toolkit.createComposite(componentSection);
-		componentComposite.setLayout(new GridLayout(2, false));
-		componentSection.setClient(componentComposite);
-		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, componentComposite, ise, SoapPackage.Literals.SOAP_CONSUMES);
+		Composite composite = createEditorSection( advancedTab, toolkit, "Miscellaneous" );
+		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR,
+					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT,
+					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT,
+					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT,
+					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_WSA,
+					SoapPackage.Literals.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION );
 
-		Section cdkSection = toolkit.createSection(advancedTab, Section.EXPANDED | Section.TITLE_BAR);
-		cdkSection.setText("CDK");
-		cdkSection.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite cdkComposite = toolkit.createComposite(cdkSection);
-		cdkComposite.setLayout(new GridLayout(2, false));
-		cdkSection.setClient(cdkComposite);
-		JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, cdkComposite, ise, Cdk5Package.Literals.CDK5_CONSUMES);
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

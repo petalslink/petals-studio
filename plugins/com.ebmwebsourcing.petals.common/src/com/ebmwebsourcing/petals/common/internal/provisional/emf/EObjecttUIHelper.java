@@ -187,7 +187,21 @@ public class EObjecttUIHelper {
 	}
 
 
-
+	/**
+	 * Create an observable using an editing domain.
+	 * <p>
+	 * This method is a workaround for SetCommands (EMF version <2.7.1).
+	 * Keep it, even if it is not used.
+	 * </p>
+	 *
+	 * @param domain
+	 * @param eo
+	 * @param ea
+	 * @return an IObservable value
+	 * TODO: replace this method by EMFEditObservables as soon as EMF 2.8.0 or 2.7.2 is out
+	 * @See https://bugs.eclipse.org/bugs/show_bug.cgi?id=356291
+	 * @See https://bugs.eclipse.org/bugs/show_bug.cgi?id=359043
+	 */
 	public static IObservableValue createCustomEmfEditObservable( EditingDomain domain, final EObject eo, final EAttribute ea ) {
 
 		return new EditingDomainEObjectObservableValue( domain, eo, ea ) {

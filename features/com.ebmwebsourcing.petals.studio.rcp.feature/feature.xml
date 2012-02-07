@@ -34,34 +34,6 @@ Petals Link is a registered trademark of EBM WebSourcing
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.cvs"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.team.cvs.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.team.cvs.ssh2"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.team.cvs.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.ui.ide"
          download-size="0"
          install-size="0"
@@ -545,6 +517,13 @@ Petals Link is a registered trademark of EBM WebSourcing
 
    <plugin
          id="org.eclipse.ui.net"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"
