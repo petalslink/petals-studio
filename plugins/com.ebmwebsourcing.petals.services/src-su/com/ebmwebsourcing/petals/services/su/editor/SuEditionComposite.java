@@ -48,13 +48,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -68,6 +64,8 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.eclipse.ui.ide.IDE;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
@@ -387,34 +385,24 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		tbtmGeneral.setControl( this.mainDetails );
 		getFormToolkit().paintBordersFor( this.mainDetails );
 		this.mainDetails.setLayout( new GridLayout( 2, false ));
+		this.mainDetails.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
 
 		// Advanced tab
+		// Since we are going to put sections in it, we cannot use a scrolled composite.
+		// Section#reflow searches for a SharedScrolledComposite instance.
+		// Using a scrolled composite will result in updating the entire editor and having a too big width.
+		// The solution is to use an instance of SharedScrolledComposite as a parent => ScrolledForm.
 		CTabItem tbtmAdvanced = new CTabItem( tabFolder, SWT.NONE );
 		tbtmAdvanced.setText( "Advanced" );
-		final ScrolledComposite advancedScrollContainer = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
-		advancedScrollContainer.setExpandHorizontal( true );
-		advancedScrollContainer.setExpandVertical( true );
-		tbtmAdvanced.setControl( advancedScrollContainer );
-		advancedScrollContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
 
-		this.advancedDetails = getFormToolkit().createComposite( advancedScrollContainer, SWT.NONE );
-		advancedScrollContainer.setContent(this.advancedDetails);
-		getFormToolkit().paintBordersFor( this.advancedDetails );
-		this.advancedDetails.setLayout( new GridLayout( 2, false ));
-		advancedScrollContainer.addControlListener( new ControlListener() {
-			@Override
-			public void controlResized(ControlEvent e) {
-				Point contentSize = SuEditionComposite.this.advancedDetails.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-				advancedScrollContainer.setMinSize(contentSize);
-			}
+		ScrolledForm scrolledForm = getFormToolkit().createScrolledForm( tabFolder );
+		scrolledForm.setLayoutData( new GridData( GridData.FILL_BOTH ));
+		tbtmAdvanced.setControl( scrolledForm );
 
-			@Override
-			public void controlMoved(ControlEvent e) {
-				// nothing
-			}
-		});
-
+		this.advancedDetails = scrolledForm.getBody();
+		this.advancedDetails.setLayout( new TableWrapLayout());
+		this.advancedDetails.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
 
 		// Source tab
@@ -556,7 +544,6 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		if (this.componentContributions != null) {
 			GridLayoutFactory.swtDefaults().spacing( 0, 20 ).applyTo( generalDetails );
-			generalDetails.setLayoutData( new GridData(GridData.FILL_BOTH));
 			this.componentContributions.addMainSUContent(this.selectedEndpoint, toolkit, generalDetails, this );
 		}
 
@@ -575,7 +562,6 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		if (this.componentContributions != null) {
 			GridLayoutFactory.swtDefaults().spacing( 0, 20 ).applyTo( advancedDetails );
-			advancedDetails.setLayoutData( new GridData(GridData.FILL_BOTH));
 			this.componentContributions.addAdvancedSUContent(this.selectedEndpoint, toolkit, advancedDetails, this );
 		}
 
