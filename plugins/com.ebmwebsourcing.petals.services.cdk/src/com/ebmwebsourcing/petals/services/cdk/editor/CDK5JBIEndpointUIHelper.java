@@ -26,41 +26,33 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
-import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.window.ToolTip;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
-import org.eclipse.ui.forms.widgets.Section;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
-import com.ebmwebsourcing.petals.common.internal.provisional.databinding.QNameToStringConverter;
-import com.ebmwebsourcing.petals.common.internal.provisional.databinding.StringIsQNameValidator;
-import com.ebmwebsourcing.petals.common.internal.provisional.databinding.StringToQNameConverter;
+import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQNameToStringConverter;
+import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.ToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
@@ -87,58 +79,45 @@ import com.sun.java.xml.ns.jbi.Provides;
  */
 public class CDK5JBIEndpointUIHelper {
 
+	public static final String CONSUME_TITLE = "Invocation Properties";
+	public static final String CONSUME_DESC = "Edit the invoked operation and the message exchange pattern.";
+
+
 	/**
+	 * Creates the specific UI for "consume" blocks in the JBI editor (with CDK 5 fields).
 	 * @param endpoint
 	 * @param toolkit
-	 * @param generalDetails
+	 * @param commonComposite
+	 * @param cdkComposite
 	 * @param ise
 	 */
-	public static void createConsumesUI(final AbstractEndpoint endpoint, final FormToolkit toolkit, final Composite generalDetails, final ISharedEdition ise) {
-		JBIEndpointUIHelpers.createCommonEndpointUI(endpoint, toolkit, generalDetails, ise);
+	public static void createConsumesUI(
+			final AbstractEndpoint endpoint,
+			final FormToolkit toolkit,
+			final Composite parent,
+			final ISharedEdition ise) {
 
-		// The edition fields
-		Label label = toolkit.createLabel( generalDetails, "Operation name:" );
-		label.setToolTipText( "The QName of the operation (should match an operation declared in a WSDL)" );
+		Color blueFont = parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE );
 
-		final Text operationNameText = toolkit.createText( generalDetails, "", SWT.SINGLE | SWT.BORDER );
+		// The controls
+		SwtFactory.createLabel( parent, "Operation Namespace:", "The QName of the operation (should match an operation declared in a WSDL)" ).setForeground( blueFont );
+		final Text opNamespaceText = SwtFactory.createSimpleTextField( parent, true );
 
-		label = toolkit.createLabel( generalDetails, "Invocation MEP:" );
-		label.setToolTipText( "The Message Exchange Pattern to use for the invocation" );
+		SwtFactory.createLabel( parent, "Operation Name:", "The QName of the operation (should match an operation declared in a WSDL)" ).setForeground( blueFont );
+		final Text opNameText = SwtFactory.createSimpleTextField( parent, true );
 
-		CCombo mepCombo = new CCombo( generalDetails, SWT.BORDER | SWT.READ_ONLY );
-		mepCombo.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		toolkit.adapt( mepCombo );
-
-		final ComboViewer mepViewer = new ComboViewer( mepCombo );
-		mepViewer.setContentProvider( new ArrayContentProvider());
-		mepViewer.setLabelProvider( new LabelProvider());
-		mepViewer.setInput( Mep.values());
+		SwtFactory.createLabel( parent, "Invocation MEP *:", "The Message Exchange Pattern to use for the invocation" ).setForeground( blueFont );
+		ComboViewer mepViewer = SwtFactory.createDefaultComboViewer( parent, false, true, Mep.values());
+		toolkit.adapt( mepViewer.getCombo());
 
 
-		// Add a set of helpers
-		toolkit.createLabel( generalDetails, "" );
-
-		final Section section = toolkit.createSection( generalDetails, ExpandableComposite.TWISTIE );
-		GridData layoutData = new GridData( GridData.FILL_HORIZONTAL );
-		layoutData.verticalIndent = 5;
-		section.setLayoutData( layoutData );
-		section.clientVerticalSpacing = 10;
-		section.setText( "Helpers" );
-
-		Composite subgeneralDetails = toolkit.createComposite( section );
-		final GridLayout layout = new GridLayout();
-		layout.marginWidth = 0;
-		layout.marginHeight = 0;
-		subgeneralDetails.setLayout( layout );
-		subgeneralDetails.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		section.setClient( subgeneralDetails );
-
-		Hyperlink selectLink = toolkit.createHyperlink(
-					subgeneralDetails, "Select a Petals service and an operation to invoke", SWT.NONE );
+		// Add the helpers
+		toolkit.createLabel( parent, "" );
+		Hyperlink selectLink = toolkit.createHyperlink( parent, "Select a Petals service and an operation to invoke", SWT.NONE );
 		selectLink.setToolTipText( "Select the service and the operation to invoke from the known Petals services" );
 		selectLink.addHyperlinkListener( new PetalsHyperlinkListener() {
 			public void linkActivated( HyperlinkEvent e ) {
-				final EnhancedConsumeDialog dlg = new EnhancedConsumeDialog( generalDetails.getShell(), toolkit );
+				final EnhancedConsumeDialog dlg = new EnhancedConsumeDialog( parent.getShell(), toolkit );
 				if( dlg.open() == Window.OK ) {
 					CompoundCommand compositeCommand = new CompoundCommand();
 					EditingDomain editDomain = ise.getEditingDomain();
@@ -158,7 +137,7 @@ public class CDK5JBIEndpointUIHelper {
 					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
 					compositeCommand.append(command);
 
-					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, dlg.getInvocationMep().toString());
+					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, dlg.getInvocationMep());
 					compositeCommand.append(command);
 
 					editDomain.getCommandStack().execute(compositeCommand);
@@ -166,19 +145,35 @@ public class CDK5JBIEndpointUIHelper {
 			}
 		});
 
-		// Operation
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue(300, SWTObservables.observeText(operationNameText, SWT.Modify)),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION),
-				new UpdateValueStrategy().setConverter(new StringToQNameConverter()).setBeforeSetValidator(new StringIsQNameValidator()),
-				new UpdateValueStrategy().setConverter(new QNameToStringConverter()));
 
-		// MEP
+		// The data-binding
 		ise.getDataBindingContext().bindValue(
-				ViewersObservables.observeSingleSelection(mepViewer),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP),
-				new UpdateValueStrategy().setConverter(new StringToMepConverter()),
-				new UpdateValueStrategy().setConverter(new ToStringConverter()));
+				SWTObservables.observeText( opNameText ),
+				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
+				null,
+				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
+
+		ise.getDataBindingContext().bindValue(
+				SWTObservables.observeText( opNamespaceText ),
+				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
+				null,
+				new UpdateValueStrategy().setConverter(new NamespaceQNameToStringConverter()));
+
+		ise.getDataBindingContext().bindValue(
+				ViewersObservables.observeSingleSelection( mepViewer ),
+				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP ),
+				new UpdateValueStrategy().setConverter( new ToStringConverter()),
+				new UpdateValueStrategy().setConverter( new StringToMepConverter()));
+
+
+		// The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
+		// For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
+		JBIEndpointUIHelpers.createCustomModifyListenerForQname(
+				ise.getEditingDomain(),
+				endpoint,
+				opNamespaceText,
+				opNameText,
+				Cdk5Package.Literals.CDK5_CONSUMES__OPERATION );
 	}
 
 

@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
 import com.ebmwebsourcing.petals.services.filetransfer.v3.FileTransferDescription3;
@@ -114,9 +113,8 @@ public class FileTransferConsumesWizard3 extends AbstractServiceUnitWizard {
 		}
 
 		// MEP + operations
-		Mep mep = Mep.get( this.settings.invocationMep );
-		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
 		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, String.valueOf( this.settings.invocationMep ));
 
 		// Remove unused values
 		hackEmfModel( ae,

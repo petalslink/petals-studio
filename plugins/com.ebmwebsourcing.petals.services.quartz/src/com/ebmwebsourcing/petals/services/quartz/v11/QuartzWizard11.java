@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
@@ -66,7 +67,11 @@ public class QuartzWizard11 extends AbstractServiceUnitWizard {
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	protected IStatus performLastActions(IFolder resourceDirectory,	AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
+	protected IStatus performLastActions(IFolder resourceDirectory,	AbstractEndpoint ae, IProgressMonitor monitor) {
+
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, String.valueOf( this.settings.invocationMep ));
+
 		return Status.OK_STATUS;
 	}
 }

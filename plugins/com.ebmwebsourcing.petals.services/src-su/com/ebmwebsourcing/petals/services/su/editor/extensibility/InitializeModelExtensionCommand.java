@@ -15,8 +15,11 @@ package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.xml.namespace.QName;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -32,6 +35,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap.Entry;
 import org.eclipse.emf.ecore.xml.type.AnyType;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 
@@ -100,8 +104,41 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 									|| "java.lang.long".equals( instanceClassName )) {
 								this.element.eSet(targetFeature, Long.valueOf((String)value));
 
-						} else if (expectedType instanceof EEnum) {
-							EEnum eEnum = (EEnum)expectedType;
+						} else if( instanceClassName.equals( "javax.xml.namespace.qname" )) {
+
+							// Extract the QName value...
+							String[] parts = ((String) value).split( ":" );
+							String ns = null, name = null;
+
+							if( parts.length == 1 ) {
+								name = parts[ 0 ];
+
+							} else if( parts.length == 2 ) {
+								ns = parts[ 0 ];
+								name = parts[ 1 ];
+
+							} else {
+								PetalsServicesPlugin.log( "Found invalid QName while intializing the model extensions.", IStatus.ERROR );
+							}
+
+
+							// ... and resolve it
+							QName newValue = null;
+							EMap<String,String> map = JbiXmlUtils.findPrefixMap( this.element );
+							if( map == null ) {
+								PetalsServicesPlugin.log( "Could not find the prefix map while intializing the model extensions.", IStatus.ERROR );
+
+							} else if( name != null ) {
+								if( ns != null )
+									ns = map.get( ns );
+
+								newValue = ns != null ? new QName( ns, name ) : new QName( name );
+							}
+
+							this.element.eSet( targetFeature, newValue );
+
+						} else if( expectedType instanceof EEnum ) {
+							EEnum eEnum = (EEnum) expectedType;
 							EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
 							this.element.eSet(targetFeature, literal.getInstance());
 

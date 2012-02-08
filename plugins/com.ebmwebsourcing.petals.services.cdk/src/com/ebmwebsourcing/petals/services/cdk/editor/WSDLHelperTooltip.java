@@ -158,7 +158,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 				dlg.setMessage( "Select the service to expose inside Petals." );
 
 				dlg.setElements( jbiBeans.toArray());
-				if( dlg.open() != Window.OK ) {
+				if( dlg.open() == Window.OK ) {
 					CompoundCommand cc = new CompoundCommand();
 					JbiBasicBean bean = (JbiBasicBean) dlg.getResult()[ 0 ];
 					cc.append( new SetCommand(

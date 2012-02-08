@@ -165,7 +165,7 @@ public class JbiConsumePage extends JbiAbstractPage {
 			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 				Mep mep = (Mep) ((IStructuredSelection) JbiConsumePage.this.mepViewer.getSelection()).getFirstElement();
-				getWizard().getSettings().invocationMep = mep.toString();
+				getWizard().getSettings().invocationMep = mep;
 				validate();
 			}
 		});
@@ -284,7 +284,7 @@ public class JbiConsumePage extends JbiAbstractPage {
 		}
 
 		// MEP
-		if( StringUtils.isEmpty(getWizard().getSettings().invocationMep)) {
+		if( getWizard().getSettings().invocationMep == null ) {
 			updateStatus( "You have to define the invocation MEP." );
 			return false;
 		}
@@ -295,7 +295,7 @@ public class JbiConsumePage extends JbiAbstractPage {
 
 
 		// Make sure this service can be invoked (MEP)
-		Mep invocationMep = Mep.whichMep(getWizard().getSettings().invocationMep);
+		Mep invocationMep = getWizard().getSettings().invocationMep;
 		if( invocationMep != null
 				&& ! this.supportedMep.isEmpty()
 				&& ! this.supportedMep.contains( invocationMep )) {

@@ -57,7 +57,6 @@ public interface CDK5Consumes extends CDKService, Consumes {
 
 	/**
 	 * Returns the value of the '<em><b>Mep</b></em>' attribute.
-	 * The literals are from the enumeration {@link com.ebmwebsourcing.petals.services.cdk.cdk5.Mep}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Mep</em>' attribute isn't clear,
@@ -65,29 +64,27 @@ public interface CDK5Consumes extends CDKService, Consumes {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Mep</em>' attribute.
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Mep
 	 * @see #isSetMep()
 	 * @see #unsetMep()
-	 * @see #setMep(Mep)
+	 * @see #setMep(String)
 	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package#getCDK5Consumes_Mep()
-	 * @model unsettable="true" derived="true"
+	 * @model unsettable="true" required="true" derived="true"
 	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' group='#cdkExtContainer'"
 	 * @generated
 	 */
-	Mep getMep();
+	String getMep();
 
 	/**
 	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes#getMep <em>Mep</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Mep</em>' attribute.
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Mep
 	 * @see #isSetMep()
 	 * @see #unsetMep()
 	 * @see #getMep()
 	 * @generated
 	 */
-	void setMep(Mep value);
+	void setMep(String value);
 
 	/**
 	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes#getMep <em>Mep</em>}' attribute.
@@ -95,7 +92,7 @@ public interface CDK5Consumes extends CDKService, Consumes {
 	 * <!-- end-user-doc -->
 	 * @see #isSetMep()
 	 * @see #getMep()
-	 * @see #setMep(Mep)
+	 * @see #setMep(String)
 	 * @generated
 	 */
 	void unsetMep();
@@ -107,7 +104,7 @@ public interface CDK5Consumes extends CDKService, Consumes {
 	 * @return whether the value of the '<em>Mep</em>' attribute is set.
 	 * @see #unsetMep()
 	 * @see #getMep()
-	 * @see #setMep(Mep)
+	 * @see #setMep(String)
 	 * @generated
 	 */
 	boolean isSetMep();

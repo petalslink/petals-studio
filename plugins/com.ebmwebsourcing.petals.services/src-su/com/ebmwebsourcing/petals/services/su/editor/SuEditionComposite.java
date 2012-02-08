@@ -393,8 +393,8 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		CTabItem tbtmAdvanced = new CTabItem( tabFolder, SWT.NONE );
 		tbtmAdvanced.setText( "Advanced" );
 		final ScrolledComposite advancedScrollContainer = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
-		advancedScrollContainer.setExpandHorizontal(true);
-		advancedScrollContainer.setExpandVertical(true);
+		advancedScrollContainer.setExpandHorizontal( true );
+		advancedScrollContainer.setExpandVertical( true );
 		tbtmAdvanced.setControl( advancedScrollContainer );
 		advancedScrollContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
 
@@ -402,7 +402,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		advancedScrollContainer.setContent(this.advancedDetails);
 		getFormToolkit().paintBordersFor( this.advancedDetails );
 		this.advancedDetails.setLayout( new GridLayout( 2, false ));
-		advancedScrollContainer.addControlListener(new ControlListener() {
+		advancedScrollContainer.addControlListener( new ControlListener() {
 			@Override
 			public void controlResized(ControlEvent e) {
 				Point contentSize = SuEditionComposite.this.advancedDetails.computeSize(SWT.DEFAULT, SWT.DEFAULT);
@@ -550,6 +550,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	 * @param generalDetails
 	 */
 	private void re_fillMainDetailsContainer(FormToolkit toolkit, Composite generalDetails) {
+
 		for (Control control : generalDetails.getChildren())
 			control.dispose();
 
@@ -568,6 +569,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	 * @param advancedDetails
 	 */
 	private void re_fillAdvancedDetailsContainer(FormToolkit toolkit, Composite advancedDetails) {
+
 		for (Control control : advancedDetails.getChildren())
 			control.dispose();
 

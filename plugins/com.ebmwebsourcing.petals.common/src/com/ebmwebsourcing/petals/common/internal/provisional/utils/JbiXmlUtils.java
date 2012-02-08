@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -107,6 +108,25 @@ public class JbiXmlUtils {
 		// options.put(XMLResource.OPTION_XML_MAP, xmlMap);
 
 		return options;
+	}
+
+
+	/**
+	 * Finds the map associating name spaces and prefixes in the EMF model.
+	 * @param eo an EObject
+	 * @return the map, or null if the document root could not be found
+	 */
+	public static EMap<String,String> findPrefixMap( EObject eo ) {
+
+		EMap<String,String> result = null;
+		EObject cur = eo;
+		while( cur != null && ! ( cur instanceof DocumentRoot ))
+			cur = cur.eContainer();
+
+		if( cur != null )
+			result = ((DocumentRoot) cur).getXMLNSPrefixMap();
+
+		return result;
 	}
 
 

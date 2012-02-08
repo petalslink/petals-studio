@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapMode;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -76,11 +75,10 @@ public class SoapConsumesWizard40 extends AbstractServiceUnitWizard {
 	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	protected IStatus performLastActions( IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor ) {
+	protected IStatus performLastActions( IFolder resourceDirectory, AbstractEndpoint ae, IProgressMonitor monitor ) {
 
-		Mep mep = Mep.get( this.settings.invocationMep );
-		newlyCreatedEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
-		newlyCreatedEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, String.valueOf( this.settings.invocationMep ));
 
 		return Status.OK_STATUS;
 	}

@@ -11,14 +11,12 @@ import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Factory;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
-
 import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
+
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -61,13 +59,6 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * @generated
 	 */
 	private EClass retryPolicyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum mepEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -291,15 +282,6 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getMep() {
-		return mepEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Cdk5Factory getCdk5Factory() {
 		return (Cdk5Factory)getEFactoryInstance();
 	}
@@ -343,9 +325,6 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		retryPolicyEClass = createEClass(RETRY_POLICY);
 		createEAttribute(retryPolicyEClass, RETRY_POLICY__ATTEMPTS);
 		createEAttribute(retryPolicyEClass, RETRY_POLICY__DELAY);
-
-		// Create enums
-		mepEEnum = createEEnum(MEP);
 	}
 
 	/**
@@ -403,18 +382,11 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 
 		initEClass(cdk5ConsumesEClass, CDK5Consumes.class, "CDK5Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCDK5Consumes_Operation(), theXMLTypePackage.getQName(), "operation", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Consumes_Mep(), this.getMep(), "mep", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Consumes_Mep(), ecorePackage.getEString(), "mep", null, 1, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(retryPolicyEClass, RetryPolicy.class, "RetryPolicy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRetryPolicy_Attempts(), ecorePackage.getEInt(), "attempts", null, 1, 1, RetryPolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRetryPolicy_Delay(), ecorePackage.getELong(), "delay", null, 0, 1, RetryPolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		// Initialize enums and add enum literals
-		initEEnum(mepEEnum, Mep.class, "Mep");
-		addEEnumLiteral(mepEEnum, Mep.IN_ONLY);
-		addEEnumLiteral(mepEEnum, Mep.IN_OPTIONAL_OUT);
-		addEEnumLiteral(mepEEnum, Mep.IN_OUT);
-		addEEnumLiteral(mepEEnum, Mep.ROBUST_IN_ONLY);
 
 		// Create resource
 		createResource(eNS_URI);

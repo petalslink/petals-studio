@@ -23,6 +23,7 @@ import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.quartz.QuartzControls;
 import com.ebmwebsourcing.petals.services.quartz.quartz.QuartzPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -39,7 +40,10 @@ public class QuartzConsumesEditorContribution extends JbiEditorDetailsContributi
 	@Override
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
 		Composite composite = createCommonConsumeSection( mainTab, toolkit );
-		CDK5JBIEndpointUIHelper.createConsumesUI(endpoint, toolkit, composite, ise);
+		JBIEndpointUIHelpers.createCommonEndpointUI( endpoint, toolkit, composite, ise );
+
+		composite = createEditorSection( mainTab, toolkit, CDK5JBIEndpointUIHelper.CONSUME_TITLE, CDK5JBIEndpointUIHelper.CONSUME_DESC, true );
+		CDK5JBIEndpointUIHelper.createConsumesUI( endpoint, toolkit, composite, ise );
 	}
 
 

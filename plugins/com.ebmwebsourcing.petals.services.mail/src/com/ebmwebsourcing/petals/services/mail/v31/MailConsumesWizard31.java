@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -73,15 +72,14 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
+	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint ae, IProgressMonitor monitor) {
 
 		// MEP + operations
-		Mep mep = Mep.get( this.settings.invocationMep );
-		abstractEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
-		abstractEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, String.valueOf( this.settings.invocationMep ));
 
 		// Do not write useless values
-		hackEmfModel( abstractEndpoint,
+		hackEmfModel( ae,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
 				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
 				MailPackage.Literals.MAIL_CONSUMES__FOLDER );

@@ -10,7 +10,6 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -471,16 +470,6 @@ public interface Cdk5Package extends EPackage {
 	 */
 	int RETRY_POLICY_FEATURE_COUNT = 2;
 
-	/**
-	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.Mep <em>Mep</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Mep
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.impl.Cdk5PackageImpl#getMep()
-	 * @generated
-	 */
-	int MEP = 4;
-
 
 	/**
 	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService <em>CDK Service</em>}'.
@@ -666,16 +655,6 @@ public interface Cdk5Package extends EPackage {
 	EAttribute getRetryPolicy_Delay();
 
 	/**
-	 * Returns the meta object for enum '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.Mep <em>Mep</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Mep</em>'.
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Mep
-	 * @generated
-	 */
-	EEnum getMep();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -840,16 +819,6 @@ public interface Cdk5Package extends EPackage {
 		 * @generated
 		 */
 		EAttribute RETRY_POLICY__DELAY = eINSTANCE.getRetryPolicy_Delay();
-
-		/**
-		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.Mep <em>Mep</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Mep
-		 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.impl.Cdk5PackageImpl#getMep()
-		 * @generated
-		 */
-		EEnum MEP = eINSTANCE.getMep();
 
 	}
 

@@ -15,12 +15,18 @@ package com.ebmwebsourcing.petals.services.su.editor.su;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -39,6 +45,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQN
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.JbiPackage;
@@ -75,17 +82,17 @@ public class JBIEndpointUIHelpers {
 		String end = endpoint instanceof Provides ? " *:" : ":";
 		Color blueFont = container.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE );
 
-		SwtFactory.createLabel( container, "Interface Name *:", "The qualified name of the service contract" ).setForeground( blueFont );
-		final Text itfNameText = SwtFactory.createSimpleTextField( container, true );
-
 		SwtFactory.createLabel( container, "Interface Namespace *:", "The qualified name of the service contract" ).setForeground( blueFont );
 		final Text itfNamespaceText = SwtFactory.createSimpleTextField( container, true );
 
-		SwtFactory.createLabel( container, "Service Name" + end, "The qualified name of the service implementation" ).setForeground( blueFont );
-		final Text srvNameText = SwtFactory.createSimpleTextField( container, true );
+		SwtFactory.createLabel( container, "Interface Name *:", "The qualified name of the service contract" ).setForeground( blueFont );
+		final Text itfNameText = SwtFactory.createSimpleTextField( container, true );
 
 		SwtFactory.createLabel( container, "Service Namespace" + end, "The qualified name of the service implementation" ).setForeground( blueFont );
 		final Text srvNamespaceText = SwtFactory.createSimpleTextField( container, true );
+
+		SwtFactory.createLabel( container, "Service Name" + end, "The qualified name of the service implementation" ).setForeground( blueFont );
+		final Text srvNameText = SwtFactory.createSimpleTextField( container, true );
 
 		Label edptLabel = SwtFactory.createLabel( container, "End-point Name" + end, "The name of the service deployment point" );
 		edptLabel.setForeground( blueFont );
@@ -120,6 +127,12 @@ public class JBIEndpointUIHelpers {
 		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue( 200, SWTObservables.observeText( edptText, SWT.Modify )),
 				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME ));
+
+
+		// The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
+		// For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
+		createModifyListenerForQname( ise.getEditingDomain(), endpoint, itfNamespaceText, itfNameText, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME );
+		createModifyListenerForQname( ise.getEditingDomain(), endpoint, srvNamespaceText, srvNameText, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME );
 
 
 		// Complete the UI effects
@@ -171,6 +184,118 @@ public class JBIEndpointUIHelpers {
 		result.edptLabel = edptLabel;
 
 		return result;
+	}
+
+
+	/**
+	 * Creates a modify listener for QName widgets.
+	 * <p>
+	 * The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
+	 * For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
+	 * </p>
+	 *
+	 * @param domain
+	 * @param owner
+	 * @param namespaceText
+	 * @param nameText
+	 * @return the modify listener (already applied to both Texts)
+	 */
+	public static ModifyListener createModifyListenerForQname(
+			final EditingDomain domain,
+			final EObject owner,
+			final Text namespaceText,
+			final Text nameText,
+			final EAttribute attribute ) {
+
+		ModifyListener listener = new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+
+				// Save the caret position
+				// Otherwise, the caret goes back to the position 0
+				Text focusedText = null;
+				if( namespaceText.isFocusControl())
+					focusedText = namespaceText;
+				else if( nameText.isFocusControl())
+					focusedText = nameText;
+
+				int caretPosition = focusedText == null ? -1 : focusedText.getCaretPosition();
+
+				// Update the model
+				String ns = namespaceText.getText().trim();
+				String name = nameText.getText().trim();
+
+				QName result = StringUtils.isEmpty( ns ) ? new QName( name ) : new QName( ns, name );
+				Command cmd = SetCommand.create( domain, owner, attribute, result );
+				domain.getCommandStack().execute( cmd );
+
+				// Restore the caret position
+				if( caretPosition != -1 )
+					focusedText.setSelection( caretPosition );
+			}
+		};
+
+		namespaceText.addModifyListener( listener );
+		nameText.addModifyListener( listener );
+
+		return listener;
+	}
+
+
+	/**
+	 * Creates a modify listener for QName widgets.
+	 * <p>
+	 * The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
+	 * For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
+	 * </p>
+	 *
+	 * @param domain
+	 * @param owner
+	 * @param namespaceText
+	 * @param nameText
+	 * @return the modify listener (already applied to both Texts)
+	 * TODO: replace this method by EMFEditObservables as soon as EMF 2.8.0 or 2.7.2 is out
+	 * @See EObjecttUIHelper.createCustomSetCommand
+	 */
+	public static ModifyListener createCustomModifyListenerForQname(
+			final EditingDomain domain,
+			final EObject owner,
+			final Text namespaceText,
+			final Text nameText,
+			final EAttribute attribute ) {
+
+		ModifyListener listener = new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+
+				// Save the caret position
+				// Otherwise, the caret goes back to the position 0
+				Text focusedText = null;
+				if( namespaceText.isFocusControl())
+					focusedText = namespaceText;
+				else if( nameText.isFocusControl())
+					focusedText = nameText;
+
+				int caretPosition = focusedText == null ? -1 : focusedText.getCaretPosition();
+
+				// Update the model
+				String ns = namespaceText.getText().trim();
+				String name = nameText.getText().trim();
+
+				QName result = StringUtils.isEmpty( ns ) ? new QName( name ) : new QName( ns, name );
+				Command cmd = EObjecttUIHelper.createCustomSetCommand( domain, owner, attribute, result );
+				domain.getCommandStack().execute( cmd );
+
+				// Restore the caret position
+				if( caretPosition != -1 )
+					focusedText.setSelection( caretPosition );
+			}
+		};
+
+		namespaceText.addModifyListener( listener );
+		nameText.addModifyListener( listener );
+
+		return listener;
 	}
 
 

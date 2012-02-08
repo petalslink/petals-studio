@@ -45,7 +45,7 @@ public class ToStringConverter implements IConverter {
 	 * #convert(java.lang.Object)
 	 */
 	@Override
-	public Object convert(Object fromObject) {
-		return fromObject.toString();
+	public Object convert( Object fromObject ) {
+		return fromObject == null ? null : fromObject.toString();
 	}
 }

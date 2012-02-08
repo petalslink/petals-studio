@@ -22,12 +22,17 @@ import com.ebmwebsourcing.petals.common.generation.Mep;
 public class StringToMepConverter extends Converter {
 
 	public StringToMepConverter() {
-		super(String.class, Mep.class);
+		super( Mep.class, String.class);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.core.databinding.conversion.IConverter
+	 * #convert(java.lang.Object)
+	 */
 	@Override
-	public Object convert(Object fromObject) {
-		return Mep.valueOf((String)fromObject);
+	public Object convert( Object fromObject ) {
+		Mep mep = Mep.whichMep((String) fromObject);
+		return mep;
 	}
-
 }

@@ -14,6 +14,7 @@ package com.ebmwebsourcing.petals.services.su.extensions;
 
 import javax.xml.namespace.QName;
 
+import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 
 
@@ -48,5 +49,5 @@ public class SuWizardSettings {
 
 	// Consume fields
 	public QName invokedOperation;
-	public String invocationMep;
+	public Mep invocationMep;
 }

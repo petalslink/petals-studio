@@ -8,13 +8,13 @@ package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-
 import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**

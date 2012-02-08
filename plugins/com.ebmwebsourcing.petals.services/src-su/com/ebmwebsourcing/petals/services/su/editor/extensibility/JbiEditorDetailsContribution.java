@@ -82,12 +82,12 @@ public abstract class JbiEditorDetailsContribution {
 	 * @param toolkit
 	 * @param title
 	 * @param description
-	 * @param expandable true to make it expandable, false otherwise
+	 * @param expanded true to make it expanded, false to make it expandable
 	 * @return a composite (which the client of a section)
 	 */
-	protected Composite createEditorSection( Composite parent, FormToolkit toolkit, String title, String description, boolean expandable ) {
+	protected Composite createEditorSection( Composite parent, FormToolkit toolkit, String title, String description, boolean expanded ) {
 
-		int style = expandable ? Section.EXPANDED | Section.TITLE_BAR : Section.TITLE_BAR | ExpandableComposite.TWISTIE;
+		int style = expanded ? Section.EXPANDED | Section.TITLE_BAR : Section.TITLE_BAR | ExpandableComposite.TWISTIE;
 		if( description != null )
 			style |= Section.DESCRIPTION;
 

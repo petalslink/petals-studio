@@ -8,7 +8,6 @@ package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 
 import javax.xml.namespace.QName;
 
@@ -61,7 +60,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Mep MEP_EDEFAULT = Mep.IN_ONLY;
+	protected static final String MEP_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getMep() <em>Mep</em>}' attribute.
@@ -71,7 +70,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * @generated
 	 * @ordered
 	 */
-	protected Mep mep = MEP_EDEFAULT;
+	protected String mep = MEP_EDEFAULT;
 
 	/**
 	 * This is true if the Mep attribute has been set.
@@ -127,7 +126,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Mep getMep() {
+	public String getMep() {
 		return mep;
 	}
 
@@ -136,9 +135,9 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setMep(Mep newMep) {
-		Mep oldMep = mep;
-		mep = newMep == null ? MEP_EDEFAULT : newMep;
+	public void setMep(String newMep) {
+		String oldMep = mep;
+		mep = newMep;
 		boolean oldMepESet = mepESet;
 		mepESet = true;
 		if (eNotificationRequired())
@@ -151,7 +150,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	 * @generated
 	 */
 	public void unsetMep() {
-		Mep oldMep = mep;
+		String oldMep = mep;
 		boolean oldMepESet = mepESet;
 		mep = MEP_EDEFAULT;
 		mepESet = false;
@@ -196,7 +195,7 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 				setOperation((QName)newValue);
 				return;
 			case Cdk5Package.CDK5_CONSUMES__MEP:
-				setMep((Mep)newValue);
+				setMep((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

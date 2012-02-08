@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.Status;
 
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Mep;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
@@ -84,15 +83,14 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
+	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint ae, IProgressMonitor monitor) {
 
 		// MEP + operations
-		Mep mep = Mep.get( this.settings.invocationMep );
-		newlyCreatedEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
-		newlyCreatedEndpoint.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
+		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, String.valueOf( this.settings.invocationMep ));
 
 		// Remove unused values
-		hackEmfModel( newlyCreatedEndpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY );
+		hackEmfModel( ae, Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY );
 
 		return Status.OK_STATUS;
 	}

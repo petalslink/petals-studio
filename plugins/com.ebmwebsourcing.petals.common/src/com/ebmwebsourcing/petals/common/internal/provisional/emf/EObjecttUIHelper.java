@@ -210,34 +210,49 @@ public class EObjecttUIHelper {
 		return new EditingDomainEObjectObservableValue( domain, eo, ea ) {
 			 @Override
 			  protected void doSetValue( final Object value ) {
-
-			    Command command = new AbstractOverrideableCommand( this.domain, "MySetCommand" ) {
-			    	private Object oldValue;
-
-					@Override
-					public void doExecute() {
-						this.oldValue = eo.eGet( ea );
-						eo.eSet( ea, value );
-					}
-
-					@Override
-					public void doUndo() {
-						eo.eSet( ea, this.oldValue );
-					}
-
-					@Override
-					public void doRedo() {
-						execute();
-					}
-
-					@Override
-					public boolean doCanExecute() {
-						return true;
-					}
-			    };
-
+			    Command command = createCustomSetCommand( this.domain, eo, ea, value );
 			    this.domain.getCommandStack().execute( command );
 			  }
+		};
+	}
+
+
+	/**
+	 * Creates a custom set command to use with model extensions.
+	 * @param domain
+	 * @param eo
+	 * @param ea
+	 * @param value
+	 * @return a custom set command (with less checks)
+	 * TODO: replace this method by the real SetCommand as soon as EMF 2.8.0 or 2.7.2 is out
+	 * @See https://bugs.eclipse.org/bugs/show_bug.cgi?id=356291
+	 * @See https://bugs.eclipse.org/bugs/show_bug.cgi?id=359043
+	 */
+	public static Command createCustomSetCommand( final EditingDomain domain, final EObject eo, final EAttribute ea, final Object value ) {
+
+		return new AbstractOverrideableCommand( domain, "MySetCommand" ) {
+			private Object oldValue;
+
+			@Override
+			public void doExecute() {
+				this.oldValue = eo.eGet( ea );
+				eo.eSet( ea, value );
+			}
+
+			@Override
+			public void doUndo() {
+				eo.eSet( ea, this.oldValue );
+			}
+
+			@Override
+			public void doRedo() {
+				execute();
+			}
+
+			@Override
+			public boolean doCanExecute() {
+				return true;
+			}
 		};
 	}
 
