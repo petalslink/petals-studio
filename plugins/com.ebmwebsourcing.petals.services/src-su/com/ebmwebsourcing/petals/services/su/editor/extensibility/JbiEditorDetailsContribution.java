@@ -12,9 +12,11 @@
 
 package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -126,5 +128,18 @@ public abstract class JbiEditorDetailsContribution {
 	 */
 	protected Composite createCommonConsumeSection( Composite parent, FormToolkit toolkit ) {
 		return createEditorSection( parent, toolkit, "Identification", "Define the service search filters and invocation properties.", true );
+	}
+
+
+	/**
+	 * Creates a label with the right font for the JBI editor.
+	 * @param toolkit
+	 * @param parent
+	 * @param text
+	 */
+	protected void createLabel( FormToolkit toolkit, Composite parent, String text, String tooltip ) {
+		Label l = toolkit.createLabel( parent, text );
+		l.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
+		l.setToolTipText( tooltip );
 	}
 }

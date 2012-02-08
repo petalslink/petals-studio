@@ -12,7 +12,9 @@
 package com.ebmwebsourcing.petals.services.filetransfer.v24;
 
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
@@ -30,17 +32,24 @@ public class FileTransferProvideWriteControls {
 	/**
 	 * Creates the controls.
 	 * @param container
+	 * @param editorStyle
 	 */
-	public void createControls( Composite container ) {
+	public void createControls( Composite container, boolean editorStyle ) {
 
-		SwtFactory.createLabel( container,  "Write Directory *:", "The directory in which the message content will be written" );
+		Label l = SwtFactory.createLabel( container,  "Write Directory *:", "The directory in which the message content will be written" );
 		this.directoryText = SwtFactory.createDirectoryBrowser( container ).getText();
+		if( editorStyle )
+			l.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
 
-		SwtFactory.createLabel( container, "Write Mode *:", "What part(s) of the message should be written" );
+		l = SwtFactory.createLabel( container, "Write Mode *:", "What part(s) of the message should be written" );
 		this.copyModeViewer = SwtFactory.createDefaultComboViewer( container, true, true, CopyMode.values());
+		if( editorStyle )
+			l.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
 
-		SwtFactory.createLabel( container, "File Name:", "The base name of the file to write (will be appended the system date)" );
+		l = SwtFactory.createLabel( container, "File Name:", "The base name of the file to write (will be appended the system date)" );
 		this.filenameText = SwtFactory.createSimpleTextField( container, true );
+		if( editorStyle )
+			l.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
 	}
 
 

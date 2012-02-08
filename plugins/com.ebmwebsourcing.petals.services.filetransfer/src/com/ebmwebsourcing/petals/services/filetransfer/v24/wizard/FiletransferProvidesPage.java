@@ -170,7 +170,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 		// Add the new children: "write" mode first
 		if( this.contract == Contract.WRITE_FILES ) {
 			FileTransferProvideWriteControls controls = new FileTransferProvideWriteControls();
-			controls.createControls( container );
+			controls.createControls( container, false );
 
 
 			// Write directory
@@ -210,7 +210,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 		// "Get files" mode then
 		else {
 			FileTransferProvideGetControls controls = new FileTransferProvideGetControls();
-			controls.createControls( container );
+			controls.createControls( container, false );
 
 			// Read directory
 			if( this.readDirectory != null )

@@ -69,7 +69,7 @@ import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.ScrolledPageBook;
-import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.part.FileEditorInput;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
@@ -109,7 +109,6 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	private JbiEditorDetailsContribution componentContributions;
 	private Composite mainDetails, advancedDetails;
 	private TableViewer providesViewer, consumesViewer;
-	private Integer selectedTabIndex = 0;
 	private final LabelProvider labelProvider;
 
 
@@ -394,7 +393,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		// Add the labels
 		Composite labelContainer = getFormToolkit().createComposite( container );
-		GridLayoutFactory.swtDefaults().numColumns( 3 ).extendedMargins( 5, 0, 0, 0 ).spacing( 8, 0 ).applyTo( labelContainer );
+		GridLayoutFactory.swtDefaults().numColumns( 3 ).margins( 10, 0 ).extendedMargins( 5, 0, 0, 0 ).spacing( 8, 0 ).applyTo( labelContainer );
 		String[] labels = { "Main", "Advanced", "Source" };
 		final List<Label> navigationLabels = new ArrayList<Label> ();
 
@@ -402,9 +401,6 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 			@Override
 			public void handleEvent( Event event ) {
 				pageBook.showPage( event.widget.getData());
-
-				// Remember the last selected index
-				SuEditionComposite.this.selectedTabIndex = (Integer) event.widget.getData();
 
 				// Highlight the selected tab
 				for( Label l : navigationLabels ) {
@@ -514,8 +510,11 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 				try {
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					page.closeEditor( page.getActiveEditor(), false );
-					IDE.openEditor( page, SuEditionComposite.this.ise.getEditedFile(), "com.ebmwebsourcing.petals.common.sourceeditor" );
+					page.openEditor(
+							new FileEditorInput( SuEditionComposite.this.ise.getEditedFile()),
+							"com.ebmwebsourcing.petals.common.sourceeditor",
+							true,
+							IWorkbenchPage.MATCH_NONE );
 
 				} catch( Exception e1 ) {
 					PetalsServicesPlugin.log( e1, IStatus.ERROR );

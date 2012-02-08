@@ -16,7 +16,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.pojo.pojo.PojoPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -40,7 +39,7 @@ public class PojoProvidesEditorContribution extends JbiEditorDetailsContribution
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "POJO Parameters", true );
-		EObjecttUIHelper.generateWidgets(
+		EObjecttUIHelper.generateEditorWidgets(
 				endpoint,
 				toolkit,
 				composite,
@@ -61,6 +60,6 @@ public class PojoProvidesEditorContribution extends JbiEditorDetailsContribution
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

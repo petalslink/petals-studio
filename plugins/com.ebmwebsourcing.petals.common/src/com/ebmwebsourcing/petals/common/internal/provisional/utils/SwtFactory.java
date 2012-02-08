@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -30,6 +31,7 @@ import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -460,6 +462,49 @@ public class SwtFactory {
 					browser.getText().setText( fileAsUri ? f.toURI().toString() : f.getAbsolutePath());
 					browser.getText().setSelection( browser.getText().getText().length());
 				}
+			}
+		});
+
+		return browser;
+	}
+
+
+	/**
+	 * Creates a workspace file browser, with a text and a button to open a file dialog.
+	 * @param parent the parent
+	 * @param container the container to search files
+	 * @param reference the file which acts as a reference to compute the relative path of the selection
+	 * @param fileExtension a file extension (without the dot, e.g. WSDL)
+	 * @return the created composite, with a text containing the file selection
+	 */
+	public static TextWithButtonComposite createWorkspaceFileBrowser(
+			final Composite parent,
+			final IContainer container,
+			final IResource reference,
+			final String fileExtension ) {
+
+		final TextWithButtonComposite browser = new TextWithButtonComposite( parent );
+		browser.getText().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		browser.getButton().setText( "Browse..." );
+		browser.getButton().addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				ElementTreeSelectionDialog dlg = createWorkspaceFileSelectionDialog(
+						parent.getShell(),
+						container,
+						fileExtension + " Selection",
+						"Select " + fileExtension + " files in the workspace.",
+						fileExtension );
+
+				if( dlg.open() != Window.OK )
+					return;
+
+				IFile f = (IFile) dlg.getFirstResult();
+				String s = IoUtils.getRelativeLocationToFile( reference.getLocation().toFile(), f.getLocation().toFile());
+				browser.getText().setText( s != null ? s : "" );
+				browser.getText().setSelection( browser.getText().getText().length());
 			}
 		});
 

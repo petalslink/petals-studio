@@ -44,10 +44,14 @@ public class QuartzControls {
 	/**
 	 * Creates the Quartz controls.
 	 * @param parent the parent
+	 * @param editorStyle true to use the editor style, false for wizards
 	 */
-	public void createControls( final Composite parent ) {
+	public void createControls( final Composite parent, boolean editorStyle ) {
 
-		SwtFactory.createLabel( parent, Messages.cronExpression, "A CRON expression to schedule service invocations" );
+		Label l = SwtFactory.createLabel( parent, Messages.cronExpression, "A CRON expression to schedule service invocations" );
+		if( editorStyle )
+			l.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
+
 		this.cronText = SwtFactory.createSimpleTextField( parent, true );
 
 		Link cronLink = new Link( parent, SWT.NONE );
@@ -73,8 +77,10 @@ public class QuartzControls {
 
 
 		// The message skeleton
-		Label l = SwtFactory.createLabel( parent, Messages.content, "A XML message to send to the target service" );
+		l = SwtFactory.createLabel( parent, Messages.content, "A XML message to send to the target service" );
 		GridDataFactory.swtDefaults().indent( 0, 5 ).span( 2, 1 ).applyTo( l );
+		if( editorStyle )
+			l.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
 
 		this.msgText = SwtFactory.createXmlTextViewer( parent );
 		GridDataFactory.swtDefaults().align( SWT.FILL, SWT.CENTER ).span( 2, 1 ).applyTo( this.msgText );

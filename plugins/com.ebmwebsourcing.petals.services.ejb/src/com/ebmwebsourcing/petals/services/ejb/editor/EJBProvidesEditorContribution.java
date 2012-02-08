@@ -16,7 +16,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.ejb.ejb.EjbPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -50,14 +49,14 @@ public class EJBProvidesEditorContribution extends JbiEditorDetailsContribution 
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "JNDI Parameters" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				EjbPackage.Literals.EJB_PROVIDES__EJB_JNDI_NAME,
 				EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_INITIAL,
 				EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_FACTORY_URL_PKGS,
 				EjbPackage.Literals.EJB_PROVIDES__JAVA_NAMING_PROVIDER_URL );
 
 		composite = createEditorSection( advancedTab, toolkit, "EJB Parameters" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				EjbPackage.Literals.EJB_PROVIDES__EJB_VERSION,
 				EjbPackage.Literals.EJB_PROVIDES__EJB_HOME_INTERFACE,
 				EjbPackage.Literals.EJB_PROVIDES__SECURITY_NAME,
@@ -65,6 +64,6 @@ public class EJBProvidesEditorContribution extends JbiEditorDetailsContribution 
 				EjbPackage.Literals.EJB_PROVIDES__SECURITY_CREDENCIALS );
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

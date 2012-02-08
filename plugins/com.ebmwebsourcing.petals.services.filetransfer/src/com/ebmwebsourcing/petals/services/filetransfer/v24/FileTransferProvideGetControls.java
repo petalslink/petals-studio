@@ -11,7 +11,9 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
@@ -27,14 +29,19 @@ public class FileTransferProvideGetControls {
 	/**
 	 * Creates the controls.
 	 * @param container
+	 * @param editorStyle
 	 */
-	public void createControls( Composite container ) {
+	public void createControls( Composite container, boolean editorStyle ) {
 
-		SwtFactory.createLabel( container, "Read Directory *:", "The directory to read" );
+		Label l = SwtFactory.createLabel( container, "Read Directory *:", "The directory to read" );
 		this.readText = SwtFactory.createDirectoryBrowser( container ).getText();
+		if( editorStyle )
+			l.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
 
-		SwtFactory.createLabel( container, "Backup Directory:", "The directory into which read files are moved (the temporary directory by default)" );
+		l = SwtFactory.createLabel( container, "Backup Directory:", "The directory into which read files are moved (the temporary directory by default)" );
 		this.backupText = SwtFactory.createDirectoryBrowser( container ).getText();
+		if( editorStyle )
+			l.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
 	}
 
 

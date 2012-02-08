@@ -41,10 +41,12 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -130,7 +132,59 @@ public class EObjecttUIHelper {
 			boolean showDecorator,
 			EStructuralFeature... toProcessFeatures ) {
 
-		List<EntryDescription> entries = produceWidgets(toolkit, parent, toProcessFeatures);
+		return generateWidgets(
+				eObject, toolkit, null,
+				parent, domain, dbc, showDecorator, toProcessFeatures );
+	}
+
+
+	/**
+	 * Generates a 2 column list with left column containing description of widgets and right column containing widget.
+	 * @param eObject the eObject to edit
+	 * @param toolkit a {@link FormToolkit} to create widgets
+	 * @param parent
+	 * @param domain the {@link EditingDomain} in case of transactional edition. Can be null, then no transaction is used.
+	 * @param dbc
+	 * @param toProcessFeatures list of features to edit.
+	 * @return
+	 */
+	public static List<EntryDescription> generateEditorWidgets(
+			EObject eObject,
+			FormToolkit toolkit,
+			Composite parent,
+			EditingDomain domain,
+			DataBindingContext dbc,
+			boolean showDecorator,
+			EStructuralFeature... toProcessFeatures ) {
+
+		return generateWidgets(
+				eObject, toolkit, parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ),
+				parent, domain, dbc, showDecorator, toProcessFeatures );
+	}
+
+
+	/**
+	 * Generates a 2 column list with left column containing description of widgets and right column containing widget.
+	 * @param eObject the eObject to edit
+	 * @param toolkit a {@link FormToolkit} to create widgets
+	 * @param labelColor the foreground color for the label
+	 * @param parent
+	 * @param domain the {@link EditingDomain} in case of transactional edition. Can be null, then no transaction is used.
+	 * @param dbc
+	 * @param toProcessFeatures list of features to edit.
+	 * @return
+	 */
+	public static List<EntryDescription> generateWidgets(
+			EObject eObject,
+			FormToolkit toolkit,
+			Color labelColor,
+			Composite parent,
+			EditingDomain domain,
+			DataBindingContext dbc,
+			boolean showDecorator,
+			EStructuralFeature... toProcessFeatures ) {
+
+		List<EntryDescription> entries = produceWidgets( toolkit, labelColor, parent, toProcessFeatures );
 		setUpDatabinding(eObject, domain, dbc, showDecorator, entries);
 		return entries;
 	}
@@ -266,6 +320,7 @@ public class EObjecttUIHelper {
 	 */
 	private static List<EntryDescription> produceWidgets(
 			FormToolkit toolkit,
+			Color labelColor,
 			Composite parent,
 			EStructuralFeature... toProcessFeatures ) {
 
@@ -274,15 +329,21 @@ public class EObjecttUIHelper {
 			Object widget = null;
 			EAttribute attr = (EAttribute) feature;
 
+			// The label
+			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
 			String label = StringUtils.camelCaseToHuman( attr.getName());
 			label = StringUtils.capitalize( label );
 			if( attr.getLowerBound() > 0)
 				label += " *";
 
 			label += ":";
-			toolkit.createLabel(parent, label).setBackground(parent.getBackground());
+			Label labelWidget = toolkit.createLabel(parent, label);
+			labelWidget.setBackground(parent.getBackground());
+			if( labelColor != null )
+				labelWidget.setForeground( labelColor );
 
-			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
+
+			// The widget
 			Class<?> instanceClass = attr.getEType().getInstanceClass();
 			if (instanceClass.equals( String.class )) {
 

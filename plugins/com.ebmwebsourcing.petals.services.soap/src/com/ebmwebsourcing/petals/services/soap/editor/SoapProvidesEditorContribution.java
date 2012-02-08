@@ -16,7 +16,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
@@ -40,7 +39,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "SOAP Parameters", true );
-		EObjecttUIHelper.generateWidgets(
+		EObjecttUIHelper.generateEditorWidgets(
 				endpoint,
 				toolkit,
 				composite,
@@ -62,7 +61,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "Miscellaneous" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
 					SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME,
@@ -77,7 +76,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 //					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_TO_INJECT);
 
 		composite = createEditorSection( advancedTab, toolkit, "Proxy Settings" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_HOST,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_PORT,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_USER,
@@ -85,7 +84,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_DOMAIN);
 
 		composite = createEditorSection( advancedTab, toolkit, "HTTPS" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_FILE,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE,
@@ -100,6 +99,6 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 //					SoapPackage.Literals.SOAP_PROVIDES__WSA_FAULT_TO);
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

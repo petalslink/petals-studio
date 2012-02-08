@@ -11,6 +11,7 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.validation.editor;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -21,7 +22,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelpe
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.validation.validation.ValidationPackage;
@@ -45,9 +45,11 @@ public class ValidationProvidesEditorContribution extends JbiEditorDetailsContri
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "Validation Parameters", true );
-		SwtFactory.createLabel( composite, "XML Schema *:", "Relative path to the XSD File");
-		TextWithButtonComposite browser = SwtFactory.createFileBrowser( composite, false, false, "XSD" );
-		browser.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
+		createLabel( toolkit, composite, "XML Schema *:", "Relative path to the XSD File");
+
+		IFile jbiXmlFile = ise.getEditedFile();
+		TextWithButtonComposite browser = SwtFactory.createWorkspaceFileBrowser( composite, jbiXmlFile.getParent(), jbiXmlFile, "XSD" );
+		browser.setLayoutData( new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		ise.getDataBindingContext().bindValue(SWTObservables.observeText(browser.getText(), SWT.Modify),
 		EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, ValidationPackage.Literals.VALIDATION_PROVIDES__SCHEMA ));
 	}
@@ -63,6 +65,6 @@ public class ValidationProvidesEditorContribution extends JbiEditorDetailsContri
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

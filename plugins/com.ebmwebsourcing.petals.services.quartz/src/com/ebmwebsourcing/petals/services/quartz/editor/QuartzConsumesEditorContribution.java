@@ -58,7 +58,7 @@ public class QuartzConsumesEditorContribution extends JbiEditorDetailsContributi
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "Quartz Parameters" );
 		QuartzControls controls = new QuartzControls();
-		controls.createControls( composite );
+		controls.createControls( composite, true );
 
 		IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getCronText(), SWT.Modify ));
 		IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, QuartzPackage.Literals.QUARTZ_CONSUMES__CRON_EXPRESSION );

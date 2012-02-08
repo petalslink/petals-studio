@@ -23,7 +23,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.bpel.common.ui,
  org.eclipse.bpel.validator,
  org.eclipse.bpel.common.wsdl,
- com.ebmwebsourcing.petals.services.cdk
+ com.ebmwebsourcing.petals.services.cdk,
+ org.eclipse.emf.edit,
+ org.eclipse.jface.databinding
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy

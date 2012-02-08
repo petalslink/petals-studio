@@ -21,7 +21,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideGetControls;
@@ -59,7 +58,7 @@ public class FileTransferProvidesJbiEditorContribution extends JbiEditorDetailsC
 		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters", true );
 		if( "writefiles".equalsIgnoreCase( endpoint.getInterfaceName().getLocalPart())) {
 			FileTransferProvideWriteControls controls = new FileTransferProvideWriteControls();
-			controls.createControls( composite );
+			controls.createControls( composite, true );
 
 			IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getDirectoryText(), SWT.Modify ));
 			IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY );
@@ -75,7 +74,7 @@ public class FileTransferProvidesJbiEditorContribution extends JbiEditorDetailsC
 
 		} else {
 			FileTransferProvideGetControls controls = new FileTransferProvideGetControls();
-			controls.createControls( composite );
+			controls.createControls( composite, true );
 
 			IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getReadText(), SWT.Modify ));
 			IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY );
@@ -87,6 +86,6 @@ public class FileTransferProvidesJbiEditorContribution extends JbiEditorDetailsC
 		}
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		Cdk5Utils.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
 	}
 }

@@ -198,7 +198,7 @@ public class CDK5JBIEndpointUIHelper {
 		Label wsdlLabel = toolkit.createLabel( parent, "WSDL location:" );
 		wsdlLabel.setToolTipText( "The relative path of the WSDL in the service unit or an URL" );
 		wsdlLabel.setForeground( blueFont );
-		GridDataFactory.swtDefaults().align( SWT.LEFT, SWT.TOP ).indent( 0, 6 ).applyTo( wsdlLabel );
+		GridDataFactory.swtDefaults().align( SWT.LEFT, SWT.TOP ).indent( 0, 4 ).applyTo( wsdlLabel );
 
 		Composite subContainer = new Composite( parent, SWT.NONE );
 		GridLayoutFactory.swtDefaults().margins( 0, 0 ).numColumns( 2 ).extendedMargins( 0, 0, 0, 20 ).applyTo( subContainer );
@@ -304,5 +304,28 @@ public class CDK5JBIEndpointUIHelper {
 				ise.getEditingDomain().getCommandStack().execute( cmd );
 			}
 		});
+	}
+
+
+	/**
+	 * Generates the default contributions for the CDK section.
+	 * @param ae the abstract end-point
+	 * @param toolkit the form toolkit
+	 * @param parent the parent
+	 * @param domain the editing domain
+	 * @param dbc the data-binding context
+	 */
+	public static void generateDefaultCdkWidgetsForProvidesEditor(
+			AbstractEndpoint ae,
+			FormToolkit toolkit,
+			Composite parent,
+			ISharedEdition ise ) {
+
+		EObjecttUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+				Cdk5Package.Literals.CDK_SERVICE__TIMEOUT,
+				Cdk5Package.Literals.CDK5_PROVIDES__VALIDATE_WSDL,
+				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT,
+				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES,
+				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_ATTACHMENTS );
 	}
 }
