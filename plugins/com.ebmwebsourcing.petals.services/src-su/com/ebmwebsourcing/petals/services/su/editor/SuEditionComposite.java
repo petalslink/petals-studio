@@ -61,19 +61,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.ScrolledPageBook;
-import org.eclipse.ui.part.FileEditorInput;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
-import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.OpenSourceEditorHyperlinkListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
@@ -82,6 +78,7 @@ import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.InitializeModelExtensionCommand;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.services.su.editor.extensibility.defaultpages.DefaultJbiEditorContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.EMFPCStyledLabelProvider;
 import com.ebmwebsourcing.petals.services.su.editor.wizards.AddConsumesToExistingJbiStrategy;
 import com.ebmwebsourcing.petals.services.su.editor.wizards.AddProvidesToExistingJbiStrategy;
@@ -503,25 +500,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		FormText formText = this.ise.getFormToolkit().createFormText( container, false );
 		formText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		formText.setText( sb.toString(), true, false );
-
-		formText.addHyperlinkListener( new PetalsHyperlinkListener() {
-			@Override
-			public void linkActivated( HyperlinkEvent e ) {
-
-				try {
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					page.openEditor(
-							new FileEditorInput( SuEditionComposite.this.ise.getEditedFile()),
-							"com.ebmwebsourcing.petals.common.sourceeditor",
-							true,
-							IWorkbenchPage.MATCH_NONE );
-
-				} catch( Exception e1 ) {
-					PetalsServicesPlugin.log( e1, IStatus.ERROR );
-					MessageDialog.openError( getShell(), "Error", "An error occurred while opening the file in the source editor." );
-				}
-			}
-		});
+		formText.addHyperlinkListener( new OpenSourceEditorHyperlinkListener( this.ise.getEditedFile(), false ));
 
 
 		// Show the source
@@ -640,24 +619,27 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 
 	/**
-	 *
+	 * Refreshes the right part.
 	 */
 	private void refreshDetails() {
-		if (this.selectedEndpoint != null) {
-			ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findComponentDescription(this.selectedEndpoint);
-			if (componentDesc != null) {
+
+		this.componentContributions = null;
+		if( this.selectedEndpoint != null ) {
+			ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findComponentDescription( this.selectedEndpoint );
+			if( componentDesc != null ) {
 				EditorContributionSupport support = componentDesc.createNewExtensionSupport();
-				if (support != null) {
-					this.componentContributions = support.createJbiEditorContribution(this.selectedEndpoint);
-				}
-		    }
-		} else {
-			this.componentContributions = null;
+				if( support != null )
+					this.componentContributions = support.createJbiEditorContribution( this.selectedEndpoint );
+				else
+					this.componentContributions = new DefaultJbiEditorContribution();
+
+			} else {
+				this.componentContributions = new DefaultJbiEditorContribution();
+			}
 		}
 
-		re_fillMainDetailsContainer( this.ise.getFormToolkit(), this.mainDetails);
-		re_fillAdvancedDetailsContainer( this.ise.getFormToolkit(), this.advancedDetails);
-
+		re_fillMainDetailsContainer( this.ise.getFormToolkit(), this.mainDetails );
+		re_fillAdvancedDetailsContainer( this.ise.getFormToolkit(), this.advancedDetails );
 	}
 
 

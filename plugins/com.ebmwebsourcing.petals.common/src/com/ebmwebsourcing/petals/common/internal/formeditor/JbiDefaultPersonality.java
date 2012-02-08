@@ -12,8 +12,6 @@
 package com.ebmwebsourcing.petals.common.internal.formeditor;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
@@ -21,16 +19,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormText;
-import org.eclipse.ui.ide.IDE;
 
-import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.OpenSourceEditorHyperlinkListener;
 import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
@@ -97,22 +90,7 @@ public class JbiDefaultPersonality implements IJbiEditorPersonality {
 		formText = ise.getFormToolkit().createFormText( c, false );
 		formText.setLayoutData( new GridData( SWT.CENTER, SWT.TOP, true, true ));
 		formText.setText( sb.toString(), true, false );
-
-		formText.addHyperlinkListener( new PetalsHyperlinkListener() {
-			@Override
-			public void linkActivated( HyperlinkEvent e ) {
-
-				try {
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					page.closeEditor( page.getActiveEditor(), false );
-					IDE.openEditor( page, ise.getEditedFile(), "com.ebmwebsourcing.petals.common.sourceeditor" );
-
-				} catch( Exception e1 ) {
-					PetalsCommonPlugin.log( e1, IStatus.ERROR );
-					MessageDialog.openError( parent.getShell(), "Error", "An error occurred while opening the file in the source editor." );
-				}
-			}
-		});
+		formText.addHyperlinkListener( new OpenSourceEditorHyperlinkListener( ise.getEditedFile(), true ));
 	}
 
 

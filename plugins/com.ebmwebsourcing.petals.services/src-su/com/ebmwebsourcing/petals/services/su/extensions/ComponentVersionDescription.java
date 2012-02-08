@@ -111,11 +111,16 @@ public abstract class ComponentVersionDescription implements IComponentDescripti
 	 * @return the editor contribution for this version
 	 */
 	public EditorContributionSupport createNewExtensionSupport() {
+
+		EditorContributionSupport support = null;
 		try {
-			return (EditorContributionSupport) this.configurationElement.createExecutableExtension("editorExtension");
-		} catch (Exception ex) {
+			if( this.configurationElement.getAttribute( "editorExtension" ) != null )
+				support = (EditorContributionSupport) this.configurationElement.createExecutableExtension( "editorExtension" );
+
+		} catch( Exception ex ) {
 			PetalsServicesPlugin.log(ex, IStatus.ERROR);
-			return null;
 		}
+
+		return support;
 	}
 }
