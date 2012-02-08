@@ -11,6 +11,9 @@
 
 package com.ebmwebsourcing.petals.tests.common;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class SUDesc {
 
 	private String serviceName;

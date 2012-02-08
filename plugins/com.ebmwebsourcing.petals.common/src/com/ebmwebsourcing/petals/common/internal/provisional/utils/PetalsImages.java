@@ -1,9 +1,25 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2011-2012, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import org.eclipse.swt.graphics.Image;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ * FIXME: there must be a better way. ImageRegistry?
+ */
 public class PetalsImages {
 
 	private static Image pencil;
@@ -52,7 +68,7 @@ public class PetalsImages {
 	/**
 	 * @return
 	 */
-	public static Image getOk() {
+	public synchronized static Image getOk() {
 		if (ok == null) {
 			ok = PetalsCommonPlugin.getImageDescriptor("icons/obj16/tick.png").createImage();
 		}
@@ -62,11 +78,10 @@ public class PetalsImages {
 	/**
 	 * @return
 	 */
-	public static Image getKO() {
+	public synchronized static Image getKO() {
 		if (ko == null) {
 			ko = PetalsCommonPlugin.getImageDescriptor("icons/obj16/cross.png").createImage();
 		}
 		return ko;
 	}
-
 }

@@ -13,6 +13,7 @@ package com.ebmwebsourcing.petals.tests.common;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
@@ -21,6 +22,7 @@ import org.eclipse.core.runtime.Platform;
 
 /**
  * Utilities related to files.
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class FileTestUtil {
 
@@ -41,9 +43,11 @@ public class FileTestUtil {
 				return true;
 			}
 		} else if (Platform.getOS().equals(Platform.OS_LINUX)) {
+			InputStream commandOutput = null;
+			BufferedReader reader = null;
 			try {
-				InputStream commandOutput = Runtime.getRuntime().exec("/usr/bin/lsof").getInputStream();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(commandOutput));
+				commandOutput = Runtime.getRuntime().exec("/usr/bin/lsof").getInputStream();
+				reader = new BufferedReader( new InputStreamReader(commandOutput));
 				String line = null;
 				while ((line = reader.readLine()) != null) {
 					if (line.contains(f.getAbsolutePath())) {
@@ -51,9 +55,21 @@ public class FileTestUtil {
 					}
 				}
 				return false;
+
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
+
+			} finally {
+
+				if( reader != null ) {
+					try {
+						reader.close();
+					} catch( IOException e ) {
+						e.printStackTrace();
+					}
+				}
 			}
+
 		} else {
 			// Add your platform-specific check for file opened here
 			return false;

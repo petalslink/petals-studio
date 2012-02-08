@@ -868,7 +868,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	/**
 	 * A bean that describes an interface.
 	 */
-	private class ItfBean {
+	private static class ItfBean {
 		QName itfName;
 		Map<QName,SrvBean> srvNameToService = new HashMap<QName,SrvBean> ();
 	}
@@ -877,7 +877,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	/**
 	 * A bean that describes a service.
 	 */
-	private class SrvBean {
+	private static class SrvBean {
 		QName srvName;
 		ItfBean itf;
 		List<EdptBean> endpoints = new ArrayList<EdptBean> ();
@@ -887,7 +887,7 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	/**
 	 * A bean that describes an end-point.
 	 */
-	private class EdptBean {
+	private static class EdptBean {
 		EndpointBean edptBean;
 	}
 }

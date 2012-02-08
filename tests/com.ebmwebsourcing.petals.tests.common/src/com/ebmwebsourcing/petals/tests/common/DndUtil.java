@@ -42,7 +42,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 /**
  * A dnd utility class to help performing drag and drop. This code will be in
  * SWTbot in future but need to be polished before.
- * 
+ *
  * @author mchauvin
  */
 public class DndUtil {
@@ -59,11 +59,11 @@ public class DndUtil {
      */
     private static final int DRAG_DELAY = 400;
 
-    private Display display;
+    private final Display display;
 
     /**
      * Construct a new instance.
-     * 
+     *
      * @param display
      *            the display to use
      */
@@ -75,7 +75,7 @@ public class DndUtil {
      * Performs a drag and drop operation from this widget to the given target.
      * The drag start location will be chosen depending on this widget's default
      * implementation.
-     * 
+     *
      * @param source
      *            the source widget to drag
      * @param target
@@ -91,7 +91,7 @@ public class DndUtil {
      * Performs a drag and drop operation from this widget to the given target
      * at the given location from target origin. The drag start location will be
      * chosen depending on this widget's default implementation.
-     * 
+     *
      * @param source
      *            the source widget to drag
      * @param target
@@ -111,7 +111,7 @@ public class DndUtil {
      * Performs a drag and drop operation from this widget to the given target
      * at the given location from target origin. The drag start location will be
      * chosen depending on this widget's default implementation.
-     * 
+     *
      * @param source
      *            the source widget to drag
      * @param target
@@ -129,7 +129,7 @@ public class DndUtil {
      * Performs a DND operation to an arbitrary location. The drag start
      * location will be chosen depending on this widget's default
      * implementation.
-     * 
+     *
      * @param source
      *            the source widget to drag
      * @param target
@@ -147,7 +147,7 @@ public class DndUtil {
     /**
      * Performs a DND operation starting at an arbitrary location, targeting the
      * given widget.
-     * 
+     *
      * @param source
      *            From where to start dragging
      * @param target
@@ -172,7 +172,8 @@ public class DndUtil {
             // otherwise and has been reported to be required for linux, too.
             // But I could not test that.
             syncExec(new VoidResult() {
-                public void run() {
+                @Override
+				public void run() {
                     awtRobot.mouseMove(source.x, source.y);
                     awtRobot.mousePress(InputEvent.BUTTON1_MASK);
                     awtRobot.mouseMove(source.x + DRAG_THRESHOLD, source.y);
@@ -183,7 +184,8 @@ public class DndUtil {
             SWTUtils.sleep(DRAG_DELAY);
 
             syncExec(new VoidResult() {
-                public void run() {
+                @Override
+				public void run() {
                     awtRobot.mouseMove(dest.x + DRAG_THRESHOLD, dest.y);
                     awtRobot.mouseMove(dest.x, dest.y);
                 }
@@ -193,7 +195,8 @@ public class DndUtil {
             SWTUtils.sleep(DRAG_DELAY);
 
             syncExec(new VoidResult() {
-                public void run() {
+                @Override
+				public void run() {
                     awtRobot.mouseRelease(InputEvent.BUTTON1_MASK);
                 }
             });
@@ -206,18 +209,18 @@ public class DndUtil {
 
     /**
      * Invokes {@link VoidResult#run()} on the UI thread.
-     * 
+     *
      * @param toExecute
      *            the object to be invoked in the UI thread.
      */
     private void syncExec(VoidResult toExecute) {
-        UIThreadRunnable.syncExec(display, toExecute);
+        UIThreadRunnable.syncExec(this.display, toExecute);
     }
 
     /**
      * Calculates a position which can be used to insert an item <em>before</em>
      * the given one by a DND operation.
-     * 
+     *
      * @param targetItem
      *            Before which the new item shall appear
      * @param <T>
@@ -235,7 +238,7 @@ public class DndUtil {
      * the given widget by a DND operation. For tree structures, this will most
      * likely result in another child node being added. But how this is handled
      * in detail ultimately depends on the "drop action"'s implementation.
-     * 
+     *
      * @param targetItem
      *            On which to drop
      * @param <T>
@@ -251,7 +254,7 @@ public class DndUtil {
     /**
      * Calculates a position which can be used to insert an item after the given
      * one by a DND operation.
-     * 
+     *
      * @param targetItem
      *            After which the new item shall appear
      * @param <T>
@@ -278,9 +281,10 @@ public class DndUtil {
             bot = new SWTBotTreeItemForDnd(((SWTBotTreeItem) item).widget);
         } else if (item instanceof SWTBotGefFigureCanvas) {
             bot = new SWTBotGefFigureCanvasForDnd((FigureCanvas) ((SWTBotGefFigureCanvas) item).widget);
-        } else if (item instanceof AbstractSWTBot) {
+        } else {
             bot = item;
         }
+
         Object result = null;
         try {
             Method m = AbstractSWTBot.class.getDeclaredMethod("absoluteLocation");
@@ -299,15 +303,15 @@ public class DndUtil {
         }
         return (Rectangle) result;
     }
-    
+
     private static Rectangle absoluteLocation(SWTBotGefEditPart part) {
     	// Copy pasted from SWTBotGefEditPart.getBounds()
     	GraphicalEditPart editPart = (GraphicalEditPart) part.part();
 		final IFigure figure = editPart.getFigure();
 		final org.eclipse.draw2d.geometry.Rectangle bounds = figure.getBounds().getCopy();
 		figure.translateToAbsolute(bounds);
-		
-		
+
+
 		SWTBotGefFigureCanvas figureCanvas = new SWTBotGefFigureCanvas((FigureCanvas)editPart.getViewer().getControl());
 		Rectangle absoluteLocation = absoluteLocation(figureCanvas);
 		bounds.translate(absoluteLocation.x, absoluteLocation.y);
@@ -316,7 +320,7 @@ public class DndUtil {
 
     /**
      * Subclass to return the correct absolute location.
-     * 
+     *
      * @author mchauvin
      */
     private static class SWTBotTreeItemForDnd extends SWTBotTreeItem {
@@ -328,8 +332,9 @@ public class DndUtil {
         @Override
         protected Rectangle absoluteLocation() {
             return UIThreadRunnable.syncExec(new Result<Rectangle>() {
-                public Rectangle run() {
-                    return display.map(widget.getParent(), null, widget.getBounds());
+                @Override
+				public Rectangle run() {
+                    return SWTBotTreeItemForDnd.this.display.map(SWTBotTreeItemForDnd.this.widget.getParent(), null, SWTBotTreeItemForDnd.this.widget.getBounds());
                 }
             });
         }
@@ -338,7 +343,7 @@ public class DndUtil {
 
     /**
      * Subclass to return the correct absolute location.
-     * 
+     *
      * @author mchauvin
      */
     private static class SWTBotGefFigureCanvasForDnd extends SWTBotGefFigureCanvas {
@@ -350,8 +355,9 @@ public class DndUtil {
         @Override
         protected Rectangle absoluteLocation() {
             return UIThreadRunnable.syncExec(new Result<Rectangle>() {
-                public Rectangle run() {
-                    return display.map(widget.getParent(), null, widget.getBounds());
+                @Override
+				public Rectangle run() {
+                    return SWTBotGefFigureCanvasForDnd.this.display.map(SWTBotGefFigureCanvasForDnd.this.widget.getParent(), null, SWTBotGefFigureCanvasForDnd.this.widget.getBounds());
                 }
             });
         }

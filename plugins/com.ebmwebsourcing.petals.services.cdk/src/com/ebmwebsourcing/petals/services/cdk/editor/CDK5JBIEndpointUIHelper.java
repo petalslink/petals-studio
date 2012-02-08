@@ -16,7 +16,6 @@ import java.io.File;
 import java.net.URI;
 import java.util.Arrays;
 
-import javax.swing.event.HyperlinkEvent;
 import javax.xml.namespace.QName;
 
 import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
@@ -47,6 +46,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 
@@ -116,7 +116,9 @@ public class CDK5JBIEndpointUIHelper {
 		Hyperlink selectLink = toolkit.createHyperlink( parent, "Select a Petals service and an operation to invoke", SWT.NONE );
 		selectLink.setToolTipText( "Select the service and the operation to invoke from the known Petals services" );
 		selectLink.addHyperlinkListener( new PetalsHyperlinkListener() {
+			@Override
 			public void linkActivated( HyperlinkEvent e ) {
+
 				final EnhancedConsumeDialog dlg = new EnhancedConsumeDialog( parent.getShell(), toolkit );
 				if( dlg.open() == Window.OK ) {
 					CompoundCommand compositeCommand = new CompoundCommand();

@@ -1,34 +1,28 @@
 /**
  * Copyright (c) 2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
-
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl;
-
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Consumes;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.FileTransfer3Provides;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Factory;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
-
 import com.sun.java.xml.ns.jbi.JbiPackage;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -79,7 +73,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link Filetransfer3Package#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -114,7 +108,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 		// Mark meta-data to indicate it can't be changed
 		theFiletransfer3Package.freeze();
 
-  
+
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(Filetransfer3Package.eNS_URI, theFiletransfer3Package);
 		return theFiletransfer3Package;
@@ -126,7 +120,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EClass getFileTransfer3Provides() {
-		return fileTransfer3ProvidesEClass;
+		return this.fileTransfer3ProvidesEClass;
 	}
 
 	/**
@@ -135,7 +129,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Provides_Filename() {
-		return (EAttribute)fileTransfer3ProvidesEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)this.fileTransfer3ProvidesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -144,7 +138,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Provides_BackupDirectory() {
-		return (EAttribute)fileTransfer3ProvidesEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)this.fileTransfer3ProvidesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -153,7 +147,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Provides_Folder() {
-		return (EAttribute)fileTransfer3ProvidesEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)this.fileTransfer3ProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -162,7 +156,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EClass getFileTransfer3Consumes() {
-		return fileTransfer3ConsumesEClass;
+		return this.fileTransfer3ConsumesEClass;
 	}
 
 	/**
@@ -171,7 +165,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_Folder() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -180,7 +174,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_BackupDirectory() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -189,7 +183,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_TransferMode() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -198,7 +192,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_Filename() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -207,7 +201,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_PollingPeriod() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -216,7 +210,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_BaseMessage() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -225,7 +219,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_ProcessorPoolSize() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -234,7 +228,7 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public EAttribute getFileTransfer3Consumes_ProcessorPoolTimeout() {
-		return (EAttribute)fileTransfer3ConsumesEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)this.fileTransfer3ConsumesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -261,24 +255,24 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated) return;
-		isCreated = true;
+		if (this.isCreated) return;
+		this.isCreated = true;
 
 		// Create classes and their features
-		fileTransfer3ProvidesEClass = createEClass(FILE_TRANSFER3_PROVIDES);
-		createEAttribute(fileTransfer3ProvidesEClass, FILE_TRANSFER3_PROVIDES__FILENAME);
-		createEAttribute(fileTransfer3ProvidesEClass, FILE_TRANSFER3_PROVIDES__BACKUP_DIRECTORY);
-		createEAttribute(fileTransfer3ProvidesEClass, FILE_TRANSFER3_PROVIDES__FOLDER);
+		this.fileTransfer3ProvidesEClass = createEClass(FILE_TRANSFER3_PROVIDES);
+		createEAttribute(this.fileTransfer3ProvidesEClass, FILE_TRANSFER3_PROVIDES__FILENAME);
+		createEAttribute(this.fileTransfer3ProvidesEClass, FILE_TRANSFER3_PROVIDES__BACKUP_DIRECTORY);
+		createEAttribute(this.fileTransfer3ProvidesEClass, FILE_TRANSFER3_PROVIDES__FOLDER);
 
-		fileTransfer3ConsumesEClass = createEClass(FILE_TRANSFER3_CONSUMES);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__FOLDER);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__BACKUP_DIRECTORY);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__TRANSFER_MODE);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__FILENAME);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__POLLING_PERIOD);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__BASE_MESSAGE);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_SIZE);
-		createEAttribute(fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_TIMEOUT);
+		this.fileTransfer3ConsumesEClass = createEClass(FILE_TRANSFER3_CONSUMES);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__FOLDER);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__BACKUP_DIRECTORY);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__TRANSFER_MODE);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__FILENAME);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__POLLING_PERIOD);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__BASE_MESSAGE);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_SIZE);
+		createEAttribute(this.fileTransfer3ConsumesEClass, FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_TIMEOUT);
 	}
 
 	/**
@@ -296,8 +290,8 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized) return;
-		isInitialized = true;
+		if (this.isInitialized) return;
+		this.isInitialized = true;
 
 		// Initialize package
 		setName(eNAME);
@@ -315,16 +309,16 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		fileTransfer3ProvidesEClass.getESuperTypes().add(theCdk5Package.getCDK5Provides());
-		fileTransfer3ConsumesEClass.getESuperTypes().add(theCdk5Package.getCDK5Consumes());
+		this.fileTransfer3ProvidesEClass.getESuperTypes().add(theCdk5Package.getCDK5Provides());
+		this.fileTransfer3ConsumesEClass.getESuperTypes().add(theCdk5Package.getCDK5Consumes());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(fileTransfer3ProvidesEClass, FileTransfer3Provides.class, "FileTransfer3Provides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(this.fileTransfer3ProvidesEClass, FileTransfer3Provides.class, "FileTransfer3Provides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFileTransfer3Provides_Filename(), theXMLTypePackage.getString(), "filename", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Provides_BackupDirectory(), theXMLTypePackage.getString(), "backupDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Provides_Folder(), theXMLTypePackage.getString(), "folder", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(fileTransfer3ConsumesEClass, FileTransfer3Consumes.class, "FileTransfer3Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(this.fileTransfer3ConsumesEClass, FileTransfer3Consumes.class, "FileTransfer3Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFileTransfer3Consumes_Folder(), theXMLTypePackage.getString(), "folder", null, 1, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Consumes_BackupDirectory(), theXMLTypePackage.getString(), "backupDirectory", null, 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransfer3Consumes_TransferMode(), theFiletransfer2xPackage.getTransferMode(), "transferMode", "TransferMode.CONTENT", 0, 1, FileTransfer3Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -349,112 +343,112 @@ public class Filetransfer3PackageImpl extends EPackageImpl implements Filetransf
 	 * @generated
 	 */
 	protected void createExtendedMetaDataAnnotations() {
-		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";		
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation
-		  (fileTransfer3ProvidesEClass, 
-		   source, 
+		  (this.fileTransfer3ProvidesEClass,
+		   source,
 		   new String[] {
 			 "name", ""
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Provides_Filename(), 
-		   source, 
+		  (getFileTransfer3Provides_Filename(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "filename"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Provides_BackupDirectory(), 
-		   source, 
+		  (getFileTransfer3Provides_BackupDirectory(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "backup-directory"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Provides_Folder(), 
-		   source, 
+		  (getFileTransfer3Provides_Folder(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "folder"
-		   });		
+		   });
 		addAnnotation
-		  (fileTransfer3ConsumesEClass, 
-		   source, 
+		  (this.fileTransfer3ConsumesEClass,
+		   source,
 		   new String[] {
 			 "name", ""
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_Folder(), 
-		   source, 
+		  (getFileTransfer3Consumes_Folder(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "folder"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_BackupDirectory(), 
-		   source, 
+		  (getFileTransfer3Consumes_BackupDirectory(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "backup-directory"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_TransferMode(), 
-		   source, 
+		  (getFileTransfer3Consumes_TransferMode(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "transfer-mode"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_Filename(), 
-		   source, 
+		  (getFileTransfer3Consumes_Filename(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "filename"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_PollingPeriod(), 
-		   source, 
+		  (getFileTransfer3Consumes_PollingPeriod(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "polling-period"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_BaseMessage(), 
-		   source, 
+		  (getFileTransfer3Consumes_BaseMessage(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "base-message"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_ProcessorPoolSize(), 
-		   source, 
+		  (getFileTransfer3Consumes_ProcessorPoolSize(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",
 			 "group", "#group:0",
 			 "name", "processor-pool-size"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransfer3Consumes_ProcessorPoolTimeout(), 
-		   source, 
+		  (getFileTransfer3Consumes_ProcessorPoolTimeout(),
+		   source,
 		   new String[] {
 			 "namespace", "##targetNamespace",
 			 "kind", "element",

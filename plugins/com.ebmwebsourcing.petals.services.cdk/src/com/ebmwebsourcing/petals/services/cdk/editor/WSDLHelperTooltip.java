@@ -89,6 +89,8 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		this.service = service;
 		this.wsdlParsingJob = wsdlParsingJob;
 		this.shell = control.getShell() ;
+
+		this.wsdlParsingJob.addWsdlParsingListener( this );
 	}
 
 
@@ -124,7 +126,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 				hide();
 				try {
 					Map<String,File> map = new WsdlImportHelper().importWsdlOrXsdAndDependencies( resFolder.getLocation().toFile(), wsdlUri.toString());
-					File importedFile = map.get( wsdlUri );
+					File importedFile = map.get( wsdlUri.toString());
 					String value = IoUtils.getRelativeLocationToFile( resFolder.getLocation().toFile(), importedFile );
 					SetCommand cmd = new SetCommand(
 							WSDLHelperTooltip.this.ise.getEditingDomain(),
@@ -234,19 +236,6 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		});
 
 		return res;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.jface.window.ToolTip
-	 * #activate()
-	 */
-	@Override
-	public void activate() {
-		super.activate();
-		if (this.wsdlParsingJob != null)
-			this.wsdlParsingJob.addWsdlParsingListener( this );
 	}
 
 

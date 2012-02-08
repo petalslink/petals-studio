@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -49,7 +48,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.Jbi
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.Messages;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.utils.PCStyledLabelProvider;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
@@ -321,13 +319,10 @@ public class JbiProvidePage extends JbiAbstractPage {
 		this.srvQText.setValue( bean.getServiceName());
 		this.edptText.setText( bean.getEndpointName() != null ? bean.getEndpointName() : "" );
 
-		IWizard wiz = getWizard();
-		if( wiz instanceof AbstractServiceUnitWizard ) {
-			SuWizardSettings settings = ((AbstractServiceUnitWizard) wiz).getSettings();
-			settings.soapAddress = bean.getSoapAddress();
-			settings.soapVersion = bean.getSoapVersion().toString();
-			settings.wsdlUri = this.wsdlUrl;
-		}
+		SuWizardSettings settings = getWizard().getSettings();
+		settings.soapAddress = bean.getSoapAddress();
+		settings.soapVersion = bean.getSoapVersion().toString();
+		settings.wsdlUri = this.wsdlUrl;
 	}
 
 

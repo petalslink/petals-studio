@@ -30,8 +30,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -57,9 +55,6 @@ public class JbiConsumePage extends JbiAbstractPage {
 	private QNameText operationQText;
 	private ComboViewer mepViewer;
 
-	private Image tooltipImage;
-	private Font boldFont;
-
 	private List<Mep> supportedMep;
 	private boolean invokeByServiceName = false;
 	private boolean invokeByEndpointName = false;
@@ -73,23 +68,6 @@ public class JbiConsumePage extends JbiAbstractPage {
 	@Override
 	public String getDescription() {
 		return "Specify the invocation properties of a Petals service.";
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.DialogPage#dispose()
-	 */
-	@Override
-	public void dispose() {
-
-		if( this.tooltipImage != null && ! this.tooltipImage.isDisposed())
-			this.tooltipImage.dispose();
-
-		if( this.boldFont != null && ! this.boldFont.isDisposed())
-			this.boldFont.dispose();
-
-		super.dispose();
 	}
 
 
