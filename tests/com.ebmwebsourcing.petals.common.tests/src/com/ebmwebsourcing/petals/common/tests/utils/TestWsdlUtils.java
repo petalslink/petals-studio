@@ -50,8 +50,8 @@ public class TestWsdlUtils extends TestCase {
 		Assert.assertTrue( beans.size() == 1 );
 
 		JbiBasicBean bean = beans.get( 0 );
-		Assert.assertEquals( bean.getInterfaceName(), "TuxDroidPortType" );
-		Assert.assertEquals( bean.getServiceName(), "TuxDroid" );
+		Assert.assertEquals( bean.getInterfaceName().getLocalPart(), "TuxDroidPortType" );
+		Assert.assertEquals( bean.getServiceName().getLocalPart(), "TuxDroid" );
 		Assert.assertEquals( bean.getEndpointName(), "TuxDroidPort" );
 		Assert.assertTrue( bean.getSoapVersion() == SoapVersion.v11 );
 		Assert.assertTrue( bean.getOperations().size() == 11 );
@@ -74,8 +74,8 @@ public class TestWsdlUtils extends TestCase {
 		Assert.assertTrue( beans.size() == 1 );
 
 		JbiBasicBean bean = beans.get( 0 );
-		Assert.assertEquals( bean.getInterfaceName(), "ExamplePort" );
-		Assert.assertEquals( bean.getServiceName(), "ExampleService" );
+		Assert.assertEquals( bean.getInterfaceName().getLocalPart(), "ExamplePort" );
+		Assert.assertEquals( bean.getServiceName().getLocalPart(), "ExampleService" );
 		Assert.assertEquals( bean.getEndpointName(), "ExamplePort" );
 		Assert.assertTrue( bean.getSoapVersion() == SoapVersion.v12 );
 		Assert.assertTrue( bean.getOperations().size() == 1 );
@@ -98,8 +98,8 @@ public class TestWsdlUtils extends TestCase {
 		Assert.assertEquals(2, beans.size());
 
 		for( JbiBasicBean bean : beans ) {
-			Assert.assertEquals("TuxDroidPortType", bean.getInterfaceName());
-			Assert.assertEquals("TuxDroid", bean.getServiceName());
+			Assert.assertEquals("TuxDroidPortType", bean.getInterfaceName().getLocalPart());
+			Assert.assertEquals("TuxDroid", bean.getServiceName().getLocalPart());
 			Assert.assertEquals(11, bean.getOperations().size());
 
 			if( bean.getSoapVersion() == SoapVersion.v11 ) {
@@ -164,7 +164,7 @@ public class TestWsdlUtils extends TestCase {
 		// Check the update
 		List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
 		Assert.assertTrue( beans.size() == 1 );
-		Assert.assertEquals( beans.get( 0 ).getServiceName(), "TuxDroid-renamed" );
+		Assert.assertEquals( beans.get( 0 ).getServiceName().getLocalPart(), "TuxDroid-renamed" );
 		Assert.assertEquals( beans.get( 0 ).getEndpointName(), "paf" );
 
 		// Delete the temporary WSDL

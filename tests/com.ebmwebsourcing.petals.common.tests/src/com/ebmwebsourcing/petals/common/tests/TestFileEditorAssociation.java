@@ -18,14 +18,17 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.wst.sse.sieditor.ui.DataTypesEditor;
 import org.eclipse.wst.sse.sieditor.ui.ServiceInterfaceEditor;
 import org.junit.Assert;
-import org.junit.Test;
 
 import com.ebmwebsourcing.petals.tests.common.SUCreator;
 import com.ebmwebsourcing.petals.tests.common.SUDesc;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class TestFileEditorAssociation extends SWTBotEclipseTestCase {
 
-	@Test
+	// @Test: disabled
+	// See PETALSSTUD-222
 	public void testWSDLEditor() throws Exception {
 		SUDesc su = SUCreator.createFileTransferEndpoint(this.bot);
 		SWTBotView view = this.bot.viewById("com.ebmwebsourcing.petals.common.projects");
@@ -37,11 +40,13 @@ public class TestFileEditorAssociation extends SWTBotEclipseTestCase {
 		Assert.assertEquals(ServiceInterfaceEditor.EDITOR_ID, this.bot.editorByTitle(su.getWsdlName()).getReference().getId());
 	}
 
-	@Test
+
+	// @Test: disabled
+	// See PETALSSTUD-222
 	public void testNewWSDLFile() throws Exception {
 		this.bot.menu("New").menu("WSDL File").click();
-		bot.shell("New WSDL File").activate();
-		bot.shell("New WSDL File").setFocus();
+		this.bot.shell("New WSDL File").activate();
+		this.bot.shell("New WSDL File").setFocus();
 		this.bot.tree().select("Petals-Croquis");
 		String fileName = "test" + System.currentTimeMillis() + ".wsdl";
 		this.bot.text(1).setText(fileName);
@@ -50,16 +55,17 @@ public class TestFileEditorAssociation extends SWTBotEclipseTestCase {
 		Assert.assertEquals(ServiceInterfaceEditor.EDITOR_ID, this.bot.editorByTitle(fileName).getReference().getId());
 	}
 
-	@Test
+
+	// @Test: disabled
+	// See PETALSSTUD-222
 	public void testXSDEditor() throws Exception {
 		this.bot.menu("New").menu("File").click();
-		bot.shell("New File").activate();
-		bot.shell("New File").setFocus();
+		this.bot.shell("New File").activate();
+		this.bot.shell("New File").setFocus();
 		this.bot.tree().select("Petals-Croquis");
 		String fileName = "test" + System.currentTimeMillis() + ".xsd";
 		this.bot.text(1).setText(fileName);
 		this.bot.button("Finish").click();
 		Assert.assertEquals(DataTypesEditor.EDITOR_ID, this.bot.editorByTitle(fileName).getReference().getId());
 	}
-
 }

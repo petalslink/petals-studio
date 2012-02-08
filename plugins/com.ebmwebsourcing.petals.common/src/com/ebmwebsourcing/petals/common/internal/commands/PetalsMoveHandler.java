@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.commands;
@@ -49,6 +49,7 @@ public class PetalsMoveHandler extends AbstractHandler {
 
 		final Shell shell = new Shell( Display.getDefault());
 		this.moveAction = new MoveResourceAction( new IShellProvider() {
+			@Override
 			public Shell getShell() {
 				return shell;
 			}
@@ -60,6 +61,7 @@ public class PetalsMoveHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.IHandler
 	 * #execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
+	@Override
 	public Object execute( ExecutionEvent event ) throws ExecutionException {
 
 		this.moveAction.selectionChanged( new StructuredSelection( this.resourcesToMove ));
@@ -79,8 +81,13 @@ public class PetalsMoveHandler extends AbstractHandler {
 		this.resourcesToMove.clear();
 
 		// Check the target view
-		IWorkbenchPart part =
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+		IWorkbenchPart part = null;
+		try {
+			part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+		} catch( Exception e ) {
+			// nothing
+		}
+
 		if( part == null ||
 					! PetalsConstants.PETALS_PROJECT_EXPLORER_VIEW_ID.equals( part.getSite().getId())) {
 			super.setBaseEnabled( false );

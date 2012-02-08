@@ -297,6 +297,9 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 				@Override
 				public void run() {
 
+					if( JbiFormEditor.this.mainForm.isDisposed())
+						return;
+
 					JbiFormEditor.this.mainForm.getMessageManager().removeAllMessages();
 					int i = 0;
 					for( String msg : errorMessages )

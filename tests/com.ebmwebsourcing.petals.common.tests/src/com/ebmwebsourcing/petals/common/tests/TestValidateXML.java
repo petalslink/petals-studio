@@ -22,21 +22,31 @@ import org.junit.Test;
 import com.ebmwebsourcing.petals.tests.common.SUCreator;
 import com.ebmwebsourcing.petals.tests.common.SUDesc;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class TestValidateXML extends SWTBotEclipseTestCase {
 
 	@Test
 	public void testValidateXML() throws Exception {
+
 		final SUDesc su = SUCreator.createFileTransferEndpoint(this.bot);
 		SWTBotView view = this.bot.viewById("com.ebmwebsourcing.petals.common.projects");
 		view.show();
 		view.setFocus();
+
 		final SWTBotTree tree = this.bot.tree(1);
-		SWTBotTreeItem item = tree.getTreeItem("Service Units").expand().getNode(su.getProjectName()).expand().getNode("src").expand().getNode("main").expand().getNode("jbi").expand().getNode(su.getWsdlName());
+		SWTBotTreeItem item = tree.getTreeItem("Service Units").expand()
+				.getNode(su.getProjectName()).expand()
+				.getNode("src").expand()
+				.getNode("main").expand()
+				.getNode("jbi").expand()
+				.getNode(su.getWsdlName());
+
 		item.click();
 		SWTBotMenu menu = item.contextMenu("Validate");
 		Assert.assertNotNull(menu);
 		Assert.assertTrue(menu.isVisible());
 		Assert.assertTrue(menu.isEnabled());
 	}
-
 }

@@ -346,12 +346,19 @@ public class JbiXmlUtils {
 		File file = null;
 		if( wsdlElementValue != null
 				&& wsdlElementValue.trim().length() != 0 ) {
+
+			URI wsdlUri;
 			try {
-				URI wsdlURI = UriAndUrlHelper.urlToUri( wsdlElementValue );
-				if( "file".equals( wsdlURI.getScheme()))
-					file = new File( wsdlURI );
-				else if( wsdlURI.getScheme() == null )
+				wsdlUri = UriAndUrlHelper.urlToUri( wsdlElementValue );
+			} catch( Exception e ) {
+				wsdlUri = null;
+			}
+
+			try {
+				if( wsdlUri == null )
 					file = getResourceFile( jbiXmlFile.getProject(), wsdlElementValue ).getLocation().toFile();
+				else if( "file".equals( wsdlUri.getScheme()))
+					file = new File( wsdlUri );
 
 			} catch( Exception e ) {
 				// nothing

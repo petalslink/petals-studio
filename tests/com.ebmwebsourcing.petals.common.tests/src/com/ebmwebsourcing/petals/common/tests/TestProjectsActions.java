@@ -23,6 +23,9 @@ import com.ebmwebsourcing.petals.tests.common.ContextMenuHelper;
 import com.ebmwebsourcing.petals.tests.common.SUCreator;
 import com.ebmwebsourcing.petals.tests.common.SUDesc;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class TestProjectsActions extends SWTBotEclipseTestCase {
 
 	@Test
@@ -31,15 +34,15 @@ public class TestProjectsActions extends SWTBotEclipseTestCase {
 		SWTBotView view = this.bot.viewById("com.ebmwebsourcing.petals.common.projects");
 		view.show();
 		view.setFocus();
+
 		SWTBotTree tree = this.bot.tree(1);
 		final SWTBotTreeItem item = tree.getTreeItem("Service Units").getNode(su.getProjectName());
 		item.select();
+
 		ContextMenuHelper.clickContextMenu(tree, "Petals", "Add Java Nature");
 		ContextMenuHelper.clickContextMenu(tree, "Configure Build Path...");
 		this.bot.shell("Properties for " + su.getProjectName());
 		Assert.assertEquals("Java Build Path", this.bot.tree().selection().get(0).get(0));
 		this.bot.button("Cancel").click();
-		this.bot.activeEditor().close();
 	}
-
 }
