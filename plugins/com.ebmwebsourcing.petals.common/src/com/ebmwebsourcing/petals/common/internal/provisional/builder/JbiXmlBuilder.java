@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.builder;
@@ -124,7 +124,7 @@ public abstract class JbiXmlBuilder extends IncrementalProjectBuilder {
 	 * <p>
 	 * The base implementation validates it with respect to the JBI meta-model.
 	 * </p>
-	 * 
+	 *
 	 * @param jbiXmlFile
 	 */
 	protected List<MarkerBean> validate( IFile jbiXmlFile ) {
@@ -191,8 +191,8 @@ public abstract class JbiXmlBuilder extends IncrementalProjectBuilder {
 			for( MarkerBean bean : markerBeans )
 				createFileMarker( bean );
 
-					// Update the line numbers
-					resolveLineNumbers( jbiXmlFile );
+			// Update the line numbers
+			resolveLineNumbers( jbiXmlFile );
 		}
 	}
 
@@ -203,7 +203,7 @@ public abstract class JbiXmlBuilder extends IncrementalProjectBuilder {
 	 */
 	public static void resolveLineNumbers( IFile file ) {
 		MarkerUtils.resolveLineNumbers(
-				file,
+				file, true,
 				PetalsConstants.MARKER_ID_JBI_XML,
 				PetalsConstants.MARKER_XPATH_LOCATION_ATTRIBUTE );
 	}

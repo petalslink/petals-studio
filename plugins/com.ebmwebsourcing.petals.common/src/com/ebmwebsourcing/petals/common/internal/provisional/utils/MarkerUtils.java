@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
@@ -104,6 +104,7 @@ public class MarkerUtils {
 	/**
 	 * Resolves the line numbers on marked files.
 	 * @param file the marked file
+	 * @param loadModel true to load the model if it was not loaded, false to only use an existing instance
 	 * @param markerId the ID of the markers to find
 	 * @param markerAttribute the attribute whose value is an XPath expression.
 	 * <p>
@@ -114,12 +115,20 @@ public class MarkerUtils {
 	 * </p>
 	 */
 	@SuppressWarnings( "restriction" )
-	public static void resolveLineNumbers( IFile file, String markerId, String markerAttribute ) {
+	public static void resolveLineNumbers( IFile file, boolean loadModel, String markerId, String markerAttribute ) {
 
 		IStructuredModel model = null;
 		try {
 			int line = 0;
 			model = StructuredModelManager.getModelManager().getExistingModelForRead( file );
+			try {
+				if( model == null && loadModel )
+					model = StructuredModelManager.getModelManager().getModelForRead( file );
+
+			} catch( Exception e2 ) {
+				// nothing
+			}
+
 			if( model != null
 						&& file.exists()
 						&& markerAttribute != null
