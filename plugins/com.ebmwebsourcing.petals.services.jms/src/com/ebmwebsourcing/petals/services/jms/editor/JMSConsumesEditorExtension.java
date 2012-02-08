@@ -59,7 +59,7 @@ public class JMSConsumesEditorExtension extends JbiEditorDetailsContribution {
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_DESTINATION_NAME,
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_CONNECTION_FACTORY );
 
-		composite = createEditorSection( advancedTab, toolkit, "JNDI Parameters" );
+		composite = createEditorSection( advancedTab, toolkit, "JMS Parameters" );
 		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				JmsPackage.Literals.JMS_EXTENSION__USER,
 				JmsPackage.Literals.JMS_EXTENSION__PASSWORD,

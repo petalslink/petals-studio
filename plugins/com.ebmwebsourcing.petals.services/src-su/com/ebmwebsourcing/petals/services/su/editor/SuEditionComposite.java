@@ -13,6 +13,8 @@
 package com.ebmwebsourcing.petals.services.su.editor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.databinding.DataBindingContext;
@@ -45,12 +47,11 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -58,6 +59,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
@@ -65,7 +68,7 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
+import org.eclipse.ui.forms.widgets.ScrolledPageBook;
 import org.eclipse.ui.ide.IDE;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
@@ -106,6 +109,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	private JbiEditorDetailsContribution componentContributions;
 	private Composite mainDetails, advancedDetails;
 	private TableViewer providesViewer, consumesViewer;
+	private Integer selectedTabIndex = 0;
 	private final LabelProvider labelProvider;
 
 
@@ -324,7 +328,10 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 					SuEditionComposite.this.selectedEndpoint = (Provides) selection.getFirstElement();
 					SuEditionComposite.this.containmentList = getJbiModel().getServices().getProvides();
 					upProvidesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint) > 0);
-					downProvidesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint) != SuEditionComposite.this.containmentList.size() - 1);
+					downProvidesButton.setEnabled(
+							SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint)
+							!= SuEditionComposite.this.containmentList.size() - 1);
+
 					refreshDetails();
 				}
 
@@ -347,7 +354,10 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 					SuEditionComposite.this.selectedEndpoint = (Consumes)selection.getFirstElement();
 					SuEditionComposite.this.containmentList = getJbiModel().getServices().getConsumes();
 					upConsumesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint) > 0);
-					downConsumesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(SuEditionComposite.this.selectedEndpoint) != SuEditionComposite.this.containmentList.size() - 1);
+					downConsumesButton.setEnabled(SuEditionComposite.this.containmentList.indexOf(
+							SuEditionComposite.this.selectedEndpoint)
+							!= SuEditionComposite.this.containmentList.size() - 1);
+
 					refreshDetails();
 				}
 
@@ -363,62 +373,123 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	protected void createRightWidgets() {
 
 		Composite container = getFormToolkit().createComposite( this );
-		GridLayout layout = new GridLayout();
-		layout.marginTop = 10;
-		layout.marginHeight = 0;
-		container.setLayout( layout );
+		GridLayoutFactory.swtDefaults().margins( 10, 0 ).extendedMargins( 0, 0, 20, 0 ).applyTo( container );
 		container.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
-		final CTabFolder tabFolder = new CTabFolder( container, SWT.BOTTOM | SWT.BORDER );
-		getFormToolkit().adapt( tabFolder );
-		getFormToolkit().paintBordersFor( tabFolder );
-		tabFolder.setSimple( true );
-		tabFolder.setSelectionBackground( Display.getCurrent().getSystemColor( SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT ));
-		tabFolder.setLayoutData( new GridData( GridData.FILL_BOTH ));
+		final ScrolledPageBook pageBook = new ScrolledPageBook( container );
+		pageBook.setLayoutData( new GridData( GridData.FILL_BOTH ));
+		getFormToolkit().adapt( pageBook );
 
 
-		// Main tab
-		CTabItem tbtmGeneral = new CTabItem( tabFolder, SWT.NONE );
-		tbtmGeneral.setText( "Main" );
+		// Tabs
+		Composite[] controls = new Composite[ 3 ];
+		this.mainDetails = createScrollable( pageBook.getContainer(), controls, 0 );
+		this.advancedDetails = createScrollable( pageBook.getContainer(), controls, 1 );
 
-		this.mainDetails = getFormToolkit().createComposite( tabFolder, SWT.NONE );
-		tbtmGeneral.setControl( this.mainDetails );
-		getFormToolkit().paintBordersFor( this.mainDetails );
-		this.mainDetails.setLayout( new GridLayout( 2, false ));
-		this.mainDetails.setLayoutData( new GridData( GridData.FILL_BOTH ));
+		Composite sourceContainer = getFormToolkit().createComposite( pageBook.getContainer(), SWT.NONE );
+		controls[ 2 ] = sourceContainer;
+		GridLayoutFactory.swtDefaults().extendedMargins( 5, 5, 7, 0 ).spacing( 0, 14 ).applyTo( sourceContainer );
+		createSourceTabContent( sourceContainer );
 
 
-		// Advanced tab
+		// Add the labels
+		Composite labelContainer = getFormToolkit().createComposite( container );
+		GridLayoutFactory.swtDefaults().numColumns( 3 ).extendedMargins( 5, 0, 0, 0 ).spacing( 8, 0 ).applyTo( labelContainer );
+		String[] labels = { "Main", "Advanced", "Source" };
+		final List<Label> navigationLabels = new ArrayList<Label> ();
+
+		Listener mouseDownListener = new Listener() {
+			@Override
+			public void handleEvent( Event event ) {
+				pageBook.showPage( event.widget.getData());
+
+				// Remember the last selected index
+				SuEditionComposite.this.selectedTabIndex = (Integer) event.widget.getData();
+
+				// Highlight the selected tab
+				for( Label l : navigationLabels ) {
+					Color color;
+					if( l != event.widget && l.getParent() != event.widget )
+						color = Display.getDefault().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND );
+					else
+						color = Display.getDefault().getSystemColor( SWT.COLOR_WHITE );
+
+					l.setBackground( color );
+					l.getParent().setBackground( color );
+				}
+			}
+		};
+
+
+		// Register the pages and bind it all
+		int i=0;
+		for( String label : labels ) {
+			Label l = createTabLabel( i, label, labelContainer, mouseDownListener );
+			navigationLabels.add( l );
+			pageBook.registerPage( i, controls[ i ]);
+			i ++;
+		}
+
+
+		// Force to display the first tab (and force it to be highlighted)
+		navigationLabels.get( 0 ).notifyListeners( SWT.MouseDown, new Event());
+	}
+
+
+	/**
+	 * Creates a label for the tab (wrapped in a composite for better display).
+	 * @param index the tab index
+	 * @param parent the container for the label
+	 * @param mouseDownListener the listener for when a tab is selected
+	 * @return the created label
+	 */
+	private Label createTabLabel( int index, String title, Composite parent, Listener mouseDownListener ) {
+
+		// Wrap the labels in a composite
+		Composite c = getFormToolkit().createComposite( parent, SWT.BORDER );
+		c.setLayout( new GridLayout());
+		c.setLayoutData( new GridData( 90, 25 ));
+		c.setData( index );
+
+		// Deal with the content
+		Label l = getFormToolkit().createLabel( c, title );
+		l.setLayoutData( new GridData( SWT.CENTER, SWT.CENTER, true, true ));
+		l.setData( index );
+
+		// The click listener
+		l.addListener( SWT.MouseDown, mouseDownListener );
+		c.addListener( SWT.MouseDown, mouseDownListener );
+
+		return l;
+	}
+
+
+	/**
+	 * Creates a scrollable that can be displayed in a scrolled page book.
+	 * @param parent
+	 * @param controls the controls that will associated with a page
+	 * @param index the index of the controls (page order, 0-based index)
+	 * @return the composite in which children can be added
+	 */
+	private Composite createScrollable( Composite parent, Control[] controls, int index ) {
+
+		Composite container = getFormToolkit().createComposite( parent );
+		controls[ index ] = container;
+		GridLayoutFactory.swtDefaults().margins( 0, 0 ).extendedMargins( 0, 0, 7, 0 ).applyTo( container );
+		container.setLayoutData( new GridData( GridData.FILL_BOTH ));
+
 		// Since we are going to put sections in it, we cannot use a scrolled composite.
 		// Section#reflow searches for a SharedScrolledComposite instance.
 		// Using a scrolled composite will result in updating the entire editor and having a too big width.
 		// The solution is to use an instance of SharedScrolledComposite as a parent => ScrolledForm.
-		CTabItem tbtmAdvanced = new CTabItem( tabFolder, SWT.NONE );
-		tbtmAdvanced.setText( "Advanced" );
-
-		ScrolledForm scrolledForm = getFormToolkit().createScrolledForm( tabFolder );
+		ScrolledForm scrolledForm = getFormToolkit().createScrolledForm( container );
 		scrolledForm.setLayoutData( new GridData( GridData.FILL_BOTH ));
-		tbtmAdvanced.setControl( scrolledForm );
 
-		this.advancedDetails = scrolledForm.getBody();
-		this.advancedDetails.setLayout( new TableWrapLayout());
-		this.advancedDetails.setLayoutData( new GridData( GridData.FILL_BOTH ));
+		Composite result = scrolledForm.getBody();
+		result.setLayout( new GridLayout());
+		result.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
-
-		// Source tab
-		CTabItem tbtmSource = new CTabItem( tabFolder, SWT.NONE );
-		tbtmSource.setText( "Source" );
-
-		Composite sourceContainer = getFormToolkit().createComposite( tabFolder, SWT.NONE );
-		tbtmSource.setControl( sourceContainer );
-		getFormToolkit().paintBordersFor( sourceContainer );
-		GridLayoutFactory.swtDefaults().margins( 10, 10 ).spacing( 0, 14 ).applyTo( sourceContainer );
-
-		createSourceTabContent( sourceContainer );
-
-
-		// Initialize
-		tabFolder.setSelection( 0 );
+		return result;
 	}
 
 
