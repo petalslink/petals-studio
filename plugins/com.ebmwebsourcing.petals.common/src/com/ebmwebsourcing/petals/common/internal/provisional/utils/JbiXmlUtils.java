@@ -350,17 +350,11 @@ public class JbiXmlUtils {
 				URI wsdlURI = UriAndUrlHelper.urlToUri( wsdlElementValue );
 				if( "file".equals( wsdlURI.getScheme()))
 					file = new File( wsdlURI );
-
-			} catch( Exception e ) {
-				// e.printStackTrace();
-			}
-
-			try {
-				if( file == null )
+				else if( wsdlURI.getScheme() == null )
 					file = getResourceFile( jbiXmlFile.getProject(), wsdlElementValue ).getLocation().toFile();
 
 			} catch( Exception e ) {
-				// e.printStackTrace();
+				// nothing
 			}
 		}
 

@@ -59,6 +59,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.EmfUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.NamespaceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.XPathUtils;
@@ -429,7 +430,7 @@ public class SuBuilder extends JbiXmlBuilder {
 								String wsdlValue = JbiXmlUtils.getWsdlValue( provides );
 
 								// No given WSDL
-								if( wsdlValue == null ) {
+								if( StringUtils.isEmpty( wsdlValue )) {
 									markerBeans.add( new MarkerBean(
 											IMarker.SEVERITY_WARNING,
 											"The provides section does not declare a WSDL file.",
@@ -475,8 +476,8 @@ public class SuBuilder extends JbiXmlBuilder {
 													EmfUtils.getXpathExpression( provides ) + "/*[local-name()='wsdl']",
 													jbiXmlFile ));
 										}
-									}
-									else if( ! wsdlFile.exists()) {
+
+									} else if( ! wsdlFile.exists()) {
 										markerBeans.add( new MarkerBean(
 												IMarker.SEVERITY_ERROR,
 												"The referenced WSDL file does not exist.",
