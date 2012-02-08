@@ -169,10 +169,13 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 */
 	public void initializeFeatures() {
 
-		if( this.targetFeatures != null )
+		if( this.targetFeatures != null  )
 		 return;
 
 		this.targetFeatures = new LinkedHashSet<EStructuralFeature>();
+		if( this.extensionPackage == null )
+			return;
+
 		for( EClassifier classifier : this.extensionPackage.getEClassifiers()) {
 			if( classifier instanceof EClass ) {
 				EClass eClass = (EClass)classifier;
