@@ -249,6 +249,7 @@
        <editor
              class="com.ebmwebsourcing.petals.common.internal.formeditor.JbiFormEditor"
              default="true"
+             filenames="jbi.xml"
              icon="icons/obj16/jbi_descriptor.png"
              id="com.ebmwebsourcing.petals.common.formeditor"
              name="Petals Form Editor">

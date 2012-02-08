@@ -390,7 +390,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		// Add the labels
 		Composite labelContainer = getFormToolkit().createComposite( container );
-		GridLayoutFactory.swtDefaults().numColumns( 3 ).margins( 10, 0 ).extendedMargins( 5, 0, 0, 0 ).spacing( 8, 0 ).applyTo( labelContainer );
+		GridLayoutFactory.swtDefaults().numColumns( 3 ).margins( 5, 0 ).extendedMargins( 5, 0, 0, 0 ).spacing( 8, 0 ).applyTo( labelContainer );
 		String[] labels = { "Main", "Advanced", "Source" };
 		final List<Label> navigationLabels = new ArrayList<Label> ();
 

@@ -90,6 +90,8 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 		this.wsdlParsingJob = wsdlParsingJob;
 		this.shell = control.getShell() ;
 
+		// Already checked: there is one instance of the the tool tip.
+		// Displaying it again and again does not add an infinite number of listeners
 		this.wsdlParsingJob.addWsdlParsingListener( this );
 	}
 
@@ -241,41 +243,22 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.editor.blocks.GeneralAbstractDetails
-	 * #dispose()
+	 * @see java.lang.Object
+	 * #finalize()
 	 */
 	@Override
-	public void deactivate() {
-		if (this.wsdlParsingJob != null)
-			this.wsdlParsingJob.removeWsdlParsingListener( this );
-
-		super.deactivate();
+	protected void finalize() throws Throwable {
+		this.wsdlParsingJob.removeWsdlParsingListener( this );
 	}
-
 
 
 	/**
 	 * Updates the GUI when the WSDL is parsed.
+	 * FIXME: should we update the state of the hyper links?
 	 */
 	@Override
 	public void notifyWsdlParsingDone() {
-		refreshWidgetsFromWsdl( this.wsdlParsingJob.getBeans());
-	}
-
-
-	/**
-	 * Refreshes the UI with the values resulting from the WSDL parsing.
-	 */
-	private void refreshWidgetsFromWsdl( List<JbiBasicBean> wsdlBeans ) {
-
-		if( wsdlBeans.size() > 0 ) {
-			JbiBasicBean firstBean = wsdlBeans.get( 0 );
-			CompoundCommand cc = new CompoundCommand();
-			cc.append(new SetCommand( this.ise.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, firstBean.getInterfaceName()));
-			cc.append(new SetCommand( this.ise.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, firstBean.getServiceName()));
-			cc.append(new SetCommand( this.ise.getEditingDomain(), this.service, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, firstBean.getEndpointName()));
-			this.ise.getEditingDomain().getCommandStack().execute( cc );
-		}
+		// nothing
 	}
 }
 
