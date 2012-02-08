@@ -26,6 +26,9 @@ import org.junit.Test;
 import com.ebmwebsourcing.petals.common.extensions.internal.provisional.WsdlExtUtils;
 import com.ebmwebsourcing.petals.tests.common.FileTestUtil;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class TestJavaToWsdl extends SWTBotGefTestCase {
 
 	private File businessFile;

@@ -68,6 +68,7 @@ public abstract class FixedShellTooltip implements ControlListener {
 	public void show() {
 		this.shown.set( true );
 		this.shell.getDisplay().asyncExec( new Runnable() {
+			@Override
 			public void run() {
 
 				try {
@@ -97,6 +98,7 @@ public abstract class FixedShellTooltip implements ControlListener {
 	 * @see org.eclipse.swt.events.ControlListener
 	 * #controlResized(org.eclipse.swt.events.ControlEvent)
 	 */
+	@Override
 	public void controlResized( ControlEvent e ) {
 
 		Rectangle rect = this.controlToFollow.getBounds();
@@ -112,6 +114,7 @@ public abstract class FixedShellTooltip implements ControlListener {
 	 * @see org.eclipse.swt.events.ControlListener
 	 * #controlMoved(org.eclipse.swt.events.ControlEvent)
 	 */
+	@Override
 	public void controlMoved( ControlEvent e ) {
 		Rectangle rect = this.controlToFollow.getBounds();
 		if( this.right )
@@ -128,7 +131,10 @@ public abstract class FixedShellTooltip implements ControlListener {
 	 * </p>
 	 */
 	public void dispose() {
-		this.controlToFollow.removeControlListener( this );
+
+		if( ! this.controlToFollow.isDisposed())
+			this.controlToFollow.removeControlListener( this );
+
 		if( ! this.shell.isDisposed()) {
 			this.shell.close();
 			this.shell.dispose();

@@ -56,10 +56,14 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 	@Test
 	public void testFileLocked() throws Exception {
 		initFiles();
+
+		this.bot.perspectiveById( "com.ebmwebsourcing.petals.common.mainPerspective" ).activate();
 		this.bot.menu("New").menu("Petals Service Provider").click();
+
 		SWTBotCombo comboBox = this.bot.comboBox(1);
 		comboBox.setSelection("EJB    //  petals-bc-ejb");
 		this.bot.button("Next >").click();
+
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -72,9 +76,11 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 
 		this.bot.text().setText("org.ow2.petals.examples.ejb.addorder.AddOrderRemote");
 		this.bot.button("Next >").click();
+
 		final String suName = "ejbSu " + System.currentTimeMillis();
 		this.bot.text().setText(suName);
 		this.bot.button("Next >").click();
+
 		this.bot.text(0).setText("jndiName");
 		this.bot.text(1).setText("jndiFactory");
 		this.bot.text(3).setText("jndiUrl");
@@ -83,7 +89,7 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
 		this.bot.button("Finish").click();
 
-		this.bot.waitUntil(new ICondition() {
+		this.bot.waitUntil( new ICondition() {
 
 			@Override
 			public boolean test() throws Exception {
@@ -92,6 +98,7 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 
 			@Override
 			public void init(SWTBot bot) {
+				// nothing
 			}
 
 			@Override
@@ -100,6 +107,7 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 			}
 		});
 
+		this.bot.wait( 2000 );
 		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
 		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
 	}
