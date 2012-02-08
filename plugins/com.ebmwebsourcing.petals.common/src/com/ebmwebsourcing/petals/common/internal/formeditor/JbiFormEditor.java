@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -46,6 +47,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.action.IStatusLineManager;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -72,6 +74,7 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.sun.java.xml.ns.jbi.DocumentRoot;
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -93,6 +96,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	private IResourceChangeListener workspaceListener;
 	private IJbiEditorPersonality personality;
 	private Image editorImage;
+	private ScrolledForm mainForm;
 
 	private final Set<ISelectionChangedListener> selectionListeners = new HashSet<ISelectionChangedListener>();
 	private ISelection selection;
@@ -207,41 +211,39 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 				// Check for changes.
 				if( delta.getResource().equals( JbiFormEditor.this.editedFile )) {
 
-					// Deleted? Close the editor.
-					boolean deleted = false;
+					// Deleted or renamed
 					if( delta.getKind() == IResourceDelta.REMOVED ) {
-						deleted = delta.getMovedToPath() == null;
-						if( deleted ) {
+						if( delta.getMovedToPath() == null ) {
+							// Deleted
 							getSite().getShell().getDisplay().asyncExec( new Runnable() {
 								@Override
 								public void run() {
-
-									// The part listener should handle it then...
 									getSite().getPage().closeEditor( JbiFormEditor.this, false );
 								}
 							});
+
+						} else {
+							// Renamed?
+							if( delta.getMovedToPath() != null ) {
+								Display.getDefault().asyncExec( new Runnable() {
+									@Override
+									public void run() {
+										setPartName( delta.getMovedToPath().lastSegment());
+									}
+								});
+							}
 						}
 					}
 
-					if( ! deleted ) {
-
-						// Renamed?
-						if( delta.getMovedToPath() != null ) {
-							Display.getDefault().asyncExec( new Runnable() {
-								@Override
-								public void run() {
-									setPartName( delta.getMovedToPath().lastSegment());
-								}
-							});
-						}
-					}
+					// Marker changes
+					else if((delta.getFlags() & IResourceDelta.MARKERS) != 0 )
+						refreshMarkers();
 
 					return false;
 				}
 
 				// Keep on checking on, only if the resource is an ancestor of the edited file.
-				return delta.getResource().getFullPath().isPrefixOf(
-							JbiFormEditor.this.editedFile.getFullPath());
+				return delta.getResource().getFullPath().isPrefixOf( JbiFormEditor.this.editedFile.getFullPath());
 			}
 		};
 
@@ -249,11 +251,11 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 		this.workspaceListener = new IResourceChangeListener() {
 			@Override
 			public void resourceChanged( IResourceChangeEvent event ) {
-
 				try {
 					event.getDelta().accept( visitor );
+
 				} catch( CoreException e ) {
-					e.printStackTrace();
+					PetalsCommonPlugin.log( e, IStatus.ERROR );
 				}
 			}
 		};
@@ -262,6 +264,52 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
 					this.workspaceListener,
 					IResourceChangeEvent.POST_BUILD );
+	}
+
+
+	/**
+	 * Refreshes the markers
+	 * @param markerDeltas
+	 */
+	private void refreshMarkers() {
+
+		if( this.editedFile == null || ! this.editedFile.exists())
+			return;
+
+		try {
+			// Prepare the messages
+			final Set<String> warningMessages = new HashSet<String> ();
+			final Set<String> errorMessages = new HashSet<String> ();
+			IMarker[] markers = this.editedFile.findMarkers( PetalsConstants.MARKER_ID_JBI_XML, true, IResource.DEPTH_ZERO );
+			if( markers != null ) {
+				for( IMarker marker : markers ) {
+					int severity =  marker.getAttribute( IMarker.SEVERITY, -1 );
+					if( severity == IMarker.SEVERITY_ERROR )
+						errorMessages.add( marker.getAttribute( IMarker.MESSAGE, "" ));
+					else if( severity == IMarker.SEVERITY_WARNING )
+						warningMessages.add( marker.getAttribute( IMarker.MESSAGE, "" ));
+				}
+			}
+
+
+			// Update the message manager
+			Display.getDefault().asyncExec( new Runnable() {
+				@Override
+				public void run() {
+
+					JbiFormEditor.this.mainForm.getMessageManager().removeAllMessages();
+					int i = 0;
+					for( String msg : errorMessages )
+						JbiFormEditor.this.mainForm.getMessageManager().addMessage( "error" + i++, msg, null, IMessageProvider.ERROR );
+
+					for( String msg : warningMessages )
+						JbiFormEditor.this.mainForm.getMessageManager().addMessage( "warning" + i++, msg, null, IMessageProvider.WARNING );
+				}
+			});
+
+		} catch( CoreException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
 	}
 
 
@@ -495,21 +543,23 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 		IJbiEditorPersonality pers = getPersonality();
 		this.toolkit = new FormToolkit( getSite().getShell().getDisplay());
-		ScrolledForm form = this.toolkit.createScrolledForm( parent );
-		form.setText( pers != null ? pers.getTitle() : "Title" );
+		this.mainForm = this.toolkit.createScrolledForm( parent );
+		this.mainForm.setText( pers != null ? pers.getTitle() : "Title" );
 		this.editorImage = pers != null ? pers.getTitleImage() : null;
-		form.setImage( this.editorImage );
+		this.mainForm.setImage( this.editorImage );
 
-		this.toolkit.decorateFormHeading( form.getForm());
-		this.toolkit.paintBordersFor( form.getBody());
+		this.toolkit.decorateFormHeading( this.mainForm.getForm());
+		this.toolkit.paintBordersFor( this.mainForm.getBody());
 
 		GridLayout layout = new GridLayout();
 		layout.marginBottom = 4;
-		form.getBody().setLayout( layout );
-		form.setLayoutData ( new GridData( GridData.FILL_BOTH ));
+		this.mainForm.getBody().setLayout( layout );
+		this.mainForm.setLayoutData ( new GridData( GridData.FILL_BOTH ));
 
 		if( pers != null )
-			pers.createControl( form.getBody(), this );
+			pers.createControl( this.mainForm.getBody(), this );
+
+		refreshMarkers();
 	}
 
 
