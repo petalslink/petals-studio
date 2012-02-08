@@ -24,21 +24,19 @@ import com.ebmwebsourcing.petals.tests.common.SUCreator;
 import com.ebmwebsourcing.petals.tests.common.SUDesc;
 
 /**
- * @author Mickael Istria (PetalsLink)
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class TestDragNDrop extends SWTBotGefTestCase {
 
 	@Test
 	public void testDND_bug138() throws Exception {
 		SUDesc suDesc = SUCreator.createFileTransferEndpoint(this.bot);
-
 		SWTBotView servicesView = this.bot.viewByTitle("Petals Services");
 		servicesView.show();
 		servicesView.setFocus();
 		SWTBotTreeItem root = this.bot.tree().getTreeItem("Workspace");
 		root.expand();
 		SWTBotTreeItem toDrag = root.getNode(suDesc.getEndpoint()).select();
-
 
 		SWTBotMenu newMenu = this.bot.menu("File").menu("New");
 		newMenu.menu("Croquis").click();

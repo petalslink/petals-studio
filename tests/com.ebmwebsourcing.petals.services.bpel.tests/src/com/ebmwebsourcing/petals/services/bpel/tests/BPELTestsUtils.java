@@ -14,6 +14,9 @@ package com.ebmwebsourcing.petals.services.bpel.tests;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 
+/**
+ * @author Mickael Istria - EBM WebSourcing
+ */
 public class BPELTestsUtils {
 
 	public static void openBPELEditor(SWTBot bot) {
@@ -21,9 +24,11 @@ public class BPELTestsUtils {
 		newMenu.menu("Petals Service Provider").click();
 		bot.comboBox(0).setSelection("Service Composition");
 		bot.button("Next >").click();
+
+		bot.text( 0 ).setText( "myBpelProcess" );
+		bot.comboBox( 1 ).setText( "http://myProcess/" );
 		bot.button("Next >").click();
-		bot.text().setText("su-BPEL-Test" + System.currentTimeMillis() + "-provides");
+		bot.button("Next >").click();
 		bot.button("Finish").click();
 	}
-
 }
