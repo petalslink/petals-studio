@@ -149,6 +149,11 @@ public class EipExportUtils {
 		jbiXmlBean.setInterfaceNamespace( eip.getInterfaceNamespace());
 		jbiXmlBean.setWsdl( newWsdlLocation );
 
+		jbiXmlBean.setForwardAttachments( false );
+		jbiXmlBean.setForwardMessageProperties( false );
+		jbiXmlBean.setForwardSecuritySubject( false );
+		jbiXmlBean.setValidateWsdl( true );
+
 
 		// Create the consume sections
 		List<AbstractJbiXmlBean> beans = new ArrayList<AbstractJbiXmlBean> ();
