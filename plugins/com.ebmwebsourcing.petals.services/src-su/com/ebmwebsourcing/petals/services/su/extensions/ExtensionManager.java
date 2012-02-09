@@ -60,18 +60,25 @@ public class ExtensionManager {
 	/**
 	 * The component descriptions.
 	 */
-	private final Map<String, ComponentVersionDescription> namespaceToDescription;
+	private final Map<String,List<ComponentVersionDescription>> namespaceToDescriptions;
 
 
 	/**
 	 * Constructor.
 	 */
 	private ExtensionManager() {
-		this.namespaceToDescription = new HashMap<String, ComponentVersionDescription>();
+
+		this.namespaceToDescriptions = new HashMap<String,List<ComponentVersionDescription>> ();
 		for (ComponentVersionDescription desc : findComponentVersionClass( "componentVersionDescription", ComponentVersionDescription.class )) {
-			if (desc.getNamespace() != null) {
-				this.namespaceToDescription.put(desc.getNamespace(), desc);
-			}
+			if( desc.getNamespace() == null )
+				continue;
+
+			List<ComponentVersionDescription> descriptions = this.namespaceToDescriptions.get( desc.getNamespace());
+			if( descriptions == null )
+				descriptions = new ArrayList<ComponentVersionDescription> ();
+
+			descriptions.add( desc );
+			this.namespaceToDescriptions.put( desc.getNamespace(), descriptions );
 		}
 	}
 
@@ -125,17 +132,8 @@ public class ExtensionManager {
 	 * @return the component alias, or null if it was not found
 	 */
 	public String findComponentAlias( String componentName ) {
-
-		String alias = null;
-		for( ComponentVersionDescription desc : this.namespaceToDescription.values() ) {
-			if( ! desc.getComponentName().equals( componentName ))
-				continue;
-
-			alias = desc.getComponentAlias();
-			break;
-		}
-
-		return alias;
+		List<ComponentVersionDescription> descs = findDescriptionsByComponentName( componentName );
+		return descs.isEmpty() ? null : descs.get( 0 ).getComponentAlias();
 	}
 
 
@@ -147,7 +145,7 @@ public class ExtensionManager {
 	public SortedSet<String> findComponentVersions( String componentName ) {
 
 		SortedSet<String> result = new TreeSet<String> ();
-		for( ComponentVersionDescription desc : this.namespaceToDescription.values()) {
+		for( ComponentVersionDescription desc : findDescriptionsByComponentName( componentName )) {
 			if( desc.getComponentName().equals( componentName ))
 				result.add( desc.getComponentVersion());
 		}
@@ -163,8 +161,8 @@ public class ExtensionManager {
 	public Set<String> findAllComponentNames() {
 
 		SortedSet<String> result = new TreeSet<String> ();
-		for( ComponentVersionDescription desc : this.namespaceToDescription.values() )
-			result.add( desc.getComponentName());
+		for( List<ComponentVersionDescription> descriptions : this.namespaceToDescriptions.values())
+			result.add( descriptions.get( 0 ).getComponentName());
 
 		return result;
 	}
@@ -177,21 +175,40 @@ public class ExtensionManager {
 	 * @return a (never null) map with the default operations (key = operation name, value = MEP)
 	 */
 	public Map<QName,Mep> findDefaultOperations( String componentName, String componentVersion ) {
-		ComponentVersionDescription desc = findComponentDescription( componentName, componentVersion );
+		ComponentVersionDescription desc = findDescriptionByComponentNameAndVersion( componentName, componentVersion );
 		return desc != null ? desc.getDefaultOperations() : new HashMap<QName,Mep>( 0 );
 	}
 
 
 	/**
-	 * Finds a component description
+	 * Finds the component descriptions associated with a component name.
+	 * @param componentName the component name
+	 * @return a non-null list of component version descriptions
+	 */
+	public List<ComponentVersionDescription> findDescriptionsByComponentName( String componentName ) {
+
+		List<ComponentVersionDescription> result = new ArrayList<ComponentVersionDescription> ();
+		for( List<ComponentVersionDescription> descriptions : this.namespaceToDescriptions.values()) {
+			for( ComponentVersionDescription desc : descriptions ) {
+				if( desc.getComponentName().equals( componentName ))
+					result.add( desc );
+			}
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Finds the component description associated with a given component name and version.
 	 * @param componentName the component name
 	 * @param componentVersion the component version (null to pick up the first found version)
 	 * @return a component version's description, or null if none was found
 	 */
-	public ComponentVersionDescription findComponentDescription( String componentName, String componentVersion ) {
+	public ComponentVersionDescription findDescriptionByComponentNameAndVersion( String componentName, String componentVersion ) {
 
 		ComponentVersionDescription result = null;
-		for( ComponentVersionDescription desc : this.namespaceToDescription.values() ) {
+		for( ComponentVersionDescription desc : findDescriptionsByComponentName( componentName )) {
 			if( desc.getComponentName().equals( componentName )) {
 				if( componentVersion == null || desc.getComponentVersion().equals( componentVersion )) {
 					result = desc;
@@ -208,7 +225,11 @@ public class ExtensionManager {
 	 * @return
 	 */
 	public Collection<ComponentVersionDescription> findAllComponentVersionDescriptions() {
-		return this.namespaceToDescription.values();
+		Collection<ComponentVersionDescription> result = new ArrayList<ComponentVersionDescription> ();
+		for( List<ComponentVersionDescription> descs : this.namespaceToDescriptions.values())
+			result.addAll( descs );
+
+				return result;
 	}
 
 
@@ -216,19 +237,21 @@ public class ExtensionManager {
 	 * @param selectedEndpoint
 	 * @return
 	 */
-	public ComponentVersionDescription findComponentDescription(AbstractEndpoint selectedEndpoint) {
+	public ComponentVersionDescription findComponentDescription( AbstractEndpoint selectedEndpoint ) {
 
 		for (FeatureMap.Entry entry : selectedEndpoint.getGroup()) {
 			EStructuralFeature feature = entry.getEStructuralFeature();
 			if (feature instanceof Holder) {
-				ComponentVersionDescription ext = this.namespaceToDescription.get(((Holder) feature).getExtendedMetaData().getNamespace());
-				if( ext == null )
+				List<ComponentVersionDescription> exts = this.namespaceToDescriptions.get(((Holder) feature).getExtendedMetaData().getNamespace());
+				if( exts == null )
 					continue;
 
-				if (selectedEndpoint instanceof Provides && ext.isProvide())
-					return ext;
-				else if (selectedEndpoint instanceof Consumes && ext.isConsume())
-					return ext;
+				// We can pick up the first one (the name space is the key, not the version)
+				ComponentVersionDescription used = exts.get( 0 );
+				if (selectedEndpoint instanceof Provides && used.isProvide())
+					return used;
+				else if (selectedEndpoint instanceof Consumes && used.isConsume())
+					return used;
 			}
 		}
 

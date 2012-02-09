@@ -264,338 +264,335 @@ public class SuBuilder extends JbiXmlBuilder {
 		if( jbi == null || jbi.getServices() == null )
 			return markerBeans;
 
-		boolean hasProvides = jbi.getServices().getProvides() != null
-				&& jbi.getServices().getProvides().size() > 0;
+		boolean hasProvides = jbi.getServices().getProvides() != null && jbi.getServices().getProvides().size() > 0;
+		boolean hasConsumes = jbi.getServices().getConsumes() != null && jbi.getServices().getConsumes().size() > 0;
 
-				boolean hasConsumes = jbi.getServices().getConsumes() != null
-						&& jbi.getServices().getConsumes().size() > 0;
+		Properties projectProperties = PetalsSPPropertiesManager.getProperties( jbiXmlFile.getProject());
+		String suTypeVersion = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_VERSION, "" );
+		String componentName = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_NAME, "" );
 
-						Properties projectProperties = PetalsSPPropertiesManager.getProperties( jbiXmlFile.getProject());
-						String suTypeVersion = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_VERSION, "" );
-						String componentName = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_NAME, "" );
+		ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findDescriptionByComponentNameAndVersion( componentName, null );
+		if( componentDesc != null ) {
 
-						ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findComponentDescription( componentName, null );
-						if( componentDesc != null ) {
+			// General properties of the component
+			if( jbi.getServices().isBindingComponent() != componentDesc.isBc()) {
+				markerBeans.add( new MarkerBean(
+						IMarker.SEVERITY_ERROR,
+						"The 'binding-component' attribute does not match the target component type. "
+								+ componentName + " is a " + (componentDesc.isBc() ? "binding-component." : "service engine." ),
+								jbi.getServices(),
+								jbiXmlFile ));
+			}
 
-							// General properties of the component
-							if( jbi.getServices().isBindingComponent() != componentDesc.isBc()) {
-								markerBeans.add( new MarkerBean(
-										IMarker.SEVERITY_ERROR,
-										"The 'binding-component' attribute does not match the target component type. "
-												+ componentName + " is a " + (componentDesc.isBc() ? "binding-component." : "service engine." ),
-												jbi.getServices(),
-												jbiXmlFile ));
-							}
+			// Version properties
+			componentDesc = ExtensionManager.INSTANCE.findDescriptionByComponentNameAndVersion( componentName, suTypeVersion );
+			if( componentDesc == null
+					&& suTypeVersion != null
+					&& suTypeVersion.toLowerCase().endsWith( "-snapshot" )) {
 
-							// Version properties
-							componentDesc = ExtensionManager.INSTANCE.findComponentDescription( componentName, suTypeVersion );
-							if( componentDesc == null
-									&& suTypeVersion != null
-									&& suTypeVersion.toLowerCase().endsWith( "-snapshot" )) {
+				String newV = suTypeVersion.substring( 0, suTypeVersion.length() - 9 );
+				componentDesc = ExtensionManager.INSTANCE.findDescriptionByComponentNameAndVersion( componentName, newV );
+				if( componentDesc != null )
+					suTypeVersion = newV;
+			}
 
-								String newV = suTypeVersion.substring( 0, suTypeVersion.length() - 9 );
-								componentDesc = ExtensionManager.INSTANCE.findComponentDescription( componentName, newV );
-								if( componentDesc != null )
-									suTypeVersion = newV;
-							}
+			if( componentDesc != null ) {
+				if( hasProvides && ! componentDesc.isProvide()) {
+					markerBeans.add( new MarkerBean(
+							IMarker.SEVERITY_ERROR,
+							"The target component (" + componentName + ") does not allow 'provides' sections.",
+							jbi.getServices(),
+							jbiXmlFile ));
+				}
 
-							if( componentDesc != null ) {
-								if( hasProvides && ! componentDesc.isProvide()) {
-									markerBeans.add( new MarkerBean(
-											IMarker.SEVERITY_ERROR,
-											"The target component (" + componentName + ") does not allow 'provides' sections.",
-											jbi.getServices(),
-											jbiXmlFile ));
-								}
+				if( hasConsumes && ! componentDesc.isConsume()) {
+					markerBeans.add( new MarkerBean(
+							IMarker.SEVERITY_ERROR,
+							"The target component (" + componentName + ") does not allow 'consumes' sections." ,
+							jbi.getServices(),
+							jbiXmlFile ));
+				}
 
-								if( hasConsumes && ! componentDesc.isConsume()) {
-									markerBeans.add( new MarkerBean(
-											IMarker.SEVERITY_ERROR,
-											"The target component (" + componentName + ") does not allow 'consumes' sections." ,
-											jbi.getServices(),
-											jbiXmlFile ));
-								}
+			} else {
+				markerBeans.add( new MarkerBean(
+						IMarker.SEVERITY_WARNING,
+						"Validation is incomplete: the component " + componentName + " " + suTypeVersion + " is not known by the tooling." ,
+						jbi.getServices(),
+						jbiXmlFile ));
+			}
 
-							} else {
-								markerBeans.add( new MarkerBean(
-										IMarker.SEVERITY_WARNING,
-										"Validation is not possible: the component " + componentName + " " + suTypeVersion + " is not known by the tooling." ,
-										jbi.getServices(),
-										jbiXmlFile ));
-							}
+		} else {
+			markerBeans.add( new MarkerBean(
+					IMarker.SEVERITY_WARNING,
+					"Validation is incomplete: the component " + componentName + " is not known by the tooling." ,
+					jbi.getServices(),
+					jbiXmlFile ));
+		}
 
-						} else {
+		if( MarkerBean.containsCriticalError( markerBeans ))
+			return markerBeans;
+
+
+		// Step 2: check that there is a coherent MEP and an operation attributes...
+		// The SOAP component is not concerned by this verification.
+		if( hasConsumes
+				&& ! "petals-bc-soap".equalsIgnoreCase( componentName )) {
+
+			// Due to what looks like a bug or a limitation in EMF,
+			// we have to use DOM...
+			// Parsing is done only once for all the consumes...
+			File f = EmfUtils.getUnderlyingFile( jbi );
+			Map<Consumes,QName> consumesToOperation;
+			if( f != null ) {
+				consumesToOperation = findConsumesToOperation( f, jbi.getServices().getConsumes());
+			} else {
+				consumesToOperation = Collections.emptyMap();
+				PetalsServicesPlugin.log( "Cannot validate the operations to invoke.", IStatus.INFO );
+			}
+
+			for( Map.Entry<Consumes,QName> entry : consumesToOperation.entrySet()) {
+
+				// MEP
+				Consumes consumes = entry.getKey();
+				String mepValue = JbiXmlUtils.getMepValue( consumes );
+				if( mepValue == null ) {
+					markerBeans.add( new MarkerBean(
+							IMarker.SEVERITY_WARNING,
+							"The Message Exchange Pattern( MEP) is not set.",
+							EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='mep']",
+							jbiXmlFile ));
+				}
+
+				// Operation
+				QName opValue = entry.getValue();
+				if( opValue == null ) {
+					markerBeans.add( new MarkerBean(
+							IMarker.SEVERITY_WARNING,
+							"The operation to invoke is not a valid qualified name (maybe unbounded prefix).",
+							EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='operation']",
+							jbiXmlFile ));
+
+				} else if( INEXISTING_OPERATION.equals( opValue )) {
+					markerBeans.add( new MarkerBean(
+							IMarker.SEVERITY_WARNING,
+							"The operation to invoke is undefined.",
+							consumes,
+							jbiXmlFile ));
+				}
+
+				// Find a WSDL that describes this...
+				else {
+					Map<QName,Mep> consumableOps = ConsumeUtils.getValidOperationsForConsume(
+							consumes.getInterfaceName(),
+							consumes.getServiceName(),
+							consumes.getEndpointName());
+
+					if( consumableOps.isEmpty()) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_WARNING,
+								"No invocable operation was found for this service.",
+								EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='operation']",
+								jbiXmlFile ));
+
+					} else if( ! consumableOps.containsKey( opValue )) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_ERROR,
+								"The invoked operation does not exist for this service.",
+								EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='operation']",
+								jbiXmlFile ));
+
+					} else {
+						Mep mep = Mep.whichMep( mepValue );
+						if( mep != Mep.UNKNOWN
+								&& consumableOps.get( opValue ) != mep ) {
+
 							markerBeans.add( new MarkerBean(
-									IMarker.SEVERITY_WARNING,
-									"Validation is not possible: the component " + componentName + " is not known by the tooling." ,
-									jbi.getServices(),
+									IMarker.SEVERITY_ERROR,
+									"The invocation MEP does not match the operation's one or there is an ambiguity in the service consumption.",
+									EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='mep']",
+									jbiXmlFile ));
+						}
+					}
+				}
+			}
+		}
+
+
+		// Step 2-bis (for provides): check that there is a WSDL attribute...
+		// ... and that its values points to an existing file
+		if( hasProvides ) {
+			Map<Provides,URI> providesToWsdlUri = new HashMap<Provides,URI> ();
+			for( Provides provides : jbi.getServices().getProvides()) {
+
+				String wsdlValue = JbiXmlUtils.getWsdlValue( provides );
+
+				// No given WSDL
+				if( StringUtils.isEmpty( wsdlValue )) {
+					markerBeans.add( new MarkerBean(
+							IMarker.SEVERITY_WARNING,
+							"The provides section does not declare a WSDL file.",
+							provides,
+							jbiXmlFile ));
+
+					// And the itf and srv name spaces must be the same (dixit Roland)
+					String srvNs;
+					if( provides.getServiceName() != null
+							&& provides.getServiceName().getNamespaceURI() != null )
+						srvNs = provides.getServiceName().getNamespaceURI();
+					else
+						srvNs = "";
+
+					String itfNs;
+					if( provides.getInterfaceName() != null
+							&& provides.getInterfaceName().getNamespaceURI() != null )
+						itfNs = provides.getInterfaceName().getNamespaceURI();
+					else
+						itfNs = "";
+
+					if( ! srvNs.equals( itfNs )) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_ERROR,
+								"Since there is no declared WSDL, the interface and service name spaces must be the same.",
+								provides,
+								jbiXmlFile ));
+					}
+				}
+
+				// A WSDL is expected - File or URI
+				else {
+					File wsdlFile = JbiXmlUtils.getWsdlFile( jbiXmlFile, wsdlValue );
+					if( wsdlFile == null ) {
+						try {
+							URI wsdlUri = UriAndUrlHelper.urlToUri( wsdlValue );
+							providesToWsdlUri.put( provides, wsdlUri );
+
+						} catch( Exception e ) {
+							markerBeans.add( new MarkerBean(
+									IMarker.SEVERITY_ERROR,
+									"The WSDL location is not a valid URI.",
+									EmfUtils.getXpathExpression( provides ) + "/*[local-name()='wsdl']",
 									jbiXmlFile ));
 						}
 
-						if( MarkerBean.containsCriticalError( markerBeans ))
-							return markerBeans;
+					} else if( ! wsdlFile.exists()) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_ERROR,
+								"The referenced WSDL file does not exist.",
+								EmfUtils.getXpathExpression( provides ) + "/*[local-name()='wsdl']",
+								jbiXmlFile ));
+					}
+					else {
+						providesToWsdlUri.put( provides, wsdlFile.toURI());
+					}
+				}
+			}
+
+			if( MarkerBean.containsCriticalError( markerBeans ))
+				return markerBeans;
 
 
-						// Step 2: check that there is a coherent MEP and an operation attributes...
-						// The SOAP component is not concerned by this verification.
-						if( hasConsumes
-								&& ! "petals-bc-soap".equalsIgnoreCase( componentName )) {
+			// Step 3: check that the jbi.xml values and the WSDL properties are coherent
+			for( Map.Entry<Provides,URI> entry : providesToWsdlUri.entrySet()) {
+				try {
+					Provides p = entry.getKey();
+					List<JbiBasicBean> beans = null;
+					try {
+						beans = WsdlUtils.INSTANCE.parse( entry.getValue());
+					} catch( InvocationTargetException e ) {
+						// nothing
+					}
 
-							// Due to what looks like a bug or a limitation in EMF,
-							// we have to use DOM...
-							// Parsing is done only once for all the consumes...
-							File f = EmfUtils.getUnderlyingFile( jbi );
-							Map<Consumes,QName> consumesToOperation;
-							if( f != null ) {
-								consumesToOperation = findConsumesToOperation( f, jbi.getServices().getConsumes());
-							} else {
-								consumesToOperation = Collections.emptyMap();
-								PetalsServicesPlugin.log( "Cannot validate the operations to invoke.", IStatus.INFO );
-							}
+					if( beans == null ) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_ERROR,
+								"The WSDL associated with the service " + p.getServiceName().getLocalPart() + " is invalid.",
+								EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
+								jbiXmlFile ));
 
-							for( Map.Entry<Consumes,QName> entry : consumesToOperation.entrySet()) {
+						continue;
+					}
 
-								// MEP
-								Consumes consumes = entry.getKey();
-								String mepValue = JbiXmlUtils.getMepValue( consumes );
-								if( mepValue == null ) {
-									markerBeans.add( new MarkerBean(
-											IMarker.SEVERITY_WARNING,
-											"The Message Exchange Pattern( MEP) is not set.",
-											EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='mep']",
-											jbiXmlFile ));
-								}
+					if( beans.isEmpty()) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_WARNING,
+								"The WSDL associated with the service " + p.getServiceName().getLocalPart() + " does not seem to contain any data. It may be invalid.",
+								EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
+								jbiXmlFile ));
 
-								// Operation
-								QName opValue = entry.getValue();
-								if( opValue == null ) {
-									markerBeans.add( new MarkerBean(
-											IMarker.SEVERITY_WARNING,
-											"The operation to invoke is not a valid qualified name (maybe unbounded prefix).",
-											EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='operation']",
-											jbiXmlFile ));
+						continue;
+					}
 
-								} else if( INEXISTING_OPERATION.equals( opValue )) {
-									markerBeans.add( new MarkerBean(
-											IMarker.SEVERITY_WARNING,
-											"The operation to invoke is undefined.",
-											consumes,
-											jbiXmlFile ));
-								}
+					// Find interface name first
+					List<JbiBasicBean> filteredBeans = new ArrayList<JbiBasicBean> ();
+					for( JbiBasicBean bean : beans ) {
 
-								// Find a WSDL that describes this...
-								else {
-									Map<QName,Mep> consumableOps = ConsumeUtils.getValidOperationsForConsume(
-											consumes.getInterfaceName(),
-											consumes.getServiceName(),
-											consumes.getEndpointName());
-
-									if( consumableOps.isEmpty()) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_WARNING,
-												"No invocable operation was found for this service.",
-												EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='operation']",
-												jbiXmlFile ));
-
-									} else if( ! consumableOps.containsKey( opValue )) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_ERROR,
-												"The invoked operation does not exist for this service.",
-												EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='operation']",
-												jbiXmlFile ));
-
-									} else {
-										Mep mep = Mep.whichMep( mepValue );
-										if( mep != Mep.UNKNOWN
-												&& consumableOps.get( opValue ) != mep ) {
-
-											markerBeans.add( new MarkerBean(
-													IMarker.SEVERITY_ERROR,
-													"The invocation MEP does not match the operation's one or there is an ambiguity in the service consumption.",
-													EmfUtils.getXpathExpression( consumes ) + "/*[local-name()='mep']",
-													jbiXmlFile ));
-										}
-									}
-								}
-							}
+						if( ! bean.isPortTypeExists()) {
+							markerBeans.add( new MarkerBean(
+									IMarker.SEVERITY_ERROR,
+									"The service's binding references an undefined port type.",
+									EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
+									jbiXmlFile ));
 						}
 
+						if( bean.getInterfaceName().equals( p.getInterfaceName()))
+							filteredBeans.add( bean );
+					}
 
-						// Step 2-bis (for provides): check that there is a WSDL attribute...
-						// ... and that its values points to an existing file
-						if( hasProvides ) {
-							Map<Provides,URI> providesToWsdlUri = new HashMap<Provides,URI> ();
-							for( Provides provides : jbi.getServices().getProvides()) {
+					if( filteredBeans.isEmpty()) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_ERROR,
+								"The interface name " + p.getInterfaceName().getLocalPart() + " defined in the jbi.xml does not match the declared WSDL.",
+								EmfUtils.getXpathExpression( p ) + "/@interface-name",
+								jbiXmlFile ));
 
-								String wsdlValue = JbiXmlUtils.getWsdlValue( provides );
+						return markerBeans;
+					}
 
-								// No given WSDL
-								if( StringUtils.isEmpty( wsdlValue )) {
-									markerBeans.add( new MarkerBean(
-											IMarker.SEVERITY_WARNING,
-											"The provides section does not declare a WSDL file.",
-											provides,
-											jbiXmlFile ));
+					// Find services then
+					beans.clear();
+					for( JbiBasicBean bean : filteredBeans ) {
+						if( bean.getServiceName().equals( p.getServiceName()))
+							beans.add( bean );
+					}
 
-									// And the itf and srv name spaces must be the same (dixit Roland)
-									String srvNs;
-									if( provides.getServiceName() != null
-											&& provides.getServiceName().getNamespaceURI() != null )
-										srvNs = provides.getServiceName().getNamespaceURI();
-									else
-										srvNs = "";
+					if( beans.isEmpty()) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_ERROR,
+								"The service " + p.getServiceName().getLocalPart() + " defined in the jbi.xml was not found in the declared WSDL.",
+								EmfUtils.getXpathExpression( p ) + "/@service-name",
+								jbiXmlFile ));
 
-									String itfNs;
-									if( provides.getInterfaceName() != null
-											&& provides.getInterfaceName().getNamespaceURI() != null )
-										itfNs = provides.getInterfaceName().getNamespaceURI();
-									else
-										itfNs = "";
+						return markerBeans;
+					}
 
-									if( ! srvNs.equals( itfNs )) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_ERROR,
-												"Since there is no declared WSDL, the interface and service name spaces must be the same.",
-												provides,
-												jbiXmlFile ));
-									}
-								}
-
-								// A WSDL is expected - File or URI
-								else {
-									File wsdlFile = JbiXmlUtils.getWsdlFile( jbiXmlFile, wsdlValue );
-									if( wsdlFile == null ) {
-										try {
-											URI wsdlUri = UriAndUrlHelper.urlToUri( wsdlValue );
-											providesToWsdlUri.put( provides, wsdlUri );
-
-										} catch( Exception e ) {
-											markerBeans.add( new MarkerBean(
-													IMarker.SEVERITY_ERROR,
-													"The WSDL location is not a valid URI.",
-													EmfUtils.getXpathExpression( provides ) + "/*[local-name()='wsdl']",
-													jbiXmlFile ));
-										}
-
-									} else if( ! wsdlFile.exists()) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_ERROR,
-												"The referenced WSDL file does not exist.",
-												EmfUtils.getXpathExpression( provides ) + "/*[local-name()='wsdl']",
-												jbiXmlFile ));
-									}
-									else {
-										providesToWsdlUri.put( provides, wsdlFile.toURI());
-									}
-								}
-							}
-
-							if( MarkerBean.containsCriticalError( markerBeans ))
-								return markerBeans;
-
-
-							// Step 3: check that the jbi.xml values and the WSDL properties are coherent
-							for( Map.Entry<Provides,URI> entry : providesToWsdlUri.entrySet()) {
-								try {
-									Provides p = entry.getKey();
-									List<JbiBasicBean> beans = null;
-									try {
-										beans = WsdlUtils.INSTANCE.parse( entry.getValue());
-									} catch( InvocationTargetException e ) {
-										// nothing
-									}
-
-									if( beans == null ) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_ERROR,
-												"The WSDL associated with the service " + p.getServiceName().getLocalPart() + " is invalid.",
-												EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
-												jbiXmlFile ));
-
-										continue;
-									}
-
-									if( beans.isEmpty()) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_WARNING,
-												"The WSDL associated with the service " + p.getServiceName().getLocalPart() + " does not seem to contain any data. It may be invalid.",
-												EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
-												jbiXmlFile ));
-
-										continue;
-									}
-
-									// Find interface name first
-									List<JbiBasicBean> filteredBeans = new ArrayList<JbiBasicBean> ();
-									for( JbiBasicBean bean : beans ) {
-
-										if( ! bean.isPortTypeExists()) {
-											markerBeans.add( new MarkerBean(
-													IMarker.SEVERITY_ERROR,
-													"The service's binding references an undefined port type.",
-													EmfUtils.getXpathExpression( p ) + "/*[local-name()='wsdl']",
-													jbiXmlFile ));
-										}
-
-										if( bean.getInterfaceName().equals( p.getInterfaceName()))
-											filteredBeans.add( bean );
-									}
-
-									if( filteredBeans.isEmpty()) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_ERROR,
-												"The interface name " + p.getInterfaceName().getLocalPart() + " defined in the jbi.xml does not match the declared WSDL.",
-												EmfUtils.getXpathExpression( p ) + "/@interface-name",
-												jbiXmlFile ));
-
-										return markerBeans;
-									}
-
-									// Find services then
-									beans.clear();
-									for( JbiBasicBean bean : filteredBeans ) {
-										if( bean.getServiceName().equals( p.getServiceName()))
-											beans.add( bean );
-									}
-
-									if( beans.isEmpty()) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_ERROR,
-												"The service " + p.getServiceName().getLocalPart() + " defined in the jbi.xml was not found in the declared WSDL.",
-												EmfUtils.getXpathExpression( p ) + "/@service-name",
-												jbiXmlFile ));
-
-										return markerBeans;
-									}
-
-									// Find the end-point name then
-									filteredBeans.clear();
-									for( JbiBasicBean bean : beans ) {
-										if( bean.getEndpointName().equals( p.getEndpointName())) {
-											filteredBeans.add( bean );
-										}
-									}
-
-									if( filteredBeans.isEmpty()) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_ERROR,
-												"The end-point name " + p.getEndpointName() + " defined in the jbi.xml does not match the declared WSDL.",
-												EmfUtils.getXpathExpression( p ) + "/@endpoint-name",
-												jbiXmlFile ));
-
-									} else if( filteredBeans.size() != 1 ) {
-										markerBeans.add( new MarkerBean(
-												IMarker.SEVERITY_WARNING,
-												"More than one service was found with these identifiers. The WSDL is probably incorrect.",
-												EmfUtils.getXpathExpression( p ),
-												jbiXmlFile ));
-									}
-
-								} catch( IllegalArgumentException e ) {
-									PetalsServicesPlugin.log( e, IStatus.WARNING );
-								}
-							}
+					// Find the end-point name then
+					filteredBeans.clear();
+					for( JbiBasicBean bean : beans ) {
+						if( bean.getEndpointName().equals( p.getEndpointName())) {
+							filteredBeans.add( bean );
 						}
+					}
+
+					if( filteredBeans.isEmpty()) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_ERROR,
+								"The end-point name " + p.getEndpointName() + " defined in the jbi.xml does not match the declared WSDL.",
+								EmfUtils.getXpathExpression( p ) + "/@endpoint-name",
+								jbiXmlFile ));
+
+					} else if( filteredBeans.size() != 1 ) {
+						markerBeans.add( new MarkerBean(
+								IMarker.SEVERITY_WARNING,
+								"More than one service was found with these identifiers. The WSDL is probably incorrect.",
+								EmfUtils.getXpathExpression( p ),
+								jbiXmlFile ));
+					}
+
+				} catch( IllegalArgumentException e ) {
+					PetalsServicesPlugin.log( e, IStatus.WARNING );
+				}
+			}
+		}
 
 						// Step 4: check specific parameters (as defined in extensions)
 						// TODO
