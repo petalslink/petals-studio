@@ -19,6 +19,7 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
+import org.junit.Test;
 
 import com.ebmwebsourcing.petals.tests.common.DndUtil;
 import com.ebmwebsourcing.petals.tests.common.SUCreator;
@@ -29,8 +30,7 @@ import com.ebmwebsourcing.petals.tests.common.SUDesc;
  */
 public class TestDND extends SWTBotGefTestCase {
 
-	// @Test
-	// FIXME: the DnD does not work. The drop location is not accurate and DndUtil does make better.
+	@Test
 	public void testDND() throws Exception {
 		SUDesc desc = SUCreator.createFileTransferEndpoint(this.bot);
 		BPELTestsUtils.openBPELEditor(this.bot);
@@ -55,9 +55,7 @@ public class TestDND extends SWTBotGefTestCase {
 			}
 		});
 
-		System.out.println( targetLocation );
 		new DndUtil( this.bot.activeShell().display ).dragAndDrop( toDrag, targetLocation );
-
 		this.bot.button("OK").click();
 		Assert.assertTrue(this.bot.activeEditor().isDirty());
 

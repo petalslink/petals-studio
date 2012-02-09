@@ -66,7 +66,7 @@ public class Startup implements IStartup {
 							IEditorReference editorRef = (IEditorReference)partRef;
 							if (editorRef.getEditor(false) instanceof BPELEditor) {
 								BPELEditor bpelEd = (BPELEditor)editorRef.getEditor(false);
-								bpelEd.getGraphicalViewer().addDropTargetListener(new PetalsDropTargetListener(bpelEd.getGraphicalViewer(), bpelEd));
+								bpelEd.getGraphicalViewer().addDropTargetListener( new PetalsDropTargetListener( bpelEd.getGraphicalViewer(), bpelEd));
 
 							} else if (editorRef.getEditor(false) instanceof BPELMultipageEditorPart) {
 								BPELMultipageEditorPart bpelEd = (BPELMultipageEditorPart) editorRef.getEditor(false);
@@ -76,7 +76,6 @@ public class Startup implements IStartup {
 									BPELEditor editor = (BPELEditor) ed;
 									((BPELEditor)ed).getGraphicalViewer().addDropTargetListener( new PetalsDropTargetListener(editor.getGraphicalViewer(), editor));
 								}
-
 							}
 						}
 
