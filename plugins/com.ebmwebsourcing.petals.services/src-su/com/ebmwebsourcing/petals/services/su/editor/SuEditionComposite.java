@@ -167,9 +167,31 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	 */
 	private void initModel() {
 
-		CompoundCommand initializeCommand = new CompoundCommand();
+		// Sort the packages: the CDK must be the first one.
+		// Components must follow.
+		ArrayList<EPackage> cdkPackages = new ArrayList<EPackage> ();
+		ArrayList<EPackage> componentPackages = new ArrayList<EPackage> ();
 		for( ComponentVersionDescription description : ExtensionManager.INSTANCE.findAllComponentVersionDescriptions()) {
 			EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage( description.getNamespace());
+
+			if( extensionPackage == null )
+				PetalsServicesPlugin.log( "No package for " + description.getComponentName(), IStatus.ERROR );
+			else if( extensionPackage.getNsURI() == null )
+				PetalsServicesPlugin.log( "Ignoring an empty package in the SU editor.", IStatus.ERROR );
+			else if( extensionPackage.getNsURI().toLowerCase().contains( "components/extensions/" ))
+				cdkPackages.add( extensionPackage );
+			else
+				componentPackages.add( extensionPackage );
+		}
+
+		ArrayList<EPackage> sortedPackages = new ArrayList<EPackage> ();
+		sortedPackages.addAll( cdkPackages );
+		sortedPackages.addAll( componentPackages );
+
+
+		// Create and invoke the command
+		CompoundCommand initializeCommand = new CompoundCommand();
+		for( EPackage extensionPackage : sortedPackages ) {
 			InitializeModelExtensionCommand command = null;
 
 			for( Provides provide : this.ise.getJbiModel().getServices().getProvides()) {

@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -168,7 +169,11 @@ public class ProjectPage extends AbstractSuWizardPage {
 		SwtFactory.applyHorizontalGridData( locContainer, 2 );
 
 		final Label locLabel = SwtFactory.createLabel( locContainer, "Location:", null );
-		this.projectLocationText = SwtFactory.createSimpleTextField( locContainer, true );
+		this.projectLocationText = SwtFactory.createSimpleTextField( locContainer, false );
+
+		// Set the width hint: otherwise, long project locations will make the wizard page too wide!
+		GridDataFactory.swtDefaults().align( SWT.FILL, SWT.TOP ).hint( 500, SWT.DEFAULT ).applyTo( this.projectLocationText );
+
 		this.projectLocationText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {

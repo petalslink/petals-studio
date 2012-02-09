@@ -171,7 +171,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 			ResourceSet resourceSet = new ResourceSetImpl();
 			this.editDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain( resourceSet );
-			URI resourceUri = URI.createPlatformResourceURI(this.editedFile.getFullPath().toString(), true);
+			URI resourceUri = URI.createPlatformResourceURI( this.editedFile.getFullPath().toString(), true );
 			Resource resource = resourceSet.getResource(resourceUri, true);
 			resource.load( resourceSet.getLoadOptions());
 			this.jbiModel = ((DocumentRoot) resource.getContents().get(0)).getJbi();

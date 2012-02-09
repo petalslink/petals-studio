@@ -80,6 +80,25 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	@Override
 	public void execute() {
 
+		/* Woooooooow: some explanations are required here!
+		 * ================================================
+		 *
+		 * All the features have been initialized (they were found from the extension-point and EMF registry).
+		 * The command is executable if and only if they are elements in the EObject that can be associated with
+		 * these structural features.
+		 *
+		 * That's what the command do: initialize features from the mixed content.
+		 * Problem: if we just go through the features in the discovering order, the elements will
+		 * be written in this same order. This is wrong because the CDK features must ALWAYS be written
+		 * before the component one.
+		 *
+		 *  So, before invoking this command, the extension packages must be sorted.
+		 *  The CDK package must be initialized first.
+		 */
+
+
+		// Once sorting is done, we can iterate and initialize the feature values
+		// Care must be taken because
 		for( EStructuralFeature targetFeature : this.targetFeatures ) {
 			Entry entry = getMatchingGroupEntry( targetFeature );
 			if( entry == null )
@@ -90,6 +109,13 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 				this.element.getGroup().remove(entry);
 				try {
 
+					// To follow insertion (and thus write) order, set debug to true.
+					// Set it to false before the releases. As its name says it, it is for debug purpose.
+					boolean debug = false;
+					String fName = ExtendedMetaData.INSTANCE.getName( targetFeature);
+					String fNs = ExtendedMetaData.INSTANCE.getNamespace( targetFeature);
+					String id = "Inserting feature: " + fName + " - " + fNs;
+
 					if (value instanceof String && targetFeature instanceof EAttribute) {
 						EDataType expectedType = ((EAttribute) targetFeature).getEAttributeType();
 						String instanceClassName = expectedType.getInstanceClassName().toLowerCase();
@@ -98,11 +124,15 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 								|| "int".equals( instanceClassName )
 								|| "java.lang.integer".equals( instanceClassName )) {
 							this.element.eSet(targetFeature, Integer.valueOf((String)value));
+							if( debug )
+								System.out.println( id );
 
 						} else if( expectedType.equals( EcorePackage.Literals.ELONG )
 									|| "long".equals( instanceClassName )
 									|| "java.lang.long".equals( instanceClassName )) {
 								this.element.eSet(targetFeature, Long.valueOf((String)value));
+								if( debug )
+									System.out.println( id );
 
 						} else if( instanceClassName.equals( "javax.xml.namespace.qname" )) {
 
@@ -136,21 +166,31 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 							}
 
 							this.element.eSet( targetFeature, newValue );
+							if( debug )
+								System.out.println( id );
 
 						} else if( expectedType instanceof EEnum ) {
 							EEnum eEnum = (EEnum) expectedType;
 							EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
 							this.element.eSet(targetFeature, literal.getInstance());
+							if( debug )
+								System.out.println( id );
 
 						} else if (expectedType.getInstanceClass().equals( boolean.class )) {
 							this.element.eSet(targetFeature, Boolean.valueOf((String)value));
+							if( debug )
+								System.out.println( id );
 
 						} else {
 							this.element.eSet(targetFeature, value);
+							if( debug )
+								System.out.println( id );
 						}
 
 					} else {
 						this.element.eSet(targetFeature, value);
+						if( debug )
+							System.out.println( id );
 					}
 
 				} catch( Exception e ) {
