@@ -72,7 +72,7 @@ public class WsdlParsingJobManager {
 		this.wsdlUri = wsdlUri;
 
 		this.parsingJob = new WsdlParsingJob();
-		this.parsingJob.schedule( 2000 );
+		this.parsingJob.schedule( 1000 );
 	}
 
 

@@ -14,6 +14,7 @@ package com.ebmwebsourcing.petals.services.sa.nature;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -64,6 +65,11 @@ public class SaDependencyResourceListener implements IResourceChangeListener {
 	 */
 	private final LinkedBlockingQueue<IProject> saProjects;
 
+	/**
+	 * A basic lock to avoid an infinite loop (build => post build event => build => ...).
+	 */
+	private final AtomicBoolean lock = new AtomicBoolean( false );
+
 
 	/**
 	 * Private constructor.
@@ -100,6 +106,7 @@ public class SaDependencyResourceListener implements IResourceChangeListener {
 	 * @see org.eclipse.core.resources.IResourceChangeListener
 	 * #resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
 	 */
+	@Override
 	public void resourceChanged( IResourceChangeEvent event ) {
 
 		// Do not propagate builds that come from this builder.
@@ -144,9 +151,10 @@ public class SaDependencyResourceListener implements IResourceChangeListener {
 				}
 
 				// Build?
-				if( deltaVisitor.buildSaProject ) {
+				if( deltaVisitor.buildSaProject && ! this.lock.get()) {
 					try {
 						saProject.build( IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+						this.lock.set( true );
 
 					} catch( CoreException e ) {
 						PetalsServicesPlugin.log( e, IStatus.ERROR );
@@ -154,6 +162,8 @@ public class SaDependencyResourceListener implements IResourceChangeListener {
 				}
 			}
 		}
+
+		this.lock.set( false );
 	}
 
 
@@ -176,6 +186,7 @@ public class SaDependencyResourceListener implements IResourceChangeListener {
 		 * @see org.eclipse.core.resources.IResourceDeltaVisitor
 		 * #visit(org.eclipse.core.resources.IResourceDelta)
 		 */
+		@Override
 		public boolean visit( IResourceDelta delta ) throws CoreException {
 
 			// Get the resource.
