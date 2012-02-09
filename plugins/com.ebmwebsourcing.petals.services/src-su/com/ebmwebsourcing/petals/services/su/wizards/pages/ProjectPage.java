@@ -172,7 +172,7 @@ public class ProjectPage extends AbstractSuWizardPage {
 		this.projectLocationText = SwtFactory.createSimpleTextField( locContainer, false );
 
 		// Set the width hint: otherwise, long project locations will make the wizard page too wide!
-		GridDataFactory.swtDefaults().align( SWT.FILL, SWT.TOP ).hint( 500, SWT.DEFAULT ).applyTo( this.projectLocationText );
+		GridDataFactory.swtDefaults().align( SWT.FILL, SWT.CENTER ).grab( true, false ).hint( 200, SWT.DEFAULT ).applyTo( this.projectLocationText );
 
 		this.projectLocationText.addModifyListener( new ModifyListener() {
 			@Override
