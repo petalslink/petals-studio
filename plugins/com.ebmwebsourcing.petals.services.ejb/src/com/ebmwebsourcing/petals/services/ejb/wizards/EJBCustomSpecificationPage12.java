@@ -72,7 +72,9 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 
 		// Validate the class
 		String error = null;
-		if( StringUtils.isEmpty( this.className )) {
+		if( this.ejbFiles.size() == 0 )
+			error = "You must provide at least one JAR file containing the EJB classes.";
+		else if( StringUtils.isEmpty( this.className )) {
 			error = "You have to define the name of the EJB's remote interface.";
 		} else if( StringUtils.isEmpty( this.wsdlName )) {
 			error = "You have to give a name to the WSDL that will be generated.";
@@ -279,5 +281,14 @@ public class EJBCustomSpecificationPage12 extends AbstractSuWizardPage {
 	 */
 	public EjbWizard13 getEjbWizard() {
 		return (EjbWizard13) getWizard();
+	}
+
+
+	/**
+	 * @param asList the EJB files to set
+	 */
+	public void setEjbFiles( List<File> asList ) {
+		this.ejbFiles.clear();
+		this.ejbFiles.addAll( asList );
 	}
 }

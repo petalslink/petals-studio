@@ -18,14 +18,15 @@ import java.util.Arrays;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.waits.ICondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotCombo;
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.ebmwebsourcing.petals.services.ejb.wizards.EJBCustomSpecificationPage12;
+import com.ebmwebsourcing.petals.services.ejb.wizards.EjbWizard13;
 import com.ebmwebsourcing.petals.tests.common.FileTestUtil;
 
 /**
@@ -60,17 +61,22 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 		this.bot.perspectiveById( "com.ebmwebsourcing.petals.common.mainPerspective" ).activate();
 		this.bot.menu("New").menu("Petals Service Provider").click();
 
-		SWTBotCombo comboBox = this.bot.comboBox(1);
-		comboBox.setSelection("EJB    //  petals-bc-ejb");
+		this.bot.comboBox(1).setSelection( 0 );
 		this.bot.button("Next >").click();
 
-		Display.getDefault().asyncExec(new Runnable() {
+		Display.getDefault().syncExec(new Runnable() {
 			@Override
 			public void run() {
-				WizardDialog wizardDialog = (WizardDialog)TestEJBSUGeneration.this.bot.activeShell().widget.getData();
-				EJBCustomSpecificationPage12 page = (EJBCustomSpecificationPage12)wizardDialog.getCurrentPage();
-				page.getEjbWizard().setEJBFiles( Arrays.asList( TestEJBSUGeneration.this.businessFile ));
-				page.getEjbWizard().setJEEFiles( Arrays.asList(  TestEJBSUGeneration.this.jeeFile ));
+				WizardDialog wizardDialog = (WizardDialog) TestEJBSUGeneration.this.bot.activeShell().widget.getData();
+				EJBCustomSpecificationPage12 page = (EJBCustomSpecificationPage12) wizardDialog.getCurrentPage();
+
+				// Validate the page
+				page.setEjbFiles( Arrays.asList( TestEJBSUGeneration.this.businessFile ));
+
+				// Complete the wizard
+				((EjbWizard13) page.getWizard()).setEJBFiles( Arrays.asList( TestEJBSUGeneration.this.businessFile ));
+				((EjbWizard13) page.getWizard()).setJEEFiles( Arrays.asList( TestEJBSUGeneration.this.jeeFile ));
+				page.validate();
 			}
 		});
 
@@ -93,7 +99,9 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 
 			@Override
 			public boolean test() throws Exception {
-				return TestEJBSUGeneration.this.bot.activeEditor().getTitle().equals(suName);
+				// The view is activated after the editor was open
+				SWTBotView view = TestEJBSUGeneration.this.bot.viewById("com.ebmwebsourcing.petals.common.projects");
+				return view.isActive();
 			}
 
 			@Override
@@ -103,11 +111,10 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 
 			@Override
 			public String getFailureMessage() {
-				return null;
+				return "Could not get the file selected.";
 			}
-		});
+		}, 10000, 1000 );
 
-		this.bot.wait( 2000 );
 		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
 		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
 	}
