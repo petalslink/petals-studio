@@ -39,6 +39,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -265,9 +266,15 @@ public class CDK5JBIEndpointUIHelper {
 
 		Link link = new Link( subContainer, SWT.NONE );
 		link.setText("<A>" + Messages.wsdlTools + "</A>");
-		ToolTip tooltip = new WSDLHelperTooltip( link, toolkit, (Provides) endpoint, ise, wsdlParsingJob );
+		final ToolTip tooltip = new WSDLHelperTooltip( link, toolkit, (Provides) endpoint, ise, wsdlParsingJob );
 		tooltip.setHideDelay( 0 );
 		tooltip.setHideOnMouseDown( false );
+		link.addSelectionListener( new DefaultSelectionListener() {
+			@Override
+			public void widgetSelected( SelectionEvent e ) {
+				tooltip.show( new Point( 10, 10 ));
+			}
+		});
 
 
 		// The data-binding

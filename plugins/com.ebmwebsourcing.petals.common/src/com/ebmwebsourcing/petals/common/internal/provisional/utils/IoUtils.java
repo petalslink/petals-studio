@@ -345,7 +345,8 @@ public class IoUtils {
 
 		File result = null;
 		try {
-			result = new File( uri );
+			if( uri != null )
+				result = new File( uri );
 
 		} catch( Exception e ) {
 			PetalsCommonPlugin.log( e, IStatus.WARNING );
