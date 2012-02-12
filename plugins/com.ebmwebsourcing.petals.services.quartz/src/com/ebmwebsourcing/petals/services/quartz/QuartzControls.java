@@ -83,7 +83,7 @@ public class QuartzControls {
 			l.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE ));
 
 		this.msgText = SwtFactory.createXmlTextViewer( parent );
-		GridDataFactory.swtDefaults().align( SWT.FILL, SWT.CENTER ).span( 2, 1 ).applyTo( this.msgText );
+		GridDataFactory.swtDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).span( 2, 1 ).applyTo( this.msgText.getParent());
 	}
 
 

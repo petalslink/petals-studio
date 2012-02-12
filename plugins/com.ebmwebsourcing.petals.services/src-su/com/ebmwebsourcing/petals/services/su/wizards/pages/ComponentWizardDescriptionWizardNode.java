@@ -1,3 +1,15 @@
+/****************************************************************************
+ *
+ * Copyright (c) 2011-2012, EBM WebSourcing
+ *
+ * This source code is available under agreement available at
+ * http://www.petalslink.com/legal/licenses/petals-studio
+ *
+ * You should have received a copy of the agreement along with this program.
+ * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ *
+ *****************************************************************************/
+
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
 import org.eclipse.jface.wizard.IWizard;
@@ -6,9 +18,12 @@ import org.eclipse.swt.graphics.Point;
 
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 
+/**
+ * @author Mickaël Istria - EBM WebSourcing
+ */
 public class ComponentWizardDescriptionWizardNode implements IWizardNode {
 
-	private AbstractServiceUnitWizard wizard;
+	private final AbstractServiceUnitWizard wizard;
 
 	public ComponentWizardDescriptionWizardNode(AbstractServiceUnitWizard wizard) {
 		this.wizard = wizard;
@@ -16,6 +31,7 @@ public class ComponentWizardDescriptionWizardNode implements IWizardNode {
 
 	@Override
 	public void dispose() {
+		// nothing
 	}
 
 	@Override
@@ -25,12 +41,11 @@ public class ComponentWizardDescriptionWizardNode implements IWizardNode {
 
 	@Override
 	public IWizard getWizard() {
-		return wizard;
+		return this.wizard;
 	}
 
 	@Override
 	public boolean isContentCreated() {
 		return false;
 	}
-
 }

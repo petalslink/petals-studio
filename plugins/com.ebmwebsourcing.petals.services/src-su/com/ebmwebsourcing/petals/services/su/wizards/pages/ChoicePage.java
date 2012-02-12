@@ -410,6 +410,10 @@ public class ChoicePage extends WizardSelectionPage {
 	}
 
 
+	/**
+	 * @param wizard
+	 * @return
+	 */
 	protected IWizardNode getWizardNode(AbstractServiceUnitWizard wizard) {
 		wizard.setStrategy(this.strategy);
 		return new ComponentWizardDescriptionWizardNode(wizard);

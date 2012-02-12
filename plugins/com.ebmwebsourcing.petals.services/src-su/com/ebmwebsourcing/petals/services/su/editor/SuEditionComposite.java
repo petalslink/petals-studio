@@ -174,9 +174,10 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		for( ComponentVersionDescription description : ExtensionManager.INSTANCE.findAllComponentVersionDescriptions()) {
 			EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage( description.getNamespace());
 
-			if( extensionPackage == null )
-				PetalsServicesPlugin.log( "No package for " + description.getComponentName(), IStatus.ERROR );
-			else if( extensionPackage.getNsURI() == null )
+//			if( extensionPackage == null )
+//				PetalsServicesPlugin.log( "No package for " + description.getComponentName(), IStatus.ERROR );
+//			else
+			if( extensionPackage.getNsURI() == null )
 				PetalsServicesPlugin.log( "Ignoring an empty package in the SU editor.", IStatus.ERROR );
 			else if( extensionPackage.getNsURI().toLowerCase().contains( "components/extensions/" ))
 				cdkPackages.add( extensionPackage );
