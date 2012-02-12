@@ -35,6 +35,7 @@ public class TestDND extends SWTBotGefTestCase {
 		SUDesc desc = SUCreator.createFileTransferEndpoint(this.bot);
 		BPELTestsUtils.openBPELEditor(this.bot);
 
+		this.bot.wait( 5000 );
 		SWTBotView servicesView = this.bot.viewByTitle("Petals Services");
 		servicesView.show();
 		servicesView.setFocus();
