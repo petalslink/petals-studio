@@ -16,6 +16,7 @@ import java.io.File;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.namespace.QName;
 
@@ -28,13 +29,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.window.ToolTip;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -58,20 +59,23 @@ import com.ebmwebsourcing.petals.services.cdk.Messages;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.editor.su.EMFPCStyledLabelProvider;
 import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager;
-import com.ebmwebsourcing.petals.services.su.ui.WsdlParsingJobManager.WsdlParsingListener;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
  */
-public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
+public class WSDLHelperTooltip {
 
+	private final AtomicBoolean shown = new AtomicBoolean( false );
 	private final WsdlParsingJobManager wsdlParsingJob;
+	private final Shell shell;
+	private final Control controlToFollow;
+
+	private Hyperlink updateLink, importLink, selectServiceLink, openLink;
 	private final FormToolkit toolkit;
 	private final Provides service;
 	private final ISharedEdition ise;
-	private final Shell shell;
 
 
 	/**
@@ -83,50 +87,87 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 	 * @param wsdlParsingJob
 	 */
 	public WSDLHelperTooltip( Control control, FormToolkit tk, Provides service, ISharedEdition ise, WsdlParsingJobManager wsdlParsingJob ) {
-		super(control, NO_RECREATE, false);
+		this.shell = new Shell( control.getShell(), SWT.TOOL );
 		this.toolkit = tk;
 		this.ise = ise;
 		this.service = service;
 		this.wsdlParsingJob = wsdlParsingJob;
-		this.shell = control.getShell() ;
+		this.controlToFollow = control;
 
-		// Already checked: there is one instance of the the tool tip.
-		// Displaying it again and again does not add an infinite number of listeners
-		this.wsdlParsingJob.addWsdlParsingListener( this );
+		populateTooltip();
+		this.shell.pack();
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.jface.window.ToolTip
-	 * #createToolTipContentArea(org.eclipse.swt.widgets.Event, org.eclipse.swt.widgets.Composite)
+	/**
+	 * Shows the tool tip (with a small delay).
 	 */
-	@Override
-	protected Composite createToolTipContentArea(Event event, Composite parent) {
+	public void show() {
 
-		Form res = this.toolkit.createForm(parent);
+		if( this.shown.get())
+			return;
+
+		this.shown.set( true );
+
+		Point point = this.controlToFollow.toDisplay( 10, 10 );
+		this.shell.setLocation( point );
+
+		this.shell.getDisplay().asyncExec( new Runnable() {
+			@Override
+			public void run() {
+
+				try {
+					Thread.sleep( 1000 );
+				} catch( InterruptedException e ) {
+					e.printStackTrace();
+				}
+
+				updateEnablement();
+				if( WSDLHelperTooltip.this.shown.get())
+					WSDLHelperTooltip.this.shell.setVisible( true );
+			}
+		});
+	}
+
+
+	/**
+	 * Hides the tool tip.
+	 */
+	public void hide() {
+		if( ! this.shown.get())
+			return;
+
+		this.shown.set( false );
+		this.shell.setVisible( false );
+	}
+
+
+	/**
+	 * Populates the tool tip.
+	 */
+	private void populateTooltip() {
+
+		// Deal with the SHELL content
+		GridLayoutFactory.swtDefaults().applyTo( this.shell );
+		this.shell.setLayoutData( new GridData( GridData.FILL_BOTH ));
+		this.shell.setBackground( this.shell.getDisplay().getSystemColor( SWT.COLOR_WHITE ));
+
+		Form res = this.toolkit.createForm( this.shell );
 		res.setText(Messages.wsdlTools);
 		res.getBody().setLayout( new GridLayout());
 
 
-		// Get values
-		final List<JbiBasicBean> jbiBeans = this.wsdlParsingJob.getBeans();
-		final URI wsdlUri = this.wsdlParsingJob.getWsdlUri();
-		final File wsdlFile = IoUtils.convertToFile( wsdlUri );
-
-
 		// Helper: import the WSDL in the project
-		final Hyperlink importLink = this.toolkit.createHyperlink(res.getBody(), "Import this WSDL in the project", SWT.NONE );
+		this.importLink = this.toolkit.createHyperlink(res.getBody(), "Import this WSDL in the project", SWT.NONE );
 		final IFolder resFolder = WSDLHelperTooltip.this.ise.getEditedFile().getProject().getFolder( PetalsConstants.LOC_RES_FOLDER );
-		boolean enabled = wsdlFile == null && wsdlUri != null
-				|| wsdlFile != null && ! resFolder.getLocation().isPrefixOf( new Path( wsdlFile.getAbsolutePath()));
 
-		importLink.setEnabled( enabled );
-		importLink.addHyperlinkListener( new HyperlinkAdapter() {
+		this.importLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
+
 				hide();
 				try {
+					URI wsdlUri = WSDLHelperTooltip.this.wsdlParsingJob.getWsdlUri();
 					Map<String,File> map = new WsdlImportHelper().importWsdlOrXsdAndDependencies( resFolder.getLocation().toFile(), wsdlUri.toString());
 					File importedFile = map.get( wsdlUri.toString());
 					String value = IoUtils.getRelativeLocationToFile( resFolder.getLocation().toFile(), importedFile );
@@ -146,11 +187,11 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 
 
 		// Helper: select a service in the WSDL
-		final Hyperlink selectServiceLink = this.toolkit.createHyperlink( res.getBody(), "Select a service in the WSDL to fill-in the properties below", SWT.NONE );
-		selectServiceLink.setEnabled( ! jbiBeans.isEmpty());
-		selectServiceLink.addHyperlinkListener( new HyperlinkAdapter() {
+		this.selectServiceLink = this.toolkit.createHyperlink( res.getBody(), "Select a service in the WSDL to fill-in the properties below", SWT.NONE );
+		this.selectServiceLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
+
 				hide();
 				EMFPCStyledLabelProvider lp = new EMFPCStyledLabelProvider(WSDLHelperTooltip.this.shell);
 				StyledElementListSelectionDialog dlg = new StyledElementListSelectionDialog(WSDLHelperTooltip.this.shell, lp );
@@ -161,7 +202,7 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 				dlg.setTitle( "Service Selection" );
 				dlg.setMessage( "Select the service to expose inside Petals." );
 
-				dlg.setElements( jbiBeans.toArray());
+				dlg.setElements( WSDLHelperTooltip.this.wsdlParsingJob.getBeans().toArray());
 				if( dlg.open() == Window.OK ) {
 					CompoundCommand cc = new CompoundCommand();
 					JbiBasicBean bean = (JbiBasicBean) dlg.getResult()[ 0 ];
@@ -190,13 +231,15 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 
 
 		// Helper: open in the WSDL editor
-		final Hyperlink openLink = this.toolkit.createHyperlink( res.getBody(), "Open in the WSDL editor", SWT.NONE );
-		openLink.setToolTipText( "Open this WSDL in the default WSDL editor" );
-		openLink.setEnabled( wsdlFile != null && wsdlFile.exists());
-		openLink.addHyperlinkListener( new HyperlinkAdapter() {
+		this.openLink = this.toolkit.createHyperlink( res.getBody(), "Open in the WSDL editor", SWT.NONE );
+		this.openLink.setToolTipText( "Open this WSDL in the default WSDL editor" );
+		this.openLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
 				hide();
+
+				URI wsdlUri = WSDLHelperTooltip.this.wsdlParsingJob.getWsdlUri();
+				File wsdlFile = IoUtils.convertToFile( wsdlUri );
 				IFile f = ResourceUtils.getIFile( wsdlFile );
 				if( f == null )
 					return;
@@ -213,16 +256,17 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 
 
 		// Helper: update the end-point name in the WSDL
-		final Hyperlink updateLink = this.toolkit.createHyperlink(res.getBody(), "Update the service end-point in the WSDL", SWT.NONE );
-		updateLink.setToolTipText( "Update the WSDL so that it declared end-point for this service is the one defined below" );
-		updateLink.setEnabled( wsdlFile != null && wsdlFile.exists());
-		updateLink.addHyperlinkListener( new HyperlinkAdapter() {
+		this.updateLink = this.toolkit.createHyperlink(res.getBody(), "Update the service end-point in the WSDL", SWT.NONE );
+		this.updateLink.setToolTipText( "Update the WSDL so that it declared end-point for this service is the one defined below" );
+		this.updateLink.addHyperlinkListener( new HyperlinkAdapter() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
 				hide();
 				QName serviceName = WSDLHelperTooltip.this.service.getServiceName();
 				String edptName = WSDLHelperTooltip.this.service.getEndpointName();
 
+				URI wsdlUri = WSDLHelperTooltip.this.wsdlParsingJob.getWsdlUri();
+				File wsdlFile = IoUtils.convertToFile( wsdlUri );
 				if( ! WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, serviceName, edptName )) {
 					MessageDialog.openError( WSDLHelperTooltip.this.shell,	"End-point Update Failure", "The end-point could not be updated in the WSDL." );
 				} else {
@@ -236,29 +280,28 @@ public class WSDLHelperTooltip extends ToolTip implements WsdlParsingListener {
 				}
 			}
 		});
-
-		return res;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object
-	 * #finalize()
-	 */
-	@Override
-	protected void finalize() throws Throwable {
-		this.wsdlParsingJob.removeWsdlParsingListener( this );
 	}
 
 
 	/**
-	 * Updates the GUI when the WSDL is parsed.
-	 * FIXME: should we update the state of the hyper links?
+	 * Updates the enablement state of the links.
 	 */
-	@Override
-	public void notifyWsdlParsingDone() {
-		// nothing
+	private void updateEnablement() {
+
+		// Get values
+		final List<JbiBasicBean> jbiBeans = this.wsdlParsingJob.getBeans();
+		final URI wsdlUri = this.wsdlParsingJob.getWsdlUri();
+		final File wsdlFile = IoUtils.convertToFile( wsdlUri );
+
+		final IFolder resFolder = WSDLHelperTooltip.this.ise.getEditedFile().getProject().getFolder( PetalsConstants.LOC_RES_FOLDER );
+		boolean enabled = wsdlFile == null && wsdlUri != null
+				|| wsdlFile != null && ! resFolder.getLocation().isPrefixOf( new Path( wsdlFile.getAbsolutePath()));
+
+		this.importLink.setEnabled( enabled );
+		this.openLink.setEnabled( wsdlFile != null && wsdlFile.exists());
+		this.updateLink.setEnabled( wsdlFile != null && wsdlFile.exists());
+		this.selectServiceLink.setEnabled( ! jbiBeans.isEmpty());
+
 	}
 }
 

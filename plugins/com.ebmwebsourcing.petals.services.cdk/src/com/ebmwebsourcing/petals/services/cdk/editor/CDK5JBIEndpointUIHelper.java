@@ -15,6 +15,7 @@ package com.ebmwebsourcing.petals.services.cdk.editor;
 import java.io.File;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.namespace.QName;
 
@@ -32,14 +33,14 @@ import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.window.ToolTip;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -266,13 +267,32 @@ public class CDK5JBIEndpointUIHelper {
 
 		Link link = new Link( subContainer, SWT.NONE );
 		link.setText("<A>" + Messages.wsdlTools + "</A>");
-		final ToolTip tooltip = new WSDLHelperTooltip( link, toolkit, (Provides) endpoint, ise, wsdlParsingJob );
-		tooltip.setHideDelay( 0 );
-		tooltip.setHideOnMouseDown( false );
+		final AtomicBoolean tooltipVisible = new AtomicBoolean( false );
+		final WSDLHelperTooltip tooltip = new WSDLHelperTooltip( link, toolkit, (Provides) endpoint, ise, wsdlParsingJob );
 		link.addSelectionListener( new DefaultSelectionListener() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
-				tooltip.show( new Point( 10, 10 ));
+
+				boolean visible = tooltipVisible.get();
+				if( visible )
+					tooltip.hide();
+				else
+					tooltip.show();
+
+				tooltipVisible.set( ! visible );
+			}
+		});
+
+		link.addMouseTrackListener( new MouseTrackAdapter() {
+			@Override
+			public void mouseEnter( MouseEvent e ) {
+				tooltip.show();
+			}
+
+			@Override
+			public void mouseExit( MouseEvent e ) {
+				if( ! tooltipVisible.get())
+					tooltip.hide();
 			}
 		});
 

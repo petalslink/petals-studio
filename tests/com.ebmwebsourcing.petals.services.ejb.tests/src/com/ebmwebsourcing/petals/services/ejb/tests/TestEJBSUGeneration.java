@@ -113,7 +113,7 @@ public class TestEJBSUGeneration extends SWTBotGefTestCase {
 			public String getFailureMessage() {
 				return "Could not get the file selected.";
 			}
-		}, 10000, 1000 );
+		}, 40000, 1000 );
 
 		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
 		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
