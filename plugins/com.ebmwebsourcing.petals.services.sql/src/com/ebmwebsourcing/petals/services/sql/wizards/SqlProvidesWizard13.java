@@ -19,10 +19,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.sql.SqlDescription13;
-import com.ebmwebsourcing.petals.services.sql.generated.SqlService12;
+import com.ebmwebsourcing.petals.services.sql.generated.SqlService13;
 import com.ebmwebsourcing.petals.services.sql.sql.SqlPackage;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
@@ -112,7 +112,7 @@ public class SqlProvidesWizard13 extends AbstractServiceUnitWizard {
 	@Override
 	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor) {
 		IFile wsdlFile = resourceDirectory.getFile( "SqlService.wsdl" );
-		createFile( wsdlFile, new SqlService12().generate( newlyCreatedEndpoint ), monitor );
+		createFile( wsdlFile, new SqlService13().generate( newlyCreatedEndpoint ), monitor );
 		return Status.OK_STATUS;
 	}
 }

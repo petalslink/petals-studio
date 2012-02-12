@@ -1,7 +1,7 @@
 <%@ jet
 package="com.ebmwebsourcing.petals.services.sql.generated"
 imports="com.sun.java.xml.ns.jbi.AbstractEndpoint"
-class="SqlService"
+class="SqlService13"
 skeleton="../generator.skeleton" %>
 <% AbstractEndpoint data = (AbstractEndpoint) argument; %>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -76,7 +76,7 @@ skeleton="../generator.skeleton" %>
 		<wsdl:part name="xmlStoredProcedureResult" element="tns:storedProcedure" />
 	</wsdl:message>
 
-	<wsdl:portType name="<%= data.getInterfaceName() %>">
+	<wsdl:portType name="<%= data.getInterfaceName().getLocalPart() %>">
 		<wsdl:operation name="select">
 			<wsdl:input message="tns:statementRequest" />
 			<wsdl:output message="tns:selectResponse" />
@@ -116,7 +116,7 @@ skeleton="../generator.skeleton" %>
 		This binding section is defined only to expose this WSDL via SOAP
 		component to external service consumers
 	-->
-	<wsdl:binding name="SQLBinding" type="tns:<%= data.getInterfaceName() %>">
+	<wsdl:binding name="SQLBinding" type="tns:<%= data.getInterfaceName().getLocalPart() %>">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 
@@ -207,7 +207,7 @@ skeleton="../generator.skeleton" %>
 		</wsdl:operation>
 	</wsdl:binding>
 
-	<wsdl:service name="<%= data.getServiceName() %>">
+	<wsdl:service name="<%= data.getServiceName().getLocalPart() %>">
 		<wsdl:port name="<%= data.getEndpointName() %>" binding="tns:SQLBinding">
 			<soap:address location="jbi://mySQLSUEndpointName" />
 		</wsdl:port>
