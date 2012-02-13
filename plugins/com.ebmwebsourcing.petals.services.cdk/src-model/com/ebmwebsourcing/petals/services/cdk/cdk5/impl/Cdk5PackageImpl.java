@@ -8,7 +8,6 @@ package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Factory;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
@@ -18,8 +17,6 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
@@ -32,13 +29,6 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
  * @generated
  */
 public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass cdkServiceEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -129,42 +119,6 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCDKService() {
-		return cdkServiceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCDKService_CdkExtContainer() {
-		return (EAttribute)cdkServiceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCDKService_Timeout() {
-		return (EAttribute)cdkServiceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCDKService_SuInterceptors() {
-		return (EAttribute)cdkServiceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getCDK5Provides() {
 		return cdk5ProvidesEClass;
 	}
@@ -174,7 +128,7 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Provides_ValidateWsdl() {
+	public EAttribute getCDK5Provides_Timeout() {
 		return (EAttribute)cdk5ProvidesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -183,7 +137,7 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Provides_ForwardSecuritySubject() {
+	public EAttribute getCDK5Provides_ValidateWsdl() {
 		return (EAttribute)cdk5ProvidesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -192,7 +146,7 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Provides_ForwardMessageProperties() {
+	public EAttribute getCDK5Provides_ForwardSecuritySubject() {
 		return (EAttribute)cdk5ProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -201,7 +155,7 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Provides_ForwardAttachments() {
+	public EAttribute getCDK5Provides_ForwardMessageProperties() {
 		return (EAttribute)cdk5ProvidesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -210,7 +164,7 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Provides_Wsdl() {
+	public EAttribute getCDK5Provides_ForwardAttachments() {
 		return (EAttribute)cdk5ProvidesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -219,8 +173,8 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCDK5Provides_RetryPolicy() {
-		return (EReference)cdk5ProvidesEClass.getEStructuralFeatures().get(5);
+	public EAttribute getCDK5Provides_Wsdl() {
+		return (EAttribute)cdk5ProvidesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -237,7 +191,7 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Consumes_Operation() {
+	public EAttribute getCDK5Consumes_Timeout() {
 		return (EAttribute)cdk5ConsumesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -246,8 +200,17 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCDK5Consumes_Mep() {
+	public EAttribute getCDK5Consumes_Operation() {
 		return (EAttribute)cdk5ConsumesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCDK5Consumes_Mep() {
+		return (EAttribute)cdk5ConsumesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -305,20 +268,16 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		isCreated = true;
 
 		// Create classes and their features
-		cdkServiceEClass = createEClass(CDK_SERVICE);
-		createEAttribute(cdkServiceEClass, CDK_SERVICE__CDK_EXT_CONTAINER);
-		createEAttribute(cdkServiceEClass, CDK_SERVICE__TIMEOUT);
-		createEAttribute(cdkServiceEClass, CDK_SERVICE__SU_INTERCEPTORS);
-
 		cdk5ProvidesEClass = createEClass(CDK5_PROVIDES);
+		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__TIMEOUT);
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__VALIDATE_WSDL);
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT);
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES);
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__FORWARD_ATTACHMENTS);
 		createEAttribute(cdk5ProvidesEClass, CDK5_PROVIDES__WSDL);
-		createEReference(cdk5ProvidesEClass, CDK5_PROVIDES__RETRY_POLICY);
 
 		cdk5ConsumesEClass = createEClass(CDK5_CONSUMES);
+		createEAttribute(cdk5ConsumesEClass, CDK5_CONSUMES__TIMEOUT);
 		createEAttribute(cdk5ConsumesEClass, CDK5_CONSUMES__OPERATION);
 		createEAttribute(cdk5ConsumesEClass, CDK5_CONSUMES__MEP);
 
@@ -352,7 +311,6 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 
 		// Obtain other dependent packages
 		JbiPackage theJbiPackage = (JbiPackage)EPackage.Registry.INSTANCE.getEPackage(JbiPackage.eNS_URI);
-		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
@@ -360,27 +318,20 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		cdkServiceEClass.getESuperTypes().add(theJbiPackage.getAbstractEndpoint());
-		cdk5ProvidesEClass.getESuperTypes().add(this.getCDKService());
 		cdk5ProvidesEClass.getESuperTypes().add(theJbiPackage.getProvides());
-		cdk5ConsumesEClass.getESuperTypes().add(this.getCDKService());
 		cdk5ConsumesEClass.getESuperTypes().add(theJbiPackage.getConsumes());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(cdkServiceEClass, CDKService.class, "CDKService", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCDKService_CdkExtContainer(), theEcorePackage.getEFeatureMapEntry(), "cdkExtContainer", null, 0, -1, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDKService_Timeout(), ecorePackage.getEInt(), "timeout", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDKService_SuInterceptors(), ecorePackage.getEString(), "suInterceptors", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(cdk5ProvidesEClass, CDK5Provides.class, "CDK5Provides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCDK5Provides_ValidateWsdl(), theXMLTypePackage.getBoolean(), "validateWsdl", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_ForwardSecuritySubject(), theXMLTypePackage.getBoolean(), "forwardSecuritySubject", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_ForwardMessageProperties(), theXMLTypePackage.getBoolean(), "forwardMessageProperties", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_ForwardAttachments(), theXMLTypePackage.getBoolean(), "forwardAttachments", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCDK5Provides_Wsdl(), ecorePackage.getEString(), "wsdl", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getCDK5Provides_RetryPolicy(), this.getRetryPolicy(), null, "retryPolicy", null, 0, 1, CDK5Provides.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_Timeout(), ecorePackage.getEInt(), "timeout", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ValidateWsdl(), theXMLTypePackage.getBoolean(), "validateWsdl", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ForwardSecuritySubject(), theXMLTypePackage.getBoolean(), "forwardSecuritySubject", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ForwardMessageProperties(), theXMLTypePackage.getBoolean(), "forwardMessageProperties", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_ForwardAttachments(), theXMLTypePackage.getBoolean(), "forwardAttachments", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCDK5Provides_Wsdl(), ecorePackage.getEString(), "wsdl", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(cdk5ConsumesEClass, CDK5Consumes.class, "CDK5Consumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCDK5Consumes_Timeout(), ecorePackage.getEInt(), "timeout", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDK5Consumes_Operation(), theXMLTypePackage.getQName(), "operation", null, 0, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCDK5Consumes_Mep(), ecorePackage.getEString(), "mep", null, 1, 1, CDK5Consumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
@@ -405,44 +356,19 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";		
 		addAnnotation
-		  (cdkServiceEClass, 
+		  (cdk5ProvidesEClass, 
 		   source, 
 		   new String[] {
 			 "name", ""
 		   });		
 		addAnnotation
-		  (getCDKService_CdkExtContainer(), 
-		   source, 
-		   new String[] {
-			 "kind", "elementWildcard",
-			 "wildcards", "http://petals.ow2.org/components/extensions/version-5",
-			 "processing", "skip",
-			 "name", "cdkExtContainer",
-			 "group", "#group:0"
-		   });		
-		addAnnotation
-		  (getCDKService_Timeout(), 
+		  (getCDK5Provides_Timeout(), 
 		   source, 
 		   new String[] {
 			 "kind", "element",
 			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
 			 "name", "timeout",
 			 "group", "#cdkExtContainer"
-		   });		
-		addAnnotation
-		  (getCDKService_SuInterceptors(), 
-		   source, 
-		   new String[] {
-			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
-			 "name", "suInterceptors",
-			 "group", "#cdkExtContainer"
-		   });		
-		addAnnotation
-		  (cdk5ProvidesEClass, 
-		   source, 
-		   new String[] {
-			 "name", ""
 		   });		
 		addAnnotation
 		  (getCDK5Provides_ValidateWsdl(), 
@@ -490,19 +416,19 @@ public class Cdk5PackageImpl extends EPackageImpl implements Cdk5Package {
 			 "group", "#cdkExtContainer"
 		   });		
 		addAnnotation
-		  (getCDK5Provides_RetryPolicy(), 
-		   source, 
-		   new String[] {
-			 "kind", "element",
-			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
-			 "name", "retrypolicy",
-			 "group", "#cdkExtContainer"
-		   });		
-		addAnnotation
 		  (cdk5ConsumesEClass, 
 		   source, 
 		   new String[] {
 			 "name", ""
+		   });		
+		addAnnotation
+		  (getCDK5Consumes_Timeout(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "http://petals.ow2.org/components/extensions/version-5",
+			 "name", "timeout",
+			 "group", "#cdkExtContainer"
 		   });		
 		addAnnotation
 		  (getCDK5Consumes_Operation(), 

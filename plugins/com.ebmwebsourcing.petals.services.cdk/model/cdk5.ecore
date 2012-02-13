@@ -3,21 +3,10 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cdk5"
     nsURI="http://petals.ow2.org/components/extensions/version-5" nsPrefix="cdk5">
-  <eClassifiers xsi:type="ecore:EClass" name="CDKService" abstract="true" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//AbstractEndpoint">
+  <eClassifiers xsi:type="ecore:EClass" name="CDK5Provides" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Provides">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cdkExtContainer" unique="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry"
-        volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="elementWildcard"/>
-        <details key="wildcards" value="http://petals.ow2.org/components/extensions/version-5"/>
-        <details key="processing" value="skip"/>
-        <details key="name" value="cdkExtContainer"/>
-        <details key="group" value="#group:0"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -27,19 +16,6 @@
         <details key="group" value="#cdkExtContainer"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="suInterceptors" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>
-        <details key="name" value="suInterceptors"/>
-        <details key="group" value="#cdkExtContainer"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CDK5Provides" eSuperTypes="#//CDKService ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Provides">
-    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-      <details key="name" value=""/>
-    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validateWsdl" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//Boolean"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -87,19 +63,20 @@
         <details key="group" value="#cdkExtContainer"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="retryPolicy" eType="#//RetryPolicy">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="element"/>
-        <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>
-        <details key="name" value="retrypolicy"/>
-        <details key="group" value="#cdkExtContainer"/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CDK5Consumes" eSuperTypes="#//CDKService ../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Consumes">
+  <eClassifiers xsi:type="ecore:EClass" name="CDK5Consumes" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Consumes">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        derived="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="element"/>
+        <details key="namespace" value="http://petals.ow2.org/components/extensions/version-5"/>
+        <details key="name" value="timeout"/>
+        <details key="group" value="#cdkExtContainer"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operation" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/XMLType.ecore#//QName"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

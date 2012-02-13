@@ -75,18 +75,9 @@ public class Cdk5Switch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case Cdk5Package.CDK_SERVICE: {
-				CDKService cdkService = (CDKService)theEObject;
-				T result = caseCDKService(cdkService);
-				if (result == null) result = caseAbstractEndpoint(cdkService);
-				if (result == null) result = caseAbstractExtensibleElement(cdkService);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case Cdk5Package.CDK5_PROVIDES: {
 				CDK5Provides cdk5Provides = (CDK5Provides)theEObject;
 				T result = caseCDK5Provides(cdk5Provides);
-				if (result == null) result = caseCDKService(cdk5Provides);
 				if (result == null) result = caseProvides(cdk5Provides);
 				if (result == null) result = caseAbstractEndpoint(cdk5Provides);
 				if (result == null) result = caseAbstractExtensibleElement(cdk5Provides);
@@ -96,7 +87,6 @@ public class Cdk5Switch<T> extends Switch<T> {
 			case Cdk5Package.CDK5_CONSUMES: {
 				CDK5Consumes cdk5Consumes = (CDK5Consumes)theEObject;
 				T result = caseCDK5Consumes(cdk5Consumes);
-				if (result == null) result = caseCDKService(cdk5Consumes);
 				if (result == null) result = caseConsumes(cdk5Consumes);
 				if (result == null) result = caseAbstractEndpoint(cdk5Consumes);
 				if (result == null) result = caseAbstractExtensibleElement(cdk5Consumes);
@@ -111,21 +101,6 @@ public class Cdk5Switch<T> extends Switch<T> {
 			}
 			default: return defaultCase(theEObject);
 		}
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseCDKService(CDKService object) {
-		return null;
 	}
 
 	/**

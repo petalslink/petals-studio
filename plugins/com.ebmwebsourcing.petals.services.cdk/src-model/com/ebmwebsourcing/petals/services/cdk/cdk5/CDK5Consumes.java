@@ -18,6 +18,7 @@ import javax.xml.namespace.QName;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes#getOperation <em>Operation</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes#getMep <em>Mep</em>}</li>
  * </ul>
@@ -27,7 +28,34 @@ import javax.xml.namespace.QName;
  * @model extendedMetaData="name=''"
  * @generated
  */
-public interface CDK5Consumes extends CDKService, Consumes {
+public interface CDK5Consumes extends Consumes {
+	/**
+	 * Returns the value of the '<em><b>Timeout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Timeout</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Timeout</em>' attribute.
+	 * @see #setTimeout(int)
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package#getCDK5Consumes_Timeout()
+	 * @model derived="true"
+	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='timeout' group='#cdkExtContainer'"
+	 * @generated
+	 */
+	int getTimeout();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes#getTimeout <em>Timeout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Timeout</em>' attribute.
+	 * @see #getTimeout()
+	 * @generated
+	 */
+	void setTimeout(int value);
+
 	/**
 	 * Returns the value of the '<em><b>Operation</b></em>' attribute.
 	 * <!-- begin-user-doc -->

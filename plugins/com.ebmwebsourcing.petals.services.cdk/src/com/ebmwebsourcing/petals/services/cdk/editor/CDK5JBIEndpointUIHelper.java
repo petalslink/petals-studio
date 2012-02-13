@@ -141,7 +141,8 @@ public class CDK5JBIEndpointUIHelper {
 					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
 					compositeCommand.append(command);
 
-					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, dlg.getInvocationMep());
+					Mep mep = dlg.getInvocationMep() == Mep.UNKNOWN ? null : dlg.getInvocationMep();
+					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
 					compositeCommand.append(command);
 
 					editDomain.getCommandStack().execute(compositeCommand);
@@ -351,7 +352,7 @@ public class CDK5JBIEndpointUIHelper {
 			ISharedEdition ise ) {
 
 		EObjecttUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
-				Cdk5Package.Literals.CDK_SERVICE__TIMEOUT,
+				Cdk5Package.Literals.CDK5_CONSUMES__TIMEOUT,
 				Cdk5Package.Literals.CDK5_PROVIDES__VALIDATE_WSDL,
 				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT,
 				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES,

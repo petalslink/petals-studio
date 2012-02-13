@@ -8,12 +8,12 @@ package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
+
+import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -24,18 +24,38 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl#isValidateWsdl <em>Validate Wsdl</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl#isForwardSecuritySubject <em>Forward Security Subject</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl#isForwardMessageProperties <em>Forward Message Properties</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl#isForwardAttachments <em>Forward Attachments</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl#getWsdl <em>Wsdl</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ProvidesImpl#getRetryPolicy <em>Retry Policy</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
+public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
+	/**
+	 * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTimeout()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int TIMEOUT_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTimeout()
+	 * @generated
+	 * @ordered
+	 */
+	protected int timeout = TIMEOUT_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #isValidateWsdl() <em>Validate Wsdl</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -173,16 +193,6 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	protected boolean wsdlESet;
 
 	/**
-	 * The cached value of the '{@link #getRetryPolicy() <em>Retry Policy</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRetryPolicy()
-	 * @generated
-	 * @ordered
-	 */
-	protected RetryPolicy retryPolicy;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -199,6 +209,27 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	@Override
 	protected EClass eStaticClass() {
 		return Cdk5Package.Literals.CDK5_PROVIDES;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getTimeout() {
+		return timeout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTimeout(int newTimeout) {
+		int oldTimeout = timeout;
+		timeout = newTimeout;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__TIMEOUT, oldTimeout, timeout));
 	}
 
 	/**
@@ -411,47 +442,11 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RetryPolicy getRetryPolicy() {
-		if (retryPolicy != null && retryPolicy.eIsProxy()) {
-			InternalEObject oldRetryPolicy = (InternalEObject)retryPolicy;
-			retryPolicy = (RetryPolicy)eResolveProxy(oldRetryPolicy);
-			if (retryPolicy != oldRetryPolicy) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Cdk5Package.CDK5_PROVIDES__RETRY_POLICY, oldRetryPolicy, retryPolicy));
-			}
-		}
-		return retryPolicy;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RetryPolicy basicGetRetryPolicy() {
-		return retryPolicy;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRetryPolicy(RetryPolicy newRetryPolicy) {
-		RetryPolicy oldRetryPolicy = retryPolicy;
-		retryPolicy = newRetryPolicy;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__RETRY_POLICY, oldRetryPolicy, retryPolicy));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_PROVIDES__TIMEOUT:
+				return getTimeout();
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
 				return isValidateWsdl();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
@@ -462,9 +457,6 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 				return isForwardAttachments();
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				return getWsdl();
-			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				if (resolve) return getRetryPolicy();
-				return basicGetRetryPolicy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -477,6 +469,9 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_PROVIDES__TIMEOUT:
+				setTimeout((Integer)newValue);
+				return;
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
 				setValidateWsdl((Boolean)newValue);
 				return;
@@ -492,9 +487,6 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				setWsdl((String)newValue);
 				return;
-			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				setRetryPolicy((RetryPolicy)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -507,6 +499,9 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_PROVIDES__TIMEOUT:
+				setTimeout(TIMEOUT_EDEFAULT);
+				return;
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
 				setValidateWsdl(VALIDATE_WSDL_EDEFAULT);
 				return;
@@ -522,9 +517,6 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				unsetWsdl();
 				return;
-			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				setRetryPolicy((RetryPolicy)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -537,6 +529,8 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_PROVIDES__TIMEOUT:
+				return timeout != TIMEOUT_EDEFAULT;
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
 				return validateWsdl != VALIDATE_WSDL_EDEFAULT;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
@@ -547,8 +541,6 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 				return isSetForwardAttachments();
 			case Cdk5Package.CDK5_PROVIDES__WSDL:
 				return isSetWsdl();
-			case Cdk5Package.CDK5_PROVIDES__RETRY_POLICY:
-				return retryPolicy != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -563,7 +555,9 @@ public class CDK5ProvidesImpl extends CDKServiceImpl implements CDK5Provides {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (validateWsdl: ");
+		result.append(" (timeout: ");
+		result.append(timeout);
+		result.append(", validateWsdl: ");
 		result.append(validateWsdl);
 		result.append(", forwardSecuritySubject: ");
 		if (forwardSecuritySubjectESet) result.append(forwardSecuritySubject); else result.append("<unset>");

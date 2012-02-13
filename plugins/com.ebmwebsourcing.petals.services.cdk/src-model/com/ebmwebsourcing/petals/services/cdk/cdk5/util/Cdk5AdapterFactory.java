@@ -77,10 +77,6 @@ public class Cdk5AdapterFactory extends AdapterFactoryImpl {
 	protected Cdk5Switch<Adapter> modelSwitch =
 		new Cdk5Switch<Adapter>() {
 			@Override
-			public Adapter caseCDKService(CDKService object) {
-				return createCDKServiceAdapter();
-			}
-			@Override
 			public Adapter caseCDK5Provides(CDK5Provides object) {
 				return createCDK5ProvidesAdapter();
 			}
@@ -127,20 +123,6 @@ public class Cdk5AdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService <em>CDK Service</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService
-	 * @generated
-	 */
-	public Adapter createCDKServiceAdapter() {
-		return null;
-	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides <em>CDK5 Provides</em>}'.

@@ -16,12 +16,12 @@ import com.sun.java.xml.ns.jbi.Provides;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#isValidateWsdl <em>Validate Wsdl</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#isForwardSecuritySubject <em>Forward Security Subject</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#isForwardMessageProperties <em>Forward Message Properties</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#isForwardAttachments <em>Forward Attachments</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getWsdl <em>Wsdl</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getRetryPolicy <em>Retry Policy</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,7 +29,34 @@ import com.sun.java.xml.ns.jbi.Provides;
  * @model extendedMetaData="name=''"
  * @generated
  */
-public interface CDK5Provides extends CDKService, Provides {
+public interface CDK5Provides extends Provides {
+	/**
+	 * Returns the value of the '<em><b>Timeout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Timeout</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Timeout</em>' attribute.
+	 * @see #setTimeout(int)
+	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package#getCDK5Provides_Timeout()
+	 * @model derived="true"
+	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='timeout' group='#cdkExtContainer'"
+	 * @generated
+	 */
+	int getTimeout();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getTimeout <em>Timeout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Timeout</em>' attribute.
+	 * @see #getTimeout()
+	 * @generated
+	 */
+	void setTimeout(int value);
+
 	/**
 	 * Returns the value of the '<em><b>Validate Wsdl</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -272,31 +299,5 @@ public interface CDK5Provides extends CDKService, Provides {
 	 * @generated
 	 */
 	boolean isSetWsdl();
-
-	/**
-	 * Returns the value of the '<em><b>Retry Policy</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Retry Policy</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Retry Policy</em>' reference.
-	 * @see #setRetryPolicy(RetryPolicy)
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package#getCDK5Provides_RetryPolicy()
-	 * @model extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='retrypolicy' group='#cdkExtContainer'"
-	 * @generated
-	 */
-	RetryPolicy getRetryPolicy();
-
-	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#getRetryPolicy <em>Retry Policy</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Retry Policy</em>' reference.
-	 * @see #getRetryPolicy()
-	 * @generated
-	 */
-	void setRetryPolicy(RetryPolicy value);
 
 } // CDK5Provides

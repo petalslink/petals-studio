@@ -72,7 +72,7 @@ public class JmsConsumesWizard31 extends AbstractServiceUnitWizard {
 	protected IStatus performLastActions(IFolder resourceDirectory, AbstractEndpoint ae, IProgressMonitor monitor) {
 
 		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
-		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, String.valueOf( this.settings.invocationMep ));
+		Cdk5Utils.setMep( ae, this.settings.invocationMep );
 
 		return Status.OK_STATUS;
 	}

@@ -9,6 +9,8 @@ package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
+import com.sun.java.xml.ns.jbi.impl.ConsumesImpl;
+
 import javax.xml.namespace.QName;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -24,6 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ConsumesImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ConsumesImpl#getOperation <em>Operation</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.cdk.cdk5.impl.CDK5ConsumesImpl#getMep <em>Mep</em>}</li>
  * </ul>
@@ -31,7 +34,27 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
+public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
+	/**
+	 * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTimeout()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int TIMEOUT_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTimeout()
+	 * @generated
+	 * @ordered
+	 */
+	protected int timeout = TIMEOUT_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getOperation() <em>Operation</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -98,6 +121,27 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	@Override
 	protected EClass eStaticClass() {
 		return Cdk5Package.Literals.CDK5_CONSUMES;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getTimeout() {
+		return timeout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTimeout(int newTimeout) {
+		int oldTimeout = timeout;
+		timeout = newTimeout;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__TIMEOUT, oldTimeout, timeout));
 	}
 
 	/**
@@ -175,6 +219,8 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_CONSUMES__TIMEOUT:
+				return getTimeout();
 			case Cdk5Package.CDK5_CONSUMES__OPERATION:
 				return getOperation();
 			case Cdk5Package.CDK5_CONSUMES__MEP:
@@ -191,6 +237,9 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_CONSUMES__TIMEOUT:
+				setTimeout((Integer)newValue);
+				return;
 			case Cdk5Package.CDK5_CONSUMES__OPERATION:
 				setOperation((QName)newValue);
 				return;
@@ -209,6 +258,9 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_CONSUMES__TIMEOUT:
+				setTimeout(TIMEOUT_EDEFAULT);
+				return;
 			case Cdk5Package.CDK5_CONSUMES__OPERATION:
 				setOperation(OPERATION_EDEFAULT);
 				return;
@@ -227,6 +279,8 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case Cdk5Package.CDK5_CONSUMES__TIMEOUT:
+				return timeout != TIMEOUT_EDEFAULT;
 			case Cdk5Package.CDK5_CONSUMES__OPERATION:
 				return OPERATION_EDEFAULT == null ? operation != null : !OPERATION_EDEFAULT.equals(operation);
 			case Cdk5Package.CDK5_CONSUMES__MEP:
@@ -245,7 +299,9 @@ public class CDK5ConsumesImpl extends CDKServiceImpl implements CDK5Consumes {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (operation: ");
+		result.append(" (timeout: ");
+		result.append(timeout);
+		result.append(", operation: ");
 		result.append(operation);
 		result.append(", mep: ");
 		if (mepESet) result.append(mep); else result.append("<unset>");

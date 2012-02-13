@@ -87,7 +87,7 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 
 		// MEP + operations
 		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, this.settings.invokedOperation );
-		ae.eSet( Cdk5Package.Literals.CDK5_CONSUMES__MEP, String.valueOf( this.settings.invocationMep ));
+		Cdk5Utils.setMep( ae, this.settings.invocationMep );
 
 		// Remove unused values
 		hackEmfModel( ae, Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY );
