@@ -128,15 +128,6 @@ public interface Filetransfer3Package extends EPackage {
 	int FILE_TRANSFER3_PROVIDES__SERVICE_NAME = Cdk5Package.CDK5_PROVIDES__SERVICE_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Cdk Ext Container</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER3_PROVIDES__CDK_EXT_CONTAINER = Cdk5Package.CDK5_PROVIDES__CDK_EXT_CONTAINER;
-
-	/**
 	 * The feature id for the '<em><b>Timeout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -144,15 +135,6 @@ public interface Filetransfer3Package extends EPackage {
 	 * @ordered
 	 */
 	int FILE_TRANSFER3_PROVIDES__TIMEOUT = Cdk5Package.CDK5_PROVIDES__TIMEOUT;
-
-	/**
-	 * The feature id for the '<em><b>Su Interceptors</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER3_PROVIDES__SU_INTERCEPTORS = Cdk5Package.CDK5_PROVIDES__SU_INTERCEPTORS;
 
 	/**
 	 * The feature id for the '<em><b>Validate Wsdl</b></em>' attribute.
@@ -198,15 +180,6 @@ public interface Filetransfer3Package extends EPackage {
 	 * @ordered
 	 */
 	int FILE_TRANSFER3_PROVIDES__WSDL = Cdk5Package.CDK5_PROVIDES__WSDL;
-
-	/**
-	 * The feature id for the '<em><b>Retry Policy</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER3_PROVIDES__RETRY_POLICY = Cdk5Package.CDK5_PROVIDES__RETRY_POLICY;
 
 	/**
 	 * The feature id for the '<em><b>Filename</b></em>' attribute.
@@ -309,15 +282,6 @@ public interface Filetransfer3Package extends EPackage {
 	int FILE_TRANSFER3_CONSUMES__SERVICE_NAME = Cdk5Package.CDK5_CONSUMES__SERVICE_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Cdk Ext Container</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER3_CONSUMES__CDK_EXT_CONTAINER = Cdk5Package.CDK5_CONSUMES__CDK_EXT_CONTAINER;
-
-	/**
 	 * The feature id for the '<em><b>Timeout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -325,15 +289,6 @@ public interface Filetransfer3Package extends EPackage {
 	 * @ordered
 	 */
 	int FILE_TRANSFER3_CONSUMES__TIMEOUT = Cdk5Package.CDK5_CONSUMES__TIMEOUT;
-
-	/**
-	 * The feature id for the '<em><b>Su Interceptors</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TRANSFER3_CONSUMES__SU_INTERCEPTORS = Cdk5Package.CDK5_CONSUMES__SU_INTERCEPTORS;
 
 	/**
 	 * The feature id for the '<em><b>Operation</b></em>' attribute.

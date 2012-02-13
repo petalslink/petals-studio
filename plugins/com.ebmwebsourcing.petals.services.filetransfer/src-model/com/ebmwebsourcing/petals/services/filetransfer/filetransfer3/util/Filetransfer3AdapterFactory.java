@@ -11,7 +11,6 @@ package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.util;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.*;
 
@@ -98,10 +97,6 @@ public class Filetransfer3AdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseAbstractEndpoint(AbstractEndpoint object) {
 				return createAbstractEndpointAdapter();
-			}
-			@Override
-			public Adapter caseCDKService(CDKService object) {
-				return createCDKServiceAdapter();
 			}
 			@Override
 			public Adapter caseProvides(Provides object) {
@@ -192,20 +187,6 @@ public class Filetransfer3AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAbstractEndpointAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService <em>CDK Service</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService
-	 * @generated
-	 */
-	public Adapter createCDKServiceAdapter() {
 		return null;
 	}
 

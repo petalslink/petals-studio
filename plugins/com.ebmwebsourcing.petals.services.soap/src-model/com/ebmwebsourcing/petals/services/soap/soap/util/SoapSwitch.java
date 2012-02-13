@@ -11,7 +11,6 @@ package com.ebmwebsourcing.petals.services.soap.soap.util;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService;
 
 import com.ebmwebsourcing.petals.services.soap.soap.*;
 
@@ -87,7 +86,6 @@ public class SoapSwitch<T> extends Switch<T> {
 				SoapProvides soapProvides = (SoapProvides)theEObject;
 				T result = caseSoapProvides(soapProvides);
 				if (result == null) result = caseCDK5Provides(soapProvides);
-				if (result == null) result = caseCDKService(soapProvides);
 				if (result == null) result = caseProvides(soapProvides);
 				if (result == null) result = caseAbstractEndpoint(soapProvides);
 				if (result == null) result = caseAbstractExtensibleElement(soapProvides);
@@ -98,7 +96,6 @@ public class SoapSwitch<T> extends Switch<T> {
 				SoapConsumes soapConsumes = (SoapConsumes)theEObject;
 				T result = caseSoapConsumes(soapConsumes);
 				if (result == null) result = caseCDK5Consumes(soapConsumes);
-				if (result == null) result = caseCDKService(soapConsumes);
 				if (result == null) result = caseConsumes(soapConsumes);
 				if (result == null) result = caseAbstractEndpoint(soapConsumes);
 				if (result == null) result = caseAbstractExtensibleElement(soapConsumes);
@@ -189,21 +186,6 @@ public class SoapSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAbstractEndpoint(AbstractEndpoint object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseCDKService(CDKService object) {
 		return null;
 	}
 

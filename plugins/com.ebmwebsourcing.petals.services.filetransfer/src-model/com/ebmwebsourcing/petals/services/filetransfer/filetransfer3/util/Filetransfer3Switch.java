@@ -11,7 +11,6 @@ package com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.util;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.CDKService;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.*;
 
@@ -86,7 +85,6 @@ public class Filetransfer3Switch<T> extends Switch<T> {
 				FileTransfer3Provides fileTransfer3Provides = (FileTransfer3Provides)theEObject;
 				T result = caseFileTransfer3Provides(fileTransfer3Provides);
 				if (result == null) result = caseCDK5Provides(fileTransfer3Provides);
-				if (result == null) result = caseCDKService(fileTransfer3Provides);
 				if (result == null) result = caseProvides(fileTransfer3Provides);
 				if (result == null) result = caseAbstractEndpoint(fileTransfer3Provides);
 				if (result == null) result = caseAbstractExtensibleElement(fileTransfer3Provides);
@@ -97,7 +95,6 @@ public class Filetransfer3Switch<T> extends Switch<T> {
 				FileTransfer3Consumes fileTransfer3Consumes = (FileTransfer3Consumes)theEObject;
 				T result = caseFileTransfer3Consumes(fileTransfer3Consumes);
 				if (result == null) result = caseCDK5Consumes(fileTransfer3Consumes);
-				if (result == null) result = caseCDKService(fileTransfer3Consumes);
 				if (result == null) result = caseConsumes(fileTransfer3Consumes);
 				if (result == null) result = caseAbstractEndpoint(fileTransfer3Consumes);
 				if (result == null) result = caseAbstractExtensibleElement(fileTransfer3Consumes);
@@ -165,21 +162,6 @@ public class Filetransfer3Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAbstractEndpoint(AbstractEndpoint object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>CDK Service</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseCDKService(CDKService object) {
 		return null;
 	}
 
