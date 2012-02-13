@@ -104,18 +104,25 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 			if( entry == null )
 				continue;
 
+			// To follow insertion (and thus write) order, set debug to true.
+			// Set it to false before the releases. As its name says it, it is for debug purpose.
+			boolean debug = false;
+			String fName = ExtendedMetaData.INSTANCE.getName( targetFeature);
+			String fNs = ExtendedMetaData.INSTANCE.getNamespace( targetFeature);
+			String id = "Inserting feature: " + fName + " - " + fNs;
+
+			// The value is null
+			this.element.getGroup().remove(entry);
 			Object value = getActualValue( entry.getValue());
-			if (value != null) {
-				this.element.getGroup().remove(entry);
+			if( value == null ) {
+				this.element.eSet(targetFeature, null);
+				if( debug )
+					System.out.println( id );
+			}
+
+			// The value is not null: set the feature
+			else {
 				try {
-
-					// To follow insertion (and thus write) order, set debug to true.
-					// Set it to false before the releases. As its name says it, it is for debug purpose.
-					boolean debug = false;
-					String fName = ExtendedMetaData.INSTANCE.getName( targetFeature);
-					String fNs = ExtendedMetaData.INSTANCE.getNamespace( targetFeature);
-					String id = "Inserting feature: " + fName + " - " + fNs;
-
 					if (value instanceof String && targetFeature instanceof EAttribute) {
 						EDataType expectedType = ((EAttribute) targetFeature).getEAttributeType();
 						String instanceClassName = expectedType.getInstanceClassName().toLowerCase();

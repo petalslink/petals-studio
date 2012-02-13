@@ -14,7 +14,9 @@ package com.ebmwebsourcing.petals.services.su.editor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.databinding.DataBindingContext;
@@ -190,8 +192,13 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 
 		// Create and invoke the command
+		Set<String> pagesPackages = new HashSet<String> ();
 		CompoundCommand initializeCommand = new CompoundCommand();
 		for( EPackage extensionPackage : sortedPackages ) {
+			if( pagesPackages.contains( extensionPackage.getNsURI()))
+				continue;
+
+			pagesPackages.add( extensionPackage.getNsURI());
 			InitializeModelExtensionCommand command = null;
 
 			for( Provides provide : this.ise.getJbiModel().getServices().getProvides()) {

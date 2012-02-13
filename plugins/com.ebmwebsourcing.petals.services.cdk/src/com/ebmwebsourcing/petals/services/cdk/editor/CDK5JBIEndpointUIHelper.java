@@ -55,7 +55,6 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
-import com.ebmwebsourcing.petals.common.internal.provisional.databinding.ToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
@@ -67,6 +66,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.cdk.Messages;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.editor.databinding.MepToStringConverter;
 import com.ebmwebsourcing.petals.services.cdk.editor.databinding.StringToMepConverter;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers.CommonUIBean;
@@ -167,7 +167,7 @@ public class CDK5JBIEndpointUIHelper {
 		ise.getDataBindingContext().bindValue(
 				ViewersObservables.observeSingleSelection( mepViewer ),
 				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP ),
-				new UpdateValueStrategy().setConverter( new ToStringConverter()),
+				new UpdateValueStrategy().setConverter( new MepToStringConverter()),
 				new UpdateValueStrategy().setConverter( new StringToMepConverter()));
 
 

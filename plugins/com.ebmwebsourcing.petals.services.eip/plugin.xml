@@ -257,7 +257,6 @@
              componentVersionDescription="com.ebmwebsourcing.petals.services.eip.su.EipDescription"
              editorExtension="com.ebmwebsourcing.petals.services.eip.editor.EipEditorContribution"
              id="Any EIP"
-             namespace="http://petals.ow2.org/components/eip/version-2"
              providesExtensionWizard="com.ebmwebsourcing.petals.services.eip.su.EipSuWizard">
        </ComponentVersionSupport>
     </ComponentSupport>

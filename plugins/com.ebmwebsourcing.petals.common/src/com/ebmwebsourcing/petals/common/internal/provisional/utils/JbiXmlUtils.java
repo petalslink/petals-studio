@@ -214,11 +214,17 @@ public class JbiXmlUtils {
 
 		for( int i=0; i<provides.getGroup().size(); i++ ) {
 			FeatureMap.Entry f = provides.getGroup().get( i );
-			Object o = f.getValue();
-			if( !( o instanceof AnyType ))
+			if( f == null )
 				continue;
 
 			if( ! "wsdl".equalsIgnoreCase( f.getEStructuralFeature().getName()))
+				continue;
+
+			Object o = f.getValue();
+			if( o instanceof String )
+				return (String) o;
+
+			if( !( o instanceof AnyType ))
 				continue;
 
 			FeatureMap featureMap = ((AnyType) o).getMixed();
