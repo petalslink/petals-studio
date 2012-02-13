@@ -7,6 +7,7 @@ Bundle-Vendor: EBM WebSourcing
 Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir
 Bundle-ClassPath: lib/petals-cdk-api-2.1.1.jar,
  lib/petals-cdk-core-5.1.1.jar,
  lib/petals-cdk-jbidescriptor-2.1.jar,
