@@ -47,7 +47,7 @@ public class SuPomXml {
   protected final String TEXT_13 = "</description>" + NL + "\t" + NL + "\t<dependencies>" + NL + "\t\t<dependency>" + NL + "\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t<artifactId>";
   protected final String TEXT_14 = "</artifactId>" + NL + "\t\t\t<version>";
   protected final String TEXT_15 = "</version>" + NL + "\t\t\t<scope>provided</scope>" + NL + "\t\t\t<type>jbi-component</type>" + NL + "\t\t</dependency>" + NL + "\t</dependencies>" + NL + "\t" + NL + "\t<build>" + NL + "\t\t<plugins>" + NL + "\t\t\t<plugin>" + NL + "\t\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t\t<artifactId>maven-petals-plugin</artifactId>" + NL + "\t\t\t\t<version>";
-  protected final String TEXT_16 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "</project>";
+  protected final String TEXT_16 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "\t" + NL + "\t<!--" + NL + "\t<repositories>" + NL + "\t\t<repository>" + NL + "\t\t\t<id>petals-link</id>" + NL + "\t\t\t<url>http://maven.petalslink.com/public/</url>" + NL + "\t\t</repository>" + NL + "\t</repositories>" + NL + "\t-->" + NL + "</project>";
   protected final String TEXT_17 = NL;
 
 	 public String generate( Object argument )
