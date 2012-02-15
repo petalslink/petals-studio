@@ -19,6 +19,7 @@
 			<xs:element ref="mail:subject" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="mail:helohost" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="mail:send-mode" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="mail:content-type" maxOccurs="1" minOccurs="0" />
 		</xs:sequence>
 	</xs:group>
 	
@@ -42,6 +43,12 @@
 	<xs:element name="scheme" type="mail:Scheme">
 		<xs:annotation>
 			<xs:documentation>Scheme used to send (SMTP) ore receive (IMAP,POP3) emails</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="content-type" type="xs:string" default="text/plain">
+		<xs:annotation>
+			<xs:documentation>The mail MIME type</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	
