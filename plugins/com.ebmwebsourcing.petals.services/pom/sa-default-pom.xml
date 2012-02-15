@@ -37,4 +37,13 @@ ${PETALS_SuDependencies}
 			</plugin>
 		</plugins>
 	</build>
+	
+	<!--
+	<repositories>
+		<repository>
+			<id>petals-link</id>
+			<url>http://maven.petalslink.com/public/</url>
+		</repository>
+	</repositories>
+	-->
 </project>
