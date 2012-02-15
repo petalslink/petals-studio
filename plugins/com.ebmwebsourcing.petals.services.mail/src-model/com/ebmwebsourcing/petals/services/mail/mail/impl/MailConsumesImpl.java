@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,15 +10,17 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.impl;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
-import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
+
 import com.sun.java.xml.ns.jbi.impl.ConsumesImpl;
+
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -668,46 +670,6 @@ public class MailConsumesImpl extends ConsumesImpl implements MailConsumes {
 				return isxmlcontent != ISXMLCONTENT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == MailServiceCommon.class) {
-			switch (derivedFeatureID) {
-				case MailPackage.MAIL_CONSUMES__SCHEME: return MailPackage.MAIL_SERVICE_COMMON__SCHEME;
-				case MailPackage.MAIL_CONSUMES__HOST: return MailPackage.MAIL_SERVICE_COMMON__HOST;
-				case MailPackage.MAIL_CONSUMES__PORT: return MailPackage.MAIL_SERVICE_COMMON__PORT;
-				case MailPackage.MAIL_CONSUMES__USER: return MailPackage.MAIL_SERVICE_COMMON__USER;
-				case MailPackage.MAIL_CONSUMES__PASSWORD: return MailPackage.MAIL_SERVICE_COMMON__PASSWORD;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == MailServiceCommon.class) {
-			switch (baseFeatureID) {
-				case MailPackage.MAIL_SERVICE_COMMON__SCHEME: return MailPackage.MAIL_CONSUMES__SCHEME;
-				case MailPackage.MAIL_SERVICE_COMMON__HOST: return MailPackage.MAIL_CONSUMES__HOST;
-				case MailPackage.MAIL_SERVICE_COMMON__PORT: return MailPackage.MAIL_CONSUMES__PORT;
-				case MailPackage.MAIL_SERVICE_COMMON__USER: return MailPackage.MAIL_CONSUMES__USER;
-				case MailPackage.MAIL_SERVICE_COMMON__PASSWORD: return MailPackage.MAIL_CONSUMES__PASSWORD;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,19 +11,18 @@
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
 import com.ebmwebsourcing.petals.services.mail.mail.*;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-import org.eclipse.emf.ecore.EObject;
 
-import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
-import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
-import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
-import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
+
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notifier;
+
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -90,10 +89,6 @@ public class MailAdapterFactory extends AdapterFactoryImpl {
 				return createMailConsumesAdapter();
 			}
 			@Override
-			public Adapter caseMailServiceCommon(MailServiceCommon object) {
-				return createMailServiceCommonAdapter();
-			}
-			@Override
 			public Adapter caseAbstractExtensibleElement(AbstractExtensibleElement object) {
 				return createAbstractExtensibleElementAdapter();
 			}
@@ -154,20 +149,6 @@ public class MailAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMailConsumesAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon <em>Service Common</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon
-	 * @generated
-	 */
-	public Adapter createMailServiceCommonAdapter() {
 		return null;
 	}
 

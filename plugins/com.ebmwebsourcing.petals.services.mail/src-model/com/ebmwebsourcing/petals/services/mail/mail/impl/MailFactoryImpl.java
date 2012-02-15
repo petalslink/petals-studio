@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,20 +11,15 @@
 package com.ebmwebsourcing.petals.services.mail.mail.impl;
 
 import com.ebmwebsourcing.petals.services.mail.mail.*;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
-import com.ebmwebsourcing.petals.services.mail.mail.MailFactory;
-import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
-import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
-import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
-import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
-import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,7 +67,6 @@ public class MailFactoryImpl extends EFactoryImpl implements MailFactory {
 		switch (eClass.getClassifierID()) {
 			case MailPackage.MAIL_PROVIDES: return createMailProvides();
 			case MailPackage.MAIL_CONSUMES: return createMailConsumes();
-			case MailPackage.MAIL_SERVICE_COMMON: return createMailServiceCommon();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -130,16 +124,6 @@ public class MailFactoryImpl extends EFactoryImpl implements MailFactory {
 	public MailConsumes createMailConsumes() {
 		MailConsumesImpl mailConsumes = new MailConsumesImpl();
 		return mailConsumes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public MailServiceCommon createMailServiceCommon() {
-		MailServiceCommonImpl mailServiceCommon = new MailServiceCommonImpl();
-		return mailServiceCommon;
 	}
 
 	/**

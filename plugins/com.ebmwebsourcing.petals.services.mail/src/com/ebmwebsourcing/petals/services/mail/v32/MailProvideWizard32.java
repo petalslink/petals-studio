@@ -74,11 +74,11 @@ public class MailProvideWizard32 extends MailProvideWizard31 {
 	@Override
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__HOST,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PORT,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
+				MailPackage.Literals.MAIL_PROVIDES__SCHEME,
+				MailPackage.Literals.MAIL_PROVIDES__HOST,
+				MailPackage.Literals.MAIL_PROVIDES__PORT,
+				MailPackage.Literals.MAIL_PROVIDES__USER,
+				MailPackage.Literals.MAIL_PROVIDES__PASSWORD,
 				MailPackage.Literals.MAIL_PROVIDES__FROM,
 				MailPackage.Literals.MAIL_PROVIDES__TO,
 				MailPackage.Literals.MAIL_PROVIDES__REPLY,

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,15 +46,6 @@ public interface MailFactory extends EFactory {
 	 * @generated
 	 */
 	MailConsumes createMailConsumes();
-
-	/**
-	 * Returns a new object of class '<em>Service Common</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Service Common</em>'.
-	 * @generated
-	 */
-	MailServiceCommon createMailServiceCommon();
 
 	/**
 	 * Returns the package supported by this factory.

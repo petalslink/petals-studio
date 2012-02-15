@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,21 +10,23 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.impl;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
 import com.ebmwebsourcing.petals.services.mail.mail.MailFactory;
 import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
 import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
-import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.ebmwebsourcing.petals.services.mail.mail.Scheme;
 import com.ebmwebsourcing.petals.services.mail.mail.SendMode;
+
 import com.sun.java.xml.ns.jbi.JbiPackage;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,13 +48,6 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * @generated
 	 */
 	private EClass mailConsumesEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass mailServiceCommonEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -146,7 +141,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailProvides_From() {
+	public EAttribute getMailProvides_Scheme() {
 		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -155,7 +150,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailProvides_Reply() {
+	public EAttribute getMailProvides_Host() {
 		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -164,7 +159,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailProvides_To() {
+	public EAttribute getMailProvides_Port() {
 		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -173,7 +168,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailProvides_Subject() {
+	public EAttribute getMailProvides_User() {
 		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -182,7 +177,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailProvides_Helohost() {
+	public EAttribute getMailProvides_Password() {
 		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -191,7 +186,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailProvides_SendMode() {
+	public EAttribute getMailProvides_From() {
 		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -200,8 +195,53 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailProvides_ContentType() {
+	public EAttribute getMailProvides_Reply() {
 		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailProvides_To() {
+		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailProvides_Subject() {
+		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailProvides_Helohost() {
+		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailProvides_SendMode() {
+		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailProvides_ContentType() {
+		return (EAttribute)mailProvidesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -218,7 +258,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailConsumes_Folder() {
+	public EAttribute getMailConsumes_Scheme() {
 		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -227,7 +267,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailConsumes_Delete() {
+	public EAttribute getMailConsumes_Host() {
 		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -236,7 +276,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailConsumes_Period() {
+	public EAttribute getMailConsumes_Port() {
 		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -245,7 +285,7 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailConsumes_Isxmlcontent() {
+	public EAttribute getMailConsumes_User() {
 		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -254,8 +294,8 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getMailServiceCommon() {
-		return mailServiceCommonEClass;
+	public EAttribute getMailConsumes_Password() {
+		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -263,8 +303,8 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailServiceCommon_Scheme() {
-		return (EAttribute)mailServiceCommonEClass.getEStructuralFeatures().get(0);
+	public EAttribute getMailConsumes_Folder() {
+		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -272,8 +312,8 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailServiceCommon_Host() {
-		return (EAttribute)mailServiceCommonEClass.getEStructuralFeatures().get(1);
+	public EAttribute getMailConsumes_Delete() {
+		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -281,8 +321,8 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailServiceCommon_Port() {
-		return (EAttribute)mailServiceCommonEClass.getEStructuralFeatures().get(2);
+	public EAttribute getMailConsumes_Period() {
+		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -290,17 +330,8 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMailServiceCommon_User() {
-		return (EAttribute)mailServiceCommonEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getMailServiceCommon_Password() {
-		return (EAttribute)mailServiceCommonEClass.getEStructuralFeatures().get(4);
+	public EAttribute getMailConsumes_Isxmlcontent() {
+		return (EAttribute)mailConsumesEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -350,6 +381,11 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 
 		// Create classes and their features
 		mailProvidesEClass = createEClass(MAIL_PROVIDES);
+		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__SCHEME);
+		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__HOST);
+		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__PORT);
+		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__USER);
+		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__PASSWORD);
 		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__FROM);
 		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__REPLY);
 		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__TO);
@@ -359,17 +395,15 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		createEAttribute(mailProvidesEClass, MAIL_PROVIDES__CONTENT_TYPE);
 
 		mailConsumesEClass = createEClass(MAIL_CONSUMES);
+		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__SCHEME);
+		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__HOST);
+		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__PORT);
+		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__USER);
+		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__PASSWORD);
 		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__FOLDER);
 		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__DELETE);
 		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__PERIOD);
 		createEAttribute(mailConsumesEClass, MAIL_CONSUMES__ISXMLCONTENT);
-
-		mailServiceCommonEClass = createEClass(MAIL_SERVICE_COMMON);
-		createEAttribute(mailServiceCommonEClass, MAIL_SERVICE_COMMON__SCHEME);
-		createEAttribute(mailServiceCommonEClass, MAIL_SERVICE_COMMON__HOST);
-		createEAttribute(mailServiceCommonEClass, MAIL_SERVICE_COMMON__PORT);
-		createEAttribute(mailServiceCommonEClass, MAIL_SERVICE_COMMON__USER);
-		createEAttribute(mailServiceCommonEClass, MAIL_SERVICE_COMMON__PASSWORD);
 
 		// Create enums
 		schemeEEnum = createEEnum(SCHEME);
@@ -409,13 +443,15 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 
 		// Add supertypes to classes
 		mailProvidesEClass.getESuperTypes().add(theJbiPackage.getProvides());
-		mailProvidesEClass.getESuperTypes().add(this.getMailServiceCommon());
 		mailConsumesEClass.getESuperTypes().add(theJbiPackage.getConsumes());
-		mailConsumesEClass.getESuperTypes().add(this.getMailServiceCommon());
-		mailServiceCommonEClass.getESuperTypes().add(theJbiPackage.getAbstractEndpoint());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(mailProvidesEClass, MailProvides.class, "MailProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMailProvides_Scheme(), this.getScheme(), "scheme", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailProvides_Host(), theXMLTypePackage.getString(), "host", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailProvides_Port(), theXMLTypePackage.getInt(), "port", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailProvides_User(), theXMLTypePackage.getString(), "user", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailProvides_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailProvides_From(), theXMLTypePackage.getString(), "from", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailProvides_Reply(), theXMLTypePackage.getString(), "reply", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailProvides_To(), theXMLTypePackage.getString(), "to", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -425,17 +461,15 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		initEAttribute(getMailProvides_ContentType(), theXMLTypePackage.getString(), "contentType", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mailConsumesEClass, MailConsumes.class, "MailConsumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMailConsumes_Scheme(), this.getScheme(), "scheme", null, 1, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailConsumes_Host(), theXMLTypePackage.getString(), "host", null, 1, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailConsumes_Port(), theXMLTypePackage.getInt(), "port", null, 1, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailConsumes_User(), theXMLTypePackage.getString(), "user", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMailConsumes_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailConsumes_Folder(), theXMLTypePackage.getString(), "folder", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailConsumes_Delete(), theXMLTypePackage.getBoolean(), "delete", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailConsumes_Period(), theXMLTypePackage.getInt(), "period", null, 1, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMailConsumes_Isxmlcontent(), theXMLTypePackage.getBoolean(), "isxmlcontent", null, 0, 1, MailConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		initEClass(mailServiceCommonEClass, MailServiceCommon.class, "MailServiceCommon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMailServiceCommon_Scheme(), this.getScheme(), "scheme", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMailServiceCommon_Host(), theXMLTypePackage.getString(), "host", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMailServiceCommon_Port(), theXMLTypePackage.getInt(), "port", null, 1, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMailServiceCommon_User(), theXMLTypePackage.getString(), "user", null, 0, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMailServiceCommon_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, MailServiceCommon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(schemeEEnum, Scheme.class, "Scheme");
@@ -469,6 +503,46 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		   source, 
 		   new String[] {
 			 "name", ""
+		   });		
+		addAnnotation
+		  (getMailProvides_Scheme(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailProvides_Host(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailProvides_Port(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailProvides_User(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailProvides_Password(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
 		   });		
 		addAnnotation
 		  (getMailProvides_From(), 
@@ -535,6 +609,46 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 			 "name", ""
 		   });		
 		addAnnotation
+		  (getMailConsumes_Scheme(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailConsumes_Host(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailConsumes_Port(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailConsumes_User(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
+		  (getMailConsumes_Password(), 
+		   source, 
+		   new String[] {
+			 "kind", "element",
+			 "namespace", "##targetNamespace",
+			 "group", "#group:0"
+		   });		
+		addAnnotation
 		  (getMailConsumes_Folder(), 
 		   source, 
 		   new String[] {
@@ -560,52 +674,6 @@ public class MailPackageImpl extends EPackageImpl implements MailPackage {
 		   });		
 		addAnnotation
 		  (getMailConsumes_Isxmlcontent(), 
-		   source, 
-		   new String[] {
-			 "kind", "element",
-			 "namespace", "##targetNamespace",
-			 "group", "#group:0"
-		   });		
-		addAnnotation
-		  (mailServiceCommonEClass, 
-		   source, 
-		   new String[] {
-			 "name", ""
-		   });		
-		addAnnotation
-		  (getMailServiceCommon_Scheme(), 
-		   source, 
-		   new String[] {
-			 "kind", "element",
-			 "namespace", "##targetNamespace",
-			 "group", "#group:0"
-		   });		
-		addAnnotation
-		  (getMailServiceCommon_Host(), 
-		   source, 
-		   new String[] {
-			 "kind", "element",
-			 "namespace", "##targetNamespace",
-			 "group", "#group:0"
-		   });		
-		addAnnotation
-		  (getMailServiceCommon_Port(), 
-		   source, 
-		   new String[] {
-			 "kind", "element",
-			 "namespace", "##targetNamespace",
-			 "group", "#group:0"
-		   });		
-		addAnnotation
-		  (getMailServiceCommon_User(), 
-		   source, 
-		   new String[] {
-			 "kind", "element",
-			 "namespace", "##targetNamespace",
-			 "group", "#group:0"
-		   });		
-		addAnnotation
-		  (getMailServiceCommon_Password(), 
 		   source, 
 		   new String[] {
 			 "kind", "element",

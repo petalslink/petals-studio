@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,15 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
+import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
+
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 
-import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+
+import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 
 /**
  * This class contains helper methods to serialize and deserialize XML documents

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,12 @@
  */
 package com.ebmwebsourcing.petals.services.mail.mail;
 
+import com.sun.java.xml.ns.jbi.JbiPackage;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
-
-import com.sun.java.xml.ns.jbi.JbiPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -401,124 +401,6 @@ public interface MailPackage extends EPackage {
 	int MAIL_CONSUMES_FEATURE_COUNT = JbiPackage.CONSUMES_FEATURE_COUNT + 9;
 
 	/**
-	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailServiceCommonImpl <em>Service Common</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.impl.MailServiceCommonImpl
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.impl.MailPackageImpl#getMailServiceCommon()
-	 * @generated
-	 */
-	int MAIL_SERVICE_COMMON = 2;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__GROUP = JbiPackage.ABSTRACT_ENDPOINT__GROUP;
-
-	/**
-	 * The feature id for the '<em><b>Other</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__OTHER = JbiPackage.ABSTRACT_ENDPOINT__OTHER;
-
-	/**
-	 * The feature id for the '<em><b>Local</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__LOCAL = JbiPackage.ABSTRACT_ENDPOINT__LOCAL;
-
-	/**
-	 * The feature id for the '<em><b>Endpoint Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__ENDPOINT_NAME = JbiPackage.ABSTRACT_ENDPOINT__ENDPOINT_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__INTERFACE_NAME = JbiPackage.ABSTRACT_ENDPOINT__INTERFACE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Service Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__SERVICE_NAME = JbiPackage.ABSTRACT_ENDPOINT__SERVICE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Scheme</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__SCHEME = JbiPackage.ABSTRACT_ENDPOINT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Host</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__HOST = JbiPackage.ABSTRACT_ENDPOINT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Port</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__PORT = JbiPackage.ABSTRACT_ENDPOINT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>User</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__USER = JbiPackage.ABSTRACT_ENDPOINT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Password</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON__PASSWORD = JbiPackage.ABSTRACT_ENDPOINT_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of structural features of the '<em>Service Common</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIL_SERVICE_COMMON_FEATURE_COUNT = JbiPackage.ABSTRACT_ENDPOINT_FEATURE_COUNT + 5;
-
-	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.mail.mail.Scheme <em>Scheme</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -526,7 +408,7 @@ public interface MailPackage extends EPackage {
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.impl.MailPackageImpl#getScheme()
 	 * @generated
 	 */
-	int SCHEME = 3;
+	int SCHEME = 2;
 
 	/**
 	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.mail.mail.SendMode <em>Send Mode</em>}' enum.
@@ -536,7 +418,7 @@ public interface MailPackage extends EPackage {
 	 * @see com.ebmwebsourcing.petals.services.mail.mail.impl.MailPackageImpl#getSendMode()
 	 * @generated
 	 */
-	int SEND_MODE = 4;
+	int SEND_MODE = 3;
 
 
 	/**
@@ -548,6 +430,61 @@ public interface MailPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getMailProvides();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getScheme <em>Scheme</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Scheme</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getScheme()
+	 * @see #getMailProvides()
+	 * @generated
+	 */
+	EAttribute getMailProvides_Scheme();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getHost <em>Host</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Host</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getHost()
+	 * @see #getMailProvides()
+	 * @generated
+	 */
+	EAttribute getMailProvides_Host();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getPort <em>Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Port</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getPort()
+	 * @see #getMailProvides()
+	 * @generated
+	 */
+	EAttribute getMailProvides_Port();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getUser <em>User</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getUser()
+	 * @see #getMailProvides()
+	 * @generated
+	 */
+	EAttribute getMailProvides_User();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getPassword <em>Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Password</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getPassword()
+	 * @see #getMailProvides()
+	 * @generated
+	 */
+	EAttribute getMailProvides_Password();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailProvides#getFrom <em>From</em>}'.
@@ -637,6 +574,61 @@ public interface MailPackage extends EPackage {
 	EClass getMailConsumes();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getScheme <em>Scheme</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Scheme</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getScheme()
+	 * @see #getMailConsumes()
+	 * @generated
+	 */
+	EAttribute getMailConsumes_Scheme();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getHost <em>Host</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Host</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getHost()
+	 * @see #getMailConsumes()
+	 * @generated
+	 */
+	EAttribute getMailConsumes_Host();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getPort <em>Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Port</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getPort()
+	 * @see #getMailConsumes()
+	 * @generated
+	 */
+	EAttribute getMailConsumes_Port();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getUser <em>User</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getUser()
+	 * @see #getMailConsumes()
+	 * @generated
+	 */
+	EAttribute getMailConsumes_User();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getPassword <em>Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Password</em>'.
+	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getPassword()
+	 * @see #getMailConsumes()
+	 * @generated
+	 */
+	EAttribute getMailConsumes_Password();
+
+	/**
 	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailConsumes#getFolder <em>Folder</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -679,71 +671,6 @@ public interface MailPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMailConsumes_Isxmlcontent();
-
-	/**
-	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon <em>Service Common</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Service Common</em>'.
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon
-	 * @generated
-	 */
-	EClass getMailServiceCommon();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getScheme <em>Scheme</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Scheme</em>'.
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getScheme()
-	 * @see #getMailServiceCommon()
-	 * @generated
-	 */
-	EAttribute getMailServiceCommon_Scheme();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getHost <em>Host</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Host</em>'.
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getHost()
-	 * @see #getMailServiceCommon()
-	 * @generated
-	 */
-	EAttribute getMailServiceCommon_Host();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getPort <em>Port</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Port</em>'.
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getPort()
-	 * @see #getMailServiceCommon()
-	 * @generated
-	 */
-	EAttribute getMailServiceCommon_Port();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getUser <em>User</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>User</em>'.
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getUser()
-	 * @see #getMailServiceCommon()
-	 * @generated
-	 */
-	EAttribute getMailServiceCommon_User();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getPassword <em>Password</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Password</em>'.
-	 * @see com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon#getPassword()
-	 * @see #getMailServiceCommon()
-	 * @generated
-	 */
-	EAttribute getMailServiceCommon_Password();
 
 	/**
 	 * Returns the meta object for enum '{@link com.ebmwebsourcing.petals.services.mail.mail.Scheme <em>Scheme</em>}'.
@@ -796,6 +723,46 @@ public interface MailPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MAIL_PROVIDES = eINSTANCE.getMailProvides();
+
+		/**
+		 * The meta object literal for the '<em><b>Scheme</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_PROVIDES__SCHEME = eINSTANCE.getMailProvides_Scheme();
+
+		/**
+		 * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_PROVIDES__HOST = eINSTANCE.getMailProvides_Host();
+
+		/**
+		 * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_PROVIDES__PORT = eINSTANCE.getMailProvides_Port();
+
+		/**
+		 * The meta object literal for the '<em><b>User</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_PROVIDES__USER = eINSTANCE.getMailProvides_User();
+
+		/**
+		 * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_PROVIDES__PASSWORD = eINSTANCE.getMailProvides_Password();
 
 		/**
 		 * The meta object literal for the '<em><b>From</b></em>' attribute feature.
@@ -864,6 +831,46 @@ public interface MailPackage extends EPackage {
 		EClass MAIL_CONSUMES = eINSTANCE.getMailConsumes();
 
 		/**
+		 * The meta object literal for the '<em><b>Scheme</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_CONSUMES__SCHEME = eINSTANCE.getMailConsumes_Scheme();
+
+		/**
+		 * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_CONSUMES__HOST = eINSTANCE.getMailConsumes_Host();
+
+		/**
+		 * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_CONSUMES__PORT = eINSTANCE.getMailConsumes_Port();
+
+		/**
+		 * The meta object literal for the '<em><b>User</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_CONSUMES__USER = eINSTANCE.getMailConsumes_User();
+
+		/**
+		 * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_CONSUMES__PASSWORD = eINSTANCE.getMailConsumes_Password();
+
+		/**
 		 * The meta object literal for the '<em><b>Folder</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -894,56 +901,6 @@ public interface MailPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MAIL_CONSUMES__ISXMLCONTENT = eINSTANCE.getMailConsumes_Isxmlcontent();
-
-		/**
-		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.mail.mail.impl.MailServiceCommonImpl <em>Service Common</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.ebmwebsourcing.petals.services.mail.mail.impl.MailServiceCommonImpl
-		 * @see com.ebmwebsourcing.petals.services.mail.mail.impl.MailPackageImpl#getMailServiceCommon()
-		 * @generated
-		 */
-		EClass MAIL_SERVICE_COMMON = eINSTANCE.getMailServiceCommon();
-
-		/**
-		 * The meta object literal for the '<em><b>Scheme</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MAIL_SERVICE_COMMON__SCHEME = eINSTANCE.getMailServiceCommon_Scheme();
-
-		/**
-		 * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MAIL_SERVICE_COMMON__HOST = eINSTANCE.getMailServiceCommon_Host();
-
-		/**
-		 * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MAIL_SERVICE_COMMON__PORT = eINSTANCE.getMailServiceCommon_Port();
-
-		/**
-		 * The meta object literal for the '<em><b>User</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MAIL_SERVICE_COMMON__USER = eINSTANCE.getMailServiceCommon_User();
-
-		/**
-		 * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MAIL_SERVICE_COMMON__PASSWORD = eINSTANCE.getMailServiceCommon_Password();
 
 		/**
 		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.mail.mail.Scheme <em>Scheme</em>}' enum.

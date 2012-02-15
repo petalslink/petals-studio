@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011, EBM WebSourcing
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,18 +11,16 @@
 package com.ebmwebsourcing.petals.services.mail.mail.util;
 
 import com.ebmwebsourcing.petals.services.mail.mail.*;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.Switch;
 
-import com.ebmwebsourcing.petals.services.mail.mail.MailConsumes;
-import com.ebmwebsourcing.petals.services.mail.mail.MailPackage;
-import com.ebmwebsourcing.petals.services.mail.mail.MailProvides;
-import com.ebmwebsourcing.petals.services.mail.mail.MailServiceCommon;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+
+import org.eclipse.emf.ecore.util.Switch;
 
 /**
  * <!-- begin-user-doc -->
@@ -85,7 +83,6 @@ public class MailSwitch<T> extends Switch<T> {
 				MailProvides mailProvides = (MailProvides)theEObject;
 				T result = caseMailProvides(mailProvides);
 				if (result == null) result = caseProvides(mailProvides);
-				if (result == null) result = caseMailServiceCommon(mailProvides);
 				if (result == null) result = caseAbstractEndpoint(mailProvides);
 				if (result == null) result = caseAbstractExtensibleElement(mailProvides);
 				if (result == null) result = defaultCase(theEObject);
@@ -95,17 +92,8 @@ public class MailSwitch<T> extends Switch<T> {
 				MailConsumes mailConsumes = (MailConsumes)theEObject;
 				T result = caseMailConsumes(mailConsumes);
 				if (result == null) result = caseConsumes(mailConsumes);
-				if (result == null) result = caseMailServiceCommon(mailConsumes);
 				if (result == null) result = caseAbstractEndpoint(mailConsumes);
 				if (result == null) result = caseAbstractExtensibleElement(mailConsumes);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case MailPackage.MAIL_SERVICE_COMMON: {
-				MailServiceCommon mailServiceCommon = (MailServiceCommon)theEObject;
-				T result = caseMailServiceCommon(mailServiceCommon);
-				if (result == null) result = caseAbstractEndpoint(mailServiceCommon);
-				if (result == null) result = caseAbstractExtensibleElement(mailServiceCommon);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -140,21 +128,6 @@ public class MailSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMailConsumes(MailConsumes object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Service Common</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Service Common</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMailServiceCommon(MailServiceCommon object) {
 		return null;
 	}
 

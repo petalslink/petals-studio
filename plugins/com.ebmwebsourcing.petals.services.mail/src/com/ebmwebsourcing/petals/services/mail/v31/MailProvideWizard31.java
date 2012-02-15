@@ -72,9 +72,9 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 		Cdk5Utils.setInitialProvidesValues((Provides)ae);
 		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "MailService.wsdl");
 
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME, Scheme.SMTP);
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__HOST, "");
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PORT, 25);
+		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__SCHEME, Scheme.SMTP);
+		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__HOST, "");
+		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__PORT, 25);
 		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__TO, "");
 		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__FROM, "");
 		ae.eSet(MailPackage.Literals.MAIL_PROVIDES__SEND_MODE, SendMode.CONTENT_AND_ATTACHMENTS);
@@ -103,11 +103,11 @@ public class MailProvideWizard31 extends AbstractServiceUnitWizard {
 	@Override
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__HOST,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PORT,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
+				MailPackage.Literals.MAIL_PROVIDES__SCHEME,
+				MailPackage.Literals.MAIL_PROVIDES__HOST,
+				MailPackage.Literals.MAIL_PROVIDES__PORT,
+				MailPackage.Literals.MAIL_PROVIDES__USER,
+				MailPackage.Literals.MAIL_PROVIDES__PASSWORD,
 				MailPackage.Literals.MAIL_PROVIDES__FROM,
 				MailPackage.Literals.MAIL_PROVIDES__TO,
 				MailPackage.Literals.MAIL_PROVIDES__REPLY,

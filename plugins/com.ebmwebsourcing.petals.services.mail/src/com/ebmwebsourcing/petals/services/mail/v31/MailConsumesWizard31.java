@@ -52,11 +52,11 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	public void presetServiceValues( AbstractEndpoint ae ) {
 		Cdk5Utils.setInitialConsumesValues((Consumes) ae);
 
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME, Scheme.SMTP);
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__HOST, "");
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PORT, 25);
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__USER, "");
-		ae.eSet(MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD, "");
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__SCHEME, Scheme.SMTP);
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__HOST, "");
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__PORT, 25);
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__USER, "");
+		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__PASSWORD, "");
 
 		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__FOLDER, "INBOX");
 		ae.eSet(MailPackage.Literals.MAIL_CONSUMES__DELETE, false);
@@ -80,8 +80,8 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 
 		// Do not write useless values
 		hackEmfModel( ae,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
+				MailPackage.Literals.MAIL_CONSUMES__USER,
+				MailPackage.Literals.MAIL_CONSUMES__PASSWORD,
 				MailPackage.Literals.MAIL_CONSUMES__FOLDER );
 
 		return Status.OK_STATUS;
@@ -96,11 +96,11 @@ public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 	@Override
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__HOST,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PORT,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD,
+				MailPackage.Literals.MAIL_CONSUMES__SCHEME,
+				MailPackage.Literals.MAIL_CONSUMES__HOST,
+				MailPackage.Literals.MAIL_CONSUMES__PORT,
+				MailPackage.Literals.MAIL_CONSUMES__USER,
+				MailPackage.Literals.MAIL_CONSUMES__PASSWORD,
 				MailPackage.Literals.MAIL_CONSUMES__FOLDER,
 				MailPackage.Literals.MAIL_CONSUMES__DELETE,
 				MailPackage.Literals.MAIL_CONSUMES__PERIOD,

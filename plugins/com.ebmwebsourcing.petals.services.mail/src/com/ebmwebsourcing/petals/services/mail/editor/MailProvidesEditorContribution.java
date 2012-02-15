@@ -50,11 +50,11 @@ public class MailProvidesEditorContribution extends JbiEditorDetailsContribution
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "Mail Server" );
 		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__SCHEME,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__HOST,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PORT,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__USER,
-				MailPackage.Literals.MAIL_SERVICE_COMMON__PASSWORD );
+				MailPackage.Literals.MAIL_PROVIDES__SCHEME,
+				MailPackage.Literals.MAIL_PROVIDES__HOST,
+				MailPackage.Literals.MAIL_PROVIDES__PORT,
+				MailPackage.Literals.MAIL_PROVIDES__USER,
+				MailPackage.Literals.MAIL_PROVIDES__PASSWORD );
 
 		composite = createEditorSection( advancedTab, toolkit, "Mail Content" );
 		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
