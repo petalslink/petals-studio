@@ -1,19 +1,21 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.sa.wizards;
 
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -21,6 +23,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.osgi.util.NLS;
@@ -33,22 +38,28 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.ListDialog;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormText;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
 
+import com.ebmwebsourcing.petals.common.generation.JbiUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.FixedShellTooltip;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.Messages;
+import com.ebmwebsourcing.petals.services.utils.ServiceProjectRelationUtils;
 
 /**
  * The wizard page asking for generic information about a Maven project.
@@ -83,6 +94,7 @@ public class PetalsSaNewWizardPage extends WizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		// Add a tool tip to display in case of problem
@@ -126,22 +138,51 @@ public class PetalsSaNewWizardPage extends WizardPage {
 
 		this.helpTooltip.hide();
 
+
 		// Basic fields
 		Composite container = new Composite( parent, SWT.NONE );
-		GridLayout layout = new GridLayout( 2, false );
-		layout.marginLeft = 15;
-		layout.marginRight = 15;
-		layout.marginTop = 20;
-		layout.horizontalSpacing = 15;
-		container.setLayout( layout );
+		GridLayoutFactory.swtDefaults().numColumns( 2 ).extendedMargins( 15, 15, 20, 0 ).spacing( 15, 5 ).applyTo( container );
 		container.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 
-		Label label = new Label( container, SWT.NONE );
-		label.setText( "Name:" );
-		label.setToolTipText( "The service assembly name to put into the jbi.xml and pom.xml files" );
-		this.nameText = new Text( container, SWT.SINGLE | SWT.BORDER );
-		this.nameText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		SwtFactory.createLabel( container, "Name:", "The service assembly name to put into the jbi.xml and pom.xml files" );
+		TextWithButtonComposite twc = new TextWithButtonComposite( container );
+		twc.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		twc.getText().setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+
+		final List<IProject> suProjects = new ArrayList<IProject> ();
+		for( IProject p : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
+			if( ServiceProjectRelationUtils.isSuProject( p ))
+				suProjects.add( p );
+		}
+
+		twc.getButton().setText( "Name Helper..." );
+		if( suProjects.isEmpty()) {
+			twc.getButton().setEnabled( false );
+			twc.getButton().setToolTipText( "No Service Unit project was found in the workspace" );
+		} else {
+			twc.getButton().setToolTipText( "Generate the SA name from a SU name" );
+		}
+
+		twc.getButton().addSelectionListener( new DefaultSelectionListener() {
+			@Override
+			public void widgetSelected( SelectionEvent e ) {
+
+				ListDialog dlg = new ListDialog( getShell());
+				dlg.setContentProvider( new ArrayContentProvider());
+				dlg.setLabelProvider( new WorkbenchLabelProvider());
+				dlg.setInput( suProjects );
+				if( dlg.open() != Window.OK )
+					return;
+
+				String suName = ((IProject) dlg.getResult()[ 0 ]).getName();
+				String saName = JbiUtils.createSaName( suName );
+				PetalsSaNewWizardPage.this.nameText.setText( saName );
+			}
+		});
+
+		this.nameText = twc.getText();
 		this.nameText.addModifyListener( new ModifyListener () {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 
 				String aid = PetalsSaNewWizardPage.this.artifactIdText.getText();
@@ -154,84 +195,49 @@ public class PetalsSaNewWizardPage extends WizardPage {
 			}
 		});
 
-		label = new Label( container, SWT.NONE );
-		label.setText( "Artifact ID:" );
-		label.setToolTipText( "The service assembly description to put into the jbi.xml and pom.xml files" );
-		this.artifactIdText = new Text( container, SWT.SINGLE | SWT.BORDER );
-		this.artifactIdText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.artifactIdText.addModifyListener( new ModifyListener () {
+
+		ModifyListener validationListener = new ModifyListener () {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				validate();
 			}
-		});
+		};
+
+		SwtFactory.createLabel( container, "Artifact ID:", "The service assembly description to put into the jbi.xml and pom.xml files" );
+		this.artifactIdText = SwtFactory.createSimpleTextField( container, true );
+		this.artifactIdText.addModifyListener( validationListener );
 
 		new Label( container, SWT.NONE ).setText( "Group ID:" );
-		this.groupIdText = new Text( container, SWT.SINGLE | SWT.BORDER );
-		this.groupIdText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		this.groupIdText = SwtFactory.createSimpleTextField( container, true );
 		this.groupIdText.setText( this.groupId );
-		this.groupIdText.addModifyListener( new ModifyListener () {
-			public void modifyText( ModifyEvent e ) {
-				validate();
-			}
-		});
+		this.groupIdText.addModifyListener( validationListener );
 
 		new Label( container, SWT.NONE ).setText( "Version:" );
-		this.versionText = new Text( container, SWT.SINGLE | SWT.BORDER );
-		this.versionText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		this.versionText = SwtFactory.createSimpleTextField( container, true );
 		this.versionText.setText( this.version );
-		this.versionText.addModifyListener( new ModifyListener () {
-			public void modifyText( ModifyEvent e ) {
-				validate();
-			}
-		});
+		this.versionText.addModifyListener( validationListener );
 
 		new Label( container, SWT.NONE ).setText( "Description:" );
-		this.descriptionText = new Text( container, SWT.SINGLE | SWT.BORDER );
-		this.descriptionText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.descriptionText.addModifyListener( new ModifyListener () {
-			public void modifyText( ModifyEvent e ) {
-				validate();
-			}
-		});
+		this.descriptionText = SwtFactory.createSimpleTextField( container, true );
+		this.descriptionText.addModifyListener( validationListener );
+
 
 		// Project location
 		final Button useDefaultLocButton = new Button( container, SWT.CHECK );
 		useDefaultLocButton.setText( "Create the project in the default location" );
-		GridData layoutData = new GridData ();
-		layoutData.horizontalSpan = 2;
-		layoutData.verticalIndent = 17;
-		useDefaultLocButton.setLayoutData( layoutData );
+		GridDataFactory.swtDefaults().indent( 0, 17 ).span( 2, 1 ).applyTo( useDefaultLocButton );
 
 		Composite locContainer = new Composite( container, SWT.NONE );
-		layout = new GridLayout( 3, false );
-		layout.marginHeight = layout.marginWidth = 0;
-		locContainer.setLayout( layout );
-		layoutData = new GridData( GridData.FILL_HORIZONTAL );
-		layoutData.horizontalSpan = 2;
-		locContainer.setLayoutData( layoutData );
+		GridLayoutFactory.swtDefaults().numColumns( 2 ).margins( 0, 0 ).applyTo( locContainer );
+		GridDataFactory.swtDefaults().span( 2, 1 ).applyTo( locContainer );
 
 		final Label locLabel = new Label( locContainer, SWT.NONE );
 		locLabel.setText( "Project location:" );
 
-		this.projectLocationText = new Text( locContainer, SWT.SINGLE | SWT.BORDER );
-		this.projectLocationText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		final TextWithButtonComposite twbc = SwtFactory.createDirectoryBrowser( locContainer );
+		this.projectLocationText = twbc.getText();
 		this.projectLocationText.setText( ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
-		this.projectLocationText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				validate();
-			}
-		});
-
-		final Button browseButton = new Button( locContainer, SWT.PUSH );
-		browseButton.setText( "Browse..." );
-		browseButton.addSelectionListener( new SelectionAdapter () {
-			@Override
-			public void widgetSelected( SelectionEvent e ) {
-				String location = new DirectoryDialog( getShell()).open();
-				if( location != null )
-					PetalsSaNewWizardPage.this.projectLocationText.setText( location );
-			}
-		});
+		this.projectLocationText.addModifyListener( validationListener );
 
 		useDefaultLocButton.setSelection( this.isAtDefaultLocation );
 		useDefaultLocButton.addSelectionListener( new SelectionAdapter () {
@@ -244,7 +250,7 @@ public class PetalsSaNewWizardPage extends WizardPage {
 				boolean use = ! PetalsSaNewWizardPage.this.isAtDefaultLocation;
 				locLabel.setEnabled( use );
 				PetalsSaNewWizardPage.this.projectLocationText.setEnabled( use );
-				browseButton.setEnabled( use );
+				twbc.getButton().setEnabled( use );
 				PetalsSaNewWizardPage.this.projectLocationText.setFocus();
 			}
 		});
