@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.databinding.DataBindingContext;
@@ -71,9 +70,8 @@ import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality;
+import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.AbstractJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.sun.java.xml.ns.jbi.DocumentRoot;
@@ -94,7 +92,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	private IFile editedFile;
 
 	private IResourceChangeListener workspaceListener;
-	private IJbiEditorPersonality personality;
+	private AbstractJbiEditorPersonality personality;
 	private Image editorImage;
 	private ScrolledForm mainForm;
 
@@ -106,13 +104,13 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	/**
 	 * @return the editor personality
 	 */
-	private IJbiEditorPersonality getPersonality() {
+	private AbstractJbiEditorPersonality getPersonality() {
 
 		if( this.personality == null && this.editedFile != null) {
 
 			// Look into the extensions
 			IExtensionRegistry reg = Platform.getExtensionRegistry();
-			List<IJbiEditorPersonality> personalities = new ArrayList<IJbiEditorPersonality> ();
+			List<AbstractJbiEditorPersonality> personalities = new ArrayList<AbstractJbiEditorPersonality> ();
 			IConfigurationElement[] extensions = reg.getConfigurationElementsFor( EXTENSION_POINT );
 			for( IConfigurationElement elt : extensions ) {
 
@@ -123,7 +121,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 					}
 
 					try {
-						IJbiEditorPersonality pers = (IJbiEditorPersonality) elt.createExecutableExtension( "class" );
+						AbstractJbiEditorPersonality pers = (AbstractJbiEditorPersonality) elt.createExecutableExtension( "class" );
 						personalities.add( pers );
 
 					} catch( CoreException e ) {
@@ -131,7 +129,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 					}
 			}
 
-			for( IJbiEditorPersonality pers : personalities ) {
+			for( AbstractJbiEditorPersonality pers : personalities ) {
 				if( pers.matchesPersonality( this.jbiModel, this.editedFile )) {
 					this.personality = pers;
 					break;
@@ -349,24 +347,17 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	@Override
 	public void doSave( IProgressMonitor monitor ) {
 
-		// Save only resources that have actually changed.
-		final Map<Object,Object> saveOptions = JbiXmlUtils.getJbiXmlSaveOptions();
-		saveOptions.put( Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER );
-
 		// Do the work within an operation because this is a long running
 		// activity that modifies the workbench.
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			@Override
 			public void execute( IProgressMonitor monitor ) {
 
-				for( Resource resource : getEditingDomain().getResourceSet().getResources()) {
-					try {
-						resource.save( saveOptions );
-
-					} catch( Exception exception ) {
-						PetalsCommonPlugin.log( exception, IStatus.ERROR );
-					}
-				}
+				// Delegate the save part to the personality handler
+				getPersonality().saveModel(
+						JbiFormEditor.this.jbiModel,
+						JbiFormEditor.this.editedFile,
+						JbiFormEditor.this.editDomain );
 			}
 		};
 
@@ -486,7 +477,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	 * @return a label provider for the status line manager
 	 */
 	public ILabelProvider getStatusLineLabelProvider() {
-		IJbiEditorPersonality pers = getPersonality();
+		AbstractJbiEditorPersonality pers = getPersonality();
 		return pers != null ? pers.getStatusLineLabelProvider() : null;
 	}
 
@@ -544,7 +535,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	@Override
 	public void createPartControl( Composite parent ) {
 
-		IJbiEditorPersonality pers = getPersonality();
+		AbstractJbiEditorPersonality pers = getPersonality();
 		this.toolkit = new FormToolkit( getSite().getShell().getDisplay());
 		this.mainForm = this.toolkit.createScrolledForm( parent );
 		this.mainForm.setText( pers != null ? pers.getTitle() : "Title" );

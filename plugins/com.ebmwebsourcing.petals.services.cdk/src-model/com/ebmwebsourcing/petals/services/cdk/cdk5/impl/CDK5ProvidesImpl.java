@@ -77,6 +77,15 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	protected boolean validateWsdl = VALIDATE_WSDL_EDEFAULT;
 
 	/**
+	 * This is true if the Validate Wsdl attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean validateWsdlESet;
+
+	/**
 	 * The default value of the '{@link #isForwardSecuritySubject() <em>Forward Security Subject</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -249,8 +258,33 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	public void setValidateWsdl(boolean newValidateWsdl) {
 		boolean oldValidateWsdl = validateWsdl;
 		validateWsdl = newValidateWsdl;
+		boolean oldValidateWsdlESet = validateWsdlESet;
+		validateWsdlESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL, oldValidateWsdl, validateWsdl));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL, oldValidateWsdl, validateWsdl, !oldValidateWsdlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetValidateWsdl() {
+		boolean oldValidateWsdl = validateWsdl;
+		boolean oldValidateWsdlESet = validateWsdlESet;
+		validateWsdl = VALIDATE_WSDL_EDEFAULT;
+		validateWsdlESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL, oldValidateWsdl, VALIDATE_WSDL_EDEFAULT, oldValidateWsdlESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetValidateWsdl() {
+		return validateWsdlESet;
 	}
 
 	/**
@@ -503,7 +537,7 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 				setTimeout(TIMEOUT_EDEFAULT);
 				return;
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
-				setValidateWsdl(VALIDATE_WSDL_EDEFAULT);
+				unsetValidateWsdl();
 				return;
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
 				unsetForwardSecuritySubject();
@@ -532,7 +566,7 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 			case Cdk5Package.CDK5_PROVIDES__TIMEOUT:
 				return timeout != TIMEOUT_EDEFAULT;
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
-				return validateWsdl != VALIDATE_WSDL_EDEFAULT;
+				return isSetValidateWsdl();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
 				return isSetForwardSecuritySubject();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES:
@@ -558,7 +592,7 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 		result.append(" (timeout: ");
 		result.append(timeout);
 		result.append(", validateWsdl: ");
-		result.append(validateWsdl);
+		if (validateWsdlESet) result.append(validateWsdl); else result.append("<unset>");
 		result.append(", forwardSecuritySubject: ");
 		if (forwardSecuritySubjectESet) result.append(forwardSecuritySubject); else result.append("<unset>");
 		result.append(", forwardMessageProperties: ");

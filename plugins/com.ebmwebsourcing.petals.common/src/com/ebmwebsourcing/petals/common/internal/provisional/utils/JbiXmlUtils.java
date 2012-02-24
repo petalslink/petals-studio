@@ -20,6 +20,8 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -38,10 +40,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.DefaultDOMHandlerImpl;
 import org.eclipse.emf.ecore.xml.type.AnyType;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
@@ -61,14 +67,26 @@ public class JbiXmlUtils {
 	 * Writes a {@link Jbi} instance into a file.
 	 * @param jbiInstance the JBI instance to write
 	 * @param targetFile the target file
+	 * @param saveOptions the save options
 	 * @throws IOException if the content could not be saved
 	 */
-	public static void writeJbiXmlModel( Jbi jbiInstance, File targetFile ) throws IOException {
+	public static void writeJbiXmlModel( Jbi jbiInstance, File targetFile, Map<?,?> saveOptions ) throws IOException {
 
 		org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createFileURI( targetFile.getAbsolutePath());
 		Resource resource = new JbiResourceFactoryImpl().createResource( emfUri );
-		resource.getContents().add( jbiInstance );
-		resource.save( getJbiXmlSaveOptions());
+		resource.getContents().add( EcoreUtil.copy( jbiInstance ));	// Copy because of EMF transactions
+		resource.save( saveOptions );
+	}
+
+
+	/**
+	 * Writes a {@link Jbi} instance into a file.
+	 * @param jbiInstance the JBI instance to write
+	 * @param targetFile the target file
+	 * @throws IOException if the content could not be saved
+	 */
+	public static void writeJbiXmlModel( Jbi jbiInstance, File targetFile ) throws IOException {
+		writeJbiXmlModel( jbiInstance, targetFile, getJbiXmlSaveOptions());
 	}
 
 
@@ -94,6 +112,65 @@ public class JbiXmlUtils {
 	}
 
 
+
+	/**
+	 * Writes a portion of a {@link Jbi} instance and returns it as a document.
+	 * @param object the EObject
+	 * @return the created document, or null if it could not be created
+	 */
+	public static Document savePartialJbiXmlAsDocument( EObject object ) {
+
+		Document doc = null;
+		try {
+			String s = writePartialJbiXmlModel( object );
+			doc = DomUtils.buildDocument( s );
+
+		} catch( IOException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+		} catch( SAXException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+		} catch( ParserConfigurationException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
+
+		return doc;
+	}
+
+
+	/**
+	 * Writes a {@link Jbi} instance into a file.
+	 * @param jbiInstance the JBI instance to write
+	 * @return the created document, or null if it could not be created
+	 */
+	public static Document saveJbiXmlAsDocument( Jbi jbiInstance ) {
+		return saveJbiXmlAsDocument( jbiInstance, getJbiXmlSaveOptions());
+	}
+
+
+	/**
+	 * Writes an EObject instance into a file.
+	 * @param eo the EObject to write
+	 * @return the created document, or null if it could not be created
+	 */
+	public static Document saveJbiXmlAsDocument( EObject eo, Map<?,?> saveOptions ) {
+
+		Document doc = null;
+		try {
+			doc = DomUtils.buildNewDocument();
+			XMLResource resource = (XMLResource) new JbiResourceFactoryImpl().createResource( null );
+			resource.getContents().add( EcoreUtil.copy( eo )); // Copy because of EMF transactions
+			resource.save( doc, saveOptions, new DefaultDOMHandlerImpl());
+
+		} catch( Exception e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
+
+		return doc;
+	}
+
+
 	/**
 	 * @return the save options for jbi.xml files
 	 */
@@ -102,10 +179,24 @@ public class JbiXmlUtils {
 		Map<Object,Object> options = new HashMap<Object,Object> ();
 		options.put( XMLResource.OPTION_ENCODING, "UTF-8" );
 		options.put( XMLResource.OPTION_ESCAPE_USING_CDATA, Boolean.TRUE );
+		options.put( XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE );
 
 		// FIXME: are the following ones required?
-		// options.put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
 		// options.put(XMLResource.OPTION_XML_MAP, xmlMap);
+
+		return options;
+	}
+
+
+	/**
+	 * @return the load options for jbi.xml files
+	 */
+	public static Map<Object,Object> getJbiXmlLoadOptions() {
+
+		Map<Object,Object> options = new HashMap<Object,Object> ();
+		options.put( XMLResource.OPTION_ENCODING, "UTF-8" );
+		options.put( XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE );
+		options.put( XMLResource.OPTION_USE_LEXICAL_HANDLER, Boolean.TRUE );
 
 		return options;
 	}
@@ -250,11 +341,17 @@ public class JbiXmlUtils {
 
 		for( int i=0; i<consumes.getGroup().size(); i++ ) {
 			FeatureMap.Entry f = consumes.getGroup().get( i );
-			Object o = f.getValue();
-			if( o == null || !( o instanceof AnyType ))
+			if( f == null )
 				continue;
 
 			if( ! "mep".equalsIgnoreCase( f.getEStructuralFeature().getName()))
+				continue;
+
+			Object o = f.getValue();
+			if( o instanceof String )
+				return (String) o;
+
+			if( !( o instanceof AnyType ))
 				continue;
 
 			FeatureMap featureMap = ((AnyType)o).getMixed();

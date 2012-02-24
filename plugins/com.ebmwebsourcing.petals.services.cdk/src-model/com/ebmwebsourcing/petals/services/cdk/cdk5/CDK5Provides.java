@@ -66,9 +66,11 @@ public interface CDK5Provides extends Provides {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Validate Wsdl</em>' attribute.
+	 * @see #isSetValidateWsdl()
+	 * @see #unsetValidateWsdl()
 	 * @see #setValidateWsdl(boolean)
 	 * @see com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package#getCDK5Provides_ValidateWsdl()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" derived="true"
 	 *        extendedMetaData="kind='element' namespace='http://petals.ow2.org/components/extensions/version-5' name='validate-wsdl' group='#cdkExtContainer'"
 	 * @generated
 	 */
@@ -79,10 +81,35 @@ public interface CDK5Provides extends Provides {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Validate Wsdl</em>' attribute.
+	 * @see #isSetValidateWsdl()
+	 * @see #unsetValidateWsdl()
 	 * @see #isValidateWsdl()
 	 * @generated
 	 */
 	void setValidateWsdl(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#isValidateWsdl <em>Validate Wsdl</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetValidateWsdl()
+	 * @see #isValidateWsdl()
+	 * @see #setValidateWsdl(boolean)
+	 * @generated
+	 */
+	void unsetValidateWsdl();
+
+	/**
+	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides#isValidateWsdl <em>Validate Wsdl</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Validate Wsdl</em>' attribute is set.
+	 * @see #unsetValidateWsdl()
+	 * @see #isValidateWsdl()
+	 * @see #setValidateWsdl(boolean)
+	 * @generated
+	 */
+	boolean isSetValidateWsdl();
 
 	/**
 	 * Returns the value of the '<em><b>Forward Security Subject</b></em>' attribute.

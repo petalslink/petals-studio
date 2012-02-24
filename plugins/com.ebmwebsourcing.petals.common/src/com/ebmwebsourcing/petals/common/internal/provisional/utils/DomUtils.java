@@ -15,11 +15,20 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
@@ -378,6 +387,22 @@ public class DomUtils {
 
 
 	/**
+	 * Builds a new document.
+	 * @return the document or null if it could not be loaded
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	public static Document buildNewDocument()
+	throws SAXException, IOException, ParserConfigurationException {
+
+		DocumentBuilderFactory db = DocumentBuilderFactory.newInstance();
+		db.setNamespaceAware( true );
+		return db.newDocumentBuilder().newDocument();
+	}
+
+
+	/**
 	 * Validates if a text represents a valid XML document.
 	 * <p>
 	 * If the XML text does not start with <code><?xml </code>, then a default instruction is added.
@@ -405,6 +430,56 @@ public class DomUtils {
 
 		} catch( ParserConfigurationException e ) {
 			// nothing
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Writes a document as a string.
+	 * @param doc the document
+	 * @return the written document, or null if the conversion failed
+	 */
+	public static String writeDocument( Document doc ) {
+		return writeDocument( doc, false );
+	}
+
+
+	/**
+	 * Writes a document as a string.
+	 * @param doc the document
+	 * @param omitXmlDeclaration true to omit the XML declaration
+	 * @return the written document, or null if the conversion failed
+	 */
+	public static String writeDocument( Document doc, boolean omitXmlDeclaration ) {
+
+		String result = null;
+		DOMSource domSource = new DOMSource( doc );
+		StringWriter writer = new StringWriter();
+		StreamResult streamResult = new StreamResult( writer );
+
+		try {
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        transformerFactory.setAttribute( "indent-number", 4 );
+
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty( OutputKeys.INDENT, "yes" );
+			transformer.setOutputProperty( OutputKeys.STANDALONE, "yes" );
+			if( omitXmlDeclaration )
+				transformer.setOutputProperty( OutputKeys.OMIT_XML_DECLARATION, "yes" );
+
+			transformer.transform( domSource, streamResult );
+			result = writer.toString();
+
+		} catch( TransformerConfigurationException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
+
+		} catch( TransformerFactoryConfigurationError e ) {
+			PetalsCommonPlugin.log( new Exception( e ), IStatus.ERROR );
+
+		} catch( TransformerException e ) {
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
 		return result;

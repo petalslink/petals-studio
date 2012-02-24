@@ -11,49 +11,77 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.common.internal.provisional.formeditor;
 
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public interface IJbiEditorPersonality {
+public abstract class AbstractJbiEditorPersonality {
 
 	/**
 	 * @return the label provider for the status line
 	 */
-	public ILabelProvider getStatusLineLabelProvider();
+	public abstract ILabelProvider getStatusLineLabelProvider();
 
 	/**
 	 * Disposes the resources.
 	 */
-	public void dispose();
+	public abstract void dispose();
 
 	/**
 	 * @param the {@link Jbi} model
 	 * @param jbiXmlFile the edited JBI descriptor
 	 * @return true if this jbi.xml file should be edited with this personality
 	 */
-	public boolean matchesPersonality( Jbi model, IFile editedFile );
+	public abstract boolean matchesPersonality( Jbi model, IFile editedFile );
 
 	/**
 	 * Creates the control for the editor.
 	 * @param parent the parent
 	 * @param ise an instance of {@link ISharedEdition}
 	 */
-	public void createControl( Composite parent, ISharedEdition ise );
+	public abstract void createControl( Composite parent, ISharedEdition ise );
 
 	/**
 	 * @return a title to display at the top of the editor
 	 */
-	public String getTitle();
+	public abstract String getTitle();
 
 	/**
 	 * @return an image to show in the editor's header
 	 */
-	public Image getTitleImage();
+	public abstract Image getTitleImage();
+
+
+	/**
+	 * Saves the EMF model.
+	 * @param model the JBI model instance
+	 * @param editedFile the edited file
+	 * @param domain the editing domain
+	 */
+	public void saveModel( Jbi model, IFile editedFile, EditingDomain domain ) {
+
+		final Map<Object,Object> saveOptions = JbiXmlUtils.getJbiXmlSaveOptions();
+		saveOptions.put( Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER );
+		for( Resource resource : domain.getResourceSet().getResources()) {
+			try {
+				resource.save( saveOptions );
+
+			} catch( Exception exception ) {
+				PetalsCommonPlugin.log( exception, IStatus.ERROR );
+			}
+		}
+	}
 }

@@ -21,7 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormText;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality;
+import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.AbstractJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.OpenSourceEditorHyperlinkListener;
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -30,7 +30,7 @@ import com.sun.java.xml.ns.jbi.Jbi;
  * A default personality for the JBI form editor.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class JbiDefaultPersonality implements IJbiEditorPersonality {
+public class JbiDefaultPersonality extends AbstractJbiEditorPersonality {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality

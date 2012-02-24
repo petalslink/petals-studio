@@ -12,7 +12,6 @@
 
 package com.ebmwebsourcing.petals.services.su.editor;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -68,10 +67,12 @@ import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.ScrolledPageBook;
+import org.w3c.dom.Document;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.OpenSourceEditorHyperlinkListener;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
@@ -560,7 +561,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		// We use a lock because writing the model as a string results in resource change => infinite loop.
 		// Notification filters are not of great help here.
-		((TransactionalEditingDomain) getEditingDomain()).addResourceSetListener( new ResourceSetListenerImpl(  ) {
+		((TransactionalEditingDomain) getEditingDomain()).addResourceSetListener( new ResourceSetListenerImpl() {
 			@Override
 			public boolean isPostcommitOnly() {
 				return true;
@@ -583,29 +584,34 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	 * @param endpoint
 	 * @param lock
 	 */
-	private void refreshSourceViewer( final StyledText sourceText, AbstractEndpoint endpoint, AtomicBoolean lock ) {
+	private void refreshSourceViewer( final StyledText sourceText, final AbstractEndpoint endpoint, AtomicBoolean lock ) {
 
 		// Lock here. It will be released above.
 		if( lock != null )
 			lock.set( true );
 
-		String s;
-		try {
-			if( endpoint != null )
-				s = JbiXmlUtils.writePartialJbiXmlModel( endpoint );
-			else
-				s = "<!-- Nothing to serialize -->";
 
-		} catch( IOException e ) {
-			PetalsServicesPlugin.log( e, IStatus.ERROR );
-			s = "<!-- \nThe selection could be serialized.\nAn error occured.\nCheck the logs for more details.\n -->";
+		// Write the partial document in an EMF command (transaction)
+		final StringBuilder sb = new StringBuilder();
+		if( endpoint == null ) {
+			sb.append( "<!-- Nothing to serialize -->" );
+
+		} else {
+			Document doc = JbiXmlUtils.savePartialJbiXmlAsDocument( endpoint );
+			if( doc == null ) {
+				sb.append( "<!-- \nThe selection could be serialized.\nAn error occured.\nCheck the logs for more details.\n -->" );
+			} else {
+				SuPersonality.sortNodes( doc, false );
+				sb.append( DomUtils.writeDocument( doc, true ));
+			}
 		}
 
-		final String text = s;
+
+		// Update the UI then
 		Display.getDefault().asyncExec( new Runnable() {
 			@Override
 			public void run() {
-				sourceText.setText( text );
+				sourceText.setText( sb.toString());
 			}
 		});
 	}

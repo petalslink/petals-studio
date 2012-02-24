@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.IJbiEditorPersonality;
+import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.AbstractJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.editor.ServicesLabelProvider;
@@ -26,7 +26,7 @@ import com.sun.java.xml.ns.jbi.Jbi;
 /**
  * The SA personality for the JBI editor.
  */
-public class SaPersonality implements IJbiEditorPersonality {
+public class SaPersonality extends AbstractJbiEditorPersonality {
 
 	private ILabelProvider statusLineLabelProvider;
 

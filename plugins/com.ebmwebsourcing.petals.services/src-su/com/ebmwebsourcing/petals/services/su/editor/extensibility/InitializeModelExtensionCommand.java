@@ -12,8 +12,10 @@
 
 package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.namespace.QName;
 
@@ -44,6 +46,9 @@ import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
  */
 public class InitializeModelExtensionCommand extends AbstractCommand {
 
+	private static AtomicInteger ID_COUNTER = new AtomicInteger( 1 );
+
+	private final int id;
 	private Set<EStructuralFeature> targetFeatures;
 	private final EPackage extensionPackage;
 	private final AbstractExtensibleElement element;
@@ -54,9 +59,10 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 * @param extensionPackage
 	 * @param element
 	 */
-	public InitializeModelExtensionCommand(EPackage extensionPackage, AbstractExtensibleElement element) {
+	public InitializeModelExtensionCommand( EPackage extensionPackage, AbstractExtensibleElement element ) {
 		this.extensionPackage = extensionPackage;
 		this.element = element;
+		this.id = ID_COUNTER.getAndIncrement();
 	}
 
 
@@ -96,6 +102,15 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 		 *  The CDK package must be initialized first.
 		 */
 
+		// To follow insertion (and thus write) order, set debug to true.
+		// Set it to false before the releases. As its name says it, it is for debug purpose.
+		boolean debug = false;
+		if( debug )
+			System.out.println( "Command " + this.id );
+
+		// Do not insert twice the same feature - change the insertion / write order
+		Set<String> alreadySet = new HashSet<String> ();
+
 
 		// Once sorting is done, we can iterate and initialize the feature values
 		// Care must be taken because
@@ -104,12 +119,14 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 			if( entry == null )
 				continue;
 
-			// To follow insertion (and thus write) order, set debug to true.
-			// Set it to false before the releases. As its name says it, it is for debug purpose.
-			boolean debug = false;
 			String fName = ExtendedMetaData.INSTANCE.getName( targetFeature);
 			String fNs = ExtendedMetaData.INSTANCE.getNamespace( targetFeature);
-			String id = "Inserting feature: " + fName + " - " + fNs;
+			String id = fName + " - " + fNs;
+			String display = "Inserting feature: " + id;
+			if( alreadySet.contains( id ))
+				continue;
+
+			alreadySet.add( id );
 
 			// The value is null
 			this.element.getGroup().remove(entry);
@@ -117,7 +134,7 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 			if( value == null ) {
 				this.element.eSet(targetFeature, null);
 				if( debug )
-					System.out.println( id );
+					System.out.println( display );
 			}
 
 			// The value is not null: set the feature
@@ -132,14 +149,14 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 								|| "java.lang.integer".equals( instanceClassName )) {
 							this.element.eSet(targetFeature, Integer.valueOf((String)value));
 							if( debug )
-								System.out.println( id );
+								System.out.println( display );
 
 						} else if( expectedType.equals( EcorePackage.Literals.ELONG )
 									|| "long".equals( instanceClassName )
 									|| "java.lang.long".equals( instanceClassName )) {
 								this.element.eSet(targetFeature, Long.valueOf((String)value));
 								if( debug )
-									System.out.println( id );
+									System.out.println( display );
 
 						} else if( instanceClassName.equals( "javax.xml.namespace.qname" )) {
 
@@ -174,30 +191,30 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 
 							this.element.eSet( targetFeature, newValue );
 							if( debug )
-								System.out.println( id );
+								System.out.println( display );
 
 						} else if( expectedType instanceof EEnum ) {
 							EEnum eEnum = (EEnum) expectedType;
 							EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
 							this.element.eSet(targetFeature, literal.getInstance());
 							if( debug )
-								System.out.println( id );
+								System.out.println( display );
 
 						} else if (expectedType.getInstanceClass().equals( boolean.class )) {
 							this.element.eSet(targetFeature, Boolean.valueOf((String)value));
 							if( debug )
-								System.out.println( id );
+								System.out.println( display );
 
 						} else {
 							this.element.eSet(targetFeature, value);
 							if( debug )
-								System.out.println( id );
+								System.out.println( display );
 						}
 
 					} else {
 						this.element.eSet(targetFeature, value);
 						if( debug )
-							System.out.println( id );
+							System.out.println( display );
 					}
 
 				} catch( Exception e ) {
