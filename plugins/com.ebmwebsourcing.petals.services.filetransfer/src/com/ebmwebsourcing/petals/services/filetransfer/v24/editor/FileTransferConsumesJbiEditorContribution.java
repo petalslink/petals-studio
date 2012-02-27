@@ -59,5 +59,8 @@ public class FileTransferConsumesJbiEditorContribution extends JbiEditorDetailsC
 		Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN,
 		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__TRANSFER_MODE,
 		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__POLLING_PERIOD );
+
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );
 	}
 }

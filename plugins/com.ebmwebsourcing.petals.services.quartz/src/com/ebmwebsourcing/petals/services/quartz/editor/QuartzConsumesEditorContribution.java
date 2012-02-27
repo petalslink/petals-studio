@@ -67,5 +67,8 @@ public class QuartzConsumesEditorContribution extends JbiEditorDetailsContributi
 		widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getMsgText(), SWT.Modify ));
 		iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, QuartzPackage.Literals.QUARTZ_CONSUMES__CONTENT );
 		ise.getDataBindingContext().bindValue( widgetObservable, iov );
+
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );
 	}
 }

@@ -52,22 +52,22 @@ public class MailConsumesEditorContribution extends JbiEditorDetailsContribution
 	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
-		Composite composite = createEditorSection( advancedTab, toolkit, "Mail Parameters", true );
-		EObjecttUIHelper.generateWidgets(
-				endpoint,
-				toolkit,
-				composite,
-				ise.getEditingDomain(),
-				ise.getDataBindingContext(),
-				true,
+		Composite composite = createEditorSection( advancedTab, toolkit, "Mail Server" );
+		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				MailPackage.Literals.MAIL_CONSUMES__SCHEME,
 				MailPackage.Literals.MAIL_CONSUMES__HOST,
 				MailPackage.Literals.MAIL_CONSUMES__PORT,
 				MailPackage.Literals.MAIL_CONSUMES__USER,
-				MailPackage.Literals.MAIL_CONSUMES__PASSWORD,
+				MailPackage.Literals.MAIL_CONSUMES__PASSWORD );
+
+		composite = createEditorSection( advancedTab, toolkit, "Mail Reading" );
+		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				MailPackage.Literals.MAIL_CONSUMES__FOLDER,
 				MailPackage.Literals.MAIL_CONSUMES__DELETE,
 				MailPackage.Literals.MAIL_CONSUMES__PERIOD,
 				MailPackage.Literals.MAIL_CONSUMES__ISXMLCONTENT );
+
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );
 	}
 }

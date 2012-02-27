@@ -72,5 +72,8 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_JMS_TRANSPORT,
 					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_WSA,
 					SoapPackage.Literals.SOAP_CONSUMES__HTTP_SERVICES_REDIRECTION );
+
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );
 	}
 }

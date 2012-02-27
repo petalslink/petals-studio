@@ -64,6 +64,9 @@ public class JMSConsumesEditorExtension extends JbiEditorDetailsContribution {
 				JmsPackage.Literals.JMS_EXTENSION__USER,
 				JmsPackage.Literals.JMS_EXTENSION__PASSWORD,
 				JmsPackage.Literals.JMS_EXTENSION__TRANSACTED );
+
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );
 	}
 
 }

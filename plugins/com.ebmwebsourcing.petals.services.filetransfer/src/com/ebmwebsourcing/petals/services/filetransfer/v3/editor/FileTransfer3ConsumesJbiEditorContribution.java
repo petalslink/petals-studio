@@ -60,5 +60,8 @@ public class FileTransfer3ConsumesJbiEditorContribution extends JbiEditorDetails
 				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__POLLING_PERIOD,
 				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_SIZE,
 				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_TIMEOUT );
+
+		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );
 	}
 }
