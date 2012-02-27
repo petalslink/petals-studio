@@ -42,7 +42,7 @@ import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class InitializeModelExtensionCommand extends AbstractCommand {
 
@@ -122,7 +122,6 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 			String fName = ExtendedMetaData.INSTANCE.getName( targetFeature);
 			String fNs = ExtendedMetaData.INSTANCE.getNamespace( targetFeature);
 			String id = fName + " - " + fNs;
-			String display = "Inserting feature: " + id;
 			if( alreadySet.contains( id ))
 				continue;
 
@@ -131,6 +130,8 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 			// The value is null
 			this.element.getGroup().remove(entry);
 			Object value = getActualValue( entry.getValue());
+			String display = "Inserting feature: " + id + "  (" + value + ")";
+
 			if( value == null ) {
 				this.element.eSet(targetFeature, null);
 				if( debug )
@@ -243,6 +244,7 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 		for( EClassifier classifier : this.extensionPackage.getEClassifiers()) {
 			if( classifier instanceof EClass ) {
 				EClass eClass = (EClass)classifier;
+
 				for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
 					((EStructuralFeatureImpl) feature).setFeatureID( -1 );
 					this.targetFeatures.add( feature );

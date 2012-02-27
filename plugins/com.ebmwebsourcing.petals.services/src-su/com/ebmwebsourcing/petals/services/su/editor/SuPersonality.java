@@ -139,6 +139,16 @@ public class SuPersonality extends AbstractJbiEditorPersonality {
 
 	/**
 	 * Sorts the nodes.
+	 * <p>
+	 * This is not very clean, because this plug-in should not be aware
+	 * of the CDK. However, a pure EMF approach is not possible.
+	 * Customizing the XML save handler is too complicated. This approach works.
+	 * </p>
+	 * <p>
+	 * One way to solve it would be to merge the JBI meta-model with the CDK model.
+	 * But that would prevent this tooling from being used with a possible new CDK.
+	 * </p>
+	 *
 	 * @param doc the document
 	 */
 	public static void sortNodes( Document doc, boolean indent ) {

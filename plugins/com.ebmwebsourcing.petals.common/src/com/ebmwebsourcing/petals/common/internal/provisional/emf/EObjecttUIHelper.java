@@ -245,7 +245,7 @@ public class EObjecttUIHelper {
 
 
 	/**
-	 * Create an observable using an editing domain.
+	 * Creates an observable using an editing domain.
 	 * <p>
 	 * This method is a workaround for SetCommands (EMF version <2.7.1).
 	 * Keep it, even if it is not used.

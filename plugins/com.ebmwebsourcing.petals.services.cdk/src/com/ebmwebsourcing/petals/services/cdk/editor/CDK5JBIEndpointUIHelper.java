@@ -352,10 +352,29 @@ public class CDK5JBIEndpointUIHelper {
 			ISharedEdition ise ) {
 
 		EObjecttUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
-				Cdk5Package.Literals.CDK5_CONSUMES__TIMEOUT,
+				Cdk5Package.Literals.CDK5_PROVIDES__TIMEOUT,
 				Cdk5Package.Literals.CDK5_PROVIDES__VALIDATE_WSDL,
 				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT,
 				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES,
 				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_ATTACHMENTS );
+	}
+
+
+	/**
+	 * Generates the default contributions for the CDK section.
+	 * @param ae the abstract end-point
+	 * @param toolkit the form toolkit
+	 * @param parent the parent
+	 * @param domain the editing domain
+	 * @param dbc the data-binding context
+	 */
+	public static void generateDefaultCdkWidgetsForConsumesEditor(
+			AbstractEndpoint ae,
+			FormToolkit toolkit,
+			Composite parent,
+			ISharedEdition ise ) {
+
+		EObjecttUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+				Cdk5Package.Literals.CDK5_CONSUMES__TIMEOUT );
 	}
 }
