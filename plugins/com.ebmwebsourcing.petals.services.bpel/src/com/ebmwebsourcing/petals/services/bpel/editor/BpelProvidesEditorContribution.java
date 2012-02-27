@@ -52,6 +52,13 @@ public class BpelProvidesEditorContribution extends JbiEditorDetailsContribution
 		browser.setLayoutData( new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		ise.getDataBindingContext().bindValue( SWTObservables.observeText(browser.getText(), SWT.Modify),
 		EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, BpelPackage.Literals.BPEL_PROVIDES__BPEL ));
+
+		EObjecttUIHelper.generateWidget(
+				endpoint, toolkit, composite,
+				ise.getEditingDomain(),
+				ise.getDataBindingContext(), true,
+				BpelPackage.Literals.BPEL_PROVIDES__POOLSIZE,
+				"Pool Size *:" );
 	}
 
 

@@ -13,7 +13,9 @@
 package com.ebmwebsourcing.petals.common.internal.provisional.emf;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
@@ -184,8 +186,43 @@ public class EObjecttUIHelper {
 			boolean showDecorator,
 			EStructuralFeature... toProcessFeatures ) {
 
-		List<EntryDescription> entries = produceWidgets( toolkit, labelColor, parent, toProcessFeatures );
-		setUpDatabinding(eObject, domain, dbc, showDecorator, entries);
+		Map<EStructuralFeature,String> map = new LinkedHashMap<EStructuralFeature,String> ();
+		for( EStructuralFeature feature : toProcessFeatures )
+			map.put( feature, null );
+
+		List<EntryDescription> entries = produceWidgets( toolkit, labelColor, parent, map );
+		setUpDatabinding( eObject, domain, dbc, showDecorator, entries );
+		return entries;
+	}
+
+
+	/**
+	 * Generates a 2 column list with left column containing description of widgets and right column containing widget.
+	 * @param eObject the eObject to edit
+	 * @param toolkit a {@link FormToolkit} to create widgets
+	 * @param labelColor the foreground color for the label
+	 * @param parent
+	 * @param domain the {@link EditingDomain} in case of transactional edition. Can be null, then no transaction is used.
+	 * @param dbc
+	 * @param toProcessFeatures list of features to edit.
+	 * @return
+	 */
+	public static List<EntryDescription> generateWidget(
+			EObject eObject,
+			FormToolkit toolkit,
+			Composite parent,
+			EditingDomain domain,
+			DataBindingContext dbc,
+			boolean showDecorator,
+			EStructuralFeature feature,
+			String labelText ) {
+
+		Map<EStructuralFeature,String> map = new LinkedHashMap<EStructuralFeature,String> ();
+		map.put( feature, labelText );
+
+		Color labelColor = parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE );
+		List<EntryDescription> entries = produceWidgets( toolkit, labelColor, parent, map );
+		setUpDatabinding( eObject, domain, dbc, showDecorator, entries );
 		return entries;
 	}
 
@@ -204,7 +241,7 @@ public class EObjecttUIHelper {
 			boolean showDecorator,
 			List<EntryDescription> entries ) {
 
-		for (EntryDescription entry : entries) {
+		for( EntryDescription entry : entries ) {
 			IObservableValue widgetObservable = null;
 			if( entry.widget instanceof Text )
 				widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText((Text) entry.widget, SWT.Modify ));
@@ -315,29 +352,32 @@ public class EObjecttUIHelper {
 	 * Produces the widgets.
 	 * @param toolkit
 	 * @param parent
-	 * @param toProcessFeatures
+	 * @param featuresToLabels
 	 * @return
 	 */
 	private static List<EntryDescription> produceWidgets(
 			FormToolkit toolkit,
 			Color labelColor,
 			Composite parent,
-			EStructuralFeature... toProcessFeatures ) {
+			Map<EStructuralFeature,String> featuresToLabels ) {
 
-		List<EntryDescription> entries = new ArrayList<EntryDescription>();
-		for (EStructuralFeature feature : toProcessFeatures) {
+		List<EntryDescription> entries = new ArrayList<EntryDescription> ();
+		for( Map.Entry<EStructuralFeature,String> entry : featuresToLabels.entrySet()) {
 			Object widget = null;
-			EAttribute attr = (EAttribute) feature;
+			EAttribute attr = (EAttribute) entry.getKey();
+			String label = entry.getValue();
 
 			// The label
-			// TODO leverage ExtendedMetaData.INSTANCE for tooltip and label
-			String label = StringUtils.camelCaseToHuman( attr.getName());
-			label = StringUtils.capitalize( label );
-			if( attr.getLowerBound() > 0)
-				label += " *";
+			// TODO leverage ExtendedMetaData.INSTANCE for tool tip and label
+			if( label == null ) {
+				label = StringUtils.camelCaseToHuman( attr.getName());
+				label = StringUtils.capitalize( label );
+				if( attr.getLowerBound() > 0)
+					label += " *";
+				label += ":";
+			}
 
-			label += ":";
-			Label labelWidget = toolkit.createLabel(parent, label);
+			Label labelWidget = toolkit.createLabel( parent, label );
 			labelWidget.setBackground(parent.getBackground());
 			if( labelColor != null )
 				labelWidget.setForeground( labelColor );
