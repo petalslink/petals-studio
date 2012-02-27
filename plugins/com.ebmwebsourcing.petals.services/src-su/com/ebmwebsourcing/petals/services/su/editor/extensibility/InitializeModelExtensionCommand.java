@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.xml.type.AnyType;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
+import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
@@ -231,24 +232,39 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 * <p>
 	 * This methods adds all the features from the extensions in the target features set.
 	 * </p>
+	 * <p>
+	 * See PETALSSTUD-245<br />
+	 * Checks whether these features are part of the right parent (provides or consumes).<br />
+	 * This method guarantees that we do not initialize consumes features in a provides.
+	 * And vice-versa.
+	 * </p>
 	 */
 	public void initializeFeatures() {
 
 		if( this.targetFeatures != null  )
 		 return;
 
+		String forbiddenWord = this.element instanceof Provides ? "consumes" : "provides";
 		this.targetFeatures = new LinkedHashSet<EStructuralFeature>();
 		if( this.extensionPackage == null )
 			return;
 
-		for( EClassifier classifier : this.extensionPackage.getEClassifiers()) {
-			if( classifier instanceof EClass ) {
-				EClass eClass = (EClass)classifier;
+		eClassLoop: for( EClassifier classifier : this.extensionPackage.getEClassifiers()) {
+			if( !( classifier instanceof EClass ))
+				continue;
 
-				for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
-					((EStructuralFeatureImpl) feature).setFeatureID( -1 );
-					this.targetFeatures.add( feature );
+			// Provides or consumes: do not process them all, only one of them
+			EClass eClass = (EClass) classifier;
+			for( EClass ec : eClass.getEAllSuperTypes()) {
+				if( ec.getName().toLowerCase().contains( forbiddenWord )) {
+					continue eClassLoop;
 				}
+			}
+
+			// Add the features
+			for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
+				((EStructuralFeatureImpl) feature).setFeatureID( -1 );
+				this.targetFeatures.add( feature );
 			}
 		}
 	}
