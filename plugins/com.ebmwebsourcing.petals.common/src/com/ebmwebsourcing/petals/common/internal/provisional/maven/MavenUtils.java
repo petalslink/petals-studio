@@ -229,6 +229,11 @@ public class MavenUtils {
 				if( o instanceof Element ) {
 					Element depElt = (Element) o;
 
+					Element scopeElement = ns == null ? depElt.getChild( "scope" ) : depElt.getChild( "scope", ns );
+					String scope = scopeElement != null ? scopeElement.getValue() : "";
+					if( ! "provided".equalsIgnoreCase( scope ))
+						continue;
+
 					Element artifactIdElement = ns == null ? depElt.getChild( "artifactId" ) : depElt.getChild( "artifactId", ns );
 					String artifactId = artifactIdElement != null ? artifactIdElement.getValue() : "";
 					result.add( artifactId );
