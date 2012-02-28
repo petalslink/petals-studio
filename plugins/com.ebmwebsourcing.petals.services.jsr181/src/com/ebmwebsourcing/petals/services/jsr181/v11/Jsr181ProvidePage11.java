@@ -65,11 +65,10 @@ public class Jsr181ProvidePage11 extends AbstractSuWizardPage {
 	public boolean validate() {
 
 		// Case: WSDL first
-		boolean valid = true;
+		String errorMsg = null;
 		if( this.wsdlFirst ) {
 			if( StringUtils.isEmpty( this.wsdlUriAsString )) {
-				valid = false;
-				updateStatus( "You must specify a WSDL URI." );
+				errorMsg = "You must specify a WSDL URI.";
 
 			} else {
 				try {
@@ -79,11 +78,9 @@ public class Jsr181ProvidePage11 extends AbstractSuWizardPage {
 					ByteArrayOutputStream os = new ByteArrayOutputStream();
 					IoUtils.copyStream( stream, os );
 					this.styledText.setText( os.toString());
-					updateStatus( null );
 
 				} catch( Exception e ) {
-					updateStatus( "The WSDL location is not a valid URI." );
-					valid = false;
+					errorMsg = "The WSDL location is not a valid URI.";
 				}
 			}
 		}
@@ -91,8 +88,7 @@ public class Jsr181ProvidePage11 extends AbstractSuWizardPage {
 
 		// Case: new Java class
 		else if( StringUtils.isEmpty( this.classToGenerate )) {
-			valid = false;
-			updateStatus( "You must specify the name of the class to generate." );
+			errorMsg = "You must specify the name of the class to generate.";
 
 		} else {
 			IStatus status = JavaConventions.validateJavaTypeName(
@@ -100,25 +96,21 @@ public class Jsr181ProvidePage11 extends AbstractSuWizardPage {
 						JavaCore.getOption( JavaCore.COMPILER_SOURCE ),
 						JavaCore.getOption( JavaCore.COMPILER_COMPLIANCE ));
 
-			if( status.isOK()) {
+			if( status.getSeverity() != IStatus.ERROR ) {
 				if( this.classToGenerate.indexOf( '.' ) < 0 ) {
-					updateStatus( "The use of the default package is now allowed." );
-					valid = false;
+					errorMsg = "The use of the default package is now allowed.";
+
+				} else if( ! status.isOK()) {
+					errorMsg = status.getMessage() + ".";
 				}
 
-			} else if( status.getSeverity() != IStatus.ERROR ) {
-				updateStatus( status.getMessage() + "." );
-
 			} else {
-				updateStatus( status.getMessage() + "." );
-				valid = false;
+				errorMsg = status.getMessage() + ".";
 			}
 		}
 
-		if( valid )
-			updateStatus( null );
-
-		return valid;
+		updateStatus( errorMsg );
+		return errorMsg == null;
 	}
 
 
@@ -131,7 +123,7 @@ public class Jsr181ProvidePage11 extends AbstractSuWizardPage {
 	public void createControl( Composite parent ) {
 
 		// Set help link for documentation page.
-		setDescription( "Select creation mode of the JAX Web Service." );
+		setDescription( "Select the creation mode of the JAX Web Service." );
 
 		// Create the composite container and define its layout.
 		final Composite container = new Composite( parent, SWT.NONE );

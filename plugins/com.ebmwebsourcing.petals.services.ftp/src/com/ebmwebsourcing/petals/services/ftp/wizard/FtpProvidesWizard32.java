@@ -32,7 +32,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class FtpProvidesWizard32 extends FtpProvidesWizard31 {
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override
@@ -74,7 +74,7 @@ public class FtpProvidesWizard32 extends FtpProvidesWizard31 {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
 	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */

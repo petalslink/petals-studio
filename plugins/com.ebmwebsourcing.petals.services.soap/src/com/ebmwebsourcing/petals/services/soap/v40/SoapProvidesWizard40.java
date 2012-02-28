@@ -33,7 +33,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 public class SoapProvidesWizard40 extends AbstractServiceUnitWizard {
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override

@@ -26,7 +26,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 public class EipSuWizard extends AbstractServiceUnitWizard {
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override

@@ -16,6 +16,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -30,13 +31,14 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.CollectionUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.pojo.PetalsPojoPlugin;
 import com.ebmwebsourcing.petals.services.pojo.PojoDescription22;
 import com.ebmwebsourcing.petals.services.pojo.pojo.PojoPackage;
@@ -56,7 +58,7 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override
@@ -65,9 +67,27 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getAdditionalMavenDependencies()
+	 */
+	@Override
+	public List<MavenBean> getAdditionalMavenDependencies() {
+
+		List<MavenBean> result = new ArrayList<MavenBean> ();
+		MavenBean bean = new MavenBean();
+		bean.setArtifactId( "petals-se-jsr181-library" );
+		bean.setGroupId( "org.ow2.petals" );
+		bean.setVersion( "1.2.0" );
+
+		result.add( bean );
+		return result;
+	}
+
+
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
 	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
@@ -99,7 +119,7 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 
 
 				// Find the libraries to add in the project class path
-				File pojoLibPath = ResourceUtils.getPluginBinaryPath( "com.ebmwebsourcing.petals.libs.pojo22", "lib" ); //$NON-NLS-1$
+				File pojoLibPath = ResourceUtils.getPluginBinaryPath( "com.ebmwebsourcing.petals.libs.esb", "libs-cdk-p3" ); //$NON-NLS-1$
 				if( pojoLibPath == null ) {
 					PetalsPojoPlugin.log( "Could not find the POJO libraries in the distribution.", IStatus.ERROR );
 					return new Status( IStatus.ERROR, PetalsPojoPlugin.PLUGIN_ID, "The POJO libraries could not be located." );

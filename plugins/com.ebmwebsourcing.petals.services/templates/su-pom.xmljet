@@ -54,7 +54,13 @@
 			<version><%= bean.getComponentVersion() %></version>
 			<scope>provided</scope>
 			<type>jbi-component</type>
-		</dependency>
+		</dependency><% for( MavenBean suBean : bean.dependencies ) {  %>
+		<dependency>
+			<artifactId><%= suBean.getArtifactId() %></artifactId>
+			<groupId><%= suBean.getGroupId() %></groupId>
+			<version><%= suBean.getVersion() %></version>
+			<scope>provided</scope>
+		</dependency><% } %>
 	</dependencies>
 	
 	<build>

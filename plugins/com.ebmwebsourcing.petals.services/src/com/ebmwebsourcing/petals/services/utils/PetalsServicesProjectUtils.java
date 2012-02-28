@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IFile;
@@ -65,6 +66,38 @@ public class PetalsServicesProjectUtils {
 				String componentVersion,
 				String componentAlias,
 				boolean isJavaProject,
+				IProgressMonitor monitor )
+	throws CoreException, IOException {
+
+		return createSuProject(
+				projectName, projectLocationURI, componentName, componentVersion,
+				componentAlias, isJavaProject, null, monitor );
+	}
+
+
+	/**
+	 * Creates a SU project with its structure and its properties set (natures, comments, source folders).
+	 *
+	 * @param projectName the project name
+	 * @param projectLocationURI the project's location URI (null to create in the workspace)
+	 * @param componentName the component's name
+	 * @param componentVersion the component's version
+	 * @param componentAlias the component's alias (e.g. SOAP)
+	 * @param isJavaProject true to create a Java project, false otherwise
+	 * @param additionalDependencies a list of Maven dependencies (can be null)
+	 * @param monitor the progress monitor
+	 * @return the created project
+	 * @throws CoreException
+	 * @throws IOException
+	 */
+	public static IProject createSuProject(
+				String projectName,
+				URI projectLocationURI,
+				String componentName,
+				String componentVersion,
+				String componentAlias,
+				boolean isJavaProject,
+				List<MavenBean> additionalDependencies,
 				IProgressMonitor monitor )
 	throws CoreException, IOException {
 
@@ -151,10 +184,13 @@ public class PetalsServicesProjectUtils {
 		monitor.subTask( "Creating Maven files..." );
 		IFile pomXml = project.getFile( "pom.xml" );
 		MavenBean bean = MavenUtils.getPomParentElements();
+
 		bean.setName( project.getName());
 		bean.setArtifactId( project.getName());
 		bean.setComponentName( componentName );
 		bean.setComponentVersion( componentVersion );
+		if( additionalDependencies != null )
+			bean.dependencies.addAll( additionalDependencies );
 
 		byte[] input = PetalsServicePomManager.INSTANCE.getSuPom( bean, componentName ).getBytes();
 		InputStream is = new ByteArrayInputStream( input );

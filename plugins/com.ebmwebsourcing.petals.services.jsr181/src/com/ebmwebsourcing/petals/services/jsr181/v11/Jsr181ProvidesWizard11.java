@@ -12,16 +12,17 @@
 package com.ebmwebsourcing.petals.services.jsr181.v11;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.namespace.QName;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.bpel.common.wsdl.importhelpers.WsdlImportHelper;
@@ -31,9 +32,12 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.swt.widgets.Display;
@@ -41,12 +45,13 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import org.xml.sax.SAXException;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.CollectionUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils.JaxWsException;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
@@ -81,7 +86,7 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override
@@ -90,26 +95,84 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
+	 * #getAdditionalMavenDependencies()
+	 */
+	@Override
+	public List<MavenBean> getAdditionalMavenDependencies() {
+
+		List<MavenBean> result = new ArrayList<MavenBean> ();
+		MavenBean bean = new MavenBean();
+		bean.setArtifactId( "petals-se-jsr181-library" );
+		bean.setGroupId( "org.ow2.petals" );
+		bean.setVersion( "1.2.0" );
+
+		result.add( bean );
+		return result;
+	}
+
+
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
 	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
+	public IStatus performLastActions( IFolder resourceFolder, AbstractEndpoint ae, IProgressMonitor monitor ) {
 
+		// Generate the JAX-WS part
 		IStatus result = Status.OK_STATUS;
 		try {
 			// Java project
 			IJavaProject jp = JavaUtils.createJavaProject( resourceFolder.getProject());
 
+
 			// Start working on the JAX-WS part
 			if( this.page.isWsdlFirst()) {
-				wsdlFirstApproach( jp, abstractEndpoint, monitor );
+				wsdlFirstApproach( jp, ae, monitor );
 			} else {
-				implementationFirstApproach( jp.getProject(), abstractEndpoint, monitor );
+				implementationFirstApproach( jp.getProject(), ae, monitor );
 			}
+
+
+			// Find the libraries to add in the project class path
+			ArrayList<IClasspathEntry> entries = new ArrayList<IClasspathEntry> ();
+			entries.addAll( Arrays.asList( jp.getRawClasspath()));
+
+			String[] paths = new String[] { "libs-cdk-p4", "libs-jsr181" };
+			FilenameFilter filter = new FilenameFilter() {
+				@Override
+				public boolean accept( File dir, String name ) {
+					return name.endsWith( ".jar" ) || name.endsWith( ".zip" );
+				}
+			};
+
+			for( String dir : paths ) {
+
+				// Find the bundle with the libraries
+				File libPath = ResourceUtils.getPluginBinaryPath( "com.ebmwebsourcing.petals.libs.esb", dir ); //$NON-NLS-1$
+				if( libPath == null ) {
+					PetalsJsr181Plugin.log( "Could not find the JSR libraries in the distribution.", IStatus.ERROR );
+					return new Status( IStatus.ERROR, PetalsJsr181Plugin.PLUGIN_ID, "The JSR libraries could not be located." );
+				}
+
+				// Add the libraries in the project class path
+				File[] jarFiles = libPath.listFiles( filter );
+				if( jarFiles == null )
+					continue;
+
+				for( File jarFile : jarFiles ) {
+					IPath path = new Path( jarFile.getAbsolutePath());
+					IClasspathEntry entry = JavaCore.newLibraryEntry( path, null, null );
+					entries.add( entry );
+				}
+			}
+
+			IClasspathEntry[] newEntries = CollectionUtils.convertToArray( entries, IClasspathEntry.class );
+			if( ! jp.hasClasspathCycle( newEntries ))
+				jp.setRawClasspath( newEntries, monitor );
 
 		} catch( CoreException e ) {
 			result = new Status( Status.ERROR, PetalsJsr181Plugin.PLUGIN_ID, "Jsr181 Error", e );
@@ -264,31 +327,7 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 
 			resFolder.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 
-		} catch( PartInitException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( CoreException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( JaxWsException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( IOException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( InterruptedException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( InvocationTargetException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( URISyntaxException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( SAXException e ) {
-			PetalsJsr181Plugin.log( e, IStatus.ERROR );
-
-		} catch( ParserConfigurationException e ) {
+		} catch( Exception e ) {
 			PetalsJsr181Plugin.log( e, IStatus.ERROR );
 		}
 	}

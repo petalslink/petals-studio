@@ -26,7 +26,7 @@ import com.sun.java.xml.ns.jbi.Consumes;
 public class SoapConsumesWizard41 extends SoapConsumesWizard40 {
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override

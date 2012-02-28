@@ -34,7 +34,7 @@ import com.sun.java.xml.ns.jbi.Consumes;
 public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override
@@ -45,7 +45,7 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override

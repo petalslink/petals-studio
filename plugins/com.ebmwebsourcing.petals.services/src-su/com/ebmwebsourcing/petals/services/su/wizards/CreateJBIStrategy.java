@@ -103,13 +103,14 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 
 
 	/**
-	 *
 	 * @param wizard
 	 * @param monitor
 	 * @throws CoreException
 	 * @throws IOException
 	 */
-	public void createProject( AbstractServiceUnitWizard wizard, IProgressMonitor monitor ) throws CoreException, IOException {
+	public void createProject( AbstractServiceUnitWizard wizard, IProgressMonitor monitor )
+	throws CoreException, IOException {
+
 		if (this.project != null)
 			return;
 
@@ -124,6 +125,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 				wizard.getComponentVersionDescription().getComponentVersion(),
 				wizard.getComponentVersionDescription().getComponentAlias(),
 				wizard.isJavaProject(),
+				wizard.getAdditionalMavenDependencies(),
 				monitor );
 	}
 

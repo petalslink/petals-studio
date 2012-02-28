@@ -46,9 +46,14 @@ public class SuPomXml {
   protected final String TEXT_12 = "</version>" + NL + "\t<packaging>jbi-service-unit</packaging>" + NL + "\t<description>";
   protected final String TEXT_13 = "</description>" + NL + "\t" + NL + "\t<dependencies>" + NL + "\t\t<dependency>" + NL + "\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t<artifactId>";
   protected final String TEXT_14 = "</artifactId>" + NL + "\t\t\t<version>";
-  protected final String TEXT_15 = "</version>" + NL + "\t\t\t<scope>provided</scope>" + NL + "\t\t\t<type>jbi-component</type>" + NL + "\t\t</dependency>" + NL + "\t</dependencies>" + NL + "\t" + NL + "\t<build>" + NL + "\t\t<plugins>" + NL + "\t\t\t<plugin>" + NL + "\t\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t\t<artifactId>maven-petals-plugin</artifactId>" + NL + "\t\t\t\t<version>";
-  protected final String TEXT_16 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "\t" + NL + "\t<!--" + NL + "\t<repositories>" + NL + "\t\t<repository>" + NL + "\t\t\t<id>petals-link</id>" + NL + "\t\t\t<url>http://maven.petalslink.com/public/</url>" + NL + "\t\t</repository>" + NL + "\t</repositories>" + NL + "\t-->" + NL + "</project>";
-  protected final String TEXT_17 = NL;
+  protected final String TEXT_15 = "</version>" + NL + "\t\t\t<scope>provided</scope>" + NL + "\t\t\t<type>jbi-component</type>" + NL + "\t\t</dependency>";
+  protected final String TEXT_16 = NL + "\t\t<dependency>" + NL + "\t\t\t<artifactId>";
+  protected final String TEXT_17 = "</artifactId>" + NL + "\t\t\t<groupId>";
+  protected final String TEXT_18 = "</groupId>" + NL + "\t\t\t<version>";
+  protected final String TEXT_19 = "</version>" + NL + "\t\t\t<scope>provided</scope>" + NL + "\t\t</dependency>";
+  protected final String TEXT_20 = NL + "\t</dependencies>" + NL + "\t" + NL + "\t<build>" + NL + "\t\t<plugins>" + NL + "\t\t\t<plugin>" + NL + "\t\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t\t<artifactId>maven-petals-plugin</artifactId>" + NL + "\t\t\t\t<version>";
+  protected final String TEXT_21 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "\t" + NL + "\t<!--" + NL + "\t<repositories>" + NL + "\t\t<repository>" + NL + "\t\t\t<id>petals-link</id>" + NL + "\t\t\t<url>http://maven.petalslink.com/public/</url>" + NL + "\t\t</repository>" + NL + "\t</repositories>" + NL + "\t-->" + NL + "</project>";
+  protected final String TEXT_22 = NL;
 
 	 public String generate( Object argument )
   {
@@ -103,9 +108,19 @@ public class SuPomXml {
     stringBuffer.append(TEXT_14);
     stringBuffer.append( bean.getComponentVersion() );
     stringBuffer.append(TEXT_15);
-    stringBuffer.append( bean.getPetalsMavenPluginVersion() );
+     for( MavenBean suBean : bean.dependencies ) {  
     stringBuffer.append(TEXT_16);
+    stringBuffer.append( suBean.getArtifactId() );
     stringBuffer.append(TEXT_17);
+    stringBuffer.append( suBean.getGroupId() );
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append( suBean.getVersion() );
+    stringBuffer.append(TEXT_19);
+     } 
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append( bean.getPetalsMavenPluginVersion() );
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_22);
     return stringBuffer.toString();
   }
 }

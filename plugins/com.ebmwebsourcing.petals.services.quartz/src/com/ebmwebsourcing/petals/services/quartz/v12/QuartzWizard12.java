@@ -20,7 +20,7 @@ import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescript
 public class QuartzWizard12 extends QuartzWizard11 {
 
 	/* (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentWizardHandler
+	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
 	 * #getComponentVersionDescription()
 	 */
 	@Override

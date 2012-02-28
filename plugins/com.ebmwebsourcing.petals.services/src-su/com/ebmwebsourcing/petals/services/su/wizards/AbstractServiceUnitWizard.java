@@ -16,7 +16,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,6 +42,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.xml.sax.SAXException;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
@@ -367,6 +370,14 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 */
 	public SuWizardSettings getSettings() {
 		return this.settings;
+	}
+
+
+	/**
+	 * @return a non-null list of Maven dependencies.
+	 */
+	public List<MavenBean> getAdditionalMavenDependencies() {
+		return Collections.emptyList();
 	}
 
 

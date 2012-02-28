@@ -226,25 +226,25 @@ public class ResourceUtils {
 	 *
 	 * @return the file containing the binary resources of a plug-in.
 	 */
-	public static File getPluginBinaryPath(final String pluginId, String binaryFolderName) {
+	public static File getPluginBinaryPath( final String pluginId, String binaryFolderName ) {
 
 		if (binaryFolderName == null || binaryFolderName.trim().length() == 0)
 			binaryFolderName = "bin"; //$NON-NLS-1$
 
 		File bundleFile;
 		try {
-			bundleFile = FileLocator.getBundleFile(Platform.getBundle(pluginId));
+			bundleFile = FileLocator.getBundleFile( Platform.getBundle( pluginId ));
 
-			if (bundleFile.isFile())
+			if( bundleFile.isFile())
 				return bundleFile;
 
-			else if (bundleFile.isDirectory()) {
-				File binaryFolder = new File(bundleFile, binaryFolderName);
-				if (binaryFolder.exists() && binaryFolder.isDirectory())
+			else if( bundleFile.isDirectory()) {
+				File binaryFolder = new File( bundleFile, binaryFolderName );
+				if( binaryFolder.exists() && binaryFolder.isDirectory())
 					return binaryFolder;
 			}
 
-		} catch (Exception e) {
+		} catch( Exception e ) {
 			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 

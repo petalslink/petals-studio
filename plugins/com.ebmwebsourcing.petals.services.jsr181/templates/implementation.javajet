@@ -8,11 +8,25 @@ skeleton="generator.skeleton" %>
 <% Properties prop = (Properties) argument; %>
 package <%= prop.get( Jsr181Constants.PACKAGE_NAME ) %>;
 
+import java.util.logging.Logger;
+
+import javax.jbi.messaging.MessagingException;
 import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.xml.namespace.QName;
+
+import org.ow2.petals.component.framework.api.Message.MEPConstants;
+import org.ow2.petals.component.framework.api.exception.PEtALSCDKException;
+import org.ow2.petals.component.framework.api.message.Exchange;
+import org.ow2.petals.jsr181.JBIContext;
+import org.ow2.petals.jsr181.JBIContextManager;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.ebmwebsourcing.easycommons.xml.DocumentBuilders;
 
 /**
  * Here is a sample JAX-WS implementation.
@@ -39,11 +53,47 @@ public class <%= prop.get( Jsr181Constants.CLASS_NAME ) %> {
 	/*
 	 * (non-Javadoc)
 	 * @see toto.JaxWSInterface
-	 * #listenToTheWorld(java.lang.String)
+	 * #propagateMessage(java.lang.String)
 	 */	
 	@WebMethod( operationName="listenToTheWorld" )
 	@Oneway
-	public void listenToTheWorld( @WebParam( name="message" ) String message ) {
-		// We here illustrate a method that do not return anything.
+	public void propagateMessage( @WebParam( name="message" ) String message ) {
+		
+		// We here illustrate a method that does not return anything.
+		// This method uses a Petals extension to invoke other services in the bus.
+		
+		// Get the JBI context
+    	JBIContext jbiContext = JBIContextManager.getJBIContext();
+    	
+    	// Create the mail content
+    	StringBuilder mailContent = new StringBuilder();
+    	mailContent.append( "Propagating the received message...\n" ).append( message );
+    	
+    	// Create a XML document...
+    	final String MAIL_NS = "http://petals.ow2.org/components/mail/version-3";
+    	
+    	Document mailDocument = DocumentBuilders.newDocument();
+    	final Element mailElement = mailDocument.createElementNS( MAIL_NS, "mail" );
+    	mailDocument.appendChild( mailElement );
+
+    	final Element bodyElement = mailDocument.createElementNS( MAIL_NS, "body" );
+    	mailElement.appendChild( bodyElement );
+    	bodyElement.setTextContent( mailContent.toString());
+
+    	// ... and send it to a mailing service.
+    	try {
+			final Exchange mailExchange = jbiContext.getMessageSender().createExchange( MEPConstants.IN_ONLY_PATTERN );
+			mailExchange.setInterfaceName( new QName( "http://petals.ow2.org/components/mail/version-3", "Mail" ));
+			mailExchange.setService( new QName( "http://petals.ow2.org/components/mail/version-3", "ReportMailService" ));
+			mailExchange.setOperation(new QName("http://petals.ow2.org/components/mail/version-3", "SendMail"));
+			mailExchange.setInMessageContent( mailDocument );
+			jbiContext.getMessageSender().send( mailExchange );
+			
+		} catch( MessagingException e ) {
+			Logger.getLogger( getClass().getName()).severe( "Failed to send a message to the Petals Mail component. Messaging error." );
+			
+		} catch( PEtALSCDKException e ) {
+			Logger.getLogger( getClass().getName()).severe( "Failed to send a message to the Petals Mail component. Petals CDK error." );
+		}
 	}
 }
