@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.maven;
@@ -20,7 +20,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
@@ -202,6 +204,46 @@ public class MavenUtils {
 
 
 	/**
+	 * Extracts the dependencies from a POm whose scope is 'provided'.
+	 * <p>
+	 * This method only gets the artifact ID.
+	 * </p>
+	 * @param file
+	 * @return a non-null set of artifact IDs
+	 */
+	public static Set<String> extractDependenciesWithProvidedScope( File file ) {
+
+		Set<String> result = new HashSet<String> ();
+		if( ! file.exists())
+			return result;
+
+		SAXBuilder builder = new SAXBuilder();
+		try {
+			Document doc = builder.build( file );
+			Namespace ns = doc.getRootElement().getNamespace();
+			Element depsElt = ns == null ? doc.getRootElement().getChild( "dependencies" )
+						: doc.getRootElement().getChild( "dependencies", ns );
+
+			List<?> children = ns == null ? depsElt.getChildren( "dependency" ) : depsElt.getChildren( "dependency", ns );
+			for( Object o : children ) {
+				if( o instanceof Element ) {
+					Element depElt = (Element) o;
+
+					Element artifactIdElement = ns == null ? depElt.getChild( "artifactId" ) : depElt.getChild( "artifactId", ns );
+					String artifactId = artifactIdElement != null ? artifactIdElement.getValue() : "";
+					result.add( artifactId );
+				}
+			}
+
+		} catch( Exception e ) {
+			PetalsCommonPlugin.log( e, IStatus.WARNING );
+		}
+
+		return result;
+	}
+
+
+	/**
 	 * @param targetPom
 	 * @param dependencyPoms
 	 */
@@ -286,7 +328,7 @@ public class MavenUtils {
 	 * If the local repository was not moved, then the default one
 	 * (<code>~/.m2/repository</code>) is used.
 	 * </p>
-	 * 
+	 *
 	 * @return the location of the local Maven repository
 	 */
 	public static IPath findLocalMavenRepository() {

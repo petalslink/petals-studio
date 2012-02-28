@@ -20,9 +20,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -35,6 +38,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
 import com.ebmwebsourcing.petals.common.generation.JbiUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils.ExportableClassPath;
@@ -316,9 +320,24 @@ public class ExportUtils {
 			IFolder resourcesFolder = suProject.getFolder( PetalsConstants.LOC_RES_FOLDER );
 			Map<String,File> zipEntryToFile = JbiUtils.buildPackagingMap( resourcesFolder.getLocation().toFile());
 			if( classpath != null ) {
-				for( File jarFile : classpath.getExportableClassPath()) {
+
+				// Do not embed the libraries whose scope is "provided" in the POM
+				File pomFile = suProject.getFile( PetalsConstants.LOC_POM_FILE ).getLocation().toFile();
+				Set<String> exclusionPatterns = new HashSet<String> ();
+				for( String s : MavenUtils.extractDependenciesWithProvidedScope( pomFile )) {
+					String pattern = Pattern.quote( s ) + "(-\\d+(.\\d+)+)?(-snapshot|-SNAPSHOT)?\\.(jar|zip)";
+					exclusionPatterns.add( pattern );
+				}
+
+				// Iterate over the files and check they have to be packaged
+				jarLoop: for( File jarFile : classpath.getExportableClassPath()) {
 
 					String entry = jarFile.getName();
+					for( String pattern : exclusionPatterns ) {
+						if( entry.matches( pattern ))
+							continue jarLoop;
+					}
+
 					String suffix = "";
 					int id = 1;
 					while( zipEntryToFile.containsKey( entry + suffix ))
