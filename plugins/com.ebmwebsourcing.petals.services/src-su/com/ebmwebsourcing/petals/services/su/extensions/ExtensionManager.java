@@ -242,15 +242,19 @@ public class ExtensionManager {
 		for (FeatureMap.Entry entry : selectedEndpoint.getGroup()) {
 			EStructuralFeature feature = entry.getEStructuralFeature();
 			if (feature instanceof Holder) {
-				List<ComponentVersionDescription> exts = this.namespaceToDescriptions.get(((Holder) feature).getExtendedMetaData().getNamespace());
+				String ns = ((Holder) feature).getExtendedMetaData().getNamespace();
+				List<ComponentVersionDescription> exts = this.namespaceToDescriptions.get( ns );
 				if( exts == null )
 					continue;
 
 				// We can pick up the first one (the name space is the key, not the version)
 				ComponentVersionDescription used = exts.get( 0 );
-				if (selectedEndpoint instanceof Provides && used.isProvide())
+				if (selectedEndpoint instanceof Provides
+						&& (used.isProvide() || used.isProxy()))
 					return used;
-				else if (selectedEndpoint instanceof Consumes && used.isConsume())
+
+				else if (selectedEndpoint instanceof Consumes
+						&& (used.isConsume() || used.isProxy()))
 					return used;
 			}
 		}

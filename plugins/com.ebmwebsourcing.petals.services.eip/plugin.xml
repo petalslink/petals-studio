@@ -257,8 +257,17 @@
              componentVersionDescription="com.ebmwebsourcing.petals.services.eip.su.EipDescription"
              editorExtension="com.ebmwebsourcing.petals.services.eip.editor.EipEditorContribution"
              id="Any EIP"
+             namespace="http://petals.ow2.org/components/eip/version-2"
              providesExtensionWizard="com.ebmwebsourcing.petals.services.eip.su.EipSuWizard">
        </ComponentVersionSupport>
     </ComponentSupport>
+ </extension>
+ <extension
+       point="org.eclipse.emf.ecore.generated_package">
+    <package
+          class="com.ebmwebsourcing.petals.services.eip.eip.EipPackage"
+          genModel="model/eip.genmodel"
+          uri="http://petals.ow2.org/components/eip/version-2">
+    </package>
  </extension>
 </plugin>

@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.core.filesystem,
  org.eclipse.gef,
  org.eclipse.bpel.common.wsdl,
- com.ebmwebsourcing.petals.services.cdk
+ com.ebmwebsourcing.petals.services.cdk,
+ org.eclipse.core.databinding
 Bundle-Activator: com.ebmwebsourcing.petals.services.eip.PetalsEipPlugin
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

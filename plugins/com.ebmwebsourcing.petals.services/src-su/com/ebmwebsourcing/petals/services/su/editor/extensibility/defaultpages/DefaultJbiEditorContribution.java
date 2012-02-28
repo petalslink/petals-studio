@@ -30,6 +30,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  * It is parameterized by the {@link EClass}es to introspect to generate widgets.
  * The main tab is made of default JBI stuff, advanced tab is made of generated widgets
  * </p>
+ *
  * @author Mickael Istria - EBM WebSourcing
  */
 public class DefaultJbiEditorContribution extends JbiEditorDetailsContribution {
@@ -41,7 +42,7 @@ public class DefaultJbiEditorContribution extends JbiEditorDetailsContribution {
 	 * Constructor.
 	 * @param extensionEClasses
 	 */
-	public DefaultJbiEditorContribution(EClass... extensionEClasses) {
+	public DefaultJbiEditorContribution( EClass... extensionEClasses ) {
 		this.extensionClasses = extensionEClasses;
 	}
 
