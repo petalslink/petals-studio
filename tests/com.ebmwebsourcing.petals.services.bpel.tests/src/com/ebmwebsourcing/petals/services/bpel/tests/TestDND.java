@@ -13,10 +13,13 @@ package com.ebmwebsourcing.petals.services.bpel.tests;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.waits.ICondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,7 +38,26 @@ public class TestDND extends SWTBotGefTestCase {
 		SUDesc desc = SUCreator.createFileTransferEndpoint(this.bot);
 		BPELTestsUtils.openBPELEditor(this.bot);
 
-		this.bot.wait( 5000 );
+		this.bot.waitUntil( new ICondition() {
+
+			@Override
+			public boolean test() throws Exception {
+				SWTBotEditor editor = TestDND.this.bot.activeEditor();
+				return editor != null &&
+						"myBpelProcess.bpel".equals( editor.getTitle());
+			}
+
+			@Override
+			public void init( SWTBot bot ) {
+				// nothing
+			}
+
+			@Override
+			public String getFailureMessage() {
+				return "Could not wait the BPEL editor.";
+			}
+		}, 5000 );
+
 		SWTBotView servicesView = this.bot.viewByTitle("Petals Services");
 		servicesView.show();
 		servicesView.setFocus();
