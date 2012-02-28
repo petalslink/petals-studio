@@ -76,11 +76,29 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 
 		List<MavenBean> result = new ArrayList<MavenBean> ();
 		MavenBean bean = new MavenBean();
-		bean.setArtifactId( "petals-se-jsr181-library" );
+		bean.setArtifactId( "petals-cdk-api" );
 		bean.setGroupId( "org.ow2.petals" );
-		bean.setVersion( "1.2.0" );
-
+		bean.setVersion( "2.1.1" );
 		result.add( bean );
+
+		bean = new MavenBean();
+		bean.setArtifactId( "petals-cdk-core" );
+		bean.setGroupId( "org.ow2.petals" );
+		bean.setVersion( "5.1.1" );
+		result.add( bean );
+
+		bean = new MavenBean();
+		bean.setArtifactId( "petals-cdk-jbidescriptor" );
+		bean.setGroupId( "org.ow2.petals" );
+		bean.setVersion( "2.1" );
+		result.add( bean );
+
+		bean = new MavenBean();
+		bean.setArtifactId( "petals-jbi" );
+		bean.setGroupId( "org.ow2.petals" );
+		bean.setVersion( "1.0.2" );
+		result.add( bean );
+
 		return result;
 	}
 
