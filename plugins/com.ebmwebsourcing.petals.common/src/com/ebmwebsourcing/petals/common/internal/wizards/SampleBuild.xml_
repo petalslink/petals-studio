@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/****************************************************************************
+ *
+ * Copyright (c) 2005-2012, EBM WebSourcing
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
+ *
+ *****************************************************************************/
+-->
+
+<project name="A Sample Deployment Script for Petals ESB" default="deploy">
+
+	<!-- The path to Petals libraries, required to interact with the ESB -->
+	<path id="tests.classpath">
+		<fileset dir="${ANT_LIBS_PATH}">
+		       <include name="*.jar" />
+		</fileset>
+	</path>
+
+
+	<!-- The list of all the Petals ANT tasks -->
+	<taskdef resource="org/ow2/petals/ant/petals-ant.properties" >
+		<classpath refid="tests.classpath" />
+	</taskdef>
+
+
+	<!-- 							Targets 										  -->
+	<!-- The hosts, (JMX) user name and password are defined in the topology.xml file -->
+	<target name="deploy">
+	
+		<!-- Deploy a Petals Shared Library -->
+		<jbi-install-shared-library
+					file="shared-library-url"
+					port="7700" 
+					host="localhost"
+					username="petals"
+					password="petals" />
+	
+	
+		<!-- Deploy a Petals Component -->
+		<jbi-install-component	
+					file="component-file-url"
+					port="7700" 
+					host="localhost"
+					username="petals"
+					password="petals" />
+
+		<!-- Start a Petals Component -->
+		<jbi-start-component	
+					name="component-name"
+					port="7700"
+					host="localhost"
+					username="petals"
+					password="petals" />
+
+
+		<!-- Deploy a Petals Service Assembly -->
+		<jbi-deploy-service-assembly 	
+					file="SA-url"
+					port="7700" 
+					host="localhost"
+					username="petals"
+					password="petals" />
+
+		<!-- Start a Petals Service Assembly -->
+		<jbi-start-service-assembly 	
+					name="SA-name"
+					port="7700" 
+					host="localhost"
+					username="petals"
+					password="petals" />
+	</target>
+</project>

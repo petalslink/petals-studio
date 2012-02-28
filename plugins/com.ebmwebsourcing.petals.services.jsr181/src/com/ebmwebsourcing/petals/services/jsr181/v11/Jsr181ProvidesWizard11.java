@@ -12,11 +12,9 @@
 package com.ebmwebsourcing.petals.services.jsr181.v11;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +30,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.swt.widgets.Display;
@@ -47,11 +42,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.CollectionUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JaxWsUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils.JbiBasicBean;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
@@ -128,7 +121,6 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 			// Java project
 			IJavaProject jp = JavaUtils.createJavaProject( resourceFolder.getProject());
 
-
 			// Start working on the JAX-WS part
 			if( this.page.isWsdlFirst()) {
 				wsdlFirstApproach( jp, ae, monitor );
@@ -136,45 +128,13 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 				implementationFirstApproach( jp.getProject(), ae, monitor );
 			}
 
-
 			// Find the libraries to add in the project class path
-			ArrayList<IClasspathEntry> entries = new ArrayList<IClasspathEntry> ();
-			entries.addAll( Arrays.asList( jp.getRawClasspath()));
-
-			String[] paths = new String[] { "libs-cdk-p4", "libs-jsr181" };
-			FilenameFilter filter = new FilenameFilter() {
-				@Override
-				public boolean accept( File dir, String name ) {
-					return name.endsWith( ".jar" ) || name.endsWith( ".zip" );
-				}
-			};
-
-			for( String dir : paths ) {
-
-				// Find the bundle with the libraries
-				File libPath = ResourceUtils.getPluginBinaryPath( "com.ebmwebsourcing.petals.libs.esb", dir ); //$NON-NLS-1$
-				if( libPath == null ) {
-					PetalsJsr181Plugin.log( "Could not find the JSR libraries in the distribution.", IStatus.ERROR );
-					return new Status( IStatus.ERROR, PetalsJsr181Plugin.PLUGIN_ID, "The JSR libraries could not be located." );
-				}
-
-				// Add the libraries in the project class path
-				File[] jarFiles = libPath.listFiles( filter );
-				if( jarFiles == null )
-					continue;
-
-				for( File jarFile : jarFiles ) {
-					IPath path = new Path( jarFile.getAbsolutePath());
-					IClasspathEntry entry = JavaCore.newLibraryEntry( path, null, null );
-					entries.add( entry );
-				}
-			}
-
-			IClasspathEntry[] newEntries = CollectionUtils.convertToArray( entries, IClasspathEntry.class );
-			if( ! jp.hasClasspathCycle( newEntries ))
-				jp.setRawClasspath( newEntries, monitor );
+			JavaUtils.updateClasspathWithProjectLibraries( jp, monitor, "libs-cdk-p4", "libs-jsr181" );
 
 		} catch( CoreException e ) {
+			result = new Status( Status.ERROR, PetalsJsr181Plugin.PLUGIN_ID, "Jsr181 Error", e );
+
+		} catch( IOException e ) {
 			result = new Status( Status.ERROR, PetalsJsr181Plugin.PLUGIN_ID, "Jsr181 Error", e );
 		}
 

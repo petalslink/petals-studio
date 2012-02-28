@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
@@ -147,10 +146,7 @@ public class JbiXmlNewWizard extends Wizard implements INewWizard {
 			return true;
 
 		} catch( Exception e ) {
-			IStatus status = new Status(
-						IStatus.ERROR, 	PetalsCommonPlugin.PLUGIN_ID,
-						Messages.NewJbiXmlWizard_1, e );
-			PetalsCommonPlugin.getDefault().getLog().log( status );
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
 		return false;
@@ -166,7 +162,6 @@ public class JbiXmlNewWizard extends Wizard implements INewWizard {
 	public void init( IWorkbench workbench, IStructuredSelection selection ) {
 		this.selection = selection;
 		this.workbench = workbench;
-		setWindowTitle( Messages.NewJbiXmlWizard_2 );
 
 		ImageDescriptor desc = PetalsCommonPlugin.getImageDescriptor( "icons/wizban/wiz_jbi_descriptor.png" ); //$NON-NLS-1$
 		setDefaultPageImageDescriptor( desc );

@@ -218,6 +218,17 @@
              Create a Petals croquis
           </description>
        </wizard>
+       <wizard
+             category="com.ebmwebsourcing.petals.common.wizards.utilities"
+             class="com.ebmwebsourcing.petals.common.internal.wizards.DeploymentScriptNewWizard"
+             hasPages="true"
+             icon="icons/obj16/ant_buildfile.gif"
+             id="com.ebmwebsourcing.petals.common.deploymentScriptWizard"
+             name="Deployment Script (ANT)">
+          <description>
+             Create an ANT file to script Petals deployments.
+          </description>
+       </wizard>
     </extension>
     <extension
           point="org.eclipse.ui.importWizards">

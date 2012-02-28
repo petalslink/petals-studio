@@ -12,31 +12,23 @@
 package com.ebmwebsourcing.petals.services.pojo.wizards;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.CollectionUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.pojo.PetalsPojoPlugin;
@@ -119,7 +111,6 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 		if( ! this.page.isUseExistingImplementation()) {
 
 			try {
-
 				// Generate the sample class
 				IJavaProject javaProject = JavaUtils.createJavaProject( resourceFolder.getProject());
 				IFolder srcFolder = resourceFolder.getProject().getFolder(PetalsConstants.LOC_SRC_FOLDER);
@@ -135,36 +126,8 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 
 				abstractEndpoint.eSet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME, "com.ebmwebsourcing.formation.MyFirstPojo");
 
-
 				// Find the libraries to add in the project class path
-				File pojoLibPath = ResourceUtils.getPluginBinaryPath( "com.ebmwebsourcing.petals.libs.esb", "libs-cdk-p3" ); //$NON-NLS-1$
-				if( pojoLibPath == null ) {
-					PetalsPojoPlugin.log( "Could not find the POJO libraries in the distribution.", IStatus.ERROR );
-					return new Status( IStatus.ERROR, PetalsPojoPlugin.PLUGIN_ID, "The POJO libraries could not be located." );
-				}
-
-				File[] jarFiles = pojoLibPath.listFiles( new FilenameFilter() {
-					@Override
-					public boolean accept( File dir, String name ) {
-						return name.endsWith( ".jar" ) || name.endsWith( ".zip" );
-					}
-				});
-
-
-				// Add the libraries in the project class path
-				ArrayList<IClasspathEntry> entries = new ArrayList<IClasspathEntry> ();
-				entries.addAll( Arrays.asList( javaProject.getRawClasspath()));
-				if( jarFiles != null ) {
-					for( File jarFile : jarFiles ) {
-						IPath path = new Path( jarFile.getAbsolutePath());
-						IClasspathEntry entry = JavaCore.newLibraryEntry( path, null, null );
-						entries.add( entry );
-					}
-				}
-
-				IClasspathEntry[] newEntries = CollectionUtils.convertToArray( entries, IClasspathEntry.class );
-				if( ! javaProject.hasClasspathCycle( newEntries ))
-					javaProject.setRawClasspath( newEntries, monitor );
+				JavaUtils.updateClasspathWithProjectLibraries( javaProject, monitor, "libs-cdk-p3" );
 
 			} catch( CoreException e ) {
 				PetalsPojoPlugin.log( e, IStatus.ERROR );

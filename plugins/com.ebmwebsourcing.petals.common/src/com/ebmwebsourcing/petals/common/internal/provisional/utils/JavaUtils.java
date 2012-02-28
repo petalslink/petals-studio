@@ -12,6 +12,8 @@
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,6 +90,54 @@ public class JavaUtils {
 		}
 
 		return result;
+	}
+
+
+	/**
+	 * Updates the class path of a Java project with libraries embedded by the studio.
+	 * @param jp the Java project
+	 * @param folders the folder names
+	 * @throws IOException
+	 * @throws JavaModelException
+	 */
+	public static void updateClasspathWithProjectLibraries( IJavaProject jp, IProgressMonitor monitor, String... folders )
+	throws IOException, JavaModelException {
+
+		if( folders == null )
+			return;
+
+		// Keep the current entries
+		ArrayList<IClasspathEntry> entries = new ArrayList<IClasspathEntry> ();
+		entries.addAll( Arrays.asList( jp.getRawClasspath()));
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept( File dir, String name ) {
+				return name.endsWith( ".jar" ) || name.endsWith( ".zip" );
+			}
+		};
+
+
+		for( String folder : folders ) {
+			File pojoLibPath = ResourceUtils.getPluginBinaryPath( "com.ebmwebsourcing.petals.libs.esb", folder ); //$NON-NLS-1$
+			if( pojoLibPath == null ) {
+				PetalsCommonPlugin.log( "Could not find the Petals libraries in the distribution.", IStatus.ERROR );
+				throw new IOException( "Petals libraries could not be located." );
+			}
+
+			// Add the libraries in the project class path
+			File[] jarFiles = pojoLibPath.listFiles( filter );
+			if( jarFiles != null ) {
+				for( File jarFile : jarFiles ) {
+					IPath path = new Path( jarFile.getAbsolutePath());
+					IClasspathEntry entry = JavaCore.newLibraryEntry( path, null, null );
+					entries.add( entry );
+				}
+			}
+		}
+
+		IClasspathEntry[] newEntries = CollectionUtils.convertToArray( entries, IClasspathEntry.class );
+		if( ! jp.hasClasspathCycle( newEntries ))
+			jp.setRawClasspath( newEntries, monitor );
 	}
 
 
