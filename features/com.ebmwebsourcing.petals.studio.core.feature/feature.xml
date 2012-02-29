@@ -202,7 +202,7 @@ Petals Link is a registered trademark of EBM WebSourcing
          unpack="false"/>
 
    <plugin
-         id="com.ebmwebsourcing.petals.libs.pojo22"
+         id="com.ebmwebsourcing.petals.libs.esb"
          download-size="0"
          install-size="0"
          version="0.0.0"
