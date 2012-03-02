@@ -11,8 +11,8 @@ instructions.configure=\
 	org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/plugin_customization.ini);\
 	addRepository(type:0,name:Petals Studio 1.3,location:http${#58}//download.petalslink.com/petals-studio/files/PetalsStudio_1.3/updates/);\
 	addRepository(type:1,name:Petals Studio 1.3,location:http${#58}//download.petalslink.com/petals-studio/files/PetalsStudio_1.3/updates/);\
-	addRepository(type:0,name:Eclipse Helios,location:http${#58}//download.eclipse.org/releases/helios/);\
-	addRepository(type:1,name:Eclipse Helios,location:http${#58}//download.eclipse.org/releases/helios/);\
+	addRepository(type:0,name:Eclipse Indigo,location:http${#58}//download.eclipse.org/releases/indigo/);\
+	addRepository(type:1,name:Eclipse Indigo,location:http${#58}//download.eclipse.org/releases/indigo/);\
 	addRepository(type:0,name:FindBugs,location:http${#58}//findbugs.cs.umd.edu/eclipse/);\
 	addRepository(type:1,name:FindBugs,location:http${#58}//findbugs.cs.umd.edu/eclipse/);\
 	addRepository(type:0,name:PMD,location:http${#58}//pmd.sf.net/eclipse/);\
