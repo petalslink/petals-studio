@@ -41,8 +41,8 @@ import com.ebmwebsourcing.easycommons.xml.DocumentBuilders;
 prop.get( Jsr181Constants.TNS ) %>", portName="<%= prop.get( Jsr181Constants.PORT_NAME ) %>" )
 public class <%= prop.get( Jsr181Constants.CLASS_NAME ) %> {
 
-	/* (non-Javadoc)
-	 * @see JaxWSInterface#HelloWorld()
+	/**
+	 * Displays "Hello World!".
 	 */
 	@WebMethod( operationName="helloWorld" )
 	@WebResult( name="returnMessage" )
@@ -50,10 +50,9 @@ public class <%= prop.get( Jsr181Constants.CLASS_NAME ) %> {
 		return "Hello World!";
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see toto.JaxWSInterface
-	 * #propagateMessage(java.lang.String)
+	/**
+	 * Propagates a message by sending to a service deployed on the Petals Mail component.
+	 * @param message the message to set in the email
 	 */	
 	@WebMethod( operationName="listenToTheWorld" )
 	@Oneway
