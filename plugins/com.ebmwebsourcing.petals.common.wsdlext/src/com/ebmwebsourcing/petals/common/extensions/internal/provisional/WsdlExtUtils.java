@@ -28,7 +28,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.Launch;
+import org.eclipse.debug.core.model.IProcess;
+import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMRunner;
@@ -37,8 +40,10 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.osgi.framework.Bundle;
 
 import com.ebmwebsourcing.petals.common.extensions.PetalsCommonWsdlExtPlugin;
+import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
 /**
  * A set of utility methods for WSDL and based on an external library (e.g. CXF).
@@ -98,13 +103,18 @@ public class WsdlExtUtils {
 				String serviceName,
 				IProgressMonitor monitor ) {
 
+		final boolean logCxf = PreferencesManager.logAllCXFTraces();
 		List<String> arguments = new ArrayList<String> ();
 		List<String> classpath = new ArrayList<String> ();
 		classpath.addAll( Arrays.asList( classPathDirectories ));
 		classpath.addAll( getCXFLibs());
 
 		arguments.add( "-wsdl" );
-		arguments.add( "-quiet" );
+		if( logCxf )
+			arguments.add( "-verbose" );
+		else
+			arguments.add( "-quiet" );
+
 		arguments.add( "-o" );
 		arguments.add( wsdlName );
 
@@ -123,6 +133,7 @@ public class WsdlExtUtils {
 		arguments.add( outputDestination );
 		arguments.add(className);
 
+		final StringBuilder sb = new StringBuilder();
 		try {
 			// Run CXF in a separate process
 			IVMInstall vmInstall = JavaRuntime.getDefaultVMInstall();
@@ -132,7 +143,31 @@ public class WsdlExtUtils {
                     classpath.toArray( new String[ classpath.size()]));
             vmRunnerConfiguration.setProgramArguments( arguments.toArray( new String[ arguments.size()]));
 
-            ILaunch launch = new Launch(null, ILaunchManager.RUN_MODE, null);
+			// Create the launch
+            final IStreamListener streamListener = new IStreamListener() {
+				@Override
+				public void streamAppended( String text, IStreamMonitor monitor ) {
+					if( ! StringUtils.isEmpty( text ))
+						sb.append( text + "\n" );
+				}
+			};
+
+            ILaunch launch = new Launch(null, ILaunchManager.RUN_MODE, null) {
+            	@Override
+            	public void addProcess( IProcess process ) {
+            		super.addProcess( process );
+
+            		try {
+            			process.getStreamsProxy().getErrorStreamMonitor().addListener( streamListener );
+            			process.getStreamsProxy().getOutputStreamMonitor().addListener( streamListener );
+
+            		} catch( Exception e ) {
+            			PetalsCommonWsdlExtPlugin.log( e, IStatus.WARNING );
+            		}
+            	}
+            };
+
+            // Start the execution
             vmRunner.run( vmRunnerConfiguration, launch, monitor );
 
             // Wait for the Java process to have completed its work
@@ -145,6 +180,13 @@ public class WsdlExtUtils {
 
 		} catch( Exception e ) {
 			PetalsCommonWsdlExtPlugin.log( e, IStatus.ERROR );
+
+		} finally {
+			if( logCxf ) {
+				Exception e = new Exception( sb.toString());
+				String msg = "CXF Logs for a Java to WSDL conversion.\n";
+				PetalsCommonWsdlExtPlugin.log( e, IStatus.INFO, msg );
+			}
 		}
 
 		return new File( outputDestination, wsdlName );

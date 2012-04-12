@@ -156,7 +156,15 @@ public class WsdlParsingJobManager {
 			// Parse the WSDL
 			WsdlParsingJobManager.this.beans.clear();
 			try {
-				if( WsdlParsingJobManager.this.wsdlUri != null )
+				boolean parse = true;
+				if( WsdlParsingJobManager.this.wsdlUri == null )
+					parse = false;
+				else if( ! WsdlParsingJobManager.this.wsdlUri.getScheme().equals( "file" ))
+					parse = true;
+				else if( ! new File( WsdlParsingJobManager.this.wsdlUri ).exists())
+					parse = false;
+
+				if( parse )
 					WsdlParsingJobManager.this.beans.addAll( WsdlUtils.INSTANCE.parse( WsdlParsingJobManager.this.wsdlUri ));
 
 			} catch( Exception e ) {

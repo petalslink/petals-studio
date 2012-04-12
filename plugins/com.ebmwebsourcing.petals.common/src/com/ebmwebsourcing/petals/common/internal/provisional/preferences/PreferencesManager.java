@@ -49,6 +49,11 @@ public class PreferencesManager {
 	public static final String PREFS_LOG_JAXWS = "PetalsLogJaxWsTraces";
 
 	/**
+	 * True to log all the CXF traces, false otherwise.
+	 */
+	public static final String PREFS_LOG_CXF = "PetalsLogCxfTraces";
+
+	/**
 	 * True to use customized POM, false otherwise.
 	 */
 	public static final String PREFS_USE_CUSTOMIZED_POM = "UseCustomizedPoms";
@@ -127,6 +132,14 @@ public class PreferencesManager {
 	 */
 	public static boolean logAllJaxWsTraces() {
 		return PetalsCommonPlugin.getDefault().getPreferenceStore().getBoolean( PREFS_LOG_JAXWS );
+	}
+
+
+	/**
+	 * @return true if all the CXF traces should be logged, false otherwise
+	 */
+	public static boolean logAllCXFTraces() {
+		return PetalsCommonPlugin.getDefault().getPreferenceStore().getBoolean( PREFS_LOG_CXF );
 	}
 
 

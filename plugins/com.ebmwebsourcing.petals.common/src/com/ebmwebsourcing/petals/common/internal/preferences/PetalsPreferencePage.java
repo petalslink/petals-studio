@@ -32,7 +32,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.preferences.Prefere
  */
 public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
-	private BooleanFieldEditor logJaxWsField;
+	private BooleanFieldEditor logJaxWsField, logCxfField;
 
 
 	/**
@@ -77,6 +77,27 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 		this.logJaxWsField.setPreferenceStore( getPreferenceStore());
 		this.logJaxWsField.load();
 
+
+		// Log CXF traces
+		group = new Group( container, SWT.NONE );
+		group.setLayout( new GridLayout());
+		layoutData = new GridData( GridData.FILL_HORIZONTAL );
+		layoutData.horizontalSpan = 3;
+		layoutData.verticalIndent = 10;
+		group.setLayoutData( layoutData );
+		group.setText( "Apache CXF" );
+
+		subContainer = new Composite( group, SWT.NONE );
+		subContainer.setLayout( new GridLayout());
+
+		this.logCxfField = new BooleanFieldEditor(
+				PreferencesManager.PREFS_LOG_CXF,
+				"Log all the CXF traces",
+				subContainer );
+		this.logCxfField.setPage( this );
+		this.logCxfField.setPreferenceStore( getPreferenceStore());
+		this.logCxfField.load();
+
 		return container;
 	}
 
@@ -89,6 +110,7 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 	@Override
 	public boolean performOk() {
 		this.logJaxWsField.store();
+		this.logCxfField.store();
 		return super.performOk();
 	}
 
@@ -101,6 +123,7 @@ public class PetalsPreferencePage extends PreferencePage implements IWorkbenchPr
 	@Override
 	protected void performDefaults() {
 		this.logJaxWsField.loadDefault();
+		this.logCxfField.loadDefault();
 		super.performDefaults();
 	}
 
