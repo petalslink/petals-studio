@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
@@ -88,7 +88,7 @@ public class JaxWsUtils {
 	 * This method can be used to check that there is an available JDK 6
 	 * that will be used by the tooling.
 	 * </p>
-	 * 
+	 *
 	 * @param wsGen true to get WsGen, false to get WsImport
 	 * @return the required executable file
 	 * @throws IOException if the executable was not found
@@ -158,7 +158,7 @@ public class JaxWsUtils {
 	 * If an error occurs during the execution, it will appear in the returned
 	 * string builder.
 	 * </p>
-	 * 
+	 *
 	 * @param className the name of the annotated class
 	 * @param targetDirectory the target directory
 	 * @param jp the Java project that contains this class
@@ -300,7 +300,7 @@ public class JaxWsUtils {
 	 * If an error occurs during the execution, it will appear in the returned
 	 * string builder.
 	 * </p>
-	 * 
+	 *
 	 * @param wsdlUri the WSDL's URI
 	 * @param targetDirectory the target directory
 	 * @return a string builder containing the execution details
@@ -428,7 +428,7 @@ public class JaxWsUtils {
 
 	/**
 	 * Searches all the Java types from a Java project that are annotated with @WebService.
-	 * 
+	 *
 	 * @param jp the containing Java project
 	 * @param monitor the progress monitor
 	 * @param includeClasses true to include classes in the search results
@@ -438,7 +438,7 @@ public class JaxWsUtils {
 	 * Key = the qualified name of the annotated type<br />
 	 * Value = the associated service name (in the target WSDL)
 	 * </p>
-	 * 
+	 *
 	 * @throws CoreException if the search could not be launched
 	 */
 	public static Map<String,String> getJaxAnnotatedJavaTypes(
@@ -508,7 +508,7 @@ public class JaxWsUtils {
 
 	/**
 	 * Deletes all the classes annotated with @WebServiceClient.
-	 * 
+	 *
 	 * @param jp the containing Java project
 	 * @param monitor the progress monitor
 	 * @throws CoreException if the classes annotated with @WebServiceClient could not be listed
@@ -555,7 +555,7 @@ public class JaxWsUtils {
 	 * For very interface annotated with @WebService, a default implementing class
 	 * is created and replaces the interface.
 	 * </p>
-	 * 
+	 *
 	 * @param jp the containing Java project
 	 * @param monitor the progress monitor
 	 * @return a map associating a WSDL service name with a JAX-WS class
@@ -563,7 +563,7 @@ public class JaxWsUtils {
 	 * Key = a WSDL service name<br />
 	 * Value = the JAX-WS class
 	 * </p>
-	 * 
+	 *
 	 * @throws CoreException if the annotated interfaces could not be listed
 	 */
 	public static Map<String,String> createJaxWsImplementation( IJavaProject jp, final IProgressMonitor monitor )
@@ -580,8 +580,6 @@ public class JaxWsUtils {
 						|| type.getCompilationUnit() == null )
 				continue;
 
-			StringBuilder source = new StringBuilder( type.getCompilationUnit().getSource());
-
 			// Get the interface's simple name
 			int index = className.lastIndexOf( '.' );
 			String simpleName;
@@ -595,45 +593,8 @@ public class JaxWsUtils {
 				implName = simpleName + "Impl";
 
 			serviceNameToImplName.put( entry.getValue(), className.replaceFirst( simpleName + "$", implName ));
-
-			// Modify it to create the content of the class
-			// => Class declaration
-			Pattern interfacePattern = Pattern.compile(
-						" interface\\s+\\w+\\s*\\{",
-						Pattern.MULTILINE | Pattern.DOTALL );
-
-			Matcher matcher = interfacePattern.matcher( source );
-			if( matcher.find()) {
-				source = source.replace(
-							matcher.start(),
-							matcher.end(),
-							" class " + implName + " implements " + simpleName + " {" );
-			}
-
-			// Get the methods' default implementations
-			Pattern methodPattern = Pattern.compile(
-						"(public\\s+(\\w+)\\s+\\w+\\s*\\([^;]*\\))\\s*;",
-						Pattern.MULTILINE | Pattern.DOTALL );
-
-			matcher = methodPattern.matcher( source );
-			while( matcher.find()) {
-
-				// group( 0 ) = the most external parenthesis
-				// group( 1 ) = first opening parenthesis and first closing parenthesis
-				// group( 2 ) = most internal parenthesis
-				String javaType = matcher.group( 2 );
-				String defaultImpl = getDefaultImplementation( javaType );
-				String methodDecl = matcher.group( 0 );
-
-				methodDecl = methodDecl.substring( 0, methodDecl.length() - 1 ).trim();	// Remove the semicolon
-				String methodRepl = methodDecl + " {\n\t\t" + defaultImpl + "\n\t}";
-				source = source.replace( matcher.start(), matcher.end(), methodRepl );
-
-				// We progressively modify the searched string.
-				// We have to reset the matcher to make sure it does not stop to
-				// an offset that has now been pushed by our additions.
-				matcher.reset();
-			}
+			StringBuffer sourceBuffer = replaceInterfaceDeclarationByImpl( type.getCompilationUnit().getSource(), simpleName, implName );
+			String source = replaceInterfaceMethodsByImpl( sourceBuffer );
 
 			// Create the class file and set its content
 			ICompilationUnit cu = type.getCompilationUnit();
@@ -643,9 +604,9 @@ public class JaxWsUtils {
 
 				// Normally, the file should exist and be the interface's one
 				if( ! implFile.exists())
-					implFile.create( new ByteArrayInputStream( source.toString().getBytes()), true, monitor );
+					implFile.create( new ByteArrayInputStream( source.getBytes()), true, monitor );
 				else
-					implFile.setContents( new ByteArrayInputStream( source.toString().getBytes()), true, true, monitor );
+					implFile.setContents( new ByteArrayInputStream( source.getBytes()), true, true, monitor );
 			}
 			else
 				PetalsCommonPlugin.log( "The JAX-WS implementation could not be created (no compilation unit).", IStatus.ERROR );
@@ -656,11 +617,70 @@ public class JaxWsUtils {
 
 
 	/**
+	 * Replaces the interface declaration by the declaration of an implementation.
+	 * @param interfaceDecl
+	 * @param simpleName
+	 * @param implName
+	 * @return
+	 */
+	static StringBuffer replaceInterfaceDeclarationByImpl( String interfaceDecl, String simpleName, String implName ) {
+
+		StringBuffer source = new StringBuffer( interfaceDecl );
+		Pattern interfacePattern = Pattern.compile(
+				" interface\\s+\\w+\\s*\\{",
+				Pattern.MULTILINE | Pattern.DOTALL );
+
+		Matcher matcher = interfacePattern.matcher( source );
+		if( matcher.find()) {
+			source = source.replace(
+					matcher.start(),
+					matcher.end(),
+					" class " + implName + " implements " + simpleName + " {" );
+		}
+
+		return source;
+	}
+
+
+	/**
+	 * Replaces interface methods by their implementations.
+	 * @param source
+	 * @return
+	 */
+	static String replaceInterfaceMethodsByImpl( StringBuffer source ) {
+
+		// Get the methods' default implementations
+		Pattern methodPattern = Pattern.compile(
+				"public\\s+(\\w+)\\s+\\w+\\s*\\([^;]*\\)\\s*(throws\\s+\\w+)?\\s*;",
+				Pattern.MULTILINE | Pattern.DOTALL );
+
+		Matcher matcher = methodPattern.matcher( source );
+		while( matcher.find()) {
+
+			String javaType = matcher.group( 1 );
+			String defaultImpl = getDefaultImplementation( javaType );
+			String methodDecl = matcher.group( 0 );
+
+			methodDecl = methodDecl.substring( 0, methodDecl.length() - 1 ).trim();	// Remove the semicolon
+			String methodRepl = methodDecl + " {\n\t\t" + defaultImpl + "\n\t}";
+			source = source.replace( matcher.start(), matcher.end(), methodRepl );
+
+			// We progressively modify the searched string.
+			// We have to reset the matcher to make sure it does not stop to
+			// an offset that has now been pushed by our additions.
+			matcher.reset();
+		}
+
+		return source.toString();
+	}
+
+
+	/**
 	 * Gets the default implementation text for a given return type.
 	 * @param javaType the Java type (void, primitive type or class name)
 	 * @return the default implementation (never null)
 	 */
-	private static String getDefaultImplementation( String javaType ) {
+	static String getDefaultImplementation( String javaType ) {
 
 		String result;
 		if( "void".equals( javaType ))
