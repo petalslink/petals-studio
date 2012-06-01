@@ -252,7 +252,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		Button newProvidesButton = getFormToolkit().createButton(providesButtons, "New...", SWT.NONE);
 		newProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, true, 1, 1 ));
-		newProvidesButton.setImage( PetalsImages.getAdd());
+		newProvidesButton.setImage( PetalsImages.INSTANCE.getAdd());
 		newProvidesButton.addSelectionListener( new SelectionAdapter() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
@@ -268,7 +268,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		final Button removeProvidesButton = getFormToolkit().createButton( providesButtons, "Remove", SWT.NONE );
 		removeProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false, 1, 1 ));
-		removeProvidesButton.setImage( PetalsImages.getDelete());
+		removeProvidesButton.setImage( PetalsImages.INSTANCE.getDelete());
 		removeProvidesButton.addSelectionListener( new EListRemoveSelectionListener( this.providesViewer ));
 
 		final Button upProvidesButton = getFormToolkit().createButton(providesButtons, "", SWT.NONE);
@@ -307,7 +307,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		Button newConsumesButton = getFormToolkit().createButton( consumesButtons, "New...", SWT.NONE );
 		newConsumesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false, 1, 1 ));
-		newConsumesButton.setImage( PetalsImages.getAdd());
+		newConsumesButton.setImage( PetalsImages.INSTANCE.getAdd());
 		newConsumesButton.addSelectionListener( new SelectionAdapter() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
@@ -323,7 +323,7 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		final Button removeConsumesButton = getFormToolkit().createButton( consumesButtons, "Remove", SWT.NONE );
 		removeConsumesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false, 1, 1 ));
-		removeConsumesButton.setImage( PetalsImages.getDelete());
+		removeConsumesButton.setImage( PetalsImages.INSTANCE.getDelete());
 		removeConsumesButton.addSelectionListener( new EListRemoveSelectionListener(this.consumesViewer));
 
 		final Button upConsumesButton = getFormToolkit().createButton( consumesButtons, "", SWT.NONE );

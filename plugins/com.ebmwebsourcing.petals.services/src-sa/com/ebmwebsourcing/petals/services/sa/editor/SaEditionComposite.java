@@ -208,7 +208,7 @@ public class SaEditionComposite extends SashForm {
 
 		Button newSuButton = this.ise.getFormToolkit().createButton( buttonsComposite, "New...", SWT.PUSH );
 		newSuButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false ));
-		newSuButton.setImage( PetalsImages.getAdd());
+		newSuButton.setImage( PetalsImages.INSTANCE.getAdd());
 		newSuButton.addSelectionListener( new SelectionAdapter() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
@@ -258,7 +258,7 @@ public class SaEditionComposite extends SashForm {
 
 		final Button removeProvidesButton = this.ise.getFormToolkit().createButton( buttonsComposite, "Remove", SWT.PUSH );
 		removeProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false ));
-		removeProvidesButton.setImage( PetalsImages.getDelete());
+		removeProvidesButton.setImage( PetalsImages.INSTANCE.getDelete());
 		removeProvidesButton.addSelectionListener( new DefaultSelectionListener() {
 
 			/*

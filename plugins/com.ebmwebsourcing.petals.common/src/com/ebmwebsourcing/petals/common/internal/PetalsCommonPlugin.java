@@ -17,12 +17,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IEditorRegistry;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.wst.sse.sieditor.ui.DataTypesEditor;
-import org.eclipse.wst.sse.sieditor.ui.ServiceInterfaceEditor;
 import org.osgi.framework.BundleContext;
+
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -71,11 +69,11 @@ public class PetalsCommonPlugin extends AbstractUIPlugin {
 	 * See PETALSSTUD-222.
 	 * </p>
 	 */
-	private void setDefaultEditors() {
-		IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
-		registry.setDefaultEditor( "*.xsd", DataTypesEditor.EDITOR_ID );
-		registry.setDefaultEditor( "*.wsdl", ServiceInterfaceEditor.EDITOR_ID );
-	}
+//	private void setDefaultEditors() {
+//		IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
+//		registry.setDefaultEditor( "*.xsd", DataTypesEditor.EDITOR_ID );
+//		registry.setDefaultEditor( "*.wsdl", ServiceInterfaceEditor.EDITOR_ID );
+//	}
 
 
 	/*
@@ -89,6 +87,7 @@ public class PetalsCommonPlugin extends AbstractUIPlugin {
 		super.stop( context );
 
 		try {
+			PetalsImages.INSTANCE.dispose();
 			if( this.clipboard != null && ! this.clipboard.isDisposed()) {
 				this.clipboard.dispose();
 				this.clipboard = null;

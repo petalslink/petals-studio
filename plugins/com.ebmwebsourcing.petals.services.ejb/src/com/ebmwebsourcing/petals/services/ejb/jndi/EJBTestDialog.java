@@ -87,12 +87,12 @@ public class EJBTestDialog extends Dialog {
 	 * @param ex
 	 */
 	public void showError(Exception ex) {
-		if (this.jndiImage.getBackgroundImage() != PetalsImages.getOk()) {
-			this.jndiImage.setBackgroundImage(PetalsImages.getKO());
-		} else if (this.lookupImage.getBackgroundImage() != PetalsImages.getOk()) {
-			this.lookupImage.setBackgroundImage(PetalsImages.getKO());
-		} else if (this.ejbImage.getBackgroundImage() != PetalsImages.getOk()) {
-			this.ejbImage.setBackgroundImage(PetalsImages.getKO());
+		if (this.jndiImage.getBackgroundImage() != PetalsImages.INSTANCE.getOk()) {
+			this.jndiImage.setBackgroundImage(PetalsImages.INSTANCE.getKO());
+		} else if (this.lookupImage.getBackgroundImage() != PetalsImages.INSTANCE.getOk()) {
+			this.lookupImage.setBackgroundImage(PetalsImages.INSTANCE.getKO());
+		} else if (this.ejbImage.getBackgroundImage() != PetalsImages.INSTANCE.getOk()) {
+			this.ejbImage.setBackgroundImage(PetalsImages.INSTANCE.getKO());
 		}
 
 		this.errorDescLabel.setText(ex.toString());
@@ -106,7 +106,7 @@ public class EJBTestDialog extends Dialog {
 	 *
 	 */
 	public void jndiOk() {
-		this.jndiImage.setBackgroundImage(PetalsImages.getOk());
+		this.jndiImage.setBackgroundImage(PetalsImages.INSTANCE.getOk());
 	}
 
 
@@ -114,7 +114,7 @@ public class EJBTestDialog extends Dialog {
 	 *
 	 */
 	public void lookupOk() {
-		this.lookupImage.setBackgroundImage(PetalsImages.getOk());
+		this.lookupImage.setBackgroundImage(PetalsImages.INSTANCE.getOk());
 	}
 
 
@@ -122,6 +122,6 @@ public class EJBTestDialog extends Dialog {
 	 *
 	 */
 	public void ejbOk() {
-		this.ejbImage.setBackgroundImage(PetalsImages.getOk());
+		this.ejbImage.setBackgroundImage(PetalsImages.INSTANCE.getOk());
 	}
 }
