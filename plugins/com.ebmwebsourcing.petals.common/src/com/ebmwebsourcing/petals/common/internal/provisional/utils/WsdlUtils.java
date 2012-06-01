@@ -73,7 +73,7 @@ public class WsdlUtils {
 
 		try {
 			this.wsdlFactory11 = javax.wsdl.factory.WSDLFactory.newInstance();
-			this.wsdlReader11 = javax.wsdl.factory.WSDLFactory.newInstance().newWSDLReader();
+			this.wsdlReader11 = this.wsdlFactory11.newWSDLReader();
 			this.wsdlReader11.setFeature( "javax.wsdl.verbose", false ); //$NON-NLS-1$
 
 		} catch( javax.wsdl.WSDLException e ) {

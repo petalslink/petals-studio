@@ -6,12 +6,19 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: EBMWEBSOURCING
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit,
- com.ebmwebsourcing.petals.common.wsdlext;bundle-version="1.0.0",
- org.eclipse.core.runtime;bundle-version="3.7.0",
- com.ebmwebsourcing.petals.tests.common;bundle-version="1.0.0",
- org.eclipse.jdt.core;bundle-version="3.7.0",
+ com.ebmwebsourcing.petals.common.wsdlext,
+ org.eclipse.core.runtime,
+ com.ebmwebsourcing.petals.tests.common,
+ org.eclipse.jdt.core,
  org.eclipse.swtbot.eclipse.core;bundle-version="2.0.4",
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.4",
  org.eclipse.swtbot.eclipse.gef.finder;bundle-version="2.0.4",
  org.eclipse.swtbot.swt.finder;bundle-version="2.0.4",
- org.eclipse.core.resources;bundle-version="3.7.100"
+ org.eclipse.core.resources,
+ javax.wsdl,
+ org.eclipse.bpel.common.wsdl,
+ org.eclipse.emf,
+ org.eclipse.emf.ecore,
+ org.eclipse.wst.wsdl,
+ org.eclipse.wst.xsd.core,
+ org.eclipse.xsd
