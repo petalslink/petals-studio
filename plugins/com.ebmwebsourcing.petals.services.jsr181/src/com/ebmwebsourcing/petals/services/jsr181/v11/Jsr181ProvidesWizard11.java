@@ -287,6 +287,30 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 
 			resFolder.refreshLocal( IResource.DEPTH_INFINITE, monitor );
 
+			// Open the implementation file
+			final List<IFile> javaFiles = new ArrayList<IFile> ();
+			for( String className : serviceNameToClassName.values()) {
+				IFile javaFile = srcFolder.getFile( className.replaceAll( "\\.", "/" ) + ".java" );
+				javaFiles.add( javaFile );
+			}
+
+			this.resourcesToSelect.addAll( javaFiles );
+			Display.getDefault().asyncExec( new Runnable() {
+				@Override
+				public void run() {
+
+					try {
+						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+						for( IFile file : javaFiles )
+							IDE.openEditor( page, file );
+
+					} catch( PartInitException e ) {
+						PetalsJsr181Plugin.log( e, IStatus.ERROR );
+
+					}
+				}
+			});
+
 		} catch( Exception e ) {
 			PetalsJsr181Plugin.log( e, IStatus.ERROR );
 		}
