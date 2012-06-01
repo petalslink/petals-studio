@@ -297,7 +297,9 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		if( element instanceof IResource ) {
 			res = (IResource) element;
 			try {
-				isInJavaProject = res.getProject().hasNature( JavaCore.NATURE_ID );
+				if( ((IResource) element).exists())
+					isInJavaProject = res.getProject().hasNature( JavaCore.NATURE_ID );
+
 				if( isInJavaProject )
 					javaElement = JavaCore.create( res );
 

@@ -22,12 +22,12 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -234,15 +234,10 @@ public class JbiProvidePage extends JbiAbstractPage {
 
 
 		// Add listeners
-		wsdlBrowser.addKeyListener( new KeyAdapter () {
+		wsdlBrowser.getText().addTraverseListener( new TraverseListener() {
 			@Override
-			public void keyPressed( KeyEvent e ) {
-				if( e.character == SWT.CR
-							|| e.character == SWT.LF
-							|| e.character == SWT.TAB
-							|| e.keyCode == SWT.KEYPAD_CR ) {
-					runWsdlParsing();
-				}
+			public void keyTraversed( TraverseEvent e ) {
+				runWsdlParsing();
 			}
 		});
 
