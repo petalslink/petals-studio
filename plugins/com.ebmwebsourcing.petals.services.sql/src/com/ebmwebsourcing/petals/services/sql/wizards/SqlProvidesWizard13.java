@@ -69,7 +69,7 @@ public class SqlProvidesWizard13 extends AbstractServiceUnitWizard {
 		Cdk5Utils.setInitialProvidesValues((Provides)ae);
 
 		ae.eSet( Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "SqlService.wsdl");
-		ae.eSet( SqlPackage.Literals.SQL_PROVIDES__URL, null );
+		ae.eSet( SqlPackage.Literals.SQL_PROVIDES__URL, "Example - jdbc:mysql://localhost:3306/table_name" );
 		ae.eSet( SqlPackage.Literals.SQL_PROVIDES__USER, null );
 		ae.eSet( SqlPackage.Literals.SQL_PROVIDES__PASSWORD, null );
 
