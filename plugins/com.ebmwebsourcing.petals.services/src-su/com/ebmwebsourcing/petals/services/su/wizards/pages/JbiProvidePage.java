@@ -95,6 +95,17 @@ public class JbiProvidePage extends JbiAbstractPage {
 		createCommonControls( container, 20 );
 		createAutoGenerationWidget( container );
 		createExplanationBox( container );
+
+		this.srvQText.getLocalPartText().addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				if( ! JbiProvidePage.this.edptText.isEnabled())
+					return;
+
+				String srv = ((Text) e.widget).getText().trim();
+				JbiProvidePage.this.edptText.setText( srv.length() == 0 ? "" : srv + "Endpoint" );
+			}
+		});
 	}
 
 
