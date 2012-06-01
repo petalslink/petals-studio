@@ -11,21 +11,21 @@ Require-Bundle: org.eclipse.core.runtime,
  com.ebmwebsourcing.petals.services,
  org.eclipse.ui.ide,
  com.ebmwebsourcing.petals.common,
- com.ebmwebsourcing.jbi.core.metamodel,
  org.eclipse.emf.databinding,
- org.eclipse.bpel.ui;bundle-version="0.8.0",
+ org.eclipse.bpel.ui;bundle-version="1.0.1",
  org.eclipse.gef,
  com.ebmwebsourcing.petals.libs.easybpel,
  org.eclipse.wst.wsdl,
- org.eclipse.bpel.model;bundle-version="0.8.0",
+ org.eclipse.bpel.model;bundle-version="1.0.1",
  org.eclipse.ui.views.properties.tabbed,
  com.ebmwebsourcing.petals.libs.easybpel,
- org.eclipse.bpel.common.ui;bundle-version="0.8.0",
- org.eclipse.bpel.validator;bundle-version="0.8.0",
- org.eclipse.bpel.common.wsdl;bundle-version="0.8.0",
+ org.eclipse.bpel.validator;bundle-version="1.0.1",
+ org.eclipse.bpel.common.wsdl;bundle-version="1.0.1",
  com.ebmwebsourcing.petals.services.cdk,
  org.eclipse.emf.edit,
- org.eclipse.jface.databinding
+ org.eclipse.jface.databinding,
+ org.eclipse.bpel.common.ui;bundle-version="1.0.1",
+ org.eclipse.ui.navigator.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy

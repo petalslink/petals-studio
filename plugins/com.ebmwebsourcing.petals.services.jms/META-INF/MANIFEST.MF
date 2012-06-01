@@ -6,16 +6,14 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %pluginProvider
 Bundle-Localization: plugin
 Require-Bundle: com.ebmwebsourcing.petals.services,
- com.ebmwebsourcing.jbi.core.metamodel,
  com.ebmwebsourcing.petals.common,
- org.eclipse.core.databinding,
  org.eclipse.emf.databinding,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.ui,
  org.eclipse.ui.forms,
  org.eclipse.emf.edit,
- com.ebmwebsourcing.petals.services.cdk;bundle-version="1.0.0",
+ com.ebmwebsourcing.petals.services.cdk,
  com.ebmwebsourcing.petals.common.generation
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

@@ -141,4 +141,3 @@ Export-Package: antlr,
  com.sun.xml.bind.unmarshaller,
  org.apache.cxf.tools.java2ws,
  org.apache.cxf.tools.wsdlto
-Require-Bundle: com.ebmwebsourcing.petals.common;bundle-version="1.0.0"

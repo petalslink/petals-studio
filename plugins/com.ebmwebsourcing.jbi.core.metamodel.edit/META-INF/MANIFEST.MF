@@ -12,5 +12,5 @@ Export-Package: com.sun.java.xml.ns.jbi.provider
 Require-Bundle: org.eclipse.core.runtime,
  com.ebmwebsourcing.jbi.core.metamodel;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
- org.eclipse.emf.ecore.edit;bundle-version="2.7.0"
+ org.eclipse.emf.ecore.edit
 Bundle-ActivationPolicy: lazy

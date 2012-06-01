@@ -4,7 +4,6 @@ Bundle-Name: Petals POJO Libraries
 Bundle-SymbolicName: com.ebmwebsourcing.petals.libs.esb
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: EBM WebSourcing
-Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Eclipse-BundleShape: dir

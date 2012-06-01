@@ -5,15 +5,10 @@ Bundle-SymbolicName: com.ebmwebsourcing.petals.services.bpel.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: EBM WebSourcing
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.0",
- org.eclipse.swtbot.eclipse.gef.finder;bundle-version="2.0.0",
- org.eclipse.swtbot.swt.finder;bundle-version="2.0.0",
+ org.eclipse.swtbot.eclipse.gef.finder,
  org.junit;bundle-version="4.8.2",
- org.eclipse.draw2d,
- org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.gef,
  com.ebmwebsourcing.petals.tests.common,
- com.ebmwebsourcing.petals.services.bpel
+ org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
