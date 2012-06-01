@@ -46,6 +46,7 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener;
 import com.ebmwebsourcing.petals.common.internal.projectscnf.PetalsProjectManager;
 import com.ebmwebsourcing.petals.common.internal.projectscnf.StatisticsTimer;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils;
 
 /**
  * The base content provider to use for all the contributions to the Petals projects view.
@@ -288,12 +289,27 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		if( element instanceof PetalsProjectCategory )
 			return null;
 
+		// What do we have?
 		IResource res = null;
-		if( element instanceof IResource )
-			res = (IResource) element;
+		IJavaElement javaElement = null;
+		boolean isInJavaProject = false;
 
-		else if( element instanceof IJavaProject )
-			res = ((IJavaProject) element).getProject();
+		if( element instanceof IResource ) {
+			res = (IResource) element;
+			try {
+				isInJavaProject = res.getProject().hasNature( JavaCore.NATURE_ID );
+				if( isInJavaProject )
+					javaElement = JavaCore.create( res );
+
+			} catch( CoreException e ) {
+				PetalsCommonPlugin.log( e, IStatus.ERROR );
+			}
+
+		} else if( element instanceof IJavaElement ) {
+			isInJavaProject = true;
+			javaElement = (IJavaElement) element;
+			res = javaElement.getResource();
+		}
 
 		// Projects should return a category
 		// Otherwise, selection won't work when we want to reveal a new project
@@ -313,18 +329,22 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 				return parent;
 		}
 
-		// Otherwise, return the parent
-		if( res != null )
-			return res.getParent();
-
-		if( element instanceof IJavaElement ) {
+		// Java elements
+		if( javaElement != null ) {
 			// PETALSSTUD-165: Selection of Java resources fails for JSR-181
-			IJavaElement elt = ((IJavaElement) element).getParent();
+			IJavaElement elt = javaElement.getParent();
 			if( elt instanceof IJavaProject )
 				return ((IJavaProject) elt).getProject();
 
 			// PETALSSTUD-165: Selection of Java resources fails for JSR-181
 			return elt;
+		}
+
+		// Otherwise, return the parent
+		if( res != null ) {
+			res = res.getParent();
+			javaElement = (IJavaElement) PlatformUtils.getAdapter( res, IJavaElement.class );
+			return javaElement != null ? javaElement : res;
 		}
 
 		return null;
