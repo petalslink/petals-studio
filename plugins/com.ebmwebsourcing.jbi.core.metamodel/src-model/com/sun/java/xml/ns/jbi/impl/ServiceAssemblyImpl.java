@@ -1,35 +1,34 @@
 /**
  *  Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *  
  *  This source code is available under agreement available at
  *  http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.impl;
-
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 import com.sun.java.xml.ns.jbi.Connections;
 import com.sun.java.xml.ns.jbi.Identification;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.ServiceAssembly;
 import com.sun.java.xml.ns.jbi.ServiceUnit;
+
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->

@@ -1,28 +1,16 @@
 /**
  *  Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *  
  *  This source code is available under agreement available at
  *  http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.impl;
 
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import com.sun.java.xml.ns.jbi.ClassLoaderDelegationType;
 import com.sun.java.xml.ns.jbi.ClassPath;
 import com.sun.java.xml.ns.jbi.Component;
@@ -46,6 +34,18 @@ import com.sun.java.xml.ns.jbi.Services;
 import com.sun.java.xml.ns.jbi.SharedLibraryType;
 import com.sun.java.xml.ns.jbi.SharedLibraryType1;
 import com.sun.java.xml.ns.jbi.Target;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -108,13 +108,6 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass consumesEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass documentRootEClass = null;
 
 	/**
@@ -136,7 +129,21 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass providerEClass = null;
+	private EClass servicesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractEndpointEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass consumesEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -150,21 +157,14 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass providerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass serviceAssemblyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass servicesEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass abstractEndpointEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -432,7 +432,7 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponent_BootstrapClassLoaderDelegation() {
+	public EAttribute getComponent_Group() {
 		return (EAttribute)componentEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -441,7 +441,7 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponent_ComponentClassLoaderDelegation() {
+	public EAttribute getComponent_Any() {
 		return (EAttribute)componentEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -450,8 +450,35 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponent_Type() {
+	public EAttribute getComponent_Any1() {
 		return (EAttribute)componentEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponent_BootstrapClassLoaderDelegation() {
+		return (EAttribute)componentEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponent_ComponentClassLoaderDelegation() {
+		return (EAttribute)componentEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponent_Type() {
+		return (EAttribute)componentEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -560,15 +587,6 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 */
 	public EAttribute getConsumer_ServiceName() {
 		return (EAttribute)consumerEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getConsumes() {
-		return consumesEClass;
 	}
 
 	/**
@@ -702,78 +720,6 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getProvider() {
-		return providerEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getProvider_EndpointName() {
-		return (EAttribute)providerEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getProvider_ServiceName() {
-		return (EAttribute)providerEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getProvides() {
-		return providesEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getServiceAssembly() {
-		return serviceAssemblyEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getServiceAssembly_Identification() {
-		return (EReference)serviceAssemblyEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getServiceAssembly_ServiceUnit() {
-		return (EReference)serviceAssemblyEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getServiceAssembly_Connections() {
-		return (EReference)serviceAssemblyEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getServices() {
 		return servicesEClass;
 	}
@@ -839,6 +785,87 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 	 */
 	public EAttribute getAbstractEndpoint_ServiceName() {
 		return (EAttribute)abstractEndpointEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConsumes() {
+		return consumesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getProvides() {
+		return providesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getProvider() {
+		return providerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProvider_EndpointName() {
+		return (EAttribute)providerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProvider_ServiceName() {
+		return (EAttribute)providerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getServiceAssembly() {
+		return serviceAssemblyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceAssembly_Identification() {
+		return (EReference)serviceAssemblyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceAssembly_ServiceUnit() {
+		return (EReference)serviceAssemblyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceAssembly_Connections() {
+		return (EReference)serviceAssemblyEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1065,6 +1092,9 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 		createEReference(componentEClass, COMPONENT__BOOTSTRAP_CLASS_PATH);
 		createEAttribute(componentEClass, COMPONENT__SHARED_LIBRARY_LIST);
 		createEReference(componentEClass, COMPONENT__SHARED_LIBRARY);
+		createEAttribute(componentEClass, COMPONENT__GROUP);
+		createEAttribute(componentEClass, COMPONENT__ANY);
+		createEAttribute(componentEClass, COMPONENT__ANY1);
 		createEAttribute(componentEClass, COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION);
 		createEAttribute(componentEClass, COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION);
 		createEAttribute(componentEClass, COMPONENT__TYPE);
@@ -1186,7 +1216,6 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		componentEClass.getESuperTypes().add(this.getAbstractExtensibleElement());
 		connectionsEClass.getESuperTypes().add(this.getAbstractExtensibleElement());
 		identificationEClass.getESuperTypes().add(this.getAbstractExtensibleElement());
 		servicesEClass.getESuperTypes().add(this.getAbstractExtensibleElement());
@@ -1203,7 +1232,7 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 		initEAttribute(getAbstractExtensibleElement_Local(), theEcorePackage.getEFeatureMapEntry(), "local", null, 0, -1, AbstractExtensibleElement.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(classPathEClass, ClassPath.class, "ClassPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getClassPath_PathElement(), theXMLTypePackage.getString(), "pathElement", null, 1, 1, ClassPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassPath_PathElement(), theXMLTypePackage.getString(), "pathElement", null, 1, -1, ClassPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponent_Identification(), this.getIdentification(), null, "identification", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1213,6 +1242,9 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 		initEReference(getComponent_BootstrapClassPath(), this.getClassPath(), null, "bootstrapClassPath", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponent_SharedLibraryList(), theEcorePackage.getEFeatureMapEntry(), "sharedLibraryList", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_SharedLibrary(), this.getSharedLibraryType1(), null, "sharedLibrary", null, 0, -1, Component.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponent_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponent_Any(), ecorePackage.getEFeatureMapEntry(), "any", null, 0, -1, Component.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponent_Any1(), ecorePackage.getEFeatureMapEntry(), "any1", null, 0, -1, Component.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponent_BootstrapClassLoaderDelegation(), this.getClassLoaderDelegationType(), "bootstrapClassLoaderDelegation", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponent_ComponentClassLoaderDelegation(), this.getClassLoaderDelegationType(), "componentClassLoaderDelegation", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponent_Type(), this.getComponentType(), "type", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1430,6 +1462,33 @@ public class JbiPackageImpl extends EPackageImpl implements JbiPackage {
 			 "name", "shared-library",
 			 "namespace", "##targetNamespace",
 			 "group", "#SharedLibraryList:5"
+		   });		
+		addAnnotation
+		  (getComponent_Group(), 
+		   source, 
+		   new String[] {
+			 "kind", "group",
+			 "name", "group:7"
+		   });		
+		addAnnotation
+		  (getComponent_Any(), 
+		   source, 
+		   new String[] {
+			 "kind", "elementWildcard",
+			 "wildcards", "##other",
+			 "name", ":8",
+			 "processing", "skip",
+			 "group", "#group:7"
+		   });		
+		addAnnotation
+		  (getComponent_Any1(), 
+		   source, 
+		   new String[] {
+			 "kind", "elementWildcard",
+			 "wildcards", "##local",
+			 "name", ":9",
+			 "processing", "skip",
+			 "group", "#group:7"
 		   });		
 		addAnnotation
 		  (getComponent_BootstrapClassLoaderDelegation(), 

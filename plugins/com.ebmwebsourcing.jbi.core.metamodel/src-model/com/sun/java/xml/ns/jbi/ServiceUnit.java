@@ -6,14 +6,9 @@
  *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi;
 
-import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc -->

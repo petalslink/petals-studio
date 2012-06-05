@@ -1,24 +1,27 @@
 /**
  *  Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *  
  *  This source code is available under agreement available at
  *  http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.provider;
 
+
+import com.sun.java.xml.ns.jbi.JbiFactory;
+import com.sun.java.xml.ns.jbi.JbiPackage;
+import com.sun.java.xml.ns.jbi.Services;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -27,12 +30,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import com.sun.java.xml.ns.jbi.JbiFactory;
-import com.sun.java.xml.ns.jbi.JbiPackage;
-import com.sun.java.xml.ns.jbi.Services;
 
 /**
  * This is the item provider adapter for a {@link com.sun.java.xml.ns.jbi.Services} object.
@@ -41,14 +39,13 @@ import com.sun.java.xml.ns.jbi.Services;
  * @generated
  */
 public class ServicesItemProvider
-extends AbstractExtensibleElementItemProvider
-implements
-IEditingDomainItemProvider,
-IStructuredItemContentProvider,
-ITreeItemContentProvider,
-IItemLabelProvider,
-IItemPropertySource {
-
+	extends AbstractExtensibleElementItemProvider
+	implements
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -143,15 +140,12 @@ IItemPropertySource {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 * <p>
-	 * 	Updated the way the binding-component attribute is displayed.
-	 * </p>
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
 		Services services = (Services)object;
-		return getString("_UI_Services_type") + " (" + services.isBindingComponent() + ")";
+		return getString("_UI_Services_type") + " " + services.isBindingComponent();
 	}
 
 	/**

@@ -80,22 +80,19 @@ public class PetalsProjectsSorter extends ViewerSorter {
 		}
 
 		// Java resources are displayed first
-		Object wrapped1 = e1 instanceof PetalsCnfPackageFragment ? ((PetalsCnfPackageFragment) e1).getFragment() : e1;
-		Object wrapped2 = e2 instanceof PetalsCnfPackageFragment ? ((PetalsCnfPackageFragment) e2).getFragment() : e2;
-
-		if( wrapped1 instanceof IJavaElement && !( wrapped2 instanceof IJavaElement ))
+		if( e1 instanceof IJavaElement && !( e2 instanceof IJavaElement ))
 			return -1;
 
-		if( wrapped2 instanceof IJavaElement && !( wrapped1 instanceof IJavaElement ))
+		if( e2 instanceof IJavaElement && !( e1 instanceof IJavaElement ))
 			return 1;
 
-		if( wrapped2 instanceof IJavaElement && wrapped1 instanceof IJavaElement )
-			return compareJavaElements((IJavaElement) wrapped1, (IJavaElement) wrapped2 );
+		if( e2 instanceof IJavaElement && e1 instanceof IJavaElement )
+			return compareJavaElements((IJavaElement) e1, (IJavaElement) e2 );
 
 		// Comparison of categories are specific
-		if( wrapped1 instanceof PetalsProjectCategory && e2 instanceof PetalsProjectCategory ) {
-			int n1 = ((PetalsProjectCategory) wrapped1).getDisplayOrder();
-			int n2 = ((PetalsProjectCategory) wrapped2).getDisplayOrder();
+		if( e1 instanceof PetalsProjectCategory && e2 instanceof PetalsProjectCategory ) {
+			int n1 = ((PetalsProjectCategory) e1).getDisplayOrder();
+			int n2 = ((PetalsProjectCategory) e2).getDisplayOrder();
 			return n1 - n2;
 		}
 

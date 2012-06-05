@@ -1,15 +1,15 @@
 /**
  *  Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *  
  *  This source code is available under agreement available at
  *  http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.provider;
+
+import com.sun.java.xml.ns.jbi.util.JbiAdapterFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +17,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.edit.provider.ChangeNotifier;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -28,8 +29,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
-import com.sun.java.xml.ns.jbi.util.JbiAdapterFactory;
 
 /**
  * This is the factory that is used to provide the interfaces needed to support Viewers.
@@ -218,29 +217,6 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.Consumes} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ConsumesItemProvider consumesItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link com.sun.java.xml.ns.jbi.Consumes}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createConsumesAdapter() {
-		if (consumesItemProvider == null) {
-			consumesItemProvider = new ConsumesItemProvider(this);
-		}
-
-		return consumesItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.DocumentRoot} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -310,26 +286,49 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.Provider} instances.
+	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.Services} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ProviderItemProvider providerItemProvider;
+	protected ServicesItemProvider servicesItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link com.sun.java.xml.ns.jbi.Provider}.
+	 * This creates an adapter for a {@link com.sun.java.xml.ns.jbi.Services}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createProviderAdapter() {
-		if (providerItemProvider == null) {
-			providerItemProvider = new ProviderItemProvider(this);
+	public Adapter createServicesAdapter() {
+		if (servicesItemProvider == null) {
+			servicesItemProvider = new ServicesItemProvider(this);
 		}
 
-		return providerItemProvider;
+		return servicesItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.Consumes} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConsumesItemProvider consumesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.sun.java.xml.ns.jbi.Consumes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createConsumesAdapter() {
+		if (consumesItemProvider == null) {
+			consumesItemProvider = new ConsumesItemProvider(this);
+		}
+
+		return consumesItemProvider;
 	}
 
 	/**
@@ -356,6 +355,29 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.Provider} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProviderItemProvider providerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.sun.java.xml.ns.jbi.Provider}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProviderAdapter() {
+		if (providerItemProvider == null) {
+			providerItemProvider = new ProviderItemProvider(this);
+		}
+
+		return providerItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.ServiceAssembly} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -376,29 +398,6 @@ public class JbiItemProviderAdapterFactory extends JbiAdapterFactory implements 
 		}
 
 		return serviceAssemblyItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link com.sun.java.xml.ns.jbi.Services} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ServicesItemProvider servicesItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link com.sun.java.xml.ns.jbi.Services}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createServicesAdapter() {
-		if (servicesItemProvider == null) {
-			servicesItemProvider = new ServicesItemProvider(this);
-		}
-
-		return servicesItemProvider;
 	}
 
 	/**

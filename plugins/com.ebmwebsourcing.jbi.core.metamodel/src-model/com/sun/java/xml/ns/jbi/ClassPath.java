@@ -6,13 +6,10 @@
  *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -33,30 +30,20 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ClassPath extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Path Element</b></em>' attribute.
+	 * Returns the value of the '<em><b>Path Element</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Path Element</em>' attribute list isn't clear,
+	 * If the meaning of the '<em>Path Element</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Path Element</em>' attribute.
-	 * @see #setPathElement(String)
+	 * @return the value of the '<em>Path Element</em>' attribute list.
 	 * @see com.sun.java.xml.ns.jbi.JbiPackage#getClassPath_PathElement()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
 	 *        extendedMetaData="kind='element' name='path-element' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	String getPathElement();
-
-	/**
-	 * Sets the value of the '{@link com.sun.java.xml.ns.jbi.ClassPath#getPathElement <em>Path Element</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Path Element</em>' attribute.
-	 * @see #getPathElement()
-	 * @generated
-	 */
-	void setPathElement(String value);
+	EList<String> getPathElement();
 
 } // ClassPath

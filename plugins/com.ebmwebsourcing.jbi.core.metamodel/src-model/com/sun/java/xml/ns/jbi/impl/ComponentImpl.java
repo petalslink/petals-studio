@@ -1,28 +1,13 @@
 /**
  *  Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *  
  *  This source code is available under agreement available at
  *  http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.impl;
-
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 import com.sun.java.xml.ns.jbi.ClassLoaderDelegationType;
 import com.sun.java.xml.ns.jbi.ClassPath;
@@ -32,6 +17,23 @@ import com.sun.java.xml.ns.jbi.ComponentType;
 import com.sun.java.xml.ns.jbi.Identification;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.SharedLibraryType1;
+
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import org.eclipse.emf.ecore.util.BasicFeatureMap;
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,6 +49,9 @@ import com.sun.java.xml.ns.jbi.SharedLibraryType1;
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getBootstrapClassPath <em>Bootstrap Class Path</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getSharedLibraryList <em>Shared Library List</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getSharedLibrary <em>Shared Library</em>}</li>
+ *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getGroup <em>Group</em>}</li>
+ *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getAny <em>Any</em>}</li>
+ *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getAny1 <em>Any1</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getBootstrapClassLoaderDelegation <em>Bootstrap Class Loader Delegation</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getComponentClassLoaderDelegation <em>Component Class Loader Delegation</em>}</li>
  *   <li>{@link com.sun.java.xml.ns.jbi.impl.ComponentImpl#getType <em>Type</em>}</li>
@@ -55,7 +60,7 @@ import com.sun.java.xml.ns.jbi.SharedLibraryType1;
  *
  * @generated
  */
-public class ComponentImpl extends AbstractExtensibleElementImpl implements Component {
+public class ComponentImpl extends EObjectImpl implements Component {
 	/**
 	 * The cached value of the '{@link #getIdentification() <em>Identification</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -125,6 +130,16 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 	 * @ordered
 	 */
 	protected FeatureMap sharedLibraryList;
+
+	/**
+	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGroup()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureMap group;
 
 	/**
 	 * The default value of the '{@link #getBootstrapClassLoaderDelegation() <em>Bootstrap Class Loader Delegation</em>}' attribute.
@@ -451,6 +466,36 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FeatureMap getGroup() {
+		if (group == null) {
+			group = new BasicFeatureMap(this, JbiPackage.COMPONENT__GROUP);
+		}
+		return group;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureMap getAny() {
+		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.COMPONENT__ANY);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureMap getAny1() {
+		return (FeatureMap)getGroup().<FeatureMap.Entry>list(JbiPackage.Literals.COMPONENT__ANY1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ClassLoaderDelegationType getBootstrapClassLoaderDelegation() {
 		return bootstrapClassLoaderDelegation;
 	}
@@ -604,6 +649,12 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 				return ((InternalEList<?>)getSharedLibraryList()).basicRemove(otherEnd, msgs);
 			case JbiPackage.COMPONENT__SHARED_LIBRARY:
 				return ((InternalEList<?>)getSharedLibrary()).basicRemove(otherEnd, msgs);
+			case JbiPackage.COMPONENT__GROUP:
+				return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
+			case JbiPackage.COMPONENT__ANY:
+				return ((InternalEList<?>)getAny()).basicRemove(otherEnd, msgs);
+			case JbiPackage.COMPONENT__ANY1:
+				return ((InternalEList<?>)getAny1()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -631,6 +682,15 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 				return ((FeatureMap.Internal)getSharedLibraryList()).getWrapper();
 			case JbiPackage.COMPONENT__SHARED_LIBRARY:
 				return getSharedLibrary();
+			case JbiPackage.COMPONENT__GROUP:
+				if (coreType) return getGroup();
+				return ((FeatureMap.Internal)getGroup()).getWrapper();
+			case JbiPackage.COMPONENT__ANY:
+				if (coreType) return getAny();
+				return ((FeatureMap.Internal)getAny()).getWrapper();
+			case JbiPackage.COMPONENT__ANY1:
+				if (coreType) return getAny1();
+				return ((FeatureMap.Internal)getAny1()).getWrapper();
 			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
 				return getBootstrapClassLoaderDelegation();
 			case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
@@ -671,6 +731,15 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 			case JbiPackage.COMPONENT__SHARED_LIBRARY:
 				getSharedLibrary().clear();
 				getSharedLibrary().addAll((Collection<? extends SharedLibraryType1>)newValue);
+				return;
+			case JbiPackage.COMPONENT__GROUP:
+				((FeatureMap.Internal)getGroup()).set(newValue);
+				return;
+			case JbiPackage.COMPONENT__ANY:
+				((FeatureMap.Internal)getAny()).set(newValue);
+				return;
+			case JbiPackage.COMPONENT__ANY1:
+				((FeatureMap.Internal)getAny1()).set(newValue);
 				return;
 			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
 				setBootstrapClassLoaderDelegation((ClassLoaderDelegationType)newValue);
@@ -714,6 +783,15 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 			case JbiPackage.COMPONENT__SHARED_LIBRARY:
 				getSharedLibrary().clear();
 				return;
+			case JbiPackage.COMPONENT__GROUP:
+				getGroup().clear();
+				return;
+			case JbiPackage.COMPONENT__ANY:
+				getAny().clear();
+				return;
+			case JbiPackage.COMPONENT__ANY1:
+				getAny1().clear();
+				return;
 			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
 				unsetBootstrapClassLoaderDelegation();
 				return;
@@ -749,6 +827,12 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 				return sharedLibraryList != null && !sharedLibraryList.isEmpty();
 			case JbiPackage.COMPONENT__SHARED_LIBRARY:
 				return !getSharedLibrary().isEmpty();
+			case JbiPackage.COMPONENT__GROUP:
+				return group != null && !group.isEmpty();
+			case JbiPackage.COMPONENT__ANY:
+				return !getAny().isEmpty();
+			case JbiPackage.COMPONENT__ANY1:
+				return !getAny1().isEmpty();
 			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_LOADER_DELEGATION:
 				return isSetBootstrapClassLoaderDelegation();
 			case JbiPackage.COMPONENT__COMPONENT_CLASS_LOADER_DELEGATION:
@@ -773,6 +857,8 @@ public class ComponentImpl extends AbstractExtensibleElementImpl implements Comp
 		result.append(bootstrapClassName);
 		result.append(", sharedLibraryList: ");
 		result.append(sharedLibraryList);
+		result.append(", group: ");
+		result.append(group);
 		result.append(", bootstrapClassLoaderDelegation: ");
 		if (bootstrapClassLoaderDelegationESet) result.append(bootstrapClassLoaderDelegation); else result.append("<unset>");
 		result.append(", componentClassLoaderDelegation: ");

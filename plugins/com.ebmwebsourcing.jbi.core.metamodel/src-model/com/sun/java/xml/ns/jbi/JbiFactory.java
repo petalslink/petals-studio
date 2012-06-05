@@ -6,8 +6,6 @@
  *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi;
 
@@ -85,15 +83,6 @@ public interface JbiFactory extends EFactory {
 	Consumer createConsumer();
 
 	/**
-	 * Returns a new object of class '<em>Consumes</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Consumes</em>'.
-	 * @generated
-	 */
-	Consumes createConsumes();
-
-	/**
 	 * Returns a new object of class '<em>Document Root</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -121,13 +110,22 @@ public interface JbiFactory extends EFactory {
 	Jbi createJbi();
 
 	/**
-	 * Returns a new object of class '<em>Provider</em>'.
+	 * Returns a new object of class '<em>Services</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Provider</em>'.
+	 * @return a new object of class '<em>Services</em>'.
 	 * @generated
 	 */
-	Provider createProvider();
+	Services createServices();
+
+	/**
+	 * Returns a new object of class '<em>Consumes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Consumes</em>'.
+	 * @generated
+	 */
+	Consumes createConsumes();
 
 	/**
 	 * Returns a new object of class '<em>Provides</em>'.
@@ -139,6 +137,15 @@ public interface JbiFactory extends EFactory {
 	Provides createProvides();
 
 	/**
+	 * Returns a new object of class '<em>Provider</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Provider</em>'.
+	 * @generated
+	 */
+	Provider createProvider();
+
+	/**
 	 * Returns a new object of class '<em>Service Assembly</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -146,15 +153,6 @@ public interface JbiFactory extends EFactory {
 	 * @generated
 	 */
 	ServiceAssembly createServiceAssembly();
-
-	/**
-	 * Returns a new object of class '<em>Services</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Services</em>'.
-	 * @generated
-	 */
-	Services createServices();
 
 	/**
 	 * Returns a new object of class '<em>Service Unit</em>'.

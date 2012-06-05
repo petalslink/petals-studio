@@ -6,24 +6,20 @@
  *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.impl;
 
 import com.sun.java.xml.ns.jbi.ClassPath;
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
-import org.eclipse.emf.common.notify.Notification;
 import java.util.Collection;
-
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 /**
@@ -41,23 +37,14 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  */
 public class ClassPathImpl extends EObjectImpl implements ClassPath {
 	/**
-	 * The default value of the '{@link #getPathElement() <em>Path Element</em>}' attribute.
+	 * The cached value of the '{@link #getPathElement() <em>Path Element</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPathElement()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String PATH_ELEMENT_EDEFAULT = null;
-	/**
-	 * The cached value of the '{@link #getPathElement() <em>Path Element</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPathElement()
-	 * @generated
-	 * @ordered
-	 */
-	protected String pathElement = PATH_ELEMENT_EDEFAULT;
+	protected EList<String> pathElement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -83,20 +70,11 @@ public class ClassPathImpl extends EObjectImpl implements ClassPath {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getPathElement() {
+	public EList<String> getPathElement() {
+		if (pathElement == null) {
+			pathElement = new EDataTypeEList<String>(String.class, this, JbiPackage.CLASS_PATH__PATH_ELEMENT);
+		}
 		return pathElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPathElement(String newPathElement) {
-		String oldPathElement = pathElement;
-		pathElement = newPathElement;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JbiPackage.CLASS_PATH__PATH_ELEMENT, oldPathElement, pathElement));
 	}
 
 	/**
@@ -123,7 +101,8 @@ public class ClassPathImpl extends EObjectImpl implements ClassPath {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JbiPackage.CLASS_PATH__PATH_ELEMENT:
-				setPathElement((String)newValue);
+				getPathElement().clear();
+				getPathElement().addAll((Collection<? extends String>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -138,7 +117,7 @@ public class ClassPathImpl extends EObjectImpl implements ClassPath {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JbiPackage.CLASS_PATH__PATH_ELEMENT:
-				setPathElement(PATH_ELEMENT_EDEFAULT);
+				getPathElement().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -153,7 +132,7 @@ public class ClassPathImpl extends EObjectImpl implements ClassPath {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JbiPackage.CLASS_PATH__PATH_ELEMENT:
-				return PATH_ELEMENT_EDEFAULT == null ? pathElement != null : !PATH_ELEMENT_EDEFAULT.equals(pathElement);
+				return pathElement != null && !pathElement.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

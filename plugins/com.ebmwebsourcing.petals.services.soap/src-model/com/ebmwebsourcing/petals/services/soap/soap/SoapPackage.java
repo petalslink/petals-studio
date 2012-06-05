@@ -619,33 +619,6 @@ public interface SoapPackage extends EPackage {
 	int SOAP_COMPONENT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Group</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SOAP_COMPONENT__GROUP = JbiPackage.COMPONENT__GROUP;
-
-	/**
-	 * The feature id for the '<em><b>Other</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SOAP_COMPONENT__OTHER = JbiPackage.COMPONENT__OTHER;
-
-	/**
-	 * The feature id for the '<em><b>Local</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SOAP_COMPONENT__LOCAL = JbiPackage.COMPONENT__LOCAL;
-
-	/**
 	 * The feature id for the '<em><b>Identification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -707,6 +680,33 @@ public interface SoapPackage extends EPackage {
 	 * @ordered
 	 */
 	int SOAP_COMPONENT__SHARED_LIBRARY = JbiPackage.COMPONENT__SHARED_LIBRARY;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_COMPONENT__GROUP = JbiPackage.COMPONENT__GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Any</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_COMPONENT__ANY = JbiPackage.COMPONENT__ANY;
+
+	/**
+	 * The feature id for the '<em><b>Any1</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAP_COMPONENT__ANY1 = JbiPackage.COMPONENT__ANY1;
 
 	/**
 	 * The feature id for the '<em><b>Bootstrap Class Loader Delegation</b></em>' attribute.

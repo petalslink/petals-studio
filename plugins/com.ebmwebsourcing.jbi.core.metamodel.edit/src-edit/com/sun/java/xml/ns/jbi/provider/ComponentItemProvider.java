@@ -1,26 +1,32 @@
 /**
  *  Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *  
  *  This source code is available under agreement available at
  *  http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.provider;
 
+
+import com.sun.java.xml.ns.jbi.Component;
+import com.sun.java.xml.ns.jbi.JbiFactory;
+import com.sun.java.xml.ns.jbi.JbiPackage;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -32,10 +38,6 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import com.sun.java.xml.ns.jbi.Component;
-import com.sun.java.xml.ns.jbi.JbiFactory;
-import com.sun.java.xml.ns.jbi.JbiPackage;
-
 /**
  * This is the item provider adapter for a {@link com.sun.java.xml.ns.jbi.Component} object.
  * <!-- begin-user-doc -->
@@ -43,14 +45,13 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
  * @generated
  */
 public class ComponentItemProvider
-extends AbstractExtensibleElementItemProvider
-implements
-IEditingDomainItemProvider,
-IStructuredItemContentProvider,
-ITreeItemContentProvider,
-IItemLabelProvider,
-IItemPropertySource {
-
+	extends ItemProviderAdapter
+	implements
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -185,6 +186,7 @@ IItemPropertySource {
 			childrenFeatures.add(JbiPackage.Literals.COMPONENT__COMPONENT_CLASS_PATH);
 			childrenFeatures.add(JbiPackage.Literals.COMPONENT__BOOTSTRAP_CLASS_PATH);
 			childrenFeatures.add(JbiPackage.Literals.COMPONENT__SHARED_LIBRARY_LIST);
+			childrenFeatures.add(JbiPackage.Literals.COMPONENT__GROUP);
 		}
 		return childrenFeatures;
 	}
@@ -250,6 +252,7 @@ IItemPropertySource {
 			case JbiPackage.COMPONENT__COMPONENT_CLASS_PATH:
 			case JbiPackage.COMPONENT__BOOTSTRAP_CLASS_PATH:
 			case JbiPackage.COMPONENT__SHARED_LIBRARY_LIST:
+			case JbiPackage.COMPONENT__GROUP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -322,6 +325,17 @@ IItemPropertySource {
 				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return JbiEditPlugin.INSTANCE;
 	}
 
 }

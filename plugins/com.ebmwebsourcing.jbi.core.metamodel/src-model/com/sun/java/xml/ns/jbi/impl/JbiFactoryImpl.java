@@ -1,47 +1,24 @@
 /**
  *  Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *  
  *  This source code is available under agreement available at
  *  http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *  
  *  You should have received a copy of the agreement along with this program.
  *  If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- *
- * $Id$
  */
 package com.sun.java.xml.ns.jbi.impl;
 
 import com.sun.java.xml.ns.jbi.*;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import com.sun.java.xml.ns.jbi.ClassLoaderDelegationType;
-import com.sun.java.xml.ns.jbi.ClassPath;
-import com.sun.java.xml.ns.jbi.Component;
-import com.sun.java.xml.ns.jbi.ComponentClassName;
-import com.sun.java.xml.ns.jbi.ComponentType;
-import com.sun.java.xml.ns.jbi.Connection;
-import com.sun.java.xml.ns.jbi.Connections;
-import com.sun.java.xml.ns.jbi.Consumer;
-import com.sun.java.xml.ns.jbi.Consumes;
-import com.sun.java.xml.ns.jbi.DocumentRoot;
-import com.sun.java.xml.ns.jbi.Identification;
-import com.sun.java.xml.ns.jbi.Jbi;
-import com.sun.java.xml.ns.jbi.JbiFactory;
-import com.sun.java.xml.ns.jbi.JbiPackage;
-import com.sun.java.xml.ns.jbi.LinkType;
-import com.sun.java.xml.ns.jbi.Provider;
-import com.sun.java.xml.ns.jbi.Provides;
-import com.sun.java.xml.ns.jbi.ServiceAssembly;
-import com.sun.java.xml.ns.jbi.ServiceUnit;
-import com.sun.java.xml.ns.jbi.Services;
-import com.sun.java.xml.ns.jbi.SharedLibraryType;
-import com.sun.java.xml.ns.jbi.SharedLibraryType1;
-import com.sun.java.xml.ns.jbi.Target;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
  * <!-- begin-user-doc -->
@@ -225,16 +202,6 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Consumes createConsumes() {
-		ConsumesImpl consumes = new ConsumesImpl();
-		return consumes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -265,9 +232,19 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Provider createProvider() {
-		ProviderImpl provider = new ProviderImpl();
-		return provider;
+	public Services createServices() {
+		ServicesImpl services = new ServicesImpl();
+		return services;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Consumes createConsumes() {
+		ConsumesImpl consumes = new ConsumesImpl();
+		return consumes;
 	}
 
 	/**
@@ -285,9 +262,9 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ServiceAssembly createServiceAssembly() {
-		ServiceAssemblyImpl serviceAssembly = new ServiceAssemblyImpl();
-		return serviceAssembly;
+	public Provider createProvider() {
+		ProviderImpl provider = new ProviderImpl();
+		return provider;
 	}
 
 	/**
@@ -295,9 +272,9 @@ public class JbiFactoryImpl extends EFactoryImpl implements JbiFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Services createServices() {
-		ServicesImpl services = new ServicesImpl();
-		return services;
+	public ServiceAssembly createServiceAssembly() {
+		ServiceAssemblyImpl serviceAssembly = new ServiceAssemblyImpl();
+		return serviceAssembly;
 	}
 
 	/**

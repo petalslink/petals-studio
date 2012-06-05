@@ -106,7 +106,6 @@ public class SoapSwitch<T> extends Switch<T> {
 				SoapComponent soapComponent = (SoapComponent)theEObject;
 				T result = caseSoapComponent(soapComponent);
 				if (result == null) result = caseComponent(soapComponent);
-				if (result == null) result = caseAbstractExtensibleElement(soapComponent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
