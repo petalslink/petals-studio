@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.projectscnf;
@@ -54,6 +54,7 @@ public class PetalsProjectNavigator extends CommonNavigator {
 		CommonViewer viewer = super.createCommonViewerObject( aParent );
 		viewer.addDoubleClickListener( new IDoubleClickListener() {
 
+			@Override
 			public void doubleClick( DoubleClickEvent event ) {
 
 				if( event.getSelection() instanceof IStructuredSelection ) {

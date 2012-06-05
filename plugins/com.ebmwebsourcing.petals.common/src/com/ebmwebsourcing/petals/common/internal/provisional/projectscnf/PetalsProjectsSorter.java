@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.projectscnf;
@@ -80,19 +80,22 @@ public class PetalsProjectsSorter extends ViewerSorter {
 		}
 
 		// Java resources are displayed first
-		if( e1 instanceof IJavaElement && !( e2 instanceof IJavaElement ))
+		Object wrapped1 = e1 instanceof PetalsCnfPackageFragment ? ((PetalsCnfPackageFragment) e1).getFragment() : e1;
+		Object wrapped2 = e2 instanceof PetalsCnfPackageFragment ? ((PetalsCnfPackageFragment) e2).getFragment() : e2;
+
+		if( wrapped1 instanceof IJavaElement && !( wrapped2 instanceof IJavaElement ))
 			return -1;
 
-		if( e2 instanceof IJavaElement && !( e1 instanceof IJavaElement ))
+		if( wrapped2 instanceof IJavaElement && !( wrapped1 instanceof IJavaElement ))
 			return 1;
 
-		if( e2 instanceof IJavaElement && e1 instanceof IJavaElement )
-			return compareJavaElements((IJavaElement) e1, (IJavaElement) e2 );
+		if( wrapped2 instanceof IJavaElement && wrapped1 instanceof IJavaElement )
+			return compareJavaElements((IJavaElement) wrapped1, (IJavaElement) wrapped2 );
 
 		// Comparison of categories are specific
-		if( e1 instanceof PetalsProjectCategory && e2 instanceof PetalsProjectCategory ) {
-			int n1 = ((PetalsProjectCategory) e1).getDisplayOrder();
-			int n2 = ((PetalsProjectCategory) e2).getDisplayOrder();
+		if( wrapped1 instanceof PetalsProjectCategory && e2 instanceof PetalsProjectCategory ) {
+			int n1 = ((PetalsProjectCategory) wrapped1).getDisplayOrder();
+			int n2 = ((PetalsProjectCategory) wrapped2).getDisplayOrder();
 			return n1 - n2;
 		}
 

@@ -199,4 +199,22 @@ public class StringUtils {
 
 		return sb.toString().trim();
 	}
+
+
+	/**
+	 * Counts the number of occurrences of a character in a string.
+	 * @param haystack a string to search in (not null)
+	 * @param needle a char
+	 * @return the number of occurrences
+	 */
+	public static int countOccurrences( String haystack, char needle ) {
+
+		int count = 0;
+	    for( int i=0; i<haystack.length(); i++ ) {
+	        if (haystack.charAt(i) == needle)
+	             count++;
+	    }
+
+	    return count;
+	}
 }

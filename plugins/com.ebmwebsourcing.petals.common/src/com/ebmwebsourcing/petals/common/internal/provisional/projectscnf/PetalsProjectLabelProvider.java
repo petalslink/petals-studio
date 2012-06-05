@@ -17,10 +17,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -97,45 +94,29 @@ public class PetalsProjectLabelProvider extends LabelProvider implements IStyled
 		if( element instanceof IStorage )
 			return ((IStorage) element).getName();
 
+		if( element instanceof IPackageFragment ) {
+			String result = ((IPackageFragment) element).isDefaultPackage() ? "default" : ((IPackageFragment) element).getElementName();
+			if( PetalsProjectManager.isJavaLayoutFlat())
+				return  result;
+
+			PetalsCnfPackageFragment ppf = PetalsProjectManager.INSTANCE.dirtyViewerMap.get( element );
+			if( ppf == null )
+				return "oops";
+
+			Object parent = ppf.getParent();
+			if( parent instanceof PetalsCnfPackageFragment
+					&& ((PetalsCnfPackageFragment) parent).getFragment() != null ) {
+				String parentName = ((PetalsCnfPackageFragment) parent).getFragment().getElementName();
+				result = result.substring( parentName.length() + 1 );
+			}
+
+			return result;
+		}
+
 		String result = "";
 		IWorkbenchAdapter adapter = (IWorkbenchAdapter) PlatformUtils.getAdapter( element, IWorkbenchAdapter.class );
 		if( adapter != null )
 			result = adapter.getLabel( element );
-
-
-		// Hack for packages with the hierarchical presentation
-		if( element instanceof IPackageFragment
-					&& ! PetalsProjectManager.isJavaLayoutFlat()) {
-
-			// Find the "parent" package
-			IPackageFragmentRoot root = (IPackageFragmentRoot) ((IPackageFragment) element).getParent();
-			String currentParent = "";
-			try {
-				for( IJavaElement jelt : root.getChildren()) {
-
-					if( jelt instanceof IPackageFragment ) {
-						String name = adapter.getLabel( jelt );
-						boolean hasChildren = ((IPackageFragment) jelt).getNonJavaResources().length > 0
-						|| ((IPackageFragment) jelt).getChildren().length > 0;
-
-						if( hasChildren
-									&& result.startsWith( name )
-									&& ! result.equals( name )
-									&& name.length() > currentParent.length())
-							currentParent = name;
-					}
-				}
-
-			} catch( JavaModelException e ) {
-				PetalsCommonPlugin.log( e, IStatus.ERROR );
-			}
-
-			// Update the name
-			result = result.substring( currentParent.length());
-			if( result.startsWith( "." ))
-				result = result.substring( 1 );
-		}
-		// End of hack
 
 		return result;
 	}

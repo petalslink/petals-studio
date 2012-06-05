@@ -35,7 +35,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -541,5 +544,57 @@ public class JavaUtils {
 					f.deleteOnExit();
 			}
 		}
+	}
+
+
+	/**
+	 * Finds the direct children for a given package.
+	 * <p>
+	 * Copied (or almost) from the JDT.
+	 * </p>
+	 *
+	 * @param parent the package fragment root (will be searched from <code>fragment</code> if null)
+	 * @param fragment the fragment to analyze (can be null if <code>parent</code> is not)
+	 * @return a list of package fragments
+	 * @throws JavaModelException if an error occurred with the Java model
+	 */
+	public static List<IPackageFragment> findDirectSubPackages( IPackageFragmentRoot parent, IPackageFragment fragment )
+	throws JavaModelException {
+
+		// Special case for the default package
+		if( fragment != null && fragment.isDefaultPackage())
+			return Collections.emptyList();
+
+		// Find the package parent?
+		if( parent == null ) {
+			IJavaElement elt = fragment;
+			while( elt.getParent() != null ) {
+				elt = elt.getParent();
+				if( elt instanceof IPackageFragmentRoot ) {
+					parent = (IPackageFragmentRoot) elt;
+					break;
+				}
+			}
+		}
+
+		// Find the direct children
+		List<IPackageFragment> result = new ArrayList<IPackageFragment> ();
+		if( parent != null ) {
+			IJavaElement[] children = parent.getChildren();
+			String prefix = fragment != null ? fragment.getElementName() + '.' : ""; //$NON-NLS-1$
+			int prefixLen = prefix.length();
+			for( IJavaElement element : children ) {
+				IPackageFragment curr = (IPackageFragment) element;
+				String name = curr.getElementName();
+				if( name.startsWith( prefix )
+							&& name.length() > prefixLen
+							&& name.indexOf( '.', prefixLen ) == -1 )
+					result.add( curr );
+				else if( fragment == null && curr.isDefaultPackage())
+					result.add( curr );
+			}
+		}
+
+		return result;
 	}
 }

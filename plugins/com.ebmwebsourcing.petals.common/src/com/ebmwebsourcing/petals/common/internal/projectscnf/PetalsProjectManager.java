@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.eclipse.core.resources.IContainer;
@@ -33,8 +34,10 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.IPackageFragment;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
+import com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsCnfPackageFragment;
 import com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectCategory;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
@@ -52,6 +55,13 @@ public class PetalsProjectManager implements IResourceChangeListener, IResourceD
 	private final Map<PetalsProjectCategory,List<IProject>> categoryToProjects;
 	private final ConcurrentLinkedQueue<IPetalsProjectResourceChangeListener> listeners;
 
+	/**
+	 * This map is populated by the content provider and used by the label provider.
+	 * <p>
+	 * This is a workaround to make the display mode and empty package filtering work.
+	 * </p>
+	 */
+	public final Map<IPackageFragment,PetalsCnfPackageFragment> dirtyViewerMap = new ConcurrentHashMap<IPackageFragment,PetalsCnfPackageFragment> ();
 	private final StatisticsTimer statisticsTimer;
 
 
@@ -276,6 +286,7 @@ public class PetalsProjectManager implements IResourceChangeListener, IResourceD
 	 * @see org.eclipse.core.resources.IResourceChangeListener
 	 * #resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
 	 */
+	@Override
 	public void resourceChanged( IResourceChangeEvent event ) {
 
 		try {
@@ -332,6 +343,7 @@ public class PetalsProjectManager implements IResourceChangeListener, IResourceD
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor
 	 * #visit(org.eclipse.core.resources.IResourceDelta)
 	 */
+	@Override
 	public boolean visit( IResourceDelta delta ) throws CoreException {
 
 		// Update the project associations
