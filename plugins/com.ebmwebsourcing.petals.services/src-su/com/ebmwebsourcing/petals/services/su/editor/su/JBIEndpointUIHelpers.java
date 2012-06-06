@@ -134,6 +134,26 @@ public class JBIEndpointUIHelpers {
 		createModifyListenerForQname( ise.getEditingDomain(), endpoint, itfNamespaceText, itfNameText, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME );
 		createModifyListenerForQname( ise.getEditingDomain(), endpoint, srvNamespaceText, srvNameText, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME );
 
+		// PETALSSTUD-268: Wrong handling of empty end-point name
+		// Do not set an empty end-point name in the model
+		edptText.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+
+				String value = ((Text) e.widget).getText().trim();
+				if( value.length() > 0 )
+					return;
+
+				Command cmd = EObjecttUIHelper.createCustomSetCommand(
+						ise.getEditingDomain(),
+						endpoint,
+						JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME,
+						null );
+				ise.getEditingDomain().getCommandStack().execute( cmd );
+			}
+		});
+		// PETALSSTUD-268
+
 
 		// Complete the UI effects
 		final ModifyListener sameNsModifyListener = new ModifyListener() {

@@ -48,7 +48,6 @@ import com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResou
 import com.ebmwebsourcing.petals.common.internal.projectscnf.PetalsProjectManager;
 import com.ebmwebsourcing.petals.common.internal.projectscnf.StatisticsTimer;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils;
 
 /**
  * The base content provider to use for all the contributions to the Petals projects view.
@@ -347,8 +346,14 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		if( res != null ) {
 			// Be careful, the parent of a resource may sometimes be a Java element (e.g. a file in a package)
 			res = res.getParent();
-			javaElement = (IJavaElement) PlatformUtils.getAdapter( res, IJavaElement.class );
-			return javaElement != null ? javaElement : res;
+			javaElement = JavaCore.create( res );
+			if( javaElement instanceof IJavaProject )
+				return res.getProject();
+
+			if( javaElement instanceof IPackageFragment || javaElement instanceof IPackageFragmentRoot )
+				return javaElement;
+
+			return res;
 		}
 
 		return null;
