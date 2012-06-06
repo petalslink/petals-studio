@@ -250,7 +250,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * @throws CoreException
 	 * @throws IOException
 	 */
-	private void doFinish(final IProgressMonitor monitor ) throws Exception {
+	private void doFinish( IProgressMonitor monitor ) throws Exception {
 
 		// Common stuff
 		IProject project = this.finishStrategy.getSUProject(this, monitor);
@@ -272,7 +272,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		performLastActions(resourceDirectory, this.endpoint, monitor);
 
 		// Last action so that previous ones can keep on modifying JBI
-		this.finishStrategy.finishWizard(this, this.endpoint, monitor);
+		this.finishStrategy.finishWizard( this, this.endpoint, monitor );
 	}
 
 

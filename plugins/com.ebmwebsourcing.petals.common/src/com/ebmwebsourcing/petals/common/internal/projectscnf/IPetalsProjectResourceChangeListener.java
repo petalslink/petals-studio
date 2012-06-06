@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.common.internal.projectscnf;
 
@@ -28,6 +28,7 @@ public interface IPetalsProjectResourceChangeListener {
 
 	public void resourcesAdded( Collection<IResource> resources );
 	public void resourcesRemoved( Collection<IResource> resources );
+	public void elementChanged( Object viewerObject );
 	public void resourceChanged( IResourceDelta delta );
 	public void markerChanged( IMarkerDelta[] markerDeltas );
 }

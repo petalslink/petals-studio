@@ -34,11 +34,13 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsCnfPackageFragment;
 import com.ebmwebsourcing.petals.common.internal.provisional.projectscnf.PetalsProjectCategory;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PlatformUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
 /**
@@ -306,7 +308,7 @@ public class PetalsProjectManager implements IResourceChangeListener, IResourceD
 				event.getDelta().accept( this );
 				rebuildCategoryReversedAssociation();
 
-				// Signal the modifications - removed first
+				// Signal the modifications - removed first and additions last
 				if( ! this.removedResources.isEmpty()) {
 					for( IPetalsProjectResourceChangeListener listener : this.listeners )
 						listener.resourcesRemoved( this.removedResources );
@@ -374,8 +376,15 @@ public class PetalsProjectManager implements IResourceChangeListener, IResourceD
 
 		// Non-projects
 		else {
+			// Special treatment for Java packages
+			Object javaFragment = PlatformUtils.getAdapter( delta.getResource(), IJavaElement.class );
+			if( javaFragment instanceof IPackageFragment ) {
+				for( IPetalsProjectResourceChangeListener listener : this.listeners )
+					listener.elementChanged(((IPackageFragment) javaFragment).getParent());
+			}
+
 			// Default behavior for all the files and directories
-			if( delta.getKind() == IResourceDelta.ADDED )
+			else if( delta.getKind() == IResourceDelta.ADDED )
 				this.addedResources.add( delta.getResource());
 
 			else if( delta.getKind() == IResourceDelta.REMOVED )

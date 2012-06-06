@@ -40,6 +40,8 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonC
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
+import com.ebmwebsourcing.petals.services.jsr181.PetalsJsr181Plugin;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 
 /**
@@ -71,16 +73,31 @@ public class Jsr181ProvidePage11 extends AbstractSuWizardPage {
 				errorMsg = "You must specify a WSDL URI.";
 
 			} else {
+				int errorCode = 0;
 				try {
+					// Check the URI
 					URI uri = UriAndUrlHelper.urlToUri( this.wsdlUriAsString );
+					errorCode = 1;
 
+					// Validate the WSDL
+					WsdlUtils.INSTANCE.parse( this.wsdlUriAsString );
+					errorCode = 2;
+
+					// Display its content
 					InputStream stream = uri.toURL().openStream();
 					ByteArrayOutputStream os = new ByteArrayOutputStream();
 					IoUtils.copyStream( stream, os );
 					this.styledText.setText( os.toString());
 
 				} catch( Exception e ) {
-					errorMsg = "The WSDL location is not a valid URI.";
+					if( errorCode == 0 )
+						errorMsg = "The WSDL location is not a valid URI.";
+					else if( errorCode == 1 )
+						errorMsg = "The WSDL cannot be parsed and appears to be invalid.";
+					else {
+						errorMsg = "An unexpected error occurred during the validation in the JSR-181 wizard. Check the logs for more details.";
+						PetalsJsr181Plugin.log( e, IStatus.ERROR );
+					}
 				}
 			}
 		}

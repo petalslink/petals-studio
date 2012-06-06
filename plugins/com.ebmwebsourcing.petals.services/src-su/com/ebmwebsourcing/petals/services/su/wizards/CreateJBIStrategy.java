@@ -96,7 +96,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 			// Select it in the Petals project view
 			wizard.getResourcesToSelect().add( jbiXmlFile );
 
-		} else {
+		} else if( wizard.getResourcesToSelect().size() == 0 ) {
 			wizard.getResourcesToSelect().add( project );
 		}
 	}

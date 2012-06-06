@@ -311,10 +311,7 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		// Otherwise, selection won't work when we want to reveal a new project
 		if( res instanceof IProject ) {
 			List<PetalsProjectCategory> cats = PetalsProjectManager.INSTANCE.getCategories((IProject) res);
-			if( cats != null && cats.size() > 0 )
-				return cats.get( 0 );
-			else
-				return null;
+			return cats != null && cats.size() > 0 ? cats.get( 0 ) : null;
 		}
 
 		// If the parent is a project and this root project is not displayed, then return the Petals category
@@ -328,17 +325,27 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 		// Java elements
 		if( javaElement != null ) {
 			// PETALSSTUD-165: Selection of Java resources fails for JSR-181
+			if( element instanceof IPackageFragment ) {
+				PetalsCnfPackageFragment ppf = PetalsProjectManager.INSTANCE.dirtyViewerMap.get( javaElement );
+				if( ppf != null ) {
+					if( ppf.getParent() instanceof PetalsCnfPackageFragment )
+						return ((PetalsCnfPackageFragment) ppf.getParent()).getFragment();
+
+					return ppf.getParent();
+				}
+			}
+
 			IJavaElement elt = javaElement.getParent();
 			if( elt instanceof IJavaProject )
 				return ((IJavaProject) elt).getProject();
 
+			return elt;
 			// PETALSSTUD-165: Selection of Java resources fails for JSR-181
-			// If the element is a package fragment, we do not compute the parent.
-			return javaElement instanceof IPackageFragment ? null : elt;
 		}
 
 		// Otherwise, return the parent
 		if( res != null ) {
+			// Be careful, the parent of a resource may sometimes be a Java element (e.g. a file in a package)
 			res = res.getParent();
 			javaElement = (IJavaElement) PlatformUtils.getAdapter( res, IJavaElement.class );
 			return javaElement != null ? javaElement : res;
@@ -461,7 +468,10 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 					list = new ArrayList<IResource>();
 
 				list.add( res );
-				parentToResources.put( parent, list );
+				if( parent != null )
+					parentToResources.put( parent, list );
+				else
+					PetalsCommonPlugin.log( "Could not find the parent for " + res, IStatus.ERROR );
 			}
 		}
 
@@ -585,6 +595,17 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 
 		if(( delta.getFlags() & IResourceDelta.REPLACED ) != 0 )
 			this.runnables.add( getRefreshRunnable( delta.getResource()));
+	}
+
+
+	/*
+	 * (non-Jsdoc)
+	 * @see com.ebmwebsourcing.petals.common.internal.projectscnf.IPetalsProjectResourceChangeListener
+	 * #resourceChanged(org.eclipse.core.resources.IResourceDelta)
+	 */
+	@Override
+	public void elementChanged( Object viewerObject ) {
+		this.runnables.add( getRefreshRunnable( viewerObject ));
 	}
 
 
@@ -802,42 +823,26 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 			javaChildren.addAll( Arrays.asList(((IPackageFragmentRoot) elt).getChildren()));
 			Object[] nonJavaResources = ((IPackageFragmentRoot) elt).getNonJavaResources();
 			children.addAll( Arrays.asList( nonJavaResources ));
+
+		} else {
+			throw new JavaModelException( new Exception( "Expected a package fragment or package fragment root." ), IStatus.ERROR );
 		}
 
 		// Filter the Java elements
-		List<IPackageFragment> subPackagesToHide = new ArrayList<IPackageFragment> ();	// for fragment roots
 		if( includeEmpty ) {
 			children.addAll( javaChildren );
+			List<IPackageFragment> subPackagesToHide = new ArrayList<IPackageFragment> ();	// for fragment roots
 			for( Object child : javaChildren ) {
 				if( child instanceof IPackageFragment )
 					subPackagesToHide.addAll( JavaUtils.findDirectSubPackages( null, (IPackageFragment) child ));
 			}
 
+			children.removeAll( subPackagesToHide );
+
 		} else {
-			for( Object o : javaChildren ) {
-				if( o instanceof IPackageFragment ) {
-					if(((IPackageFragment) o).getNonJavaResources().length > 0
-							|| ((IPackageFragment) o).getChildren().length > 0 )
-						children.add( o );
-
-					List<IPackageFragment> subPackages = JavaUtils.findDirectSubPackages( null, (IPackageFragment) o);
-					for( IPackageFragment fragment : subPackages ) {
-						if( fragment.getNonJavaResources().length > 0
-								|| fragment.getChildren().length > 0 ) {
-							children.add( o );
-
-							if( elt instanceof IPackageFragmentRoot )
-								subPackagesToHide.add( fragment );
-						}
-					}
-
-				} else {
-					children.add( o );
-				}
-			}
+			children.clear();
+			children.addAll( findNonEmptyHierarchicalChildren( elt ));
 		}
-
-		children.removeAll( subPackagesToHide );
 
 		// Associate every package fragment with a wrapper
 		PetalsCnfPackageFragment parentFragment = null;
@@ -849,6 +854,75 @@ public class PetalsProjectContentProvider implements ITreeContentProvider, IPeta
 				PetalsCnfPackageFragment fragment = new PetalsCnfPackageFragment((IPackageFragment) child, parentFragment );
 				PetalsProjectManager.INSTANCE.dirtyViewerMap.put((IPackageFragment) child, fragment );
 			}
+		}
+
+		return children;
+	}
+
+
+	/**
+	 * Determines if a package fragment can be displayed.
+	 * <p>
+	 * This method is associated with the hierarchical mode with the empty package filter enabled.
+	 * </p>
+	 * <ul>
+	 * <li>Packages that contain non-Java resources or Java resources must be displayed.</li>
+	 * <li>Packages that only have sub-packages may be displayed only if they have at least two children with resources.</li>
+	 * <li>Other packages cannot be displayed.</li>
+	 * </ul>
+	 *
+	 * @param fragment the fragment to look at
+	 * @param isFragmentRoot true if the original parent is a fragment root
+	 * @return true if the fragment can be displayed, false otherwise
+	 * @throws JavaModelException
+	 */
+	private static List<Object> findNonEmptyHierarchicalChildren( Object root ) throws JavaModelException {
+
+		List<Object> children = new ArrayList<Object> ();
+
+		// Handle the root element
+		List<IPackageFragment> packagesToLook;
+		if( root instanceof IPackageFragment ) {
+			Object[] nonJavaResources = ((IPackageFragment) root).getNonJavaResources();
+			children.addAll( Arrays.asList( nonJavaResources ));
+
+			packagesToLook = JavaUtils.findDirectSubPackages( null, (IPackageFragment) root);
+			for( IJavaElement elt : ((IPackageFragment) root).getChildren()) {
+				if( !( elt instanceof IPackageFragment ))
+					children.add( elt );
+			}
+
+		} else if( root instanceof IPackageFragmentRoot ) {
+			 packagesToLook = JavaUtils.findDirectSubPackages((IPackageFragmentRoot) root, null );
+			 Object[] nonJavaResources = ((IPackageFragmentRoot) root).getNonJavaResources();
+			 children.addAll( Arrays.asList( nonJavaResources ));
+
+		} else {
+			throw new JavaModelException( new Exception( "Expected a package fragment or package fragment root." ), IStatus.ERROR );
+		}
+
+		// Sub-packages are visible
+		while( ! packagesToLook.isEmpty()) {
+			IPackageFragment f = packagesToLook.iterator().next();
+			int pCpt = 0;
+			boolean hasOtherChildren = false;
+
+			List<Object> subChildren = findNonEmptyHierarchicalChildren( f );
+			for( Object o : subChildren ) {
+				if( o instanceof IPackageFragment )
+					pCpt ++;
+				else
+					hasOtherChildren = true;
+			}
+
+			// If a sub-package is visible, then count it
+			if( hasOtherChildren || pCpt > 1 )
+				children.add( f );
+			// Otherwise, try to see if one of its (sub-)sub-packages is visible
+			else
+				packagesToLook.addAll( JavaUtils.findDirectSubPackages( null, f ));
+
+			packagesToLook.remove( f );
 		}
 
 		return children;
