@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
@@ -15,6 +15,7 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 import java.io.File;
 import java.util.Iterator;
 
+import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
@@ -99,14 +100,14 @@ public class EmfUtils {
 	 * <p>
 	 * This is only interesting for local files.
 	 * </p>
-	 * 
+	 *
 	 * @param emfUri an EMF URI (may have specific schemes)
 	 * @return a java.net.URI, or null if it could not be converted
 	 */
 	public static java.net.URI convertEmfUriToJavaNetUri( org.eclipse.emf.common.util.URI emfUri ) {
 
 		File f = getFileFromEmfUri( emfUri );
-		return f == null ? null : f.toURI();
+		return f == null ? UriAndUrlHelper.urlToUri( emfUri.toString()) : f.toURI();
 	}
 
 
@@ -115,7 +116,7 @@ public class EmfUtils {
 	 * <p>
 	 * This is only interesting for local files.
 	 * </p>
-	 * 
+	 *
 	 * @param emfUri an EMF URI (may have specific schemes)
 	 * @return a java.net.URI, or null if it could not be converted
 	 */

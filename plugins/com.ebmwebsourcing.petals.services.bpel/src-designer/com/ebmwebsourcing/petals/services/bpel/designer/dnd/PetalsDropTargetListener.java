@@ -29,7 +29,6 @@ import org.eclipse.bpel.model.partnerlinktype.Role;
 import org.eclipse.bpel.ui.BPELEditor;
 import org.eclipse.bpel.ui.BPELUIPlugin;
 import org.eclipse.bpel.ui.adapters.IContainer;
-import org.eclipse.bpel.ui.commands.AddImportCommand;
 import org.eclipse.bpel.ui.commands.AddPartnerLinkCommand;
 import org.eclipse.bpel.ui.commands.AddVariableCommand;
 import org.eclipse.bpel.ui.commands.CompoundCommand;
@@ -70,7 +69,10 @@ import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.wst.wsdl.Import;
 import org.eclipse.wst.wsdl.Operation;
 import org.eclipse.wst.wsdl.PortType;
+import org.eclipse.wst.wsdl.util.WSDLConstants;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.EmfUtils;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 
@@ -359,10 +361,19 @@ public class PetalsDropTargetListener extends TextDropTargetListener {
 			return;
 
 
-		// Add a command to import the WSDL
+		// Add a command to import the WSDL in the BPEL process
 		CompoundCommand cc = new CompoundCommand( "Adding a Petals service in the process" );
-		AddImportCommand addImportCmd = new AddImportCommand( this.fEditor.getProcess(), wsdlDefinition );
-		if( ! addImportCmd.wouldCreateDuplicateImport())
+		org.eclipse.bpel.model.Import bpelImport = BPELFactory.eINSTANCE.createImport();
+		bpelImport.setImportType(  WSDLConstants.WSDL_NAMESPACE_URI );
+		bpelImport.setNamespace( wsdlDefinition.getTargetNamespace());
+
+		File processFile = EmfUtils.getUnderlyingFile( this.fEditor.getProcess());
+		File wsdlFile = EmfUtils.getUnderlyingFile( wsdlDefinition );
+		String relativeLocation = IoUtils.getRelativeLocationToFile( processFile, wsdlFile );
+		bpelImport.setLocation( relativeLocation );
+
+		SimpleAddBpelImportCommand addImportCmd = new SimpleAddBpelImportCommand( this.fEditor.getProcess(), bpelImport );
+		if( addImportCmd.canDoExecute())
 			cc.add( addImportCmd );
 
 		// Get the WSDL to write the partner role
@@ -425,6 +436,19 @@ public class PetalsDropTargetListener extends TextDropTargetListener {
 		// The partner does not exist, create it
 		if( defaultPartner == null ) {
 			defaultPartner = partnerLink;
+
+			// Create an import in the artifacts WSDL
+			// FIXME: this step is useless because the BPEL Designer deletes all the imports
+			// from the artifacts WSDL and recomputes them all on save action.
+//			Import newImport = WSDLFactory.eINSTANCE.createImport();
+//			newImport.setNamespaceURI( wsdlDefinition.getTargetNamespace());
+//
+//			File artifactWsdlFile = EmfUtils.getUnderlyingFile( targetDefinition );
+//			relativeLocation = IoUtils.getRelativeLocationToFile( artifactWsdlFile, wsdlFile );
+//			newImport.setLocationURI( relativeLocation );
+//
+//			SimpleAddWsdlImportCommand customAddCommand = new SimpleAddWsdlImportCommand( targetDefinition, newImport );
+//			cc.add( customAddCommand );
 
 			// Add the partner link type in the artifact definition
 			CreatePartnerLinkTypeCommand createPartnerLinkTypeCmd =
