@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.v3.editor;
+package com.ebmwebsourcing.petals.services.filetransfer.v30.editor;
 
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;

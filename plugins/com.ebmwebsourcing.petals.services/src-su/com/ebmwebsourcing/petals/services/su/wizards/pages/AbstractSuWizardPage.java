@@ -63,6 +63,7 @@ public abstract class AbstractSuWizardPage extends WizardPage {
 		PlatformUI.getWorkbench().getHelpSystem().setHelp( container, helpId );
 	}
 
+
 	/**
 	 * Validates the page's input.
 	 * <p>
@@ -82,17 +83,22 @@ public abstract class AbstractSuWizardPage extends WizardPage {
 		setPageComplete( message == null );
 	}
 
+
 	/**
 	 * @return the first provides or consumes block (not null)
 	 */
 	protected AbstractEndpoint getNewlyCreatedEndpoint() {
-		return ((AbstractServiceUnitWizard) getWizard()).getNewlyCreatedEndpoint();
+		return getWizard().getNewlyCreatedEndpoint();
 	}
 
-	
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.WizardPage
+	 * #getWizard()
+	 */
 	@Override
 	public AbstractServiceUnitWizard getWizard() {
 		return (AbstractServiceUnitWizard) super.getWizard();
 	}
-
 }

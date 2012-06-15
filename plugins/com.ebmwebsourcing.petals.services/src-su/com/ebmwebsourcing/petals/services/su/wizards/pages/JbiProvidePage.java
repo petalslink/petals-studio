@@ -205,7 +205,7 @@ public class JbiProvidePage extends JbiAbstractPage {
 
 		// Create the browser
 		SwtFactory.createLabel( table, Messages.ProvideJbiPage_13, "The service description file" );
-		TextWithButtonComposite wsdlBrowser = SwtFactory.createFileBrowser( table, false, true, "WSDL" );
+		final TextWithButtonComposite wsdlBrowser = SwtFactory.createFileBrowser( table, false, true, "WSDL" );
 		wsdlBrowser.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		wsdlBrowser.getText().addModifyListener( new ModifyListener() {
 			@Override
@@ -244,7 +244,8 @@ public class JbiProvidePage extends JbiAbstractPage {
 		wsdlBrowser.getButton().addSelectionListener( new DefaultSelectionListener() {
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
-				runWsdlParsing();
+				if( ! StringUtils.isEmpty( wsdlBrowser.getText().getText()))
+					runWsdlParsing();
 			}
 		});
 	}

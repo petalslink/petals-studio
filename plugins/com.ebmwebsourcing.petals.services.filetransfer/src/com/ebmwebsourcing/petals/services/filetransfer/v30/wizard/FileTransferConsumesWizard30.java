@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.v3.wizard;
+package com.ebmwebsourcing.petals.services.filetransfer.v30.wizard;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -20,7 +20,7 @@ import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
-import com.ebmwebsourcing.petals.services.filetransfer.v3.FileTransferDescription3;
+import com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferDescription30;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -32,9 +32,9 @@ import com.sun.java.xml.ns.jbi.Consumes;
  * @author Vincent Zurczak - EBM WebSourcing
  * @author Mickael Istria - EBM WebSourcing
  */
-public class FileTransferConsumesWizard3 extends AbstractServiceUnitWizard {
+public class FileTransferConsumesWizard30 extends AbstractServiceUnitWizard {
 
-	private FileTransferConsumesWizardPage3 secondPage;
+	private FileTransferConsumesWizardPage30 secondPage;
 
 
 	/* (non-Javadoc)
@@ -43,7 +43,7 @@ public class FileTransferConsumesWizard3 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new FileTransferDescription3();
+		return new FileTransferDescription30();
 	}
 
 
@@ -84,7 +84,7 @@ public class FileTransferConsumesWizard3 extends AbstractServiceUnitWizard {
 				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_TIMEOUT
 		);
 
-		this.secondPage = new FileTransferConsumesWizardPage3();
+		this.secondPage = new FileTransferConsumesWizardPage30();
 		return new AbstractSuWizardPage[] { firstPage, this.secondPage };
 	}
 

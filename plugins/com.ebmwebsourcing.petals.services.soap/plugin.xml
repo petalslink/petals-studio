@@ -34,6 +34,14 @@
                namespace="http://petals.ow2.org/components/soap/version-4"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.soap.v41.SoapProvidesWizard41">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.soap.v42.SoapDescription42"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.soap.v42.SoapConsumesWizard42"
+               editorExtension="com.ebmwebsourcing.petals.services.soap.editor.SoapEditorContribution"
+               id="SOAP 4.2"
+               namespace="http://petals.ow2.org/components/soap/version-4"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.soap.v42.SoapProvidesWizard42">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
    <extension

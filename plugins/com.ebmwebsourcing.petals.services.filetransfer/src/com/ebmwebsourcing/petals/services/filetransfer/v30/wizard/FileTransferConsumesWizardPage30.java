@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.v3.wizard;
+package com.ebmwebsourcing.petals.services.filetransfer.v30.wizard;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -40,7 +40,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  *
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FileTransferConsumesWizardPage3 extends AbstractSuWizardPage {
+public class FileTransferConsumesWizardPage30 extends AbstractSuWizardPage {
 
 	private String xmlContent;
 	private boolean useMsgSkeleton, contentTransfer;
@@ -89,10 +89,10 @@ public class FileTransferConsumesWizardPage3 extends AbstractSuWizardPage {
 		// Listeners
 		xmlViewer.addModifyListener( new ModifyListener() {
 			public void modifyText( ModifyEvent e ) {
-				FileTransferConsumesWizardPage3.this.xmlContent = xmlViewer.getText().trim();
+				FileTransferConsumesWizardPage30.this.xmlContent = xmlViewer.getText().trim();
 
 				AbstractEndpoint ae = getNewlyCreatedEndpoint();
-				ae.eSet( Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__BASE_MESSAGE, FileTransferConsumesWizardPage3.this.xmlContent );
+				ae.eSet( Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__BASE_MESSAGE, FileTransferConsumesWizardPage30.this.xmlContent );
 				validate();
 			}
 		});
@@ -104,20 +104,20 @@ public class FileTransferConsumesWizardPage3 extends AbstractSuWizardPage {
 				Color bgColor;
 				if( index == 0 ) {
 					bgColor = getShell().getDisplay().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND );
-					FileTransferConsumesWizardPage3.this.useMsgSkeleton = false;
-					FileTransferConsumesWizardPage3.this.contentTransfer = true;
+					FileTransferConsumesWizardPage30.this.useMsgSkeleton = false;
+					FileTransferConsumesWizardPage30.this.contentTransfer = true;
 
 				} else if( index == 1 ) {
 					bgColor = getShell().getDisplay().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND );
-					FileTransferConsumesWizardPage3.this.useMsgSkeleton = false;
-					FileTransferConsumesWizardPage3.this.contentTransfer = false;
+					FileTransferConsumesWizardPage30.this.useMsgSkeleton = false;
+					FileTransferConsumesWizardPage30.this.contentTransfer = false;
 
 				} else {
 					bgColor = getShell().getDisplay().getSystemColor( SWT.COLOR_WHITE );
-					FileTransferConsumesWizardPage3.this.useMsgSkeleton = true;
+					FileTransferConsumesWizardPage30.this.useMsgSkeleton = true;
 				}
 
-				xmlViewer.setEnabled( FileTransferConsumesWizardPage3.this.useMsgSkeleton );
+				xmlViewer.setEnabled( FileTransferConsumesWizardPage30.this.useMsgSkeleton );
 				xmlViewer.setBackground( bgColor );
 				validate();
 			}

@@ -39,6 +39,13 @@
                namespace="http://petals.ow2.org/components/xslt/version-2"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.xslt.wizard.XsltWizard25">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.xslt.XsltDescription26"
+               editorExtension="com.ebmwebsourcing.petals.services.xslt.editor.XsltEditorContribution"
+               id="XSLT 2.6"
+               namespace="http://petals.ow2.org/components/xslt/version-2"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.xslt.wizard.XsltWizard26">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
    <extension

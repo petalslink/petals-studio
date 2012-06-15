@@ -106,7 +106,7 @@
          <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.bpel.BpelDescription1x"
                editorExtension="com.ebmwebsourcing.petals.services.bpel.editor.BpelEditorContribution"
-               id="BPEL 1.0"
+               id="BPEL 1.x"
                namespace="http://petals.ow2.org/components/petals-bpel-engine/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.bpel.wizards.BpelSuWizard">
          </ComponentVersionSupport>

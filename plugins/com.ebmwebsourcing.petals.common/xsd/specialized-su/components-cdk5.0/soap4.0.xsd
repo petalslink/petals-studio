@@ -82,6 +82,9 @@
 			<xs:element ref="soap:http-thread-pool-size-max" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:http-acceptors" maxOccurs="1" minOccurs="0" />
 			
+			<!-- From Version 4.2 -->
+			<xs:element ref="soap:ws-clients-pool-size-max" maxOccurs="1" minOccurs="0"/>
+			
 			<!-- JMS transport layer extensions -->
 			<xs:element ref="soap:java-naming-factory-initial" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:java-naming-provider-url" maxOccurs="1" minOccurs="0" />
@@ -96,7 +99,10 @@
 			<xs:element ref="soap:https-key-password" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="soap:https-truststore-type" maxOccurs="1" minOccurs="0" />							
 			<xs:element ref="soap:https-truststore-file" maxOccurs="1" minOccurs="0" />
-			<xs:element ref="soap:https-truststore-password" maxOccurs="1" minOccurs="0" />		
+			<xs:element ref="soap:https-truststore-password" maxOccurs="1" minOccurs="0" />
+			
+			<!-- Version 4.2 -->
+			<xs:element ref="soap:https-client-authentication-enabled" maxOccurs="1" minOccurs="0" />	
 		</xs:sequence>
 	</xs:group>
 
@@ -211,47 +217,54 @@
 		</xs:annotation>
 	</xs:element>
 	
-	<xs:element name="http-service-list" type="xs:boolean"
-		default="true">
+	<xs:element name="http-service-list" type="xs:boolean" default="true">
 		<xs:annotation>
 			<xs:documentation>Display the available Web Service list</xs:documentation>
 			<xs:documentation xml:lang="fr">Affiche la liste des Web Services disponibles</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="http-service-context" type="xs:string"
-		default="petals">
+	
+	<xs:element name="http-service-context" type="xs:string" default="petals">
 		<xs:annotation>
 			<xs:documentation>The URL context</xs:documentation>
 			<xs:documentation xml:lang="fr">L'URL du contexte</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="http-service-mapping" type="xs:string"
-		default="services">
+	
+	<xs:element name="http-service-mapping" type="xs:string" default="services">
 		<xs:annotation>
 			<xs:documentation>The URL service mapping</xs:documentation>
 			<xs:documentation xml:lang="fr">L'URL des services</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="http-thread-pool-size-max" type="xs:int"
-		default="255">
+	
+	<xs:element name="http-thread-pool-size-max" type="xs:int" default="255">
 		<xs:annotation>
 			<xs:documentation>The maximum size of the HTTP thread pool</xs:documentation>
 			<xs:documentation xml:lang="fr">Taille maximum du pool de threads HTTP</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="http-thread-pool-size-min" type="xs:int"
-		default="2">
+	
+	<xs:element name="http-thread-pool-size-min" type="xs:int" default="2">
 		<xs:annotation>
 			<xs:documentation>The minimum size of the HTTP thread pool</xs:documentation>
 			<xs:documentation xml:lang="fr">Taille minimum du pool de thread HTTP</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	
 	<xs:element name="http-acceptors" type="xs:int" default="4">
 		<xs:annotation>
 			<xs:documentation>Number of HTTP acceptors</xs:documentation>
 			<xs:documentation xml:lang="fr">Nombre d'accepteurs HTTP</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	
+	<xs:element name="https-client-authentication-enabled" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Define if client authentication is required by the SSL layer</xs:documentation>
+			<xs:documentation xml:lang="fr">Défini si l'authentification client est requise par la couche SSL</xs:documentation>
+		</xs:annotation>
+   	</xs:element>
 	
 	<!-- Services elements -->
 	<xs:element name="address" type="xs:string">
@@ -260,6 +273,12 @@
 			<xs:documentation xml:lang="fr">Adresse du Web Service externe (mode provides) ou nom du Web Service à exposer (mode consumes)</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	
+	<xs:element name="ws-clients-pool-size-max" type="xs:int">
+		<xs:annotation>
+        	<xs:documentation>Default max size of web-service client pools</xs:documentation>
+      	</xs:annotation>
+   	</xs:element>
 	
 	<xs:element name="service-name" type="xs:string">
 		<xs:annotation>

@@ -127,8 +127,15 @@
 	<xs:group name="CdkComponents">
 		<xs:sequence>
 			<xs:element ref="petalsCDK:acceptor-pool-size" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="petalsCDK:acceptor-retry-number" maxOccurs="1" minOccurs="0" />
+         	<xs:element ref="petalsCDK:acceptor-retry-wait" maxOccurs="1" minOccurs="0" />
+        	<xs:element ref="petalsCDK:acceptor-stop-max-wait" maxOccurs="1" minOccurs="0" />
+         	<xs:element ref="petalsCDK:message-processor-max-pool-size" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:processor-pool-size" maxOccurs="1" minOccurs="1" />
 			<xs:element ref="petalsCDK:processor-max-pool-size" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:processor-keep-alive-time" maxOccurs="1" minOccurs="0" />
+         	<xs:element ref="petalsCDK:processor-stop-max-wait" maxOccurs="1" minOccurs="0" />
+         	<xs:element ref="petalsCDK:time-beetween-async-cleaner-runs" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:ignored-status" maxOccurs="1" minOccurs="1" />
 			<xs:element ref="petalsCDK:properties-file" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:notifications" maxOccurs="1" minOccurs="0" />
@@ -356,6 +363,57 @@
 				<xs:element name="message-property" type="petalsCDK:MessageParam" minOccurs="1" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="acceptor-retry-number" type="xs:int" default="40">
+		<xs:annotation>
+			<xs:documentation>Number of tries to submit a message exchange
+				processor for processing before to declare that it cannot be
+				processed. Default value: 40 tries.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="acceptor-retry-wait" type="xs:long" default="250">
+		<xs:annotation>
+			<xs:documentation>Base duration, in milliseconds, to wait between two
+				processing submission tries. At each try, the duration is multiplied
+				by itself to get the new duration. Default value 250 milliseconds.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="message-processor-max-pool-size" type="xs:int" default="50">
+		<xs:annotation>
+			<xs:documentation>Max size of the object pool containing message
+				exchange processors. Default value is the max size of the thread
+				pool running message exchange processors.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="processor-keep-alive-time" type="xs:int" default="300" >
+		<xs:annotation>
+	    	<xs:documentation>When the number of processors is greater than the core, this is the maximum time that excess idle processors 
+	    	will wait for new tasks before terminating, in seconds. Default value 5 minutes.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	  
+	<xs:element name="processor-stop-max-wait" type="xs:long" default="15000">
+		<xs:annotation>
+			<xs:documentation>Define the max duration (in milliseconds) of message exchange processing on stop phase</xs:documentation>
+	    </xs:annotation>
+	</xs:element>
+	  
+	<xs:element name="time-beetween-async-cleaner-runs" type="xs:long" default="2000" >
+		<xs:annotation>
+			<xs:documentation>Define the time (in milliseconds) between two runs of the asynchronous message exchange cleaner. Default value 2000 milliseconds.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="acceptor-stop-max-wait" type="xs:long" default="500" >
+		<xs:annotation>
+			<xs:documentation>Define the max duration (in milliseconds) of the stop of an acceptor before to force it to stop. Default value 500 milliseconds.</xs:documentation>
+		</xs:annotation>
 	</xs:element>
 	
 

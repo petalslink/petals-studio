@@ -9,7 +9,7 @@
  *     EBM WebSourcing - initial API and implementation
  *******************************************************************************/
 
-package com.ebmwebsourcing.petals.services.filetransfer.v3.wizard;
+package com.ebmwebsourcing.petals.services.filetransfer.v30.wizard;
 
 import javax.xml.namespace.QName;
 
@@ -23,7 +23,7 @@ import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.FileTransferService;
-import com.ebmwebsourcing.petals.services.filetransfer.v3.FileTransferDescription3;
+import com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferDescription30;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -35,12 +35,12 @@ import com.sun.java.xml.ns.jbi.Provides;
  * @author Vincent Zurczak - EBM WebSourcing
  * @author Mickaël Istria - EBM WebSourcing
  */
-public class FileTransferProvidesWizard3 extends AbstractServiceUnitWizard {
+public class FileTransferProvidesWizard30 extends AbstractServiceUnitWizard {
 
 	/**
 	 * Constructor.
 	 */
-	public FileTransferProvidesWizard3() {
+	public FileTransferProvidesWizard30() {
 		super();
 		this.settings.showWsdl = false;
 		this.settings.activateInterfaceName = false;
@@ -54,7 +54,7 @@ public class FileTransferProvidesWizard3 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	public ComponentVersionDescription getComponentVersionDescription() {
-		return new FileTransferDescription3();
+		return new FileTransferDescription30();
 	}
 
 

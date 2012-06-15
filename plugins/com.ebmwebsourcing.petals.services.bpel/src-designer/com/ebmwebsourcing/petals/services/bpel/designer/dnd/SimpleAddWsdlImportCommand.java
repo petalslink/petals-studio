@@ -94,7 +94,6 @@ public class SimpleAddWsdlImportCommand extends AutoUndoCommand {
 		// Add the import
 		this.newImport.setEnclosingDefinition( this.wsdlDefinition );
 		this.wsdlDefinition.addImport( this.newImport );
-		System.out.println( this.wsdlDefinition.getImports().size());
 	}
 
 

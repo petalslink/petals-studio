@@ -29,12 +29,20 @@
             providesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FileTransferProvidesWizard24">
       </ComponentVersionSupport>
       <ComponentVersionSupport
-            componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.v3.FileTransferDescription3"
-            consumesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v3.wizard.FileTransferConsumesWizard3"
-            editorExtension="com.ebmwebsourcing.petals.services.filetransfer.v3.editor.FileTransfer3ContributionSupport"
-            id="File Transfer 3"
+            componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferDescription30"
+            consumesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v30.wizard.FileTransferConsumesWizard30"
+            editorExtension="com.ebmwebsourcing.petals.services.filetransfer.v30.editor.FileTransfer3ContributionSupport"
+            id="File Transfer 3.0"
             namespace="http://petals.ow2.org/components/filetransfer/version-3"
-            providesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v3.wizard.FileTransferProvidesWizard3">
+            providesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v30.wizard.FileTransferProvidesWizard30">
+      </ComponentVersionSupport>
+      <ComponentVersionSupport
+            componentVersionDescription="com.ebmwebsourcing.petals.services.filetransfer.v31.FileTransferDescription31"
+            consumesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v31.FileTransferConsumesWizard31"
+            editorExtension="com.ebmwebsourcing.petals.services.filetransfer.v30.editor.FileTransfer3ContributionSupport"
+            id="File Transfer 3.1"
+            namespace="http://petals.ow2.org/components/filetransfer/version-3"
+            providesExtensionWizard="com.ebmwebsourcing.petals.services.filetransfer.v31.FileTransferProvidesWizard31">
       </ComponentVersionSupport>
    </ComponentSupport>
 </extension>

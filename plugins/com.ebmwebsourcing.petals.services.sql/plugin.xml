@@ -19,6 +19,13 @@
       <ComponentSupport
             id="sql">
          <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription12"
+               editorExtension="com.ebmwebsourcing.petals.services.sql.editor.SqlEditorContribution"
+               id="SQL 1.2"
+               namespace="http://petals.ow2.org/components/sql/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard12">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
                componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription13"
                editorExtension="com.ebmwebsourcing.petals.services.sql.editor.SqlEditorContribution"
                id="SQL 1.3"
@@ -26,11 +33,11 @@
                providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard13">
          </ComponentVersionSupport>
          <ComponentVersionSupport
-               componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription12"
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription14"
                editorExtension="com.ebmwebsourcing.petals.services.sql.editor.SqlEditorContribution"
-               id="SQL 1.2"
+               id="SQL 1.4"
                namespace="http://petals.ow2.org/components/sql/version-1"
-               providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard12">
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard14">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
