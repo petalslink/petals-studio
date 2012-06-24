@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.ebmwebsourcing.petals.studio.core.feature_1.3.1.qualifier.jar" id="com.ebmwebsourcing.petals.studio.core.feature" version="1.3.1.qualifier">
+   <feature url="features/com.ebmwebsourcing.petals.studio.core.feature_1.3.2.qualifier.jar" id="com.ebmwebsourcing.petals.studio.core.feature" version="1.3.2.qualifier">
       <category name="Petals Core Tooling"/>
    </feature>
-   <feature url="features/com.ebmwebsourcing.petals.studio.bpel.feature_1.3.1.qualifier.jar" id="com.ebmwebsourcing.petals.studio.bpel.feature" version="1.3.1.qualifier">
+   <feature url="features/com.ebmwebsourcing.petals.studio.bpel.feature_1.3.2.qualifier.jar" id="com.ebmwebsourcing.petals.studio.bpel.feature" version="1.3.2.qualifier">
       <category name="Petals Extended Tooling"/>
    </feature>
-   <feature url="features/com.ebmwebsourcing.petals.studio.rcp.feature_1.3.1.qualifier.jar" id="com.ebmwebsourcing.petals.studio.rcp.feature" version="1.3.1.qualifier">
+   <feature url="features/com.ebmwebsourcing.petals.studio.rcp.feature_1.3.2.qualifier.jar" id="com.ebmwebsourcing.petals.studio.rcp.feature" version="1.3.2.qualifier">
       <category name="Petals Studio RCP"/>
    </feature>
-   <feature url="features/com.ebmwebsourcing.petals.studio.source.feature_1.3.1.qualifier.jar" id="com.ebmwebsourcing.petals.studio.source.feature" version="1.3.1.qualifier">
+   <feature url="features/com.ebmwebsourcing.petals.studio.source.feature_1.3.2.qualifier.jar" id="com.ebmwebsourcing.petals.studio.source.feature" version="1.3.2.qualifier">
       <category name="Petals Studio Sources"/>
    </feature>
    <category-def name="Petals Core Tooling" label="Petals Core Tooling">
