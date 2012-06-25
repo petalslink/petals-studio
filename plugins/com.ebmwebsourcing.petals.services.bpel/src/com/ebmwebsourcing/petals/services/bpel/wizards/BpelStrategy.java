@@ -18,8 +18,10 @@ import java.net.URI;
 import org.eclipse.bpel.ui.BPELUIPlugin;
 import org.eclipse.bpel.ui.wizards.NewBpelFileFirstPage.BpelCreationMode;
 import org.eclipse.bpel.ui.wizards.NewBpelFileWizardUtils;
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -137,6 +139,8 @@ public class BpelStrategy implements FinishServiceCreationStrategy {
 		monitor.beginTask( "", IProgressMonitor.UNKNOWN );
 		monitor.subTask( "Creating the project structure..." );
 
+
+		// The project structure
 		ProjectPage ppage = (ProjectPage) wizard.getPage( ProjectPage.PAGE_NAME );
 		Assert.isNotNull( ppage );
 		URI locationURI = ppage.isAtDefaultlocation() ? null : ppage.computeProjectLocation().toURI();
@@ -148,6 +152,26 @@ public class BpelStrategy implements FinishServiceCreationStrategy {
 				wizard.getComponentVersionDescription().getComponentAlias(),
 				false,
 				monitor );
+
+
+		// The BPEL builder
+		final String BPEL_BUILDER_ID = "org.eclipse.bpel.validator.builder";
+		IProjectDescription desc = this.project.getDescription();
+		ICommand[] commands = desc.getBuildSpec();
+
+		for( int i=0; i<commands.length; ++i ) {
+			if( commands[ i ].getBuilderName().equals( BPEL_BUILDER_ID )) {
+				return;
+			}
+		}
+
+		ICommand[] newCommands = new ICommand[ commands.length + 1 ];
+		System.arraycopy( commands, 0, newCommands, 0, commands.length );
+		ICommand command = desc.newCommand();
+		command.setBuilderName( BPEL_BUILDER_ID );
+		newCommands[ newCommands.length - 1 ] = command;
+		desc.setBuildSpec( newCommands );
+		this.project.setDescription( desc, null );
 	}
 
 

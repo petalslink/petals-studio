@@ -127,4 +127,32 @@
             name="EasyBPEL Validator">
       </factory>
    </extension>
+   <extension
+         id="org.eclipse.validator.builder.2"
+         name="BPEL Validator"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <filter
+               caseSensitive="false"
+               nameFilter="*.bpel"
+               objectClass="org.eclipse.core.resources.IFile">
+         </filter>
+         <run
+               async="true"
+               class="org.eclipse.bpel.validator.Validator"
+               enabled="true"
+               fullBuild="true"
+               incremental="false">
+         </run>
+         <helper
+               class="org.eclipse.bpel.validator.ValidatorHelper">
+         </helper>
+         <markerId
+               markerIdValue="org.eclispe.bpel.validator.marker">
+         </markerId>
+         <runStrategy
+               project="true">
+         </runStrategy>
+      </validator>
+   </extension>
 </plugin>
