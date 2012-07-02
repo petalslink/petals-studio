@@ -27,8 +27,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.xml.sax.SAXException;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
@@ -43,7 +43,7 @@ import com.sun.java.xml.ns.jbi.Provides;
  */
 public class ValidationProvidesWizard11 extends AbstractServiceUnitWizard {
 
-	private ValidationProvideSpecificPage page;
+	private final ValidationProvideSpecificPage page;
 
 
 	/**
@@ -54,6 +54,7 @@ public class ValidationProvidesWizard11 extends AbstractServiceUnitWizard {
 		this.settings.showWsdl = false;
 		this.settings.activateInterfaceName = false;
 		this.settings.activateServiceNameOnly = true;
+		this.page = new ValidationProvideSpecificPage();
 	}
 
 
@@ -160,7 +161,6 @@ public class ValidationProvidesWizard11 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
-		this.page = new ValidationProvideSpecificPage();
 		return new AbstractSuWizardPage[] { this.page };
 	}
 }

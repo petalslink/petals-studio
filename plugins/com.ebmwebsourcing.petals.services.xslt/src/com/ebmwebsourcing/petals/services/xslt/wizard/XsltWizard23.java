@@ -45,7 +45,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 public class XsltWizard23 extends AbstractServiceUnitWizard {
 
 	private final static String DEFAULT_XSL_NAME = "transformation.xsl";
-	private XsltProvideSpecificPage page;
+	private final XsltProvideSpecificPage page;
 
 
 	/**
@@ -56,6 +56,7 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 		this.settings.showWsdl = false;
 		this.settings.activateInterfaceName = false;
 		this.settings.activateServiceNameOnly = true;
+		this.page = new XsltProvideSpecificPage();
 	}
 
 
@@ -170,7 +171,6 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 	 */
 	@Override
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
-		this.page = new XsltProvideSpecificPage();
 		return new AbstractSuWizardPage[] { this.page };
 	}
 }
