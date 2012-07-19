@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.ui.navigator,
  org.eclipse.emf.databinding.edit,
  org.eclipse.jface.databinding,
  org.eclipse.bpel.common.wsdl,
- org.eclipse.ltk.ui.refactoring
+ org.eclipse.ltk.ui.refactoring,
+ org.eclipse.ui.navigator.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
