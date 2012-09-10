@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
@@ -88,13 +87,13 @@ public class QNameText extends Composite {
 			@Override
 			public void modifyText( ModifyEvent e ) {
 
-				int cpt = ((Text) e.widget).getText().length() + 1;
+				int cpt = ((StyledText) e.widget).getText().length() + 1;
 				GC gc = new GC( QNameText.this );
 				gc.setFont( getFont());
 				int width = Dialog.convertWidthInCharsToPixels( gc.getFontMetrics(), cpt );
 				gc.dispose();
 
-				((GridData) ((Text) e.widget).getLayoutData()).widthHint = width;
+				((GridData) ((StyledText) e.widget).getLayoutData()).widthHint = width;
 				layout();
 
 				for( ModifyListener listener : QNameText.this.modifyListeners )
@@ -127,7 +126,7 @@ public class QNameText extends Composite {
 		Listener listener = new Listener() {
 			@Override
 			public void handleEvent( Event event ) {
-				((Text) event.widget).selectAll();
+				((StyledText) event.widget).selectAll();
 			}
 		};
 

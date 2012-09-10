@@ -22,6 +22,7 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -102,7 +103,7 @@ public class JbiProvidePage extends JbiAbstractPage {
 				if( ! JbiProvidePage.this.edptText.isEnabled())
 					return;
 
-				String srv = ((Text) e.widget).getText().trim();
+				String srv = ((StyledText) e.widget).getText().trim();
 				JbiProvidePage.this.edptText.setText( srv.length() == 0 ? "" : srv + "Endpoint" );
 			}
 		});
