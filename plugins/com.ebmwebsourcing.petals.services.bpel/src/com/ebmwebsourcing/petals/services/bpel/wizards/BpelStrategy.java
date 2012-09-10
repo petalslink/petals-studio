@@ -45,7 +45,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class BpelStrategy implements FinishServiceCreationStrategy {
 
@@ -64,7 +64,7 @@ public class BpelStrategy implements FinishServiceCreationStrategy {
 
 		// Create the BPEL stuff
 		final BpelSuWizard wiz = (BpelSuWizard) wizard;
-		String bpelName = wiz.firstPage.getProcessTemplateProperties().get( "processName" ) + ".bpel";
+		String bpelName = wiz.firstPage.getWizard().getDialogSettings().get( "process-name" ) + ".bpel";
 		final IFile bpelFile = this.project.getFolder( PetalsConstants.LOC_RES_FOLDER ).getFile( bpelName );
 
 		monitor.subTask( "Creating the process..." );

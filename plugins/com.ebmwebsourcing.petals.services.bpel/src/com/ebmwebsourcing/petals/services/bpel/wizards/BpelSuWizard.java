@@ -74,6 +74,15 @@ public class BpelSuWizard extends AbstractServiceUnitWizard {
 			public IWizardPage getNextPage() {
 				return getProjectPage( this );
 			}
+
+			@Override
+			public void setVisible( boolean visible ) {
+				super.setVisible( visible );
+
+				String sName = getDialogSettings().get( "process-name" );
+				if( sName != null )
+					getNewlyCreatedEndpoint().setServiceName( new QName( sName ));
+			}
 		};
 
 		// Add all the pages
