@@ -17,6 +17,7 @@ import javax.xml.namespace.QName;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Color;
@@ -33,6 +34,11 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
 /**
  * A widget for QNames, made up of two {@link Text}s separated by a {@link Label}.
+ * <p>
+ * We use {@link StyledText} because some OS draw borders around native widgets like Texts.
+ * Styled texts are not native widgets.
+ * </p>
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  * FIXME: review the model interaction, the widget and the value might be not synchronized correctly
  */
@@ -43,7 +49,7 @@ public class QNameText extends Composite {
 
 	private final String defaultLocalPart;
 	private final PhantomText namespacePhantomText;
-	private final Text localPartPhantomText;
+	private final StyledText localPartPhantomText;
 	private final Label separatorLabel;
 	private final ConcurrentLinkedQueue<ModifyListener> modifyListeners = new ConcurrentLinkedQueue<ModifyListener> ();
 
@@ -75,7 +81,7 @@ public class QNameText extends Composite {
 		setLayout( layout );
 
 		// The local part
-		this.localPartPhantomText = new Text( this, SWT.SINGLE );
+		this.localPartPhantomText = new StyledText( this, SWT.SINGLE );
 		this.localPartPhantomText.setText( DEFAULT_LOCAL_PART );
 		this.localPartPhantomText.setLayoutData( new GridData());
 		this.localPartPhantomText.addModifyListener( new ModifyListener() {
@@ -264,7 +270,7 @@ public class QNameText extends Composite {
 	/**
 	 * @return the text widget for the local part
 	 */
-	public Text getLocalPartText() {
+	public StyledText getLocalPartText() {
 		return this.localPartPhantomText;
 	}
 
@@ -272,7 +278,7 @@ public class QNameText extends Composite {
 	/**
 	 * @return the text widget for the name space
 	 */
-	public Text getNamespaceText() {
+	public StyledText getNamespaceText() {
 		return this.namespacePhantomText.getTextWidget();
 	}
 

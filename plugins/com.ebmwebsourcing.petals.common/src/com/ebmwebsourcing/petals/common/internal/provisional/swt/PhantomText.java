@@ -12,6 +12,7 @@
 package com.ebmwebsourcing.petals.common.internal.provisional.swt;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
@@ -28,6 +29,10 @@ import org.eclipse.swt.widgets.Text;
  * Notice that {@link Text} cannot be sub-classed. This is why it is wrapped in a composite.
  * </p>
  * <p>
+ * We use {@link StyledText} because some OS draw borders around native widgets like Texts.
+ * Styled texts are not native widgets.
+ * </p>
+ * <p>
  * Be careful, some methods were not overridden and point to the composite and not the text.
  * This class will probably be completed depending on the developer needs (e.g. support a new kind of listener).
  * </p>
@@ -36,7 +41,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public class PhantomText extends Composite {
 
-	private final Text text;
+	private final StyledText text;
 	private boolean updateEnabled = false;
 	private String value;
 	private String defaultValue = "";
@@ -55,7 +60,7 @@ public class PhantomText extends Composite {
 		layout.marginWidth = 0;
 		setLayout( layout );
 
-		this.text = new Text( this, style );
+		this.text = new StyledText( this, style );
 		this.text.setLayoutData( new GridData( GridData.FILL_BOTH ));
 
 		// Focus listener
@@ -126,7 +131,7 @@ public class PhantomText extends Composite {
 	/**
 	 * @return the text widget
 	 */
-	public Text getTextWidget() {
+	public StyledText getTextWidget() {
 		return this.text;
 	}
 
