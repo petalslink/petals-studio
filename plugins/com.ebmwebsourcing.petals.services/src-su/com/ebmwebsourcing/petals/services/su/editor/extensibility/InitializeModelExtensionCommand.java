@@ -12,8 +12,10 @@
 
 package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,6 +23,8 @@ import javax.xml.namespace.QName;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -44,6 +48,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
+ * @author Vincent Zurczak - Linagora
  */
 public class InitializeModelExtensionCommand extends AbstractCommand {
 
@@ -114,114 +119,47 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 
 
 		// Once sorting is done, we can iterate and initialize the feature values
-		// Care must be taken because
+		// Care must be taken.
 		for( EStructuralFeature targetFeature : this.targetFeatures ) {
-			Entry entry = getMatchingGroupEntry( targetFeature );
-			if( entry == null )
+			List<Entry> entries = getMatchingGroupEntries( targetFeature );
+			if( entries.isEmpty())
 				continue;
 
-			String fName = ExtendedMetaData.INSTANCE.getName( targetFeature);
-			String fNs = ExtendedMetaData.INSTANCE.getNamespace( targetFeature);
+			String fName = ExtendedMetaData.INSTANCE.getName( targetFeature );
+			String fNs = ExtendedMetaData.INSTANCE.getNamespace( targetFeature );
 			String id = fName + " - " + fNs;
-			if( alreadySet.contains( id ))
-				continue;
-
-			alreadySet.add( id );
-
-			// The value is null
-			this.element.getGroup().remove(entry);
-			Object value = getActualValue( entry.getValue());
-			String display = "Inserting feature: " + id + "  (" + value + ")";
-
-			if( value == null ) {
-				this.element.eSet(targetFeature, null);
+			if( alreadySet.contains( id )) {
 				if( debug )
-					System.out.println( display );
+					System.out.println( "Feature " + id + " was already set." );
+
+				continue;
 			}
 
-			// The value is not null: set the feature
-			else {
-				try {
-					if (value instanceof String && targetFeature instanceof EAttribute) {
-						EDataType expectedType = ((EAttribute) targetFeature).getEAttributeType();
-						String instanceClassName = expectedType.getInstanceClassName().toLowerCase();
+			// Analyze the entry
+			alreadySet.add( id );
+			EList<Object> eList = new BasicEList<Object> ();
+			for( Entry entry : entries ) {
+				this.element.getGroup().remove( entry );
+				Object value = getActualValue( entry.getValue());
+				Object resolvedValue = adaptValueType( value, targetFeature );
+				eList.add(  resolvedValue );
+			}
 
-						if( expectedType.equals( EcorePackage.Literals.EINT )
-								|| "int".equals( instanceClassName )
-								|| "java.lang.integer".equals( instanceClassName )) {
-							this.element.eSet(targetFeature, Integer.valueOf((String)value));
-							if( debug )
-								System.out.println( display );
+			Object value = targetFeature.isMany() ? eList : eList.get( 0 );
+			String display = "Inserting feature: " + id + "  (" + value + ")";
+			if( targetFeature.isMany() )
+				display += " AS a list.";
 
-						} else if( expectedType.equals( EcorePackage.Literals.ELONG )
-									|| "long".equals( instanceClassName )
-									|| "java.lang.long".equals( instanceClassName )) {
-								this.element.eSet(targetFeature, Long.valueOf((String)value));
-								if( debug )
-									System.out.println( display );
+			if( debug )
+				System.out.println( display );
 
-						} else if( instanceClassName.equals( "javax.xml.namespace.qname" )) {
+			try {
+				this.element.eSet( targetFeature, value );
 
-							// Extract the QName value...
-							String[] parts = ((String) value).split( ":" );
-							String ns = null, name = null;
-
-							if( parts.length == 1 ) {
-								name = parts[ 0 ];
-
-							} else if( parts.length == 2 ) {
-								ns = parts[ 0 ];
-								name = parts[ 1 ];
-
-							} else {
-								PetalsServicesPlugin.log( "Found invalid QName while intializing the model extensions.", IStatus.ERROR );
-							}
-
-
-							// ... and resolve it
-							QName newValue = null;
-							EMap<String,String> map = JbiXmlUtils.findPrefixMap( this.element );
-							if( map == null ) {
-								PetalsServicesPlugin.log( "Could not find the prefix map while intializing the model extensions.", IStatus.ERROR );
-
-							} else if( name != null ) {
-								if( ns != null )
-									ns = map.get( ns );
-
-								newValue = ns != null ? new QName( ns, name ) : new QName( name );
-							}
-
-							this.element.eSet( targetFeature, newValue );
-							if( debug )
-								System.out.println( display );
-
-						} else if( expectedType instanceof EEnum ) {
-							EEnum eEnum = (EEnum) expectedType;
-							EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String)value);
-							this.element.eSet(targetFeature, literal.getInstance());
-							if( debug )
-								System.out.println( display );
-
-						} else if (expectedType.getInstanceClass().equals( boolean.class )) {
-							this.element.eSet(targetFeature, Boolean.valueOf((String)value));
-							if( debug )
-								System.out.println( display );
-
-						} else {
-							this.element.eSet(targetFeature, value);
-							if( debug )
-								System.out.println( display );
-						}
-
-					} else {
-						this.element.eSet(targetFeature, value);
-						if( debug )
-							System.out.println( display );
-					}
-
-				} catch( Exception e ) {
-					PetalsServicesPlugin.log( e, IStatus.ERROR, "A model feature could not be initialized. Type = " + ((EAttribute) targetFeature).getEAttributeType().getInstanceClassName());
-				}
+			} catch( Exception e ) {
+				PetalsServicesPlugin.log( e, IStatus.ERROR,
+						"A model feature could not be initialized. Type = "
+						+ ((EAttribute) targetFeature).getEAttributeType().getInstanceClassName());
 			}
 		}
 	}
@@ -274,13 +212,85 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 * @return
 	 */
 	private boolean needsAdditionalAttributes() {
-		for (EStructuralFeature targetFeature : this.targetFeatures) {
-			Entry actualCurrentEntry = getMatchingGroupEntry(targetFeature);
-			if( actualCurrentEntry != null )
+		for( EStructuralFeature targetFeature : this.targetFeatures ) {
+			List<Entry> currentEntries = getMatchingGroupEntries( targetFeature );
+			if( currentEntries.isEmpty())
 				return true;
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Adapts a raw object so that its type is valid according to the model extension.
+	 * @param entryValue
+	 * @param targetFeature
+	 * @return an adapted object (null if entryValue is null)
+	 */
+	private Object adaptValueType( Object entryValue, EStructuralFeature targetFeature ) {
+
+		Object finalValue = entryValue;
+		if( entryValue instanceof String
+				&& targetFeature instanceof EAttribute ) {
+
+			EDataType expectedType = ((EAttribute) targetFeature).getEAttributeType();
+			String instanceClassName = expectedType.getInstanceClassName().toLowerCase();
+
+			if( expectedType.equals( EcorePackage.Literals.EINT )
+					|| "int".equals( instanceClassName )
+					|| "java.lang.integer".equals( instanceClassName )) {
+				finalValue = Integer.valueOf((String) entryValue);
+
+			} else if( expectedType.equals( EcorePackage.Literals.ELONG )
+						|| "long".equals( instanceClassName )
+						|| "java.lang.long".equals( instanceClassName )) {
+					finalValue = Long.valueOf((String) entryValue);
+
+			} else if( instanceClassName.equals( "javax.xml.namespace.qname" )) {
+
+				// Extract the QName value...
+				String[] parts = ((String) entryValue).split( ":" );
+				String ns = null, name = null;
+
+				if( parts.length == 1 ) {
+					name = parts[ 0 ];
+
+				} else if( parts.length == 2 ) {
+					ns = parts[ 0 ];
+					name = parts[ 1 ];
+
+				} else {
+					PetalsServicesPlugin.log( "Found invalid QName while intializing the model extensions.", IStatus.ERROR );
+				}
+
+
+				// ... and resolve it
+				QName newValue = null;
+				EMap<String,String> map = JbiXmlUtils.findPrefixMap( this.element );
+				if( map == null ) {
+					PetalsServicesPlugin.log( "Could not find the prefix map while intializing the model extensions.", IStatus.ERROR );
+
+				} else if( name != null ) {
+					if( ns != null )
+						ns = map.get( ns );
+
+					newValue = ns != null ? new QName( ns, name ) : new QName( name );
+				}
+
+				finalValue = newValue;
+
+			} else if( expectedType instanceof EEnum ) {
+				EEnum eEnum = (EEnum) expectedType;
+				EEnumLiteral literal = eEnum.getEEnumLiteralByLiteral((String) entryValue);
+				finalValue = literal.getInstance();
+
+			} else if( expectedType.getInstanceClass().equals( boolean.class )) {
+				finalValue = Boolean.valueOf((String) entryValue);
+			}
+		}
+
+		return finalValue;
 	}
 
 
@@ -297,8 +307,9 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 	 * @param referenceFeature
 	 * @return
 	 */
-	private Entry getMatchingGroupEntry( EStructuralFeature referenceFeature ) {
+	private List<Entry> getMatchingGroupEntries( EStructuralFeature referenceFeature ) {
 
+		List<Entry> result = new ArrayList<FeatureMap.Entry> ();
 		for (FeatureMap.Entry entry : this.element.getGroup()) {
 			String actualName = ExtendedMetaData.INSTANCE.getName( entry.getEStructuralFeature());
 			String actualNamespace = ExtendedMetaData.INSTANCE.getNamespace(entry.getEStructuralFeature());
@@ -312,10 +323,10 @@ public class InitializeModelExtensionCommand extends AbstractCommand {
 					|| entry.getEStructuralFeature().getName().equals( referenceFeature.getName());
 
 			if( actualNamespace.equals( referenceNamespace ) && sameName )
-				return entry;
+				result.add( entry );
 		}
 
-		return null;
+		return result;
 	}
 
 
