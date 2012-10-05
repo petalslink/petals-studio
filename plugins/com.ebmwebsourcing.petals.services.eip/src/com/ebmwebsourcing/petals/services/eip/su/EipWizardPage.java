@@ -128,9 +128,9 @@ public class EipWizardPage extends AbstractSuWizardPage {
 				Command cmd = cmdService.getCommand( IWorkbenchCommandConstants.FILE_NEW );
 				try {
 					IParameter paramId = cmd.getParameter( IWorkbenchCommandConstants.FILE_NEW_PARM_WIZARDID );
-					Parameterization parm = new Parameterization( paramId, "com.ebmwebsourcing.petals.common.croquisWizard" );
+					Parameterization param = new Parameterization( paramId, "com.ebmwebsourcing.petals.common.croquisWizard" );
 
-					ParameterizedCommand parmCommand = new ParameterizedCommand( cmd, new Parameterization[] { parm });
+					ParameterizedCommand parmCommand = new ParameterizedCommand( cmd, new Parameterization[] { param });
 					IHandlerService ds = (IHandlerService) PlatformUI.getWorkbench().getService( IHandlerService.class );
 					ds.executeCommand( parmCommand, null );
 

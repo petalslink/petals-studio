@@ -14,7 +14,9 @@ package com.ebmwebsourcing.petals.services.cdk.editor;
 
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.namespace.QName;
@@ -46,6 +48,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
@@ -68,6 +71,7 @@ import com.ebmwebsourcing.petals.services.cdk.Messages;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.editor.databinding.MepToStringConverter;
 import com.ebmwebsourcing.petals.services.cdk.editor.databinding.StringToMepConverter;
+import com.ebmwebsourcing.petals.services.su.editor.su.ActivableListener;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers.CommonUIBean;
 import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
@@ -89,15 +93,17 @@ public class CDK5JBIEndpointUIHelper {
 	 * Creates the specific UI for "consume" blocks in the JBI editor (with CDK 5 fields).
 	 * @param endpoint
 	 * @param toolkit
-	 * @param commonComposite
 	 * @param cdkComposite
 	 * @param ise
+	 * @param parent
+	 * @param commonUiBean
 	 */
 	public static void createConsumesUI(
 			final AbstractEndpoint endpoint,
 			final FormToolkit toolkit,
 			final Composite parent,
-			final ISharedEdition ise) {
+			final ISharedEdition ise,
+			final CommonUIBean commonUiBean ) {
 
 		Color blueFont = parent.getDisplay().getSystemColor( SWT.COLOR_DARK_BLUE );
 
@@ -117,12 +123,44 @@ public class CDK5JBIEndpointUIHelper {
 		toolkit.createLabel( parent, "" );
 		Hyperlink selectLink = toolkit.createHyperlink( parent, "Select a Petals service and an operation to invoke", SWT.NONE );
 		selectLink.setToolTipText( "Select the service and the operation to invoke from the known Petals services" );
+
+
+		// The data-binding
+		ise.getDataBindingContext().bindValue(
+				SWTObservables.observeText( opNameText ),
+				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
+				null,
+				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
+
+		ise.getDataBindingContext().bindValue(
+				SWTObservables.observeText( opNamespaceText ),
+				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
+				null,
+				new UpdateValueStrategy().setConverter( new NamespaceQNameToStringConverter()));
+
+		ise.getDataBindingContext().bindValue(
+				ViewersObservables.observeSingleSelection( mepViewer ),
+				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP ),
+				new UpdateValueStrategy().setConverter( new MepToStringConverter()),
+				new UpdateValueStrategy().setConverter( new StringToMepConverter()));
+
+
+		// The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
+		// For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
+		final ActivableListener activableListener = JBIEndpointUIHelpers.createModifyListenerForQname(
+				ise.getEditingDomain(), endpoint,
+				opNamespaceText, opNameText,
+				Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, true );
+
+		// Deal with the helper listener
 		selectLink.addHyperlinkListener( new PetalsHyperlinkListener() {
 			@Override
 			public void linkActivated( HyperlinkEvent e ) {
 
 				final EnhancedConsumeDialog dlg = new EnhancedConsumeDialog( parent.getShell(), toolkit );
 				if( dlg.open() == Window.OK ) {
+
+					// Prepare the model update
 					CompoundCommand compositeCommand = new CompoundCommand();
 					EditingDomain editDomain = ise.getEditingDomain();
 
@@ -138,47 +176,33 @@ public class CDK5JBIEndpointUIHelper {
 					command = new SetCommand(editDomain, endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, edpt);
 					compositeCommand.append(command);
 
-					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
+					command = EObjecttUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
 					compositeCommand.append(command);
 
 					Mep mep = dlg.getInvocationMep() == Mep.UNKNOWN ? null : dlg.getInvocationMep();
-					command = new SetCommand(editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
+					command = EObjecttUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep.toString());
 					compositeCommand.append(command);
 
+					// Identify the listeners to disable, so that all the fields are correctly set
+					List<ActivableListener> theListeners = new ArrayList<ActivableListener> ();
+					theListeners.add( activableListener );
+					for( Text t : new Text[] { commonUiBean.itfNameText, commonUiBean.srvNameText }) {
+						for( Listener ml : t.getListeners( SWT.Modify )) {
+							if( ml instanceof ActivableListener )
+								theListeners.add((ActivableListener) ml);
+						}
+					}
+
+					// Perform the update carefully
+					for( ActivableListener ml : theListeners )
+						ml.setEnabled( false );
+
 					editDomain.getCommandStack().execute(compositeCommand);
+					for( ActivableListener ml : theListeners )
+						ml.setEnabled( true );
 				}
 			}
 		});
-
-
-		// The data-binding
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( opNameText ),
-				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
-				null,
-				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
-
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( opNamespaceText ),
-				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
-				null,
-				new UpdateValueStrategy().setConverter(new NamespaceQNameToStringConverter()));
-
-		ise.getDataBindingContext().bindValue(
-				ViewersObservables.observeSingleSelection( mepViewer ),
-				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP ),
-				new UpdateValueStrategy().setConverter( new MepToStringConverter()),
-				new UpdateValueStrategy().setConverter( new StringToMepConverter()));
-
-
-		// The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
-		// For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
-		JBIEndpointUIHelpers.createCustomModifyListenerForQname(
-				ise.getEditingDomain(),
-				endpoint,
-				opNamespaceText,
-				opNameText,
-				Cdk5Package.Literals.CDK5_CONSUMES__OPERATION );
 	}
 
 

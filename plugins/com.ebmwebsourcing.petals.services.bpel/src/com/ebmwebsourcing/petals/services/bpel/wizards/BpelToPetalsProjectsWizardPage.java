@@ -177,7 +177,7 @@ public class BpelToPetalsProjectsWizardPage extends AbstractPetalsServiceCreatio
 	private List<SaImportBean> getProjectsToCreate() {
 
 		final List<SaImportBean> result = new ArrayList<SaImportBean> ();
-		String s = UriAndUrlHelper.extractFileName( this.helper.getBpelUri().toString());
+		String s = UriAndUrlHelper.extractOrGenerateFileName( this.helper.getBpelUri().toString());
 		final String bpelName = StringUtils.removeFileExtension( s );
 
 		// Prepare the operation to run

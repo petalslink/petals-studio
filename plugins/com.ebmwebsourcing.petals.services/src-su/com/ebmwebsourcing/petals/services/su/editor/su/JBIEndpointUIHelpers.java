@@ -52,7 +52,7 @@ import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class JBIEndpointUIHelpers {
 
@@ -110,7 +110,7 @@ public class JBIEndpointUIHelpers {
 				SWTObservables.observeText( itfNamespaceText ),
 				EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME),
 				null,
-				new UpdateValueStrategy().setConverter(new NamespaceQNameToStringConverter()));
+				new UpdateValueStrategy().setConverter( new NamespaceQNameToStringConverter()));
 
 		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeText( srvNameText ),
@@ -131,8 +131,13 @@ public class JBIEndpointUIHelpers {
 
 		// The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
 		// For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
-		createModifyListenerForQname( ise.getEditingDomain(), endpoint, itfNamespaceText, itfNameText, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME );
-		createModifyListenerForQname( ise.getEditingDomain(), endpoint, srvNamespaceText, srvNameText, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME );
+		createModifyListenerForQname(
+				ise.getEditingDomain(), endpoint, itfNamespaceText, itfNameText,
+				JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, false );
+
+		createModifyListenerForQname(
+				ise.getEditingDomain(), endpoint, srvNamespaceText, srvNameText,
+				JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, false );
 
 		// PETALSSTUD-268: Wrong handling of empty end-point name
 		// Do not set an empty end-point name in the model
@@ -218,75 +223,26 @@ public class JBIEndpointUIHelpers {
 	 * @param owner
 	 * @param namespaceText
 	 * @param nameText
-	 * @return the modify listener (already applied to both Texts)
-	 */
-	public static ModifyListener createModifyListenerForQname(
-			final EditingDomain domain,
-			final EObject owner,
-			final Text namespaceText,
-			final Text nameText,
-			final EAttribute attribute ) {
-
-		ModifyListener listener = new ModifyListener() {
-			@Override
-			public void modifyText( ModifyEvent e ) {
-
-				// Save the caret position
-				// Otherwise, the caret goes back to the position 0
-				Text focusedText = null;
-				if( namespaceText.isFocusControl())
-					focusedText = namespaceText;
-				else if( nameText.isFocusControl())
-					focusedText = nameText;
-
-				int caretPosition = focusedText == null ? -1 : focusedText.getCaretPosition();
-
-				// Update the model
-				String ns = namespaceText.getText().trim();
-				String name = nameText.getText().trim();
-
-				QName result = StringUtils.isEmpty( ns ) ? new QName( name ) : new QName( ns, name );
-				Command cmd = SetCommand.create( domain, owner, attribute, result );
-				domain.getCommandStack().execute( cmd );
-
-				// Restore the caret position
-				if( caretPosition != -1 )
-					focusedText.setSelection( caretPosition );
-			}
-		};
-
-		namespaceText.addModifyListener( listener );
-		nameText.addModifyListener( listener );
-
-		return listener;
-	}
-
-
-	/**
-	 * Creates a modify listener for QName widgets.
-	 * <p>
-	 * The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
-	 * For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
-	 * </p>
-	 *
-	 * @param domain
-	 * @param owner
-	 * @param namespaceText
-	 * @param nameText
-	 * @return the modify listener (already applied to both Texts)
+	 * @param attribute
+	 * @param useCustomSetCommand true to use a custom Set command, false for the usual SetCommand
 	 * TODO: replace this method by EMFEditObservables as soon as EMF 2.8.0 or 2.7.2 is out
 	 * @See EObjecttUIHelper.createCustomSetCommand
 	 */
-	public static ModifyListener createCustomModifyListenerForQname(
+	public static ActivableListener createModifyListenerForQname(
 			final EditingDomain domain,
 			final EObject owner,
 			final Text namespaceText,
 			final Text nameText,
-			final EAttribute attribute ) {
+			final EAttribute attribute,
+			final boolean useCustomSetCommand ) {
 
-		ModifyListener listener = new ModifyListener() {
+		ActivableListener listener = new ActivableListener() {
 			@Override
-			public void modifyText( ModifyEvent e ) {
+			public void handleEvent( Event e ) {
+
+				// Not enabled, do nothing
+				if( ! isEnabled())
+					return;
 
 				// Save the caret position
 				// Otherwise, the caret goes back to the position 0
@@ -302,8 +258,18 @@ public class JBIEndpointUIHelpers {
 				String ns = namespaceText.getText().trim();
 				String name = nameText.getText().trim();
 
-				QName result = StringUtils.isEmpty( ns ) ? new QName( name ) : new QName( ns, name );
-				Command cmd = EObjecttUIHelper.createCustomSetCommand( domain, owner, attribute, result );
+				QName result;
+				if( StringUtils.isEmpty( ns ))
+					result = StringUtils.isEmpty( name ) ? null : new QName( name );
+				else
+					result = new QName( ns, name );
+
+				Command cmd;
+				if( useCustomSetCommand )
+					cmd = EObjecttUIHelper.createCustomSetCommand( domain, owner, attribute, result );
+				else
+					cmd = SetCommand.create( domain, owner, attribute, result );
+
 				domain.getCommandStack().execute( cmd );
 
 				// Restore the caret position
@@ -312,9 +278,8 @@ public class JBIEndpointUIHelpers {
 			}
 		};
 
-		namespaceText.addModifyListener( listener );
-		nameText.addModifyListener( listener );
-
+		namespaceText.addListener( SWT.Selection, listener );
+		nameText.addListener( SWT.Selection, listener );
 		return listener;
 	}
 

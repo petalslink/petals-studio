@@ -124,7 +124,7 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 	public void importXSL(IFolder resourceFolder, IProgressMonitor monitor)
 	throws MalformedURLException, CoreException, FileNotFoundException {
 
-		String name = UriAndUrlHelper.extractFileName( this.page.getXslUrl());
+		String name = UriAndUrlHelper.extractOrGenerateFileName( this.page.getXslUrl());
 		if( ! name.endsWith( ".xslt" ))
 			name += ".xslt";
 

@@ -20,6 +20,7 @@ import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
+import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers.CommonUIBean;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -37,10 +38,10 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
 
 		Composite composite = createCommonConsumeSection( mainTab, toolkit );
-		JBIEndpointUIHelpers.createCommonEndpointUI( endpoint, toolkit, composite, ise );
+		CommonUIBean commonUiBean = JBIEndpointUIHelpers.createCommonEndpointUI( endpoint, toolkit, composite, ise );
 
 		composite = createEditorSection( mainTab, toolkit, CDK5JBIEndpointUIHelper.CONSUME_TITLE, CDK5JBIEndpointUIHelper.CONSUME_DESC, true );
-		CDK5JBIEndpointUIHelper.createConsumesUI( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.createConsumesUI( endpoint, toolkit, composite, ise, commonUiBean );
 
 		composite = createEditorSection( mainTab, toolkit, "SOAP", true );
 		EObjecttUIHelper.generateWidgets(

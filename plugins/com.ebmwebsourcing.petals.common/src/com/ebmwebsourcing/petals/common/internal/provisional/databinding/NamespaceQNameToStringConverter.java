@@ -17,7 +17,7 @@ import javax.xml.namespace.QName;
 import org.eclipse.core.databinding.conversion.Converter;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class NamespaceQNameToStringConverter extends Converter {
 

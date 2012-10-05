@@ -17,6 +17,7 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -190,5 +191,16 @@ public class PhantomText extends Composite {
 	public void setToolTipText( String string ) {
 		this.text.setToolTipText( string );
 		super.setToolTipText( string );
+	}
+
+
+	/**
+	 * @param color
+	 * @see org.eclipse.swt.widgets.Control#setBackground(org.eclipse.swt.graphics.Color)
+	 */
+	@Override
+	public void setBackground( Color color ) {
+		this.text.setBackground( color );
+		super.setBackground( color );
 	}
 }

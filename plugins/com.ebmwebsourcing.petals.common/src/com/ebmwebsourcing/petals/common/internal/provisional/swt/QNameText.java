@@ -168,11 +168,13 @@ public class QNameText extends Composite {
 
 		this.localPartPhantomText.setEnabled( enabled );
 		this.namespacePhantomText.setEnabled( enabled );
-		this.separatorLabel.setEnabled( enabled );
 
 		int colorId = enabled ? SWT.COLOR_WHITE : SWT.COLOR_WIDGET_BACKGROUND;
 		Color color = getDisplay().getSystemColor( colorId );
+
 		this.separatorLabel.setBackground( color );
+		this.localPartPhantomText.setBackground( color );
+		this.namespacePhantomText.setBackground( color );
 		setBackground( color );
 
 		super.setEnabled( enabled );

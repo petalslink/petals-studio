@@ -275,7 +275,7 @@ public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard 
 		monitor.subTask( "Copying the BPEL process..." );
 		URI bpelUri = this.page.getHelper().getBpelUri();
 		InputStream is = bpelUri.toURL().openStream();
-		String bpelName = UriAndUrlHelper.extractFileName( bpelUri.toString());
+		String bpelName = UriAndUrlHelper.extractOrGenerateFileName( bpelUri.toString());
 		File target = project.getFolder( PetalsConstants.LOC_RES_FOLDER ).getFile( bpelName ).getLocation().toFile();
 		IoUtils.copyStream( is, target );
 		monitor.worked( 5 );
