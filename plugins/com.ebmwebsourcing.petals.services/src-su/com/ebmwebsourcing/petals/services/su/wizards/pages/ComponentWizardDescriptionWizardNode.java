@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Point;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class ComponentWizardDescriptionWizardNode implements IWizardNode {
 

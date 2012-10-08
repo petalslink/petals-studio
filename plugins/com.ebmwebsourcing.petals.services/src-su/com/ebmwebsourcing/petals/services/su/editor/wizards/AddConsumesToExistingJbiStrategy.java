@@ -23,7 +23,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class AddConsumesToExistingJbiStrategy implements FinishServiceCreationStrategy {
 

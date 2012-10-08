@@ -15,6 +15,7 @@ package com.ebmwebsourcing.petals.services.su.editor;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -75,6 +76,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.OpenSourceEdito
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
@@ -87,7 +89,9 @@ import com.ebmwebsourcing.petals.services.su.editor.wizards.AddConsumesToExistin
 import com.ebmwebsourcing.petals.services.su.editor.wizards.AddProvidesToExistingJbiStrategy;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
-import com.ebmwebsourcing.petals.services.su.wizards.NewServiceUnitSelectionWizard;
+import com.ebmwebsourcing.petals.services.su.jbiproperties.PetalsSPPropertiesManager;
+import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
+import com.ebmwebsourcing.petals.services.su.wizards.FinishServiceCreationStrategy;
 import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Consumes;
@@ -253,18 +257,21 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		Button newProvidesButton = getFormToolkit().createButton(providesButtons, "New...", SWT.NONE);
 		newProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, true, 1, 1 ));
 		newProvidesButton.setImage( PetalsImages.INSTANCE.getAdd());
-		newProvidesButton.addSelectionListener( new SelectionAdapter() {
-			@Override
-			public void widgetSelected( SelectionEvent e ) {
 
-				IWizard createEndpointWizard = new NewServiceUnitSelectionWizard(
-						PetalsMode.provides,
-						new AddProvidesToExistingJbiStrategy( getJbiModel(), getEditingDomain(), getEditedFile().getProject()));
+		final IWizard providesWizard = findNewWizard( PetalsMode.provides );
+		if( providesWizard == null ) {
+			newProvidesButton.setEnabled( false );
+			newProvidesButton.setToolTipText( "The component is not supported." );
 
-				if( new WizardDialog(getShell(), createEndpointWizard ).open() == Dialog.OK )
-					SuEditionComposite.this.providesViewer.refresh();
-			}
-		});
+		} else {
+			newProvidesButton.addSelectionListener( new SelectionAdapter() {
+				@Override
+				public void widgetSelected( SelectionEvent e ) {
+					if( new WizardDialog( getShell(), providesWizard ).open() == Dialog.OK )
+						SuEditionComposite.this.providesViewer.refresh();
+				}
+			});
+		}
 
 		final Button removeProvidesButton = getFormToolkit().createButton( providesButtons, "Remove", SWT.NONE );
 		removeProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false, 1, 1 ));
@@ -308,18 +315,21 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		Button newConsumesButton = getFormToolkit().createButton( consumesButtons, "New...", SWT.NONE );
 		newConsumesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false, 1, 1 ));
 		newConsumesButton.setImage( PetalsImages.INSTANCE.getAdd());
-		newConsumesButton.addSelectionListener( new SelectionAdapter() {
-			@Override
-			public void widgetSelected( SelectionEvent e ) {
 
-				IWizard createEndpointWizard = new NewServiceUnitSelectionWizard(
-						PetalsMode.consumes,
-						new AddConsumesToExistingJbiStrategy( getJbiModel(), getEditingDomain(), getEditedFile().getProject()));
+		final IWizard consumesWizard = findNewWizard( PetalsMode.consumes );
+		if( consumesWizard == null ) {
+			newConsumesButton.setEnabled( false );
+			newConsumesButton.setToolTipText( "The component is not supported." );
 
-				if( new WizardDialog( getShell(), createEndpointWizard ).open() == Dialog.OK )
-					SuEditionComposite.this.consumesViewer.refresh();
-			}
-		});
+		} else {
+			newConsumesButton.addSelectionListener( new SelectionAdapter() {
+				@Override
+				public void widgetSelected( SelectionEvent e ) {
+					if( new WizardDialog( getShell(), consumesWizard ).open() == Dialog.OK )
+						SuEditionComposite.this.consumesViewer.refresh();
+				}
+			});
+		}
 
 		final Button removeConsumesButton = getFormToolkit().createButton( consumesButtons, "Remove", SWT.NONE );
 		removeConsumesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false, 1, 1 ));
@@ -730,6 +740,42 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 	@Override
 	public FormToolkit getFormToolkit() {
 		return this.ise.getFormToolkit();
+	}
+
+
+	/**
+	 * Finds the right SU wizard depending on the project's configuration.
+	 * @param petalsMode provides or consumes
+	 * @return a wizard, or null if nothing matches the project's configuration
+	 */
+	private IWizard findNewWizard( PetalsMode petalsMode ) {
+
+		// Find the component name and version
+		Properties props = PetalsSPPropertiesManager.getProperties( this.ise.getEditedFile().getProject());
+		String componentName = props.getProperty( PetalsSPPropertiesManager.COMPONENT_NAME );
+		String componentVersion = props.getProperty( PetalsSPPropertiesManager.COMPONENT_VERSION );
+		if( StringUtils.isEmpty( componentVersion )
+				|| StringUtils.isEmpty( componentName ))
+			return null;
+
+		// Look for the right wizard
+		IWizard result = null;
+		for( AbstractServiceUnitWizard handler : ExtensionManager.INSTANCE.findComponentWizards( petalsMode )) {
+			if( ! componentName.equals( handler.getComponentVersionDescription().getComponentName()))
+				continue;
+
+			if( ! componentVersion.equals( handler.getComponentVersionDescription().getComponentVersion()))
+				continue;
+
+			FinishServiceCreationStrategy strategy = petalsMode == PetalsMode.provides ?
+					new AddProvidesToExistingJbiStrategy( getJbiModel(), getEditingDomain(), getEditedFile().getProject())
+					: new AddConsumesToExistingJbiStrategy( getJbiModel(), getEditingDomain(), getEditedFile().getProject());
+			handler.setStrategy( strategy );
+			result = handler;
+			break;
+		}
+
+		return result;
 	}
 
 

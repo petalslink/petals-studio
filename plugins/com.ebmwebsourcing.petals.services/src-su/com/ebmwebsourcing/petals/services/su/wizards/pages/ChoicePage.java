@@ -82,6 +82,7 @@ public class ChoicePage extends WizardSelectionPage {
 
 	private final FinishServiceCreationStrategy strategy;
 
+
 	/**
 	 * Constructor.
 	 * @param strategy
@@ -285,7 +286,7 @@ public class ChoicePage extends WizardSelectionPage {
 
 		final Map<String,Collection<AbstractServiceUnitWizard>> componentNameToHandler = new TreeMap<String,Collection<AbstractServiceUnitWizard>> ();
 		final Map<PetalsKeyWords,Set<String>> keywordToComponentName = new HashMap<PetalsKeyWords,Set<String>> ();
-		for( AbstractServiceUnitWizard handler : ExtensionManager.INSTANCE.findComponentWizards(this.petalsMode)) {
+		for( AbstractServiceUnitWizard handler : ExtensionManager.INSTANCE.findComponentWizards(this.petalsMode )) {
 			for( PetalsKeyWords keyword : handler.getComponentVersionDescription().getKeyWords()) {
 				Set<String> list = keywordToComponentName.get( keyword );
 				if( list == null )
