@@ -4,7 +4,7 @@ Bundle-Name: Petals Service Repositories
 Bundle-SymbolicName: com.ebmwebsourcing.petals.repositories;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.ebmwebsoucing.petals.repositories.PetalsRepositoriesPlugin
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  com.ebmwebsourcing.petals.common,

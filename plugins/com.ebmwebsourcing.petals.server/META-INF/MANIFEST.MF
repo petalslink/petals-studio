@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: PEtALS Server plug-in
+Bundle-Name: Petals Server plug-in
 Bundle-SymbolicName: com.ebmwebsourcing.petals.server;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.ebmwebsourcing.petals.server.PetalsServerPlugin
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.server.core,
  org.eclipse.jdt.launching,

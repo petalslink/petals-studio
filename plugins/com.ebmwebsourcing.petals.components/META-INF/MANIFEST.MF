@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Petals Components Plug-in
 Bundle-SymbolicName: com.ebmwebsourcing.petals.components; singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

@@ -4,7 +4,7 @@ Bundle-Name: Petals Maven Integration
 Bundle-SymbolicName: com.ebmwebsourcing.petals.common.maven;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.ebmwebsourcing.petals.maven.PetalsMavenPlugin
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

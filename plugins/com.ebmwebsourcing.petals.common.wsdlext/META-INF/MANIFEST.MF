@@ -4,7 +4,7 @@ Bundle-Name: Petals WSDL Extensions
 Bundle-SymbolicName: com.ebmwebsourcing.petals.common.wsdlext;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.ebmwebsourcing.petals.common.extensions.PetalsCommonWsdlExtPlugin
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jdt.core,

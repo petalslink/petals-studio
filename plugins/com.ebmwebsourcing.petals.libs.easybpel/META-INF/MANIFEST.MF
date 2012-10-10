@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Petals Studio - Easy BPEL Bundle
 Bundle-SymbolicName: com.ebmwebsourcing.petals.libs.easybpel
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: lib/activation-1.1.jar,
  lib/asm-3.0.jar,
