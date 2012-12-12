@@ -1,11 +1,8 @@
 /**
- * Copyright (c) 2012, EBM WebSourcing
- * 
- * This source code is available under agreement available at
- * http://www.petalslink.com/legal/licenses/petals-studio
- * 
- * You should have received a copy of the agreement along with this program.
- * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x;
 
@@ -27,11 +24,11 @@ import org.eclipse.emf.ecore.EPackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xFactory
+ * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferFactory
  * @model kind="package"
  * @generated
  */
-public interface Filetransfer2xPackage extends EPackage {
+public interface FileTransferPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -62,14 +59,14 @@ public interface Filetransfer2xPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	Filetransfer2xPackage eINSTANCE = com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl.init();
+	FileTransferPackage eINSTANCE = com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferProvidesImpl <em>File Transfer Provides</em>}' class.
+	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferProvidesImpl <em>Provides</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferProvidesImpl
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getFileTransferProvides()
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getFileTransferProvides()
 	 * @generated
 	 */
 	int FILE_TRANSFER_PROVIDES = 0;
@@ -174,7 +171,7 @@ public interface Filetransfer2xPackage extends EPackage {
 	int FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY = JbiPackage.PROVIDES_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the '<em>File Transfer Provides</em>' class.
+	 * The number of structural features of the '<em>Provides</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -183,11 +180,11 @@ public interface Filetransfer2xPackage extends EPackage {
 	int FILE_TRANSFER_PROVIDES_FEATURE_COUNT = JbiPackage.PROVIDES_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferConsumesImpl <em>File Transfer Consumes</em>}' class.
+	 * The meta object id for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferConsumesImpl <em>Consumes</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferConsumesImpl
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getFileTransferConsumes()
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getFileTransferConsumes()
 	 * @generated
 	 */
 	int FILE_TRANSFER_CONSUMES = 1;
@@ -292,7 +289,7 @@ public interface Filetransfer2xPackage extends EPackage {
 	int FILE_TRANSFER_CONSUMES__POLLING_PERIOD = JbiPackage.CONSUMES_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the '<em>File Transfer Consumes</em>' class.
+	 * The number of structural features of the '<em>Consumes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -305,7 +302,7 @@ public interface Filetransfer2xPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getCopyMode()
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getCopyMode()
 	 * @generated
 	 */
 	int COPY_MODE = 2;
@@ -315,17 +312,17 @@ public interface Filetransfer2xPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getTransferMode()
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getTransferMode()
 	 * @generated
 	 */
 	int TRANSFER_MODE = 3;
 
 
 	/**
-	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides <em>File Transfer Provides</em>}'.
+	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides <em>Provides</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>File Transfer Provides</em>'.
+	 * @return the meta object for class '<em>Provides</em>'.
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides
 	 * @generated
 	 */
@@ -387,10 +384,10 @@ public interface Filetransfer2xPackage extends EPackage {
 	EAttribute getFileTransferProvides_BackupDirectory();
 
 	/**
-	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes <em>File Transfer Consumes</em>}'.
+	 * Returns the meta object for class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes <em>Consumes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>File Transfer Consumes</em>'.
+	 * @return the meta object for class '<em>Consumes</em>'.
 	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes
 	 * @generated
 	 */
@@ -478,7 +475,7 @@ public interface Filetransfer2xPackage extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Filetransfer2xFactory getFiletransfer2xFactory();
+	FileTransferFactory getFileTransferFactory();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -494,11 +491,11 @@ public interface Filetransfer2xPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferProvidesImpl <em>File Transfer Provides</em>}' class.
+		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferProvidesImpl <em>Provides</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferProvidesImpl
-		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getFileTransferProvides()
+		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getFileTransferProvides()
 		 * @generated
 		 */
 		EClass FILE_TRANSFER_PROVIDES = eINSTANCE.getFileTransferProvides();
@@ -544,11 +541,11 @@ public interface Filetransfer2xPackage extends EPackage {
 		EAttribute FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY = eINSTANCE.getFileTransferProvides_BackupDirectory();
 
 		/**
-		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferConsumesImpl <em>File Transfer Consumes</em>}' class.
+		 * The meta object literal for the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferConsumesImpl <em>Consumes</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferConsumesImpl
-		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getFileTransferConsumes()
+		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getFileTransferConsumes()
 		 * @generated
 		 */
 		EClass FILE_TRANSFER_CONSUMES = eINSTANCE.getFileTransferConsumes();
@@ -598,7 +595,7 @@ public interface Filetransfer2xPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode
-		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getCopyMode()
+		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getCopyMode()
 		 * @generated
 		 */
 		EEnum COPY_MODE = eINSTANCE.getCopyMode();
@@ -608,11 +605,11 @@ public interface Filetransfer2xPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode
-		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xPackageImpl#getTransferMode()
+		 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.FileTransferPackageImpl#getTransferMode()
 		 * @generated
 		 */
 		EEnum TRANSFER_MODE = eINSTANCE.getTransferMode();
 
 	}
 
-} //Filetransfer2xPackage
+} //FileTransferPackage

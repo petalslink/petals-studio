@@ -29,15 +29,6 @@ public interface Filetransfer2xFactory extends EFactory {
 	Filetransfer2xFactory eINSTANCE = com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl.Filetransfer2xFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>File Transfer Extension</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>File Transfer Extension</em>'.
-	 * @generated
-	 */
-	FileTransferExtension createFileTransferExtension();
-
-	/**
 	 * Returns a new object of class '<em>File Transfer Provides</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

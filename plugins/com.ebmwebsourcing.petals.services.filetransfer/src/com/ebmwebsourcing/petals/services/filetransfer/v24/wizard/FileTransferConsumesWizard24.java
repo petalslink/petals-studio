@@ -52,9 +52,9 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 	public void presetServiceValues( AbstractEndpoint ae ) {
 		Cdk5Utils.setInitialConsumesValues((Consumes) ae);
 		ae.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__READ_DIRECTORY, "" );
-		ae.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY, "" );
+		ae.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY, "" );
 		ae.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__TRANSFER_MODE, TransferMode.CONTENT );
-		ae.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN, "*" );
+		ae.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__FILE_PATTERN, "*" );
 		ae.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__POLLING_PERIOD, 1000 );
 	}
 
@@ -68,8 +68,8 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
 				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__READ_DIRECTORY,
-				Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY,
-				Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN,
+				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY,
+				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__FILE_PATTERN,
 				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__TRANSFER_MODE,
 				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__POLLING_PERIOD
 		)};
@@ -90,7 +90,7 @@ public class FileTransferConsumesWizard24 extends AbstractServiceUnitWizard {
 		Cdk5Utils.setMep( ae, this.settings.invocationMep );
 
 		// Remove unused values
-		hackEmfModel( ae, Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY );
+		hackEmfModel( ae, Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY );
 
 		return Status.OK_STATUS;
 	}

@@ -3,30 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="filetransfer2x"
     nsURI="http://petals.ow2.org/components/filetransfer/version-2" nsPrefix="filetransfer2x">
-  <eClassifiers xsi:type="ecore:EClass" name="FileTransferExtension" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//AbstractExtensibleElement">
-    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-      <details key="name" value=""/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filePattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="file-pattern"/>
-        <details key="kind" value="element"/>
-        <details key="namespace" value="##targetNamespace"/>
-        <details key="group" value="#group:0"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="backupDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="backup-directory"/>
-        <details key="kind" value="element"/>
-        <details key="namespace" value="##targetNamespace"/>
-        <details key="group" value="#group:0"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FileTransferProvides" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Provides #//FileTransferExtension">
+  <eClassifiers xsi:type="ecore:EClass" name="FileTransferProvides" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Provides">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
@@ -48,6 +25,15 @@
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filePattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        derived="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="file-pattern"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="readDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -57,8 +43,17 @@
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="backupDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        derived="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="backup-directory"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FileTransferConsumes" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Consumes #//FileTransferExtension">
+  <eClassifiers xsi:type="ecore:EClass" name="FileTransferConsumes" eSuperTypes="../../com.ebmwebsourcing.jbi.core.metamodel/model/jbi.ecore#//Consumes">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value=""/>
     </eAnnotations>
@@ -72,10 +67,28 @@
         <details key="group" value="#group:0"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="backupDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        derived="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="backup-directory"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transferMode" eType="#//TransferMode"
         defaultValueLiteral="TransferMode.CONTENT" derived="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="transfer-mode"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="group" value="#group:0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filePattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        derived="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="file-pattern"/>
         <details key="kind" value="element"/>
         <details key="namespace" value="##targetNamespace"/>
         <details key="group" value="#group:0"/>

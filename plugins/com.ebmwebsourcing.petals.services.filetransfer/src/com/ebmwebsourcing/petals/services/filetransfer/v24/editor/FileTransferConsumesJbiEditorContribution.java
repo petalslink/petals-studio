@@ -53,13 +53,14 @@ public class FileTransferConsumesJbiEditorContribution extends JbiEditorDetailsC
 	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
-		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
-		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__READ_DIRECTORY,
-		Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY,
-		Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN,
-		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__TRANSFER_MODE,
-		Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__POLLING_PERIOD );
+		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters", true );
+		EObjecttUIHelper.generateWidgets(
+				endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__READ_DIRECTORY,
+				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY,
+				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__FILE_PATTERN,
+				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__TRANSFER_MODE,
+				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__POLLING_PERIOD );
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
 		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );

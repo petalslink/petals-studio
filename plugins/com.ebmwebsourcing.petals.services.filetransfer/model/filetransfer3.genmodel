@@ -34,20 +34,20 @@
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="filetransfer.ecore#//TransferMode">
       <genEnumLiterals ecoreEnumLiteral="filetransfer.ecore#//TransferMode/CONTENT"/>
-      <genEnumLiterals ecoreEnumLiteral="filetransfer.ecore#//TransferMode/ATTACHMENTS"/>
+      <genEnumLiterals ecoreEnumLiteral="filetransfer.ecore#//TransferMode/ATTACHMENT"/>
     </genEnums>
-    <genClasses ecoreClass="filetransfer.ecore#//FileTransferExtension">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferExtension/filePattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferExtension/backupDirectory"/>
-    </genClasses>
     <genClasses ecoreClass="filetransfer.ecore#//FileTransferProvides">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferProvides/writeDirectory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferProvides/copyMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferProvides/filePattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferProvides/readDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferProvides/backupDirectory"/>
     </genClasses>
     <genClasses ecoreClass="filetransfer.ecore#//FileTransferConsumes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferConsumes/readDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferConsumes/backupDirectory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferConsumes/transferMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferConsumes/filePattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filetransfer.ecore#//FileTransferConsumes/pollingPeriod"/>
     </genClasses>
   </genPackages>

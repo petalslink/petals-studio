@@ -53,7 +53,7 @@ public class FileTransfer3ConsumesJbiEditorContribution extends JbiEditorDetails
 	@Override
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
-		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters" );
+		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters", true );
 		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__FOLDER,
 				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__BACKUP_DIRECTORY,

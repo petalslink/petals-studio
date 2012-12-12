@@ -1,11 +1,8 @@
 /**
- * Copyright (c) 2012, EBM WebSourcing
- * 
- * This source code is available under agreement available at
- * http://www.petalslink.com/legal/licenses/petals-studio
- * 
- * You should have received a copy of the agreement along with this program.
- * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl;
 
@@ -26,24 +23,24 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class Filetransfer2xFactoryImpl extends EFactoryImpl implements Filetransfer2xFactory {
+public class FileTransferFactoryImpl extends EFactoryImpl implements FileTransferFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static Filetransfer2xFactory init() {
+	public static FileTransferFactory init() {
 		try {
-			Filetransfer2xFactory theFiletransfer2xFactory = (Filetransfer2xFactory)EPackage.Registry.INSTANCE.getEFactory("http://petals.ow2.org/components/filetransfer/version-2"); 
-			if (theFiletransfer2xFactory != null) {
-				return theFiletransfer2xFactory;
+			FileTransferFactory theFileTransferFactory = (FileTransferFactory)EPackage.Registry.INSTANCE.getEFactory("http://petals.ow2.org/components/filetransfer/version-2"); 
+			if (theFileTransferFactory != null) {
+				return theFileTransferFactory;
 			}
 		}
 		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
-		return new Filetransfer2xFactoryImpl();
+		return new FileTransferFactoryImpl();
 	}
 
 	/**
@@ -52,7 +49,7 @@ public class Filetransfer2xFactoryImpl extends EFactoryImpl implements Filetrans
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Filetransfer2xFactoryImpl() {
+	public FileTransferFactoryImpl() {
 		super();
 	}
 
@@ -64,8 +61,8 @@ public class Filetransfer2xFactoryImpl extends EFactoryImpl implements Filetrans
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case Filetransfer2xPackage.FILE_TRANSFER_PROVIDES: return createFileTransferProvides();
-			case Filetransfer2xPackage.FILE_TRANSFER_CONSUMES: return createFileTransferConsumes();
+			case FileTransferPackage.FILE_TRANSFER_PROVIDES: return createFileTransferProvides();
+			case FileTransferPackage.FILE_TRANSFER_CONSUMES: return createFileTransferConsumes();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -79,9 +76,9 @@ public class Filetransfer2xFactoryImpl extends EFactoryImpl implements Filetrans
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case Filetransfer2xPackage.COPY_MODE:
+			case FileTransferPackage.COPY_MODE:
 				return createCopyModeFromString(eDataType, initialValue);
-			case Filetransfer2xPackage.TRANSFER_MODE:
+			case FileTransferPackage.TRANSFER_MODE:
 				return createTransferModeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -96,9 +93,9 @@ public class Filetransfer2xFactoryImpl extends EFactoryImpl implements Filetrans
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case Filetransfer2xPackage.COPY_MODE:
+			case FileTransferPackage.COPY_MODE:
 				return convertCopyModeToString(eDataType, instanceValue);
-			case Filetransfer2xPackage.TRANSFER_MODE:
+			case FileTransferPackage.TRANSFER_MODE:
 				return convertTransferModeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -170,8 +167,8 @@ public class Filetransfer2xFactoryImpl extends EFactoryImpl implements Filetrans
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Filetransfer2xPackage getFiletransfer2xPackage() {
-		return (Filetransfer2xPackage)getEPackage();
+	public FileTransferPackage getFileTransferPackage() {
+		return (FileTransferPackage)getEPackage();
 	}
 
 	/**
@@ -181,8 +178,8 @@ public class Filetransfer2xFactoryImpl extends EFactoryImpl implements Filetrans
 	 * @generated
 	 */
 	@Deprecated
-	public static Filetransfer2xPackage getPackage() {
-		return Filetransfer2xPackage.eINSTANCE;
+	public static FileTransferPackage getPackage() {
+		return FileTransferPackage.eINSTANCE;
 	}
 
-} //Filetransfer2xFactoryImpl
+} //FileTransferFactoryImpl

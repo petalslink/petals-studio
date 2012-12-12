@@ -1,11 +1,8 @@
 /**
- * Copyright (c) 2012, EBM WebSourcing
- * 
- * This source code is available under agreement available at
- * http://www.petalslink.com/legal/licenses/petals-studio
- * 
- * You should have received a copy of the agreement along with this program.
- * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.util;
 
@@ -28,17 +25,17 @@ import org.eclipse.emf.ecore.EObject;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage
+ * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage
  * @generated
  */
-public class Filetransfer2xAdapterFactory extends AdapterFactoryImpl {
+public class FileTransferAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static Filetransfer2xPackage modelPackage;
+	protected static FileTransferPackage modelPackage;
 
 	/**
 	 * Creates an instance of the adapter factory.
@@ -46,9 +43,9 @@ public class Filetransfer2xAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Filetransfer2xAdapterFactory() {
+	public FileTransferAdapterFactory() {
 		if (modelPackage == null) {
-			modelPackage = Filetransfer2xPackage.eINSTANCE;
+			modelPackage = FileTransferPackage.eINSTANCE;
 		}
 	}
 
@@ -77,8 +74,8 @@ public class Filetransfer2xAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Filetransfer2xSwitch<Adapter> modelSwitch =
-		new Filetransfer2xSwitch<Adapter>() {
+	protected FileTransferSwitch<Adapter> modelSwitch =
+		new FileTransferSwitch<Adapter>() {
 			@Override
 			public Adapter caseFileTransferProvides(FileTransferProvides object) {
 				return createFileTransferProvidesAdapter();
@@ -124,7 +121,7 @@ public class Filetransfer2xAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides <em>File Transfer Provides</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides <em>Provides</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
@@ -138,7 +135,7 @@ public class Filetransfer2xAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes <em>File Transfer Consumes</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes <em>Consumes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
@@ -219,4 +216,4 @@ public class Filetransfer2xAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //Filetransfer2xAdapterFactory
+} //FileTransferAdapterFactory

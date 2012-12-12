@@ -1,26 +1,17 @@
 /**
- * Copyright (c) 2012, EBM WebSourcing
- * 
- * This source code is available under agreement available at
- * http://www.petalslink.com/legal/licenses/petals-studio
- * 
- * You should have received a copy of the agreement along with this program.
- * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferFactory;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xFactory;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
-
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
-
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.impl.Filetransfer3PackageImpl;
 
 import com.sun.java.xml.ns.jbi.JbiPackage;
 
@@ -37,7 +28,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class Filetransfer2xPackageImpl extends EPackageImpl implements Filetransfer2xPackage {
+public class FileTransferPackageImpl extends EPackageImpl implements FileTransferPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -77,12 +68,12 @@ public class Filetransfer2xPackageImpl extends EPackageImpl implements Filetrans
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage#eNS_URI
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
-	private Filetransfer2xPackageImpl() {
-		super(eNS_URI, Filetransfer2xFactory.eINSTANCE);
+	private FileTransferPackageImpl() {
+		super(eNS_URI, FileTransferFactory.eINSTANCE);
 	}
 
 	/**
@@ -95,7 +86,7 @@ public class Filetransfer2xPackageImpl extends EPackageImpl implements Filetrans
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
 	 * 
-	 * <p>This method is used to initialize {@link Filetransfer2xPackage#eINSTANCE} when that field is accessed.
+	 * <p>This method is used to initialize {@link FileTransferPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -104,35 +95,30 @@ public class Filetransfer2xPackageImpl extends EPackageImpl implements Filetrans
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static Filetransfer2xPackage init() {
-		if (isInited) return (Filetransfer2xPackage)EPackage.Registry.INSTANCE.getEPackage(Filetransfer2xPackage.eNS_URI);
+	public static FileTransferPackage init() {
+		if (isInited) return (FileTransferPackage)EPackage.Registry.INSTANCE.getEPackage(FileTransferPackage.eNS_URI);
 
 		// Obtain or create and register package
-		Filetransfer2xPackageImpl theFiletransfer2xPackage = (Filetransfer2xPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Filetransfer2xPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new Filetransfer2xPackageImpl());
+		FileTransferPackageImpl theFileTransferPackage = (FileTransferPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof FileTransferPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new FileTransferPackageImpl());
 
 		isInited = true;
 
 		// Initialize simple dependencies
-		Cdk5Package.eINSTANCE.eClass();
-
-		// Obtain or create and register interdependencies
-		Filetransfer3PackageImpl theFiletransfer3Package = (Filetransfer3PackageImpl)(EPackage.Registry.INSTANCE.getEPackage(Filetransfer3Package.eNS_URI) instanceof Filetransfer3PackageImpl ? EPackage.Registry.INSTANCE.getEPackage(Filetransfer3Package.eNS_URI) : Filetransfer3Package.eINSTANCE);
+		JbiPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
-		theFiletransfer2xPackage.createPackageContents();
-		theFiletransfer3Package.createPackageContents();
+		theFileTransferPackage.createPackageContents();
 
 		// Initialize created meta-data
-		theFiletransfer2xPackage.initializePackageContents();
-		theFiletransfer3Package.initializePackageContents();
+		theFileTransferPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
-		theFiletransfer2xPackage.freeze();
+		theFileTransferPackage.freeze();
 
   
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(Filetransfer2xPackage.eNS_URI, theFiletransfer2xPackage);
-		return theFiletransfer2xPackage;
+		EPackage.Registry.INSTANCE.put(FileTransferPackage.eNS_URI, theFileTransferPackage);
+		return theFileTransferPackage;
 	}
 
 	/**
@@ -266,8 +252,8 @@ public class Filetransfer2xPackageImpl extends EPackageImpl implements Filetrans
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Filetransfer2xFactory getFiletransfer2xFactory() {
-		return (Filetransfer2xFactory)getEFactoryInstance();
+	public FileTransferFactory getFileTransferFactory() {
+		return (FileTransferFactory)getEFactoryInstance();
 	}
 
 	/**
@@ -487,4 +473,4 @@ public class Filetransfer2xPackageImpl extends EPackageImpl implements Filetrans
 		   });
 	}
 
-} //Filetransfer2xPackageImpl
+} //FileTransferPackageImpl

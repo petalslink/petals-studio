@@ -32,7 +32,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 
@@ -95,12 +95,12 @@ public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 		if( this.page.getContract() == Contract.WRITE_FILES ) {
 			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, this.page.getWriteDirectory());
 			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE, this.page.getCopyMode());
-			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__FILE_PATTERN, this.page.getFilePattern());
+			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__FILE_PATTERN, this.page.getFilePattern());
 			wsdlContent = new WriteWsdl24().generate( abstractEndpoint );
 
 		} else {
 			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY, this.page.getReadDirectory());
-			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_EXTENSION__BACKUP_DIRECTORY, this.page.getBackupDirectory());
+			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY, this.page.getBackupDirectory());
 			wsdlContent = new GetFilesWsdl24().generate( abstractEndpoint );
 		}
 

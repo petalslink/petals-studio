@@ -23,7 +23,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage {
 

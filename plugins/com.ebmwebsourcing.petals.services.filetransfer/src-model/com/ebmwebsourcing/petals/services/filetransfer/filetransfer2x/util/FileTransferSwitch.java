@@ -1,11 +1,8 @@
 /**
- * Copyright (c) 2012, EBM WebSourcing
- * 
- * This source code is available under agreement available at
- * http://www.petalslink.com/legal/licenses/petals-studio
- * 
- * You should have received a copy of the agreement along with this program.
- * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.util;
 
@@ -31,17 +28,17 @@ import org.eclipse.emf.ecore.util.Switch;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage
+ * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage
  * @generated
  */
-public class Filetransfer2xSwitch<T> extends Switch<T> {
+public class FileTransferSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static Filetransfer2xPackage modelPackage;
+	protected static FileTransferPackage modelPackage;
 
 	/**
 	 * Creates an instance of the switch.
@@ -49,9 +46,9 @@ public class Filetransfer2xSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Filetransfer2xSwitch() {
+	public FileTransferSwitch() {
 		if (modelPackage == null) {
-			modelPackage = Filetransfer2xPackage.eINSTANCE;
+			modelPackage = FileTransferPackage.eINSTANCE;
 		}
 	}
 
@@ -78,7 +75,7 @@ public class Filetransfer2xSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case Filetransfer2xPackage.FILE_TRANSFER_PROVIDES: {
+			case FileTransferPackage.FILE_TRANSFER_PROVIDES: {
 				FileTransferProvides fileTransferProvides = (FileTransferProvides)theEObject;
 				T result = caseFileTransferProvides(fileTransferProvides);
 				if (result == null) result = caseProvides(fileTransferProvides);
@@ -87,7 +84,7 @@ public class Filetransfer2xSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case Filetransfer2xPackage.FILE_TRANSFER_CONSUMES: {
+			case FileTransferPackage.FILE_TRANSFER_CONSUMES: {
 				FileTransferConsumes fileTransferConsumes = (FileTransferConsumes)theEObject;
 				T result = caseFileTransferConsumes(fileTransferConsumes);
 				if (result == null) result = caseConsumes(fileTransferConsumes);
@@ -101,13 +98,13 @@ public class Filetransfer2xSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>File Transfer Provides</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Provides</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>File Transfer Provides</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Provides</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -116,13 +113,13 @@ public class Filetransfer2xSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>File Transfer Consumes</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Consumes</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>File Transfer Consumes</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Consumes</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -206,4 +203,4 @@ public class Filetransfer2xSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Filetransfer2xSwitch
+} //FileTransferSwitch

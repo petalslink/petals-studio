@@ -1,11 +1,8 @@
 /**
- * Copyright (c) 2012, EBM WebSourcing
- * 
- * This source code is available under agreement available at
- * http://www.petalslink.com/legal/licenses/petals-studio
- * 
- * You should have received a copy of the agreement along with this program.
- * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
  */
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x;
 
@@ -13,14 +10,16 @@ import com.sun.java.xml.ns.jbi.Consumes;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>File Transfer Consumes</b></em>'.
+ * A representation of the model object '<em><b>Consumes</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes#getReadDirectory <em>Read Directory</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes#getBackupDirectory <em>Backup Directory</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes#getTransferMode <em>Transfer Mode</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes#getFilePattern <em>File Pattern</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes#getPollingPeriod <em>Polling Period</em>}</li>
  * </ul>
  * </p>
@@ -29,7 +28,7 @@ import com.sun.java.xml.ns.jbi.Consumes;
  * @model extendedMetaData="name=''"
  * @generated
  */
-public interface FileTransferConsumes extends Consumes, FileTransferExtension {
+public interface FileTransferConsumes extends Consumes {
 	/**
 	 * Returns the value of the '<em><b>Read Directory</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -85,6 +84,33 @@ public interface FileTransferConsumes extends Consumes, FileTransferExtension {
 	boolean isSetReadDirectory();
 
 	/**
+	 * Returns the value of the '<em><b>Backup Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Backup Directory</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Backup Directory</em>' attribute.
+	 * @see #setBackupDirectory(String)
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage#getFileTransferConsumes_BackupDirectory()
+	 * @model derived="true"
+	 *        extendedMetaData="name='backup-directory' kind='element' namespace='##targetNamespace' group='#group:0'"
+	 * @generated
+	 */
+	String getBackupDirectory();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes#getBackupDirectory <em>Backup Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Backup Directory</em>' attribute.
+	 * @see #getBackupDirectory()
+	 * @generated
+	 */
+	void setBackupDirectory(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Transfer Mode</b></em>' attribute.
 	 * The default value is <code>"TransferMode.CONTENT"</code>.
 	 * The literals are from the enumeration {@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode}.
@@ -114,6 +140,33 @@ public interface FileTransferConsumes extends Consumes, FileTransferExtension {
 	 * @generated
 	 */
 	void setTransferMode(TransferMode value);
+
+	/**
+	 * Returns the value of the '<em><b>File Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>File Pattern</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>File Pattern</em>' attribute.
+	 * @see #setFilePattern(String)
+	 * @see com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage#getFileTransferConsumes_FilePattern()
+	 * @model derived="true"
+	 *        extendedMetaData="name='file-pattern' kind='element' namespace='##targetNamespace' group='#group:0'"
+	 * @generated
+	 */
+	String getFilePattern();
+
+	/**
+	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes#getFilePattern <em>File Pattern</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>File Pattern</em>' attribute.
+	 * @see #getFilePattern()
+	 * @generated
+	 */
+	void setFilePattern(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Polling Period</b></em>' attribute.
