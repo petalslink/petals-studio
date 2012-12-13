@@ -21,7 +21,7 @@
  *****************************************************************************/
 -->
 
-<project name="A Sample Deployment Script for Petals ESB" default="deploy">
+<project name="A Sample Deployment Script for Petals ESB">
 
 	<!-- The path to Petals libraries, required to interact with the ESB -->
 	<path id="tests.classpath">
@@ -35,52 +35,59 @@
 	<taskdef resource="org/ow2/petals/ant/petals-ant.properties" >
 		<classpath refid="tests.classpath" />
 	</taskdef>
+	
+	
+	<!-- 		Define a property 				-->
+	<!-- To reference as ${your_property_name} 	-->
+	<property name="your_property_name" value="your_property_value" />
+	<property name="port" value="7700" />
+	<property name="host" value="localhost" />
+	<property name="username" value="petals" />
+	<property name="password" value="petals" />
 
 
 	<!-- 							Targets 										  -->
 	<!-- The hosts, (JMX) user name and password are defined in the topology.xml file -->
-	<target name="deploy">
-	
-		<!-- Deploy a Petals Shared Library -->
-		<jbi-install-shared-library
-					file="shared-library-url"
-					port="7700" 
-					host="localhost"
-					username="petals"
-					password="petals" />
 	
 	
-		<!-- Deploy a Petals Component -->
-		<jbi-install-component	
-					file="component-file-url"
-					port="7700" 
-					host="localhost"
-					username="petals"
-					password="petals" />
-
-		<!-- Start a Petals Component -->
-		<jbi-start-component	
-					name="component-name"
-					port="7700"
-					host="localhost"
-					username="petals"
-					password="petals" />
+	<!-- Deploy a Petals Shared Library, deploy and start a Petals component. -->
+	<target name="deploy-components">	
+		<jbi-install-shared-library file="shared-library-url" port="${port}" host="${host}" username="${username}" password="${password}" />
+		<jbi-install-component file="component-file-url" port="${port}" host="${host}" username="${username}" password="${password}" />
+		<jbi-start-component name="component-name" port="${port}" host="${host}" username="${username}" password="${password}" />
+	</target>
 
 
-		<!-- Deploy a Petals Service Assembly -->
-		<jbi-deploy-service-assembly 	
-					file="SA-url"
-					port="7700" 
-					host="localhost"
-					username="petals"
-					password="petals" />
-
-		<!-- Start a Petals Service Assembly -->
-		<jbi-start-service-assembly 	
-					name="SA-name"
-					port="7700" 
-					host="localhost"
-					username="petals"
-					password="petals" />
+	<!-- Deploy and start a Petals Service Assembly -->
+	<target name="deploy-services">
+		<jbi-deploy-service-assembly file="SA-url" port="${port}" host="${host}" username="${username}" password="${password}" />
+		<jbi-start-service-assembly name="SA-name" port="${port}" host="${host}" username="${username}" password="${password}" />
+	</target>
+	
+	
+	<!-- Undeploy Petals service assemblies -->
+	<target name="undeploy-services">
+		<petals-stop-all-service-assemblies port="${port}" host="${host}" username="${username}" password="${password}" failOnError="false" />
+		<petals-shut-down-all-service-assemblies port="${port}" host="${host}" username="${username}" password="${password}" failOnError="false" />
+		<petals-undeploy-all-service-assemblies port="${port}" host="${host}" username="${username}" password="${password}" />
+	</target>
+	
+	
+	<!-- Stop, shutdown and undeploy Petals components and shared libraries.-->
+	<target name="undeploy-components">
+		<petals-stop-all-components port="${port}" host="${host}" username="${username}" password="${password}" failOnError="false" />
+		<petals-shut-down-all-components port="${port}" host="${host}" username="${username}" password="${password}" failOnError="false" />
+		<petals-uninstall-all-components port="${port}" host="${host}" username="${username}" password="${password}" />
+		<petals-unload-all-installers port="${port}" host="${host}" username="${username}" password="${password}" />
+		<petals-uninstall-all-shared-libraries port="${port}" host="${host}" username="${username}" password="${password}" />
+	</target>
+	
+	
+	<!-- Reset all: uninstall everything and reinstall it all -->
+	<target name="reset-installation">
+		<antcall target="undeploy-services" />
+		<antcall target="undeploy-components" />
+		<antcall target="deploy-components" />
+		<antcall target="deploy-services" />
 	</target>
 </project>
