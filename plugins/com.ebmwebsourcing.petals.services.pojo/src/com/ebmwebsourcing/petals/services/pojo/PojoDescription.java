@@ -88,6 +88,6 @@ public abstract class PojoDescription extends ComponentVersionDescription {
 	 */
 	@Override
 	public List<PetalsKeyWords> getKeyWords() {
-		return Arrays.asList( new PetalsKeyWords[] { PetalsKeyWords.soa, PetalsKeyWords.code, PetalsKeyWords.composition });
+		return Arrays.asList( new PetalsKeyWords[] { PetalsKeyWords.integration, PetalsKeyWords.code, PetalsKeyWords.composition });
 	}
 }

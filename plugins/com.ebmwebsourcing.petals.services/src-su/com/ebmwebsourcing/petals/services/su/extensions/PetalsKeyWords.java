@@ -11,6 +11,10 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.su.extensions;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+
+import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
@@ -51,6 +55,15 @@ public enum PetalsKeyWords {
 		}
 
 		return result;
+	}
+
+
+	/**
+	 * @return an image descriptor associated with this key word
+	 */
+	public ImageDescriptor getImageDescriptor() {
+		String path = "icons/obj16/choice_" + super.toString() + "_16x16.png";
+		return PetalsServicesPlugin.getImageDescriptor( path );
 	}
 
 
