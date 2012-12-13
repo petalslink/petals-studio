@@ -621,7 +621,8 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 		Display.getDefault().asyncExec( new Runnable() {
 			@Override
 			public void run() {
-				sourceText.setText( sb.toString());
+				if( ! sourceText.isDisposed())
+					sourceText.setText( sb.toString());
 			}
 		});
 	}

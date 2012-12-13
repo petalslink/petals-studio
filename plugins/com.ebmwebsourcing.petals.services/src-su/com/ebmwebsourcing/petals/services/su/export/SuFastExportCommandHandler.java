@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.su.export;
@@ -16,7 +16,6 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -30,8 +29,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
@@ -42,7 +39,6 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StatusUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.utils.ExportUtils;
-import com.ebmwebsourcing.petals.services.utils.ServiceProjectRelationUtils;
 
 /**
  * The "Fast Export" command handler.
@@ -58,6 +54,7 @@ public class SuFastExportCommandHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.AbstractHandler
 	 * #execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
+	@Override
 	public Object execute( final ExecutionEvent event ) throws ExecutionException {
 
 		// Define the objects processing
@@ -65,6 +62,7 @@ public class SuFastExportCommandHandler extends AbstractHandler {
 		final List<IResource> resourcesToSelect = new ArrayList<IResource> ();
 
 		IRunnableWithProgress op = new IRunnableWithProgress() {
+			@Override
 			public void run( IProgressMonitor monitor )
 			throws InvocationTargetException, InterruptedException {
 
@@ -139,39 +137,5 @@ public class SuFastExportCommandHandler extends AbstractHandler {
 		}
 
 		return null;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.core.commands.AbstractHandler
-	 * #setEnabled(java.lang.Object)
-	 */
-	@Override
-	public void setEnabled( Object evaluationContext ) {
-
-		// Check the selection
-		this.suProjects.clear();
-		ISelection s = null;
-		try {
-			s = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
-		} catch( Exception e1 ) {
-			// nothing
-		}
-
-		if( s != null
-					&& s instanceof IStructuredSelection ) {
-
-			for( Iterator<?> it = ((IStructuredSelection) s).iterator(); it.hasNext(); ) {
-				Object element = it.next();
-				IProject p;
-				if( element instanceof IProject
-							&& (p = (IProject) element).isAccessible()
-							&& ServiceProjectRelationUtils.isSuProject( p ))
-					this.suProjects.add( p );
-			}
-		}
-
-		super.setBaseEnabled( ! this.suProjects.isEmpty());
 	}
 }
