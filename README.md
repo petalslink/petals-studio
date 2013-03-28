@@ -13,4 +13,4 @@ The Petals Studio itself is a Software distribution where each component is gove
 All the embedded components are open-source.
 
 
-The complete documentation is availableh [here](https://doc.petalslink.com/display/petalsstudio/Petals+Studio).
+The complete documentation is available [here](https://doc.petalslink.com/display/petalsstudio/Petals+Studio).
