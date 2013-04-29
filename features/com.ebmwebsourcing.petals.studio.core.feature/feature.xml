@@ -2,7 +2,7 @@
 <feature
       id="com.ebmwebsourcing.petals.studio.core.feature"
       label="Petals Studio - Core Feature"
-      version="1.3.3.qualifier"
+      version="1.4.0.qualifier"
       provider-name="Linagora"
       plugin="com.ebmwebsourcing.petals.common">
 

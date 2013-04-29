@@ -2,7 +2,7 @@
 <feature
       id="com.ebmwebsourcing.petals.studio.rcp.feature"
       label="Petals Studio - RCP Feature"
-      version="1.3.3.qualifier"
+      version="1.4.0.qualifier"
       provider-name="Linagora">
 
    <description url="http://www.petalslink.com">
