@@ -63,7 +63,7 @@ public abstract class SoapDescription extends ComponentVersionDescription {
 	 * #getProvideDescription()
 	 */
 	public String getProvideDescription() {
-		return "Import a web-service into Petals.";
+		return "Import a web service into Petals.";
 	}
 
 
@@ -72,7 +72,7 @@ public abstract class SoapDescription extends ComponentVersionDescription {
 	 * #getConsumeDescription()
 	 */
 	public String getConsumeDescription() {
-		return "Expose a Petals service as a web-service.";
+		return "Expose a Petals service as a web service.";
 	}
 
 

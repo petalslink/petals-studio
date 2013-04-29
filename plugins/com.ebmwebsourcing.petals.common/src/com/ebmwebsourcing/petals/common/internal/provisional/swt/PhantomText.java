@@ -24,6 +24,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Text;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+
 /**
  * A wrapper for a {@link Text} with a phantom hint for the user.
  * <p>
@@ -70,13 +72,13 @@ public class PhantomText extends Composite {
 			@Override
 			public void focusLost( FocusEvent e ) {
 				PhantomText.this.updateEnabled = false;
-				PhantomText.this.text.setText( PhantomText.this.value == null ? PhantomText.this.defaultValue : PhantomText.this.value );
+				PhantomText.this.text.setText( StringUtils.isEmpty( PhantomText.this.value ) ? PhantomText.this.defaultValue : PhantomText.this.value );
 				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ));
 			}
 
 			@Override
 			public void focusGained( FocusEvent e ) {
-				PhantomText.this.text.setText( PhantomText.this.value == null ? "" : PhantomText.this.value );
+				PhantomText.this.text.setText( StringUtils.isEmpty( PhantomText.this.value ) ? "" : PhantomText.this.value );
 				PhantomText.this.text.setForeground( PhantomText.this.text.getDisplay().getSystemColor( SWT.COLOR_BLACK ));
 				PhantomText.this.updateEnabled = true;
 			}
@@ -87,7 +89,7 @@ public class PhantomText extends Composite {
 			@Override
 			public void modifyText( ModifyEvent e ) {
 				if( PhantomText.this.updateEnabled )
-					PhantomText.this.value = ((Text) e.widget).getText().trim();
+					PhantomText.this.value = ((StyledText) e.widget).getText().trim();
 			}
 		});
 	}
