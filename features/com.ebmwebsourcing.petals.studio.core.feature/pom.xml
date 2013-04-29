@@ -5,15 +5,15 @@
 
 	<modelVersion>4.0.0</modelVersion> 
 	<parent>
-		<groupId>com.ebmwebsourcing.petals</groupId>
+		<groupId>org.openpaas.platform</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	
-	<groupId>com.ebmwebsourcing.petals.features</groupId>
-	<artifactId>com.ebmwebsourcing.petals.studio.core.feature</artifactId> 
-	<version>1.3.3-SNAPSHOT</version>
+	<groupId>org.openpaas.platform</groupId>
+	<artifactId>org.openpaas.platform.feature</artifactId> 
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-feature</packaging>
 	
 </project>

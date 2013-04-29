@@ -39,7 +39,6 @@
 		<module>com.ebmwebsourcing.petals.services</module>
 		<module>com.ebmwebsourcing.petals.services.cdk</module>
 		<module>com.ebmwebsourcing.petals.services.eip</module>
-		<module>com.ebmwebsourcing.petals.services.ejb</module>
 		<module>com.ebmwebsourcing.petals.services.filetransfer</module>
 		<module>com.ebmwebsourcing.petals.services.ftp</module>
 		<module>com.ebmwebsourcing.petals.services.jms</module>

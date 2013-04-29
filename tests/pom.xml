@@ -23,7 +23,6 @@
 		<module>com.ebmwebsourcing.petals.common.wsdlext.tests</module>
 		<module>com.ebmwebsourcing.petals.services.bpel.tests</module>
 		<module>com.ebmwebsourcing.petals.services.eip.tests</module>
-		<module>com.ebmwebsourcing.petals.services.ejb.tests</module>
 	</modules>
 	
 	<profiles>
