@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2012, EBM WebSourcing
+ * Copyright (c) 2012-2013, Linagora
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -89,7 +89,7 @@ public class SimpleAddWsdlImportCommand extends AutoUndoCommand {
 
 		this.wsdlDefinition.addNamespace( prefix, this.newImport.getNamespaceURI());
 		this.wsdlDefinition.getNamespaces().put( prefix, this.newImport.getNamespaceURI());
-		Assert.isNotNull( this.wsdlDefinition.getNamespace( prefix ), "Pas là" );
+		Assert.isNotNull( this.wsdlDefinition.getNamespace( prefix ), "Pas lï¿½" );
 
 		// Add the import
 		this.newImport.setEnclosingDefinition( this.wsdlDefinition );

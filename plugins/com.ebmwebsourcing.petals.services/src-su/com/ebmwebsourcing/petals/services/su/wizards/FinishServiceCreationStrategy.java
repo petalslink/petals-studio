@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011-2013, Linagora
  *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public interface FinishServiceCreationStrategy {
 

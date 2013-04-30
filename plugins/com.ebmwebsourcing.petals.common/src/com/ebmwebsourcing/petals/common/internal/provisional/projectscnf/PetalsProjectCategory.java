@@ -1,6 +1,6 @@
 /****************************************************************************
  * 
- * Copyright (c) 2010-2012, EBM WebSourcing
+ * Copyright (c) 2010-2013, Linagora
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio

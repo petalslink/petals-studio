@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011-2013, Linagora
  *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * @author Mickaël Istria - Petals Link
+ * @author Mickaï¿½l Istria - Petals Link
  */
 public class EEnumLiteralsProvider implements IStructuredContentProvider {
 

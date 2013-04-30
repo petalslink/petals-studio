@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011-2013, Linagora
  *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -24,7 +24,7 @@ import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ChoicePage;
 
 /**
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class NewServiceUnitSelectionWizard extends Wizard implements INewWizard, IExecutableExtension {
 

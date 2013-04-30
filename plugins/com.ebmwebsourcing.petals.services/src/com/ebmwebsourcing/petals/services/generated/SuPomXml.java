@@ -5,7 +5,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 
 /****************************************************************************
  * 
- * Copyright (c) 2009-2012, EBM WebSourcing
+ * Copyright (c) 2009-2013, Linagora
  * 
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -60,7 +60,7 @@ public class SuPomXml {
     final StringBuffer stringBuffer = new StringBuffer();
     
 /******************************************************************************
- * Copyright (c) 2008-2012, EBM WebSourcing
+ * Copyright (c) 2008-2013, Linagora
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at

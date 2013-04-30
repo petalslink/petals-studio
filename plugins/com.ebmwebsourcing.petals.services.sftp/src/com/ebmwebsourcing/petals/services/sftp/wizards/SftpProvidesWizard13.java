@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2011-2012, EBM WebSourcing
+ * Copyright (c) 2011-2013, Linagora
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class SftpProvidesWizard13 extends SftpProvidesWizard12 {
 

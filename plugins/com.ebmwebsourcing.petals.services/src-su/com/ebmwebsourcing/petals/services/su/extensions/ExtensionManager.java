@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright (c) 2008-2012, EBM WebSourcing
+ * Copyright (c) 2008-2013, Linagora
  *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -43,7 +43,7 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * The class in charge of getting the contributions made to the extension-point defined by this plug-in.
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class ExtensionManager {
 

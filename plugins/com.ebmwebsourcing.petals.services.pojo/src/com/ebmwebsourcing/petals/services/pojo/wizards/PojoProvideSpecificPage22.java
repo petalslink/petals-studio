@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright (c) 2008-2012, EBM WebSourcing
+ * Copyright (c) 2008-2013, Linagora
  *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
@@ -51,7 +51,7 @@ import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 /**
  * Replace the default COMPONENT page.
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Mickaël Istria - EBM WebSourcing
+ * @author Mickaï¿½l Istria - EBM WebSourcing
  */
 public class PojoProvideSpecificPage22 extends AbstractSuWizardPage {
 
