@@ -46,6 +46,14 @@ public class PetalsConstants {
 	public static final String LOC_JAVA_RES_FOLDER = "src/main/resources";
 
 	/**
+	 * {@link #LOC_JAVA_RES_FOLDER} + "/jbi/jbi.xml"
+	 * <p>
+	 * Added in Petals 4 for components and shared libraries.
+	 * </p>
+	 */
+	public static final String NEW_LOC_JBI_FILE = LOC_JAVA_RES_FOLDER + "/jbi/jbi.xml";
+
+	/**
 	 * bin
 	 */
 	public static final String LOC_BIN_FOLDER = "bin";

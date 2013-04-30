@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
@@ -54,17 +53,14 @@ public class OpenSourceEditorHyperlinkListener extends PetalsHyperlinkListener {
 
 		try {
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			if( this.closeCurrentEditor ) {
+			if( this.closeCurrentEditor )
 				page.closeEditor( page.getActiveEditor(), false );
-				IDE.openEditor( page, this.file );
 
-			} else {
-				page.openEditor(
-						new FileEditorInput( this.file ),
-						"com.ebmwebsourcing.petals.common.sourceeditor",
-						true,
-						IWorkbenchPage.MATCH_NONE );
-			}
+			page.openEditor(
+					new FileEditorInput( this.file ),
+					"com.ebmwebsourcing.petals.common.sourceeditor",
+					true,
+					IWorkbenchPage.MATCH_NONE );
 
 		} catch( Exception e1 ) {
 			PetalsCommonPlugin.log( e1, IStatus.ERROR );

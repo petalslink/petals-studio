@@ -136,12 +136,12 @@
 			<xs:element ref="petalsCDK:processor-keep-alive-time" maxOccurs="1" minOccurs="0" />
          	<xs:element ref="petalsCDK:processor-stop-max-wait" maxOccurs="1" minOccurs="0" />
          	<xs:element ref="petalsCDK:time-beetween-async-cleaner-runs" maxOccurs="1" minOccurs="0" />
-			<xs:element ref="petalsCDK:ignored-status" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="petalsCDK:ignored-status" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:properties-file" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:notifications" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:component-interceptors" maxOccurs="1" minOccurs="0" />
-			<xs:element ref="petalsCDK:external-listener-class-name" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:jbi-listener-class-name" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="petalsCDK:external-listener-class-name" maxOccurs="1" minOccurs="0" />
 			
 			<xs:choice minOccurs="0" maxOccurs="1">
 				<xs:group ref="petalsCDK:EmptyGroup" />

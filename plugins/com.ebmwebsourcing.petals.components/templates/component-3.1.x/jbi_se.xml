@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jbi:jbi 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
+		xmlns:jbi="http://java.sun.com/xml/ns/jbi" version="1.0"
+		xmlns:petals-se-prosodie="http://petals.ow2.org/components/petals-se-prosodie/version-1">
+	
+	<jbi:component type="binding-component">
+		<jbi:identification>
+			<jbi:name>{NAME}</jbi:name>
+			<jbi:description>{DESCRIPTION}</jbi:description>
+		</jbi:identification>
+		<jbi:component-class-name>org.ow2.petals.component.framework.se.DefaultServiceEngine</jbi:component-class-name>
+		<jbi:component-class-path><jbi:path-element/></jbi:component-class-path>
+		<jbi:bootstrap-class-name>org.ow2.petals.component.framework.DefaultBootstrap</jbi:bootstrap-class-name>
+		<jbi:bootstrap-class-path><jbi:path-element/></jbi:bootstrap-class-path>
+		
+		<!-- CDK specific fields -->
+		<petalsCDK:acceptor-pool-size>5</petalsCDK:acceptor-pool-size>
+		<petalsCDK:processor-pool-size>10</petalsCDK:processor-pool-size>
+		<petalsCDK:processor-max-pool-size>50</petalsCDK:processor-max-pool-size>
+		<petalsCDK:properties-file />
+		<petalsCDK:jbi-listener-class-name>{ROOT_PACKAGE}.listeners.JBIListener</petalsCDK:jbi-listener-class-name>	
+		
+		<!-- Component specific configuration -->
+	</jbi:component>
+</jbi:jbi>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jbi:jbi 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:petals="http://petals.ow2.org/extensions" 
+		xmlns:jbi="http://java.sun.com/xml/ns/jbi" version="1.0">
+		
+	<jbi:shared-library class-loader-delegation="self-first" version="1.0-SNAPSHOT">
+		<jbi:identification>
+			<jbi:name>{NAME}</jbi:name>
+			<jbi:description>{DESCRIPTION}</jbi:description>
+		</jbi:identification>
+		<jbi:shared-library-class-path>
+			<jbi:path-element />
+		</jbi:shared-library-class-path>
+	</jbi:shared-library>
+</jbi:jbi>

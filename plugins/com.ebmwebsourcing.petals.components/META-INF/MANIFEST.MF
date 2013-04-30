@@ -10,9 +10,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.jdt.core,
  com.ebmwebsourcing.petals.common,
- org.eclipse.ui.console,
  com.ebmwebsourcing.jbi.core.metamodel,
  org.eclipse.bpel.common.wsdl,
+ org.eclipse.ui.navigator.resources,
  org.eclipse.ui.navigator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.components.projectscnf;
 
@@ -56,6 +56,7 @@ public class SharedLibraryProjectCategory extends PetalsProjectCategory {
 	 * @see org.eclipse.ui.navigator.IDescriptionProvider
 	 * #getDescription(java.lang.Object)
 	 */
+	@Override
 	public String getDescription( Object o ) {
 		return "The shared library projects for Petals ESB";
 	}
@@ -94,6 +95,9 @@ public class SharedLibraryProjectCategory extends PetalsProjectCategory {
 		boolean result = false;
 		if( project.exists()) {
 			File jbiXmlFile = project.getLocation().append( PetalsConstants.LOC_JBI_FILE ).toFile();
+			if( ! jbiXmlFile.exists())
+				jbiXmlFile = project.getLocation().append( PetalsConstants.NEW_LOC_JBI_FILE ).toFile();
+
 			result = jbiXmlFile.exists() && JbiXmlUtils.describesSharedLibrary( jbiXmlFile );
 		}
 

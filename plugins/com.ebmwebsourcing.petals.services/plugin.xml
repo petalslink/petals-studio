@@ -248,7 +248,7 @@
             hasPages="true"
             icon="icons/obj16/provides_3.0.png"
             id="com.ebmwebsourcing.petals.services.provider.project"
-            name="Petals Service Provider"
+            name="Service Provider (SU)"
             project="true">
          <description>
             Create a Service Unit project to define provide a new Petals service inside the bus.
@@ -261,7 +261,7 @@
             hasPages="true"
             icon="icons/obj16/consumes_3.0.png"
             id="com.ebmwebsourcing.petals.services.consumer.project"
-            name="Petals Service Consumer"
+            name="Service Consumer (SU)"
             project="true">
          <description>
             Create a Service Unit project to make a new Petals service available from outside of the bus.

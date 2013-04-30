@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2012, EBM WebSourcing
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.components.wizards;
@@ -22,6 +22,14 @@ import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
@@ -38,20 +46,17 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
+
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage {
+public class SharedLibraryNewWizardPage extends WizardPage {
 
 	private static final int SELECTION_OFFSET = 10;
 
-	private Text slNameText, slVersionText, slGroupIdText, projectLocationText;
-	private String name;
-	private String version;
-
-	private String groupId;
-	private final String archetypeVersion = "1.3";
-
+	private PetalsContainerVersion petalsContainerVersion = PetalsContainerVersion.petals3_1;
+	private String name, groupId, location;
 	private URI projectLocationURI;
 	private boolean isAtDefaultLocation = true;
 
@@ -59,14 +64,13 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 	/**
 	 * Constructor.
 	 */
-	public PetalsSharedLibraryNewWizardPage() {
+	public SharedLibraryNewWizardPage() {
 
 		super( "sharedLibraryPage" );
 		setTitle( "Petals Shared-Library" );
 		setDescription( "Define the properties of the shared-library to create." );
 
 		this.name = "petals-sl-your_shared_library_name";
-		this.version = "1.0-SNAPSHOT";
 		this.groupId = "org.ow2.petals.your_shared_library_name";
 	}
 
@@ -74,6 +78,7 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 	/**
 	 * @see IDialogPage#createControl(Composite)
 	 */
+	@Override
 	public void createControl(Composite parent) {
 
 		Composite container = new Composite( parent, SWT.NONE );
@@ -86,53 +91,45 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 		container.setLayout( layout );
 		container.setLayoutData( new GridData( SWT.CENTER, SWT.DEFAULT, true, false ));
 
-		// Component name
+		// Name
 		new Label( container, SWT.NONE ).setText( "Shared-Library &name:");
-		this.slNameText = new Text( container, SWT.BORDER | SWT.SINGLE );
-		this.slNameText.setText( this.name );
-		this.slNameText.setSelection( PetalsSharedLibraryNewWizardPage.SELECTION_OFFSET, this.name.length());
-		this.slNameText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.slNameText.addModifyListener( new ModifyListener() {
-			public void modifyText( ModifyEvent e ) {
-
-				String slName = PetalsSharedLibraryNewWizardPage.this.slNameText.getText().substring( 10 );
-				String newGroupId = PetalsSharedLibraryNewWizardPage.this.slGroupIdText.getText();
-				if( newGroupId.startsWith( "org.ow2.petals." ))
-					newGroupId = "org.ow2.petals." + slName;
-
-				PetalsSharedLibraryNewWizardPage.this.slGroupIdText.setText( newGroupId );
-				// Validation is implicit, called by the group ID text
-			}
-		});
-
-		this.slNameText.addFocusListener( new FocusAdapter() {
+		final Text slNameText = new Text( container, SWT.BORDER | SWT.SINGLE );
+		slNameText.setText( this.name );
+		slNameText.setSelection( SharedLibraryNewWizardPage.SELECTION_OFFSET, this.name.length());
+		slNameText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		slNameText.addFocusListener( new FocusAdapter() {
 			@Override
 			public void focusGained( FocusEvent e ) {
-				String componentName = PetalsSharedLibraryNewWizardPage.this.slNameText.getText();
-				PetalsSharedLibraryNewWizardPage.this.slNameText.setSelection(
-							PetalsSharedLibraryNewWizardPage.SELECTION_OFFSET,
-							componentName.length());
-			}
-		});
-
-		// SL version
-		new Label( container, SWT.NONE ).setText( "Component &version:");
-		this.slVersionText = new Text( container, SWT.BORDER | SWT.SINGLE );
-		this.slVersionText.setText( this.version );
-		this.slVersionText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.slVersionText.addModifyListener( new ModifyListener() {
-			public void modifyText( ModifyEvent e ) {
-				validate();
+				String componentName = slNameText.getText();
+				slNameText.setSelection( SharedLibraryNewWizardPage.SELECTION_OFFSET, componentName.length());
 			}
 		});
 
 		// Group ID
 		new Label( container, SWT.NONE ).setText( "&Group ID:");
-		this.slGroupIdText = new Text( container, SWT.BORDER | SWT.SINGLE );
-		this.slGroupIdText.setText( this.groupId );
-		this.slGroupIdText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.slGroupIdText.addModifyListener( new ModifyListener() {
+		final Text slGroupIdText = new Text( container, SWT.BORDER | SWT.SINGLE );
+		slGroupIdText.setText( this.groupId );
+		slGroupIdText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		slGroupIdText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
+				SharedLibraryNewWizardPage.this.groupId = slGroupIdText.getText().trim();
+				validate();
+			}
+		});
+
+		// Petals version
+		new Label( container, SWT.NONE ).setText( "&Petals Version:");
+		ComboViewer containerViewer = new ComboViewer( container, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY );
+		containerViewer.setLabelProvider( new LabelProvider());
+		containerViewer.setContentProvider( new ArrayContentProvider());
+		containerViewer.setInput( PetalsContainerVersion.values());
+		containerViewer.setSelection( new StructuredSelection( this.petalsContainerVersion ));
+		containerViewer.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged( SelectionChangedEvent event ) {
+				SharedLibraryNewWizardPage.this.petalsContainerVersion =
+						(PetalsContainerVersion) ((IStructuredSelection) event.getSelection()).getFirstElement();
 				validate();
 			}
 		});
@@ -157,11 +154,13 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 		final Label locLabel = new Label( locContainer, SWT.NONE );
 		locLabel.setText( "Project location:" );
 
-		this.projectLocationText = new Text( locContainer, SWT.SINGLE | SWT.BORDER );
-		this.projectLocationText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.projectLocationText.setText( ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
-		this.projectLocationText.addModifyListener(new ModifyListener() {
+		final Text projectLocationText = new Text( locContainer, SWT.SINGLE | SWT.BORDER );
+		projectLocationText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
+		projectLocationText.setText( ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
+		projectLocationText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
+				SharedLibraryNewWizardPage.this.location = ((Text) e.widget).getText().trim();
 				validate();
 			}
 		});
@@ -173,7 +172,7 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 			public void widgetSelected( SelectionEvent e ) {
 				String location = new DirectoryDialog( getShell()).open();
 				if( location != null )
-					PetalsSharedLibraryNewWizardPage.this.projectLocationText.setText( location );
+					projectLocationText.setText( location );
 			}
 		});
 
@@ -182,21 +181,35 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
-				PetalsSharedLibraryNewWizardPage.this.isAtDefaultLocation =
+				SharedLibraryNewWizardPage.this.isAtDefaultLocation =
 					useDefaultLocButton.getSelection();
 
-				boolean use = ! PetalsSharedLibraryNewWizardPage.this.isAtDefaultLocation;
+				boolean use = ! SharedLibraryNewWizardPage.this.isAtDefaultLocation;
 				locLabel.setEnabled( use );
-				PetalsSharedLibraryNewWizardPage.this.projectLocationText.setEnabled( use );
+				projectLocationText.setEnabled( use );
 				browseButton.setEnabled( use );
-				PetalsSharedLibraryNewWizardPage.this.projectLocationText.setFocus();
+				projectLocationText.setFocus();
 				validate();
+			}
+		});
+
+		slNameText.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+
+				SharedLibraryNewWizardPage.this.name = slNameText.getText().trim();
+				String slName = slNameText.getText().substring( 10 );
+				String newGroupId = slGroupIdText.getText();
+				if( newGroupId.startsWith( "org.ow2.petals." ))
+					newGroupId = "org.ow2.petals." + slName;
+
+				slGroupIdText.setText( newGroupId );
+				// Validation is implicit, called by the group ID text
 			}
 		});
 
 
 		// Last steps in the UI definition
-		initializeMavenTooltip();
 		useDefaultLocButton.notifyListeners( SWT.Selection, new Event());
 		setControl( container );
 	}
@@ -225,8 +238,6 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 	 */
 	private void updateStatus( String message ) {
 		updateStatus( message, IMessageProvider.ERROR );
-		if( message != null )
-			this.helpTooltip.hide();
 	}
 
 
@@ -236,62 +247,45 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 	private void validate() {
 
 		// Validate fields
-		String name = this.slNameText.getText();
-		if( name == null || name.trim().length() == 0 ) {
+		if( StringUtils.isEmpty( this.name )) {
 			updateStatus( "You have to provide the shared-library's name." );
 			return;
 		}
 
+		if( ! this.name.toLowerCase().equals( this.name )) {
+			updateStatus( "The shared library's name should be completely in lower case." );
+			return;
+		}
+
 		if( this.isAtDefaultLocation ) {
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject( name );
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject( this.name );
 			if( project.exists()) {
 				updateStatus( "A project with a similar name already exists in the workspace." );
 				return;
 			}
 		}
 
-		String version = this.slVersionText.getText();
-		if( version == null || version.trim().length() == 0 ) {
-			updateStatus( "You have to provide the version." );
-			return;
-		}
-
-		if( ! version.matches( "\\d+(\\.\\d+)*(-SNAPSHOT)?" )) {
-			updateStatus( "The shared-library's version is invalid." );
-			return;
-		}
-
-		String groupId = this.slGroupIdText.getText();
-		if( groupId == null || groupId.trim().length() == 0 ) {
+		if( StringUtils.isEmpty( this.groupId )) {
 			updateStatus( "You have to provide the group ID." );
 			return;
 		}
 
-		if( ! JavaConventions.validatePackageName( groupId, JavaCore.VERSION_1_5, JavaCore.VERSION_1_5 ).isOK()) {
+		if( ! JavaConventions.validatePackageName( this.groupId, JavaCore.VERSION_1_5, JavaCore.VERSION_1_5 ).isOK()) {
 			updateStatus( "The group ID does not respect the Java package syntax." );
 			return;
-		}
-
-		boolean otherMessageShown = false;
-		if( ! name.toLowerCase().equals( name )) {
-			updateStatus( "The shared library's name should be completely in lower case.", IMessageProvider.WARNING );
-			otherMessageShown = true;
 		}
 
 		// Project location
 		File projectFile;
 		if( ! this.isAtDefaultLocation ) {
 
-			if( this.projectLocationText.getText().trim().length() == 0 ) {
+			if( this.location == null || this.location.length() == 0 ) {
 				updateStatus( "You have to specify the project location." );
 				return;
 			}
 
 			try {
-				projectFile = new File(
-							this.projectLocationText.getText(),
-							this.slNameText.getText());
-
+				projectFile = new File( this.location, this.name );
 				this.projectLocationURI = projectFile.toURI();
 
 			} catch( Exception e ) {
@@ -299,7 +293,7 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 				return;
 			}
 
-			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject( this.slNameText.getText());
+			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject( this.name );
 			IStatus status = ResourcesPlugin.getWorkspace().validateProjectLocationURI( p, this.projectLocationURI );
 			if( status.getCode() != IStatus.OK ) {
 				updateStatus( status.getMessage());
@@ -308,9 +302,7 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 
 		} else {
 			this.projectLocationURI = null;
-			projectFile = new File(
-						ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile(),
-						this.slNameText.getText());
+			projectFile = new File( ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile(), this.name );
 		}
 
 		// Does the file exists?
@@ -319,75 +311,38 @@ public class PetalsSharedLibraryNewWizardPage extends AbstractMavenArtifactPage 
 			return;
 		}
 
-		// Store valid values
-		this.name = name;
-		this.version = version;
-		this.groupId = groupId;
-
-		// Is Maven installed?
-		if( ! otherMessageShown ) {
-			if( ! isMavenInstalled()) {
-				updateStatus( "Maven seems to not be installed.", IMessageProvider.WARNING );
-				this.helpTooltip.show();
-				return;
-
-			} else {
-				updateStatus( null );
-			}
-		}
+		updateStatus( null );
 	}
 
 
 	/**
 	 * @return the name
 	 */
-	@Override
 	public String getArtifactName() {
 		return this.name;
 	}
 
 
 	/**
-	 * @return the version
-	 */
-	@Override
-	public String getArtifactVersion() {
-		return this.version;
-	}
-
-
-	/**
 	 * @return the groupId
 	 */
-	@Override
 	public String getGroupId() {
 		return this.groupId;
 	}
 
 
 	/**
-	 * @return the archetype ID
-	 */
-	@Override
-	public String getArchetypeId() {
-		return "maven-archetype-petals-jbi-shared-library";
-	}
-
-
-	/**
-	 * @return the archetypeVersion
-	 */
-	@Override
-	public String getArchetypeVersion() {
-		return this.archetypeVersion;
-	}
-
-
-	/**
 	 * @return the projectLocationURI
 	 */
-	@Override
 	public URI getProjectLocationURI() {
 		return this.projectLocationURI;
+	}
+
+
+	/**
+	 * @return the petalsContainerVersion
+	 */
+	public PetalsContainerVersion getPetalsContainer() {
+		return this.petalsContainerVersion;
 	}
 }

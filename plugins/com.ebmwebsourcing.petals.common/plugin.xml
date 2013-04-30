@@ -201,10 +201,6 @@
              id="com.ebmwebsourcing.petals.common.wizards.attic"
              name="Petals Attic">
        </category>
-       <category
-             id="com.ebmwebsourcing.petals.common.wizards.maven"
-             name="Petals (Maven Shortcuts)">
-       </category>
        <wizard
              category="com.ebmwebsourcing.petals.common.wizards"
              class="com.ebmwebsourcing.petals.common.croquis.internal.wizards.CroquisNewWizard"

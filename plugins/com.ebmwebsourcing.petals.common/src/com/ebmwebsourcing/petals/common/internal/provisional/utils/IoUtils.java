@@ -354,4 +354,34 @@ public class IoUtils {
 
 		return result;
 	}
+
+
+	/**
+	 * Closes a stream quietly.
+	 * @param is an input stream
+	 */
+	public static void closeQuietly( InputStream is ) {
+		try {
+			if( is != null )
+				is.close();
+
+		} catch( IOException e ) {
+			// nothing
+		}
+	}
+
+
+	/**
+	 * Closes a stream quietly.
+	 * @param os an output stream
+	 */
+	public static void closeQuietly( OutputStream os ) {
+		try {
+			if( os != null )
+				os.close();
+
+		} catch( IOException e ) {
+			// nothing
+		}
+	}
 }
