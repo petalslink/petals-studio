@@ -15,5 +15,5 @@ Require-Bundle: com.ebmwebsourcing.petals.services,
  org.eclipse.emf.edit,
  com.ebmwebsourcing.petals.services.cdk,
  com.ebmwebsourcing.petals.common.generation
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

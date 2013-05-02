@@ -16,6 +16,6 @@ Require-Bundle: com.ebmwebsourcing.petals.services,
  org.eclipse.ui.forms,
  org.eclipse.emf.databinding.edit,
  org.eclipse.bpel.common.wsdl
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.xslt.PetalsXsltPlugin

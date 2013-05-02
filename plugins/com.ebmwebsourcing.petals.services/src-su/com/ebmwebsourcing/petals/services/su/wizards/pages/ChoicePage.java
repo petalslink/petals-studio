@@ -417,6 +417,9 @@ public class ChoicePage extends WizardSelectionPage {
 			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 				AbstractServiceUnitWizard suWizard = (AbstractServiceUnitWizard) ((IStructuredSelection) event.getSelection()).getFirstElement();
+				if( suWizard == null )
+					return;
+
 				setPageComplete( true );
 				setSelectedNode( getWizardNode( suWizard ));
 

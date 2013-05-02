@@ -34,16 +34,17 @@ public class SUCreator {
 		su.setServiceName("TestFileTransferService" + System.currentTimeMillis());
 
 		bot.perspectiveById( "com.ebmwebsourcing.petals.common.mainPerspective" ).activate();
-		bot.menu("File").menu("New").menu("Petals Service Provider").click();
+		bot.menu("File").menu("New").menu("Service Provider (SU)").click();
 		bot.shell("New Petals Service Provider").activate();
 		bot.button("Next >"); // wait for button to appear.
 
-		bot.comboBox(1).setSelection( 1 );
+		bot.tree(0).expandNode( "Communication Protocol" ).getNode( 0 ).select();
+		bot.comboBox(0).setSelection( 0 );
 		bot.button("Next >").click();
 
-		bot.text(2).setText( su.getServiceName());
+		bot.styledText(2).setText( su.getServiceName());
 		su.setEndpoint(su.getServiceName() + "Endpoint");
-		bot.text(4).setText(su.getEndpoint());
+		bot.styledText(3).setText(su.getEndpoint());
 		bot.button("Next >").click();
 
 		su.setProjectName(bot.text().getText());

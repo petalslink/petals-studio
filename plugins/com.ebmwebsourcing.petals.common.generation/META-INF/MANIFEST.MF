@@ -4,7 +4,7 @@ Bundle-Name: Generation API for Petals
 Bundle-SymbolicName: com.ebmwebsourcing.petals.common.generation;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Linagora
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.ebmwebsourcing.petals.common.generation,
  com.ebmwebsourcing.petals.common.generation.cdk4,
  com.ebmwebsourcing.petals.common.generation.cdk5,

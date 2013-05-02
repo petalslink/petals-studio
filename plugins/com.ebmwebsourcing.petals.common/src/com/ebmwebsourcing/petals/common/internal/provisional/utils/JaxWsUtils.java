@@ -644,10 +644,15 @@ public class JaxWsUtils {
 
 	/**
 	 * Replaces interface methods by their implementations.
+	 * <p>
+	 * Made public for test purposes.
+	 * Not really useful otherwise.
+	 * </p>
+	 *
 	 * @param source
-	 * @return
+	 * @return the modified source
 	 */
-	static String replaceInterfaceMethodsByImpl( StringBuffer source ) {
+	public static String replaceInterfaceMethodsByImpl( StringBuffer source ) {
 
 		// Get the methods' default implementations
 		Pattern methodPattern = Pattern.compile(
