@@ -12,6 +12,9 @@
    <feature url="features/com.ebmwebsourcing.petals.studio.source.feature_1.4.0.qualifier.jar" id="com.ebmwebsourcing.petals.studio.source.feature" version="1.4.0.qualifier">
       <category name="Petals Studio Sources"/>
    </feature>
+   <feature url="features/com.ebmwebsourcing.petals.studio.dev.feature_1.4.0.qualifier.jar" id="com.ebmwebsourcing.petals.studio.dev.feature" version="1.4.0.qualifier">
+      <category name="Petals Extended Tooling"/>
+   </feature>
    <category-def name="Petals Core Tooling" label="Petals Core Tooling">
       <description>
          The core tooling to work Petals ESB.

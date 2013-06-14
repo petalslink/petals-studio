@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Petals Studio - Tests for Petals Properties
+Bundle-SymbolicName: com.ebmwebsourcing.petals.studio.dev.properties.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Linagora
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Require-Bundle: com.ebmwebsourcing.petals.studio.dev.properties,
+ org.junit4

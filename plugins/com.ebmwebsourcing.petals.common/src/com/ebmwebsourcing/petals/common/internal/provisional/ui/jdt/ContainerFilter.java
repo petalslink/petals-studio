@@ -18,12 +18,12 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 /**
  * Filters out all packages and folders
- * 
+ *
  * TODO: move it to Eclipse STP
  * Comes from the plug-in "org.eclipse.jdt.ui".
  * @contributor Vincent Zurczak - EBM WebSourcing (added a public modifier on the class)
  */
-public class ContainerFilter  extends ViewerFilter {
+public class ContainerFilter extends ViewerFilter {
 
 	private final boolean fFilterContainers;
 

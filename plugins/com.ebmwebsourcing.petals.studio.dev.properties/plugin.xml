@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="com.ebmwebsourcing.petals.studio.dev.wizards"
+            name="Petals Development Tools">
+      </category>
+      <wizard
+            category="com.ebmwebsourcing.petals.studio.dev.wizards"
+            class="com.ebmwebsourcing.petals.studio.dev.properties.internal.wizards.NewPropertiesModelWizard"
+            hasPages="true"
+            id="com.ebmwebsourcing.petals.studio.dev.properties.wizard"
+            name="Properties Model"
+            project="false">
+         <description>
+            Create a new Properties model
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         id="com.ebmwebsourcing.petals.studio.dev.properties.markers"
+         name="Properties Model Markers"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:com.ebmwebsourcing.petals.studio.dev?after=additions">
+         <command
+               commandId="com.ebmwebsourcing.petals.studio.dev.properties.validate"
+               label="Validate the Properties Model"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="com.ebmwebsourcing.petals.studio.dev.properties.clear"
+               label="Clear Validation Markers"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <separator
+               name="com.ebmwebsourcing.petals.studio.dev.properties.separator"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.ebmwebsourcing.petals.studio.dev.properties.generate-constants"
+               label="Generate Java Constants"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               id="com.ebmwebsourcing.petals.studio.dev"
+               label="Petals Development">
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.ebmwebsourcing.petals.studio.dev.properties.internal.commands.ValidatePropertiesModelHandler"
+            description="Validates a properties model"
+            id="com.ebmwebsourcing.petals.studio.dev.properties.validate"
+            name="Validate the Properties Model">
+      </command>
+      <command
+            defaultHandler="com.ebmwebsourcing.petals.studio.dev.properties.internal.commands.ClearPropertiesModelHandler"
+            description="Clears the markers from a properties model"
+            id="com.ebmwebsourcing.petals.studio.dev.properties.clear"
+            name="Clear Markers">
+      </command>
+      <command
+            defaultHandler="com.ebmwebsourcing.petals.studio.dev.properties.internal.commands.GenerateConstantsHandler"
+            description="Generate Java constants from a properties model"
+            id="com.ebmwebsourcing.petals.studio.dev.properties.generate-constants"
+            name="Generate Java Constants">
+      </command>
+   </extension>
+
+</plugin>

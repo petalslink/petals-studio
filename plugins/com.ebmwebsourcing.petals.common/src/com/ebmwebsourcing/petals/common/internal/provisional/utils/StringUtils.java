@@ -19,37 +19,6 @@ public class StringUtils {
 
 	/**
 	 * @param string
-	 * @return true if the argument contains at least a null string or a strings made up of white spaces.
-	 */
-	public static boolean hasOneEmpty( String... string ) {
-
-		for( String s : string ) {
-			if( s == null || s.trim().length() == 0 )
-				return true;
-		}
-
-		return false;
-	}
-
-
-	/**
-	 * @param string
-	 * @return true if the argument is only contains null strings or strings made up of white spaces.
-	 */
-	public static boolean areAllEmpty( String... string ) {
-
-		int empty = 0;
-		for( String s : string ) {
-			if( s == null || s.trim().length() == 0 )
-				empty ++;
-		}
-
-		return empty == string.length;
-	}
-
-
-	/**
-	 * @param string
 	 * @return true if the argument is null or is only made up of white spaces.
 	 */
 	public static boolean isEmpty( String string ) {
@@ -198,23 +167,5 @@ public class StringUtils {
 		}
 
 		return sb.toString().trim();
-	}
-
-
-	/**
-	 * Counts the number of occurrences of a character in a string.
-	 * @param haystack a string to search in (not null)
-	 * @param needle a char
-	 * @return the number of occurrences
-	 */
-	public static int countOccurrences( String haystack, char needle ) {
-
-		int count = 0;
-	    for( int i=0; i<haystack.length(); i++ ) {
-	        if (haystack.charAt(i) == needle)
-	             count++;
-	    }
-
-	    return count;
 	}
 }

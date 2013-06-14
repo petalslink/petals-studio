@@ -54,5 +54,8 @@
 		
 		<!-- BPEL plug-ins -->
 		<module>com.ebmwebsourcing.petals.services.bpel</module>
+		
+		<!-- Dev' Tooling -->
+		<module>com.ebmwebsourcing.petals.studio.dev.properties</module>
 	</modules>
 </project>

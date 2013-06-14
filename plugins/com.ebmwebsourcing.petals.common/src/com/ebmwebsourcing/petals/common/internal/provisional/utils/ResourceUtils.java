@@ -50,7 +50,6 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 /**
  * Utility methods to manage and look for resources in the workspace.
- *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class ResourceUtils {
@@ -321,7 +320,7 @@ public class ResourceUtils {
 				}
 			}
 
-		} catch (CoreException e) {
+		} catch( CoreException e ) {
 			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
