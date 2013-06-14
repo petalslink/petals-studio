@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Petals Studio - Tests for BPEL
 Bundle-SymbolicName: com.ebmwebsourcing.petals.services.bpel.tests
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Require-Bundle: org.eclipse.ui,
  org.eclipse.swtbot.eclipse.gef.finder,
  org.junit;bundle-version="4.8.2",

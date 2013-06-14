@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Petals Studio - Tests for EIP
 Bundle-SymbolicName: com.ebmwebsourcing.petals.services.eip.tests
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: EBM WebSourcing
+Bundle-Vendor: Linagora
 Require-Bundle: org.eclipse.swtbot.eclipse.gef.finder,
  org.junit;bundle-version="4.8.2",
  com.ebmwebsourcing.petals.tests.common;bundle-version="1.0.0",

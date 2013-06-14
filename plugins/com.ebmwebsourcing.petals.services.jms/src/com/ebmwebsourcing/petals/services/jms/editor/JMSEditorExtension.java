@@ -1,7 +1,7 @@
 /*********************************************************import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 * You should have received a copy of the agreement along with this program.
- * If not, write to EBM WebSourcing (4, rue Amelie - 31200 Toulouse, France).
+ * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
  *
  *****************************************************************************/
 
