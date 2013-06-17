@@ -99,7 +99,7 @@
 					        
 					        <!-- Rename the update site and move it in "products", so that they are all in the same directory -->
 					        <move 	verbose="true" 
-					        		file="${project.build.directory}/petals-studio-${version}.zip" 
+					        		file="${project.build.directory}/petals-studio-${project.version}.zip" 
 					        		tofile="${project.build.directory}/products/Petals-Studio--Update-Site--${studio-version}.zip" />
 						</target>
 					</configuration>
