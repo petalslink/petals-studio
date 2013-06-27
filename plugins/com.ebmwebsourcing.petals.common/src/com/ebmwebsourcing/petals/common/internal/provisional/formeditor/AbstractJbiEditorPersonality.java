@@ -11,17 +11,19 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.common.internal.provisional.formeditor;
 
-import java.util.Map;
+import java.io.ByteArrayInputStream;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.w3c.dom.Document;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.sun.java.xml.ns.jbi.Jbi;
 
@@ -66,21 +68,29 @@ public abstract class AbstractJbiEditorPersonality {
 
 
 	/**
-	 * Saves the EMF model.
-	 * @param model the JBI model instance
-	 * @param editedFile the edited file
-	 * @param domain the editing domain
+	 * Loads the model and related things.
 	 */
-	public void saveModel( Jbi model, IFile editedFile, EditingDomain domain ) {
+	public void loadModel( Jbi jbiInstance, IFile editedFile ) {
+		// nothing by default
+	}
 
-		final Map<Object,Object> saveOptions = JbiXmlUtils.getJbiXmlSaveOptions();
-		saveOptions.put( Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER );
-		for( Resource resource : domain.getResourceSet().getResources()) {
+
+	/**
+	 * Saves the model.
+	 * @param jbiInstance
+	 * @param editedFile
+	 * @param monitor
+	 */
+	public void saveModel( Jbi jbiInstance, IFile editedFile, IProgressMonitor monitor ) {
+
+		Document doc = JbiXmlUtils.saveJbiXmlAsDocument( jbiInstance );
+		String s = DomUtils.writeDocument( doc );
+		if( editedFile.exists()) {
 			try {
-				resource.save( saveOptions );
+				editedFile.setContents( new ByteArrayInputStream( s.getBytes()), true, true, monitor );
 
-			} catch( Exception exception ) {
-				PetalsCommonPlugin.log( exception, IStatus.ERROR );
+			} catch( CoreException e ) {
+				PetalsCommonPlugin.log( e, IStatus.ERROR );
 			}
 		}
 	}

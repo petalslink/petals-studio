@@ -11,21 +11,17 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
 
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.jface.databinding.swt.SWTObservables;
-import org.eclipse.jface.databinding.viewers.ViewersObservables;
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.swt.SWT;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PropertiesModelUIHelper;
+import com.ebmwebsourcing.petals.services.cdk.api.CDK5JBIEndpointUIHelper;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.ProvidesFiletransfer10;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideGetControls;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideWriteControls;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
+import com.ebmwebsourcing.petals.studio.dev.properties.AbstractModel;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -33,59 +29,45 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  */
 public class FileTransferProvidesJbiEditorContribution extends JbiEditorDetailsContribution {
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
-	 * #addMainSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
-	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
-	 */
 	@Override
-	public void addMainSUContent( final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise ) {
+	public void addMainSUContent(
+			AbstractEndpoint edpt,
+			AbstractModel componentModel,
+			AbstractModel cdkModel,
+			FormToolkit toolkit,
+			Composite mainTab,
+			IFile editedFile ) {
+
 		Composite composite = createCommonProvideSection( mainTab, toolkit );
-		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
+		CDK5JBIEndpointUIHelper.createProvidesUI( edpt, cdkModel, toolkit, composite, editedFile );
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
-	 * #addAdvancedSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
-	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
-	 */
 	@Override
-	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
+	public void addAdvancedSUContent(
+			AbstractEndpoint edpt,
+			AbstractModel componentModel,
+			AbstractModel cdkModel,
+			FormToolkit toolkit,
+			Composite advancedTab ) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters", true );
-		if( "writefiles".equalsIgnoreCase( endpoint.getInterfaceName().getLocalPart())) {
+		if( "writefiles".equalsIgnoreCase( edpt.getInterfaceName().getLocalPart())) {
 			FileTransferProvideWriteControls controls = new FileTransferProvideWriteControls();
 			controls.createControls( composite, true );
 
-			IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getDirectoryText(), SWT.Modify ));
-			IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY );
-			ise.getDataBindingContext().bindValue( widgetObservable, iov );
-
-			widgetObservable = ViewersObservables.observeSingleSelection((ISelectionProvider) controls.getCopyModeViewer());
-			iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE );
-			ise.getDataBindingContext().bindValue( widgetObservable, iov );
-
-			widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getFilenameText(), SWT.Modify ));
-			iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__FILE_PATTERN );
-			ise.getDataBindingContext().bindValue( widgetObservable, iov );
+			PropertiesModelUIHelper.bind( controls.getDirectoryText(), componentModel, ProvidesFiletransfer10.WRITE_DIRECTORY );
+			PropertiesModelUIHelper.bind( controls.getCopyModeViewer().getCombo(), componentModel, ProvidesFiletransfer10.COPY_MODE );
+			PropertiesModelUIHelper.bind( controls.getFilenameText(), componentModel, ProvidesFiletransfer10.FILE_PATTERN );
 
 		} else {
 			FileTransferProvideGetControls controls = new FileTransferProvideGetControls();
 			controls.createControls( composite, true );
 
-			IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getReadText(), SWT.Modify ));
-			IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY );
-			ise.getDataBindingContext().bindValue( widgetObservable, iov );
-
-			widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getBackupText(), SWT.Modify ));
-			iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY );
-			ise.getDataBindingContext().bindValue( widgetObservable, iov );
+			PropertiesModelUIHelper.bind( controls.getReadText(), componentModel, ProvidesFiletransfer10.READ_DIRECTORY );
+			PropertiesModelUIHelper.bind( controls.getBackupText(), componentModel, ProvidesFiletransfer10.BACKUP_DIRECTORY );
 		}
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForProvidesEditor( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForProvidesEditor( edpt, cdkModel, toolkit, composite );
 	}
 }

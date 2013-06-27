@@ -9,6 +9,7 @@
  */
 package com.ebmwebsourcing.petals.services.su.editor.extensibility.defaultpages;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -17,11 +18,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.OpenSourceEditorHyperlinkListener;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
+import com.ebmwebsourcing.petals.studio.dev.properties.AbstractModel;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -35,28 +36,17 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  */
 public class DefaultJbiEditorContribution extends JbiEditorDetailsContribution {
 
-	private final EClass[] extensionClasses;
-
-
-	/**
-	 * Constructor.
-	 * @param extensionEClasses
-	 */
-	public DefaultJbiEditorContribution( EClass... extensionEClasses ) {
-		this.extensionClasses = extensionEClasses;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
-	 * #addMainSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
-	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
-	 */
 	@Override
-	public void addMainSUContent( AbstractEndpoint endpoint, FormToolkit toolkit, Composite generalDetails, ISharedEdition ise ) {
-		Composite composite = createCommonProvideSection( generalDetails, toolkit );
-		JBIEndpointUIHelpers.createCommonEndpointUI( endpoint, toolkit, composite, ise );
+	public void addMainSUContent(
+			AbstractEndpoint edpt,
+			AbstractModel componentModel,
+			AbstractModel cdkModel,
+			FormToolkit toolkit,
+			Composite mainTab,
+			IFile editedFile ) {
+
+		Composite composite = createCommonProvideSection( mainTab, toolkit );
+		JBIEndpointUIHelpers.createCommonEndpointUI( edpt, toolkit, composite );
 
 		// Add a warning message
 		final Image noticeImage = PetalsServicesPlugin.loadImage( "icons/obj16/smartmode_co.gif" );
@@ -87,23 +77,13 @@ public class DefaultJbiEditorContribution extends JbiEditorDetailsContribution {
 		sb.append( "<p>You may prefer to edit the sources directly. In this case, please use the <a>Petals Source Editor</a>.</p>" );
 		sb.append( "</form>" );
 
-		ft.addHyperlinkListener( new OpenSourceEditorHyperlinkListener( ise.getEditedFile(), false ));
+		ft.addHyperlinkListener( new OpenSourceEditorHyperlinkListener( editedFile, false ));
 		ft.setText( sb.toString(), true, false );
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
-	 * #addAdvancedSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
-	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
-	 */
 	@Override
-	public void addAdvancedSUContent( AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, ISharedEdition ise ) {
-
-		if( this.extensionClasses != null && this.extensionClasses.length > 0 )
-			JBIEndpointUIHelpers.createDefaultWidgetsByEIntrospection(endpoint, toolkit, advancedDetails, ise, this.extensionClasses);
-		else
-			toolkit.createLabel( advancedDetails, "Advanced settings are not available." );
+	public void addAdvancedSUContent( AbstractEndpoint edpt, AbstractModel componentModel, AbstractModel cdkModel, FormToolkit toolkit, Composite advancedTab ) {
+		toolkit.createLabel( advancedTab, "Advanced settings are not available." );
 	}
 }

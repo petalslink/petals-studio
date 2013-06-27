@@ -20,10 +20,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.namespace.QName;
 
 import asia.redact.bracket.properties.Properties;
 
@@ -50,7 +54,7 @@ public class AbstractModel {
 	private static final String TYPE_REQUIRED = "required";
 	private static final String TYPE_PATTERN_RANGE_1 = "(\\[|\\])\\s*(\\d+)\\s*,\\s*(\\d*)\\s*(\\[|\\])"; // [ min, optional-max ]
 	private static final String TYPE_PATTERN_RANGE_2 = "(\\[|\\])\\s*(\\d*)\\s*,\\s*(\\d+)\\s*(\\[|\\])"; // [ optional-min, max ]
-	private static final String TYPE_PATTERN_LIST = "\\{([^}]+)\\}";
+	private static final String TYPE_PATTERN_ENUM = "\\{([^}]+)\\}";
 	private static final String TYPE_PATTERN =
 			AbstractModel.TYPE_PREFIX
 			+ "((" + SupportedTypes.BOOLEAN + ")|"
@@ -58,14 +62,16 @@ public class AbstractModel {
 			+ "(" + SupportedTypes.FLOAT + ")|"
 			+ "(" + SupportedTypes.STRING + ")|"
 			+ "(" + SupportedTypes.LIST + ")|"
+			+ "(" + SupportedTypes.QNAME + ")|"
 			+ "(" + SupportedTypes.INTEGER + "\\s*(" + TYPE_PATTERN_RANGE_1 +  ")*)|"
 			+ "(" + SupportedTypes.INTEGER + "\\s*(" + TYPE_PATTERN_RANGE_2 +  ")*)|"
-			+ "(" + SupportedTypes.ENUMERATION + "\\s*(" + TYPE_PATTERN_LIST + ")*)|"
+			+ "(" + SupportedTypes.ENUMERATION + "\\s*(" + TYPE_PATTERN_ENUM + ")*)|"
 			+ "(" + SupportedTypes.LONG + "))"
 			+ "(\\s*,\\s*" + TYPE_REQUIRED + ""
 			+ "(\\s*,\\s*" + TYPE_NULLABLE + ")?)?";
 
 	private final Properties properties;
+	private final ArrayList<AbstractModelListener> listeners = new ArrayList<AbstractModelListener>( 0 );
 
 
 
@@ -103,6 +109,24 @@ public class AbstractModel {
 
 
 	/**
+	 * Adds a model listener.
+	 * @param e the model listener
+	 */
+	public void addModelListener( AbstractModelListener e ) {
+		this.listeners.add( e );
+	}
+
+
+	/**
+	 * Removes a model listener.
+	 * @param e the model listener
+	 */
+	public void removeModelListener( AbstractModelListener e ) {
+		this.listeners.remove( e );
+	}
+
+
+	/**
 	 * Insert properties from a map.
 	 * @param map a map with the properties
 	 * @throws IOException if something went wrong
@@ -110,7 +134,7 @@ public class AbstractModel {
 	public final void insert( Map<String,Object> map ) throws IOException {
         for( Map.Entry<String,Object> entry : map.entrySet()) {
         	String value = entry.getValue() == null ? null : String.valueOf( entry.getValue());
-        	this.properties.put( entry.getKey(), value );
+        	set( entry.getKey(), value );
         }
 	}
 
@@ -124,13 +148,14 @@ public class AbstractModel {
 
 
 	/**
-	 * Returns a trimmed property.
+	 * Sets a single property.
 	 * @param property a property
-	 * @return a trimmed property value, or null if the value was null
+	 * @param value its value
 	 */
-	public String getTrimmedProperty( String property ) {
-		String s =  this.properties.get( property );
-		return s == null ? null : s.trim();
+	public void set( String property, String value ) {
+		this.properties.put( property, value );
+		for( AbstractModelListener listener : this.listeners )
+			listener.propertyChanged( property );
 	}
 
 
@@ -184,7 +209,7 @@ public class AbstractModel {
 		if( getType( property ) == SupportedTypes.ENUMERATION ) {
 			result = new HashSet<String> ();
 			String typeDef = findTypeDeclaration( property );
-			Matcher m = Pattern.compile( TYPE_PATTERN_LIST ).matcher( typeDef );
+			Matcher m = Pattern.compile( TYPE_PATTERN_ENUM ).matcher( typeDef );
 			if( m.find()) {
 				for( String s : m.group( 1 ).split( ";" ))
 					result.add( s.trim());
@@ -303,8 +328,40 @@ public class AbstractModel {
 		List<String> result = null;
 		if( getType( property ) == SupportedTypes.LIST ) {
 			result = new ArrayList<String> ();
-			for( String s : this.properties.get( property ).split( "\\|" ))
-				result.add( s.trim());
+			for( String s : getTrimmedPropertyValue( property ).split( "\\|" )) {
+				s = s.trim();
+				if( ! Utils.isEmpty( s ))
+					result.add( s );
+			}
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Returns a trimmed property.
+	 * @param property a property
+	 * @return a trimmed property value, or null if the value was null
+	 */
+	public String getTrimmedPropertyValue( String property ) {
+		String s =  this.properties.get( property );
+		return s == null ? null : s.trim();
+	}
+
+
+	/**
+	 * Returns a property value as a qualified name.
+	 * @param property a property
+	 * @return null if the property is not of type QName, a QName otherwise
+	 */
+	public QName getQNameValue( String property ) {
+
+		QName result = null;
+		if( getType( property ) == SupportedTypes.QNAME ) {
+			String s = getTrimmedPropertyValue( property ).replaceAll( "\\s", "" );
+			if( ! Utils.isEmpty( s ))
+				result = QName.valueOf( s );
 		}
 
 		return result;
@@ -321,32 +378,54 @@ public class AbstractModel {
 
 
 	/**
-	 * Validates the hold properties.
+	 * Validates all the hold properties.
+	 * @return null if no error was found, an error message otherwise
+	 */
+	public String validatePropertyValues() {
+
+		String result = null;
+		for( Iterator<String> it = this.properties.getPropertyMap().keySet().iterator(); it.hasNext() && result == null; ) {
+			result = validatePropertyValue( it.next());
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Validates a property.
 	 * @return null if no error was found, an error message otherwise
 	 */
 	public String validatePropertyValue( String property ) {
 
 		String result = null;
-		String value = this.properties.get( property );
-		if( value == null ) {
+		String value = getTrimmedPropertyValue( property );
+		if( Utils.isEmpty( value )) {
 			if( isRequired( property )
 					&& ! isNullable( property ))
-				result = "Property " + property + " must be set.";
+				result = property + " must be set.";
 
 		} else {
-			value = value.trim();
 			switch( getType( property )) {
 			case BOOLEAN:
 				if( ! value.equalsIgnoreCase( "true" )
 						&& ! value.equalsIgnoreCase( "false" ))
-					result = "Property " + property + " must be a boolean.";
+					result = property + " must be a boolean.";
 				break;
 
 			case DOUBLE:
 				try {
 					Double.valueOf( value );
 				} catch( NumberFormatException e ) {
-					result = "Property " + property + " must be a double.";
+					result = property + " must be a double.";
+				}
+				break;
+
+			case QNAME:
+				try {
+					QName.valueOf( value );
+				} catch( NumberFormatException e ) {
+					result = property + " must be a valid qualified name.";
 				}
 				break;
 
@@ -354,7 +433,7 @@ public class AbstractModel {
 				try {
 					Float.valueOf( value );
 				} catch( NumberFormatException e ) {
-					result = "Property " + property + " must be a float.";
+					result = property + " must be a float.";
 				}
 				break;
 
@@ -366,33 +445,33 @@ public class AbstractModel {
 
 						// Both min and max have not be set?
 						if( range.getMin() == -1 && range.getMax() == -1 ) {
-							result = "Property " + property + " defines an invalid range.";
+							result = property + " defines an invalid range.";
 						}
 
 						// Min must be less than Max
 						else if( range.getMin() >= range.getMax() && range.getMax() != -1 ) {
-							result = "Property " + property + " defines an invalid range. 'Min' must be less than 'max'.";
+							result = property + " defines an invalid range. 'Min' must be less than 'max'.";
 						}
 
 						// Check the min?
 						else if( range.getMin() != -1 ) {
 							if( range.isMinIncluded() && t < range.getMin())
-								result = "Property " + property + " must be greater or equal than " + range.getMin() + ".";
+								result = property + " must be greater or equal than " + range.getMin() + ".";
 							else if( ! range.isMinIncluded() && t <= range.getMin())
-								result = "Property " + property + " must be strictly greater than " + range.getMin() + ".";
+								result = property + " must be strictly greater than " + range.getMin() + ".";
 						}
 
 						// Check the max?
 						else if( range.getMax() != -1 ) {
 							if( range.isMaxIncluded() && t > range.getMax())
-								result = "Property " + property + " must be less or equal than " + range.getMax() + ".";
+								result = property + " must be less or equal than " + range.getMax() + ".";
 							else if( ! range.isMaxIncluded() && t >= range.getMax())
-								result = "Property " + property + " must be strictly less than " + range.getMax() + ".";
+								result = property + " must be strictly less than " + range.getMax() + ".";
 						}
 					}
 
 				} catch( NumberFormatException e ) {
-					result = "Property " + property + " must be an integer.";
+					result = property + " must be an integer.";
 				}
 				break;
 
@@ -400,7 +479,7 @@ public class AbstractModel {
 				try {
 					Long.valueOf( value );
 				} catch( NumberFormatException e ) {
-					result = "Property " + property + " must be a long.";
+					result = property + " must be a long.";
 				}
 				break;
 
@@ -411,8 +490,18 @@ public class AbstractModel {
 
 			case ENUMERATION:
 				Collection<String> items = getEnumeration( property );
-				if( items != null && ! items.contains( value ))
-					result = "Property " + property + " has an invalid value (not in the enumeration).";
+				if( items != null ) {
+					boolean found = false;
+					for( String item : items ) {
+						if( item.equalsIgnoreCase( value )) {
+							found = true;
+							break;
+						}
+					}
+
+					if( ! found )
+						result = property + " is an invalid value (not in the enumeration).";
+				}
 				break;
 			}
 		}
@@ -435,10 +524,14 @@ public class AbstractModel {
 			for( String property : this.properties.getPropertyMap().keySet()) {
 				String s;
 				if( ! property.toLowerCase().equals( property ))
-					recordEntry( result, property, "The property " + PROPERTY_VERSION + " must be in lower case." );
+					recordEntry( result, property, "The property " + property + " must be in lower case." );
 
 				else if( ! isTypeDefinitionValid( property ))
-					recordEntry( result, property, "The type definition of the property " + PROPERTY_VERSION + " is invalid." );
+					recordEntry( result, property, "The type definition of the property " + property + " is invalid." );
+
+				else if( getType( property ) == SupportedTypes.ENUMERATION
+						&& getEnumeration( property ).isEmpty())
+					recordEntry( result, property, "An enumeration cannot have 0 item." );
 
 				else if( ! Utils.isEmpty( this.properties.get( property ))
 						&& ( s = validatePropertyValue( property )) != null )
@@ -451,10 +544,10 @@ public class AbstractModel {
 
 
 	/**
-	 * @return the properties
+	 * @return all the keys managed by this model
 	 */
-	public Properties getProperties() {
-		return this.properties;
+	public Set<String> getPropertyKeys() {
+		return this.properties.getPropertyMap().keySet();
 	}
 
 
@@ -463,7 +556,7 @@ public class AbstractModel {
 	 * @param property a property
 	 * @return the type declaration, or null if the property was not found or the type not declared
 	 * <p>
-	 * If not null, the result is trimmed and set in lower case.
+	 * If not null, the result is trimmed.
 	 * </p>
 	 */
 	public String findTypeDeclaration( String property ) {
@@ -476,7 +569,7 @@ public class AbstractModel {
 			if( ! comment.startsWith( TYPE_PREFIX ))
 				continue;
 
-			result = comment.trim().toLowerCase();
+			result = comment.trim();
 			break;
 		}
 

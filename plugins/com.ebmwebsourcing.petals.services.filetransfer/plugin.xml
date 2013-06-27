@@ -47,17 +47,4 @@
    </ComponentSupport>
 </extension>
 
-<extension
-      point="org.eclipse.emf.ecore.generated_package">
-   <package
-         class="com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage"
-         genModel="model/filetransfer.genmodel"
-         uri="http://petals.ow2.org/components/filetransfer/version-2">
-   </package>
-   <package
-         class="com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package"
-         genModel="model/filetransfer3.genmodel"
-         uri="http://petals.ow2.org/components/filetransfer/version-3">
-   </package>
-</extension>
 </plugin>

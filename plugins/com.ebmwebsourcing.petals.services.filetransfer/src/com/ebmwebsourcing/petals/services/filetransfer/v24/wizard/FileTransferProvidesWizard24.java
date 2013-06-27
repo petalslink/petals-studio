@@ -18,21 +18,18 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
+import com.ebmwebsourcing.petals.services.cdk.generated.ProvidesCdk10;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.GetFilesWsdl24;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.ProvidesFiletransfer10;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.WriteWsdl24;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferDescription24;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 
@@ -74,40 +71,38 @@ public class FileTransferProvidesWizard24 extends AbstractServiceUnitWizard {
 	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override
-	public void presetServiceValues( AbstractEndpoint ae ) {
-		ae.setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "change-it" ));
-		Cdk5Utils.setInitialProvidesValues((Provides) ae);
+	public void presetServiceValues() {
+		this.suWizardModel.getEndpoint().setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", "change-it" ));
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard
-	 * #performLastActions(org.eclipse.core.resources.IFolder, com.sun.java.xml.ns.jbi.AbstractEndpoint,
-	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
+	 * #performLastActions(org.eclipse.core.resources.IFolder, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
+	public IStatus performLastActions( IFolder resourceFolder, IProgressMonitor monitor ) {
 
 		// Deal with the parameters
 		// Note: this approach seems more efficient than data-binding, since it guarantees insertion order in every case.
 		// Unsettable attributes is a poor workaround. Maybe every component should have a helper to sort features.
 		String wsdlContent;
 		if( this.page.getContract() == Contract.WRITE_FILES ) {
-			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, this.page.getWriteDirectory());
-			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE, this.page.getCopyMode());
-			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__FILE_PATTERN, this.page.getFilePattern());
-			wsdlContent = new WriteWsdl24().generate( abstractEndpoint );
+			this.suWizardModel.getComponentModel().set( ProvidesFiletransfer10.WRITE_DIRECTORY, this.page.getWriteDirectory());
+			this.suWizardModel.getComponentModel().set( ProvidesFiletransfer10.COPY_MODE, this.page.getCopyMode().toString());
+			this.suWizardModel.getComponentModel().set( ProvidesFiletransfer10.FILE_PATTERN, this.page.getFilePattern());
+			wsdlContent = new WriteWsdl24().generate( this.suWizardModel.getEndpoint());
 
 		} else {
-			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY, this.page.getReadDirectory());
-			abstractEndpoint.eSet( Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY, this.page.getBackupDirectory());
-			wsdlContent = new GetFilesWsdl24().generate( abstractEndpoint );
+			this.suWizardModel.getComponentModel().set( ProvidesFiletransfer10.READ_DIRECTORY, this.page.getReadDirectory());
+			this.suWizardModel.getComponentModel().set( ProvidesFiletransfer10.BACKUP_DIRECTORY, this.page.getBackupDirectory());
+			wsdlContent = new GetFilesWsdl24().generate( this.suWizardModel.getEndpoint());
 		}
 
 
 		// Deal with the interface name and WSDL
-		String wsdlName = abstractEndpoint.getInterfaceName().getLocalPart() + ".wsdl";
-		abstractEndpoint.eSet( Cdk5Package.Literals.CDK5_PROVIDES__WSDL, wsdlName );
+		String wsdlName = this.suWizardModel.getEndpoint().getInterfaceName().getLocalPart() + ".wsdl";
+		this.suWizardModel.getCdkModel().set( ProvidesCdk10.WSDL, wsdlName );
 		createFile( resourceFolder.getFile( wsdlName ), wsdlContent, monitor );
 
 		return Status.OK_STATUS;

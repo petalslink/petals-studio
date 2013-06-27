@@ -20,8 +20,8 @@ import javax.xml.xpath.XPathConstants;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -33,10 +33,11 @@ import org.w3c.dom.NodeList;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.AbstractJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.XPathUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.editor.ServicesLabelProvider;
+import com.ebmwebsourcing.petals.services.su.model.JbiTranslator;
+import com.ebmwebsourcing.petals.services.su.model.SuEditorModel;
 import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
@@ -45,6 +46,7 @@ import com.sun.java.xml.ns.jbi.Jbi;
 public class SuPersonality extends AbstractJbiEditorPersonality {
 
 	private ILabelProvider statusLineLabelProvider;
+	private SuEditorModel model;
 
 
 	/*
@@ -106,6 +108,14 @@ public class SuPersonality extends AbstractJbiEditorPersonality {
 	}
 
 
+	/**
+	 * @return the model
+	 */
+	public SuEditorModel getModel() {
+		return this.model;
+	}
+
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.editor.IJbiEditorPersonality
@@ -120,19 +130,30 @@ public class SuPersonality extends AbstractJbiEditorPersonality {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.common.internal.provisional.formeditor.AbstractJbiEditorPersonality
-	 * #saveModel(com.sun.java.xml.ns.jbi.Jbi, org.eclipse.core.resources.IFile, org.eclipse.emf.edit.domain.EditingDomain)
+	 * #loadModel(com.sun.java.xml.ns.jbi.Jbi, org.eclipse.core.resources.IFile)
 	 */
 	@Override
-	public void saveModel( final Jbi model, final IFile editedFile, EditingDomain domain ) {
+	public void loadModel( Jbi jbiInstance, IFile editedFile ) {
+		this.model = new JbiTranslator().readFromJbiXml( editedFile );
+	}
 
-		Document doc = JbiXmlUtils.saveJbiXmlAsDocument( model );
-		sortNodes( doc, true );
 
-		String s = DomUtils.writeDocument( doc );
-		try {
-			editedFile.setContents( new ByteArrayInputStream( s.getBytes()), true, true, null );
-		} catch( CoreException e ) {
-			PetalsServicesPlugin.log( e, IStatus.ERROR );
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.common.internal.provisional.formeditor.AbstractJbiEditorPersonality
+	 * #saveModel(com.sun.java.xml.ns.jbi.Jbi, org.eclipse.core.resources.IFile, org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public void saveModel( Jbi jbiInstance, IFile editedFile, IProgressMonitor monitor ) {
+
+		String s = new JbiTranslator().createJbiXml( jbiInstance, this.model );
+		if( editedFile.exists()) {
+			try {
+				editedFile.setContents( new ByteArrayInputStream( s.getBytes()), true, true, monitor );
+
+			} catch( CoreException e ) {
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
+			}
 		}
 	}
 

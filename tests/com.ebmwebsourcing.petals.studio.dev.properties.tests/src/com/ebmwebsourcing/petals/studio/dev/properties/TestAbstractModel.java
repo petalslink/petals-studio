@@ -13,6 +13,8 @@ package com.ebmwebsourcing.petals.studio.dev.properties;
 
 import java.util.Collection;
 
+import javax.xml.namespace.QName;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -175,6 +177,13 @@ public class TestAbstractModel {
 		Assert.assertNotNull( list );
 		Assert.assertEquals( 1, list.size());
 		Assert.assertTrue( list.contains( "12" ));
+
+		model.typeDecl = "Type: enumeration { InOnly; RobustInOnly }";
+		list = model.getEnumeration( "any" );
+		Assert.assertNotNull( list );
+		Assert.assertEquals( 2, list.size());
+		Assert.assertTrue( list.contains( "InOnly" ));
+		Assert.assertTrue( list.contains( "RobustInOnly" ));
 	}
 
 
@@ -241,15 +250,55 @@ public class TestAbstractModel {
 	}
 
 
+	@Test
+	public void testGetQNameValue() {
+
+		CustomAbstractModel model = new CustomAbstractModel();
+		model.typeDecl = "Type: QName";
+		model.trimmedValue = "{http://lol}Cool";
+
+		QName qname = model.getQNameValue( "any" );
+		Assert.assertNotNull( qname );
+		Assert.assertEquals( "http://lol", qname.getNamespaceURI());
+		Assert.assertEquals( "Cool", qname.getLocalPart());
+
+		model.trimmedValue = "{  http://lol }  Cool  ";
+		qname = model.getQNameValue( "any" );
+		Assert.assertNotNull( qname );
+		Assert.assertEquals( "http://lol", qname.getNamespaceURI());
+		Assert.assertEquals( "Cool", qname.getLocalPart());
+
+		model.trimmedValue = "  Cool  ";
+		qname = model.getQNameValue( "any" );
+		Assert.assertNotNull( qname );
+		Assert.assertEquals( "", qname.getNamespaceURI());
+		Assert.assertEquals( "Cool", qname.getLocalPart());
+
+		model.trimmedValue = "";
+		qname = model.getQNameValue( "any" );
+		Assert.assertNull( qname );
+
+		model.typeDecl = "Type: String";
+		qname = model.getQNameValue( "any" );
+		Assert.assertNull( qname );
+	}
+
+
 	/**
 	 * A class used to perform tests on an abstract model.
 	 */
 	private static class CustomAbstractModel extends AbstractModel {
 		public String typeDecl;
+		public String trimmedValue;
 
 		@Override
 		public String findTypeDeclaration( String property ) {
 			return this.typeDecl;
+		}
+
+		@Override
+		public String getTrimmedPropertyValue( String property ) {
+			return this.trimmedValue;
 		}
 	}
 }

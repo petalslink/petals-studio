@@ -25,12 +25,12 @@ Require-Bundle: com.ebmwebsourcing.jbi.core.metamodel.edit,
  org.eclipse.compare,
  com.ebmwebsourcing.petals.common.generation,
  org.eclipse.ui.views.properties.tabbed,
- org.eclipse.emf.databinding.edit,
- org.eclipse.jface.databinding,
- org.eclipse.emf.transaction,
- org.eclipse.emf.edit.ui,
  org.eclipse.bpel.common.wsdl,
- org.eclipse.ui.navigator.resources
+ org.eclipse.ui.navigator.resources,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.validation,
+ com.ebmwebsourcing.petals.studio.dev.properties
 Bundle-ClassPath: .,
  lib/wsdl4j.jar
 Bundle-ActivationPolicy: lazy
@@ -38,7 +38,6 @@ Bundle-Activator: com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin
 Export-Package: com.ebmwebsourcing.petals.common.croquis.internal.provisional,
  com.ebmwebsourcing.petals.common.internal.provisional.builder,
  com.ebmwebsourcing.petals.common.internal.provisional.commands,
- com.ebmwebsourcing.petals.common.internal.provisional.databinding,
  com.ebmwebsourcing.petals.common.internal.provisional.emf,
  com.ebmwebsourcing.petals.common.internal.provisional.formeditor,
  com.ebmwebsourcing.petals.common.internal.provisional.maven,

@@ -113,14 +113,6 @@
       </ComponentSupport>
    </extension>
    <extension
-         point="org.eclipse.emf.ecore.generated_package">
-      <package
-            class="com.ebmwebsourcing.petals.services.bpel.bpel.BpelPackage"
-            genModel="model/bpel.genmodel"
-            uri="http://petals.ow2.org/components/petals-bpel-engine/version-1">
-      </package>
-   </extension>
-   <extension
          point="org.eclipse.bpel.validator.factories">
       <factory
             class="com.ebmwebsourcing.petals.services.bpel.designer.validation.EasyBPELValidatorFactory"

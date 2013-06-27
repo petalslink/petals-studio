@@ -11,6 +11,7 @@
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.su.extensions;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import org.eclipse.core.runtime.IStatus;
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
+import com.ebmwebsourcing.petals.services.su.wizards.PetalsMode;
 
 /**
  * A bean that holds information about a Petals component's version.
@@ -30,7 +32,6 @@ import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContribu
  */
 public abstract class ComponentVersionDescription implements IComponentDescription, IExecutableExtension {
 
-	protected String namespce;
 	protected IConfigurationElement configurationElement;
 
 	/*
@@ -41,14 +42,6 @@ public abstract class ComponentVersionDescription implements IComponentDescripti
 	@Override
 	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) {
 		this.configurationElement = config;
-		this.namespce = config.getAttribute("namespace");
-	}
-
-	/**
-	 * @return the name space
-	 */
-	public String getNamespace() {
-		return this.namespce;
 	}
 
 	/**
@@ -70,6 +63,40 @@ public abstract class ComponentVersionDescription implements IComponentDescripti
 	 * @return true ONLY if the component supports the definition of service consumers and providers at the same time
 	 */
 	public abstract boolean isProxy();
+
+	/**
+	 * @param petalsMode provides or consumes model
+	 * @return an input stream for the initial instance of the CDK model
+	 */
+	public abstract InputStream loadCdkModel( PetalsMode petalsMode );
+
+	/**
+	 * @param petalsMode provides or consumes model
+	 * @return an input stream for the initial instance of the component model
+	 */
+	public abstract InputStream loadComponentModel( PetalsMode petalsMode );
+
+	/**
+	 * @return the name space URI for the CDK
+	 */
+	public abstract String getCdkNamespace();
+
+	/**
+	 * @return the name space URI for the component
+	 */
+	public abstract String getComponentNamespace();
+
+	/**
+	 * @param petalsMode provides or consumes
+	 * @return the CDK properties, sorted in the right order for a jbi.xml
+	 */
+	public abstract String[] getSortedCdkProperties( PetalsMode petalsMode );
+
+	/**
+	 * @param petalsMode provides or consumes
+	 * @return the component properties, sorted in the right order for a jbi.xml
+	 */
+	public abstract String[] getSortedComponentProperties( PetalsMode petalsMode );
 
 	/**
 	 * @return a map associating an operation name and a MEP

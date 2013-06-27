@@ -61,7 +61,7 @@ public class GenerateConstantsHandler extends AbstractHandler {
 
 		} else {
 			GenerateConstantsWizard wizard = new GenerateConstantsWizard();
-			wizard.setProject( this.propertiesFile.getProject());
+			wizard.setPropertiesFile( this.propertiesFile );
 			wizard.setModel( model );
 			wizard.setWorkbenchWindow( window );
 

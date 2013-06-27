@@ -12,13 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  com.ebmwebsourcing.petals.common,
  org.eclipse.ui.forms,
- com.ebmwebsourcing.petals.services.cdk,
- org.eclipse.jface.databinding,
- org.eclipse.emf.databinding.edit,
- org.eclipse.ui.forms,
- com.ebmwebsourcing.petals.services.cdk,
- org.eclipse.jface.databinding,
- org.eclipse.emf.databinding.edit
+ com.ebmwebsourcing.petals.studio.dev.properties,
+ com.ebmwebsourcing.jbi.core.metamodel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.ebmwebsourcing.petals.services.filetransfer.FileTransferPlugin

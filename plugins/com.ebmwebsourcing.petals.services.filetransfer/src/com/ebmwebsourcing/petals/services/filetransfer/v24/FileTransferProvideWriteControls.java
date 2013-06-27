@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.ProvidesFiletransfer10.CopyMode;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing

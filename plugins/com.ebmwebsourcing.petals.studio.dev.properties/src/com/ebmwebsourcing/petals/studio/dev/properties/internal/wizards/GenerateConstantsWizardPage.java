@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -54,19 +55,22 @@ import com.ebmwebsourcing.petals.studio.dev.properties.internal.Utils;
 public class GenerateConstantsWizardPage extends WizardPage {
 
 	private IPackageFragmentRoot target;
-	private final IProject originalSelection;
+	private final IFile propertiesFile;
 	private String javaPackage, className;
 
 
 	/**
 	 * Constructor.
-	 * @param project
+	 * @param propertiesFile
 	 */
-	public GenerateConstantsWizardPage( IProject project ) {
+	public GenerateConstantsWizardPage( IFile propertiesFile ) {
 		super( "MainPage" );
-		this.originalSelection = project;
+		this.propertiesFile = propertiesFile;
 		setTitle( "Constants Generation" );
 		setDescription( "Generate a Java class with model constants." );
+
+		this.className = propertiesFile.getProjectRelativePath().removeFileExtension().lastSegment();
+		this.className = Utils.capitalize( this.className.replaceAll( "-|_", " " )).replaceAll( "\\.|\\s", "" );
 	}
 
 
@@ -144,19 +148,17 @@ public class GenerateConstantsWizardPage extends WizardPage {
 
 		// Set page input
 		viewer.setInput( ResourcesPlugin.getWorkspace().getRoot());
-		if( this.originalSelection != null ) {
-			try {
-				IJavaProject jp = JavaCore.create( this.originalSelection );
-				for( IPackageFragmentRoot root : jp.getPackageFragmentRoots()) {
-					if( root.getResource() instanceof IContainer ) {
-						GenerateConstantsWizardPage.this.target = root;
-						break;
-					}
+		try {
+			IJavaProject jp = JavaCore.create( this.propertiesFile.getProject());
+			for( IPackageFragmentRoot root : jp.getPackageFragmentRoots()) {
+				if( root.getResource() instanceof IContainer ) {
+					GenerateConstantsWizardPage.this.target = root;
+					break;
 				}
-
-			} catch( JavaModelException e ) {
-				PetalsStudioDevPlugin.log( e, IStatus.ERROR, "This should not happen (check in the handler)." );
 			}
+
+		} catch( JavaModelException e ) {
+			PetalsStudioDevPlugin.log( e, IStatus.ERROR, "This should not happen (check in the handler)." );
 		}
 
 		if( this.target != null ) {
@@ -180,6 +182,7 @@ public class GenerateConstantsWizardPage extends WizardPage {
 
 		new Label( container, SWT.NONE ).setText( "Java Class Name:" );
 		final Text classText = new Text( container, SWT.SINGLE | SWT.BORDER );
+		classText.setText( this.className );
 		classText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		classText.addModifyListener( new ModifyListener() {
 			@Override
@@ -197,17 +200,9 @@ public class GenerateConstantsWizardPage extends WizardPage {
 
 				Object o = ((IStructuredSelection) event.getSelection()).getFirstElement();
 				if( o instanceof IPackageFragmentRoot ) {
-
 					GenerateConstantsWizardPage.this.target = (IPackageFragmentRoot) o;
 					String pName = GenerateConstantsWizardPage.this.target.getJavaProject().getProject().getName();
 					packageText.setText( pName.replaceAll( "-", "." ) + ".generated" );
-
-					int index = pName.lastIndexOf( '.' ) + 1;
-					if( index <= 0 || index > pName.length())
-						pName = "Default";
-					else
-						pName = pName.substring( index );
-					classText.setText( pName );
 
 				} else {
 					GenerateConstantsWizardPage.this.target = null;

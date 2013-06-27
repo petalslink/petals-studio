@@ -11,16 +11,17 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v30.editor;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.PropertiesModelUIHelper;
+import com.ebmwebsourcing.petals.services.cdk.api.CDK5JBIEndpointUIHelper;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.ConsumesFiletransfer20;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers;
 import com.ebmwebsourcing.petals.services.su.editor.su.JBIEndpointUIHelpers.CommonUIBean;
+import com.ebmwebsourcing.petals.studio.dev.properties.AbstractModel;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
@@ -28,41 +29,41 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
  */
 public class FileTransfer3ConsumesJbiEditorContribution extends JbiEditorDetailsContribution {
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
-	 * #addMainSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
-	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
-	 */
 	@Override
-	public void addMainSUContent(final AbstractEndpoint endpoint, FormToolkit toolkit, final Composite mainTab, ISharedEdition ise) {
+	public void addMainSUContent(
+			AbstractEndpoint edpt,
+			AbstractModel componentModel,
+			AbstractModel cdkModel,
+			FormToolkit toolkit,
+			Composite mainTab,
+			IFile editedFile ) {
+
 		Composite composite = createCommonConsumeSection( mainTab, toolkit );
-		CommonUIBean commonUiBean = JBIEndpointUIHelpers.createCommonEndpointUI( endpoint, toolkit, composite, ise );
+		CommonUIBean commonUiBean = JBIEndpointUIHelpers.createCommonEndpointUI( edpt, toolkit, composite );
 
 		composite = createEditorSection( mainTab, toolkit, CDK5JBIEndpointUIHelper.CONSUME_TITLE, CDK5JBIEndpointUIHelper.CONSUME_DESC, true );
-		CDK5JBIEndpointUIHelper.createConsumesUI( endpoint, toolkit, composite, ise, commonUiBean );
+		CDK5JBIEndpointUIHelper.createConsumesUI( edpt, cdkModel, toolkit, composite, commonUiBean );
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution
-	 * #addAdvancedSUContent(com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.ui.forms.widgets.FormToolkit,
-	 * org.eclipse.swt.widgets.Composite, com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition)
-	 */
 	@Override
-	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
+	public void addAdvancedSUContent(
+			AbstractEndpoint edpt,
+			AbstractModel componentModel,
+			AbstractModel cdkModel,
+			FormToolkit toolkit,
+			Composite advancedTab ) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters", true );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__FOLDER,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__BACKUP_DIRECTORY,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__FILENAME,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__POLLING_PERIOD,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_SIZE,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__PROCESSOR_POOL_TIMEOUT );
+		PropertiesModelUIHelper.generateWidgets(
+				toolkit, composite, componentModel,
+				ConsumesFiletransfer20.FOLDER,
+				ConsumesFiletransfer20.BACKUP_DIRECTORY,
+				ConsumesFiletransfer20.FILENAME,
+				ConsumesFiletransfer20.POLLING_PERIOD,
+				ConsumesFiletransfer20.PROCESSOR_POOL_SIZE,
+				ConsumesFiletransfer20.PROCESSOR_POOL_TIMEOUT );
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );
-		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( endpoint, toolkit, composite, ise );
+		CDK5JBIEndpointUIHelper.generateDefaultCdkWidgetsForConsumesEditor( edpt, cdkModel, toolkit, composite );
 	}
 }

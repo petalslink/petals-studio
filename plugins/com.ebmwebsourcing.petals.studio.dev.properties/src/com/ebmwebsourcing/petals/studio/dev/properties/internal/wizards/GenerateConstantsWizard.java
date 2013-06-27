@@ -15,7 +15,6 @@ import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -43,7 +42,7 @@ import com.ebmwebsourcing.petals.studio.dev.properties.internal.Utils;
 public class GenerateConstantsWizard extends Wizard implements INewWizard {
 
 	private GenerateConstantsWizardPage page;
-	private IProject project;
+	private IFile propertiesFile;
 	private AbstractModel model;
 	private IWorkbenchWindow workbenchWindow;
 
@@ -68,7 +67,7 @@ public class GenerateConstantsWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public void addPages() {
-		this.page = new GenerateConstantsWizardPage( this.project );
+		this.page = new GenerateConstantsWizardPage( this.propertiesFile );
 		addPage( this.page );
 	}
 
@@ -83,8 +82,7 @@ public class GenerateConstantsWizard extends Wizard implements INewWizard {
 
 		// Prepare the creation
 		String packageName = this.page.getJavaPackage();
-		String className = this.page.getClassName() + "_"
-				+ this.model.getModelVersion().replaceAll( "-|\\.", "_" );
+		String className = this.page.getClassName();
 
 		IPath path = this.page.getTarget().getResource().getFullPath();
 		path = path.append( packageName.replace( '.', '/' ));
@@ -146,10 +144,10 @@ public class GenerateConstantsWizard extends Wizard implements INewWizard {
 
 
 	/**
-	 * @param project the project to set
+	 * @param propertiesFile the propertiesFile to set
 	 */
-	public void setProject( IProject project ) {
-		this.project = project;
+	public void setPropertiesFile( IFile propertiesFile ) {
+		this.propertiesFile = propertiesFile;
 	}
 
 

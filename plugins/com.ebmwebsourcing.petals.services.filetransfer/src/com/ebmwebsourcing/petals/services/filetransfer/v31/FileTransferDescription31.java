@@ -11,12 +11,12 @@
 
 package com.ebmwebsourcing.petals.services.filetransfer.v31;
 
-import com.ebmwebsourcing.petals.services.filetransfer.FileTransferDescription;
+import com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferDescription30;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class FileTransferDescription31 extends FileTransferDescription {
+public class FileTransferDescription31 extends FileTransferDescription30 {
 
 	/*
 	 * (non-Javadoc)
@@ -27,5 +27,4 @@ public class FileTransferDescription31 extends FileTransferDescription {
 	public String getComponentVersion() {
 		return "3.1";
 	}
-
 }

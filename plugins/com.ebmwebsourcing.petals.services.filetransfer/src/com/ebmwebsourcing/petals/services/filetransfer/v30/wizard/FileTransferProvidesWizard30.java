@@ -19,21 +19,18 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
+import com.ebmwebsourcing.petals.services.cdk.generated.ProvidesCdk10;
 import com.ebmwebsourcing.petals.services.filetransfer.generated.FileTransferService;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.ProvidesFiletransfer20;
 import com.ebmwebsourcing.petals.services.filetransfer.v30.FileTransferDescription30;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.Provides;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class FileTransferProvidesWizard30 extends AbstractServiceUnitWizard {
 
@@ -64,11 +61,10 @@ public class FileTransferProvidesWizard30 extends AbstractServiceUnitWizard {
 	 * #predefineJbiValues(com.sun.java.xml.ns.jbi.AbstractEndpoint)
 	 */
 	@Override
-	public void presetServiceValues( AbstractEndpoint ae ) {
-		ae.setInterfaceName(new QName("http://petals.ow2.org/components/filetransfer/version-3", "FileTransferType"));
-		ae.setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-3", "change-it" ));
-		Cdk5Utils.setInitialProvidesValues((Provides)ae);
-		ae.eSet(Cdk5Package.Literals.CDK5_PROVIDES__WSDL, "FileTransferService.wsdl");
+	public void presetServiceValues() {
+		this.suWizardModel.getEndpoint().setInterfaceName(new QName("http://petals.ow2.org/components/filetransfer/version-3", "FileTransferType"));
+		this.suWizardModel.getEndpoint().setServiceName( new QName( "http://petals.ow2.org/components/filetransfer/version-3", "change-it" ));
+		this.suWizardModel.getCdkModel().set( ProvidesCdk10.WSDL, "FileTransferService.wsdl" );
 	}
 
 	/*
@@ -78,9 +74,9 @@ public class FileTransferProvidesWizard30 extends AbstractServiceUnitWizard {
 	 * org.eclipse.core.runtime.IProgressMonitor, java.util.List)
 	 */
 	@Override
-	public IStatus performLastActions(IFolder resourceFolder, AbstractEndpoint abstractEndpoint, IProgressMonitor monitor) {
+	public IStatus performLastActions(IFolder resourceFolder, IProgressMonitor monitor) {
 		IFile wsdlFile = resourceFolder.getFile( "FileTransferService.wsdl" );
-		createFile( wsdlFile, new FileTransferService().generate( abstractEndpoint ), monitor );
+		createFile( wsdlFile, new FileTransferService().generate( this.suWizardModel.getEndpoint()), monitor );
 		return Status.OK_STATUS;
 	}
 
@@ -93,9 +89,10 @@ public class FileTransferProvidesWizard30 extends AbstractServiceUnitWizard {
 	@Override
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] { new SimpleFeatureListSuWizardPage(
-				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__FOLDER,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__BACKUP_DIRECTORY,
-				Filetransfer3Package.Literals.FILE_TRANSFER3_PROVIDES__FILENAME
+				this.suWizardModel.getComponentModel(),
+				ProvidesFiletransfer20.FOLDER,
+				ProvidesFiletransfer20.BACKUP_DIRECTORY,
+				ProvidesFiletransfer20.FILENAME
 		)};
 	}
 }

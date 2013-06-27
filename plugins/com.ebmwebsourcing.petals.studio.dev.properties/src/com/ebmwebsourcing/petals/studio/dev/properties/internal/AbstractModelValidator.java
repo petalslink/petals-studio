@@ -88,7 +88,7 @@ public class AbstractModelValidator {
 		// Load and validate the model
 		try {
 			AbstractModel model = new AbstractModel( file );
-			for( String key : model.getProperties().getPropertyMap().keySet()) {
+			for( String key : model.getPropertyKeys()) {
 				Integer line = propertyToLine.get( key );
 				if( line == null ) {
 					PetalsStudioDevPlugin.log( key + " property was not indexed correctly.", IStatus.ERROR );
@@ -110,6 +110,11 @@ public class AbstractModelValidator {
 				for( String error :entry.getValue())
 					createMarker( propertiesFile, error, line, true );
 			}
+
+			// Check the file name
+			String version = model.getModelVersion();
+			if( ! propertiesFile.getName().endsWith( version + ".properties" ))
+				createMarker( propertiesFile, "The properties file name should end with the version.", 1, true );
 
 		} catch( IOException e ) {
 			createMarker( propertiesFile, "The file could not be loaded.", 1, true );

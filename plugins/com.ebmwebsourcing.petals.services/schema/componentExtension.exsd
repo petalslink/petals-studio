@@ -71,13 +71,6 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="namespace" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
          <attribute name="providesExtensionWizard" type="string">
             <annotation>
                <documentation>

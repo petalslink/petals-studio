@@ -49,23 +49,4 @@ public enum PetalsMode {
 
 		return result;
 	};
-
-
-	/**
-	 * Resolves a mode from its string value.
-	 * @param s a string
-	 * @return a Petals mode, or null if the string does not match anything
-	 */
-	public static PetalsMode resolveString( String s ) {
-
-		PetalsMode result = null;
-		for( PetalsMode mode : values()) {
-			if( mode.toString().equals( s )) {
-				result = mode;
-				break;
-			}
-		}
-
-		return result;
-	}
 }

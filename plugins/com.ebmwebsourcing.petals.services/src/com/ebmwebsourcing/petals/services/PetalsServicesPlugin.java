@@ -14,16 +14,10 @@ package com.ebmwebsourcing.petals.services;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
-import com.ebmwebsourcing.petals.services.su.editor.extensibility.InitializeModelExtensionCommand;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
-import com.ebmwebsourcing.petals.services.su.extensions.ExtensionManager;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -55,22 +49,6 @@ public class PetalsServicesPlugin extends AbstractUIPlugin {
 	public void start( BundleContext context ) throws Exception {
 		super.start( context );
 		plugin = this;
-
-		// Initialize feature IDs
-		// FIXME: Seems to be required for the wizards (but why?)
-		try {
-			for (ComponentVersionDescription description : ExtensionManager.INSTANCE.findAllComponentVersionDescriptions()) {
-				EPackage extensionPackage = EPackageRegistryImpl.INSTANCE.getEPackage(description.getNamespace());
-				if (extensionPackage != null) {
-					new InitializeModelExtensionCommand( extensionPackage, null ).initializeFeatures();
-				} else {
-					log("Could not load model for component [" + description.getComponentName() + "] (ns=" + description.getNamespace() + ")", IStatus.ERROR);
-				}
-			}
-
-		} catch( Exception e ) {
-			log( e, IStatus.ERROR );
-		}
 	}
 
 

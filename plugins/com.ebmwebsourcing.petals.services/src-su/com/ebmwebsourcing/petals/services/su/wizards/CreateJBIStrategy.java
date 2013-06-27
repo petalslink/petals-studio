@@ -12,8 +12,8 @@
 
 package com.ebmwebsourcing.petals.services.su.wizards;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URI;
 
 import org.eclipse.core.resources.IFile;
@@ -27,18 +27,13 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
+import com.ebmwebsourcing.petals.services.su.model.JbiTranslator;
 import com.ebmwebsourcing.petals.services.utils.PetalsServicesProjectUtils;
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.Consumes;
-import com.sun.java.xml.ns.jbi.Jbi;
-import com.sun.java.xml.ns.jbi.JbiFactory;
-import com.sun.java.xml.ns.jbi.Provides;
 
 /**
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 
@@ -48,31 +43,24 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.FinishServiceCreationStrategy
-	 * #finishWizard(com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard, com.sun.java.xml.ns.jbi.AbstractEndpoint, org.eclipse.core.runtime.IProgressMonitor)
+	 * #finishWizard(com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard,org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	public void finishWizard(AbstractServiceUnitWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception {
+	public void finishWizard( AbstractServiceUnitWizard wizard, IProgressMonitor monitor )
+	throws Exception {
 
-		// Create and write the jbi.xml file
-		Jbi jbiInstance;
-		jbiInstance = JbiFactory.eINSTANCE.createJbi();
-		jbiInstance.setVersion(new BigDecimal("1.0"));
-		jbiInstance.setServices(JbiFactory.eINSTANCE.createServices());
-		jbiInstance.getServices().setBindingComponent(wizard.getComponentVersionDescription().isBc());
-		if (endpoint instanceof Provides)
-			jbiInstance.getServices().getProvides().add((Provides)endpoint);
-		else
-			jbiInstance.getServices().getConsumes().add((Consumes)endpoint);
-
+		// Create the structure
 		createProject(wizard, monitor);
+
+		// Write the jbi.xml
+		String content = new JbiTranslator().createJbiXml( wizard.getSuModel(), wizard.getComponentVersionDescription());
 
 		IFile jbiFile = this.project.getFile( PetalsConstants.LOC_JBI_FILE );
 		monitor.subTask( "Creating the jbi.xml..." );
-		JbiXmlUtils.writeJbiXmlModel( jbiInstance, jbiFile );
+		jbiFile.create( new ByteArrayInputStream( content.getBytes()), true, monitor );
+
 		monitor.worked( 1 );
-
 		this.project.refreshLocal( IResource.DEPTH_INFINITE, monitor );
-
 
 		// Open the jbi.xml?
 		IProject project = getSUProject( wizard, monitor );
@@ -138,7 +126,7 @@ public class CreateJBIStrategy implements FinishServiceCreationStrategy {
 	@Override
 	public IProject getSUProject( AbstractServiceUnitWizard wizard, IProgressMonitor monitor ) {
 
-		if (this.project == null) {
+		if( this.project == null ) {
 			try {
 				createProject(wizard, monitor);
 			} catch (Exception ex) {

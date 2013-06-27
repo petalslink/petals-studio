@@ -12,13 +12,20 @@
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.swt.graphics.FontData;
+
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 /**
  * A set of utilities for SWT and JFace.
@@ -118,5 +125,26 @@ public class PlatformUtils {
 		}
 
 		return project;
+	}
+
+
+	/**
+	 * Loads a plug-in resource.
+	 * @param pluginId the plug-in ID
+	 * @param relativeLocation the relative location (must start with '/')
+	 * @return an input stream (possibly null)
+	 */
+	public static InputStream loadPluginResource( String pluginId, String relativeLocation ) {
+
+		InputStream inputStream = null;
+		try {
+			URL url = new URL( "platform:/plugin/" + pluginId + relativeLocation );
+		    inputStream = url.openConnection().getInputStream();
+
+		} catch( IOException e ) {
+		    PetalsCommonPlugin.log( e, IStatus.ERROR );
+		}
+
+		return inputStream;
 	}
 }

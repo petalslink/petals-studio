@@ -67,7 +67,7 @@
 	
 	<xs:element name="file-pattern" type="xs:string">
 		<xs:annotation>
-			<xs:documentation>CONSUME MODE: pattern used filter files to read. PROVIDE MODE: name of the file written by PEtALS, appended with date-time (if not set, the file name is the operation name or 'content.xml').</xs:documentation>
+			<xs:documentation>CONSUME MODE: name pattern used to filter the files to read.. PROVIDE MODE: name of the file written by PEtALS, appended with date-time (if not set, the file name is the operation name or 'content.xml').</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	

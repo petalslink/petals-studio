@@ -20,8 +20,12 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.widgets.Text;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -143,5 +147,30 @@ public class EmfUtils {
 	public static File getUnderlyingFile( EObject eo ) {
 		org.eclipse.emf.common.util.URI emfUri = eo.eResource().getURI();
 		return getFileFromEmfUri( emfUri );
+	}
+
+
+	/**
+	 * Binds an EObject to a Text widget.
+	 * @param eo
+	 * @param feature
+	 * @param textWidget
+	 */
+	public static void bind( final EObject eo, final EStructuralFeature feature, Text textWidget ) {
+
+		if( ! String.class.equals( feature.getEType().getInstanceClass()))
+			throw new IllegalArgumentException( feature.getName() + " cannot be bound to user interface." );
+
+		Object o = eo.eGet( feature );
+		if( o != null )
+			textWidget.setText( o.toString());
+
+		textWidget.addModifyListener( new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				String s = ((Text) e.widget).getText().trim();
+				eo.eSet( feature, s );
+			}
+		});
 	}
 }

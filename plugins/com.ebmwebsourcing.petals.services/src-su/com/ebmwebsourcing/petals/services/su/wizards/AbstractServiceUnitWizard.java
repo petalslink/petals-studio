@@ -35,7 +35,6 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
@@ -46,18 +45,16 @@ import com.ebmwebsourcing.petals.common.internal.provisional.maven.MavenBean;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlUtils;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
+import com.ebmwebsourcing.petals.services.su.model.SuWizardModel;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiConsumePage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.JbiProvidePage;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ProjectPage;
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.JbiFactory;
 
 /**
  * The specialized wizard for the Petals service units.
@@ -73,7 +70,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	/**
 	 * The instance of the JBI object model.
 	 */
-	protected AbstractEndpoint endpoint;
+	protected SuWizardModel suWizardModel;
 
 	protected ProjectPage projectPage;
 	protected JbiProvidePage jbiProvidePage;
@@ -112,19 +109,14 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 */
 	@Override
 	public void setInitializationData( IConfigurationElement config, String propertyName, Object data ) throws CoreException {
-		if (propertyName.toLowerCase().contains("provide")) {
-			this.petalsMode = PetalsMode.provides;
-			this.endpoint = JbiFactory.eINSTANCE.createProvides();
-			setWindowTitle(Messages.provideTitle);
 
+		if( propertyName.toLowerCase().contains( "provide" )) {
+			this.petalsMode = PetalsMode.provides;
+			setWindowTitle(Messages.provideTitle);
 		} else {
 			this.petalsMode = PetalsMode.consumes;
-			this.endpoint = JbiFactory.eINSTANCE.createConsumes();
 			setWindowTitle(Messages.consumeTitle);
 		}
-
-		presetServiceValues(this.endpoint);
-		this.finishStrategy = new CreateJBIStrategy();
 	}
 
 
@@ -165,20 +157,30 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * #addPages()
 	 */
 	@Override
-	public void addPages() {
+	public final void addPages() {
+
+		// Load the models
+		// Done here because this method is invoked only when a wizard is chosen
+		this.suWizardModel = new SuWizardModel( this.petalsMode, getComponentVersionDescription());
+
+		// Complete the initialization
+		presetServiceValues();
+		this.finishStrategy = new CreateJBIStrategy();
+
+		// Add the pages
 		AbstractSuWizardPage[] pages = this.getCustomWizardPagesBeforeJbi();
 		if (pages != null) {
 			for (IWizardPage page : pages)
 				addPage( page );
 		}
 
-		if( this.settings.showJbiPage) {
-			if (this.petalsMode == PetalsMode.consumes)
+		if( this.settings.showJbiPage ) {
+			if( this.petalsMode == PetalsMode.consumes )
 				addPage( new JbiConsumePage());
 
 			else if (this.petalsMode == PetalsMode.provides) {
 				this.jbiProvidePage = new JbiProvidePage();
-				addPage(this.jbiProvidePage);
+				addPage( this.jbiProvidePage );
 			}
 		}
 
@@ -189,7 +191,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 		pages = getLastCustomWizardPages();
 		if( pages != null ) {
-			for (IWizardPage page : this.getLastCustomWizardPages())
+			for( IWizardPage page : this.getLastCustomWizardPages())
 				addPage(page);
 		}
 	}
@@ -260,7 +262,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 		final IFolder resourceDirectory = project.getFolder( PetalsConstants.LOC_RES_FOLDER );
 		if( this.petalsMode == PetalsMode.provides
 				&& this.settings.showWsdl
-				&& this.settings.showJbiPage)
+				&& this.settings.showJbiPage )
 			importWSDLFileInProvideSUProject(monitor, jbiFile, resourceDirectory);
 
 		monitor.subTask( "Importing additional files..." );
@@ -269,10 +271,10 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 		monitor.subTask( "Performing extra-actions..." );
 		resourceDirectory.refreshLocal( IResource.DEPTH_INFINITE, monitor );
-		performLastActions(resourceDirectory, this.endpoint, monitor);
+		performLastActions( resourceDirectory, monitor );
 
 		// Last action so that previous ones can keep on modifying JBI
-		this.finishStrategy.finishWizard( this, this.endpoint, monitor );
+		this.finishStrategy.finishWizard( this, monitor );
 	}
 
 
@@ -282,12 +284,13 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * @param jbiFile
 	 * @param resourceDirectory
 	 */
-	public void importWSDLFileInProvideSUProject(IProgressMonitor monitor, IFile jbiFile, IFolder resourceDirectory) {
+	public void importWSDLFileInProvideSUProject( IProgressMonitor monitor, IFile jbiFile, IFolder resourceDirectory ) {
 
 		File wsdlFile = null;
 		monitor.subTask( "Importing the WSDL..." );
 		this.finalWsdlFileLocation = getSelectedWSDLForProvide();
-		if( this.finalWsdlFileLocation != null && this.jbiProvidePage.isImportWsdl()) {
+		if( this.finalWsdlFileLocation != null
+				&& this.jbiProvidePage.isImportWsdl()) {
 
 			try {
 				WsdlImportHelper helper = new WsdlImportHelper();
@@ -298,7 +301,9 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 				wsdlFile = fileToUrl.get( getSelectedWSDLForProvide());
 				this.finalWsdlFileLocation = IoUtils.getRelativeLocationToFile( jbiFile.getLocation().toFile(), wsdlFile );
 				monitor.subTask( "Updating the WSDL..." );
-				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, this.endpoint.getServiceName(), this.endpoint.getEndpointName());
+				WsdlUtils.INSTANCE.updateEndpointNameInWsdl(
+						wsdlFile, this.suWizardModel.getEndpoint().getServiceName(),
+						this.suWizardModel.getEndpoint().getEndpointName());
 
 			} catch( ParserConfigurationException e ) {
 				PetalsServicesPlugin.log( e, IStatus.ERROR );
@@ -358,14 +363,6 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 
 	/**
-	 * @return the newly created end-point (provides or consumes)
-	 */
-	public AbstractEndpoint getNewlyCreatedEndpoint() {
-		return this.endpoint;
-	}
-
-
-	/**
 	 * @return the wizard settings
 	 */
 	public SuWizardSettings getSettings() {
@@ -406,10 +403,9 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 
 	/**
-	 * Presets some values in the jbi.xml
-	 * @param endpoint the end-point to configure
+	 * Presets some values in the hold models.
 	 */
-	protected void presetServiceValues( AbstractEndpoint endpoint ) {
+	protected void presetServiceValues() {
 		// nothing
 	}
 
@@ -426,37 +422,6 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 
 
 	/**
-	 * Allows to remove unset features from the model.
-	 * <p>
-	 * To guarantee insertion order in the wizard, one can preset all the values
-	 * in {@link #presetServiceValues(AbstractEndpoint)}. The insertion order must respect the one
-	 * in XML schema.
-	 * </p>
-	 * <p>
-	 * This method allows to remove the values that were not set or that should not be written.
-	 * </p>
-	 *
-	 * @param ae
-	 * @param features
-	 */
-	protected void hackEmfModel( AbstractEndpoint ae, EStructuralFeature... features ) {
-
-		if( features == null )
-			return;
-
-		for( EStructuralFeature feature : features ) {
-			if( feature.isUnsettable())
-				continue;
-
-			Object value = ae.eGet( feature );
-			if( value == null ||
-					value instanceof String && StringUtils.isEmpty((String) value))
-				ae.eSet( feature, null );
-		}
-	}
-
-
-	/**
 	 * Performs the last actions.
 	 * <p>
 	 * It can be create a new file, open an editor...
@@ -465,15 +430,24 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 * </p>
 	 *
 	 * @param resourceDirectory the resource directory
-	 * @param newlyCreatedEndpoint the newly created end-point
 	 * @param monitor the progress monitor
 	 * @return a status indicating how things worked
 	 */
-	protected abstract IStatus performLastActions( IFolder resourceDirectory, AbstractEndpoint newlyCreatedEndpoint, IProgressMonitor monitor );
+	protected IStatus performLastActions( IFolder resourceDirectory, IProgressMonitor monitor ) {
+		return Status.OK_STATUS;
+	}
 
 
 	/**
 	 * @return the description of the component version
 	 */
 	public abstract ComponentVersionDescription getComponentVersionDescription();
+
+
+	/**
+	 * @return the suWizardModel
+	 */
+	public SuWizardModel getSuModel() {
+		return this.suWizardModel;
+	}
 }

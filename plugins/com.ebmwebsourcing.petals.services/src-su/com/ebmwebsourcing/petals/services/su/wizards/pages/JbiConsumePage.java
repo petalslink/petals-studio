@@ -236,7 +236,7 @@ public class JbiConsumePage extends JbiAbstractPage {
 		setMessage( null, IMessageProvider.WARNING );
 
 		// Interface name
-		AbstractEndpoint ae = getNewlyCreatedEndpoint();
+		AbstractEndpoint ae = getEndpoint();
 		SuWizardSettings settings = getWizard().getSettings();
 		if( settings.validateInterface && ae.getInterfaceName() == null ) {
 				updateStatus( "You have to provide the interface name." );

@@ -84,14 +84,6 @@ public abstract class AbstractSuWizardPage extends WizardPage {
 	}
 
 
-	/**
-	 * @return the first provides or consumes block (not null)
-	 */
-	protected AbstractEndpoint getNewlyCreatedEndpoint() {
-		return getWizard().getNewlyCreatedEndpoint();
-	}
-
-
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.jface.wizard.WizardPage
@@ -100,5 +92,13 @@ public abstract class AbstractSuWizardPage extends WizardPage {
 	@Override
 	public AbstractServiceUnitWizard getWizard() {
 		return (AbstractServiceUnitWizard) super.getWizard();
+	}
+
+
+	/**
+	 * @return the Petals end-point
+	 */
+	public AbstractEndpoint getEndpoint() {
+		return getWizard().getSuModel().getEndpoint();
 	}
 }

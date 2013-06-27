@@ -246,7 +246,7 @@ public class ProjectPage extends AbstractSuWizardPage {
 
 			// Update the project name from the "service-name"
 			boolean defaultServiceName = false;
-			AbstractEndpoint ae = getNewlyCreatedEndpoint();
+			AbstractEndpoint ae = getEndpoint();
 			String serviceName = ae.getServiceName() != null ? ae.getServiceName().getLocalPart() : null;
 
 			// If there is no service name, use a default one

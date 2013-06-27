@@ -15,13 +15,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.ebmwebsourcing.petals.common.generation.Mep;
-import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
+import com.ebmwebsourcing.petals.services.cdk.api.Cdk5ComponentVersionDescription;
 import com.ebmwebsourcing.petals.services.su.extensions.PetalsKeyWords;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public abstract class FileTransferDescription extends ComponentVersionDescription {
+public abstract class FileTransferDescription extends Cdk5ComponentVersionDescription {
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription
@@ -84,7 +84,7 @@ public abstract class FileTransferDescription extends ComponentVersionDescriptio
 	public List<PetalsKeyWords> getKeyWords() {
 		return Arrays.asList( new PetalsKeyWords[] { PetalsKeyWords.communication });
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription

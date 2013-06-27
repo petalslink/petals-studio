@@ -17,12 +17,7 @@ import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.MoveCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -59,6 +54,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultTreeContentProvider;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.EmfUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.Messages;
@@ -241,10 +237,7 @@ public class SaEditionComposite extends SashForm {
 				String componentName = properties.getProperty( PetalsSPPropertiesManager.COMPONENT_DEPLOYMENT_ID, "" );
 				target.setComponentName( componentName );
 				su.setTarget( target );
-
-				EList<?> list = SaEditionComposite.this.ise.getJbiModel().getServiceAssembly().getServiceUnit();
-				AddCommand addCommand = new AddCommand( SaEditionComposite.this.ise.getEditingDomain(), list, su );
-				SaEditionComposite.this.ise.getEditingDomain().getCommandStack().execute( addCommand );
+				SaEditionComposite.this.ise.getJbiModel().getServiceAssembly().getServiceUnit().add( su );
 
 				// Update the viewers
 				SaEditionComposite.this.viewer.refresh();
@@ -260,20 +253,13 @@ public class SaEditionComposite extends SashForm {
 		removeProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false ));
 		removeProvidesButton.setImage( PetalsImages.INSTANCE.getDelete());
 		removeProvidesButton.addSelectionListener( new DefaultSelectionListener() {
-
-			/*
-			 * (non-Javadoc)
-			 * @see org.eclipse.swt.events.SelectionListener
-			 * #widgetSelected(org.eclipse.swt.events.SelectionEvent)
-			 */
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 				if( MessageDialog.openConfirm( getShell(), Messages.confimeRemoveEndpointTitle, Messages.confimeRemoveEndpointMessage )) {
 
 					ServiceAssembly sa = SaEditionComposite.this.ise.getJbiModel().getServiceAssembly();
 					Object o = ((IStructuredSelection) SaEditionComposite.this.viewer.getSelection()).getFirstElement();
-					RemoveCommand deleteCommand = new RemoveCommand( SaEditionComposite.this.ise.getEditingDomain(), sa.getServiceUnit(), o );
-					SaEditionComposite.this.ise.getEditingDomain().getCommandStack().execute( deleteCommand );
+					sa.getServiceUnit().add((ServiceUnit) o);
 
 					SaEditionComposite.this.pageBook.removePage( o );
 					SaEditionComposite.this.viewer.refresh();
@@ -289,19 +275,13 @@ public class SaEditionComposite extends SashForm {
 		upProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false ));
 		upProvidesButton.setText( "&Up" );
 		upProvidesButton.addSelectionListener( new DefaultSelectionListener() {
-
-			/*
-			 * (non-Javadoc)
-			 * @see org.eclipse.swt.events.SelectionListener
-			 * #widgetSelected(org.eclipse.swt.events.SelectionEvent)
-			 */
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
 				EList<?> list = SaEditionComposite.this.ise.getJbiModel().getServiceAssembly().getServiceUnit();
 				Object o = ((IStructuredSelection) SaEditionComposite.this.viewer.getSelection()).getFirstElement();
-				MoveCommand moveCommand = new MoveCommand( SaEditionComposite.this.ise.getEditingDomain(), list, o, list.indexOf(o ) - 1 );
-				SaEditionComposite.this.ise.getEditingDomain().getCommandStack().execute( moveCommand );
+				int oldIndex = list.indexOf( o );
+				list.move( oldIndex - 1, oldIndex );
 			}
 		});
 
@@ -310,19 +290,13 @@ public class SaEditionComposite extends SashForm {
 		downProvidesButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, false, false ));
 		downProvidesButton.setText( "&Down" );
 		downProvidesButton.addSelectionListener( new DefaultSelectionListener() {
-
-			/*
-			 * (non-Javadoc)
-			 * @see org.eclipse.swt.events.SelectionListener
-			 * #widgetSelected(org.eclipse.swt.events.SelectionEvent)
-			 */
 			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
 				EList<?> list = SaEditionComposite.this.ise.getJbiModel().getServiceAssembly().getServiceUnit();
 				Object o = ((IStructuredSelection) SaEditionComposite.this.viewer.getSelection()).getFirstElement();
-				MoveCommand moveCommand = new MoveCommand( SaEditionComposite.this.ise.getEditingDomain(), list, o, list.indexOf(o ) + 1 );
-				SaEditionComposite.this.ise.getEditingDomain().getCommandStack().execute( moveCommand );
+				int oldIndex = list.indexOf( o );
+				list.move( oldIndex + 1, oldIndex );
 			}
 		});
 
@@ -426,10 +400,6 @@ public class SaEditionComposite extends SashForm {
 			}
 		});
 
-		this.ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( this.saNameText ),
-				EMFEditObservables.observeValue( this.ise.getEditingDomain(), sa.getIdentification(), JbiPackage.Literals.IDENTIFICATION__NAME ));
-
 
 		label = SwtFactory.createLabel( container, "Description:", "The description of the service assembly" );
 		label.setForeground( this.blueFont );
@@ -439,9 +409,9 @@ public class SaEditionComposite extends SashForm {
 		GridData layoutData = new GridData( SWT.FILL, SWT.BEGINNING, true, false );
 		layoutData.heightHint = 60;
 		this.saDescText.setLayoutData( layoutData );
-		this.ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( this.saDescText ),
-				EMFEditObservables.observeValue( this.ise.getEditingDomain(), sa.getIdentification(), JbiPackage.Literals.IDENTIFICATION__DESCRIPTION ));
+
+		EmfUtils.bind( sa.getIdentification(), JbiPackage.Literals.IDENTIFICATION__DESCRIPTION, this.saDescText );
+		EmfUtils.bind( sa.getIdentification(), JbiPackage.Literals.IDENTIFICATION__NAME, this.saNameText );
 
 		return section.getParent();
 	}
@@ -494,42 +464,30 @@ public class SaEditionComposite extends SashForm {
 			}
 		});
 
-		this.ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( this.suNameText ),
-				EMFEditObservables.observeValue( this.ise.getEditingDomain(), su.getIdentification(), JbiPackage.Literals.IDENTIFICATION__NAME ));
-
-
 		label = SwtFactory.createLabel( container, "Description:", "The description of the service assembly" );
 		label.setForeground( this.blueFont );
 		label.setLayoutData( new GridData( SWT.DEFAULT, SWT.TOP, false, false ));
-
 		this.suDescText = toolkit.createText( container, "", SWT.MULTI | SWT.BORDER );
 		GridData layoutData = new GridData( SWT.FILL, SWT.BEGINNING, true, false );
 		layoutData.heightHint = 60;
 		this.suDescText.setLayoutData( layoutData );
-		this.ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( this.suDescText ),
-				EMFEditObservables.observeValue( this.ise.getEditingDomain(), su.getIdentification(), JbiPackage.Literals.IDENTIFICATION__DESCRIPTION ));
-
 
 		label = SwtFactory.createLabel( container, "Zip Artifact:", "The name of the *.zip artifact" );
 		label.setForeground( this.blueFont );
-
 		this.suArtifactsText = toolkit.createText( container, "", SWT.SINGLE | SWT.BORDER );
 		this.suArtifactsText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( this.suArtifactsText ),
-				EMFEditObservables.observeValue( this.ise.getEditingDomain(), su.getTarget(), JbiPackage.Literals.TARGET__ARTIFACTS_ZIP ));
-
 
 		label = SwtFactory.createLabel( container, "Component name:", "The name of the target component" );
 		label.setForeground( this.blueFont );
-
 		this.suComponentText = toolkit.createText( container, "", SWT.SINGLE | SWT.BORDER );
 		this.suComponentText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-		this.ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( this.suComponentText ),
-				EMFEditObservables.observeValue( this.ise.getEditingDomain(), su.getTarget(), JbiPackage.Literals.TARGET__COMPONENT_NAME ));
+
+
+		// Add other bindings
+		EmfUtils.bind( su.getIdentification(), JbiPackage.Literals.IDENTIFICATION__NAME, this.suNameText );
+		EmfUtils.bind( su.getIdentification(), JbiPackage.Literals.IDENTIFICATION__DESCRIPTION, this.suDescText );
+		EmfUtils.bind( su.getTarget(), JbiPackage.Literals.TARGET__ARTIFACTS_ZIP, this.suArtifactsText );
+		EmfUtils.bind( su.getTarget(), JbiPackage.Literals.TARGET__COMPONENT_NAME, this.suComponentText );
 
 		return section.getParent();
 	}

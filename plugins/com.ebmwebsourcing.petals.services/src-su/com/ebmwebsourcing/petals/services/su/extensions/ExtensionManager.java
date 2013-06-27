@@ -69,16 +69,16 @@ public class ExtensionManager {
 	private ExtensionManager() {
 
 		this.namespaceToDescriptions = new HashMap<String,List<ComponentVersionDescription>> ();
-		for (ComponentVersionDescription desc : findComponentVersionClass( "componentVersionDescription", ComponentVersionDescription.class )) {
-			if( desc.getNamespace() == null )
+		for( ComponentVersionDescription desc : findComponentVersionClass( "componentVersionDescription", ComponentVersionDescription.class )) {
+			if( StringUtils.isEmpty( desc.getComponentNamespace()))
 				continue;
 
-			List<ComponentVersionDescription> descriptions = this.namespaceToDescriptions.get( desc.getNamespace());
+			List<ComponentVersionDescription> descriptions = this.namespaceToDescriptions.get( desc.getComponentNamespace());
 			if( descriptions == null )
 				descriptions = new ArrayList<ComponentVersionDescription> ();
 
 			descriptions.add( desc );
-			this.namespaceToDescriptions.put( desc.getNamespace(), descriptions );
+			this.namespaceToDescriptions.put( desc.getComponentNamespace(), descriptions );
 		}
 	}
 

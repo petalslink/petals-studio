@@ -24,7 +24,7 @@ import com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard;
  * This could be merged into the actual {@link AbstractServiceUnitWizard}.
  * </p>
  *
- * @author Vincent Zurczak - EBM WebSourcing
+ * @author Vincent Zurczak - EBM WebSourcing / Linagora
  * @author Mickael Istria - EBM WebSourcing :: Replaced properties by typed values.
  */
 public class SuWizardSettings {

@@ -15,12 +15,10 @@ package com.ebmwebsourcing.petals.common.internal.formeditor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -35,16 +33,8 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.command.BasicCommandStack;
-import org.eclipse.emf.common.command.CommandStack;
-import org.eclipse.emf.common.command.CommandStackListener;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -70,11 +60,12 @@ import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.AbstractJbiEditorPersonality;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
-import com.sun.java.xml.ns.jbi.DocumentRoot;
 import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
@@ -85,9 +76,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 	private static final String EXTENSION_POINT = "com.ebmwebsourcing.petals.common.formeditor";
 
-	private DataBindingContext dbc;
 	private Jbi jbiModel;
-	private TransactionalEditingDomain editDomain;
 	private FormToolkit toolkit;
 	private IFile editedFile;
 
@@ -98,6 +87,7 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 	private final Set<ISelectionChangedListener> selectionListeners = new HashSet<ISelectionChangedListener>();
 	private ISelection selection;
+	private boolean dirty;
 
 
 
@@ -145,18 +135,15 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 
 	/**
-	 * Loads the DOM model.
-	 * <p>
-	 * If this model was already loaded, we reuse it. Otherwise, we make it loaded.
-	 * </p>
+	 * Loads the model.
 	 */
 	private void loadSharedModel() throws IOException {
 
 		try {
 			// Get the edited file
-			if (getEditorInput() instanceof IFileEditorInput) {
+			if( getEditorInput() instanceof IFileEditorInput) {
 				this.editedFile = ((IFileEditorInput) getEditorInput()).getFile();
-				if( !this.editedFile.exists())
+				if( ! this.editedFile.exists())
 					throw new FileNotFoundException( this.editedFile.getLocation() + " does not exist.");
 
 				if( ! this.editedFile.isSynchronized( IResource.DEPTH_ONE))
@@ -167,27 +154,20 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 				return;
 			}
 
-			ResourceSet resourceSet = new ResourceSetImpl();
-			this.editDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain( resourceSet );
-			URI resourceUri = URI.createPlatformResourceURI( this.editedFile.getFullPath().toString(), true );
-			Resource resource = resourceSet.getResource(resourceUri, true);
-			resource.load( resourceSet.getLoadOptions());
-			this.jbiModel = ((DocumentRoot) resource.getContents().get(0)).getJbi();
-
-			this.editDomain.getCommandStack().addCommandStackListener( new CommandStackListener() {
+			this.jbiModel = JbiXmlUtils.getJbiXmlModel( this.editedFile );
+			this.jbiModel.eAdapters().add( new EContentAdapter() {
 				@Override
-				public void commandStackChanged( final EventObject event ) {
-					Display.getDefault().asyncExec( new Runnable() {
-						@Override
-						public void run() {
-							firePropertyChange( IEditorPart.PROP_DIRTY );
-						}
-					});
+				public void notifyChanged( Notification msg ) {
+					JbiFormEditor.this.dirty = true;
+					firePropertyChange( IEditorPart.PROP_DIRTY );
 				}
 			});
 
 		} catch( CoreException e ) {
-			PetalsCommonPlugin.log(e, IStatus.WARNING);
+			PetalsCommonPlugin.log( e, IStatus.WARNING );
+
+		} catch( InvalidJbiXmlException e ) {
+			PetalsCommonPlugin.log( e, IStatus.WARNING );
 		}
 	}
 
@@ -331,7 +311,6 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 		try {
 			loadSharedModel();
 			initializeResourceListener();
-			this.dbc = new DataBindingContext();
 
 		} catch( Exception ex ) {
 			PetalsCommonPlugin.log( ex, IStatus.ERROR );
@@ -345,25 +324,20 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	 * #doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	public void doSave( IProgressMonitor monitor ) {
+	public void doSave( final IProgressMonitor monitor ) {
 
 		// Do the work within an operation because this is a long running
-		// activity that modifies the workbench.
+		// activity that modifies the work space.
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			@Override
 			public void execute( IProgressMonitor monitor ) {
-
-				// Delegate the save part to the personality handler
-				getPersonality().saveModel(
-						JbiFormEditor.this.jbiModel,
-						JbiFormEditor.this.editedFile,
-						JbiFormEditor.this.editDomain );
+				getPersonality().saveModel( JbiFormEditor.this.jbiModel, JbiFormEditor.this.editedFile, monitor );
+				JbiFormEditor.this.dirty = false;
 			}
 		};
 
 		try {
 			new ProgressMonitorDialog( getSite().getShell()).run( true, false, operation );
-			((BasicCommandStack) getEditingDomain().getCommandStack()).saveIsDone();
 			firePropertyChange( IEditorPart.PROP_DIRTY );
 
 		} catch( Exception exception ) {
@@ -482,14 +456,6 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	}
 
 
-	/**
-	 * @return
-	 */
-	public EditingDomainActionBarContributor getActionBarContributor() {
-		return (EditingDomainActionBarContributor) getEditorSite().getActionBarContributor();
-	}
-
-
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.part.WorkbenchPart
@@ -497,12 +463,6 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	 */
 	@Override
 	public void dispose() {
-
-		if( this.editDomain != null )
-			this.editDomain.dispose();
-
-		if( this.dbc != null )
-			this.dbc.dispose();
 
 		if( this.toolkit != null )
 			this.toolkit.dispose();
@@ -512,18 +472,6 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener( this.workspaceListener );
 		super.dispose();
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.part.EditorPart
-	 * #isDirty()
-	 */
-	@Override
-	public boolean isDirty() {
-		CommandStack commandStack = getEditingDomain().getCommandStack();
-		return commandStack != null ?  ((BasicCommandStack) commandStack).isSaveNeeded() : false;
 	}
 
 
@@ -570,34 +518,12 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.emf.edit.domain.IEditingDomainProvider
-	 * #getEditingDomain()
-	 */
-	@Override
-	public EditingDomain getEditingDomain() {
-		return this.editDomain;
-	}
-
-
-	/*
-	 * (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.jbi.editor.ISharedEdition
 	 * #getFormToolkit()
 	 */
 	@Override
 	public FormToolkit getFormToolkit() {
 		return this.toolkit;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.ebmwebsourcing.petals.services.jbi.editor.ISharedEdition
-	 * #getDataBindingContext()
-	 */
-	@Override
-	public DataBindingContext getDataBindingContext() {
-		return this.dbc;
 	}
 
 
@@ -620,5 +546,26 @@ implements IEditorPart, ISelectionProvider, ISharedEdition {
 	@Override
 	public IFile getEditedFile() {
 		return this.editedFile;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.ui.part.EditorPart#isDirty()
+	 */
+	@Override
+	public boolean isDirty() {
+		return this.dirty;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition
+	 * #getPersonnality()
+	 */
+	@Override
+	public AbstractJbiEditorPersonality getPersonnality() {
+		return this.personality;
 	}
 }

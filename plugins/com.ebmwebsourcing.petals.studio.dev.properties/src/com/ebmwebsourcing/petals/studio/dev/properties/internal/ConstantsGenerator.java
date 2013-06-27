@@ -11,7 +11,11 @@
 
 package com.ebmwebsourcing.petals.studio.dev.properties.internal;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import com.ebmwebsourcing.petals.studio.dev.properties.AbstractModel;
+import com.ebmwebsourcing.petals.studio.dev.properties.SupportedTypes;
 
 /**
  * A class that generates a Java class with constants and important meta information.
@@ -30,12 +34,14 @@ public class ConstantsGenerator {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append( "package " + javaPackage + ";\n\n" );
-		sb.append( "public class " + className + " {\n\n" );
-		for( String key : model.getProperties().getPropertyMap().keySet()) {
+		sb.append( "public class " + className + " {\n" );
+
+		// Generate the constants
+		for( String key : model.getPropertyKeys()) {
 			if( AbstractModel.PROPERTY_VERSION.equals( key ))
 				continue;
 
-			sb.append( "\t/**\n" );
+			sb.append( "\n\t/**\n" );
 			String doc = model.getDocumentation( key );
 			int indexDot = doc.indexOf( '.' );
 			int indexBl = doc.indexOf( '\n' );
@@ -59,7 +65,47 @@ public class ConstantsGenerator {
 			sb.append( key.toUpperCase().replaceAll( "\\.|-", "_" ));
 			sb.append( " = \"" );
 			sb.append( key );
-			sb.append( "\";\n\n" );
+			sb.append( "\";\n" );
+		}
+
+		// Generate enumerations
+		for( String key : model.getPropertyKeys()) {
+			if( AbstractModel.PROPERTY_VERSION.equals( key ))
+				continue;
+
+			if( model.getType( key ) != SupportedTypes.ENUMERATION )
+				continue;
+
+			Collection<String> values = model.getEnumeration( key );
+			if( values.isEmpty())
+				continue;
+
+			String enumName = Utils.capitalize( key.replaceAll( "-|_", " " ));
+			enumName = enumName.replaceAll( "\\s", "" );
+
+			sb.append( "\n\t/**\n" );
+			sb.append( "\t * Enumeration values for the '" + key + "' property.\n" );
+			sb.append( "\t */\n" );
+
+			sb.append( "\tpublic enum " );
+			sb.append( enumName );
+			sb.append( " {\n\t\t" );
+			for( Iterator<String> it = values.iterator(); it.hasNext(); ) {
+				String string = it.next();
+				sb.append( string.toUpperCase().replaceAll( "-|\\.|\\s+", "_" ));
+				sb.append( "(\"" + string + "\")" );
+				sb.append( it.hasNext() ? ",\n\t\t" : ";\n\n" );
+			}
+
+			sb.append( "\t\tprivate String value;\n" );
+			sb.append( "\t\tprivate " + enumName + "( String value ) {\n\t\t\tthis.value = value;\n\t\t}\n\t\n" );
+			sb.append( "\t\tpublic String toString() {\n\t\t\treturn value;\n\t\t}\n\t\n" );
+			sb.append( "\t\tpublic static " + enumName + " parse( String s ) {\n" );
+			sb.append( "\t\t\tfor( " + enumName + " val : values())\n" );
+			sb.append( "\t\t\t\tif( val.toString().equalsIgnoreCase( s ))\n" );
+			sb.append( "\t\t\t\t\treturn val;\n" );
+			sb.append( "\t\t\t\n\t\t\treturn null;\n" );
+			sb.append( "\t\t}\n\t}\n" );
 		}
 
 		sb.append( "}\n" );

@@ -138,7 +138,7 @@ public class JavaUtils {
 			}
 		}
 
-		IClasspathEntry[] newEntries = CollectionUtils.convertToArray( entries, IClasspathEntry.class );
+		IClasspathEntry[] newEntries = entries.toArray( new IClasspathEntry[ entries.size()]);
 		if( ! jp.hasClasspathCycle( newEntries ))
 			jp.setRawClasspath( newEntries, monitor );
 	}

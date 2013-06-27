@@ -15,10 +15,8 @@ package com.ebmwebsourcing.petals.services.su.wizards;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-
 /**
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public interface FinishServiceCreationStrategy {
 
@@ -29,7 +27,7 @@ public interface FinishServiceCreationStrategy {
 	 * @param monitor
 	 * @throws Exception
 	 */
-	public void finishWizard(AbstractServiceUnitWizard wizard, AbstractEndpoint endpoint, IProgressMonitor monitor) throws Exception;
+	public void finishWizard( AbstractServiceUnitWizard wizard, IProgressMonitor monitor ) throws Exception;
 
 	/**
 	 * TODO: to complete
@@ -37,5 +35,5 @@ public interface FinishServiceCreationStrategy {
 	 * @param monitor
 	 * @return
 	 */
-	public IProject getSUProject(AbstractServiceUnitWizard wizard, IProgressMonitor monitor);
+	public IProject getSUProject( AbstractServiceUnitWizard wizard, IProgressMonitor monitor );
 }

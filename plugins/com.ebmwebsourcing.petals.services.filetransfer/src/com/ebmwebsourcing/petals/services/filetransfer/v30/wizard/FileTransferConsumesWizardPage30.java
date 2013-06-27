@@ -28,16 +28,11 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectio
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.DomUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.ConsumesFiletransfer20;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.AbstractSuWizardPage;
-import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * A page to select the invocation mode.
- * <p>
- * Do not modify directly the EMF model here: the insertion order gets broken because of it.
- * </p>
- *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class FileTransferConsumesWizardPage30 extends AbstractSuWizardPage {
@@ -50,6 +45,7 @@ public class FileTransferConsumesWizardPage30 extends AbstractSuWizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		// Controls
@@ -88,16 +84,20 @@ public class FileTransferConsumesWizardPage30 extends AbstractSuWizardPage {
 
 		// Listeners
 		xmlViewer.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
-				FileTransferConsumesWizardPage30.this.xmlContent = xmlViewer.getText().trim();
 
-				AbstractEndpoint ae = getNewlyCreatedEndpoint();
-				ae.eSet( Filetransfer3Package.Literals.FILE_TRANSFER3_CONSUMES__BASE_MESSAGE, FileTransferConsumesWizardPage30.this.xmlContent );
+				FileTransferConsumesWizardPage30.this.xmlContent = xmlViewer.getText().trim();
+				getWizard().getSuModel().getComponentModel().set(
+						ConsumesFiletransfer20.BASE_MESSAGE,
+						FileTransferConsumesWizardPage30.this.xmlContent );
+
 				validate();
 			}
 		});
 
 		combo.addSelectionListener( new DefaultSelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
 				int index = ((Combo) e.widget).getSelectionIndex();

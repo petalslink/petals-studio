@@ -35,7 +35,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectio
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.filetransfer.FileTransferPlugin;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
+import com.ebmwebsourcing.petals.services.filetransfer.generated.ProvidesFiletransfer10.CopyMode;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideGetControls;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.FileTransferProvideWriteControls;
 import com.ebmwebsourcing.petals.services.filetransfer.v24.wizard.FileTransferProvidesWizard24.Contract;
@@ -59,7 +59,6 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 	 */
 	@Override
 	public void dispose() {
-
 		if( this.contractImage != null && ! this.contractImage.isDisposed())
 			this.contractImage.dispose();
 
@@ -98,6 +97,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( final Composite parent ) {
 
 		// Create the composite container and define its layout.
@@ -125,6 +125,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 		layoutData.horizontalSpan = 2;
 		contractCombo.setLayoutData( layoutData );
 		contractCombo.addSelectionListener( new DefaultSelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
 				String name;
@@ -137,7 +138,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 					name = "GetFiles";
 				}
 
-				getNewlyCreatedEndpoint().setInterfaceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", name ));
+				getEndpoint().setInterfaceName( new QName( "http://petals.ow2.org/components/filetransfer/version-2", name ));
 				updateSubWidgets( container );
 				validate();
 			}
@@ -178,6 +179,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 				controls.getDirectoryText().setText( this.writeDirectory );
 
 			controls.getDirectoryText().addModifyListener( new ModifyListener() {
+				@Override
 				public void modifyText( ModifyEvent e ) {
 					FiletransferProvidesPage.this.writeDirectory = ((Text) e.widget).getText().trim();
 					validate();
@@ -188,6 +190,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 			// Copy mode
 			controls.getCopyModeViewer().setSelection( new StructuredSelection( this.copyMode ));
 			controls.getCopyModeViewer().addSelectionChangedListener( new ISelectionChangedListener() {
+				@Override
 				public void selectionChanged( SelectionChangedEvent event ) {
 					Object o = ((IStructuredSelection) event.getSelection()).getFirstElement();
 					FiletransferProvidesPage.this.copyMode = (CopyMode) o;
@@ -200,6 +203,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 				controls.getFilenameText().setText( this.filePattern );
 
 			controls.getFilenameText().addModifyListener( new ModifyListener() {
+				@Override
 				public void modifyText( ModifyEvent e ) {
 					FiletransferProvidesPage.this.filePattern = ((Text) e.widget).getText().trim();
 					validate();
@@ -217,6 +221,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 				controls.getReadText().setText( this.readDirectory );
 
 			controls.getReadText().addModifyListener( new ModifyListener() {
+				@Override
 				public void modifyText( ModifyEvent e ) {
 					FiletransferProvidesPage.this.readDirectory = ((Text) e.widget).getText().trim();
 					validate();
@@ -229,6 +234,7 @@ public class FiletransferProvidesPage extends AbstractSuWizardPage {
 				controls.getBackupText().setText( this.backupDirectory );
 
 			controls.getBackupText().addModifyListener( new ModifyListener() {
+				@Override
 				public void modifyText( ModifyEvent e ) {
 					FiletransferProvidesPage.this.backupDirectory = ((Text) e.widget).getText().trim();
 					validate();

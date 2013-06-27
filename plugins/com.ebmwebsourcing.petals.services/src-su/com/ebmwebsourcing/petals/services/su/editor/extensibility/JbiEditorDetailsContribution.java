@@ -12,6 +12,7 @@
 
 package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -21,32 +22,36 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.studio.dev.properties.AbstractModel;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
+ * @author Vincent Zurczak - Linagora
  */
 public abstract class JbiEditorDetailsContribution {
 
 	/**
 	 * Adds content in the main tab of the JBI editor.
-	 * @param endpoint
+	 * @param edpt
+	 * @param componentModel
+	 * @param cdkModel
 	 * @param toolkit
-	 * @param generalDetails
-	 * @param ise
+	 * @param mainTab
+	 * @param editedFile
 	 */
-	public abstract void addMainSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite generalDetails, ISharedEdition ise);
+	public abstract void addMainSUContent( AbstractEndpoint edpt, AbstractModel componentModel, AbstractModel cdkModel, FormToolkit toolkit, Composite mainTab, IFile editedFile );
 
 
 	/**
 	 * Adds content in the advanced tab of the JBI editor.
-	 * @param endpoint
+	 * @param edpt
+	 * @param componentModel
+	 * @param cdkModel
 	 * @param toolkit
-	 * @param advancedDetails
-	 * @param ise
+	 * @param advancedTab
 	 */
-	public abstract void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedDetails, ISharedEdition ise);
+	public abstract void addAdvancedSUContent( AbstractEndpoint edpt, AbstractModel componentModel, AbstractModel cdkModel, FormToolkit toolkit, Composite advancedTab );
 
 
 	/**

@@ -12,22 +12,8 @@
 
 package com.ebmwebsourcing.petals.services.su.editor.su;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.namespace.QName;
 
-import org.eclipse.core.databinding.UpdateValueStrategy;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.databinding.edit.EMFEditObservables;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.edit.command.SetCommand;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
@@ -41,14 +27,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQNameToStringConverter;
-import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
-import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
-import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
-import com.sun.java.xml.ns.jbi.JbiPackage;
 import com.sun.java.xml.ns.jbi.Provides;
 
 /**
@@ -75,8 +55,7 @@ public class JBIEndpointUIHelpers {
 	public static CommonUIBean createCommonEndpointUI(
 			final AbstractEndpoint endpoint,
 			FormToolkit toolkit,
-			final Composite container,
-			final ISharedEdition ise ) {
+			final Composite container ) {
 
 		// Controls
 		String end = endpoint instanceof Provides ? " *:" : ":";
@@ -100,64 +79,50 @@ public class JBIEndpointUIHelpers {
 
 
 		// Data-binding
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( itfNameText ),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME ),
-				null,
-				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
+		if( endpoint.getInterfaceName() != null ) {
+			if( endpoint.getInterfaceName().getLocalPart() != null )
+				itfNameText.setText( endpoint.getInterfaceName().getLocalPart());
+			if( endpoint.getInterfaceName().getNamespaceURI() != null )
+				itfNamespaceText.setText( endpoint.getInterfaceName().getNamespaceURI());
+		}
 
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( itfNamespaceText ),
-				EMFEditObservables.observeValue(ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME),
-				null,
-				new UpdateValueStrategy().setConverter( new NamespaceQNameToStringConverter()));
+		if( endpoint.getServiceName() != null ) {
+			if( endpoint.getServiceName().getLocalPart() != null )
+				srvNameText.setText( endpoint.getServiceName().getLocalPart());
+			if( endpoint.getServiceName().getNamespaceURI() != null )
+				srvNamespaceText.setText( endpoint.getServiceName().getNamespaceURI());
+		}
 
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( srvNameText ),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME ),
-				null,
-				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
+		ModifyListener itfListener = new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				String local = itfNameText.getText().trim();
+				String ns = itfNamespaceText.getText().trim();
+				endpoint.setInterfaceName( new QName( ns, local ));
+			}
+		};
 
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeText( srvNamespaceText ),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME ),
-				null,
-				new UpdateValueStrategy().setConverter( new NamespaceQNameToStringConverter()));
+		itfNameText.addModifyListener( itfListener );
+		itfNamespaceText.addModifyListener( itfListener );
 
-		ise.getDataBindingContext().bindValue(
-				SWTObservables.observeDelayedValue( 200, SWTObservables.observeText( edptText, SWT.Modify )),
-				EMFEditObservables.observeValue( ise.getEditingDomain(), endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME ));
+		ModifyListener srvListener = new ModifyListener() {
+			@Override
+			public void modifyText( ModifyEvent e ) {
+				String local = srvNameText.getText().trim();
+				String ns = srvNamespaceText.getText().trim();
+				endpoint.setServiceName( new QName( ns, local ));
+			}
+		};
 
-
-		// The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
-		// For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
-		createModifyListenerForQname(
-				ise.getEditingDomain(), endpoint, itfNamespaceText, itfNameText,
-				JbiPackage.Literals.ABSTRACT_ENDPOINT__INTERFACE_NAME, false );
-
-		createModifyListenerForQname(
-				ise.getEditingDomain(), endpoint, srvNamespaceText, srvNameText,
-				JbiPackage.Literals.ABSTRACT_ENDPOINT__SERVICE_NAME, false );
-
-		// PETALSSTUD-268: Wrong handling of empty end-point name
-		// Do not set an empty end-point name in the model
+		srvNameText.addModifyListener( srvListener );
+		srvNamespaceText.addModifyListener( srvListener );
 		edptText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
-
-				String value = ((Text) e.widget).getText().trim();
-				if( value.length() > 0 )
-					return;
-
-				Command cmd = EObjecttUIHelper.createCustomSetCommand(
-						ise.getEditingDomain(),
-						endpoint,
-						JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME,
-						null );
-				ise.getEditingDomain().getCommandStack().execute( cmd );
+				String text = ((Text) e.widget).getText().trim();
+				endpoint.setEndpointName( text.length() > 0 ? text : null );
 			}
 		});
-		// PETALSSTUD-268
 
 
 		// Complete the UI effects
@@ -209,117 +174,5 @@ public class JBIEndpointUIHelpers {
 		result.edptLabel = edptLabel;
 
 		return result;
-	}
-
-
-	/**
-	 * Creates a modify listener for QName widgets.
-	 * <p>
-	 * The data-binding handles the "model to target (widget)" parts. But not ALL the "widget to model" parts.
-	 * For QNames, in fact, the data-binding cannot be applied in this sense. We have to use a modify listener for this.
-	 * </p>
-	 *
-	 * @param domain
-	 * @param owner
-	 * @param namespaceText
-	 * @param nameText
-	 * @param attribute
-	 * @param useCustomSetCommand true to use a custom Set command, false for the usual SetCommand
-	 * TODO: replace this method by EMFEditObservables as soon as EMF 2.8.0 or 2.7.2 is out
-	 * @See EObjecttUIHelper.createCustomSetCommand
-	 */
-	public static ActivableListener createModifyListenerForQname(
-			final EditingDomain domain,
-			final EObject owner,
-			final Text namespaceText,
-			final Text nameText,
-			final EAttribute attribute,
-			final boolean useCustomSetCommand ) {
-
-		ActivableListener listener = new ActivableListener() {
-			@Override
-			public void handleEvent( Event e ) {
-
-				// Not enabled, do nothing
-				if( ! isEnabled())
-					return;
-
-				// Save the caret position
-				// Otherwise, the caret goes back to the position 0
-				Text focusedText = null;
-				if( namespaceText.isFocusControl())
-					focusedText = namespaceText;
-				else if( nameText.isFocusControl())
-					focusedText = nameText;
-
-				int caretPosition = focusedText == null ? -1 : focusedText.getCaretPosition();
-
-				// Update the model
-				String ns = namespaceText.getText().trim();
-				String name = nameText.getText().trim();
-
-				QName result;
-				if( StringUtils.isEmpty( ns ))
-					result = StringUtils.isEmpty( name ) ? null : new QName( name );
-				else
-					result = new QName( ns, name );
-
-				Command cmd;
-				if( useCustomSetCommand )
-					cmd = EObjecttUIHelper.createCustomSetCommand( domain, owner, attribute, result );
-				else
-					cmd = SetCommand.create( domain, owner, attribute, result );
-
-				domain.getCommandStack().execute( cmd );
-
-				// Restore the caret position
-				if( caretPosition != -1 )
-					focusedText.setSelection( caretPosition );
-			}
-		};
-
-		namespaceText.addListener( SWT.Selection, listener );
-		nameText.addListener( SWT.Selection, listener );
-		return listener;
-	}
-
-
-	/**
-	 * Creates widgets automatically by introspecting EMF classes.
-	 * @param endpoint
-	 * @param toolkit
-	 * @param advancedDetails
-	 * @param ise
-	 * @param extensionClasses
-	 */
-	public static void createDefaultWidgetsByEIntrospection(
-			AbstractEndpoint endpoint,
-			FormToolkit toolkit,
-			Composite advancedDetails,
-			ISharedEdition ise,
-			EClass... extensionClasses) {
-
-		List<EStructuralFeature> toProcessFeaturesList = new ArrayList<EStructuralFeature>();
-		for (EClass extensionClass : extensionClasses) {
-			for (EStructuralFeature feature : extensionClass.getEAllStructuralFeatures()) {
-				if (isInPackage(feature, extensionClass)
-						&& feature instanceof EAttribute
-						&& !feature.getEType().equals(EcorePackage.Literals.EFEATURE_MAP_ENTRY))
-					toProcessFeaturesList.add( feature );
-			}
-		}
-
-		EStructuralFeature[] toProcessFeatures = toProcessFeaturesList.toArray(new EStructuralFeature[toProcessFeaturesList.size()] );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, advancedDetails, ise.getEditingDomain(), ise.getDataBindingContext(), true, toProcessFeatures);
-	}
-
-
-	/**
-	 * @param feature
-	 * @param extensionClass
-	 * @return
-	 */
-	private static boolean isInPackage(EStructuralFeature feature, EClass extensionClass) {
-		return feature.eContainer() instanceof EClass && ((EClass)feature.eContainer()).getEPackage().equals(extensionClass.getEPackage());
 	}
 }

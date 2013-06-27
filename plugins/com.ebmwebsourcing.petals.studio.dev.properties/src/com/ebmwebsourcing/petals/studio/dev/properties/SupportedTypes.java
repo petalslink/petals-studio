@@ -23,7 +23,8 @@ public enum SupportedTypes {
 	BOOLEAN( "boolean" ),
 	STRING( "string" ),
 	ENUMERATION( "enumeration" ),
-	LIST( "list" );
+	LIST( "list" ),
+	QNAME( "qname" );
 
 
 	private String s;

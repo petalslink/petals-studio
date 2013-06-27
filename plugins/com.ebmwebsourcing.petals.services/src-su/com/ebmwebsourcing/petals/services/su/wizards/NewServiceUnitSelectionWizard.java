@@ -24,7 +24,7 @@ import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.su.wizards.pages.ChoicePage;
 
 /**
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class NewServiceUnitSelectionWizard extends Wizard implements INewWizard, IExecutableExtension {
 

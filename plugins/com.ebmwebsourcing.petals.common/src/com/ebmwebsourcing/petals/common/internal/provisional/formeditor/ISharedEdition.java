@@ -11,9 +11,7 @@
 
 package com.ebmwebsourcing.petals.common.internal.provisional.formeditor;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -21,10 +19,10 @@ import com.sun.java.xml.ns.jbi.Jbi;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public interface ISharedEdition extends IEditingDomainProvider {
+public interface ISharedEdition {
 
 	FormToolkit getFormToolkit();
-	DataBindingContext getDataBindingContext();
 	IFile getEditedFile();
 	Jbi getJbiModel();
+	AbstractJbiEditorPersonality getPersonnality();
 }

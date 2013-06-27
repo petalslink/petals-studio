@@ -14,5 +14,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.jdt.core
 Bundle-Activator: com.ebmwebsourcing.petals.studio.dev.properties.internal.PetalsStudioDevPlugin
-Export-Package: com.ebmwebsourcing.petals.studio.dev.properties,
+Export-Package: asia.redact.bracket.properties,
+ com.ebmwebsourcing.petals.studio.dev.properties,
  com.ebmwebsourcing.petals.studio.dev.properties.internal;x-friends:="com.ebmwebsourcing.petals.studio.dev.properties.tests"
