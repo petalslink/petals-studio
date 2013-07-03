@@ -53,6 +53,13 @@
                namespace="http://petals.ow2.org/components/ftp/version-3"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard35">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.ftp.FtpDescription36"
+               editorExtension="com.ebmwebsourcing.petals.services.ftp.editor.FTPEditorContribution"
+               id="FTP 3.6"
+               namespace="http://petals.ow2.org/components/ftp/version-3"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.ftp.wizard.FtpProvidesWizard36">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
    <extension

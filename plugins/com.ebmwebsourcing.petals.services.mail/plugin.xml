@@ -42,6 +42,14 @@
                namespace="http://petals.ow2.org/components/mail/version-3"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.mail.v33.MailProvideWizard33">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.mail.v34.MailDescription34"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.mail.v34.MailConsumesWizard34"
+               editorExtension="com.ebmwebsourcing.petals.services.mail.editor.MailEditorContribution"
+               id="Mail 3.4"
+               namespace="http://petals.ow2.org/components/mail/version-3"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.mail.v34.MailProvideWizard34">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
    <extension

@@ -45,6 +45,13 @@
                namespace="http://petals.ow2.org/components/sftp/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.sftp.wizards.SftpProvidesWizard14">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sftp.SftpDescription15"
+               editorExtension="com.ebmwebsourcing.petals.services.sftp.editor.SftpEditorContribution"
+               id="SFTP 1.5"
+               namespace="http://petals.ow2.org/components/sftp/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.sftp.wizards.SftpProvidesWizard15">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
  <extension

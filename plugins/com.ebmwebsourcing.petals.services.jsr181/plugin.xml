@@ -48,6 +48,13 @@
                namespace="http://petals.ow2.org/components/jsr181/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.v13.Jsr181ProvidesWizard13">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.jsr181.v14.Jsr181Description14"
+               editorExtension="com.ebmwebsourcing.petals.services.jsr181.editor.JaxWsEditorContribution"
+               id="Jsr181 1.4"
+               namespace="http://petals.ow2.org/components/jsr181/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.jsr181.v14.Jsr181ProvidesWizard14">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
    

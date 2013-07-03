@@ -39,6 +39,13 @@
                namespace="http://petals.ow2.org/components/validation/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.validation.v13.ValidationProvidesWizard13">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.validation.v14.ValidationDescription14"
+               editorExtension="com.ebmwebsourcing.petals.services.validation.editor.ValidationEditorContribution"
+               id="Validation 1.4"
+               namespace="http://petals.ow2.org/components/validation/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.validation.v14.ValidationProvidesWizard14">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
    <extension

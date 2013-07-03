@@ -39,6 +39,13 @@
                namespace="http://petals.ow2.org/components/sql/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard14">
          </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sql.SqlDescription15"
+               editorExtension="com.ebmwebsourcing.petals.services.sql.editor.SqlEditorContribution"
+               id="SQL 1.5"
+               namespace="http://petals.ow2.org/components/sql/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.sql.wizards.SqlProvidesWizard15">
+         </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
    <extension
