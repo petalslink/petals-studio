@@ -138,6 +138,7 @@
          	<xs:element ref="petalsCDK:time-beetween-async-cleaner-runs" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:ignored-status" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:properties-file" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="petalsCDK:monitoring-sampling-period" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:notifications" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:component-interceptors" maxOccurs="1" minOccurs="0" />
 			<xs:element ref="petalsCDK:jbi-listener-class-name" maxOccurs="1" minOccurs="1" />
@@ -430,9 +431,17 @@
 	</xs:element>
 
 
-    <!-- PEtALS Components specific types -->
-    <!-- USed by PEtALS Eclipse plugin to generate special widgets -->
+    <!-- Petals Components specific types -->
+    <!-- USed by Petals Eclipse plugin to generate special widgets -->
 	<xs:simpleType name="File">
 		<xs:restriction base="string"></xs:restriction>
 	</xs:simpleType>
+	
+	
+	<!-- Monitoring parameters -->
+	<xs:element name="monitoring-sampling-period" type="xs:long" default="300">
+    	<xs:annotation>
+        	<xs:documentation>Period, in seconds, of a sample used by response time probe of the monitoring feature. Default value: 300s (5min)</xs:documentation>
+     	</xs:annotation>
+  	</xs:element>
 </xs:schema>
