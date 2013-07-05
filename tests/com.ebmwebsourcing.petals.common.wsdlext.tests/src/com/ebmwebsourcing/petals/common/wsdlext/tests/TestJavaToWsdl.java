@@ -30,7 +30,6 @@ import org.eclipse.xsd.XSDImport;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDSchemaContent;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ebmwebsourcing.petals.common.extensions.internal.provisional.WsdlExtUtils;
@@ -110,8 +109,8 @@ public class TestJavaToWsdl extends SWTBotGefTestCase {
 	 * Tests whether the Java to WSDL operation locks the EJB's JAR file.
 	 * @throws Exception
 	 */
-	@Test
-	@Ignore
+	//@Test
+	//@Ignore
 	public void testEjbWithDifferentSchemas() throws Exception {
 		initFiles( "EjbWithDifferentSchemas.jar" );
 
