@@ -12,6 +12,8 @@
 
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
@@ -33,7 +35,7 @@ public abstract class AbstractSuWizardPage extends WizardPage {
 	/**
 	 * Count the number of these pages and ensure they never have the same name.
 	 */
-	private static int cpt = 0;
+	private static AtomicInteger cpt = new AtomicInteger( 0 );
 
 
 
@@ -41,7 +43,7 @@ public abstract class AbstractSuWizardPage extends WizardPage {
 	 * Constructor defining the page name.
 	 */
 	public AbstractSuWizardPage() {
-		super( "AbstractSuPage_" + cpt++ );
+		super( "AbstractSuPage_" + cpt.getAndIncrement());
 	}
 
 

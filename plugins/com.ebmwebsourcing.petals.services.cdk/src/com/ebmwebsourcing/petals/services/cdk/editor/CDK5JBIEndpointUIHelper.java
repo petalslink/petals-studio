@@ -179,8 +179,8 @@ public class CDK5JBIEndpointUIHelper {
 					command = EObjecttUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
 					compositeCommand.append(command);
 
-					Mep mep = dlg.getInvocationMep() == Mep.UNKNOWN ? null : dlg.getInvocationMep();
-					command = EObjecttUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep.toString());
+					String mep = dlg.getInvocationMep() == Mep.UNKNOWN ? null : dlg.getInvocationMep().toString();
+					command = EObjecttUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
 					compositeCommand.append(command);
 
 					// Identify the listeners to disable, so that all the fields are correctly set
@@ -281,7 +281,7 @@ public class CDK5JBIEndpointUIHelper {
 				final URI wsdlUri;
 				if( f != null )
 					wsdlUri = f.toURI();
-				else if( wsdlValue != null )
+				else if( ! StringUtils.isEmpty( wsdlValue ))
 					wsdlUri = UriAndUrlHelper.urlToUri( wsdlValue );
 				else
 					wsdlUri = null;

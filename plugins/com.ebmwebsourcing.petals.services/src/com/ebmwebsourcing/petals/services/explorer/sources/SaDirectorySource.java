@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.explorer.sources;
@@ -128,6 +128,7 @@ public class SaDirectorySource extends EndpointSource {
 
 		// Get SAs
 		FileFilter filter = new FileFilter() {
+			@Override
 			public boolean accept( File pathname ) {
 				return pathname.getName().endsWith( ".zip" );
 			}
@@ -319,8 +320,11 @@ public class SaDirectorySource extends EndpointSource {
 		 * @see org.eclipse.jface.operation.IRunnableWithProgress
 		 * #run(org.eclipse.core.runtime.IProgressMonitor)
 		 */
+		@Override
 		public void run( IProgressMonitor monitor )
-				throws InvocationTargetException, InterruptedException {
+		throws InvocationTargetException, InterruptedException {
+
+			ZipFile zipFile = null;
 			try {
 				monitor.beginTask( "Unzipping the service assembly...", IProgressMonitor.UNKNOWN );
 				Map<ServiceUnitBean, File> localSuBeanToExplodedSu = new HashMap<ServiceUnitBean, File>();
@@ -334,7 +338,7 @@ public class SaDirectorySource extends EndpointSource {
 					return;
 
 				// Unzip all the SUs
-				ZipFile zipFile = new ZipFile( saFile );
+				zipFile = new ZipFile( saFile );
 				Enumeration<?> entries = zipFile.entries();
 				while( entries.hasMoreElements()) {
 
@@ -397,11 +401,20 @@ public class SaDirectorySource extends EndpointSource {
 				}
 
 			} catch( ZipException e ) {
-				e.printStackTrace();
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
+
 			} catch( IOException e ) {
-				e.printStackTrace();
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
 
 			} finally {
+				if( zipFile != null ) {
+					try {
+						zipFile.close();
+					} catch( IOException e ) {
+						// nothing
+					}
+				}
+
 				monitor.done();
 			}
 		}

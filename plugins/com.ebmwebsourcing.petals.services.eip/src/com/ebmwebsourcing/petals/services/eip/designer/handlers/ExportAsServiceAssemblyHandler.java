@@ -57,6 +57,7 @@ public class ExportAsServiceAssemblyHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.AbstractHandler
 	 * #execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
+	@Override
 	public Object execute( ExecutionEvent event ) throws ExecutionException {
 
 		// Get the selection's content
@@ -92,7 +93,7 @@ public class ExportAsServiceAssemblyHandler extends AbstractHandler {
 
 			// Prepare the SA name
 			String title = "EipChain";
-			if( eipChain != null && ! StringUtils.isEmpty( eipChain.getTitle()))
+			if( ! StringUtils.isEmpty( eipChain.getTitle()))
 				title = eipChain.getTitle().trim();
 
 			String saName = JbiUtils.createSaName( "EIP", title, false );

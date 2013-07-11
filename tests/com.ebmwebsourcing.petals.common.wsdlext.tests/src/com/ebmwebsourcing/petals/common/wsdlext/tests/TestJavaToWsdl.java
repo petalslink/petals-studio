@@ -13,22 +13,13 @@ package com.ebmwebsourcing.petals.common.wsdlext.tests;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.eclipse.bpel.common.wsdl.parsers.WsdlParser;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.waits.ICondition;
-import org.eclipse.wst.wsdl.Definition;
-import org.eclipse.xsd.XSDImport;
-import org.eclipse.xsd.XSDSchema;
-import org.eclipse.xsd.XSDSchemaContent;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -109,73 +100,73 @@ public class TestJavaToWsdl extends SWTBotGefTestCase {
 	 * Tests whether the Java to WSDL operation locks the EJB's JAR file.
 	 * @throws Exception
 	 */
-	//@Test
-	//@Ignore
-	public void testEjbWithDifferentSchemas() throws Exception {
-		initFiles( "EjbWithDifferentSchemas.jar" );
-
-		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
-		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
-		String folder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
-		final File out = WsdlExtUtils.generateWsdlFile(
-				"AddOrderRemote.wsdl",
-				folder,
-				"org.ow2.petals.examples.ejb.addorder.AddOrderRemote",
-				new String[] { this.businessFile.getAbsolutePath(), this.jeeFile.getAbsolutePath()},
-				folder,
-				"AddOrderRemotePort",
-				"AddOrderRemote",
-				new NullProgressMonitor());
-
-		this.bot.waitUntil(new ICondition() {
-
-			@Override
-			public boolean test() throws Exception {
-				return out.exists();
-			}
-
-			@Override
-			public void init(SWTBot bot) {
-			}
-
-			@Override
-			public String getFailureMessage() {
-				return null;
-			}
-		});
-
-		Assert.assertNotSame(0, out.length());
-		System.gc();
-
-		// Parse the resulting WSDL.
-		// Search for all the XSD import made in WSDL files.
-		// Recursive XSD imports are not supported.
-		Collection<Definition> definitions =
-				WsdlParser.loadAllWsdlDefinitions( URI.createFileURI( out.getAbsolutePath()), WsdlParser.createBasicResourceSetForWsdl());
-
-		Set<String> schemaNamespaces = new HashSet<String> ();
-		for( Definition def : definitions ) {
-			for( Object o : def.getETypes().getSchemas()) {
-				if( !( o instanceof XSDSchema ))
-					continue;
-
-				// The current schema
-				String ns = ((XSDSchema) o).getTargetNamespace();
-				if( ns != null )
-					schemaNamespaces.add( ns );
-
-				// Process the import declarations
-				for( XSDSchemaContent content : ((XSDSchema) o).getContents()) {
-					if( !( content instanceof XSDImport ))
-						continue;
-
-					ns = ((XSDImport) content).getNamespace();
-					if( ns != null )
-						schemaNamespaces.add( ns );
-				}
-			}
-		}
-
-		Assert.assertEquals( 3, schemaNamespaces.size());
-	}
+//	@Test
+//	@Ignore
+//	public void testEjbWithDifferentSchemas() throws Exception {
+//		initFiles( "EjbWithDifferentSchemas.jar" );
+//
+//		Assert.assertFalse(FileTestUtil.fileOpen(this.jeeFile));
+//		Assert.assertFalse(FileTestUtil.fileOpen(this.businessFile));
+//		String folder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
+//		final File out = WsdlExtUtils.generateWsdlFile(
+//				"AddOrderRemote.wsdl",
+//				folder,
+//				"org.ow2.petals.examples.ejb.addorder.AddOrderRemote",
+//				new String[] { this.businessFile.getAbsolutePath(), this.jeeFile.getAbsolutePath()},
+//				folder,
+//				"AddOrderRemotePort",
+//				"AddOrderRemote",
+//				new NullProgressMonitor());
+//
+//		this.bot.waitUntil(new ICondition() {
+//
+//			@Override
+//			public boolean test() throws Exception {
+//				return out.exists();
+//			}
+//
+//			@Override
+//			public void init(SWTBot bot) {
+//			}
+//
+//			@Override
+//			public String getFailureMessage() {
+//				return null;
+//			}
+//		});
+//
+//		Assert.assertNotSame(0, out.length());
+//		System.gc();
+//
+//		// Parse the resulting WSDL.
+//		// Search for all the XSD import made in WSDL files.
+//		// Recursive XSD imports are not supported.
+//		Collection<Definition> definitions =
+//				WsdlParser.loadAllWsdlDefinitions( URI.createFileURI( out.getAbsolutePath()), WsdlParser.createBasicResourceSetForWsdl());
+//
+//		Set<String> schemaNamespaces = new HashSet<String> ();
+//		for( Definition def : definitions ) {
+//			for( Object o : def.getETypes().getSchemas()) {
+//				if( !( o instanceof XSDSchema ))
+//					continue;
+//
+//				// The current schema
+//				String ns = ((XSDSchema) o).getTargetNamespace();
+//				if( ns != null )
+//					schemaNamespaces.add( ns );
+//
+//				// Process the import declarations
+//				for( XSDSchemaContent content : ((XSDSchema) o).getContents()) {
+//					if( !( content instanceof XSDImport ))
+//						continue;
+//
+//					ns = ((XSDImport) content).getNamespace();
+//					if( ns != null )
+//						schemaNamespaces.add( ns );
+//				}
+//			}
+//		}
+//
+//		Assert.assertEquals( 3, schemaNamespaces.size());
+//	}
 }

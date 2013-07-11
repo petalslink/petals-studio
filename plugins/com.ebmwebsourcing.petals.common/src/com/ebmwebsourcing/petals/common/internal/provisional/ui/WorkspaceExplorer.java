@@ -1,19 +1,20 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -48,14 +49,14 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.ResourceUtils
 public class WorkspaceExplorer extends TitleAreaDialog {
 
 	private TreeViewer wkViewer;
-	private final String[] extensions;
+	private final List<String> extensions;
 	private IResource selectedResource;
 
 
 	public WorkspaceExplorer( Shell parentShell, String[] extensions ) {
 		super( parentShell );
 		setShellStyle( SWT.PRIMARY_MODAL | SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX );
-		this.extensions = extensions;
+		this.extensions = extensions != null ? Arrays.asList( extensions ) : new ArrayList<String>( 0 );
 	}
 
 
@@ -124,7 +125,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 			private Object[] getContainerElements( IContainer container ) {
 				IResource[] res = ResourceUtils.getDirectValidChildren(
 							container,
-							Arrays.asList( WorkspaceExplorer.this.extensions ),
+							WorkspaceExplorer.this.extensions,
 							new ArrayList<IResource> ());
 				return res;
 			}
@@ -135,6 +136,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 			 * @see org.eclipse.jface.viewers.ITreeContentProvider
 			 * #getChildren(java.lang.Object)
 			 */
+			@Override
 			public Object[] getChildren( Object o ) {
 				if( o instanceof IContainer )
 					return getContainerElements((IContainer) o);
@@ -146,6 +148,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 			 * @see org.eclipse.jface.viewers.ITreeContentProvider
 			 * #hasChildren(java.lang.Object)
 			 */
+			@Override
 			public boolean hasChildren( Object element ) {
 				if( element instanceof IContainer )
 					return getContainerElements((IContainer) element).length > 0;
@@ -157,6 +160,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 			 * @see org.eclipse.jface.viewers.ITreeContentProvider
 			 * #getParent(java.lang.Object)
 			 */
+			@Override
 			public Object getParent( Object element ) {
 
 				if( element instanceof IResource ) {
@@ -175,6 +179,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 			 * @see org.eclipse.jface.viewers.IStructuredContentProvider
 			 * #getElements(java.lang.Object)
 			 */
+			@Override
 			public Object[] getElements( Object inputElement ) {
 
 				if( inputElement instanceof IWorkspaceRoot )
@@ -194,6 +199,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 			 * (non-Javadoc)
 			 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 			 */
+			@Override
 			public void dispose() {
 				// nothing
 			}
@@ -203,6 +209,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 			 * @see org.eclipse.jface.viewers.IContentProvider
 			 * #inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
 			 */
+			@Override
 			public void inputChanged( Viewer viewer, Object oldInput, Object newInput ) {
 				// nothing
 			}
@@ -211,6 +218,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 
 		// Selection listener
 		this.wkViewer.addSelectionChangedListener( new ISelectionChangedListener () {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				if( event.getSelection().isEmpty())
@@ -234,6 +242,7 @@ public class WorkspaceExplorer extends TitleAreaDialog {
 
 		// Double-clic means selection
 		this.wkViewer.addDoubleClickListener( new IDoubleClickListener () {
+			@Override
 			public void doubleClick( DoubleClickEvent event ) {
 
 				if( event.getSelection().isEmpty())

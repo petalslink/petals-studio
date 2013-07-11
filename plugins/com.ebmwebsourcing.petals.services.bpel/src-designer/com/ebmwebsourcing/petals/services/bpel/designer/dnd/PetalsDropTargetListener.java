@@ -319,8 +319,7 @@ public class PetalsDropTargetListener extends TextDropTargetListener {
 
 			// Create the invoke and test its addition
 			final Invoke invoke = BPELFactory.eINSTANCE.createInvoke();
-			if ( container != null
-						&& container.canAddObject( editPart.getModel(), invoke, result.previousActivity )) {
+			if ( container.canAddObject( editPart.getModel(), invoke, result.previousActivity )) {
 				result.allowed = true;
 				result.invokeParent = (EObject) editPart.getModel();
 				result.invoke = invoke;
@@ -353,10 +352,7 @@ public class PetalsDropTargetListener extends TextDropTargetListener {
 		if( wsdlDefinition == null )
 			return;
 
-		PortType rightPortType = null;
-		if( wsdlDefinition != null )
-			rightPortType = findPortType( wsdlDefinition, portTypeName );
-
+		PortType rightPortType = findPortType( wsdlDefinition, portTypeName );
 		if( rightPortType == null )
 			return;
 
@@ -616,8 +612,8 @@ public class PetalsDropTargetListener extends TextDropTargetListener {
 		try {
 			resource = editorResourceSet.getResource( uri, true );
 
-		} catch( Throwable t ) {
-			BPELUIPlugin.log( t, IStatus.ERROR );
+		} catch( Exception e ) {
+			BPELUIPlugin.log( e, IStatus.ERROR );
 		}
 
 		Object loaded = null;

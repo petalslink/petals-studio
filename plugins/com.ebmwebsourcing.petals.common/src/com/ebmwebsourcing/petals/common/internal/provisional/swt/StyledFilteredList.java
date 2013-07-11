@@ -110,7 +110,7 @@ public class StyledFilteredList extends Composite {
 		if( elements == null )
 			this.elements = new Object[ 0 ];
 		else
-			this.elements = elements;
+			this.elements = Arrays.copyOf( elements, elements.length );
 
 		updateList();
 	}

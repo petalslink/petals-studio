@@ -72,7 +72,7 @@ public class TestDND extends SWTBotGefTestCase {
 		Display.getDefault().syncExec( new Runnable() {
 			@Override
 			public void run() {
-				Point point = targetPart.part().getViewer().getControl().toDisplay( 100, 100 );
+				Point point = targetPart.part().getViewer().getControl().toDisplay( 120, 130 );
 				targetLocation.x = point.x;
 				targetLocation.y = point.y;
 			}

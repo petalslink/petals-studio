@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.ui;
@@ -48,7 +48,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.StyledFilteredL
  * The code was taken from {@link AbstractElementListSelectionDialog} and modified
  * to work with {@link StyledFilteredList}s.
  * </p>
- * 
+ *
  * @contributor Vincent Zurczak - EBM WebSourcing
  */
 public class StyledElementListSelectionDialog extends SelectionStatusDialog {
@@ -172,7 +172,6 @@ public class StyledElementListSelectionDialog extends SelectionStatusDialog {
 	 * @param elements the elements of the list.
 	 */
 	protected void setListElements(Object[] elements) {
-		Assert.isNotNull(this.fFilteredList);
 		this.fFilteredList.setElements(elements);
 	}
 
@@ -315,10 +314,12 @@ public class StyledElementListSelectionDialog extends SelectionStatusDialog {
 		list.setFilter((this.fFilter == null ? "" : this.fFilter)); //$NON-NLS-1$
 
 		list.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				handleDefaultSelected();
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleWidgetSelected();
 			}
@@ -361,6 +362,7 @@ public class StyledElementListSelectionDialog extends SelectionStatusDialog {
 		text.setText((this.fFilter == null ? "" : this.fFilter)); //$NON-NLS-1$
 
 		Listener listener = new Listener() {
+			@Override
 			public void handleEvent(Event e) {
 				StyledElementListSelectionDialog.this.fFilteredList.setFilter(StyledElementListSelectionDialog.this.fFilterText.getText());
 			}
@@ -368,12 +370,14 @@ public class StyledElementListSelectionDialog extends SelectionStatusDialog {
 		text.addListener(SWT.Modify, listener);
 
 		text.addKeyListener(new KeyListener() {
+			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.keyCode == SWT.ARROW_DOWN) {
 					StyledElementListSelectionDialog.this.fFilteredList.setFocus();
 				}
 			}
 
+			@Override
 			public void keyReleased(KeyEvent e) {
 			}
 		});
@@ -405,6 +409,7 @@ public class StyledElementListSelectionDialog extends SelectionStatusDialog {
 	public void create() {
 
 		BusyIndicator.showWhile(null, new Runnable() {
+			@Override
 			public void run() {
 				access$superCreate();
 
@@ -449,7 +454,7 @@ public class StyledElementListSelectionDialog extends SelectionStatusDialog {
 	 * The validator is invoked whenever the selection changes.
 	 * @return the validator to validate the selection, or <code>null</code>
 	 * if no validator has been set.
-	 * 
+	 *
 	 * @since 3.5
 	 */
 	protected ISelectionStatusValidator getValidator() {
@@ -466,7 +471,7 @@ public class StyledElementListSelectionDialog extends SelectionStatusDialog {
 	 * @param elements the elements of the list.
 	 */
 	public void setElements(Object[] elements) {
-		this.fElements = elements;
+		this.fElements = elements == null ? new Object[ 0 ] : Arrays.copyOf( elements, elements.length );
 	}
 
 	/*

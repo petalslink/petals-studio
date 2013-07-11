@@ -222,22 +222,30 @@ public class PojoProvideSpecificPage22 extends AbstractSuWizardPage {
 		// Get all the classes in the JAR
 		List<String> classNames = new ArrayList<String> ();
 		for( File f : this.jarFiles ) {
-			JarFile jarFile;
+			JarFile jarFile = null;
 			try {
 				jarFile = new JarFile( f );
+				Enumeration<JarEntry> entries = jarFile.entries();
+				while( entries.hasMoreElements()) {
+					String entryName = entries.nextElement().getName();
+					if( entryName.endsWith( ".class" )
+								&& ! entryName.contains( "$" )) {
+						entryName = entryName.substring( 0, entryName.length() - 6 );
+						entryName = entryName.replaceAll( "/", "." );
+						classNames.add( entryName );
+					}
+				}
 
 			} catch( IOException e ) {
 				continue;
-			}
 
-			Enumeration<JarEntry> entries = jarFile.entries();
-			while( entries.hasMoreElements()) {
-				String entryName = entries.nextElement().getName();
-				if( entryName.endsWith( ".class" )
-							&& ! entryName.contains( "$" )) {
-					entryName = entryName.substring( 0, entryName.length() - 6 );
-					entryName = entryName.replaceAll( "/", "." );
-					classNames.add( entryName );
+			} finally {
+				if( jarFile != null ) {
+					try {
+						jarFile.close();
+					} catch( IOException e1 ) {
+						// nothing
+					}
 				}
 			}
 		}

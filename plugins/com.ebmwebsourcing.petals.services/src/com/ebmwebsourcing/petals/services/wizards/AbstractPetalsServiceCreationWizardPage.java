@@ -342,11 +342,8 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 					break;
 
 				case 4:
-					if( element instanceof SuImportBean ) {
+					if( element instanceof SuImportBean )
 						result = ((SuImportBean) element).getComponentVersion();
-						if( result == null )
-							result = "";
-					}
 					break;
 				}
 

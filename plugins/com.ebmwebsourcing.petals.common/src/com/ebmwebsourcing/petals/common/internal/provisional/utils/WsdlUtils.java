@@ -252,9 +252,15 @@ public class WsdlUtils {
 					service.setQName( newServiceName );
 
 				WSDLWriter writer = this.wsdlFactory11.newWSDLWriter();
-				FileOutputStream fos = new FileOutputStream( wsdlFile );
-				writer.writeWSDL( def, fos );
-				fos.close();
+				FileOutputStream fos = null;
+				try {
+					fos = new FileOutputStream( wsdlFile );
+					writer.writeWSDL( def, fos );
+				} finally {
+					if( fos != null )
+						fos.close();
+				}
+
 				updated = true;
 			}
 

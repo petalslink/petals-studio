@@ -12,6 +12,7 @@
 
 package com.ebmwebsourcing.petals.services.wizards.beans;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,7 +108,8 @@ public class SuImportBean extends ServiceImportBean {
 	 * @param supportedVersions the supportedVersions to set
 	 */
 	public void setSupportedVersions( String[] supportedVersions ) {
-		this.supportedVersions = supportedVersions;
+		this.supportedVersions = supportedVersions == null
+				? new String[ 0 ] : Arrays.copyOf( supportedVersions, supportedVersions.length );
 	}
 
 	/**

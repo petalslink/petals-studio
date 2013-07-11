@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2008-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.generation;
@@ -34,7 +34,7 @@ public class JbiUtils {
 	 * <p>
 	 * This method does not add, check or modify file extensions.
 	 * </p>
-	 * 
+	 *
 	 * @param suType the component used by the SU (e.g. FTP, XSLT...)
 	 * @param serviceName the service name
 	 * @param isConsume true if the SU is <i>consume</i> mode, false for <i>provide</i>
@@ -52,7 +52,7 @@ public class JbiUtils {
 	 * <p>
 	 * This method does not add, check or modify file extensions.
 	 * </p>
-	 * 
+	 *
 	 * @param suType the component used by the SU (e.g. FTP, XSLT...)
 	 * @param serviceName the service name
 	 * @param isConsume true if the SU is <i>consume</i> mode, false for <i>provide</i>
@@ -101,7 +101,7 @@ public class JbiUtils {
 	 * <p>
 	 * This method does not add, check or modify file extensions.
 	 * </p>
-	 * 
+	 *
 	 * @param suName a service unit archive name
 	 * @return the generated SU name
 	 */
@@ -119,7 +119,7 @@ public class JbiUtils {
 
 	/**
 	 * Creates the jbi.xml content for a Petals SA.
-	 * 
+	 *
 	 * @param componentName the target component name
 	 * @param saName the SA name (not the service assembly file name).
 	 * <p>
@@ -168,7 +168,7 @@ public class JbiUtils {
 
 	/**
 	 * Creates the jbi.xml content for a Petals SA.
-	 * 
+	 *
 	 * @param saName the SA name (not the service assembly file name).
 	 * <p>
 	 * Service assembly names look like <i>sa-Jsr181-&lt;serviceName&gt;-provide</i>.
@@ -213,7 +213,7 @@ public class JbiUtils {
 
 	/**
 	 * Creates a service unit or a service assembly file.
-	 * 
+	 *
 	 * @param targetZipFile the path of the target ZIP file
 	 * @param jbiXmlContent the jbi.xml file content, or null to not add a jbi.xml
 	 * @param rootFolder the directory whose content must be zipped (the root folder won't be in the zip)
@@ -230,7 +230,7 @@ public class JbiUtils {
 
 	/**
 	 * Creates a service unit or a service assembly file.
-	 * 
+	 *
 	 * @param targetZipFile the path of the target ZIP file
 	 * @param rootFolder the folder containing all the resources (the first found jbi.xml will be set under META-INF/)
 	 * @return the created archive in case of success, null otherwise
@@ -250,7 +250,7 @@ public class JbiUtils {
 
 	/**
 	 * Creates a service unit or a service assembly file.
-	 * 
+	 *
 	 * @param targetZipFile the path of the target ZIP file
 	 * @param entries key = zip entry, value = file to zip (not null)
 	 * @return the created archive in case of success, null otherwise
@@ -264,7 +264,7 @@ public class JbiUtils {
 
 	/**
 	 * Creates a service unit or a service assembly file.
-	 * 
+	 *
 	 * @param targetZipFile the path of the target ZIP file
 	 * @param jbiXmlContent the jbi.xml file content, or null to not add a jbi.xml
 	 * @param entries key = zip entry, value = file to zip (not null)
@@ -311,7 +311,7 @@ public class JbiUtils {
 
 	/**
 	 * Adds a file into a zip archive.
-	 * 
+	 *
 	 * @param out the zip file
 	 * @param in the input stream to add into the zip
 	 * @param entry the entry for the file to add into the zip (not null)
@@ -356,7 +356,7 @@ public class JbiUtils {
 	 * The root file is not added in the map, just its children files.<br />
 	 * Hidden files are skipped and are not added in the result.
 	 * </p>
-	 * 
+	 *
 	 * @param root the root file
 	 * @param entry the zip entry (not null)
 	 * @return
@@ -386,25 +386,33 @@ public class JbiUtils {
 
 	/**
 	 * Copies the content from inputFile into outputFile.
-	 * 
+	 *
 	 * @param inputFile
 	 * @param outputFile will be created if it does not exist
 	 * @throws IOException
 	 */
 	private static void copyFile( File inputFile, File outputFile ) throws IOException {
 
-		InputStream is = new FileInputStream( inputFile );
-		if( ! outputFile.exists() && ! outputFile.createNewFile())
-			throw new IOException( "Failed to create " + outputFile.getAbsolutePath() + "." );
+		InputStream is = null;
+		OutputStream os = null;
+		try {
+			is = new FileInputStream( inputFile );
+			if( ! outputFile.exists() && ! outputFile.createNewFile())
+				throw new IOException( "Failed to create " + outputFile.getAbsolutePath() + "." );
 
-		OutputStream os = new FileOutputStream( outputFile );
-		byte[] buf = new byte[ 1024 ];
-		int len;
-		while((len = is.read( buf )) > 0) {
-			os.write( buf, 0, len );
+			os = new FileOutputStream( outputFile );
+			byte[] buf = new byte[ 1024 ];
+			int len;
+			while((len = is.read( buf )) > 0) {
+				os.write( buf, 0, len );
+			}
+
+		} finally {
+			if( os != null )
+				os.close();
+
+			if( is != null )
+				is.close();
 		}
-
-		os.close ();
-		is.close();
 	}
 }

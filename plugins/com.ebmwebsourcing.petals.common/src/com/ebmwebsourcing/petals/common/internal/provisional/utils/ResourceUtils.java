@@ -432,7 +432,6 @@ public class ResourceUtils {
 							PlatformUI.getWorkbench().getActiveWorkbenchWindow().
 							getActivePage().showView( viewId );
 
-						Method getTreeViewerMethod = null;
 						if( viewPart instanceof CommonNavigator ) {
 							if( expand ) {
 								for( Object res : resources )
@@ -445,14 +444,16 @@ public class ResourceUtils {
 							// IStructuredSelection s = new StructuredSelection( resources );
 							// viewPart.getSite().getSelectionProvider().setSelection( s );
 
-						} else if(( getTreeViewerMethod = viewPart.getClass().getMethod( "getTreeViewer" )) != null ) {
-							TreeViewer viewer = (TreeViewer) getTreeViewerMethod.invoke( viewPart );
-							if( viewer != null )
-								viewer.setSelection( new StructuredSelection( resources ), expand );
-
 						} else {
-							viewPart.getViewSite().getSelectionProvider().setSelection( new StructuredSelection( resources ));
-							// PetalsCommonPlugin.log( "Only the common navigator sub-classes are supported (PetalsCommons.ResourceUtils).", IStatus.ERROR );
+							try {
+								Method getTreeViewerMethod = viewPart.getClass().getMethod( "getTreeViewer" );
+								TreeViewer viewer = (TreeViewer) getTreeViewerMethod.invoke( viewPart );
+								if( viewer != null )
+									viewer.setSelection( new StructuredSelection( resources ), expand );
+
+							} catch( Exception e ) {
+								viewPart.getViewSite().getSelectionProvider().setSelection( new StructuredSelection( resources ));
+							}
 						}
 
 					} catch( PartInitException e ) {

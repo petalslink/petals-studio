@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.generation.samples;
@@ -22,7 +22,7 @@ import com.ebmwebsourcing.petals.common.generation.JbiXmlGenerationHelper;
 import com.ebmwebsourcing.petals.common.generation.cdk5.components.BpelProvides10;
 
 /**
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class Test {
@@ -47,12 +47,12 @@ public class Test {
 		jbiBean.setProcessName( "process.bpel" );
 		//	jbiBean.putFileToImport(
 		//			"process.bpel",
-		//			new File( "C:/Documents and Settings/vzurczak/Bureau/WSDLs/tuxdroid.bpel" ));
+		//			new File( System.getProperty( "user.dir" ), "tuxdroid.bpel" ));
 
 		jbiBean.setWsdl( "process.wsdl" );
 		jbiBean.putFileToImport(
 					"process.wsdl",
-					new File( "C:/Documents and Settings/vzurczak/Bureau/WSDLs/tuxdroid.wsdl" ));
+					new File( System.getProperty( "user.dir" ), "tuxdroid.wsdl" ));
 
 		String jbiXmlContent = genDelegate.createJbiDescriptor( jbiBean ).toString();
 

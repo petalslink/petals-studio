@@ -53,7 +53,7 @@ public class XPathSourceScanner extends BufferedRuleBasedScanner {
 	/**
 	 * The scanner for the XPath source editor, which provides
 	 * syntax coloring based on the default damager and repairer.
-	 * 
+	 *
 	 * @param manager
 	 */
 	public XPathSourceScanner( ColorManager manager ) {
@@ -225,7 +225,7 @@ public class XPathSourceScanner extends BufferedRuleBasedScanner {
 	/**
 	 * Returns the last token with the index of offset. Index 0 means the last token seen,
 	 * 1 means the one before the last token seen.
-	 * 
+	 *
 	 * @param offset
 	 * @return the token requested or undefined.
 	 */
@@ -234,7 +234,7 @@ public class XPathSourceScanner extends BufferedRuleBasedScanner {
 		try {
 			return this.tokenWindow.get(offset);
 
-		} catch (Throwable t) {
+		} catch( Exception e ) {
 			return Token.UNDEFINED;
 		}
 	}
@@ -271,7 +271,7 @@ public class XPathSourceScanner extends BufferedRuleBasedScanner {
 	 * The TokenContext class allows us to see what tokens we have seen
 	 * so far. In some syntax coloring constructs we need to have a memory
 	 * (albeit a simple one) of where we have been.
-	 * 
+	 *
 	 * @author Michal Chmielewski (michal.chmielewski@oracle.com)
 	 * @date Nov 27, 2006
 	 */
@@ -282,6 +282,7 @@ public class XPathSourceScanner extends BufferedRuleBasedScanner {
 		 * @see com.ebmwebsourcing.petals.common.xpath.internal.configuration.rules.ITokenContext
 		 * #check(org.eclipse.jface.text.rules.ICharacterScanner)
 		 */
+		@Override
 		public boolean check (ICharacterScanner scanner) {
 			if (scanner instanceof XPathSourceScanner) {
 				return checkSeenTokens ( (XPathSourceScanner) scanner);

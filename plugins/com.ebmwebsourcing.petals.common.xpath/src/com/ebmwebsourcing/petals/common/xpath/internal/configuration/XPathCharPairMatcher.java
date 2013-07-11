@@ -12,6 +12,7 @@
 package com.ebmwebsourcing.petals.common.xpath.internal.configuration;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -38,7 +39,7 @@ public class XPathCharPairMatcher implements ICharacterPairMatcher {
 	 * @param pairs
 	 */
 	public XPathCharPairMatcher(char[] pairs) {
-		this.fPairs = pairs;
+		this.fPairs = pairs == null ? new char[ 0 ] : Arrays.copyOf( pairs, pairs.length );
 
 	}
 
@@ -48,15 +49,14 @@ public class XPathCharPairMatcher implements ICharacterPairMatcher {
 	 * @see org.eclipse.jface.text.source.ICharacterPairMatcher
 	 * #match(org.eclipse.jface.text.IDocument, int)
 	 */
+	@Override
 	public IRegion match(IDocument document, int offset) {
 
 		this.fOffset = offset;
-
 		if (this.fOffset < 0)
 			return null;
 
 		this.fDocument = document;
-
 		if (this.fDocument != null && matchPairsAt() && this.fStartPos != this.fEndPos)
 			return new Region(this.fStartPos, this.fEndPos - this.fStartPos + 1);
 
@@ -69,6 +69,7 @@ public class XPathCharPairMatcher implements ICharacterPairMatcher {
 	 * @see org.eclipse.jface.text.source.ICharacterPairMatcher
 	 * #getAnchor()
 	 */
+	@Override
 	public int getAnchor() {
 		return this.fAnchor;
 	}
@@ -79,6 +80,7 @@ public class XPathCharPairMatcher implements ICharacterPairMatcher {
 	 * @see org.eclipse.jface.text.source.ICharacterPairMatcher
 	 * #dispose()
 	 */
+	@Override
 	public void dispose() {
 		clear();
 		this.fDocument = null;
@@ -90,6 +92,7 @@ public class XPathCharPairMatcher implements ICharacterPairMatcher {
 	 * @see org.eclipse.jface.text.source.ICharacterPairMatcher
 	 * #clear()
 	 */
+	@Override
 	public void clear() {
 		// nothing
 	}

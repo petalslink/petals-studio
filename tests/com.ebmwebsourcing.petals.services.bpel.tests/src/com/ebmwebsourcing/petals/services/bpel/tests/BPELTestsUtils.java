@@ -21,8 +21,10 @@ public class BPELTestsUtils {
 
 	public static void openBPELEditor(SWTBot bot) {
 		SWTBotMenu newMenu = bot.menu("File").menu("New");
-		newMenu.menu("Petals Service Provider").click();
-		bot.comboBox(0).setSelection("Service Composition");
+		newMenu.menu("Service Provider (SU)").click();
+
+		bot.tree(0).expandNode( "Service Composition" ).getNode( 0 ).select();
+		bot.comboBox(0).setSelection( 0 );
 		bot.button("Next >").click();
 
 		bot.text( 0 ).setText( "myBpelProcess" );
