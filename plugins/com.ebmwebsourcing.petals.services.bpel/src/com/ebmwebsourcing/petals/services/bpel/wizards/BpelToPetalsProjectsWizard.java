@@ -428,6 +428,7 @@ public class BpelToPetalsProjectsWizard extends Wizard implements IExportWizard 
 		MavenBean mavenBean = new MavenBean();
 		mavenBean.setName( saBean.getProjectName());
 		mavenBean.setArtifactId( mavenBean.getName());
+		mavenBean.dependencies.addAll( suMavenBeans );
 
 		// Get the parent pom.xml
 		MavenBean parentBean = MavenUtils.getPomParentElements();

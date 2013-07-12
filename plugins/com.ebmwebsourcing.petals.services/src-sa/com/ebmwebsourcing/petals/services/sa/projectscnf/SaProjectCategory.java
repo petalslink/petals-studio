@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.services.sa.projectscnf;
 
@@ -23,7 +23,7 @@ import com.ebmwebsourcing.petals.services.utils.ServiceProjectRelationUtils;
  */
 public class SaProjectCategory extends PetalsProjectCategory {
 
-	public static String SA_CATEGORY_ID = "petals.category.service-assemblies";
+	public static final String SA_CATEGORY_ID = "petals.category.service-assemblies";
 
 
 	/*
@@ -53,6 +53,7 @@ public class SaProjectCategory extends PetalsProjectCategory {
 	 * @see org.eclipse.ui.navigator.IDescriptionProvider
 	 * #getDescription(java.lang.Object)
 	 */
+	@Override
 	public String getDescription( Object o ) {
 		return "The service assembly projects for Petals ESB";
 	}

@@ -248,7 +248,7 @@ public class PetalsRuntimeWizardFragment3x extends WizardFragment {
 		this.jreViewer.setLabelProvider( new LabelProvider() {
 			@Override
 			public String getText( Object element ) {
-				if( element != null && element instanceof IVMInstall )
+				if( element instanceof IVMInstall )
 					return ((IVMInstall) element).getName();
 				return "";
 			}

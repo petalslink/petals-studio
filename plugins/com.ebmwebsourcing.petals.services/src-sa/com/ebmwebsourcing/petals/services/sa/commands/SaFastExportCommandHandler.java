@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.sa.commands;
@@ -55,6 +55,7 @@ public class SaFastExportCommandHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.AbstractHandler
 	 * #execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
+	@Override
 	public Object execute( final ExecutionEvent event ) throws ExecutionException {
 
 		// Define the objects processing
@@ -62,6 +63,7 @@ public class SaFastExportCommandHandler extends AbstractHandler {
 		final List<IResource> resourcesToSelect = new ArrayList<IResource> ();
 
 		IRunnableWithProgress op = new IRunnableWithProgress() {
+			@Override
 			public void run( IProgressMonitor monitor )
 			throws InvocationTargetException, InterruptedException {
 
@@ -106,7 +108,7 @@ public class SaFastExportCommandHandler extends AbstractHandler {
 				res.getProject().refreshLocal( IResource.DEPTH_INFINITE, null );
 
 			} catch( CoreException e ) {
-				e.printStackTrace();
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
 			}
 		}
 

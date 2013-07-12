@@ -489,7 +489,7 @@ public class JbiXmlUtils {
 					file = new File( wsdlURI );
 
 			} catch( Exception e ) {
-				// e.printStackTrace();
+				PetalsCommonPlugin.log( e, IStatus.WARNING );
 			}
 
 			try {
@@ -497,7 +497,7 @@ public class JbiXmlUtils {
 					file = new File( new File( projectRoot, PetalsConstants.LOC_RES_FOLDER ), wsdlElementValue );
 
 			} catch( Exception e ) {
-				// e.printStackTrace();
+				PetalsCommonPlugin.log( e, IStatus.WARNING );
 			}
 		}
 

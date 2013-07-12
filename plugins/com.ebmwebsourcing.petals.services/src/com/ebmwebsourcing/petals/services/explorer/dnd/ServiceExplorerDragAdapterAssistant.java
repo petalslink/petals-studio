@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.explorer.dnd;
@@ -53,11 +53,16 @@ extends CommonDragAdapterAssistant {
 			EndpointBean edpt = (EndpointBean) aSelection.getFirstElement();
 			StringBuffer sb = new StringBuffer();
 			sb.append( "petals-" );
-			sb.append( "|srvNs=" + edpt.getServiceName().getNamespaceURI());
-			sb.append( "|srvName=" + edpt.getServiceName().getLocalPart());
-			sb.append( "|itfNs=" + edpt.getInterfaceName().getNamespaceURI());
-			sb.append( "|itfName=" + edpt.getInterfaceName().getLocalPart());
-			sb.append( "|edptName=" + edpt.getEndpointName());
+			sb.append( "|srvNs=" );
+			sb.append( edpt.getServiceName().getNamespaceURI());
+			sb.append( "|srvName=" );
+			sb.append( edpt.getServiceName().getLocalPart());
+			sb.append( "|itfNs=" );
+			sb.append( edpt.getInterfaceName().getNamespaceURI());
+			sb.append( "|itfName=" );
+			sb.append( edpt.getInterfaceName().getLocalPart());
+			sb.append( "|edptName=" );
+			sb.append( edpt.getEndpointName());
 			sb.append( "|wsdlUri=" );
 			if( edpt.getWsdlUri() != null )
 				sb.append( edpt.getWsdlUri());

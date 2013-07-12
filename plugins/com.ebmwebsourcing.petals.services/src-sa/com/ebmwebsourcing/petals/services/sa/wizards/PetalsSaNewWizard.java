@@ -152,7 +152,7 @@ public class PetalsSaNewWizard extends Wizard implements INewWizard {
 				IDE.openEditor( page, jbiXmlFile );
 
 			} catch( PartInitException e ) {
-				e.printStackTrace();
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
 			}
 
 			// Reveal the file in the explorer
@@ -203,6 +203,7 @@ public class PetalsSaNewWizard extends Wizard implements INewWizard {
 	 * @see org.eclipse.ui.IWorkbenchWizard
 	 * #init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init( IWorkbench workbench, IStructuredSelection selection ) {
 
 		if( selection.isEmpty())

@@ -170,19 +170,7 @@ public class ExportUtils {
 				suFile = packageSuProject( p, suName, monitor );
 				suEntryNameToSuFile.put( suName + ".zip", suFile );
 
-			} catch( FileNotFoundException e ) {
-				result = StatusUtils.createStatus( e, errorMsgPrefix );
-				break;
-
-			} catch( IOException e ) {
-				result = StatusUtils.createStatus( e, errorMsgPrefix );
-				break;
-
-			} catch( NullPointerException e ) {
-				result = StatusUtils.createStatus( e, errorMsgPrefix );
-				break;
-
-			} catch( CoreException e ) {
+			} catch( Exception e ) {
 				result = StatusUtils.createStatus( e, errorMsgPrefix );
 				break;
 			}
@@ -203,10 +191,7 @@ public class ExportUtils {
 				assert saFile != null && saFile.exists();
 			}
 
-		} catch( IOException e ) {
-			result = StatusUtils.createStatus( e, "SA creation: " );
-
-		} catch( CoreException e ) {
+		} catch( Exception e ) {
 			result = StatusUtils.createStatus( e, "SA creation: " );
 
 		} finally {
@@ -255,13 +240,7 @@ public class ExportUtils {
 			suFile = JbiUtils.createJbiArchive( suFile.getAbsolutePath(), new File( tempDir, PetalsConstants.LOC_RES_FOLDER ));
 			suEntryNameToSuFile.put( suName + ".zip", suFile );
 
-		} catch( FileNotFoundException e ) {
-			result = StatusUtils.createStatus( e, errorMsgPrefix );
-
-		} catch( IOException e ) {
-			result = StatusUtils.createStatus( e, errorMsgPrefix );
-
-		} catch( NullPointerException e ) {
+		} catch( Exception e ) {
 			result = StatusUtils.createStatus( e, errorMsgPrefix );
 		}
 

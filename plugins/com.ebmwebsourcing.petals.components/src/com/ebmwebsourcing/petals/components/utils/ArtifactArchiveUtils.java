@@ -25,8 +25,8 @@ import com.sun.java.xml.ns.jbi.Jbi;
  */
 public class ArtifactArchiveUtils {
 
-	public static String SL_VERSION = "sl-version";
-	public static String SL_NAME = "sl-name";
+	public static final String SL_VERSION = "sl-version";
+	public static final String SL_NAME = "sl-name";
 
 
 	/**

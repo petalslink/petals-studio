@@ -165,7 +165,6 @@ public class ResourceUtils {
 		try {
 			res = container.members();
 		} catch (CoreException e) {
-			e.printStackTrace();
 			res = new IResource[0];
 		}
 

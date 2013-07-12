@@ -26,7 +26,7 @@ import com.ebmwebsourcing.petals.components.PetalsComponentsPlugin;
  */
 public class ComponentProjectCategory extends PetalsProjectCategory {
 
-	public static String COMPONENT_CATEGORY_ID = "petals.category.components";
+	public static final String COMPONENT_CATEGORY_ID = "petals.category.components";
 
 
 	/*

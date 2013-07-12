@@ -281,7 +281,7 @@ public abstract class AbstractPetalsServiceCreationWizardPage extends WizardPage
 			}
 
 			@Override
-			public void inputChanged( Viewer _viewer, Object oldInput, Object newInput ) {
+			public void inputChanged( Viewer viewer, Object oldInput, Object newInput ) {
 				// nothing
 			}
 		});

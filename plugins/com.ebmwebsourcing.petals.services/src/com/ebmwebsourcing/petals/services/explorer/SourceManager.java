@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.explorer;
@@ -29,6 +29,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchListener;
@@ -47,7 +48,7 @@ import com.ebmwebsourcing.petals.services.utils.ServiceProjectRelationUtils;
  * When a source must be added, removed, or is changed, it must be signaled
  * in this class. The changes will be propagated to listeners.
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class SourceManager implements IResourceChangeListener {
@@ -74,6 +75,7 @@ public class SourceManager implements IResourceChangeListener {
 		// Release resources when the workbench is closed
 		PlatformUI.getWorkbench().addWorkbenchListener( new IWorkbenchListener() {
 
+			@Override
 			public boolean preShutdown( IWorkbench workbench, boolean forced ) {
 
 				// Do not be notified by workspace changes anymore
@@ -87,6 +89,7 @@ public class SourceManager implements IResourceChangeListener {
 			}
 
 
+			@Override
 			public void postShutdown( IWorkbench workbench ) {
 				// nothing
 			}
@@ -108,7 +111,7 @@ public class SourceManager implements IResourceChangeListener {
 	 * <p>
 	 * If sources were stored and not yet restored, they are restored.
 	 * </p>
-	 * 
+	 *
 	 * @return the sources
 	 */
 	public Collection<EndpointSource> getSources() {
@@ -252,11 +255,13 @@ public class SourceManager implements IResourceChangeListener {
 	/**
 	 * Handles workspace changes to notify listeners when workspace end-points were modified.
 	 */
+	@Override
 	public void resourceChanged( IResourceChangeEvent event ) {
 
 		try {
 			event.getDelta().accept( new IResourceDeltaVisitor() {
 				boolean stopSearching = false;
+				@Override
 				public boolean visit( IResourceDelta delta ) throws CoreException {
 
 					if( this.stopSearching )
@@ -296,7 +301,7 @@ public class SourceManager implements IResourceChangeListener {
 			});
 
 		} catch( CoreException e ) {
-			e.printStackTrace();
+			PetalsServicesPlugin.log( e, IStatus.ERROR );
 		}
 	}
 }

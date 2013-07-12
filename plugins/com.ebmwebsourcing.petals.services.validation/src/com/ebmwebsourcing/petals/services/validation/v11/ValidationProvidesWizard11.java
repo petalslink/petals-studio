@@ -127,6 +127,7 @@ public class ValidationProvidesWizard11 extends AbstractServiceUnitWizard {
 				resourceFolder.getLocation().toFile(),
 				this.page.getXsdURL());
 
+		monitor.worked( 1 );
 		File f = map.get( this.page.getXsdURL());
 		if( f == null )
 			PetalsValidationPlugin.log( "The XML schema could not be imported: " + this.page.getXsdURL(), IStatus.ERROR );

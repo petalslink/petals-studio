@@ -111,7 +111,7 @@ public class SuFastExportCommandHandler extends AbstractHandler {
 				res.getProject().refreshLocal( IResource.DEPTH_INFINITE, null );
 
 			} catch( CoreException e ) {
-				e.printStackTrace();
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
 			}
 		}
 

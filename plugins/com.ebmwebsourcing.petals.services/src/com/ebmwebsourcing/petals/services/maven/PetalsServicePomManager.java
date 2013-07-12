@@ -39,7 +39,7 @@ import com.ebmwebsourcing.petals.services.generated.SuPomXml;
  */
 public class PetalsServicePomManager {
 
-	public static PetalsServicePomManager INSTANCE = new PetalsServicePomManager();
+	public static final PetalsServicePomManager INSTANCE = new PetalsServicePomManager();
 	public static final String DEFAULT_SA_POM = "sa-default-pom.xml";
 	public static final String DEFAULT_SU_POM = "su-default-pom.xml";
 

@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.generation;
@@ -22,7 +22,7 @@ import java.util.TreeMap;
  * The version and the component name should be defined by any sub-class
  * constructor.
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class JbiXmlGenerationHelper {
@@ -53,7 +53,7 @@ public class JbiXmlGenerationHelper {
 		sb.append( "<?xml version=\"1.0\" encoding=\"" + this.encoding + "\"?>\n\n" );
 		if( this.generateComments ) {
 			sb.append( "<!-- JBI descriptor for the Petals component " );
-			sb.append( this.componentName + " " + this.version.toString() + " -->\n" );
+			sb.append( this.componentName + " " + this.version + " -->\n" );
 		}
 
 		Map<String,String> namespaces = new TreeMap<String,String>();

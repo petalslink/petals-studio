@@ -43,19 +43,19 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * The class in charge of getting the contributions made to the extension-point defined by this plug-in.
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class ExtensionManager {
 
 	/**
 	 * The identifier of the extension used to register SU versions.
 	 */
-	private static String EXTENSION_ID = "com.ebmwebsourcing.petals.services.componentExtension"; //$NON-NLS-1$
+	private static final String EXTENSION_ID = "com.ebmwebsourcing.petals.services.componentExtension"; //$NON-NLS-1$
 
 	/**
 	 * The unique instance of RegisteredContributors.
 	 */
-	public static ExtensionManager INSTANCE = new ExtensionManager ();
+	public static final ExtensionManager INSTANCE = new ExtensionManager ();
 
 	/**
 	 * The component descriptions.

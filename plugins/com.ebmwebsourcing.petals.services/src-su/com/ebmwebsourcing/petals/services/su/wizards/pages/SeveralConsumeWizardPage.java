@@ -44,11 +44,9 @@ public class SeveralConsumeWizardPage extends AbstractSuWizardPage {
 
 
 	/**
-	 * @param pageName the page name
-	 * @param suType the SU type
-	 * @param suTypeVersion the version of the SU type (of its component)
+	 * Constructor.
 	 */
-	public SeveralConsumeWizardPage( String pageName, String suType, String suTypeVersion ) {
+	public SeveralConsumeWizardPage() {
 		super();
 	}
 

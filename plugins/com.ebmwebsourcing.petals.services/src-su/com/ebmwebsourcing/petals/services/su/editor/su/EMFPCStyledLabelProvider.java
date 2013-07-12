@@ -57,12 +57,11 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 	private final Color categoryColor;
 	private final Font propertiesFont;
 	private final Font categoryFont;
-	private final Styler providesKeyWordsStyle, consumesKeyWordsStyle, propertiesStyle, forbiddenStyle, categoryStyle;
+	private final Styler providesKeyWordsStyle, consumesKeyWordsStyle, propertiesStyle;
 
 	private Map<EObject,List<IMarker>> elementToMarkers;
 	private final ImageRegistry imageRegistry;
 	private final ImageDescriptor providesDesc, consumesDesc;
-	private final Mep filteringMep;
 
 
 	/**
@@ -84,9 +83,6 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 	 * </p>
 	 */
 	public EMFPCStyledLabelProvider( Control control, Mep filteringMep ) {
-
-		// The MEP
-		this.filteringMep = filteringMep;
 
 		// Stylers
 		FontData[] originalData = control.getFont().getFontData();
@@ -115,23 +111,6 @@ public class EMFPCStyledLabelProvider extends LabelProvider implements IStyledLa
 			@Override
 			public void applyStyles( TextStyle textStyle ) {
 				textStyle.font = EMFPCStyledLabelProvider.this.propertiesFont;
-			}
-		};
-
-		this.forbiddenStyle = new Styler() {
-			@Override
-			public void applyStyles( TextStyle textStyle ) {
-				textStyle.foreground = EMFPCStyledLabelProvider.this.forbiddenForegroundColor;
-				textStyle.strikeout = true;
-				textStyle.strikeoutColor = EMFPCStyledLabelProvider.this.forbiddenForegroundColor;
-			}
-		};
-
-		this.categoryStyle = new Styler() {
-			@Override
-			public void applyStyles(TextStyle textStyle) {
-				textStyle.foreground = EMFPCStyledLabelProvider.this.categoryColor;
-				textStyle.font = EMFPCStyledLabelProvider.this.categoryFont;
 			}
 		};
 

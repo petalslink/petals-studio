@@ -84,7 +84,7 @@ public class JavaUtils {
 					continue;
 
 			} catch( CoreException e ) {
-				e.printStackTrace();
+				PetalsCommonPlugin.log( e, IStatus.ERROR );
 				continue;
 			}
 
@@ -253,7 +253,7 @@ public class JavaUtils {
 			}
 
 		} catch( JavaModelException e ) {
-			e.printStackTrace();
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
 		return result;

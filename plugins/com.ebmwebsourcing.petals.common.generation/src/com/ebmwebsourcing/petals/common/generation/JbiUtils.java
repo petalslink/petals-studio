@@ -408,8 +408,13 @@ public class JbiUtils {
 			}
 
 		} finally {
-			if( os != null )
-				os.close();
+			if( os != null ) {
+				try {
+					os.close();
+				} catch( Exception e ) {
+					// nothing
+				}
+			}
 
 			if( is != null )
 				is.close();

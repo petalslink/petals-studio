@@ -11,6 +11,8 @@
 
 package com.ebmwebsourcing.petals.services.bpel.tests;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
@@ -21,7 +23,6 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.waits.ICondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.ebmwebsourcing.petals.tests.common.DndUtil;
@@ -66,28 +67,46 @@ public class TestDND extends SWTBotGefTestCase {
 		SWTBotTreeItem toDrag = root.getNode(desc.getEndpoint()).select();
 
 		SWTBotGefEditor bpelEditor = this.bot.gefEditor(this.bot.activeEditor().getTitle());
-		final SWTBotGefEditPart targetPart = bpelEditor.getSWTBotGefViewer().rootEditPart().children().get( 0 ).children().get( 2 );
+		final SWTBotGefEditPart targetPart1 = bpelEditor.getSWTBotGefViewer().rootEditPart().children().get( 0 ).children().get( 1 );
+		SWTBotGefEditPart targetPart2 = bpelEditor.getSWTBotGefViewer().rootEditPart().children().get( 0 ).children().get( 2 );
+		final IFigure figure1 = ((GraphicalEditPart) targetPart1.part()).getFigure();
+		final IFigure figure2 = ((GraphicalEditPart) targetPart2.part()).getFigure();
 
 		final Point targetLocation = new Point( 0, 0 );
 		Display.getDefault().syncExec( new Runnable() {
 			@Override
 			public void run() {
-				Point point = targetPart.part().getViewer().getControl().toDisplay( 120, 130 );
-				targetLocation.x = point.x;
-				targetLocation.y = point.y;
+
+				int x = figure1.getBounds().x + figure1.getBounds().width / 2;
+				int y = (figure2.getBounds().y - figure1.getBounds().y - figure1.getBounds().height) / 2;
+				y += figure1.getBounds().y;
+
+				Point p = targetPart1.part().getViewer().getControl().toDisplay( x, y );
+				targetLocation.x = p.x;
+				targetLocation.y = p.y;
 			}
 		});
 
-		try {
-			new DndUtil( this.bot.activeShell().display ).dragAndDrop( toDrag, targetLocation );
-			this.bot.button("OK").click();
-			Assert.assertTrue(this.bot.activeEditor().isDirty());
+		new DndUtil( this.bot.activeShell().display ).dragAndDrop( toDrag, targetLocation );
+		this.bot.button("OK").click();
+		this.bot.waitUntil( new ICondition() {
 
-		} catch( Exception e ) {
-			new DndUtil( this.bot.activeShell().display ).dragAndDrop( toDrag, bpelEditor.getSWTBotGefViewer().rootEditPart());
-			this.bot.button("OK").click();
-			Assert.assertTrue(this.bot.activeEditor().isDirty());
-		}
+			@Override
+			public boolean test() throws Exception {
+				SWTBotEditor editor = TestDND.this.bot.activeEditor();
+				return editor.isDirty();
+			}
+
+			@Override
+			public void init( SWTBot bot ) {
+				// nothing
+			}
+
+			@Override
+			public String getFailureMessage() {
+				return "The BPEL editor was not marked as dirty.";
+			}
+		}, 8000 );
 
 		this.bot.saveAllEditors();
 		this.bot.closeAllEditors();

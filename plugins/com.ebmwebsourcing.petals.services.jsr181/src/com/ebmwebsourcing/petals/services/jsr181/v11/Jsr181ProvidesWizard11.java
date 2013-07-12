@@ -172,8 +172,11 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 		// Set values
 		String[] nsParts = packageName.trim().split( "\\." );
 		StringBuffer nsStringBuffer = new StringBuffer( "http://" );
-		for( int i=nsParts.length - 1; i>0; i-- )
-			nsStringBuffer.append( nsParts[ i ] + "." );
+		for( int i=nsParts.length - 1; i>0; i-- ) {
+			nsStringBuffer.append( nsParts[ i ]);
+			nsStringBuffer.append( "." );
+		}
+
 		nsStringBuffer.append( nsParts[ 0 ]);
 		String namespace = nsStringBuffer.toString();
 

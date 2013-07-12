@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.junit;bundle-version="4.8.2",
  org.eclipse.gef,
  com.ebmwebsourcing.petals.tests.common,
- org.apache.log4j
+ org.apache.log4j,
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

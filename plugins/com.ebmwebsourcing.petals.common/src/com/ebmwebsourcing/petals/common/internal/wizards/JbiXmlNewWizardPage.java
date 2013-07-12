@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.wizards;
@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -47,6 +48,7 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import com.ebmwebsourcing.petals.common.internal.Messages;
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 /**
  * The only required page to create a new 'jbi.xml' file.
@@ -88,6 +90,7 @@ public class JbiXmlNewWizardPage extends WizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		// Create the composite container and define its layout
@@ -133,7 +136,7 @@ public class JbiXmlNewWizardPage extends WizardPage {
 						}
 					}
 					catch( CoreException e ) {
-						e.printStackTrace();
+						PetalsCommonPlugin.log( e, IStatus.ERROR );
 					}
 				}
 
@@ -160,6 +163,7 @@ public class JbiXmlNewWizardPage extends WizardPage {
 		}
 
 		viewer.addPostSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 				Object o = ((IStructuredSelection) event.getSelection()).getFirstElement();
 				if( o instanceof IContainer )
@@ -247,6 +251,7 @@ public class JbiXmlNewWizardPage extends WizardPage {
 
 		final IFile file = this.selectedContainer.getFile( new Path( "jbi.xml" )); //$NON-NLS-1$
 		IWorkspaceRunnable op = new IWorkspaceRunnable() {
+			@Override
 			public void run( IProgressMonitor monitor ) throws CoreException {
 				try {
 					if( file.exists())

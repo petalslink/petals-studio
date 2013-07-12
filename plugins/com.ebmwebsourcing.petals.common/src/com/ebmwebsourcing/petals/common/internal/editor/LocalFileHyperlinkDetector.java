@@ -99,7 +99,7 @@ public class LocalFileHyperlinkDetector implements IHyperlinkDetector {
 					fileUri = null;
 
 			} catch( BadLocationException e ) {
-				e.printStackTrace();
+				PetalsCommonPlugin.log( e, IStatus.ERROR );
 			}
 		}
 
@@ -180,7 +180,7 @@ public class LocalFileHyperlinkDetector implements IHyperlinkDetector {
 					try {
 						IDE.openEditor( page, fileToOpen, true );
 					} catch( PartInitException e ) {
-						e.printStackTrace();
+						PetalsCommonPlugin.log( e, IStatus.ERROR );
 					}
 				}
 			}

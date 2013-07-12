@@ -30,7 +30,7 @@ public class EipDesignerImageStore {
 	/**
 	 * The instance of this class.
 	 */
-	public static EipDesignerImageStore INSTANCE = new EipDesignerImageStore();
+	public static final EipDesignerImageStore INSTANCE = new EipDesignerImageStore();
 
 	/**
 	 * The EIP images (enabled).

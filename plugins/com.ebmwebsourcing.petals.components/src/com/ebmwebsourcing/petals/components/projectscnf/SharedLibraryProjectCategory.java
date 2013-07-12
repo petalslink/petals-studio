@@ -26,7 +26,7 @@ import com.ebmwebsourcing.petals.components.PetalsComponentsPlugin;
  */
 public class SharedLibraryProjectCategory extends PetalsProjectCategory {
 
-	public static String SL_CATEGORY_ID = "petals.category.shared-libraries";
+	public static final String SL_CATEGORY_ID = "petals.category.shared-libraries";
 
 
 	/*

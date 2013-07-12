@@ -52,7 +52,7 @@ public class WsdlUtils {
 	/**
 	 * The unique instance of this parser.
 	 */
-	public static WsdlUtils INSTANCE = new WsdlUtils();
+	public static final WsdlUtils INSTANCE = new WsdlUtils();
 
 	/**
 	 * The instance of the WSDL parser for the version 1.1 of WSDL.

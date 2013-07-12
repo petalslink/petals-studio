@@ -180,7 +180,7 @@ public class MarkerUtils {
 					try {
 						marker.setAttribute( IMarker.LINE_NUMBER, line );
 					} catch( CoreException e ) {
-						e.printStackTrace();
+						PetalsCommonPlugin.log( e, IStatus.ERROR );
 					}
 				}
 			}

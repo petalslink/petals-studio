@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
@@ -15,6 +15,7 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
@@ -45,13 +46,13 @@ public class ImageRegistry {
 		try {
 			this.errorOvrDesc = PetalsCommonPlugin.getImageDescriptor( "icons/ovr16/error_co.gif" );
 		} catch( Exception e ) {
-			e.printStackTrace();
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
 		try {
 			this.warningOverDesc  = PetalsCommonPlugin.getImageDescriptor( "icons/ovr16/warning_co.gif" );
 		} catch( Exception e ) {
-			e.printStackTrace();
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 	}
 

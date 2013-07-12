@@ -74,7 +74,7 @@ public abstract class FixedShellTooltip implements ControlListener {
 				try {
 					Thread.sleep( 1000 );
 				} catch( InterruptedException e ) {
-					e.printStackTrace();
+					// nothing
 				}
 
 				if( FixedShellTooltip.this.shown.get())

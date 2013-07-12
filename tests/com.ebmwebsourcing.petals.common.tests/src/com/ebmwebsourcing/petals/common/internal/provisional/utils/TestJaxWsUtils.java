@@ -96,10 +96,9 @@ public class TestJaxWsUtils {
 	 * @return a matcher
 	 */
 	private Matcher matchOutput( String input, String bodyPattern ) {
-
 		String output = JaxWsUtils.replaceInterfaceMethodsByImpl( new StringBuffer( input )).trim();
 		String initPattern = Pattern.quote( input.substring( 0, input.length() - 1 ).trim());
-		return smartPattern( initPattern + EMPTY_BODY ).matcher( output );
+		return smartPattern( initPattern + bodyPattern ).matcher( output );
 	}
 
 

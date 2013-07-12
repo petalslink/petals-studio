@@ -237,7 +237,7 @@ public class JaxWsUtils {
 						}
 
 					} catch( IOException ioe ) {
-						ioe.printStackTrace();
+						PetalsCommonPlugin.log( ioe, IStatus.ERROR );
 					}
 				}
 			};
@@ -353,7 +353,7 @@ public class JaxWsUtils {
 						}
 
 					} catch( IOException ioe ) {
-						ioe.printStackTrace();
+						PetalsCommonPlugin.log( ioe, IStatus.ERROR );
 					}
 				}
 			};

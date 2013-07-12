@@ -129,7 +129,7 @@ public class MarkerBean {
 					List<?> data = diagnostic.getData();
 					if( data != null && ! data.isEmpty()) {
 						Object o = diagnostic.getData().get( 0 );
-						if( o != null && o instanceof EObject )
+						if( o instanceof EObject )
 							xpath = EmfUtils.getXpathExpression((EObject) o);
 					}
 
@@ -160,7 +160,7 @@ public class MarkerBean {
 					List<?> data = childDiagnostic.getData();
 					if( data != null && ! data.isEmpty()) {
 						Object o = childDiagnostic.getData().get( 0 );
-						if( o != null && o instanceof EObject )
+						if( o instanceof EObject )
 							xpath = EmfUtils.getXpathExpression((EObject) o);
 					}
 

@@ -25,10 +25,9 @@ import org.eclipse.jface.viewers.ViewerFilter;
  */
 public class ContainerFilter extends ViewerFilter {
 
+	public static final boolean FILTER_CONTAINERS = true;
+	public static final boolean FILTER_NON_CONTAINERS = false;
 	private final boolean fFilterContainers;
-
-	public static boolean FILTER_CONTAINERS= true;
-	public static boolean FILTER_NON_CONTAINERS= false;
 
 	public ContainerFilter(boolean filterContainers) {
 		this.fFilterContainers= filterContainers;

@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.su.export;
@@ -123,7 +123,7 @@ public class SuExportWizard extends Wizard implements IExportWizard {
 
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	private IRunnableWithProgress getExportOperation() {
@@ -162,7 +162,7 @@ public class SuExportWizard extends Wizard implements IExportWizard {
 								SuExportWizard.this.resourcesToSelect.add( p.getFile( saName + ".zip" ));
 
 							} catch( Exception e ) {
-								e.printStackTrace();
+								PetalsServicesPlugin.log( e, IStatus.ERROR );
 							}
 						}
 					} finally {
@@ -174,6 +174,7 @@ public class SuExportWizard extends Wizard implements IExportWizard {
 
 		case SEPARATE_IN_DIRECTORY:
 			op = new IRunnableWithProgress() {
+				@Override
 				public void run( IProgressMonitor monitor ) {
 
 					monitor.beginTask( "Export in progress...", IProgressMonitor.UNKNOWN );
@@ -206,6 +207,7 @@ public class SuExportWizard extends Wizard implements IExportWizard {
 
 		case ALL_IN_ONE:
 			op = new IRunnableWithProgress() {
+				@Override
 				public void run( IProgressMonitor monitor ) {
 
 					monitor.beginTask( "Export in progress...", IProgressMonitor.UNKNOWN );
@@ -236,6 +238,7 @@ public class SuExportWizard extends Wizard implements IExportWizard {
 	 * @see org.eclipse.ui.IWorkbenchWizard
 	 * #init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init( IWorkbench workbench, IStructuredSelection selection ) {
 		this.selection = selection;
 	}

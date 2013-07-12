@@ -552,39 +552,6 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 
 
 	/**
-	 * Checks that an URL points to an existing resource.
-	 * @param url an URL (not null)
-	 * @return null if everything is fine, an error message otherwise
-	 */
-	private String validateUrl( String url ) {
-
-		String msg = null;
-		InputStream is = null;
-		try {
-			is = UriAndUrlHelper.urlToUri( this.componentUrl ).toURL().openStream();
-
-		} catch( MalformedURLException e ) {
-			msg = e.getMessage();
-
-		} catch( IOException e ) {
-			msg = e.getMessage();
-
-		} finally {
-			if( is != null ) {
-				try {
-					is.close();
-
-				} catch( IOException e ) {
-					PetalsComponentsPlugin.log( e, IStatus.WARNING );
-				}
-			}
-		}
-
-		return msg;
-	}
-
-
-	/**
 	 * @return the componentUrl
 	 */
 	public String getComponentUrl() {
@@ -613,7 +580,7 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 	 * @param path the file path or file URL
 	 * @return an URL
 	 */
-	public static String convertFilePathToUrl( String path ) {
+	private static String convertFilePathToUrl( String path ) {
 
 		URL url;
 		try {
@@ -630,5 +597,38 @@ public class ComponentConfigurationWizardPage extends WizardPage implements IWiz
 		}
 
 		return url.toString();
+	}
+
+
+	/**
+	 * Checks that an URL points to an existing resource.
+	 * @param url an URL (not null)
+	 * @return null if everything is fine, an error message otherwise
+	 */
+	private static String validateUrl( String url ) {
+
+		String msg = null;
+		InputStream is = null;
+		try {
+			is = UriAndUrlHelper.urlToUri( url ).toURL().openStream();
+
+		} catch( MalformedURLException e ) {
+			msg = e.getMessage();
+
+		} catch( IOException e ) {
+			msg = e.getMessage();
+
+		} finally {
+			if( is != null ) {
+				try {
+					is.close();
+
+				} catch( IOException e ) {
+					PetalsComponentsPlugin.log( e, IStatus.WARNING );
+				}
+			}
+		}
+
+		return msg;
 	}
 }

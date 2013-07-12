@@ -47,7 +47,7 @@ public class JbiCustomDiagnostician extends Diagnostician {
 		// Compute prefix (get container names recursively).
 		String prefix = ""; //$NON-NLS-1$
 		EObject eContainer = eObject.eContainer();
-		while(eContainer != null && eContainer instanceof EAnnotation)
+		while( eContainer instanceof EAnnotation )
 			eContainer = eContainer.eContainer();
 		if( eContainer != null )
 			prefix = getObjectLabel( eContainer );

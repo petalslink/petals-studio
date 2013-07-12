@@ -436,9 +436,10 @@ public class SaDirectorySource extends EndpointSource {
 				ps.busyCursorWhile( new UnzippingRunnableWithProgress( suBean ));
 
 			} catch( InvocationTargetException e ) {
-				e.printStackTrace();
+				PetalsServicesPlugin.log( e, IStatus.ERROR );
+
 			} catch( InterruptedException e ) {
-				e.printStackTrace();
+				// nothing
 			}
 		}
 

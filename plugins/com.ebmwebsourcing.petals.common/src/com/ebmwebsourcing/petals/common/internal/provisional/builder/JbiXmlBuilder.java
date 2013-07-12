@@ -183,7 +183,7 @@ public abstract class JbiXmlBuilder extends IncrementalProjectBuilder {
 			try {
 				jbiXmlFile.deleteMarkers( PetalsConstants.MARKER_ID_JBI_XML, true, IResource.DEPTH_ZERO );
 			} catch( CoreException e ) {
-				e.printStackTrace();
+				PetalsCommonPlugin.log( e, IStatus.ERROR );
 			}
 
 			// Check that it's a valid XML file.

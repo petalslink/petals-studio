@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.explorer.sources;
@@ -16,11 +16,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
+import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
 import com.ebmwebsourcing.petals.services.explorer.model.ServiceUnitBean;
 import com.sun.java.xml.ns.jbi.Jbi;
@@ -55,6 +57,7 @@ public abstract class EndpointSource {
 		if( this.serviceUnits == null ) {
 			final IRunnableWithProgress rwp = new IRunnableWithProgress() {
 
+				@Override
 				public void run( IProgressMonitor monitor )
 						throws InvocationTargetException, InterruptedException {
 					try {
@@ -67,15 +70,16 @@ public abstract class EndpointSource {
 			};
 
 			Display.getDefault().syncExec( new Runnable() {
+				@Override
 				public void run() {
 					try {
 						PlatformUI.getWorkbench().getActiveWorkbenchWindow().run( false, false, rwp );
 
 					} catch( InvocationTargetException e ) {
-						e.printStackTrace();
+						PetalsServicesPlugin.log( e, IStatus.ERROR );
 
 					} catch( InterruptedException e ) {
-						e.printStackTrace();
+						// nothing
 					}
 				}
 			});
@@ -101,7 +105,7 @@ public abstract class EndpointSource {
 	 * <p>
 	 * This method should be called in a runnable with a progress monitor.
 	 * </p>
-	 * 
+	 *
 	 * @param monitor a progress monitor, already initialized (unknown count)
 	 * @return the service units from this source
 	 */
@@ -211,7 +215,7 @@ public abstract class EndpointSource {
 	 * When the WSDL container location is computed, it must be done for all the
 	 * end-points of the service-unit.
 	 * </p>
-	 * 
+	 *
 	 * @param suBean
 	 * @return the directory path where is located the WSDL of this jbi.xml.
 	 * <p>

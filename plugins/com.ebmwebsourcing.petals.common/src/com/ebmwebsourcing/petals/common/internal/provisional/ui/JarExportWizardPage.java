@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.common.internal.provisional.ui;
@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -54,6 +55,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.jdt.CheckboxTreeAndListGroup;
 import com.ebmwebsourcing.petals.common.internal.provisional.ui.jdt.ContainerFilter;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JavaUtils;
@@ -69,7 +71,6 @@ public class JarExportWizardPage extends WizardPage implements IWizardPage {
 
 	private final JarPackageData jarDescription = new JarPackageData ();
 	private boolean exportSources, compressJar, exportWarningsAndErrors = true;
-
 
 
 	/**
@@ -89,6 +90,7 @@ public class JarExportWizardPage extends WizardPage implements IWizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		Composite container = new Composite( parent, SWT.NONE );
@@ -110,7 +112,7 @@ public class JarExportWizardPage extends WizardPage implements IWizardPage {
 
 			@Override
 			public Object[] getElements( Object parent ) {
-				if( parent != null && parent instanceof IWorkspaceRoot ) {
+				if( parent instanceof IWorkspaceRoot ) {
 					List<IJavaProject> result =
 						JavaUtils.getJavaProjectDependencies( JarExportWizardPage.this.selectedProject );
 					return result.toArray();
@@ -188,6 +190,7 @@ public class JarExportWizardPage extends WizardPage implements IWizardPage {
 		this.javaSelectionViewer.addListFilter( new ContainerFilter( ContainerFilter.FILTER_CONTAINERS ));
 		this.javaSelectionViewer.expandTreeToLevel( this.selectedProject, 1 );
 		this.javaSelectionViewer.addCheckStateListener( new ICheckStateListener () {
+			@Override
 			public void checkStateChanged( CheckStateChangedEvent event ) {
 				validate();
 			}
@@ -271,11 +274,11 @@ public class JarExportWizardPage extends WizardPage implements IWizardPage {
 				ICompilationUnit cu = (ICompilationUnit) o;
 				try {
 					IResource r = cu.getCorrespondingResource();
-					if( r != null && r instanceof IFile )
+					if( r instanceof IFile )
 						files.add((IFile) r);
 
 				} catch( JavaModelException e ) {
-					e.printStackTrace();
+					PetalsCommonPlugin.log( e, IStatus.ERROR );
 				}
 			}
 			else if( o instanceof IFile )
@@ -290,7 +293,7 @@ public class JarExportWizardPage extends WizardPage implements IWizardPage {
 	/**
 	 * Return the class file resources associated with the given elements.
 	 * <p>It is assumed the java projects have already been compiled and the resources are all in a saved state.</p>
-	 * 
+	 *
 	 * @param elements
 	 * @return
 	 */

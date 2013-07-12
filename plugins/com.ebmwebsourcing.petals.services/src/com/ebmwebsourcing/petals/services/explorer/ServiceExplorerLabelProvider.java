@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2009-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 
 package com.ebmwebsourcing.petals.services.explorer;
@@ -98,6 +98,7 @@ implements ICommonLabelProvider {
 	 * @see org.eclipse.ui.navigator.IDescriptionProvider
 	 * #getDescription(java.lang.Object)
 	 */
+	@Override
 	public String getDescription( Object element ) {
 
 		if( element instanceof EndpointSource )
@@ -164,7 +165,7 @@ implements ICommonLabelProvider {
 				this.suImg.dispose();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			PetalsServicesPlugin.log( e, IStatus.ERROR );
 		}
 
 		super.dispose();
@@ -199,6 +200,7 @@ implements ICommonLabelProvider {
 	 * @see org.eclipse.ui.navigator.ICommonLabelProvider
 	 * #init(org.eclipse.ui.navigator.ICommonContentExtensionSite)
 	 */
+	@Override
 	public void init( ICommonContentExtensionSite aConfig ) {
 		// nothing
 	}
@@ -209,6 +211,7 @@ implements ICommonLabelProvider {
 	 * @see org.eclipse.ui.navigator.IMementoAware
 	 * #restoreState(org.eclipse.ui.IMemento)
 	 */
+	@Override
 	public void restoreState( IMemento aMemento ) {
 		// nothing
 	}
@@ -219,6 +222,7 @@ implements ICommonLabelProvider {
 	 * @see org.eclipse.ui.navigator.IMementoAware
 	 * #saveState(org.eclipse.ui.IMemento)
 	 */
+	@Override
 	public void saveState( IMemento aMemento ) {
 		// nothing
 	}

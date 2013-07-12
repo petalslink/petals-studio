@@ -122,7 +122,7 @@ public class StructuredModelHelper {
 				result = (Node) indexedRegion;
 
 		} catch( Exception e ) {
-			e.printStackTrace();
+			PetalsCommonPlugin.log( e, IStatus.ERROR );
 		}
 
 		return result;

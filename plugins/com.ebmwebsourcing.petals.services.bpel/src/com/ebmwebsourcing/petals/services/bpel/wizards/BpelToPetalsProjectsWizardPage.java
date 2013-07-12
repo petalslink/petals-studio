@@ -271,17 +271,17 @@ public class BpelToPetalsProjectsWizardPage extends AbstractPetalsServiceCreatio
 
 	/**
 	 * Creates the SOAP SU from the imports URIs.
-	 * @param import_ the import to process
+	 * @param theImport the import to process
 	 * @param consumes true if a consumer must be created, false for a provider
 	 * @param suImportBeans the import beans to display in the wizard page
 	 * @throws InvocationTargetException if the imported WSDL could not be created
 	 */
-	private void createSoapImportBean( String import_, boolean consumes, List<SuImportBean> suImportBeans )
+	private void createSoapImportBean( String theImport, boolean consumes, List<SuImportBean> suImportBeans )
 	throws InvocationTargetException {
 
 		List<JbiBasicBean> jbiBeans;
 		try {
-			jbiBeans = WsdlUtils.INSTANCE.parse( import_ );
+			jbiBeans = WsdlUtils.INSTANCE.parse( theImport );
 
 		} catch( IllegalArgumentException e ) {
 			PetalsBpelPlugin.log( e, IStatus.ERROR );
@@ -294,7 +294,7 @@ public class BpelToPetalsProjectsWizardPage extends AbstractPetalsServiceCreatio
 			suBean.setComponentName( "petals-bc-soap" );
 			suBean.setComponentVersion( SOAP_VERSIONS[ 0 ]);
 			suBean.setSupportedVersions( SOAP_VERSIONS );
-			suBean.getKeyToObject().put( WSDL_LOCATION, import_ );
+			suBean.getKeyToObject().put( WSDL_LOCATION, theImport );
 			suBean.setSuType( "SOAP" );
 
 			String name;

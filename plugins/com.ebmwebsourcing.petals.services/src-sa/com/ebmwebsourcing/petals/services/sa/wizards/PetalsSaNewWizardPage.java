@@ -305,7 +305,7 @@ public class PetalsSaNewWizardPage extends WizardPage {
 				}
 			}
 		} catch( CoreException e ) {
-			e.printStackTrace();
+			PetalsServicesPlugin.log( e, IStatus.ERROR );
 		}
 
 		// Other fields
