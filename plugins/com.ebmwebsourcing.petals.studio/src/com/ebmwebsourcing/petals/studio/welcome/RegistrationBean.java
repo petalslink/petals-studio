@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.studio.welcome;
 
@@ -19,7 +19,7 @@ public class RegistrationBean {
 
 	// Used data
 	private String email, company, name, phone, language;
-	private boolean registered;
+	private boolean registered, joker;
 	private String lastRegisteredVersion;
 
 	// Proxy data
@@ -128,6 +128,22 @@ public class RegistrationBean {
 	 */
 	protected final void setRegistered( boolean registered ) {
 		this.registered = registered;
+	}
+
+
+	/**
+	 * @return the joker
+	 */
+	public boolean isJoker() {
+		return this.joker;
+	}
+
+
+	/**
+	 * @param joker the joker to set
+	 */
+	public void setJoker( boolean joker ) {
+		this.joker = joker;
 	}
 
 

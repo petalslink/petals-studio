@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2010-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.studio.welcome;
 
@@ -40,6 +40,7 @@ public class RegistrationManager {
 	private final static String LANG = "petals.studio.language";
 	private final static String REGISTERED = "petals.studio.done";
 	private final static String LAST_STUDIO_VERSION = "petals.studio.version";
+	private final static String JOKER = "petals.studio.joker";
 
 	private final static String PROXY_HOST = "petals.studio.proxy.host";
 	private final static String PROXY_USER = "petals.studio.proxy.user";
@@ -195,6 +196,11 @@ public class RegistrationManager {
 				boolean registered = Boolean.valueOf( registeredAS );
 				this.backupRegistrationBean.setRegistered( registered );
 
+				String jokerAS = properties.getProperty( JOKER );
+				jokerAS = decode( jokerAS );
+				boolean joker = Boolean.valueOf( jokerAS );
+				this.backupRegistrationBean.setJoker( joker );
+
 				String lastVersion = properties.getProperty( LAST_STUDIO_VERSION );
 				this.backupRegistrationBean.setLastRegisteredVersion( decode( lastVersion ));
 
@@ -232,7 +238,7 @@ public class RegistrationManager {
 	 * @return the encoded string
 	 * @throws Exception if something went wrong
 	 */
-	private String encode( String s ) throws Exception {
+	public String encode( String s ) throws Exception {
 
 		String result = "";
 		if( s != null && s.trim().length() > 0 ) {
@@ -302,6 +308,10 @@ public class RegistrationManager {
 
 			// Dev mode
 			if( VersionUtils.DEV_VERSION.equals( VersionUtils.getProductVersion( true )))
+				needsRegistration = false;
+
+			// Consultants
+			else if( bean.isJoker())
 				needsRegistration = false;
 
 			// "1.0".compareTo( "1.1" ) returns a negative number
