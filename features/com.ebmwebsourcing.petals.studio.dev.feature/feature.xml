@@ -2,7 +2,7 @@
 <feature
       id="com.ebmwebsourcing.petals.studio.dev.feature"
       label="Petals Studio - Development Feature"
-      version="1.4.0.qualifier"
+      version="1.3.4.qualifier"
       provider-name="Linagora">
 
    <description url="http://www.petalslink.com">
