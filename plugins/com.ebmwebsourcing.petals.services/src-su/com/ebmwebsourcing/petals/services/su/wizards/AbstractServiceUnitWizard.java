@@ -166,6 +166,14 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 	 */
 	@Override
 	public void addPages() {
+
+		// If people go back to the selection wizard,
+		// some pages can be added twice in a wizard.
+		// Normally, a SU wizard starts with no page.
+		if( super.getPageCount() != 0 )
+			return;
+
+		// Add the pages
 		AbstractSuWizardPage[] pages = this.getCustomWizardPagesBeforeJbi();
 		if (pages != null) {
 			for (IWizardPage page : pages)
