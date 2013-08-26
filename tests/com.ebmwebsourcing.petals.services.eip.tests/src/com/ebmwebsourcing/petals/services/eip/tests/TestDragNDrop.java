@@ -45,12 +45,11 @@ public class TestDragNDrop extends SWTBotGefTestCase {
 		this.bot.button("Finish").click();
 
 		SWTBotGefEditor eipEditor = this.bot.gefEditor(this.bot.activeEditor().getTitle());
-		new DndUtil(this.bot.activeShell().display).dragAndDrop(toDrag, eipEditor.getSWTBotGefViewer().rootEditPart());
+		new DndUtil( this.bot.activeShell().display ).dragAndDrop(toDrag, eipEditor.getSWTBotGefViewer().rootEditPart());
 
 		Assert.assertNotSame("No edit part created", 0, eipEditor.getEditPart(suDesc.getEndpoint().replace("Endpoint", "Service")));
 
 		this.bot.saveAllEditors();
 		this.bot.closeAllEditors();
 	}
-
 }

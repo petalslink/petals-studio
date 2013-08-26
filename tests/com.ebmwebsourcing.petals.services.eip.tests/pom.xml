@@ -22,7 +22,7 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<argLine>${tycho.testArgLine} -Xms64m -Xmx1024m -XX:MaxPermSize=128M -Dorg.eclipse.swtbot.search.timeout=10000</argLine>
+					<argLine>${tycho.testArgLine} -Xms64m -Xmx1024m -XX:MaxPermSize=128M -Dorg.eclipse.swtbot.search.timeout=20000</argLine>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<product>com.ebmwebsourcing.petals.studio.product</product>

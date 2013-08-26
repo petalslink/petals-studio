@@ -1,13 +1,13 @@
 /****************************************************************************
- * 
+ *
  * Copyright (c) 2011-2013, Linagora
- * 
+ *
  * This source code is available under agreement available at
  * http://www.petalslink.com/legal/licenses/petals-studio
- * 
+ *
  * You should have received a copy of the agreement along with this program.
  * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- * 
+ *
  *****************************************************************************/
 package com.ebmwebsourcing.petals.common.croquis.internal.wizards;
 
@@ -36,6 +36,14 @@ public class CroquisNewWizard extends Wizard implements INewWizard {
 	private IStatus status;
 
 
+	/**
+	 * Constructor.
+	 */
+	public CroquisNewWizard() {
+		setNeedsProgressMonitor( true );
+	}
+
+
 	/*
 	 * (non-Jsdoc)
 	 * @see org.eclipse.jface.wizard.Wizard
@@ -52,6 +60,7 @@ public class CroquisNewWizard extends Wizard implements INewWizard {
 	 * @see org.eclipse.ui.IWorkbenchWizard
 	 * #init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init( IWorkbench workbench, IStructuredSelection selection ) {
 		// nothing
 	}
