@@ -1,10 +1,22 @@
+/******************************************************************************
+ * Copyright (c) 2012-2013, Linagora
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.maven;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class PetalsMavenPlugin extends AbstractUIPlugin {
 
@@ -18,11 +30,13 @@ public class PetalsMavenPlugin extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public PetalsMavenPlugin() {
+		// nothing
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin
+	 * #start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -31,7 +45,8 @@ public class PetalsMavenPlugin extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin
+	 * #stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -40,11 +55,9 @@ public class PetalsMavenPlugin extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance
-	 *
 	 * @return the shared instance
 	 */
 	public static PetalsMavenPlugin getDefault() {
 		return plugin;
 	}
-
 }

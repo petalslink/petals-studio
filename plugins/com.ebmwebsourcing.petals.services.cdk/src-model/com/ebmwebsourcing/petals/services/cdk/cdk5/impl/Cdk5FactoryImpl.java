@@ -1,20 +1,28 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
-package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.*;
+package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Factory;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +39,7 @@ public class Cdk5FactoryImpl extends EFactoryImpl implements Cdk5Factory {
 	 */
 	public static Cdk5Factory init() {
 		try {
-			Cdk5Factory theCdk5Factory = (Cdk5Factory)EPackage.Registry.INSTANCE.getEFactory("http://petals.ow2.org/components/extensions/version-5"); 
+			Cdk5Factory theCdk5Factory = (Cdk5Factory)EPackage.Registry.INSTANCE.getEFactory("http://petals.ow2.org/components/extensions/version-5");
 			if (theCdk5Factory != null) {
 				return theCdk5Factory;
 			}
@@ -73,6 +81,7 @@ public class Cdk5FactoryImpl extends EFactoryImpl implements Cdk5Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CDK5Provides createCDK5Provides() {
 		CDK5ProvidesImpl cdk5Provides = new CDK5ProvidesImpl();
 		return cdk5Provides;
@@ -83,6 +92,7 @@ public class Cdk5FactoryImpl extends EFactoryImpl implements Cdk5Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CDK5Consumes createCDK5Consumes() {
 		CDK5ConsumesImpl cdk5Consumes = new CDK5ConsumesImpl();
 		return cdk5Consumes;
@@ -93,6 +103,7 @@ public class Cdk5FactoryImpl extends EFactoryImpl implements Cdk5Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RetryPolicy createRetryPolicy() {
 		RetryPolicyImpl retryPolicy = new RetryPolicyImpl();
 		return retryPolicy;
@@ -103,6 +114,7 @@ public class Cdk5FactoryImpl extends EFactoryImpl implements Cdk5Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Cdk5Package getCdk5Package() {
 		return (Cdk5Package)getEPackage();
 	}

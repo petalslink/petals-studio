@@ -1,21 +1,30 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
-package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl;
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
 
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.*;
+package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferFactory;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +41,7 @@ public class FileTransferFactoryImpl extends EFactoryImpl implements FileTransfe
 	 */
 	public static FileTransferFactory init() {
 		try {
-			FileTransferFactory theFileTransferFactory = (FileTransferFactory)EPackage.Registry.INSTANCE.getEFactory("http://petals.ow2.org/components/filetransfer/version-2"); 
+			FileTransferFactory theFileTransferFactory = (FileTransferFactory)EPackage.Registry.INSTANCE.getEFactory("http://petals.ow2.org/components/filetransfer/version-2");
 			if (theFileTransferFactory != null) {
 				return theFileTransferFactory;
 			}
@@ -107,6 +116,7 @@ public class FileTransferFactoryImpl extends EFactoryImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FileTransferProvides createFileTransferProvides() {
 		FileTransferProvidesImpl fileTransferProvides = new FileTransferProvidesImpl();
 		return fileTransferProvides;
@@ -117,6 +127,7 @@ public class FileTransferFactoryImpl extends EFactoryImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FileTransferConsumes createFileTransferConsumes() {
 		FileTransferConsumesImpl fileTransferConsumes = new FileTransferConsumesImpl();
 		return fileTransferConsumes;
@@ -167,6 +178,7 @@ public class FileTransferFactoryImpl extends EFactoryImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FileTransferPackage getFileTransferPackage() {
 		return (FileTransferPackage)getEPackage();
 	}

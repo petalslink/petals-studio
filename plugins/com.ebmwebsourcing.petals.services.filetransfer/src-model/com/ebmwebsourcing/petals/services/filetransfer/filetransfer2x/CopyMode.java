@@ -1,9 +1,15 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x;
 
 import java.util.Arrays;
@@ -203,8 +209,9 @@ public enum CopyMode implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
-	  return value;
+	  return this.value;
 	}
 
 	/**
@@ -212,8 +219,9 @@ public enum CopyMode implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
-	  return name;
+	  return this.name;
 	}
 
 	/**
@@ -221,8 +229,9 @@ public enum CopyMode implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
-	  return literal;
+	  return this.literal;
 	}
 
 	/**
@@ -233,7 +242,7 @@ public enum CopyMode implements Enumerator {
 	 */
 	@Override
 	public String toString() {
-		return literal;
+		return this.literal;
 	}
-	
+
 } //CopyMode

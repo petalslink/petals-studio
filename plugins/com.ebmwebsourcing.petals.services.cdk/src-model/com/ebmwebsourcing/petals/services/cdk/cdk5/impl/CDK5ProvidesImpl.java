@@ -1,21 +1,24 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-
 import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -225,8 +228,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getTimeout() {
-		return timeout;
+		return this.timeout;
 	}
 
 	/**
@@ -234,11 +238,12 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimeout(int newTimeout) {
-		int oldTimeout = timeout;
-		timeout = newTimeout;
+		int oldTimeout = this.timeout;
+		this.timeout = newTimeout;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__TIMEOUT, oldTimeout, timeout));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__TIMEOUT, oldTimeout, this.timeout));
 	}
 
 	/**
@@ -246,8 +251,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isValidateWsdl() {
-		return validateWsdl;
+		return this.validateWsdl;
 	}
 
 	/**
@@ -255,13 +261,14 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValidateWsdl(boolean newValidateWsdl) {
-		boolean oldValidateWsdl = validateWsdl;
-		validateWsdl = newValidateWsdl;
-		boolean oldValidateWsdlESet = validateWsdlESet;
-		validateWsdlESet = true;
+		boolean oldValidateWsdl = this.validateWsdl;
+		this.validateWsdl = newValidateWsdl;
+		boolean oldValidateWsdlESet = this.validateWsdlESet;
+		this.validateWsdlESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL, oldValidateWsdl, validateWsdl, !oldValidateWsdlESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL, oldValidateWsdl, this.validateWsdl, !oldValidateWsdlESet));
 	}
 
 	/**
@@ -269,11 +276,12 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetValidateWsdl() {
-		boolean oldValidateWsdl = validateWsdl;
-		boolean oldValidateWsdlESet = validateWsdlESet;
-		validateWsdl = VALIDATE_WSDL_EDEFAULT;
-		validateWsdlESet = false;
+		boolean oldValidateWsdl = this.validateWsdl;
+		boolean oldValidateWsdlESet = this.validateWsdlESet;
+		this.validateWsdl = VALIDATE_WSDL_EDEFAULT;
+		this.validateWsdlESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL, oldValidateWsdl, VALIDATE_WSDL_EDEFAULT, oldValidateWsdlESet));
 	}
@@ -283,8 +291,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetValidateWsdl() {
-		return validateWsdlESet;
+		return this.validateWsdlESet;
 	}
 
 	/**
@@ -292,8 +301,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isForwardSecuritySubject() {
-		return forwardSecuritySubject;
+		return this.forwardSecuritySubject;
 	}
 
 	/**
@@ -301,13 +311,14 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setForwardSecuritySubject(boolean newForwardSecuritySubject) {
-		boolean oldForwardSecuritySubject = forwardSecuritySubject;
-		forwardSecuritySubject = newForwardSecuritySubject;
-		boolean oldForwardSecuritySubjectESet = forwardSecuritySubjectESet;
-		forwardSecuritySubjectESet = true;
+		boolean oldForwardSecuritySubject = this.forwardSecuritySubject;
+		this.forwardSecuritySubject = newForwardSecuritySubject;
+		boolean oldForwardSecuritySubjectESet = this.forwardSecuritySubjectESet;
+		this.forwardSecuritySubjectESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT, oldForwardSecuritySubject, forwardSecuritySubject, !oldForwardSecuritySubjectESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT, oldForwardSecuritySubject, this.forwardSecuritySubject, !oldForwardSecuritySubjectESet));
 	}
 
 	/**
@@ -315,11 +326,12 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetForwardSecuritySubject() {
-		boolean oldForwardSecuritySubject = forwardSecuritySubject;
-		boolean oldForwardSecuritySubjectESet = forwardSecuritySubjectESet;
-		forwardSecuritySubject = FORWARD_SECURITY_SUBJECT_EDEFAULT;
-		forwardSecuritySubjectESet = false;
+		boolean oldForwardSecuritySubject = this.forwardSecuritySubject;
+		boolean oldForwardSecuritySubjectESet = this.forwardSecuritySubjectESet;
+		this.forwardSecuritySubject = FORWARD_SECURITY_SUBJECT_EDEFAULT;
+		this.forwardSecuritySubjectESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT, oldForwardSecuritySubject, FORWARD_SECURITY_SUBJECT_EDEFAULT, oldForwardSecuritySubjectESet));
 	}
@@ -329,8 +341,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetForwardSecuritySubject() {
-		return forwardSecuritySubjectESet;
+		return this.forwardSecuritySubjectESet;
 	}
 
 	/**
@@ -338,8 +351,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isForwardMessageProperties() {
-		return forwardMessageProperties;
+		return this.forwardMessageProperties;
 	}
 
 	/**
@@ -347,13 +361,14 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setForwardMessageProperties(boolean newForwardMessageProperties) {
-		boolean oldForwardMessageProperties = forwardMessageProperties;
-		forwardMessageProperties = newForwardMessageProperties;
-		boolean oldForwardMessagePropertiesESet = forwardMessagePropertiesESet;
-		forwardMessagePropertiesESet = true;
+		boolean oldForwardMessageProperties = this.forwardMessageProperties;
+		this.forwardMessageProperties = newForwardMessageProperties;
+		boolean oldForwardMessagePropertiesESet = this.forwardMessagePropertiesESet;
+		this.forwardMessagePropertiesESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, oldForwardMessageProperties, forwardMessageProperties, !oldForwardMessagePropertiesESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, oldForwardMessageProperties, this.forwardMessageProperties, !oldForwardMessagePropertiesESet));
 	}
 
 	/**
@@ -361,11 +376,12 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetForwardMessageProperties() {
-		boolean oldForwardMessageProperties = forwardMessageProperties;
-		boolean oldForwardMessagePropertiesESet = forwardMessagePropertiesESet;
-		forwardMessageProperties = FORWARD_MESSAGE_PROPERTIES_EDEFAULT;
-		forwardMessagePropertiesESet = false;
+		boolean oldForwardMessageProperties = this.forwardMessageProperties;
+		boolean oldForwardMessagePropertiesESet = this.forwardMessagePropertiesESet;
+		this.forwardMessageProperties = FORWARD_MESSAGE_PROPERTIES_EDEFAULT;
+		this.forwardMessagePropertiesESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__FORWARD_MESSAGE_PROPERTIES, oldForwardMessageProperties, FORWARD_MESSAGE_PROPERTIES_EDEFAULT, oldForwardMessagePropertiesESet));
 	}
@@ -375,8 +391,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetForwardMessageProperties() {
-		return forwardMessagePropertiesESet;
+		return this.forwardMessagePropertiesESet;
 	}
 
 	/**
@@ -384,8 +401,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isForwardAttachments() {
-		return forwardAttachments;
+		return this.forwardAttachments;
 	}
 
 	/**
@@ -393,13 +411,14 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setForwardAttachments(boolean newForwardAttachments) {
-		boolean oldForwardAttachments = forwardAttachments;
-		forwardAttachments = newForwardAttachments;
-		boolean oldForwardAttachmentsESet = forwardAttachmentsESet;
-		forwardAttachmentsESet = true;
+		boolean oldForwardAttachments = this.forwardAttachments;
+		this.forwardAttachments = newForwardAttachments;
+		boolean oldForwardAttachmentsESet = this.forwardAttachmentsESet;
+		this.forwardAttachmentsESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS, oldForwardAttachments, forwardAttachments, !oldForwardAttachmentsESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS, oldForwardAttachments, this.forwardAttachments, !oldForwardAttachmentsESet));
 	}
 
 	/**
@@ -407,11 +426,12 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetForwardAttachments() {
-		boolean oldForwardAttachments = forwardAttachments;
-		boolean oldForwardAttachmentsESet = forwardAttachmentsESet;
-		forwardAttachments = FORWARD_ATTACHMENTS_EDEFAULT;
-		forwardAttachmentsESet = false;
+		boolean oldForwardAttachments = this.forwardAttachments;
+		boolean oldForwardAttachmentsESet = this.forwardAttachmentsESet;
+		this.forwardAttachments = FORWARD_ATTACHMENTS_EDEFAULT;
+		this.forwardAttachmentsESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__FORWARD_ATTACHMENTS, oldForwardAttachments, FORWARD_ATTACHMENTS_EDEFAULT, oldForwardAttachmentsESet));
 	}
@@ -421,8 +441,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetForwardAttachments() {
-		return forwardAttachmentsESet;
+		return this.forwardAttachmentsESet;
 	}
 
 	/**
@@ -430,8 +451,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getWsdl() {
-		return wsdl;
+		return this.wsdl;
 	}
 
 	/**
@@ -439,13 +461,14 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWsdl(String newWsdl) {
-		String oldWsdl = wsdl;
-		wsdl = newWsdl;
-		boolean oldWsdlESet = wsdlESet;
-		wsdlESet = true;
+		String oldWsdl = this.wsdl;
+		this.wsdl = newWsdl;
+		boolean oldWsdlESet = this.wsdlESet;
+		this.wsdlESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__WSDL, oldWsdl, wsdl, !oldWsdlESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_PROVIDES__WSDL, oldWsdl, this.wsdl, !oldWsdlESet));
 	}
 
 	/**
@@ -453,11 +476,12 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetWsdl() {
-		String oldWsdl = wsdl;
-		boolean oldWsdlESet = wsdlESet;
-		wsdl = WSDL_EDEFAULT;
-		wsdlESet = false;
+		String oldWsdl = this.wsdl;
+		boolean oldWsdlESet = this.wsdlESet;
+		this.wsdl = WSDL_EDEFAULT;
+		this.wsdlESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_PROVIDES__WSDL, oldWsdl, WSDL_EDEFAULT, oldWsdlESet));
 	}
@@ -467,8 +491,9 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetWsdl() {
-		return wsdlESet;
+		return this.wsdlESet;
 	}
 
 	/**
@@ -564,7 +589,7 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Cdk5Package.CDK5_PROVIDES__TIMEOUT:
-				return timeout != TIMEOUT_EDEFAULT;
+				return this.timeout != TIMEOUT_EDEFAULT;
 			case Cdk5Package.CDK5_PROVIDES__VALIDATE_WSDL:
 				return isSetValidateWsdl();
 			case Cdk5Package.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT:
@@ -590,17 +615,17 @@ public class CDK5ProvidesImpl extends ProvidesImpl implements CDK5Provides {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (timeout: ");
-		result.append(timeout);
+		result.append(this.timeout);
 		result.append(", validateWsdl: ");
-		if (validateWsdlESet) result.append(validateWsdl); else result.append("<unset>");
+		if (this.validateWsdlESet) result.append(this.validateWsdl); else result.append("<unset>");
 		result.append(", forwardSecuritySubject: ");
-		if (forwardSecuritySubjectESet) result.append(forwardSecuritySubject); else result.append("<unset>");
+		if (this.forwardSecuritySubjectESet) result.append(this.forwardSecuritySubject); else result.append("<unset>");
 		result.append(", forwardMessageProperties: ");
-		if (forwardMessagePropertiesESet) result.append(forwardMessageProperties); else result.append("<unset>");
+		if (this.forwardMessagePropertiesESet) result.append(this.forwardMessageProperties); else result.append("<unset>");
 		result.append(", forwardAttachments: ");
-		if (forwardAttachmentsESet) result.append(forwardAttachments); else result.append("<unset>");
+		if (this.forwardAttachmentsESet) result.append(this.forwardAttachments); else result.append("<unset>");
 		result.append(", wsdl: ");
-		if (wsdlESet) result.append(wsdl); else result.append("<unset>");
+		if (this.wsdlESet) result.append(this.wsdl); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

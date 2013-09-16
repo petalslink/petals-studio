@@ -1,20 +1,24 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
-package com.ebmwebsourcing.petals.services.cdk.cdk5.util;
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+package com.ebmwebsourcing.petals.services.cdk.cdk5.util;
 
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
+
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 
 /**
  * This class contains helper methods to serialize and deserialize XML documents
@@ -34,7 +38,7 @@ public class Cdk5XMLProcessor extends XMLProcessor {
 		super((EPackage.Registry.INSTANCE));
 		Cdk5Package.eINSTANCE.eClass();
 	}
-	
+
 	/**
 	 * Register for "*" and "xml" file extensions the Cdk5ResourceFactoryImpl factory.
 	 * <!-- begin-user-doc -->
@@ -43,12 +47,12 @@ public class Cdk5XMLProcessor extends XMLProcessor {
 	 */
 	@Override
 	protected Map<String, Resource.Factory> getRegistrations() {
-		if (registrations == null) {
+		if (this.registrations == null) {
 			super.getRegistrations();
-			registrations.put(XML_EXTENSION, new Cdk5ResourceFactoryImpl());
-			registrations.put(STAR_EXTENSION, new Cdk5ResourceFactoryImpl());
+			this.registrations.put(XML_EXTENSION, new Cdk5ResourceFactoryImpl());
+			this.registrations.put(STAR_EXTENSION, new Cdk5ResourceFactoryImpl());
 		}
-		return registrations;
+		return this.registrations;
 	}
 
 } //Cdk5XMLProcessor

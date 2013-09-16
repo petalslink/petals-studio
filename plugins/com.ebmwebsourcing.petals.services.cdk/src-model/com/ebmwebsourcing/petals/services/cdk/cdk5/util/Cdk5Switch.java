@@ -1,22 +1,29 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.cdk.cdk5.util;
 
-import com.ebmwebsourcing.petals.services.cdk.cdk5.*;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.Switch;
 
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.AbstractExtensibleElement;
 import com.sun.java.xml.ns.jbi.Consumes;
 import com.sun.java.xml.ns.jbi.Provides;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-
-import org.eclipse.emf.ecore.util.Switch;
 
 /**
  * <!-- begin-user-doc -->

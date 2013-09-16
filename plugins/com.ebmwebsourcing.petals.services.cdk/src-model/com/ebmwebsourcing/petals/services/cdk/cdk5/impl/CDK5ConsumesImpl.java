@@ -1,23 +1,26 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
-
-import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
-import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
-
-import com.sun.java.xml.ns.jbi.impl.ConsumesImpl;
 
 import javax.xml.namespace.QName;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Consumes;
+import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
+import com.sun.java.xml.ns.jbi.impl.ConsumesImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -128,8 +131,9 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getTimeout() {
-		return timeout;
+		return this.timeout;
 	}
 
 	/**
@@ -137,11 +141,12 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimeout(int newTimeout) {
-		int oldTimeout = timeout;
-		timeout = newTimeout;
+		int oldTimeout = this.timeout;
+		this.timeout = newTimeout;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__TIMEOUT, oldTimeout, timeout));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__TIMEOUT, oldTimeout, this.timeout));
 	}
 
 	/**
@@ -149,8 +154,9 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QName getOperation() {
-		return operation;
+		return this.operation;
 	}
 
 	/**
@@ -158,11 +164,12 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperation(QName newOperation) {
-		QName oldOperation = operation;
-		operation = newOperation;
+		QName oldOperation = this.operation;
+		this.operation = newOperation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__OPERATION, oldOperation, operation));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__OPERATION, oldOperation, this.operation));
 	}
 
 	/**
@@ -170,8 +177,9 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMep() {
-		return mep;
+		return this.mep;
 	}
 
 	/**
@@ -179,13 +187,14 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMep(String newMep) {
-		String oldMep = mep;
-		mep = newMep;
-		boolean oldMepESet = mepESet;
-		mepESet = true;
+		String oldMep = this.mep;
+		this.mep = newMep;
+		boolean oldMepESet = this.mepESet;
+		this.mepESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__MEP, oldMep, mep, !oldMepESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.CDK5_CONSUMES__MEP, oldMep, this.mep, !oldMepESet));
 	}
 
 	/**
@@ -193,11 +202,12 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMep() {
-		String oldMep = mep;
-		boolean oldMepESet = mepESet;
-		mep = MEP_EDEFAULT;
-		mepESet = false;
+		String oldMep = this.mep;
+		boolean oldMepESet = this.mepESet;
+		this.mep = MEP_EDEFAULT;
+		this.mepESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.CDK5_CONSUMES__MEP, oldMep, MEP_EDEFAULT, oldMepESet));
 	}
@@ -207,8 +217,9 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMep() {
-		return mepESet;
+		return this.mepESet;
 	}
 
 	/**
@@ -280,9 +291,9 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Cdk5Package.CDK5_CONSUMES__TIMEOUT:
-				return timeout != TIMEOUT_EDEFAULT;
+				return this.timeout != TIMEOUT_EDEFAULT;
 			case Cdk5Package.CDK5_CONSUMES__OPERATION:
-				return OPERATION_EDEFAULT == null ? operation != null : !OPERATION_EDEFAULT.equals(operation);
+				return OPERATION_EDEFAULT == null ? this.operation != null : !OPERATION_EDEFAULT.equals(this.operation);
 			case Cdk5Package.CDK5_CONSUMES__MEP:
 				return isSetMep();
 		}
@@ -300,11 +311,11 @@ public class CDK5ConsumesImpl extends ConsumesImpl implements CDK5Consumes {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (timeout: ");
-		result.append(timeout);
+		result.append(this.timeout);
 		result.append(", operation: ");
-		result.append(operation);
+		result.append(this.operation);
 		result.append(", mep: ");
-		if (mepESet) result.append(mep); else result.append("<unset>");
+		if (this.mepESet) result.append(this.mep); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

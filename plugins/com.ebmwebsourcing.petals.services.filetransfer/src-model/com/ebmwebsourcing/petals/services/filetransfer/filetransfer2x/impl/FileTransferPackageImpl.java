@@ -1,10 +1,22 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes;
@@ -12,15 +24,7 @@ import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransf
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
-
 import com.sun.java.xml.ns.jbi.JbiPackage;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -85,7 +89,7 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link FileTransferPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -115,7 +119,7 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		// Mark meta-data to indicate it can't be changed
 		theFileTransferPackage.freeze();
 
-  
+
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(FileTransferPackage.eNS_URI, theFileTransferPackage);
 		return theFileTransferPackage;
@@ -126,8 +130,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFileTransferProvides() {
-		return fileTransferProvidesEClass;
+		return this.fileTransferProvidesEClass;
 	}
 
 	/**
@@ -135,8 +140,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferProvides_WriteDirectory() {
-		return (EAttribute)fileTransferProvidesEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)this.fileTransferProvidesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -144,8 +150,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferProvides_CopyMode() {
-		return (EAttribute)fileTransferProvidesEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)this.fileTransferProvidesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -153,8 +160,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferProvides_FilePattern() {
-		return (EAttribute)fileTransferProvidesEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)this.fileTransferProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -162,8 +170,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferProvides_ReadDirectory() {
-		return (EAttribute)fileTransferProvidesEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)this.fileTransferProvidesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -171,8 +180,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferProvides_BackupDirectory() {
-		return (EAttribute)fileTransferProvidesEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)this.fileTransferProvidesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -180,8 +190,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFileTransferConsumes() {
-		return fileTransferConsumesEClass;
+		return this.fileTransferConsumesEClass;
 	}
 
 	/**
@@ -189,8 +200,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferConsumes_ReadDirectory() {
-		return (EAttribute)fileTransferConsumesEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)this.fileTransferConsumesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -198,8 +210,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferConsumes_BackupDirectory() {
-		return (EAttribute)fileTransferConsumesEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)this.fileTransferConsumesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -207,8 +220,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferConsumes_TransferMode() {
-		return (EAttribute)fileTransferConsumesEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)this.fileTransferConsumesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -216,8 +230,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferConsumes_FilePattern() {
-		return (EAttribute)fileTransferConsumesEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)this.fileTransferConsumesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -225,8 +240,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFileTransferConsumes_PollingPeriod() {
-		return (EAttribute)fileTransferConsumesEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)this.fileTransferConsumesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -234,8 +250,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getCopyMode() {
-		return copyModeEEnum;
+		return this.copyModeEEnum;
 	}
 
 	/**
@@ -243,8 +260,9 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTransferMode() {
-		return transferModeEEnum;
+		return this.transferModeEEnum;
 	}
 
 	/**
@@ -252,6 +270,7 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FileTransferFactory getFileTransferFactory() {
 		return (FileTransferFactory)getEFactoryInstance();
 	}
@@ -271,27 +290,27 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated) return;
-		isCreated = true;
+		if (this.isCreated) return;
+		this.isCreated = true;
 
 		// Create classes and their features
-		fileTransferProvidesEClass = createEClass(FILE_TRANSFER_PROVIDES);
-		createEAttribute(fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY);
-		createEAttribute(fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__COPY_MODE);
-		createEAttribute(fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__FILE_PATTERN);
-		createEAttribute(fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__READ_DIRECTORY);
-		createEAttribute(fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY);
+		this.fileTransferProvidesEClass = createEClass(FILE_TRANSFER_PROVIDES);
+		createEAttribute(this.fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY);
+		createEAttribute(this.fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__COPY_MODE);
+		createEAttribute(this.fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__FILE_PATTERN);
+		createEAttribute(this.fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__READ_DIRECTORY);
+		createEAttribute(this.fileTransferProvidesEClass, FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY);
 
-		fileTransferConsumesEClass = createEClass(FILE_TRANSFER_CONSUMES);
-		createEAttribute(fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__READ_DIRECTORY);
-		createEAttribute(fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY);
-		createEAttribute(fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__TRANSFER_MODE);
-		createEAttribute(fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__FILE_PATTERN);
-		createEAttribute(fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__POLLING_PERIOD);
+		this.fileTransferConsumesEClass = createEClass(FILE_TRANSFER_CONSUMES);
+		createEAttribute(this.fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__READ_DIRECTORY);
+		createEAttribute(this.fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY);
+		createEAttribute(this.fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__TRANSFER_MODE);
+		createEAttribute(this.fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__FILE_PATTERN);
+		createEAttribute(this.fileTransferConsumesEClass, FILE_TRANSFER_CONSUMES__POLLING_PERIOD);
 
 		// Create enums
-		copyModeEEnum = createEEnum(COPY_MODE);
-		transferModeEEnum = createEEnum(TRANSFER_MODE);
+		this.copyModeEEnum = createEEnum(COPY_MODE);
+		this.transferModeEEnum = createEEnum(TRANSFER_MODE);
 	}
 
 	/**
@@ -309,8 +328,8 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized) return;
-		isInitialized = true;
+		if (this.isInitialized) return;
+		this.isInitialized = true;
 
 		// Initialize package
 		setName(eNAME);
@@ -325,33 +344,33 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		fileTransferProvidesEClass.getESuperTypes().add(theJbiPackage.getProvides());
-		fileTransferConsumesEClass.getESuperTypes().add(theJbiPackage.getConsumes());
+		this.fileTransferProvidesEClass.getESuperTypes().add(theJbiPackage.getProvides());
+		this.fileTransferConsumesEClass.getESuperTypes().add(theJbiPackage.getConsumes());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(fileTransferProvidesEClass, FileTransferProvides.class, "FileTransferProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFileTransferProvides_WriteDirectory(), ecorePackage.getEString(), "writeDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEClass(this.fileTransferProvidesEClass, FileTransferProvides.class, "FileTransferProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFileTransferProvides_WriteDirectory(), this.ecorePackage.getEString(), "writeDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransferProvides_CopyMode(), this.getCopyMode(), "copyMode", "CopyMode.CONTENT_ONLY", 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileTransferProvides_FilePattern(), ecorePackage.getEString(), "filePattern", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileTransferProvides_ReadDirectory(), ecorePackage.getEString(), "readDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileTransferProvides_BackupDirectory(), ecorePackage.getEString(), "backupDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransferProvides_FilePattern(), this.ecorePackage.getEString(), "filePattern", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransferProvides_ReadDirectory(), this.ecorePackage.getEString(), "readDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransferProvides_BackupDirectory(), this.ecorePackage.getEString(), "backupDirectory", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
-		initEClass(fileTransferConsumesEClass, FileTransferConsumes.class, "FileTransferConsumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFileTransferConsumes_ReadDirectory(), ecorePackage.getEString(), "readDirectory", null, 1, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileTransferConsumes_BackupDirectory(), ecorePackage.getEString(), "backupDirectory", null, 0, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEClass(this.fileTransferConsumesEClass, FileTransferConsumes.class, "FileTransferConsumes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFileTransferConsumes_ReadDirectory(), this.ecorePackage.getEString(), "readDirectory", null, 1, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransferConsumes_BackupDirectory(), this.ecorePackage.getEString(), "backupDirectory", null, 0, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileTransferConsumes_TransferMode(), this.getTransferMode(), "transferMode", "TransferMode.CONTENT", 0, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileTransferConsumes_FilePattern(), ecorePackage.getEString(), "filePattern", null, 0, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileTransferConsumes_PollingPeriod(), ecorePackage.getEInt(), "pollingPeriod", null, 0, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransferConsumes_FilePattern(), this.ecorePackage.getEString(), "filePattern", null, 0, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileTransferConsumes_PollingPeriod(), this.ecorePackage.getEInt(), "pollingPeriod", null, 0, 1, FileTransferConsumes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
-		initEEnum(copyModeEEnum, CopyMode.class, "CopyMode");
-		addEEnumLiteral(copyModeEEnum, CopyMode.CONTENT_ONLY);
-		addEEnumLiteral(copyModeEEnum, CopyMode.ATTACHMENTS_ONLY);
-		addEEnumLiteral(copyModeEEnum, CopyMode.CONTENT_AND_ATTACHMENTS);
+		initEEnum(this.copyModeEEnum, CopyMode.class, "CopyMode");
+		addEEnumLiteral(this.copyModeEEnum, CopyMode.CONTENT_ONLY);
+		addEEnumLiteral(this.copyModeEEnum, CopyMode.ATTACHMENTS_ONLY);
+		addEEnumLiteral(this.copyModeEEnum, CopyMode.CONTENT_AND_ATTACHMENTS);
 
-		initEEnum(transferModeEEnum, TransferMode.class, "TransferMode");
-		addEEnumLiteral(transferModeEEnum, TransferMode.CONTENT);
-		addEEnumLiteral(transferModeEEnum, TransferMode.ATTACHMENT);
+		initEEnum(this.transferModeEEnum, TransferMode.class, "TransferMode");
+		addEEnumLiteral(this.transferModeEEnum, TransferMode.CONTENT);
+		addEEnumLiteral(this.transferModeEEnum, TransferMode.ATTACHMENT);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -368,103 +387,103 @@ public class FileTransferPackageImpl extends EPackageImpl implements FileTransfe
 	 * @generated
 	 */
 	protected void createExtendedMetaDataAnnotations() {
-		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";		
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation
-		  (fileTransferProvidesEClass, 
-		   source, 
+		  (this.fileTransferProvidesEClass,
+		   source,
 		   new String[] {
 			 "name", ""
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferProvides_WriteDirectory(), 
-		   source, 
+		  (getFileTransferProvides_WriteDirectory(),
+		   source,
 		   new String[] {
 			 "name", "write-directory",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferProvides_CopyMode(), 
-		   source, 
+		  (getFileTransferProvides_CopyMode(),
+		   source,
 		   new String[] {
 			 "name", "copy-mode",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferProvides_FilePattern(), 
-		   source, 
+		  (getFileTransferProvides_FilePattern(),
+		   source,
 		   new String[] {
 			 "name", "file-pattern",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferProvides_ReadDirectory(), 
-		   source, 
+		  (getFileTransferProvides_ReadDirectory(),
+		   source,
 		   new String[] {
 			 "name", "read-directory",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferProvides_BackupDirectory(), 
-		   source, 
+		  (getFileTransferProvides_BackupDirectory(),
+		   source,
 		   new String[] {
 			 "name", "backup-directory",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (fileTransferConsumesEClass, 
-		   source, 
+		  (this.fileTransferConsumesEClass,
+		   source,
 		   new String[] {
 			 "name", ""
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferConsumes_ReadDirectory(), 
-		   source, 
+		  (getFileTransferConsumes_ReadDirectory(),
+		   source,
 		   new String[] {
 			 "name", "read-directory",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferConsumes_BackupDirectory(), 
-		   source, 
+		  (getFileTransferConsumes_BackupDirectory(),
+		   source,
 		   new String[] {
 			 "name", "backup-directory",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferConsumes_TransferMode(), 
-		   source, 
+		  (getFileTransferConsumes_TransferMode(),
+		   source,
 		   new String[] {
 			 "name", "transfer-mode",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferConsumes_FilePattern(), 
-		   source, 
+		  (getFileTransferConsumes_FilePattern(),
+		   source,
 		   new String[] {
 			 "name", "file-pattern",
 			 "kind", "element",
 			 "namespace", "##targetNamespace",
 			 "group", "#group:0"
-		   });		
+		   });
 		addAnnotation
-		  (getFileTransferConsumes_PollingPeriod(), 
-		   source, 
+		  (getFileTransferConsumes_PollingPeriod(),
+		   source,
 		   new String[] {
 			 "name", "polling-period",
 			 "kind", "element",

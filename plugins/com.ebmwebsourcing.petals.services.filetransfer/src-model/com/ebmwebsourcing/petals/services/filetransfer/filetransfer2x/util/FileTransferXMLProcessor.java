@@ -1,20 +1,24 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
-package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.util;
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
 
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage;
+package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.util;
 
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
+
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage;
 
 /**
  * This class contains helper methods to serialize and deserialize XML documents
@@ -34,7 +38,7 @@ public class FileTransferXMLProcessor extends XMLProcessor {
 		super((EPackage.Registry.INSTANCE));
 		FileTransferPackage.eINSTANCE.eClass();
 	}
-	
+
 	/**
 	 * Register for "*" and "xml" file extensions the FileTransferResourceFactoryImpl factory.
 	 * <!-- begin-user-doc -->
@@ -43,12 +47,12 @@ public class FileTransferXMLProcessor extends XMLProcessor {
 	 */
 	@Override
 	protected Map<String, Resource.Factory> getRegistrations() {
-		if (registrations == null) {
+		if (this.registrations == null) {
 			super.getRegistrations();
-			registrations.put(XML_EXTENSION, new FileTransferResourceFactoryImpl());
-			registrations.put(STAR_EXTENSION, new FileTransferResourceFactoryImpl());
+			this.registrations.put(XML_EXTENSION, new FileTransferResourceFactoryImpl());
+			this.registrations.put(STAR_EXTENSION, new FileTransferResourceFactoryImpl());
 		}
-		return registrations;
+		return this.registrations;
 	}
 
 } //FileTransferXMLProcessor

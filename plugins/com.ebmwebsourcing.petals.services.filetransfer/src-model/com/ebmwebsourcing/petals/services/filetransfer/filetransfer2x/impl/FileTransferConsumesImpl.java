@@ -1,23 +1,25 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferConsumes;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.TransferMode;
-
 import com.sun.java.xml.ns.jbi.impl.ConsumesImpl;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -170,8 +172,9 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getReadDirectory() {
-		return readDirectory;
+		return this.readDirectory;
 	}
 
 	/**
@@ -179,13 +182,14 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReadDirectory(String newReadDirectory) {
-		String oldReadDirectory = readDirectory;
-		readDirectory = newReadDirectory;
-		boolean oldReadDirectoryESet = readDirectoryESet;
-		readDirectoryESet = true;
+		String oldReadDirectory = this.readDirectory;
+		this.readDirectory = newReadDirectory;
+		boolean oldReadDirectoryESet = this.readDirectoryESet;
+		this.readDirectoryESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__READ_DIRECTORY, oldReadDirectory, readDirectory, !oldReadDirectoryESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__READ_DIRECTORY, oldReadDirectory, this.readDirectory, !oldReadDirectoryESet));
 	}
 
 	/**
@@ -193,11 +197,12 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetReadDirectory() {
-		String oldReadDirectory = readDirectory;
-		boolean oldReadDirectoryESet = readDirectoryESet;
-		readDirectory = READ_DIRECTORY_EDEFAULT;
-		readDirectoryESet = false;
+		String oldReadDirectory = this.readDirectory;
+		boolean oldReadDirectoryESet = this.readDirectoryESet;
+		this.readDirectory = READ_DIRECTORY_EDEFAULT;
+		this.readDirectoryESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__READ_DIRECTORY, oldReadDirectory, READ_DIRECTORY_EDEFAULT, oldReadDirectoryESet));
 	}
@@ -207,8 +212,9 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetReadDirectory() {
-		return readDirectoryESet;
+		return this.readDirectoryESet;
 	}
 
 	/**
@@ -216,8 +222,9 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBackupDirectory() {
-		return backupDirectory;
+		return this.backupDirectory;
 	}
 
 	/**
@@ -225,11 +232,12 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBackupDirectory(String newBackupDirectory) {
-		String oldBackupDirectory = backupDirectory;
-		backupDirectory = newBackupDirectory;
+		String oldBackupDirectory = this.backupDirectory;
+		this.backupDirectory = newBackupDirectory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY, oldBackupDirectory, backupDirectory));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY, oldBackupDirectory, this.backupDirectory));
 	}
 
 	/**
@@ -237,8 +245,9 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransferMode getTransferMode() {
-		return transferMode;
+		return this.transferMode;
 	}
 
 	/**
@@ -246,11 +255,12 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransferMode(TransferMode newTransferMode) {
-		TransferMode oldTransferMode = transferMode;
-		transferMode = newTransferMode == null ? TRANSFER_MODE_EDEFAULT : newTransferMode;
+		TransferMode oldTransferMode = this.transferMode;
+		this.transferMode = newTransferMode == null ? TRANSFER_MODE_EDEFAULT : newTransferMode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__TRANSFER_MODE, oldTransferMode, transferMode));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__TRANSFER_MODE, oldTransferMode, this.transferMode));
 	}
 
 	/**
@@ -258,8 +268,9 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFilePattern() {
-		return filePattern;
+		return this.filePattern;
 	}
 
 	/**
@@ -267,11 +278,12 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFilePattern(String newFilePattern) {
-		String oldFilePattern = filePattern;
-		filePattern = newFilePattern;
+		String oldFilePattern = this.filePattern;
+		this.filePattern = newFilePattern;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__FILE_PATTERN, oldFilePattern, filePattern));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__FILE_PATTERN, oldFilePattern, this.filePattern));
 	}
 
 	/**
@@ -279,8 +291,9 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getPollingPeriod() {
-		return pollingPeriod;
+		return this.pollingPeriod;
 	}
 
 	/**
@@ -288,11 +301,12 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPollingPeriod(int newPollingPeriod) {
-		int oldPollingPeriod = pollingPeriod;
-		pollingPeriod = newPollingPeriod;
+		int oldPollingPeriod = this.pollingPeriod;
+		this.pollingPeriod = newPollingPeriod;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__POLLING_PERIOD, oldPollingPeriod, pollingPeriod));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__POLLING_PERIOD, oldPollingPeriod, this.pollingPeriod));
 	}
 
 	/**
@@ -382,13 +396,13 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 			case Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__READ_DIRECTORY:
 				return isSetReadDirectory();
 			case Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY:
-				return BACKUP_DIRECTORY_EDEFAULT == null ? backupDirectory != null : !BACKUP_DIRECTORY_EDEFAULT.equals(backupDirectory);
+				return BACKUP_DIRECTORY_EDEFAULT == null ? this.backupDirectory != null : !BACKUP_DIRECTORY_EDEFAULT.equals(this.backupDirectory);
 			case Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__TRANSFER_MODE:
-				return transferMode != TRANSFER_MODE_EDEFAULT;
+				return this.transferMode != TRANSFER_MODE_EDEFAULT;
 			case Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__FILE_PATTERN:
-				return FILE_PATTERN_EDEFAULT == null ? filePattern != null : !FILE_PATTERN_EDEFAULT.equals(filePattern);
+				return FILE_PATTERN_EDEFAULT == null ? this.filePattern != null : !FILE_PATTERN_EDEFAULT.equals(this.filePattern);
 			case Filetransfer2xPackage.FILE_TRANSFER_CONSUMES__POLLING_PERIOD:
-				return pollingPeriod != POLLING_PERIOD_EDEFAULT;
+				return this.pollingPeriod != POLLING_PERIOD_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -404,15 +418,15 @@ public class FileTransferConsumesImpl extends ConsumesImpl implements FileTransf
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (readDirectory: ");
-		if (readDirectoryESet) result.append(readDirectory); else result.append("<unset>");
+		if (this.readDirectoryESet) result.append(this.readDirectory); else result.append("<unset>");
 		result.append(", backupDirectory: ");
-		result.append(backupDirectory);
+		result.append(this.backupDirectory);
 		result.append(", transferMode: ");
-		result.append(transferMode);
+		result.append(this.transferMode);
 		result.append(", filePattern: ");
-		result.append(filePattern);
+		result.append(this.filePattern);
 		result.append(", pollingPeriod: ");
-		result.append(pollingPeriod);
+		result.append(this.pollingPeriod);
 		result.append(')');
 		return result.toString();
 	}

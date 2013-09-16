@@ -1,14 +1,15 @@
-/****************************************************************************
- *
+/******************************************************************************
  * Copyright (c) 2011-2013, Linagora
  *
- * This source code is available under agreement available at
- * http://www.petalslink.com/legal/licenses/petals-studio
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * You should have received a copy of the agreement along with this program.
- * If not, write to Linagora (80, rue Roque de Fillol - 92800 Puteaux, France).
- *
- *****************************************************************************/
+ * Contributors:
+ * 		Linagora - initial API and implementation
+ *******************************************************************************/
+ 
 package com.ebmwebsourcing.petals.common.croquis.internal.wizards;
 
 import java.lang.reflect.InvocationTargetException;

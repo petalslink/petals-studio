@@ -1,16 +1,22 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
-package com.ebmwebsourcing.petals.services.cdk.cdk5;
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
 
-import com.sun.java.xml.ns.jbi.JbiPackage;
+package com.ebmwebsourcing.petals.services.cdk.cdk5;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+
+import com.sun.java.xml.ns.jbi.JbiPackage;
 
 /**
  * <!-- begin-user-doc -->

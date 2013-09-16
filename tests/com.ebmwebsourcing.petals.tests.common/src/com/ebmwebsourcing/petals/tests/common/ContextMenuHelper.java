@@ -1,4 +1,18 @@
+/*******************************************************************************
+ * Copyright (c) 2011 Eclipse
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Stefan Seelmann - initial API and implementation
+ *     Stefan Schaefer
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.tests.common;
+
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withMnemonic;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;

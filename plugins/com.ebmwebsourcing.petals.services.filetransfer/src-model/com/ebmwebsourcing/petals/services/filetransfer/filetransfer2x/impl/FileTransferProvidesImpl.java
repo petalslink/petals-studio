@@ -1,23 +1,25 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.impl;
 
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferPackage;
-import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.CopyMode;
+import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.FileTransferProvides;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
 import com.sun.java.xml.ns.jbi.impl.ProvidesImpl;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -161,8 +163,9 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getWriteDirectory() {
-		return writeDirectory;
+		return this.writeDirectory;
 	}
 
 	/**
@@ -170,11 +173,12 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWriteDirectory(String newWriteDirectory) {
-		String oldWriteDirectory = writeDirectory;
-		writeDirectory = newWriteDirectory;
+		String oldWriteDirectory = this.writeDirectory;
+		this.writeDirectory = newWriteDirectory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, oldWriteDirectory, writeDirectory));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY, oldWriteDirectory, this.writeDirectory));
 	}
 
 	/**
@@ -182,8 +186,9 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CopyMode getCopyMode() {
-		return copyMode;
+		return this.copyMode;
 	}
 
 	/**
@@ -191,11 +196,12 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCopyMode(CopyMode newCopyMode) {
-		CopyMode oldCopyMode = copyMode;
-		copyMode = newCopyMode == null ? COPY_MODE_EDEFAULT : newCopyMode;
+		CopyMode oldCopyMode = this.copyMode;
+		this.copyMode = newCopyMode == null ? COPY_MODE_EDEFAULT : newCopyMode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__COPY_MODE, oldCopyMode, copyMode));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__COPY_MODE, oldCopyMode, this.copyMode));
 	}
 
 	/**
@@ -203,8 +209,9 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFilePattern() {
-		return filePattern;
+		return this.filePattern;
 	}
 
 	/**
@@ -212,11 +219,12 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFilePattern(String newFilePattern) {
-		String oldFilePattern = filePattern;
-		filePattern = newFilePattern;
+		String oldFilePattern = this.filePattern;
+		this.filePattern = newFilePattern;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN, oldFilePattern, filePattern));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN, oldFilePattern, this.filePattern));
 	}
 
 	/**
@@ -224,8 +232,9 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getReadDirectory() {
-		return readDirectory;
+		return this.readDirectory;
 	}
 
 	/**
@@ -233,11 +242,12 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReadDirectory(String newReadDirectory) {
-		String oldReadDirectory = readDirectory;
-		readDirectory = newReadDirectory;
+		String oldReadDirectory = this.readDirectory;
+		this.readDirectory = newReadDirectory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__READ_DIRECTORY, oldReadDirectory, readDirectory));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__READ_DIRECTORY, oldReadDirectory, this.readDirectory));
 	}
 
 	/**
@@ -245,8 +255,9 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBackupDirectory() {
-		return backupDirectory;
+		return this.backupDirectory;
 	}
 
 	/**
@@ -254,11 +265,12 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBackupDirectory(String newBackupDirectory) {
-		String oldBackupDirectory = backupDirectory;
-		backupDirectory = newBackupDirectory;
+		String oldBackupDirectory = this.backupDirectory;
+		this.backupDirectory = newBackupDirectory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY, oldBackupDirectory, backupDirectory));
+			eNotify(new ENotificationImpl(this, Notification.SET, Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY, oldBackupDirectory, this.backupDirectory));
 	}
 
 	/**
@@ -346,15 +358,15 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY:
-				return WRITE_DIRECTORY_EDEFAULT == null ? writeDirectory != null : !WRITE_DIRECTORY_EDEFAULT.equals(writeDirectory);
+				return WRITE_DIRECTORY_EDEFAULT == null ? this.writeDirectory != null : !WRITE_DIRECTORY_EDEFAULT.equals(this.writeDirectory);
 			case Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__COPY_MODE:
-				return copyMode != COPY_MODE_EDEFAULT;
+				return this.copyMode != COPY_MODE_EDEFAULT;
 			case Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__FILE_PATTERN:
-				return FILE_PATTERN_EDEFAULT == null ? filePattern != null : !FILE_PATTERN_EDEFAULT.equals(filePattern);
+				return FILE_PATTERN_EDEFAULT == null ? this.filePattern != null : !FILE_PATTERN_EDEFAULT.equals(this.filePattern);
 			case Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__READ_DIRECTORY:
-				return READ_DIRECTORY_EDEFAULT == null ? readDirectory != null : !READ_DIRECTORY_EDEFAULT.equals(readDirectory);
+				return READ_DIRECTORY_EDEFAULT == null ? this.readDirectory != null : !READ_DIRECTORY_EDEFAULT.equals(this.readDirectory);
 			case Filetransfer2xPackage.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY:
-				return BACKUP_DIRECTORY_EDEFAULT == null ? backupDirectory != null : !BACKUP_DIRECTORY_EDEFAULT.equals(backupDirectory);
+				return BACKUP_DIRECTORY_EDEFAULT == null ? this.backupDirectory != null : !BACKUP_DIRECTORY_EDEFAULT.equals(this.backupDirectory);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -370,15 +382,15 @@ public class FileTransferProvidesImpl extends ProvidesImpl implements FileTransf
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (writeDirectory: ");
-		result.append(writeDirectory);
+		result.append(this.writeDirectory);
 		result.append(", copyMode: ");
-		result.append(copyMode);
+		result.append(this.copyMode);
 		result.append(", filePattern: ");
-		result.append(filePattern);
+		result.append(this.filePattern);
 		result.append(", readDirectory: ");
-		result.append(readDirectory);
+		result.append(this.readDirectory);
 		result.append(", backupDirectory: ");
-		result.append(backupDirectory);
+		result.append(this.backupDirectory);
 		result.append(')');
 		return result.toString();
 	}

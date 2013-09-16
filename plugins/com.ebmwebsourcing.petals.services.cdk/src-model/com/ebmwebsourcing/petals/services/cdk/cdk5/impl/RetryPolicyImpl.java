@@ -1,20 +1,24 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2011-2013, Linagora
  *
- * $Id$
- */
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Linagora - initial API and implementation
+ *******************************************************************************/
+
 package com.ebmwebsourcing.petals.services.cdk.cdk5.impl;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.RetryPolicy;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -104,8 +108,9 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getAttempts() {
-		return attempts;
+		return this.attempts;
 	}
 
 	/**
@@ -113,13 +118,14 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAttempts(int newAttempts) {
-		int oldAttempts = attempts;
-		attempts = newAttempts;
-		boolean oldAttemptsESet = attemptsESet;
-		attemptsESet = true;
+		int oldAttempts = this.attempts;
+		this.attempts = newAttempts;
+		boolean oldAttemptsESet = this.attemptsESet;
+		this.attemptsESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.RETRY_POLICY__ATTEMPTS, oldAttempts, attempts, !oldAttemptsESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.RETRY_POLICY__ATTEMPTS, oldAttempts, this.attempts, !oldAttemptsESet));
 	}
 
 	/**
@@ -127,11 +133,12 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetAttempts() {
-		int oldAttempts = attempts;
-		boolean oldAttemptsESet = attemptsESet;
-		attempts = ATTEMPTS_EDEFAULT;
-		attemptsESet = false;
+		int oldAttempts = this.attempts;
+		boolean oldAttemptsESet = this.attemptsESet;
+		this.attempts = ATTEMPTS_EDEFAULT;
+		this.attemptsESet = false;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, Cdk5Package.RETRY_POLICY__ATTEMPTS, oldAttempts, ATTEMPTS_EDEFAULT, oldAttemptsESet));
 	}
@@ -141,8 +148,9 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetAttempts() {
-		return attemptsESet;
+		return this.attemptsESet;
 	}
 
 	/**
@@ -150,8 +158,9 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getDelay() {
-		return delay;
+		return this.delay;
 	}
 
 	/**
@@ -159,11 +168,12 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDelay(long newDelay) {
-		long oldDelay = delay;
-		delay = newDelay;
+		long oldDelay = this.delay;
+		this.delay = newDelay;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.RETRY_POLICY__DELAY, oldDelay, delay));
+			eNotify(new ENotificationImpl(this, Notification.SET, Cdk5Package.RETRY_POLICY__DELAY, oldDelay, this.delay));
 	}
 
 	/**
@@ -229,7 +239,7 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 			case Cdk5Package.RETRY_POLICY__ATTEMPTS:
 				return isSetAttempts();
 			case Cdk5Package.RETRY_POLICY__DELAY:
-				return delay != DELAY_EDEFAULT;
+				return this.delay != DELAY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -245,9 +255,9 @@ public class RetryPolicyImpl extends EObjectImpl implements RetryPolicy {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (attempts: ");
-		if (attemptsESet) result.append(attempts); else result.append("<unset>");
+		if (this.attemptsESet) result.append(this.attempts); else result.append("<unset>");
 		result.append(", delay: ");
-		result.append(delay);
+		result.append(this.delay);
 		result.append(')');
 		return result.toString();
 	}
