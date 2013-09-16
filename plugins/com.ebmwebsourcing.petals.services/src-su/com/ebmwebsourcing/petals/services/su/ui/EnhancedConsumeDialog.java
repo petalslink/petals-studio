@@ -559,6 +559,15 @@ public class EnhancedConsumeDialog extends TitleAreaDialog {
 	}
 
 
+
+	/**
+	 * @param needOperation the needOperation to set
+	 */
+	public void setNeedOperation( boolean needOperation ) {
+		this.needOperation = needOperation;
+	}
+
+
 	/**
 	 * @return the constrainedMep
 	 */

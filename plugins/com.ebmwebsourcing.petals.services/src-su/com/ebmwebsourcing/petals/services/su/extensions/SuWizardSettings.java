@@ -50,4 +50,7 @@ public class SuWizardSettings {
 	// Consume fields
 	public QName invokedOperation;
 	public Mep invocationMep;
+
+	public boolean showOperationName = true;
+	public boolean showMep = true;
 }

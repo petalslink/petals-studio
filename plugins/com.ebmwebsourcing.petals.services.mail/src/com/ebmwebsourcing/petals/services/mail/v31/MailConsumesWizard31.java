@@ -29,7 +29,7 @@ import com.sun.java.xml.ns.jbi.Consumes;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class MailConsumesWizard31 extends AbstractServiceUnitWizard {
 

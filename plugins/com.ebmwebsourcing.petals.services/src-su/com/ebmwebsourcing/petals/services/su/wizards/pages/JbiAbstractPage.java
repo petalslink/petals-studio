@@ -13,6 +13,7 @@
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Image;
@@ -135,6 +136,9 @@ public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 		this.srvQText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
+				if( ! ((StyledText) e.widget).isEnabled())
+					return;
+
 				getNewlyCreatedEndpoint().setServiceName( JbiAbstractPage.this.srvQText.getValue());
 				validate();
 			}
@@ -150,6 +154,9 @@ public abstract class JbiAbstractPage extends AbstractSuWizardPage {
 		this.edptText.addModifyListener( new ModifyListener() {
 			@Override
 			public void modifyText( ModifyEvent e ) {
+				if( ! ((Text) e.widget).isEnabled())
+					return;
+
 				String edpt = JbiAbstractPage.this.edptText.getText();
 				if( StringUtils.isEmpty( edpt ))
 					edpt = null;

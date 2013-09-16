@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.services.cdk.Cdk5Utils;
 import com.ebmwebsourcing.petals.services.cdk.cdk5.Cdk5Package;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapMode;
@@ -30,6 +31,17 @@ import com.sun.java.xml.ns.jbi.Consumes;
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class SoapConsumesWizard40 extends AbstractServiceUnitWizard {
+
+	/**
+	 * Constructor.
+	 */
+	public SoapConsumesWizard40() {
+		super();
+		this.settings.showOperationName = false;
+		this.settings.showMep = false;
+		this.settings.invocationMep = Mep.UNKNOWN;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ebmwebsourcing.petals.services.su.wizards.AbstractServiceUnitWizard

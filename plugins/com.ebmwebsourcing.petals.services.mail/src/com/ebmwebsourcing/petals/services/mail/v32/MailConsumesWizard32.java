@@ -16,7 +16,7 @@ import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescript
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class MailConsumesWizard32 extends MailConsumesWizard31 {
 

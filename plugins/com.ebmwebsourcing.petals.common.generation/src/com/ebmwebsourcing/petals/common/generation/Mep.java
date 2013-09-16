@@ -33,7 +33,7 @@ public enum Mep {
 		String result;
 		switch( this ) {
 		case UNKNOWN:
-			result = "Unknown / Null";
+			result = "Unknown / Not Set";
 			break;
 
 		case IN_ONLY:
