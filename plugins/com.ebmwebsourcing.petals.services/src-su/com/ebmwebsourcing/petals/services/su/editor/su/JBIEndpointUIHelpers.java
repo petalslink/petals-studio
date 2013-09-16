@@ -45,6 +45,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQN
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.CommonUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.sun.java.xml.ns.jbi.AbstractEndpoint;
@@ -254,23 +255,33 @@ public class JBIEndpointUIHelpers {
 
 				int caretPosition = focusedText == null ? -1 : focusedText.getCaretPosition();
 
-				// Update the model
+				// Update the model?
 				String ns = namespaceText.getText().trim();
 				String name = nameText.getText().trim();
 
-				QName result;
-				if( StringUtils.isEmpty( ns ))
-					result = StringUtils.isEmpty( name ) ? null : new QName( name );
-				else
-					result = new QName( ns, name );
+				Object o = owner.eGet( attribute );
+				boolean needsUpdate = false;
+				if( o instanceof QName ) {
+					String currentNs = ((QName) o).getNamespaceURI();
+					String currentName = ((QName) o).getLocalPart();
+					needsUpdate = ! CommonUtils.areEqual( ns, currentNs ) || ! CommonUtils.areEqual( name, currentName );
+				}
 
-				Command cmd;
-				if( useCustomSetCommand )
-					cmd = EObjecttUIHelper.createCustomSetCommand( domain, owner, attribute, result );
-				else
-					cmd = SetCommand.create( domain, owner, attribute, result );
+				if( needsUpdate ) {
+					QName result;
+					if( StringUtils.isEmpty( ns ))
+						result = StringUtils.isEmpty( name ) ? null : new QName( name );
+					else
+						result = new QName( ns, name );
 
-				domain.getCommandStack().execute( cmd );
+					Command cmd;
+					if( useCustomSetCommand )
+						cmd = EObjecttUIHelper.createCustomSetCommand( domain, owner, attribute, result );
+					else
+						cmd = SetCommand.create( domain, owner, attribute, result );
+
+					domain.getCommandStack().execute( cmd );
+				}
 
 				// Restore the caret position
 				if( caretPosition != -1 )
@@ -278,8 +289,8 @@ public class JBIEndpointUIHelpers {
 			}
 		};
 
-		namespaceText.addListener( SWT.Selection, listener );
-		nameText.addListener( SWT.Selection, listener );
+		namespaceText.addListener( SWT.Modify, listener );
+		nameText.addListener( SWT.Modify, listener );
 		return listener;
 	}
 

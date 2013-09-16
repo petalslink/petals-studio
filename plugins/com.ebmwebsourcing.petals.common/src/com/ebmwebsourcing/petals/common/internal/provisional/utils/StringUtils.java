@@ -27,16 +27,6 @@ public class StringUtils {
 
 
 	/**
-	 * @param s1
-	 * @param s2
-	 * @return true either if both string are null or if they are equal
-	 */
-	public static boolean areEqual( String s1, String s2 ) {
-		return s1 == null && s2 == null || s1 != null && s1.equals( s2 );
-	}
-
-
-	/**
 	 * Removes the file extension from a file name.
 	 *
 	 * @param fileName the file name.

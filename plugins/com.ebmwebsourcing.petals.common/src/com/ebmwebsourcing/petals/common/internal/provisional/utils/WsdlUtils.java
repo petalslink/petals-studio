@@ -433,11 +433,11 @@ public class WsdlUtils {
 		 */
 		public boolean haveSameIdentifiers( String itfName, String itfNs, String srvName, String srvNs, String edptName ) {
 
-			return StringUtils.areEqual( itfName, this.itfName.getLocalPart())
-			&& StringUtils.areEqual( itfNs, this.itfName.getNamespaceURI())
-			&& StringUtils.areEqual( srvName, this.srvName.getLocalPart())
-			&& StringUtils.areEqual( srvNs, this.srvName.getNamespaceURI())
-			&& StringUtils.areEqual( edptName, this.endpointName );
+			return CommonUtils.areEqual( itfName, this.itfName.getLocalPart())
+			&& CommonUtils.areEqual( itfNs, this.itfName.getNamespaceURI())
+			&& CommonUtils.areEqual( srvName, this.srvName.getLocalPart())
+			&& CommonUtils.areEqual( srvNs, this.srvName.getNamespaceURI())
+			&& CommonUtils.areEqual( edptName, this.endpointName );
 		}
 	}
 
