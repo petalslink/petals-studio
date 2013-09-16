@@ -7,22 +7,30 @@
  * - petals-cdk-jbidescriptor
  * - petals-jbi
  */
-package com.ebmwebsourcing.formation;
+package com.linagora.formation;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.jbi.component.ComponentContext;
 import javax.xml.namespace.QName;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.ow2.petals.component.framework.api.Message.MEPConstants;
 import org.ow2.petals.component.framework.api.message.Exchange;
 import org.ow2.petals.component.framework.jbidescriptor.generated.Consumes;
 import org.ow2.petals.component.framework.listener.AbstractJBIListener;
+import org.w3c.dom.Document;
 
 /**
- * A simple sample POJO to complete.
- * @author Pierre-Yves Gibello - EBM WebSourcing
+ * A sample Petals POJO.
+ * @author Pierre-Yves Gibello - Linagora
+ * @author Vincent Zurczak - Linagora
  */
 public class MyFirstPojo {
 
@@ -53,6 +61,34 @@ public class MyFirstPojo {
 	 * @throws Exception
 	 */
 	public boolean onExchange( Exchange exchange ) throws Exception {
+	
+		// Print information about the incoming message
+		this.jbiListener.getLogger().info( "Target interface: " + formatQName( exchange.getInterfaceName()));
+		this.jbiListener.getLogger().info( "Target service: " + formatQName( exchange.getInterfaceName()));
+		this.jbiListener.getLogger().info( "Target end-point: " + exchange.getInterfaceName());
+		this.jbiListener.getLogger().info( "Target operation: " + formatQName( exchange.getOperation()));
+		this.jbiListener.getLogger().info( "MEP: " + exchange.getExchangePattern());
+		
+		// Print the exchange content
+		Document doc = exchange.getInMessageContentAsDocument();
+		TransformerFactory tf = TransformerFactory.newInstance();
+		Transformer transformer = tf.newTransformer();
+		transformer.setOutputProperty( OutputKeys.OMIT_XML_DECLARATION, "yes" );
+		
+		StringWriter writer = new StringWriter();
+		transformer.transform( new DOMSource( doc ), new StreamResult( writer ));
+		this.jbiListener.getLogger().info( "XML Content:\n\n" + writer.toString() + "\n" );
+		
+		// Print the properties
+		for( String s : exchange.getInMessagePropertyNames()) {
+			String value = String.valueOf( exchange.getInMessageProperty( s ));
+			this.jbiListener.getLogger().info( "In Message Property: " + s + " = " + value );
+		}
+		
+		// Print attachment names
+		for( String s : exchange.getInMessageAttachmentNames()) {
+			this.jbiListener.getLogger().info( "In Attachment: " + s );
+		}
 
 		// Consume a sample service
 		Consumes ep = new Consumes();
@@ -61,17 +97,17 @@ public class MyFirstPojo {
 		ep.setEndpointName("TestFileEndpoint");
 
 		System.out.println( "POJO: before consume" );
-		Exchange out = jbiListener.createConsumeExchange( ep, MEPConstants.IN_ONLY_PATTERN );
+		Exchange out = this.jbiListener.createConsumeExchange( ep, MEPConstants.IN_ONLY_PATTERN );
 		out.setInMessageContent( new StreamSource( new StringReader( "<pojo>Hello from Pojo !</pojo>" )));
 
-		jbiListener.sendSync( out );
-		System.out.println( "POJO: consume done" );
+		this.jbiListener.sendSync( out );
+		this.jbiListener.getLogger().info( "POJO: consume done" );
 
 		// Answer if needed (In[Optional]Out)
 		if( exchange.isInOutPattern() 
 				|| exchange.isInOptionalOutPattern()) {
 			
-			System.out.println( "POJO: sending response" );
+			this.jbiListener.getLogger().info( "POJO: sending response" );
 			exchange.setOutMessageContent( new StreamSource( new StringReader( "<pojo>Ok</pojo>" )));
 		}
 
@@ -83,6 +119,22 @@ public class MyFirstPojo {
 	 * Initializes the POJO instance.
 	 */
 	public void init() {
-		System.out.println("SamplePojo inits.");
+		this.jbiListener.getLogger().info("SamplePojo inits.");
+	}
+	
+	
+	/**
+	 * Formats a QName to ease its readability.
+	 * @param qname (not null)
+	 * @return a non-null string
+	 */
+	private String formatQName( QName qname ) {
+		String s = qname.getLocalPart();
+		if( qname.getNamespaceURI() != null 
+				&& qname.getNamespaceURI().trim().length() > 0 )
+			s += " [ " + qname.getNamespaceURI() + " ]";
+		
+		return s;
+		
 	}
 }

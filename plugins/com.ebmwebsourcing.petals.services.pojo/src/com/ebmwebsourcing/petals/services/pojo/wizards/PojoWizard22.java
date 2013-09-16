@@ -114,7 +114,7 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 				// Generate the sample class
 				IJavaProject javaProject = JavaUtils.createJavaProject( resourceFolder.getProject());
 				IFolder srcFolder = resourceFolder.getProject().getFolder(PetalsConstants.LOC_SRC_FOLDER);
-				IFolder targetFolder = srcFolder.getFolder("com/ebmwebsourcing/formation");
+				IFolder targetFolder = srcFolder.getFolder("com/linagora/formation");
 				if( ! targetFolder.exists()
 						&& ! targetFolder.getLocation().toFile().mkdirs())
 					throw new IOException( "Could not create packages for a POJO project." );
@@ -124,7 +124,7 @@ public class PojoWizard22 extends AbstractServiceUnitWizard {
 				if( ! file.exists())
 					file.create( getClass().getResourceAsStream("MyFirstPojo.java_"), true, monitor);
 
-				abstractEndpoint.eSet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME, "com.ebmwebsourcing.formation.MyFirstPojo");
+				abstractEndpoint.eSet(PojoPackage.Literals.POJO_PROVIDES__CLASS_NAME, "com.linagora.formation.MyFirstPojo");
 
 				// Find the libraries to add in the project class path
 				JavaUtils.updateClasspathWithProjectLibraries( javaProject, monitor, "libs-cdk-p3" );
