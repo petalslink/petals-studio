@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.nature;
 
 import java.io.File;
@@ -285,7 +285,8 @@ public class SuBuilder extends JbiXmlBuilder {
 			}
 
 			// Version properties
-			componentDesc = ExtensionManager.INSTANCE.findDescriptionByComponentNameAndVersion( componentName, suTypeVersion );
+			String searchedVersion = "petals-se-eip".equalsIgnoreCase( componentName ) ? null : suTypeVersion;
+			componentDesc = ExtensionManager.INSTANCE.findDescriptionByComponentNameAndVersion( componentName, searchedVersion );
 			if( componentDesc == null
 					&& suTypeVersion != null
 					&& suTypeVersion.toLowerCase().endsWith( "-snapshot" )) {
@@ -297,7 +298,9 @@ public class SuBuilder extends JbiXmlBuilder {
 			}
 
 			if( componentDesc != null ) {
-				if( hasProvides && ! componentDesc.isProvide()) {
+				if( hasProvides
+						&& ! componentDesc.isProvide()
+						&& ! componentDesc.isProxy()) {
 					markerBeans.add( new MarkerBean(
 							IMarker.SEVERITY_ERROR,
 							"The target component (" + componentName + ") does not allow 'provides' sections.",
@@ -305,7 +308,9 @@ public class SuBuilder extends JbiXmlBuilder {
 							jbiXmlFile ));
 				}
 
-				if( hasConsumes && ! componentDesc.isConsume()) {
+				if( hasConsumes
+						&& ! componentDesc.isConsume()
+						&& ! componentDesc.isProxy()) {
 					markerBeans.add( new MarkerBean(
 							IMarker.SEVERITY_ERROR,
 							"The target component (" + componentName + ") does not allow 'consumes' sections." ,
