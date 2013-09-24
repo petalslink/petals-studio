@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
@@ -51,7 +51,15 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class JavaUtils {
+public final class JavaUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private JavaUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Get the referenced projects from a Java project.
@@ -72,7 +80,7 @@ public class JavaUtils {
 		try {
 			projectNames = javaProject.getRequiredProjectNames();
 		} catch( JavaModelException e1 ) {
-			e1.printStackTrace();
+			PetalsCommonPlugin.log( e1, IStatus.WARNING );
 			projectNames = new String[ 0 ];
 		}
 

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.cdk.editor;
 
 import java.io.File;
@@ -58,7 +58,7 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import com.ebmwebsourcing.petals.common.generation.Mep;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.PetalsHyperlinkListener;
@@ -83,10 +83,18 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * @author Mickael Istria - EBM WebSourcing
  */
-public class CDK5JBIEndpointUIHelper {
+public final class CDK5JBIEndpointUIHelper {
 
 	public static final String CONSUME_TITLE = "Invocation Properties";
 	public static final String CONSUME_DESC = "Edit the invoked operation and the message exchange pattern.";
+
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private CDK5JBIEndpointUIHelper() {
+		// nothing
+	}
 
 
 	/**
@@ -128,19 +136,19 @@ public class CDK5JBIEndpointUIHelper {
 		// The data-binding
 		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeText( opNameText ),
-				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
+				EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
 				null,
 				new UpdateValueStrategy().setConverter( new LocalQNameToStringConverter()));
 
 		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeText( opNamespaceText ),
-				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
+				EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION ),
 				null,
 				new UpdateValueStrategy().setConverter( new NamespaceQNameToStringConverter()));
 
 		ise.getDataBindingContext().bindValue(
 				ViewersObservables.observeSingleSelection( mepViewer ),
-				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP ),
+				EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP ),
 				new UpdateValueStrategy().setConverter( new MepToStringConverter()),
 				new UpdateValueStrategy().setConverter( new StringToMepConverter()));
 
@@ -176,11 +184,11 @@ public class CDK5JBIEndpointUIHelper {
 					command = new SetCommand(editDomain, endpoint, JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME, edpt);
 					compositeCommand.append(command);
 
-					command = EObjecttUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
+					command = EObjectUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__OPERATION, dlg.getOperationToInvoke());
 					compositeCommand.append(command);
 
 					String mep = dlg.getInvocationMep() == Mep.UNKNOWN ? null : dlg.getInvocationMep().toString();
-					command = EObjecttUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
+					command = EObjectUIHelper.createCustomSetCommand( editDomain, endpoint, Cdk5Package.Literals.CDK5_CONSUMES__MEP, mep );
 					compositeCommand.append(command);
 
 					// Identify the listeners to disable, so that all the fields are correctly set
@@ -325,7 +333,7 @@ public class CDK5JBIEndpointUIHelper {
 		// The data-binding
 		ise.getDataBindingContext().bindValue(
 				SWTObservables.observeDelayedValue(200, SWTObservables.observeText( wsdlText, SWT.Modify )),
-				EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL ));
+				EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Cdk5Package.Literals.CDK5_PROVIDES__WSDL ));
 
 
 		// Then, the common widgets
@@ -375,7 +383,7 @@ public class CDK5JBIEndpointUIHelper {
 			Composite parent,
 			ISharedEdition ise ) {
 
-		EObjecttUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				Cdk5Package.Literals.CDK5_PROVIDES__TIMEOUT,
 				Cdk5Package.Literals.CDK5_PROVIDES__VALIDATE_WSDL,
 				Cdk5Package.Literals.CDK5_PROVIDES__FORWARD_SECURITY_SUBJECT,
@@ -398,7 +406,7 @@ public class CDK5JBIEndpointUIHelper {
 			Composite parent,
 			ISharedEdition ise ) {
 
-		EObjecttUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets( ae, toolkit, parent, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				Cdk5Package.Literals.CDK5_CONSUMES__TIMEOUT );
 	}
 }

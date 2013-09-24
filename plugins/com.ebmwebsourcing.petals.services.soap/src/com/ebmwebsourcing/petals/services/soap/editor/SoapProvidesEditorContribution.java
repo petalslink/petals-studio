@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.soap.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
@@ -40,7 +40,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "SOAP Parameters", true );
-		EObjecttUIHelper.generateEditorWidgets(
+		EObjectUIHelper.generateEditorWidgets(
 				endpoint,
 				toolkit,
 				composite,
@@ -62,7 +62,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "Miscellaneous" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
 					SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTP_BASIC_AUTH_USERNAME,
@@ -71,13 +71,13 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 
 		// Not described in the XML schema, and not detailed on the wiki
 //		composite = createEditorSection( advancedTab, toolkit, "SOAP Headers" );
-//		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+//		EObjectUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 //					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_FILTER,
 //					SoapPackage.Literals.SOAP_PROVIDES__INJECT_HEADERS,
 //					SoapPackage.Literals.SOAP_PROVIDES__HEADERS_TO_INJECT);
 
 		composite = createEditorSection( advancedTab, toolkit, "Proxy Settings" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_HOST,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_PORT,
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_USER,
@@ -85,7 +85,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 					SoapPackage.Literals.SOAP_PROVIDES__PROXY_DOMAIN);
 
 		composite = createEditorSection( advancedTab, toolkit, "HTTPS" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_FILE,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_KEYSTORE_PASSWORD,
 					SoapPackage.Literals.SOAP_PROVIDES__HTTPS_TRUSTSTORE_FILE,
@@ -93,7 +93,7 @@ public class SoapProvidesEditorContribution extends JbiEditorDetailsContribution
 
 		// Not described in the XML schema, and not detailed on the wiki
 //		composite = createEditorSection( advancedTab, toolkit, "WS-Addressing" );
-//		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+//		EObjectUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 //					SoapPackage.Literals.SOAP_PROVIDES__ENABLE_WSA,
 //					SoapPackage.Literals.SOAP_PROVIDES__WSA_FROM,
 //					SoapPackage.Literals.SOAP_PROVIDES__WSA_REPLY_TO,

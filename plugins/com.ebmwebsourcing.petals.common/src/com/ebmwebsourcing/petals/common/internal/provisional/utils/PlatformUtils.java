@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import org.eclipse.core.resources.IProject;
@@ -24,7 +24,15 @@ import org.eclipse.swt.graphics.FontData;
  * A set of utilities for SWT and JFace.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PlatformUtils {
+public final class PlatformUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private PlatformUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * @param originalData

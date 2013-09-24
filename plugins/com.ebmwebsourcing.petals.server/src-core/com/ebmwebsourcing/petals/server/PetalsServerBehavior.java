@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.server;
 
 import java.io.File;
@@ -52,7 +52,7 @@ import com.ebmwebsourcing.petals.server.ui.preferences.PetalsServerPreferencePag
  * servers. Initially, it listens to the server by checking the system process and by
  * pinging the server at regular intervals.
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class PetalsServerBehavior extends ServerBehaviourDelegate {
@@ -132,6 +132,7 @@ public class PetalsServerBehavior extends ServerBehaviourDelegate {
 			return;
 
 		this.processListener = new IDebugEventSetListener() {
+			@Override
 			public void handleDebugEvents(DebugEvent[] events) {
 				if( events != null ) {
 					int size = events.length;
@@ -165,7 +166,7 @@ public class PetalsServerBehavior extends ServerBehaviourDelegate {
 						Thread.sleep( 1000 );
 
 					} catch( InterruptedException e ) {
-						e.printStackTrace();
+						// nothing
 					}
 
 					// Update the state
@@ -211,7 +212,7 @@ public class PetalsServerBehavior extends ServerBehaviourDelegate {
 						Thread.sleep( 10000);
 
 					} catch( InterruptedException e ) {
-						e.printStackTrace();
+						// nothing
 					}
 
 					// Update the state
@@ -269,7 +270,7 @@ public class PetalsServerBehavior extends ServerBehaviourDelegate {
 	 * <p>
 	 * Shutdown means all the deployed artifacts will be removed.
 	 * </p>
-	 * 
+	 *
 	 * @param eraseAll true to erase all the deployed artifacts before stopping the container
 	 * @param force true to stop the process if the normal shutdown command fails
 	 */
@@ -320,14 +321,14 @@ public class PetalsServerBehavior extends ServerBehaviourDelegate {
 				launch.terminate();
 
 		} catch( DebugException e ) {
-			e.printStackTrace();
+			PetalsServerPlugin.log( e, IStatus.ERROR );
 		}
 	}
 
 
 	/**
 	 * Prepares the server to be launched, checking the runtime and cleaning the install directory.
-	 * 
+	 *
 	 * @param launch
 	 * @param launchMode
 	 * @param monitor
@@ -410,6 +411,7 @@ public class PetalsServerBehavior extends ServerBehaviourDelegate {
 
 		if( args == null ) {
 			Display.getDefault().syncExec( new Runnable() {
+				@Override
 				public void run() {
 					MessageDialogWithToggle.openYesNoQuestion(
 								new Shell(), "Start Mode",

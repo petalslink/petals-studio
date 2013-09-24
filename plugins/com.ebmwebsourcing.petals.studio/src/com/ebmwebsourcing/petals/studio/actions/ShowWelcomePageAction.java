@@ -9,12 +9,13 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.studio.actions;
 
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.Parameterization;
 import org.eclipse.core.commands.ParameterizedCommand;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -22,6 +23,8 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
+
+import com.ebmwebsourcing.petals.studio.PetalsStudioPlugin;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -32,6 +35,7 @@ public class ShowWelcomePageAction implements IWorkbenchWindowActionDelegate {
 	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate
 	 * #dispose()
 	 */
+	@Override
 	public void dispose() {
 		// nothing
 	}
@@ -40,6 +44,7 @@ public class ShowWelcomePageAction implements IWorkbenchWindowActionDelegate {
 	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate
 	 * #init(org.eclipse.ui.IWorkbenchWindow)
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 		// nothing
 	}
@@ -48,6 +53,7 @@ public class ShowWelcomePageAction implements IWorkbenchWindowActionDelegate {
 	 * @see org.eclipse.ui.IActionDelegate
 	 * #run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 
 		ICommandService cmdService = (ICommandService)
@@ -66,7 +72,7 @@ public class ShowWelcomePageAction implements IWorkbenchWindowActionDelegate {
 			ds.executeCommand( parmCommand, null );
 
 		} catch( Exception e ) {
-			e.printStackTrace();
+			PetalsStudioPlugin.log( e, IStatus.WARNING );
 		}
 	}
 
@@ -74,6 +80,7 @@ public class ShowWelcomePageAction implements IWorkbenchWindowActionDelegate {
 	 * @see org.eclipse.ui.IActionDelegate
 	 * #selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		// nothing
 	}

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer.helpers;
 
 import com.ebmwebsourcing.petals.services.eip.designer.model.EIPtype;
@@ -19,7 +19,15 @@ import com.ebmwebsourcing.petals.services.eip.designer.model.EipProperty;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class RouterUtils {
+public final class RouterUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private RouterUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * @param eip an EIP node whose type must be {@link EIPtype#ROUTER}

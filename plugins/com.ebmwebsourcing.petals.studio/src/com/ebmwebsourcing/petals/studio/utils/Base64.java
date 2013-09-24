@@ -14,10 +14,10 @@ package com.ebmwebsourcing.petals.studio.utils;
 /*
  * This class comes from "org.eclipse.equinox.preferences" v20080421-2006
  * (taken from the CVS dev.eclipse.org.:/cvsroot/eclipse).
- * 
+ *
  * There was no javadoc on the class itself.
  */
-public class Base64 {
+public final class Base64 {
 
 	private static final byte equalSign = (byte) '=';
 
@@ -27,10 +27,17 @@ public class Base64 {
 			'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
 
 	/**
+	 * Private constructor for utility class.
+	 */
+	private Base64() {
+		// nothing
+	}
+
+	/**
 	 * This method decodes the byte array in base 64 encoding into a char array
 	 * Base 64 encoding has to be according to the specification given by the
 	 * RFC 1521 (5.2).
-	 * 
+	 *
 	 * @param data the encoded byte array
 	 * @return the decoded byte array
 	 */
@@ -114,7 +121,7 @@ public class Base64 {
 
 	/**
 	 * This method converts a Base 64 digit to its numeric value.
-	 * 
+	 *
 	 * @param data digit (character) to convert
 	 * @return value for the digit
 	 */
@@ -139,7 +146,7 @@ public class Base64 {
 	/**
 	 * This method encodes the byte array into a char array in base 64 according
 	 * to the specification given by the RFC 1521 (5.2).
-	 * 
+	 *
 	 * @param data the encoded char array
 	 * @return the byte array that needs to be encoded
 	 */

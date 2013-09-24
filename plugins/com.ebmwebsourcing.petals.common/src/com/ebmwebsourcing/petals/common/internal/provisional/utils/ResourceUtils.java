@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
@@ -52,7 +52,15 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
  * Utility methods to manage and look for resources in the workspace.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ResourceUtils {
+public final class ResourceUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private ResourceUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Gets all the files whose extension is <b>extension</b> and present in <b>containers</b>.

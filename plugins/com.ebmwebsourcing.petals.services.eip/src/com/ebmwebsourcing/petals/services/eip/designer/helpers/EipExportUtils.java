@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer.helpers;
 
 import java.util.ArrayList;
@@ -42,7 +42,15 @@ import com.ebmwebsourcing.petals.services.eip.designer.model.EipProperty;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class EipExportUtils {
+public final class EipExportUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private EipExportUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Creates the content of a jbi.xml for the SU associated with an EIP node.

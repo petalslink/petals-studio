@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.cdk;
 
 import org.eclipse.emf.ecore.xml.type.internal.QName;
@@ -23,7 +23,15 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * @author Mickael Istria - EBM WebSourcing
  */
-public class Cdk5Utils {
+public final class Cdk5Utils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private Cdk5Utils() {
+		// nothing
+	}
+
 
 	/**
 	 * Initializes a provide block.

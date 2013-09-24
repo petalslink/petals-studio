@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.studio.dev.properties.internal.commands;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -90,9 +90,7 @@ public class GenerateConstantsHandler extends AbstractHandler {
 		}
 
 		boolean fine = false;
-		if( s != null
-				&& ! s.isEmpty()
-				&& s instanceof IStructuredSelection
+		if( s instanceof IStructuredSelection
 				&& ((IStructuredSelection) s).size() == 1 ) {
 
 			Object o = ((IStructuredSelection) s).getFirstElement();

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.generation;
 
 import java.io.ByteArrayInputStream;
@@ -315,8 +315,9 @@ public class JbiUtils {
 	 * @param out the zip file
 	 * @param in the input stream to add into the zip
 	 * @param entry the entry for the file to add into the zip (not null)
+	 * @throws IOException
 	 */
-	private static void addFileToZip( ZipOutputStream out, InputStream in, String entry ) {
+	private static void addFileToZip( ZipOutputStream out, InputStream in, String entry ) throws IOException {
 
 		byte[] buf = new byte[ 1024 ];	// Create a buffer for reading the files
 		ZipEntry ze = new ZipEntry( entry );
@@ -326,11 +327,13 @@ public class JbiUtils {
 			while ((len = in.read( buf )) > 0) {
 				out.write( buf, 0, len);
 			}
-			in.close ();
-			out.closeEntry ();
 
-		} catch( Exception e ) {
-			e.printStackTrace();
+		} finally {
+			try {
+				in.close ();
+			} finally {
+				out.closeEntry();
+			}
 		}
 	}
 

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.editor.extensibility;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ import com.sun.java.xml.ns.jbi.Provides;
  */
 public class InitializeModelExtensionCommand extends AbstractCommand {
 
-	private static AtomicInteger ID_COUNTER = new AtomicInteger( 1 );
+	private static final AtomicInteger ID_COUNTER = new AtomicInteger( 1 );
 
 	private final int id;
 	private Set<EStructuralFeature> targetFeatures;

@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.soap.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
@@ -45,7 +45,7 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 		CDK5JBIEndpointUIHelper.createConsumesUI( endpoint, toolkit, composite, ise, commonUiBean );
 
 		composite = createEditorSection( mainTab, toolkit, "SOAP", true );
-		EObjecttUIHelper.generateWidgets(
+		EObjectUIHelper.generateWidgets(
 				endpoint,
 				toolkit,
 				composite,
@@ -67,7 +67,7 @@ public class SoapConsumesEditorContribution extends JbiEditorDetailsContribution
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "Miscellaneous" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_COMPATIBILITY_FOR,
 					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_HTTP_TRANSPORT,
 					SoapPackage.Literals.SOAP_CONSUMES__ENABLE_HTTPS_TRANSPORT,

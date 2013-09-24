@@ -168,7 +168,7 @@ public class ExportDiagramAction extends Action {
 						BORDER_MARGIN_SIDES + width + (width%2 == 0 ? 10 : 11),
 						BORDER_MARGIN_UPDOWN + height + (height%2 == 0 ? 6 : 7));
 
-			final int ARROW_PADDING = (titleRectangle.height + bounds.y) / 2;
+			final int arrowPadding = (titleRectangle.height + bounds.y) / 2;
 			gc.drawLine(
 						titleRectangle.x,
 						titleRectangle.height,
@@ -178,14 +178,14 @@ public class ExportDiagramAction extends Action {
 			gc.drawLine(
 						titleRectangle.width,
 						titleRectangle.y,
-						titleRectangle.width + ARROW_PADDING,
-						ARROW_PADDING  );
+						titleRectangle.width + arrowPadding,
+						arrowPadding  );
 
 			gc.drawLine(
 						titleRectangle.width,
 						titleRectangle.height,
-						titleRectangle.width + ARROW_PADDING,
-						ARROW_PADDING );
+						titleRectangle.width + arrowPadding,
+						arrowPadding );
 
 			// Draw the image
 			gc.drawImage( img, BORDER_MARGIN_SIDES + 1, BORDER_MARGIN_UPDOWN + titleRectangle.height + 1 );

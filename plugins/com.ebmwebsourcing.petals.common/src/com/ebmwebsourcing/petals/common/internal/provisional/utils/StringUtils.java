@@ -9,13 +9,21 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class StringUtils {
+public final class StringUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private StringUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * @param string

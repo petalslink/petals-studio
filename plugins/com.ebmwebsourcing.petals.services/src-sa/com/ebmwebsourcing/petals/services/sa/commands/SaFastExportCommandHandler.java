@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.sa.commands;
 
 import java.lang.reflect.InvocationTargetException;
@@ -154,9 +154,7 @@ public class SaFastExportCommandHandler extends AbstractHandler {
 			// nothing
 		}
 
-		if( s != null
-					&& s instanceof IStructuredSelection ) {
-
+		if( s instanceof IStructuredSelection ) {
 			for( Iterator<?> it = ((IStructuredSelection) s).iterator(); it.hasNext(); ) {
 				Object element = it.next();
 				IProject p;

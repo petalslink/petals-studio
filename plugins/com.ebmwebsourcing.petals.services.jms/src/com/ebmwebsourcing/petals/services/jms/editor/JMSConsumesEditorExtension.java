@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.jms.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.jms.jms.JmsPackage;
@@ -55,14 +55,14 @@ public class JMSConsumesEditorExtension extends JbiEditorDetailsContribution {
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "JNDI Parameters" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_PROVIDER_URL,
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_INITIAL_CONTEXT_FACTORY,
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_DESTINATION_NAME,
 				JmsPackage.Literals.JMS_EXTENSION__JNDI_CONNECTION_FACTORY );
 
 		composite = createEditorSection( advancedTab, toolkit, "JMS Parameters" );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				JmsPackage.Literals.JMS_EXTENSION__USER,
 				JmsPackage.Literals.JMS_EXTENSION__PASSWORD,
 				JmsPackage.Literals.JMS_EXTENSION__TRANSACTED );

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.maven;
 
 import java.io.File;
@@ -35,10 +35,10 @@ import com.ebmwebsourcing.petals.services.generated.SuPomXml;
  * This class uses the Petals preferences to determine which of
  * the customized or default POM it must use.
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PetalsServicePomManager {
+public final class PetalsServicePomManager {
 
 	public static final PetalsServicePomManager INSTANCE = new PetalsServicePomManager();
 	public static final String DEFAULT_SA_POM = "sa-default-pom.xml";
@@ -114,7 +114,7 @@ public class PetalsServicePomManager {
 	 * The root directory that contains the templates must exist and
 	 * be a directory.
 	 * </p>
-	 * 
+	 *
 	 * @param su true to get a SU template, false for a SA
 	 * @param componentName the component name (only for a SU, can be null)
 	 * @return the associated POM template
@@ -132,6 +132,7 @@ public class PetalsServicePomManager {
 
 			} else {
 				FileFilter filter = new FileFilter() {
+					@Override
 					public boolean accept( File pathname ) {
 						return pathname.isFile();
 					}

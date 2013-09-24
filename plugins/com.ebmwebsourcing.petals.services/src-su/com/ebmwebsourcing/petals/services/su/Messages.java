@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su;
 
 import org.eclipse.osgi.util.NLS;
@@ -17,7 +17,7 @@ import org.eclipse.osgi.util.NLS;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class Messages extends NLS {
+public final class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "com.ebmwebsourcing.petals.services.su.messages"; //$NON-NLS-1$
 

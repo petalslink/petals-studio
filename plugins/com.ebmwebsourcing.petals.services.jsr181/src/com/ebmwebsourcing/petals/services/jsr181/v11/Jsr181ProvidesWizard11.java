@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.jsr181.v11;
 
 import java.io.File;
@@ -203,7 +203,8 @@ public class Jsr181ProvidesWizard11 extends AbstractServiceUnitWizard {
 		// Create the package
 		StringBuffer sb = new StringBuffer();
 		for( String path : packageName.trim().split( "\\." )) {
-			sb.append( path + "/" );
+			sb.append( path );
+			sb.append( "/" );
 		}
 
 		File packageDirectory = srcFolder.getLocation().append( sb.toString()).toFile();

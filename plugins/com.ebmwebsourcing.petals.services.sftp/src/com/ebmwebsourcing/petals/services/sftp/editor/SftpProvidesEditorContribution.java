@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.sftp.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.sftp.sftp.SftpPackage;
@@ -49,7 +49,7 @@ public class SftpProvidesEditorContribution extends JbiEditorDetailsContribution
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "Server Parameters" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				SftpPackage.Literals.SFTP_PROVIDES__SERVER,
 				SftpPackage.Literals.SFTP_PROVIDES__PORT,
 				SftpPackage.Literals.SFTP_PROVIDES__USER,
@@ -58,7 +58,7 @@ public class SftpProvidesEditorContribution extends JbiEditorDetailsContribution
 				SftpPackage.Literals.SFTP_PROVIDES__PASSPHRASE );
 
 		composite = createEditorSection( advancedTab, toolkit, "SFTP Parameters" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				SftpPackage.Literals.SFTP_PROVIDES__FOLDER,
 				SftpPackage.Literals.SFTP_PROVIDES__MAX_IDLE_TIME,
 				SftpPackage.Literals.SFTP_PROVIDES__OVERWRITE,

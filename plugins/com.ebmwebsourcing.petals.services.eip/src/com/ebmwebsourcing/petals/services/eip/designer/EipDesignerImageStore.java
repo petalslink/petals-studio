@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer;
 
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import com.ebmwebsourcing.petals.services.eip.designer.model.EIPtype;
  * A utility class to store images.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class EipDesignerImageStore {
+public final class EipDesignerImageStore {
 
 	/**
 	 * The instance of this class.
@@ -143,7 +143,7 @@ public class EipDesignerImageStore {
 		} catch( Exception e ) {
 			PetalsEipPlugin.log( "The image " + path + " could not be found.", IStatus.WARNING );
 		}
-		
+
 		path = "icons/obj16/warning.gif";
 		try {
 			ImageDescriptor desc = PetalsEipPlugin.getImageDescriptor( path );
@@ -169,7 +169,7 @@ public class EipDesignerImageStore {
 	public Image getErrorIcon() {
 		return this.errorIcon;
 	}
-	
+
 	public Image getWarningIcon() {
 		return this.warningIcon;
 	}

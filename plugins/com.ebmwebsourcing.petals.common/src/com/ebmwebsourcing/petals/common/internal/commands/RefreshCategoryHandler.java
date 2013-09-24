@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.commands;
 
 import java.lang.reflect.InvocationTargetException;
@@ -46,6 +46,7 @@ public class RefreshCategoryHandler extends AbstractHandler {
 	 * @see org.eclipse.core.commands.IHandler
 	 * #execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
+	@Override
 	public Object execute( ExecutionEvent event ) throws ExecutionException {
 
 		// Check the target view
@@ -60,12 +61,13 @@ public class RefreshCategoryHandler extends AbstractHandler {
 			try {
 				s = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
 			} catch( Exception e1 ) {
-				e1.printStackTrace();
+				PetalsCommonPlugin.log( e1, IStatus.WARNING );
 			}
 
 			if( s != null && ! s.isEmpty()) {
 				final PetalsProjectCategory category = (PetalsProjectCategory) ((IStructuredSelection) s).getFirstElement();
 				IRunnableWithProgress irwp = new IRunnableWithProgress() {
+					@Override
 					public void run( IProgressMonitor monitor )
 					throws InvocationTargetException, InterruptedException {
 
@@ -83,6 +85,7 @@ public class RefreshCategoryHandler extends AbstractHandler {
 							// Refresh the category contents
 							monitor.worked( 1 );
 							Display.getDefault().asyncExec( new Runnable() {
+								@Override
 								public void run() {
 									viewer.refresh( category, true );
 								}

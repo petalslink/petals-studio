@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
@@ -26,7 +26,15 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class EmfUtils {
+public final class EmfUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private EmfUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * @param object

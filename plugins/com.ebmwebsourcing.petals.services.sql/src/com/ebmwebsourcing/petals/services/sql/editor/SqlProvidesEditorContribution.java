@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.sql.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.sql.sql.SqlPackage;
@@ -50,13 +50,13 @@ public class SqlProvidesEditorContribution extends JbiEditorDetailsContribution 
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "Database Parameters" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				SqlPackage.Literals.SQL_PROVIDES__URL,
 				SqlPackage.Literals.SQL_PROVIDES__USER,
 				SqlPackage.Literals.SQL_PROVIDES__PASSWORD );
 
 		composite = createEditorSection( advancedTab, toolkit, "SQL Parameters" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				SqlPackage.Literals.SQL_PROVIDES__DRIVER,
 				SqlPackage.Literals.SQL_PROVIDES__MAX_ACTIVE,
 				SqlPackage.Literals.SQL_PROVIDES__MAX_IDLE,

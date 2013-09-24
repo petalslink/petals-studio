@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.server.ui.wizards;
 
 import java.util.ArrayList;
@@ -99,7 +99,7 @@ public class PetalsRuntimeWizardFragment3x extends WizardFragment {
 				this.runtimeWc.save( true, null );
 
 			} catch( CoreException e ) {
-				e.printStackTrace();
+				PetalsServerPlugin.log( e, IStatus.ERROR );
 			}
 		}
 
@@ -204,6 +204,7 @@ public class PetalsRuntimeWizardFragment3x extends WizardFragment {
 		this.locationText = new Text( container, SWT.SINGLE | SWT.BORDER );
 		this.locationText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		this.locationText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				PetalsRuntimeWizardFragment3x.this.installPath = PetalsRuntimeWizardFragment3x.this.locationText.getText().trim();
 				validate();
@@ -258,6 +259,7 @@ public class PetalsRuntimeWizardFragment3x extends WizardFragment {
 		this.jreViewer.setInput( vms );
 		this.jreViewer.setSelection( new StructuredSelection( this.vmInstall ));
 		this.jreViewer.addSelectionChangedListener( new ISelectionChangedListener () {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 				Object o = ((IStructuredSelection) event.getSelection()).getFirstElement();
 				PetalsRuntimeWizardFragment3x.this.vmInstall = (IVMInstall) o;
@@ -303,6 +305,7 @@ public class PetalsRuntimeWizardFragment3x extends WizardFragment {
 		layoutData.horizontalSpan = 2;
 		this.runtimeNameText.setLayoutData( layoutData );
 		this.runtimeNameText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				PetalsRuntimeWizardFragment3x.this.runtimeName = PetalsRuntimeWizardFragment3x.this.runtimeNameText.getText();
 				validate();

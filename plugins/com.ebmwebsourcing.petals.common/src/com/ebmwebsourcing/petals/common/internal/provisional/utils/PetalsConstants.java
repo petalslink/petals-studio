@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
@@ -18,7 +18,14 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
  * The constants used here and there in this plug-in.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PetalsConstants {
+public final class PetalsConstants {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private PetalsConstants() {
+		// nothing
+	}
 
 	/**
 	 * src/main/jbi/

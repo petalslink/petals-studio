@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.ByteArrayOutputStream;
@@ -31,7 +31,15 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class IoUtils {
+public final class IoUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private IoUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Deletes files recursively.

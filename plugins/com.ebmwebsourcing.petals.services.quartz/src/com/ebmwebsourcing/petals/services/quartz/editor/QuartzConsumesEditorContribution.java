@@ -18,7 +18,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.quartz.QuartzControls;
@@ -63,11 +63,11 @@ public class QuartzConsumesEditorContribution extends JbiEditorDetailsContributi
 		controls.createControls( composite, true );
 
 		IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getCronText(), SWT.Modify ));
-		IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, QuartzPackage.Literals.QUARTZ_CONSUMES__CRON_EXPRESSION );
+		IObservableValue iov = EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, QuartzPackage.Literals.QUARTZ_CONSUMES__CRON_EXPRESSION );
 		ise.getDataBindingContext().bindValue( widgetObservable, iov );
 
 		widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getMsgText(), SWT.Modify ));
-		iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, QuartzPackage.Literals.QUARTZ_CONSUMES__CONTENT );
+		iov = EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, QuartzPackage.Literals.QUARTZ_CONSUMES__CONTENT );
 		ise.getDataBindingContext().bindValue( widgetObservable, iov );
 
 		composite = createEditorSection( advancedTab, toolkit, "CDK Parameters" );

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.ByteArrayInputStream;
@@ -23,10 +23,18 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
- * A sedt of utilities related to archives (ZIP...).
+ * A set of utilities related to archives (ZIP...).
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ArchiveUtils {
+public final class ArchiveUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private ArchiveUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Copies a Petals archive but replaces the JBI descriptor by another one.

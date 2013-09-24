@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.extensions.internal.wizards;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ import com.ebmwebsourcing.petals.common.extensions.PetalsCommonWsdlExtPlugin;
  * available in the workspace, and a text field to select
  * a class from the selected project.
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class JavaToWSDLWizardPage extends WizardPage {
@@ -107,6 +107,7 @@ public class JavaToWSDLWizardPage extends WizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage
 	 * #createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl( Composite parent ) {
 
 		Composite container = new Composite( parent, SWT.NONE );
@@ -138,10 +139,12 @@ public class JavaToWSDLWizardPage extends WizardPage {
 					for( IProject project : projects ) {
 
 						try {
-							if( !project.isOpen() || !project.hasNature( JavaCore.NATURE_ID ))
+							if( ! project.isOpen()
+									|| !project.hasNature( JavaCore.NATURE_ID ))
 								continue;
+
 						} catch( CoreException e ) {
-							e.printStackTrace();
+							PetalsCommonWsdlExtPlugin.log( e, IStatus.WARNING );
 							continue;
 						}
 
@@ -165,6 +168,7 @@ public class JavaToWSDLWizardPage extends WizardPage {
 		}
 
 		viewer.addSelectionChangedListener( new ISelectionChangedListener () {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				IStructuredSelection s = (IStructuredSelection) event.getSelection();
@@ -177,6 +181,7 @@ public class JavaToWSDLWizardPage extends WizardPage {
 		});
 
 		viewer.addDoubleClickListener( new IDoubleClickListener () {
+			@Override
 			public void doubleClick( DoubleClickEvent event ) {
 				openClassSelectionDialog();
 			}
@@ -194,6 +199,7 @@ public class JavaToWSDLWizardPage extends WizardPage {
 		this.classText = new Text( container, SWT.BORDER | SWT.SINGLE );
 		this.classText.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
 		this.classText.addModifyListener( new ModifyListener () {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				JavaToWSDLWizardPage.this.className = JavaToWSDLWizardPage.this.classText.getText();
 				validate();

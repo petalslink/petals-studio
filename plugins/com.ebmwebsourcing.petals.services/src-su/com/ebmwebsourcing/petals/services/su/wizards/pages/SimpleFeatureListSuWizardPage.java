@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
@@ -54,7 +54,7 @@ public class SimpleFeatureListSuWizardPage extends AbstractSuWizardPage {
 		GridLayoutFactory.swtDefaults().numColumns( 2 ).extendedMargins( 15, 15, 20, 0 ).applyTo( container );
 		setControl( container );
 
-		EObjecttUIHelper.generateWidgets(
+		EObjectUIHelper.generateWidgets(
 				getNewlyCreatedEndpoint(),
 				new FormToolkit(getShell().getDisplay()),
 				container, null, this.dbc, false, this.features);

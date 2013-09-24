@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.studio.utils;
 
 import org.eclipse.core.runtime.IProduct;
@@ -23,9 +23,17 @@ import com.ebmwebsourcing.petals.studio.PetalsStudioPlugin;
  * Utility methods for studio's versions.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class VersionUtils {
+public final class VersionUtils {
 
 	public static final String DEV_VERSION = "@version@";
+
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private VersionUtils() {
+		// nothing
+	}
 
 
 	/**
@@ -117,7 +125,7 @@ public class VersionUtils {
 				version = parts[ 0 ] + "." + parts[ 1 ];
 
 			// Is there a qualifier?
-			int index = fullVersion.lastIndexOf( " " );
+			int index = fullVersion.lastIndexOf( ' ' );
 			if( index != -1 )
 				version += fullVersion.substring( index );
 

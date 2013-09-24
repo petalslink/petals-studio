@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.filetransfer.v30.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer3.Filetransfer3Package;
@@ -40,7 +40,7 @@ public class FileTransfer3ProvidesJbiEditorContribution extends JbiEditorDetails
 		CDK5JBIEndpointUIHelper.createProvidesUI(endpoint, toolkit, composite, ise);
 
 		composite = createEditorSection( mainTab, toolkit, "File Transfer Parameters", true );
-		EObjecttUIHelper.generateEditorWidgets(
+		EObjectUIHelper.generateEditorWidgets(
 				endpoint,
 				toolkit,
 				composite,

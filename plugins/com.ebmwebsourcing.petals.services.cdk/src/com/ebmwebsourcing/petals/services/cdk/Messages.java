@@ -17,7 +17,7 @@ import org.eclipse.osgi.util.NLS;
 /**
  * @author Vincent Zurczak - Linagora
  */
-public class Messages extends NLS {
+public final class Messages extends NLS {
 
 	public static String wsdlLocation;
 	public static String browse;

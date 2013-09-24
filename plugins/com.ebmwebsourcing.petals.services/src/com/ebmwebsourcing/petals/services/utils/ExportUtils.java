@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.utils;
 
 import java.io.ByteArrayOutputStream;
@@ -51,7 +51,15 @@ import com.ebmwebsourcing.petals.services.su.jbiproperties.PetalsSPPropertiesMan
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ExportUtils {
+public final class ExportUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private ExportUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Exports one or several SU projects into a service assembly.

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer.helpers;
 
 import java.util.ArrayList;
@@ -35,10 +35,10 @@ import com.ebmwebsourcing.petals.services.eip.designer.model.Endpoint;
  * The root of such a sub-graph is an EIP node with no incoming connection.
  * The leaves of a sub-graph should be end-points.
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SubGraphStatistics {
+public final class SubGraphStatistics {
 
 	/**
 	 * Considering columns of nodes (i.e. levels in the tree), this
@@ -160,10 +160,10 @@ public class SubGraphStatistics {
 	 * Adjusts the Y coordinate to prevent node overlap.
 	 * <p>
 	 * Here is a situation where this method is required.
-	 * 
+	 *
 	 * <code>EIP_____ EIP 1 ______ edpt
 	 *    \____ EIP 2 ______ edpt</code>
-	 * 
+	 *
 	 * With the single algorithm, EIP 1 and 2 will overlap vertically.
 	 * </p>
 	 */
@@ -281,7 +281,7 @@ public class SubGraphStatistics {
 	 * 		<li>Y( node ) = Math.max( Y( node2 )) where node2 is any node that has been processed before the current node.</li>
 	 * 		<li>Y( node ) = [ Y( node_child_max ) + Y( node_child_min ) - Height( node ) ] / 2</li>
 	 * </ol>
-	 * 
+	 *
 	 * @param node
 	 * @param level the tree level of the node (1 for the root level)
 	 * @param maxY the biggest computed Y coordinate (for any column or level)

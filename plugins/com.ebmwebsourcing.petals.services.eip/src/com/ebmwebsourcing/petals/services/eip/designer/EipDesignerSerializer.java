@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer;
 
 import java.io.File;
@@ -43,7 +43,7 @@ import com.ebmwebsourcing.petals.services.eip.designer.model.Endpoint;
  * A class in charge of serializing and de-serializing EIP chains.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class EipDesignerSerializer {
+public final class EipDesignerSerializer {
 
 	/**
 	 * The unique instance of this class.

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
@@ -61,7 +61,15 @@ import com.sun.java.xml.ns.jbi.util.JbiResourceFactoryImpl;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class JbiXmlUtils {
+public final class JbiXmlUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private JbiXmlUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Writes a {@link Jbi} instance into a file.

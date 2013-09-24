@@ -17,7 +17,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
@@ -59,7 +59,7 @@ public class SoapProvidesWizardPage41 extends SimpleFeatureListSuWizardPage {
 		setControl(res);
 
 		FormToolkit tk = new FormToolkit(getShell().getDisplay());
-		EObjecttUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, res, null, this.dbc, false,
+		EObjectUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, res, null, this.dbc, false,
 			SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
 			SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
 			SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,

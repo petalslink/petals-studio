@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer.helpers;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import com.ebmwebsourcing.petals.services.utils.ConsumeUtils;
  * @author Vincent Zurczak - EBM WebSourcing
  * FIXME: once internationalized, the strings will take much less space
  */
-public class EipChainTransactionalValidator {
+public final class EipChainTransactionalValidator {
 
 	private final Map<AbstractNode,List<String>> nodeToErrorMessage;
 	private final Map<EipConnection,List<String>> connectionToErrorMessage;

@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.eip.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.eip.eip.EipPackage;
@@ -50,7 +50,7 @@ public class EipProvidesEditorContribution extends JbiEditorDetailsContribution 
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "EIP Parameters" );
-		EObjecttUIHelper.generateWidgets( endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateWidgets( endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				EipPackage.Literals.EIP_PROVIDES__EIP,
 				EipPackage.Literals.EIP_PROVIDES__WIRETAP_WAY,
 				EipPackage.Literals.EIP_PROVIDES__AGGREGATOR_CORRELATION,

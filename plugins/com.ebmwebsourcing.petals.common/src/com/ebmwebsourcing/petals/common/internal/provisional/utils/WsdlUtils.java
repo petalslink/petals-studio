@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
@@ -47,7 +47,7 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
  * A WSDL parser for the version 1.1 of the WSDL specification.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class WsdlUtils {
+public final class WsdlUtils {
 
 	/**
 	 * The unique instance of this parser.

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.cdk;
 
 import java.util.Collection;
@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class CdkXsdManager {
+public final class CdkXsdManager {
 
 	/** The unique instance of this class. */
 	private static CdkXsdManager instance = new CdkXsdManager();

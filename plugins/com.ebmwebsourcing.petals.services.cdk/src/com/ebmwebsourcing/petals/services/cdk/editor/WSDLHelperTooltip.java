@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.cdk.editor;
 
 import java.io.File;
@@ -119,7 +119,7 @@ public class WSDLHelperTooltip {
 				try {
 					Thread.sleep( 1000 );
 				} catch( InterruptedException e ) {
-					e.printStackTrace();
+					// nothing
 				}
 
 				updateEnablement();

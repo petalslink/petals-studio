@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsoucing.petals.repositories.explorer;
 
 import org.eclipse.jface.viewers.LabelProvider;
@@ -26,28 +26,12 @@ import com.ebmwebsoucing.petals.repositories.explorer.model.Repository;
 public class RepositoryLabelProvider extends LabelProvider
 implements ICommonLabelProvider {
 
-	/**
-	 * Constructor.
-	 */
-	public RepositoryLabelProvider() {
-
-		//		ImageDescriptor desc;
-		//		try {
-		//			desc = PetalsServicesPlugin.getImageDescriptor( "icons/obj16/Endpoint_3.gif" );
-		//			if( desc != null )
-		//				this.edptImg = desc.createImage();
-		//
-		//		} catch (Exception e) {
-		//			e.printStackTrace();
-		//		}
-	}
-
-
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.navigator.IDescriptionProvider
 	 * #getDescription(java.lang.Object)
 	 */
+	@Override
 	public String getDescription( Object element ) {
 
 		String desc = null;
@@ -80,25 +64,6 @@ implements ICommonLabelProvider {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.BaseLabelProvider#dispose()
-	 */
-	@Override
-	public void dispose() {
-
-		try {
-			//			if( this.serverEdptImg != null )
-			//				this.serverEdptImg.dispose();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		super.dispose();
-	}
-
-
-	/*
-	 * (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.LabelProvider
 	 * #getImage(java.lang.Object)
 	 */
@@ -113,6 +78,7 @@ implements ICommonLabelProvider {
 	}
 
 
+	@Override
 	public void init( ICommonContentExtensionSite aConfig ) {
 		// TODO Auto-generated method stub
 
@@ -124,6 +90,7 @@ implements ICommonLabelProvider {
 	 * @see org.eclipse.ui.navigator.IMementoAware
 	 * #restoreState(org.eclipse.ui.IMemento)
 	 */
+	@Override
 	public void restoreState( IMemento aMemento ) {
 		// nothing
 	}
@@ -134,6 +101,7 @@ implements ICommonLabelProvider {
 	 * @see org.eclipse.ui.navigator.IMementoAware
 	 * #saveState(org.eclipse.ui.IMemento)
 	 */
+	@Override
 	public void saveState( IMemento aMemento ) {
 		// nothing
 	}

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.editor.su;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.LocalQNameToStringConverter;
 import com.ebmwebsourcing.petals.common.internal.provisional.databinding.NamespaceQNameToStringConverter;
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.CommonUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
@@ -55,7 +55,15 @@ import com.sun.java.xml.ns.jbi.Provides;
 /**
  * @author Mickael Istria - EBM WebSourcing
  */
-public class JBIEndpointUIHelpers {
+public final class JBIEndpointUIHelpers {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private JBIEndpointUIHelpers() {
+		// nothing
+	}
+
 
 	/**
 	 * A simple bean.
@@ -150,7 +158,7 @@ public class JBIEndpointUIHelpers {
 				if( value.length() > 0 )
 					return;
 
-				Command cmd = EObjecttUIHelper.createCustomSetCommand(
+				Command cmd = EObjectUIHelper.createCustomSetCommand(
 						ise.getEditingDomain(),
 						endpoint,
 						JbiPackage.Literals.ABSTRACT_ENDPOINT__ENDPOINT_NAME,
@@ -227,7 +235,7 @@ public class JBIEndpointUIHelpers {
 	 * @param attribute
 	 * @param useCustomSetCommand true to use a custom Set command, false for the usual SetCommand
 	 * TODO: replace this method by EMFEditObservables as soon as EMF 2.8.0 or 2.7.2 is out
-	 * @See EObjecttUIHelper.createCustomSetCommand
+	 * @See EObjectUIHelper.createCustomSetCommand
 	 */
 	public static ActivableListener createModifyListenerForQname(
 			final EditingDomain domain,
@@ -276,7 +284,7 @@ public class JBIEndpointUIHelpers {
 
 					Command cmd;
 					if( useCustomSetCommand )
-						cmd = EObjecttUIHelper.createCustomSetCommand( domain, owner, attribute, result );
+						cmd = EObjectUIHelper.createCustomSetCommand( domain, owner, attribute, result );
 					else
 						cmd = SetCommand.create( domain, owner, attribute, result );
 
@@ -321,7 +329,7 @@ public class JBIEndpointUIHelpers {
 		}
 
 		EStructuralFeature[] toProcessFeatures = toProcessFeaturesList.toArray(new EStructuralFeature[toProcessFeaturesList.size()] );
-		EObjecttUIHelper.generateWidgets(endpoint, toolkit, advancedDetails, ise.getEditingDomain(), ise.getDataBindingContext(), true, toProcessFeatures);
+		EObjectUIHelper.generateWidgets(endpoint, toolkit, advancedDetails, ise.getEditingDomain(), ise.getDataBindingContext(), true, toProcessFeatures);
 	}
 
 

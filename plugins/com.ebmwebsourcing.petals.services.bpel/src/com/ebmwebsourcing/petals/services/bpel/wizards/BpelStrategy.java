@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.bpel.wizards;
 
 import java.io.IOException;
@@ -45,10 +45,11 @@ import com.sun.java.xml.ns.jbi.AbstractEndpoint;
 import com.sun.java.xml.ns.jbi.Jbi;
 
 /**
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
 public class BpelStrategy implements FinishServiceCreationStrategy {
 
+	private static final String BPEL_BUILDER_ID = "org.eclipse.bpel.validator.builder";
 	private IProject project;
 
 
@@ -155,7 +156,6 @@ public class BpelStrategy implements FinishServiceCreationStrategy {
 
 
 		// The BPEL builder
-		final String BPEL_BUILDER_ID = "org.eclipse.bpel.validator.builder";
 		IProjectDescription desc = this.project.getDescription();
 		ICommand[] commands = desc.getBuildSpec();
 

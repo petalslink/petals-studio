@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * @author Mickael Istria - EBM WebSourcing
  */
-public class PetalsImages {
+public final class PetalsImages {
 
 	public static final PetalsImages INSTANCE = new PetalsImages();
 	private final List<Image> images;

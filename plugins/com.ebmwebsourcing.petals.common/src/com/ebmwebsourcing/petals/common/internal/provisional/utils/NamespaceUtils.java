@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.util.regex.Matcher;
@@ -27,14 +27,22 @@ import com.ebmwebsourcing.petals.common.internal.provisional.sse.StructuredModel
  * A set of utility methods to format names.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class NamespaceUtils {
+public final class NamespaceUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private NamespaceUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Verifies if a string is not null and is a shorten namespace.
 	 * <p>
 	 * <code>{http://petals.ow2.org}value</code> is an example of shorten namespace.
 	 * </p>
-	 * 
+	 *
 	 * @param s a string
 	 * @return
 	 */
@@ -47,7 +55,7 @@ public class NamespaceUtils {
 	 * Remove the name space elements from a string.
 	 * Name space elements are name space URLs between curly brackets or name space prefixes.
 	 * If the string is null, it returns the empty string.
-	 * 
+	 *
 	 * @param name the name whose name space elements should be removed.
 	 * @return the substring without name space URL and prefix.
 	 */
@@ -62,7 +70,7 @@ public class NamespaceUtils {
 		if( name.contains( "{" ) && ! m.find())
 			return "";
 
-		int namespaceEndPosition = name.lastIndexOf( "}" );
+		int namespaceEndPosition = name.lastIndexOf( '}' );
 		if( namespaceEndPosition > 0 )
 			name = name.substring( namespaceEndPosition + 1 );
 
@@ -82,7 +90,7 @@ public class NamespaceUtils {
 	 * Notice that this method does not check the validity of the parameter.
 	 * If no name space URI was found, then only the local part will be used.
 	 * </p>
-	 * 
+	 *
 	 * @param qname something like {http://namespace/uri}localPart
 	 * @return a QName
 	 */
@@ -102,7 +110,7 @@ public class NamespaceUtils {
 	 * will return {http://lol.fr}itfName when this method is called with the attribute
 	 * "interface-name".
 	 * </p>
-	 * 
+	 *
 	 * @param attribute the attribute
 	 * @return the associated QName, or null if the attribute value does not have a valid syntax
 	 */
@@ -132,7 +140,7 @@ public class NamespaceUtils {
 	 * <code>&lt;petalsCDK:operation xmlns:op="http://toto.fr"&gt;op:value&lt;&gt;</code>
 	 * will return {http://toto.fr}value.
 	 * </p>
-	 * 
+	 *
 	 * @param element the element
 	 * @return the associated QName, or null if the attribute value does not have a valid syntax
 	 */
@@ -167,7 +175,7 @@ public class NamespaceUtils {
 	 * <p>
 	 * If qNameValue is null, then null is returned.
 	 * </p>
-	 * 
+	 *
 	 * @param qNameValue
 	 * @param node
 	 * @return
@@ -221,7 +229,7 @@ public class NamespaceUtils {
 
 
 	/**
-	 * 
+	 *
 	 * @param nsDeclaration
 	 * @return
 	 */
@@ -232,7 +240,7 @@ public class NamespaceUtils {
 
 
 	/**
-	 * 
+	 *
 	 * @param nsDeclaration
 	 * @return
 	 */
@@ -246,7 +254,7 @@ public class NamespaceUtils {
 	 * @return a bean containing elements relative to a name space declaration, or
 	 * null if the argument does not match with the regular expression describing a
 	 * name space declaration.
-	 * 
+	 *
 	 * The regular expression describing a name space declaration
 	 * is "xmlns(\\:[-_\\w]+)?\\=\"[-.:/_\\w]+\"".
 	 */

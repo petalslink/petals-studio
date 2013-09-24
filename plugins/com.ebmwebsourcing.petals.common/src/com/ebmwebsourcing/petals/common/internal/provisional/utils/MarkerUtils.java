@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.util.List;
@@ -37,7 +37,15 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class MarkerUtils {
+public final class MarkerUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private MarkerUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Gets the {@link IMessageProvider} constant from an {@link IMarker} severity constant.
@@ -98,7 +106,7 @@ public class MarkerUtils {
 	/**
 	 * Not sensitive to name spaces (for instance, but not sure either it will be one day).
 	 */
-	private static XPath X_PATH = XPathFactory.newInstance().newXPath();
+	private static final XPath X_PATH = XPathFactory.newInstance().newXPath();
 
 
 	/**
@@ -139,7 +147,7 @@ public class MarkerUtils {
 				try {
 					markers = file.findMarkers( markerId, true, IResource.DEPTH_ZERO );
 				} catch( CoreException e1 ) {
-					e1.printStackTrace();
+					PetalsCommonPlugin.log( e1, IStatus.WARNING );
 					markers = new IMarker[ 0 ];
 				}
 

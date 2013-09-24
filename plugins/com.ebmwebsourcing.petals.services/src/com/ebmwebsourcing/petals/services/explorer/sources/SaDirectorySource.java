@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.explorer.sources;
 
 import java.io.File;
@@ -41,6 +41,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.InvalidJbiXmlException;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.CommonUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.IoUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
@@ -459,14 +460,8 @@ public class SaDirectorySource extends EndpointSource {
 	 */
 	@Override
 	public boolean equals( Object obj ) {
-
-		if( !( obj instanceof SaDirectorySource ))
-			return false;
-
-		if( this.directoryOrSaFile == null )
-			return ((SaDirectorySource) obj).directoryOrSaFile == null;
-
-		return this.directoryOrSaFile.equals(((SaDirectorySource) obj).directoryOrSaFile);
+		return obj instanceof SaDirectorySource
+				&& CommonUtils.areEqual( this.directoryOrSaFile, ((SaDirectorySource) obj).directoryOrSaFile );
 	}
 
 
@@ -477,6 +472,6 @@ public class SaDirectorySource extends EndpointSource {
 	 */
 	@Override
 	public int hashCode() {
-		return super.hashCode();
+		return this.directoryOrSaFile != null ? this.directoryOrSaFile.hashCode() : 11;
 	}
 }

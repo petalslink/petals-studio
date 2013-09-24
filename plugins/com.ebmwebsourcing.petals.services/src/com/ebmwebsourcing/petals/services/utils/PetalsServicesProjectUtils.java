@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.utils;
 
 import java.io.ByteArrayInputStream;
@@ -43,7 +43,15 @@ import com.ebmwebsourcing.petals.services.su.nature.SuNature;
  * Utility methods related to Petals service projects.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PetalsServicesProjectUtils {
+public final class PetalsServicesProjectUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private PetalsServicesProjectUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Creates a SU project with its structure and its properties set (natures, comments, source folders).

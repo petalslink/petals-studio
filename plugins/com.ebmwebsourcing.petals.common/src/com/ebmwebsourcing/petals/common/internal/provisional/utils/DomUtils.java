@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.ByteArrayInputStream;
@@ -48,7 +48,15 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class DomUtils {
+public final class DomUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private DomUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * @param prefix

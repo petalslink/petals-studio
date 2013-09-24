@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import org.eclipse.core.runtime.IStatus;
@@ -20,7 +20,15 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class StatusUtils {
+public final class StatusUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private StatusUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Creates a status for ErrorDialog from an exception.

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.studio.welcome;
 
 import java.io.File;
@@ -32,7 +32,7 @@ import com.ebmwebsourcing.petals.studio.utils.VersionUtils;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class RegistrationManager {
+public final class RegistrationManager {
 
 	private final static String EMAIL = "petals.studio.email";
 	private final static String COMPANY = "petals.studio.company";

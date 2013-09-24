@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer.model;
 
 import java.beans.PropertyChangeListener;
@@ -130,10 +130,10 @@ public class EipConnection {
 		if( warningMessages != null )
 			this.warningMessages.addAll( warningMessages );
 
-		this.listeners.firePropertyChange( PROPERTY_ERROR, null, errorMessages );
+		this.listeners.firePropertyChange( PROPERTY_ERROR, null, this.errorMessages );
 	}
 
-	
+
 
 	/**
 	 * @return the source
@@ -339,10 +339,7 @@ public class EipConnection {
 	 */
 	@Override
 	public boolean equals( Object obj ) {
-
-		return obj != null
-		&& obj instanceof EipConnection
-		&& ((EipConnection) obj).id == this.id;
+		return obj instanceof EipConnection && ((EipConnection) obj).id == this.id;
 	}
 
 

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.IOException;
@@ -31,7 +31,15 @@ import com.ebmwebsourcing.petals.common.internal.provisional.refactoring.PetalsR
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class PetalsRefactoringUtils {
+public final class PetalsRefactoringUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private PetalsRefactoringUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Builds a TextFileChange for a refactoring wizard.

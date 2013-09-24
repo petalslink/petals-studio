@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer.figures;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -29,12 +29,12 @@ import org.eclipse.draw2d.text.TextFlow;
  * <p>
  * Widely copied from Eclipse GEF samples (BentCornerFigure and StickyNoteFigure).
  * </p>
- * 
+ *
  * @author Vincent Zurczak - EBM WebSourcing
  */
 public class NoteFigure extends Figure {
 
-	private static int DEFAULT_CORNER_SIZE = 10;
+	private static final int DEFAULT_CORNER_SIZE = 10;
 	private final TextFlow textFlow;
 	private int cornerSize;
 

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
  * An image registry used in the Petals project explorer.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ImageRegistry {
+public final class ImageRegistry {
 
 	private ImageDescriptor errorOvrDesc;
 	private ImageDescriptor warningOverDesc;

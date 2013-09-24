@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
@@ -75,7 +75,15 @@ import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonC
  * A set of utilities to create SWT and JFace widgets.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class SwtFactory {
+public final class SwtFactory {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private SwtFactory() {
+		// nothing
+	}
+
 
 	/**
 	 * Creates a new composite.

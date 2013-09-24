@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.File;
@@ -33,12 +33,20 @@ import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 /**
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class XPathUtils {
+public final class XPathUtils {
 
 	/**
 	 * Not sensitive to name spaces (for instance, but not sure either it will be one day).
 	 */
-	private static XPath X_PATH = XPathFactory.newInstance().newXPath();
+	private static final XPath X_PATH = XPathFactory.newInstance().newXPath();
+
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private XPathUtils() {
+		// nothing
+	}
 
 
 	/**

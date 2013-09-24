@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.explorer.sources;
 
 import java.lang.reflect.InvocationTargetException;
@@ -21,6 +21,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.CommonUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.JbiXmlUtils;
 import com.ebmwebsourcing.petals.services.PetalsServicesPlugin;
 import com.ebmwebsourcing.petals.services.explorer.model.EndpointBean;
@@ -167,9 +168,8 @@ public abstract class EndpointSource {
 	 */
 	@Override
 	public boolean equals( Object obj ) {
-		return obj != null
-				&& obj instanceof EndpointSource
-				&& ((EndpointSource) obj).id.equals( this.id );
+		return obj instanceof EndpointSource
+				&& CommonUtils.areEqual(((EndpointSource) obj).id, this.id );
 	}
 
 

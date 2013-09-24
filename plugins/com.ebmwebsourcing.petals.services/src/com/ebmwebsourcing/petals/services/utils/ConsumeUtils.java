@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.utils;
 
 import java.net.URI;
@@ -42,7 +42,15 @@ import com.ebmwebsourcing.petals.services.su.ui.EnhancedConsumeDialog;
  * Utilities to define service consumers.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ConsumeUtils {
+public final class ConsumeUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private ConsumeUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * Opens a dialog to select an end-point to consume.

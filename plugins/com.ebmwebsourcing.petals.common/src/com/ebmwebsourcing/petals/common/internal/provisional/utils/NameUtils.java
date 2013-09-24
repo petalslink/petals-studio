@@ -15,7 +15,14 @@ package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 /**
  * @author Vincent Zurczak - Linagora
  */
-public class NameUtils {
+public final class NameUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private NameUtils() {
+		// nothing
+	}
 
 	/**
 	 * Create a SU name from a service name.

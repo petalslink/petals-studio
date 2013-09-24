@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.server.ui.wizards;
 
 import java.io.File;
@@ -91,7 +91,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 				this.serverWc.save( true, null );
 
 			} catch( CoreException e ) {
-				e.printStackTrace();
+				PetalsServerPlugin.log( e, IStatus.ERROR );
 			}
 		}
 
@@ -137,7 +137,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 
 
 	/**
-	 * 
+	 *
 	 */
 	private void parseTopology() {
 
@@ -175,7 +175,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 				this.port = handler.getPort();
 
 			} catch( Exception e1 ) {
-				e1.printStackTrace();
+				PetalsServerPlugin.log( e1, IStatus.ERROR );
 
 			} finally {
 				try {
@@ -241,6 +241,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 		layoutData.horizontalSpan = 2;
 		this.serverNameText.setLayoutData( layoutData );
 		this.serverNameText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				PetalsServerWizardFragment3x.this.serverName = PetalsServerWizardFragment3x.this.serverNameText.getText();
 				validate();
@@ -270,6 +271,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 		layoutData.horizontalSpan = 2;
 		this.containerNameText.setLayoutData( layoutData );
 		this.containerNameText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				PetalsServerWizardFragment3x.this.containerName = PetalsServerWizardFragment3x.this.containerNameText.getText();
 				validate();
@@ -282,6 +284,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 		layoutData.horizontalSpan = 2;
 		this.hostText.setLayoutData( layoutData );
 		this.hostText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				PetalsServerWizardFragment3x.this.host = PetalsServerWizardFragment3x.this.hostText.getText();
 				validate();
@@ -294,6 +297,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 		layoutData.horizontalSpan = 2;
 		this.wsPrefixText.setLayoutData( layoutData );
 		this.wsPrefixText.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				PetalsServerWizardFragment3x.this.wsPrefix = PetalsServerWizardFragment3x.this.wsPrefixText.getText();
 				validate();
@@ -304,6 +308,7 @@ public class PetalsServerWizardFragment3x extends WizardFragment {
 		this.portSpinner = new Spinner( container, SWT.BORDER | SWT.SINGLE );
 		this.portSpinner.setValues( 9600, 0, Integer.MAX_VALUE, 0, 1, 10 );
 		this.portSpinner.addModifyListener( new ModifyListener() {
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				PetalsServerWizardFragment3x.this.port = PetalsServerWizardFragment3x.this.portSpinner.getSelection();
 				validate();

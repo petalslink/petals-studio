@@ -19,7 +19,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
@@ -52,7 +52,7 @@ public class XsltProvidesEditorContribution extends JbiEditorDetailsContribution
 		TextWithButtonComposite browser = SwtFactory.createWorkspaceFileBrowser( composite, jbiXmlFile.getParent(), jbiXmlFile, "XSLT" );
 		browser.setLayoutData( new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		ise.getDataBindingContext().bindValue( SWTObservables.observeText(browser.getText(), SWT.Modify),
-		EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET ));
+		EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, XsltPackage.Literals.XSLT_PROVIDES__STYLESHEET ));
 	}
 
 
@@ -66,7 +66,7 @@ public class XsltProvidesEditorContribution extends JbiEditorDetailsContribution
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "XSLT Parameters" );
-		EObjecttUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
+		EObjectUIHelper.generateEditorWidgets(endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				XsltPackage.Literals.XSLT_PROVIDES__OUTPUT_ATTACHMENT_NAME,
 				XsltPackage.Literals.XSLT_PROVIDES__XSLT_ENGINE_FACTORY_CLASS_NAME,
 				XsltPackage.Literals.XSLT_PROVIDES__TRANSFORMER_FACTORY_MIN,

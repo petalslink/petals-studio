@@ -15,7 +15,7 @@ package com.ebmwebsourcing.petals.services.filetransfer.v24.editor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
@@ -55,7 +55,7 @@ public class FileTransferConsumesJbiEditorContribution extends JbiEditorDetailsC
 	public void addAdvancedSUContent(AbstractEndpoint endpoint, FormToolkit toolkit, Composite advancedTab, ISharedEdition ise) {
 
 		Composite composite = createEditorSection( advancedTab, toolkit, "File Transfer Parameters", true );
-		EObjecttUIHelper.generateWidgets(
+		EObjectUIHelper.generateWidgets(
 				endpoint, toolkit, composite, ise.getEditingDomain(), ise.getDataBindingContext(), true,
 				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__READ_DIRECTORY,
 				Filetransfer2xPackage.Literals.FILE_TRANSFER_CONSUMES__BACKUP_DIRECTORY,

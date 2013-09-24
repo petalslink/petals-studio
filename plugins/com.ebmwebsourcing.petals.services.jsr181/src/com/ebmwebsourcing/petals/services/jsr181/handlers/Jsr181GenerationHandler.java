@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.jsr181.handlers;
 
 import java.io.ByteArrayInputStream;
@@ -126,10 +126,9 @@ public class Jsr181GenerationHandler extends AbstractHandler {
 		try {
 			final ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
 			Object o;
-			if( selection != null
-						&& ! selection.isEmpty()
-						&& selection instanceof IStructuredSelection
-						&& ( o = ((IStructuredSelection) selection).getFirstElement()) instanceof IProject) {
+			if( selection instanceof IStructuredSelection
+					&& ! selection.isEmpty()
+					&& ( o = ((IStructuredSelection) selection).getFirstElement()) instanceof IProject) {
 
 				IProject p = (IProject) o;
 				if( p.isAccessible()

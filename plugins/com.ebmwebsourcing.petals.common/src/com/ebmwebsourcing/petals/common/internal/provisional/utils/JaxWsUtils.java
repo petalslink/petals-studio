@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
 import java.io.BufferedReader;
@@ -60,7 +60,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.preferences.Prefere
  * Utility methods related to JAX-WS.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class JaxWsUtils {
+public final class JaxWsUtils {
 
 	/**
 	 * A file to store the generated classes.

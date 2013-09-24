@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.provisional.emf;
 
 import java.util.ArrayList;
@@ -58,9 +58,17 @@ import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 
 /**
- * @author Micka�l Istria - EBM WebSourcing
+ * @author Mickael Istria - EBM WebSourcing
  */
-public class EObjecttUIHelper {
+public final class EObjectUIHelper {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private EObjectUIHelper() {
+		// nothing
+	}
+
 
 	/**
 	 * A validator for mandatory fields.

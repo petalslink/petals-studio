@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.internal.projectscnf;
 
 import java.util.Iterator;
@@ -127,10 +127,9 @@ public class PetalsProjectNavigator extends CommonNavigator {
 			return StructuredSelection.EMPTY;
 
 		ISelection selection = context.getSelection();
-		if( selection != null
-					&& !selection.isEmpty()
-					&& selection instanceof IStructuredSelection )
-			return (IStructuredSelection)selection;
+		if( selection instanceof IStructuredSelection
+				&& ! selection.isEmpty())
+			return (IStructuredSelection) selection;
 
 		Object input = context.getInput();
 		if( input instanceof IEditorInput ) {

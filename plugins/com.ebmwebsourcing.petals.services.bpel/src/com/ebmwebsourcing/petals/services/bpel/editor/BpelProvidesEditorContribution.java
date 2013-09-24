@@ -19,7 +19,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.TextWithButtonComposite;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
@@ -52,9 +52,9 @@ public class BpelProvidesEditorContribution extends JbiEditorDetailsContribution
 		TextWithButtonComposite browser = SwtFactory.createWorkspaceFileBrowser( composite, jbiXmlFile.getParent(), jbiXmlFile, "BPEL" );
 		browser.setLayoutData( new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		ise.getDataBindingContext().bindValue( SWTObservables.observeText(browser.getText(), SWT.Modify),
-		EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, BpelPackage.Literals.BPEL_PROVIDES__BPEL ));
+		EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, BpelPackage.Literals.BPEL_PROVIDES__BPEL ));
 
-		EObjecttUIHelper.generateWidget(
+		EObjectUIHelper.generateWidget(
 				endpoint, toolkit, composite,
 				ise.getEditingDomain(),
 				ise.getDataBindingContext(), true,

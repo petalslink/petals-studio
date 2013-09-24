@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.utils;
 
 import java.io.File;
@@ -32,7 +32,15 @@ import com.ebmwebsourcing.petals.services.su.projectscnf.SuProjectCategory;
  * A set of utilities to get relation and dependencies between SU and SA projects.
  * @author Vincent Zurczak - EBM WebSourcing
  */
-public class ServiceProjectRelationUtils {
+public final class ServiceProjectRelationUtils {
+
+	/**
+	 * Private constructor for utility class.
+	 */
+	private ServiceProjectRelationUtils() {
+		// nothing
+	}
+
 
 	/**
 	 * @param projectsToExclude

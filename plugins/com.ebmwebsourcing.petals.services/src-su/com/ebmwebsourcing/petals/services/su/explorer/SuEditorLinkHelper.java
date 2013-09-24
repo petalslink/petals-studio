@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.explorer;
 
 import javax.xml.namespace.QName;
@@ -43,6 +43,7 @@ public class SuEditorLinkHelper implements ILinkHelper {
 	 * @see org.eclipse.ui.navigator.ILinkHelper
 	 * #activateEditor(org.eclipse.ui.IWorkbenchPage, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void activateEditor( IWorkbenchPage aPage, IStructuredSelection aSelection ) {
 
 		// nothing
@@ -53,6 +54,7 @@ public class SuEditorLinkHelper implements ILinkHelper {
 	 * @see org.eclipse.ui.navigator.ILinkHelper
 	 * #findSelection(org.eclipse.ui.IEditorInput)
 	 */
+	@Override
 	public IStructuredSelection findSelection( IEditorInput anInput ) {
 
 		// Does this editor interest us?
@@ -74,11 +76,10 @@ public class SuEditorLinkHelper implements ILinkHelper {
 		if( interested && part != null ) {
 			ISelection s = part.getSite().getSelectionProvider().getSelection();
 			Object o = null;
-			if( s != null
-						&& ! s.isEmpty()
-						&& s instanceof IStructuredSelection
-						&& ( o = ((IStructuredSelection) s).getFirstElement()) instanceof Element
-						&& "provides".equals( DomUtils.getNodeName((Element) o))) {
+			if( s instanceof IStructuredSelection
+					&& ! s.isEmpty()
+					&& ( o = ((IStructuredSelection) s).getFirstElement()) instanceof Element
+					&& "provides".equals( DomUtils.getNodeName((Element) o))) {
 
 				Element elt = (Element) o;
 				myBean = new EndpointBean ();

@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjecttUIHelper;
+import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
 import com.ebmwebsourcing.petals.services.cdk.editor.CDK5JBIEndpointUIHelper;
 import com.ebmwebsourcing.petals.services.filetransfer.filetransfer2x.Filetransfer2xPackage;
@@ -62,15 +62,15 @@ public class FileTransferProvidesJbiEditorContribution extends JbiEditorDetailsC
 			controls.createControls( composite, true );
 
 			IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getDirectoryText(), SWT.Modify ));
-			IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY );
+			IObservableValue iov = EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__WRITE_DIRECTORY );
 			ise.getDataBindingContext().bindValue( widgetObservable, iov );
 
 			widgetObservable = ViewersObservables.observeSingleSelection((ISelectionProvider) controls.getCopyModeViewer());
-			iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE );
+			iov = EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__COPY_MODE );
 			ise.getDataBindingContext().bindValue( widgetObservable, iov );
 
 			widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getFilenameText(), SWT.Modify ));
-			iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__FILE_PATTERN );
+			iov = EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__FILE_PATTERN );
 			ise.getDataBindingContext().bindValue( widgetObservable, iov );
 
 		} else {
@@ -78,11 +78,11 @@ public class FileTransferProvidesJbiEditorContribution extends JbiEditorDetailsC
 			controls.createControls( composite, true );
 
 			IObservableValue widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getReadText(), SWT.Modify ));
-			IObservableValue iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY );
+			IObservableValue iov = EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__READ_DIRECTORY );
 			ise.getDataBindingContext().bindValue( widgetObservable, iov );
 
 			widgetObservable = SWTObservables.observeDelayedValue( 300, SWTObservables.observeText( controls.getBackupText(), SWT.Modify ));
-			iov = EObjecttUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY );
+			iov = EObjectUIHelper.createCustomEmfEditObservable( ise.getEditingDomain(), endpoint, Filetransfer2xPackage.Literals.FILE_TRANSFER_PROVIDES__BACKUP_DIRECTORY );
 			ise.getDataBindingContext().bindValue( widgetObservable, iov );
 		}
 

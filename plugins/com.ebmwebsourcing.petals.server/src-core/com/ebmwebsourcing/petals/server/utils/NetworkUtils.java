@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.server.utils;
 
 import java.io.IOException;
@@ -22,6 +22,9 @@ import java.net.URLConnection;
 import java.net.UnknownHostException;
 
 import org.eclipse.bpel.common.wsdl.helpers.UriAndUrlHelper;
+import org.eclipse.core.runtime.IStatus;
+
+import com.ebmwebsourcing.petals.server.PetalsServerPlugin;
 
 /**
  * @author Vincent Zurczak - EBM WebSourcing
@@ -57,15 +60,15 @@ public class NetworkUtils {
 						Thread.sleep( timeout );
 
 				} catch( InterruptedException e ) {
-					e.printStackTrace();
+					// nothing
 				}
 			}
 
 		} catch( UnknownHostException e ) {
-			// TODO: nothing or log?
+			PetalsServerPlugin.log( e, IStatus.ERROR );
 
 		} catch( IOException e ) {
-			// TODO: nothing or log?
+			PetalsServerPlugin.log( e, IStatus.ERROR );
 		}
 
 		return success;
@@ -109,7 +112,7 @@ public class NetworkUtils {
 					Thread.sleep( timeout );
 
 			} catch( InterruptedException e ) {
-				e.printStackTrace();
+				// nothing
 			}
 		}
 
@@ -152,7 +155,7 @@ public class NetworkUtils {
 			return InetAddress.getByName( host ).getHostAddress();
 
 		} catch( UnknownHostException e ) {
-			e.printStackTrace();
+			PetalsServerPlugin.log( e, IStatus.ERROR );
 		}
 
 		return hostOrIpAddress;
@@ -175,7 +178,7 @@ public class NetworkUtils {
 			return resolvedUrl.equals( localHostUrl );
 
 		} catch( UnknownHostException e ) {
-			e.printStackTrace();
+			PetalsServerPlugin.log( e, IStatus.ERROR );
 		}
 
 		// In case of doubt, return false
