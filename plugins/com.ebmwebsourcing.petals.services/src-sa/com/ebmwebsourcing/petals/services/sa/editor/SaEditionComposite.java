@@ -9,9 +9,10 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.sa.editor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -57,6 +58,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import com.ebmwebsourcing.petals.common.internal.provisional.formeditor.ISharedEdition;
+import com.ebmwebsourcing.petals.common.internal.provisional.misc.IProjectComparator;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultTreeContentProvider;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
@@ -215,6 +217,8 @@ public class SaEditionComposite extends SashForm {
 
 				// Select a SU project
 				List<IProject> suProjects = ServiceProjectRelationUtils.getAllSuProjects();
+				Collections.sort( suProjects, new IProjectComparator());
+
 				ListDialog dlg = new ListDialog( new Shell());
 				dlg.setAddCancelButton( true );
 				dlg.setContentProvider( new ArrayContentProvider());
