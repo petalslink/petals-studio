@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.eip.designer.tabbedproperties;
 
 import java.beans.PropertyChangeEvent;
@@ -90,6 +90,7 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 	 * @see java.beans.PropertyChangeListener
 	 * #propertyChange(java.beans.PropertyChangeEvent)
 	 */
+	@Override
 	public void propertyChange( PropertyChangeEvent evt ) {
 
 		if( EipConnection.PROPERTY_CONSUME_BY_ITF.equals( evt.getPropertyName())
@@ -127,6 +128,7 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 		buttonsContainer.setLayout( layout );
 
 		SelectionListener buttonListener = new DefaultSelectionListener() {
+			@Override
 			public void widgetSelected( SelectionEvent e ) {
 
 				if( ConnectionConsumeSection.this.enableListener ) {
@@ -192,6 +194,7 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 
 		// The listeners
 		this.operationViewer.addSelectionChangedListener( new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged( SelectionChangedEvent event ) {
 
 				// This listener will directly update the model
@@ -224,6 +227,7 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 
 		ModifyListener opModifyListener = new ModifyListener() {
 
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				if( ConnectionConsumeSection.this.enableListener ) {
 					EipConnectionSetAttributeCommand cmd =
@@ -244,6 +248,7 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 		this.opNsText.addModifyListener( opModifyListener );
 		this.mepCCombo.addModifyListener( new ModifyListener() {
 
+			@Override
 			public void modifyText( ModifyEvent e ) {
 				if( ConnectionConsumeSection.this.enableListener ) {
 					EipConnectionSetAttributeCommand cmd =
@@ -362,7 +367,11 @@ public class ConnectionConsumeSection extends AbstractPropertySection implements
 						&& ! StringUtils.isEmpty( edpt.getServiceName()))
 					srv = new QName( edpt.getServiceNamespace(), edpt.getServiceName());
 
-				this.opNameToMep.putAll( ConsumeUtils.getValidOperationsForConsume( itf, srv, edpt.getEndpointName()));
+				String en = edpt.getEndpointName();
+				if( StringUtils.isEmpty( en ))
+					en = null;
+
+				this.opNameToMep.putAll( ConsumeUtils.getValidOperationsForConsume( itf, srv, en ));
 			}
 
 			// EIP: check the associated WSDL, if it exists

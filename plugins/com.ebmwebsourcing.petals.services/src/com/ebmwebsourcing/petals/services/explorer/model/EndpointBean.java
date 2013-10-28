@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.explorer.model;
 
 import java.io.File;
@@ -229,6 +229,24 @@ public class EndpointBean implements IServiceCardId {
 		int srv = this.serviceName == null ? 391 : this.serviceName.hashCode();
 		int edpt = this.endpointName == null ? 117 : this.endpointName.hashCode();
 		return itf * edpt * srv;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append( this.serviceName.getLocalPart());
+		sb.append( " > " );
+		sb.append( this.interfaceName.getLocalPart());
+		sb.append( " @ " );
+		sb.append( this.endpointName );
+
+		return sb.toString();
 	}
 
 
