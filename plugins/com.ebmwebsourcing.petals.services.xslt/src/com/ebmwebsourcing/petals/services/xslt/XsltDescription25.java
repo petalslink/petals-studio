@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.xslt;
 
 /**
@@ -26,5 +26,4 @@ public class XsltDescription25 extends XsltDescription {
 	public String getComponentVersion() {
 		return "2.5";
 	}
-
 }

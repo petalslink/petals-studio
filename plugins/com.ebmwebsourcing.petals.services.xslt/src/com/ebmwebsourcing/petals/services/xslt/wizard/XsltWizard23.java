@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.xslt.wizard;
 
 import java.io.FileNotFoundException;
@@ -45,8 +45,9 @@ import com.sun.java.xml.ns.jbi.Provides;
  */
 public class XsltWizard23 extends AbstractServiceUnitWizard {
 
-	private final static String DEFAULT_XSL_NAME = "transformation.xsl";
-	private final XsltProvideSpecificPage page;
+	private static final String XSL_EXT = ".xsl";
+	private static final String DEFAULT_XSL_NAME = "transformation.xsl";
+	protected final XsltProvideSpecificPage page;
 
 
 	/**
@@ -126,8 +127,8 @@ public class XsltWizard23 extends AbstractServiceUnitWizard {
 	throws MalformedURLException, CoreException, FileNotFoundException {
 
 		String name = UriAndUrlHelper.extractOrGenerateFileName( this.page.getXslUrl());
-		if( ! name.endsWith( ".xslt" ))
-			name += ".xslt";
+		if( ! name.endsWith( XSL_EXT ))
+			name += XSL_EXT;
 
 		InputStream is = null;
 		try {

@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.xslt.wizard;
 
 import com.ebmwebsourcing.petals.services.su.extensions.ComponentVersionDescription;
@@ -43,7 +43,7 @@ public class XsltWizard25 extends XsltWizard23 {
 	@Override
 	protected AbstractSuWizardPage[] getLastCustomWizardPages() {
 		return new AbstractSuWizardPage[] {
-				new XsltProvideSpecificPage(),
+				this.page,
 				new SimpleFeatureListSuWizardPage(
 					XsltPackage.Literals.XSLT_PROVIDES__XSLT_ENGINE_FACTORY_CLASS_NAME,
 					XsltPackage.Literals.XSLT_PROVIDES__TRANSFORMER_FACTORY_MIN,
