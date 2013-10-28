@@ -12,11 +12,14 @@
 
 package com.ebmwebsourcing.petals.services.sa.editor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
@@ -62,6 +65,7 @@ import com.ebmwebsourcing.petals.common.internal.provisional.misc.IProjectCompar
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultSelectionListener;
 import com.ebmwebsourcing.petals.common.internal.provisional.swt.DefaultTreeContentProvider;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsImages;
+import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.Messages;
 import com.ebmwebsourcing.petals.services.editor.ServicesLabelProvider;
@@ -219,6 +223,24 @@ public class SaEditionComposite extends SashForm {
 				List<IProject> suProjects = ServiceProjectRelationUtils.getAllSuProjects();
 				Collections.sort( suProjects, new IProjectComparator());
 
+				// Filter projects
+				List<IProject> alreadyPresent = new ArrayList<IProject> ();
+				IWorkspaceRoot iwr = ResourcesPlugin.getWorkspace().getRoot();
+				for( ServiceUnit su : SaEditionComposite.this.ise.getJbiModel().getServiceAssembly().getServiceUnit()) {
+					if( su.getIdentification() == null )
+						continue;
+
+					if( StringUtils.isEmpty( su.getIdentification().getName()))
+						continue;
+
+					IProject p = iwr.getProject( su.getIdentification().getName());
+					if( p.exists())
+						alreadyPresent.add( p );
+				}
+
+				suProjects.removeAll( alreadyPresent );
+
+				// Open the selection dialog
 				ListSelectionDialog dlg = new ListSelectionDialog(
 						getShell(),
 						suProjects,
