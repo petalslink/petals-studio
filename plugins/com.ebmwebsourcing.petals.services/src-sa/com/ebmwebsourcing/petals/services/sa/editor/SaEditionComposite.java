@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EObject;
@@ -46,10 +47,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.ui.dialogs.ListDialog;
+import org.eclipse.ui.dialogs.ListSelectionDialog;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledPageBook;
@@ -219,41 +219,47 @@ public class SaEditionComposite extends SashForm {
 				List<IProject> suProjects = ServiceProjectRelationUtils.getAllSuProjects();
 				Collections.sort( suProjects, new IProjectComparator());
 
-				ListDialog dlg = new ListDialog( new Shell());
-				dlg.setAddCancelButton( true );
-				dlg.setContentProvider( new ArrayContentProvider());
-				dlg.setLabelProvider( new WorkbenchLabelProvider());
-				dlg.setInput( suProjects );
-				dlg.setTitle( "Service Unit Selection" );
-				dlg.setMessage( "Select a Service Unit project." );
+				ListSelectionDialog dlg = new ListSelectionDialog(
+						getShell(),
+						suProjects,
+						new ArrayContentProvider(),
+						new WorkbenchLabelProvider(),
+						"Select a Service Unit project." );
 
+				dlg.setTitle( "Service Unit Selection" );
 				if( dlg.open() != Window.OK )
 					return;
 
 				// Create the SU element
-				IProject selectedProject = (IProject) dlg.getResult()[ 0 ];
+				CompoundCommand cc = new CompoundCommand();
+				for( Object o : dlg.getResult()) {
+					IProject suProject = (IProject) o;
 
-				ServiceUnit su = JbiFactory.eINSTANCE.createServiceUnit();
-				Identification id = JbiFactory.eINSTANCE.createIdentification();
-				id.setName( selectedProject.getName());
-				id.setDescription( "" );
-				su.setIdentification( id );
+					ServiceUnit su = JbiFactory.eINSTANCE.createServiceUnit();
+					Identification id = JbiFactory.eINSTANCE.createIdentification();
+					id.setName( suProject.getName());
+					id.setDescription( "" );
+					su.setIdentification( id );
 
-				Target target = JbiFactory.eINSTANCE.createTarget();
-				target.setArtifactsZip( selectedProject.getName() + ".zip" );
-				Properties properties = PetalsSPPropertiesManager.getProperties( selectedProject );
-				String componentName = properties.getProperty( PetalsSPPropertiesManager.COMPONENT_DEPLOYMENT_ID, "" );
-				target.setComponentName( componentName );
-				su.setTarget( target );
+					Target target = JbiFactory.eINSTANCE.createTarget();
+					target.setArtifactsZip( suProject.getName() + ".zip" );
+					Properties properties = PetalsSPPropertiesManager.getProperties( suProject );
+					String componentName = properties.getProperty( PetalsSPPropertiesManager.COMPONENT_DEPLOYMENT_ID, "" );
+					target.setComponentName( componentName );
+					su.setTarget( target );
 
-				EList<?> list = SaEditionComposite.this.ise.getJbiModel().getServiceAssembly().getServiceUnit();
-				AddCommand addCommand = new AddCommand( SaEditionComposite.this.ise.getEditingDomain(), list, su );
-				SaEditionComposite.this.ise.getEditingDomain().getCommandStack().execute( addCommand );
+					EList<?> list = SaEditionComposite.this.ise.getJbiModel().getServiceAssembly().getServiceUnit();
+					AddCommand addCommand = new AddCommand( SaEditionComposite.this.ise.getEditingDomain(), list, su );
+					cc.append( addCommand );
+				}
+
+				// Execute the command
+				SaEditionComposite.this.ise.getEditingDomain().getCommandStack().execute( cc );
 
 				// Update the viewers
 				SaEditionComposite.this.viewer.refresh();
 				SaEditionComposite.this.viewer.expandAll();
-				SaEditionComposite.this.viewer.setSelection( new StructuredSelection( su ));
+				SaEditionComposite.this.viewer.setSelection( new StructuredSelection( SaEditionComposite.this.ise.getJbiModel().getServiceAssembly()));
 				SaEditionComposite.this.viewer.getTree().notifyListeners( SWT.Selection, new Event());
 				SaEditionComposite.this.viewer.getTree().setFocus();
 			}
