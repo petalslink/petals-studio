@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  <copyright>
 	 Copyright (c) 2009-2013, Linagora
@@ -13,7 +12,6 @@
      	 	Linagora - initial API and implementation
  </copyright>
 -->
-
 <feature
       id="com.ebmwebsourcing.petals.studio.core.feature"
       label="Petals Studio - Core Feature"
@@ -211,6 +209,13 @@ Petals Link is a registered trademark of Linagora
 
    <plugin
          id="com.ebmwebsourcing.petals.libs.esb"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.bpel.common.wsdl"
          download-size="0"
          install-size="0"
          version="0.0.0"

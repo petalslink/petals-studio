@@ -19,7 +19,6 @@
 	
 	<modules>		
 		<module>com.ebmwebsourcing.petals.studio.core.feature</module>
-		<module>com.ebmwebsourcing.petals.studio.bpel.feature</module>
 		<module>com.ebmwebsourcing.petals.studio.rcp.feature</module>
 		<module>com.ebmwebsourcing.petals.studio.source.feature</module>
 		<module>com.ebmwebsourcing.petals.studio.dev.feature</module>

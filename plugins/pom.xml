@@ -20,7 +20,6 @@
 	<modules>
 		<!-- Libraries -->
 		<module>com.ebmwebsourcing.petals.libs.cxf</module>
-		<module>com.ebmwebsourcing.petals.libs.easybpel</module>
 		<module>com.ebmwebsourcing.petals.libs.esb</module>
 	
 		<!-- Core of Petals tooling -->
@@ -51,9 +50,6 @@
 		<module>com.ebmwebsourcing.petals.services.sql</module>
 		<module>com.ebmwebsourcing.petals.services.validation</module>
 		<module>com.ebmwebsourcing.petals.services.xslt</module>
-		
-		<!-- BPEL plug-ins -->
-		<module>com.ebmwebsourcing.petals.services.bpel</module>
 		
 		<!-- Dev' Tooling -->
 		<module>com.ebmwebsourcing.petals.studio.dev.properties</module>
