@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.wizards.pages;
 
 import java.lang.reflect.InvocationTargetException;
@@ -330,6 +330,7 @@ public class JbiProvidePage extends JbiAbstractPage {
 		SuWizardSettings settings = getWizard().getSettings();
 		settings.soapAddress = bean.getSoapAddress();
 		settings.soapVersion = bean.getSoapVersion().toString();
+		settings.soapOriginalPort = bean.getEndpointName();
 		settings.wsdlUri = this.wsdlUrl;
 	}
 

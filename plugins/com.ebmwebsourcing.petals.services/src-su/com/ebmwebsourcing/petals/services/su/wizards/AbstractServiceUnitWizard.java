@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.wizards;
 
 import java.io.ByteArrayInputStream;
@@ -306,7 +306,7 @@ public abstract class AbstractServiceUnitWizard extends Wizard implements IExecu
 				wsdlFile = fileToUrl.get( getSelectedWSDLForProvide());
 				this.finalWsdlFileLocation = IoUtils.getRelativeLocationToFile( jbiFile.getLocation().toFile(), wsdlFile );
 				monitor.subTask( "Updating the WSDL..." );
-				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, this.endpoint.getServiceName(), this.endpoint.getEndpointName());
+				WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, this.endpoint.getServiceName(), this.settings.soapOriginalPort, this.endpoint.getEndpointName());
 
 			} catch( ParserConfigurationException e ) {
 				PetalsServicesPlugin.log( e, IStatus.ERROR );

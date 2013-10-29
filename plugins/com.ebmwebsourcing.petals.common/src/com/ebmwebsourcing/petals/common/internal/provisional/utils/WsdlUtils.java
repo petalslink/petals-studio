@@ -196,11 +196,12 @@ public final class WsdlUtils {
      *
 	 * @param file the WSDL file to parse
 	 * @param serviceName the name of the service whose end-point (port name) must be updated
+	 * @param the old port name
 	 * @param newEndpoint the new end-point
 	 * @return true if the update worked, false otherwise
 	 */
-	public boolean updateEndpointNameInWsdl( File wsdlFile, QName serviceName, String newEndpoint ) {
-		return updateEndpointAndServiceNamesInWsdl( wsdlFile, serviceName, null, newEndpoint );
+	public boolean updateEndpointNameInWsdl( File wsdlFile, QName serviceName, String oldPortName, String newEndpoint ) {
+		return updateEndpointAndServiceNamesInWsdl( wsdlFile, serviceName, null, oldPortName, newEndpoint );
 	}
 
 
@@ -210,10 +211,11 @@ public final class WsdlUtils {
 	 * @param file the WSDL file to parse
 	 * @param serviceName the name of the service whose end-point (port name) and name must be updated
 	 * @param newServiceName the new service name
+	 * @param the old port name (can be null if it is not known)
 	 * @param newEndpoint the new end-point
 	 * @return true if the update worked, false otherwise
 	 */
-	public boolean updateEndpointAndServiceNamesInWsdl( java.io.File wsdlFile, QName serviceName, QName newServiceName, String newEndpoint ) {
+	public boolean updateEndpointAndServiceNamesInWsdl( java.io.File wsdlFile, QName serviceName, QName newServiceName, String oldPortName, String newEndpoint ) {
 
 		boolean updated = false;
 		try {
@@ -234,11 +236,9 @@ public final class WsdlUtils {
 				Port port = (Port) ports.get( portName );
 
 				for( Object o : port.getBinding().getExtensibilityElements()) {
-					if( o instanceof SOAPBinding && rightPort == null ) {
-						rightPort = port;
-						break portsLoop;
-					}
-					else if( o instanceof SOAP12Binding && rightPort == null ) {
+					boolean isSoapBinding = o instanceof SOAPBinding || o instanceof SOAP12Binding;
+					boolean isRightPort = oldPortName == null || port.getName().equals( oldPortName );
+					if( isSoapBinding && isRightPort ) {
 						rightPort = port;
 						break portsLoop;
 					}

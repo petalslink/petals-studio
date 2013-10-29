@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.extensions;
 
 import javax.xml.namespace.QName;
@@ -46,6 +46,7 @@ public class SuWizardSettings {
 	public String wsdlUri;
 	public String soapAddress;
 	public String soapVersion;
+	public String soapOriginalPort;
 
 	// Consume fields
 	public QName invokedOperation;

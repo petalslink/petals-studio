@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.common.tests.utils;
 
 import java.io.File;
@@ -128,16 +128,19 @@ public class TestWsdlUtils extends TestCase {
 		IoUtils.copyStream( in, tempFile );
 		in.close();
 
-		// Update the WSDL
-		WsdlUtils.INSTANCE.updateEndpointNameInWsdl( tempFile, new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid" ), "paf" );
+		try {
+			// Update the WSDL
+			WsdlUtils.INSTANCE.updateEndpointNameInWsdl( tempFile, new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid" ), "TuxDroidPort", "paf" );
 
-		// Check the update
-		List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
-		Assert.assertTrue( beans.size() == 1 );
-		Assert.assertEquals( beans.get( 0 ).getEndpointName(), "paf" );
+			// Check the update
+			List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
+			Assert.assertTrue( beans.size() == 1 );
+			Assert.assertEquals( beans.get( 0 ).getEndpointName(), "paf" );
 
-		// Delete the temporary WSDL
-		IoUtils.deleteFilesRecursively( tempFile );
+		} finally {
+			// Delete the temporary WSDL
+			IoUtils.deleteFilesRecursively( tempFile );
+		}
 	}
 
 
@@ -155,20 +158,110 @@ public class TestWsdlUtils extends TestCase {
 		IoUtils.copyStream( in, tempFile );
 		in.close();
 
-		// Update the WSDL
-		WsdlUtils.INSTANCE.updateEndpointAndServiceNamesInWsdl(
-				tempFile,
-				new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid" ),
-				new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid-renamed" ),
-				"paf" );
+		try {
+			// Update the WSDL
+			WsdlUtils.INSTANCE.updateEndpointAndServiceNamesInWsdl(
+					tempFile,
+					new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid" ),
+					new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid-renamed" ),
+					"TuxDroidPort",
+					"paf" );
 
-		// Check the update
-		List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
-		Assert.assertTrue( beans.size() == 1 );
-		Assert.assertEquals( beans.get( 0 ).getServiceName().getLocalPart(), "TuxDroid-renamed" );
-		Assert.assertEquals( beans.get( 0 ).getEndpointName(), "paf" );
+			// Check the update
+			List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
+			Assert.assertTrue( beans.size() == 1 );
+			Assert.assertEquals( beans.get( 0 ).getServiceName().getLocalPart(), "TuxDroid-renamed" );
+			Assert.assertEquals( beans.get( 0 ).getEndpointName(), "paf" );
 
-		// Delete the temporary WSDL
-		IoUtils.deleteFilesRecursively( tempFile );
+		} finally {
+			// Delete the temporary WSDL
+			IoUtils.deleteFilesRecursively( tempFile );
+		}
+	}
+
+
+	/**
+	 * Tests the service and end-point update in a WSDL with 2 SOAP bindings.
+	 * @throws Exception
+	 */
+	@Test
+	public void testWsdlUpdate3() throws Exception {
+
+		// Copy the WSDL
+		URL url = getClass().getResource( "/wsdl/tuxDroid_WithTwoPorts.wsdl" );
+		InputStream in =  url.openStream();
+		File tempFile = File.createTempFile( "petals_test_", ".wsdl" );
+		IoUtils.copyStream( in, tempFile );
+		in.close();
+
+		try {
+			// Update the WSDL
+			WsdlUtils.INSTANCE.updateEndpointNameInWsdl(
+					tempFile,
+					new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid" ),
+					"TuxDroidPort",
+					"paf" );
+
+			// Check the update
+			List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
+			Assert.assertTrue( beans.size() == 2 );
+			for( JbiBasicBean bean : beans ) {
+				if( bean.getSoapVersion() == SoapVersion.v11 )
+					Assert.assertEquals( bean.getEndpointName(), "paf" );
+				else
+					Assert.assertEquals( bean.getEndpointName(), "TuxDroidPort_Soap12" );
+			}
+
+			// Update the WSDL
+			WsdlUtils.INSTANCE.updateEndpointNameInWsdl(
+					tempFile,
+					new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid" ),
+					"TuxDroidPort_Soap12",
+					"pif" );
+
+			// Check the update
+			beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
+			Assert.assertTrue( beans.size() == 2 );
+			for( JbiBasicBean bean : beans ) {
+				if( bean.getSoapVersion() == SoapVersion.v11 )
+					Assert.assertEquals( bean.getEndpointName(), "paf" );
+				else
+					Assert.assertEquals( bean.getEndpointName(), "pif" );
+			}
+
+		} finally {
+			// Delete the temporary WSDL
+			IoUtils.deleteFilesRecursively( tempFile );
+		}
+	}
+
+
+	/**
+	 * Tests the end-point update in a WSDL when the old end-point name is unknown.
+	 * @throws Exception
+	 */
+	@Test
+	public void testWsdlUpdate4() throws Exception {
+
+		// Copy the WSDL
+		URL url = getClass().getResource( "/wsdl/tuxDroid.wsdl" );
+		InputStream in =  url.openStream();
+		File tempFile = File.createTempFile( "petals_test_", ".wsdl" );
+		IoUtils.copyStream( in, tempFile );
+		in.close();
+
+		try {
+			// Update the WSDL
+			WsdlUtils.INSTANCE.updateEndpointNameInWsdl( tempFile, new QName( "http://tuxdroid.ebmwebsourcing.com/", "TuxDroid" ), null, "paf" );
+
+			// Check the update
+			List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( tempFile.toURI());
+			Assert.assertTrue( beans.size() == 1 );
+			Assert.assertEquals( beans.get( 0 ).getEndpointName(), "paf" );
+
+		} finally {
+			// Delete the temporary WSDL
+			IoUtils.deleteFilesRecursively( tempFile );
+		}
 	}
 }

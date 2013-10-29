@@ -13,6 +13,7 @@
 package com.ebmwebsourcing.petals.services.cdk.editor;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -264,20 +267,49 @@ public class WSDLHelperTooltip {
 				hide();
 				QName serviceName = WSDLHelperTooltip.this.service.getServiceName();
 				String edptName = WSDLHelperTooltip.this.service.getEndpointName();
-
 				URI wsdlUri = WSDLHelperTooltip.this.wsdlParsingJob.getWsdlUri();
-				File wsdlFile = IoUtils.convertToFile( wsdlUri );
-				if( ! WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, serviceName, edptName )) {
-					MessageDialog.openError( WSDLHelperTooltip.this.shell,	"End-point Update Failure", "The end-point could not be updated in the WSDL." );
-				} else {
-					// Force the validation of the file
-					try {
-						WSDLHelperTooltip.this.ise.getEditedFile().touch( null );
 
-					} catch( CoreException e1 ) {
-						CdkPlugin.log( e1, IStatus.WARNING );
+				// Perform an update if, and only if, there is no ambiguity in the WSDL.
+				// It is too complicated (and there are too many error cases) to keep the old end-point name value.
+				// So, the user may have to modify the WSDL by hand in some situations.
+				try {
+					List<JbiBasicBean> beans = WsdlUtils.INSTANCE.parse( wsdlUri );
+					int candidates = 0;
+					for( JbiBasicBean bean : beans ) {
+						if( serviceName.equals( bean.getServiceName()))
+							candidates ++;
 					}
+
+					if( candidates > 1 ) {
+						MessageDialog.openInformation(
+								WSDLHelperTooltip.this.shell, "Ambiguous Situation",
+								"The right WSDL port to update could not be determined. Please, update the WSDL manually." );
+					} else {
+						File wsdlFile = IoUtils.convertToFile( wsdlUri );
+						if( ! WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, serviceName, null, edptName )) {
+							MessageDialog.openError( WSDLHelperTooltip.this.shell,	"End-point Update Failure", "The end-point could not be updated in the WSDL." );
+						} else {
+							// Force the validation of the file
+							WSDLHelperTooltip.this.ise.getEditedFile().touch( null );
+						}
+					}
+
+				} catch( InvocationTargetException e1 ) {
+					MessageDialog.openError(
+							WSDLHelperTooltip.this.shell, "Invalid WSDL",
+							"The WSDL file could not be parsed. Make sure the URL and the file are both valid." );
+
+				} catch( CoreException e1 ) {
+					CdkPlugin.log( e1, IStatus.WARNING );
 				}
+			}
+		});
+
+
+		res.getBody().addListener( SWT.MouseDown, new Listener() {
+			@Override
+			public void handleEvent( Event e ) {
+				hide();
 			}
 		});
 	}

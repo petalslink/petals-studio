@@ -9,7 +9,7 @@
  * Contributors:
  * 		Linagora - initial API and implementation
  *******************************************************************************/
- 
+
 package com.ebmwebsourcing.petals.services.su.export;
 
 import java.io.File;
@@ -94,6 +94,7 @@ public class SuBulkExportWizard extends Wizard implements IExportWizard {
 
 		// Define the wizard completion process
 		IRunnableWithProgress op = new IRunnableWithProgress() {
+			@Override
 			public void run( IProgressMonitor monitor )
 					throws InvocationTargetException, InterruptedException {
 				try {
@@ -129,6 +130,7 @@ public class SuBulkExportWizard extends Wizard implements IExportWizard {
 	 * @see org.eclipse.ui.IWorkbenchWizard
 	 * #init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init( IWorkbench workbench, IStructuredSelection selection ) {
 		this.selection = selection;
 	}
@@ -283,9 +285,9 @@ public class SuBulkExportWizard extends Wizard implements IExportWizard {
 
 						// Update the WSDL...
 						if( newSrv != null )
-							WsdlUtils.INSTANCE.updateEndpointAndServiceNamesInWsdl( wsdlFile, srv, newSrv, edpt );
+							WsdlUtils.INSTANCE.updateEndpointAndServiceNamesInWsdl( wsdlFile, srv, newSrv, provides.getEndpointName(), edpt );
 						else
-							WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, srv, edpt );
+							WsdlUtils.INSTANCE.updateEndpointNameInWsdl( wsdlFile, srv, provides.getEndpointName(), edpt );
 					}
 
 					// Write the new jbi.xml file
