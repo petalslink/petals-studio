@@ -27,7 +27,7 @@
 			<version>${tycho-version}</version>
 			<configuration>
 				<includeAllDependencies>true</includeAllDependencies>
-			</configuration>
+                        </configuration>
         </plugin>
     
     	<!-- Create a zipped p2 repository -->
@@ -37,7 +37,8 @@
         	<version>${tycho-version}</version>
         	<configuration>
           		<includeAllDependencies>true</includeAllDependencies>
-        	</configuration>
+                        <finalName>Petals-Studio--Update-Site--${studio-version}</finalName>
+                </configuration>
       	</plugin>
 	
 		<!-- Create the product -->
@@ -65,52 +66,13 @@
                 <products>
 					<product>
 						<id>com.ebmwebsourcing.petals.studio.product</id>
-						<rootFolder>PetalsStudio</rootFolder>
+                                                <rootFolder>PetalsStudio</rootFolder>
+                                                <archiveFileName>Petals-Studio--${studio-version}-</archiveFileName>
 					</product>
 				</products>
 			</configuration> 
 		</plugin>
-		
-		<!-- ANT actions -->
-		<plugin>
-			<artifactId>maven-antrun-plugin</artifactId>
-			<version>1.6</version>
-			<executions>
-
-			
-				<!-- Rename the ZIP files -->
-				<execution>
-					<id>update-zip-files</id>
-					<phase>install</phase>
-								
-					<configuration>
-						<target>
-							
-							<!-- Rename the products -->
-							<move verbose="true" todir="${project.build.directory}/products">
-					        	<mapper type="regexp" 
-					        			from="^com\.ebmwebsourcing\.petals\.studio\.product(.*)$" 
-					        			to="Petals-Studio--${studio-version}-\1" />
-					        			
-					        	<fileset dir="${project.build.directory}/products">
-					        		<include name="*.zip" />
-					        	</fileset>
-					        </move>
-					        
-					        <!-- Rename the update site and move it in "products", so that they are all in the same directory -->
-					        <move 	verbose="true" 
-					        		file="${project.build.directory}/petals-studio-${project.version}.zip" 
-					        		tofile="${project.build.directory}/products/Petals-Studio--Update-Site--${studio-version}.zip" />
-						</target>
-					</configuration>
-							
-					<goals>
-						<goal>run</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-    </plugins>
+            </plugins>
 	</build>
 	
 </project>
