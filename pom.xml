@@ -113,19 +113,6 @@
 		</plugins>
 	</build>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho</id>
-			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<repositories>
 		<repository>
 			<id>indigo</id>
