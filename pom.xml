@@ -63,19 +63,15 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<resolver>p2</resolver>
 					<target>
 						<artifact>
 							<groupId>com.ebmwebsourcing.petals</groupId>
 							<artifactId>target-definition</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-							<classifier>indigo</classifier>
 						</artifact>
 					</target>
 
-					<ignoreTychoRepositories>true</ignoreTychoRepositories>
 					<environments>
-
 						<!-- Win 32 -->
 						<environment>
 							<os>win32</os>
@@ -147,14 +143,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>indigo</id>
-			<url>http://download.eclipse.org/releases/indigo/</url>
-			<layout>p2</layout>
-		</repository>
-	</repositories>
 
 	<issueManagement>
 		<system>JIRA</system>
