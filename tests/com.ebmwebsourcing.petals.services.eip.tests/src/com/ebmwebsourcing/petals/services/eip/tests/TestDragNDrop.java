@@ -15,14 +15,15 @@ package com.ebmwebsourcing.petals.services.eip.tests;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.ebmwebsourcing.petals.tests.common.DndUtil;
 import com.ebmwebsourcing.petals.tests.common.SUCreator;
 import com.ebmwebsourcing.petals.tests.common.SUDesc;
+import com.ebmwebsourcing.petals.tests.common.SWTBotGefUtil;
 
 /**
  * @author Mickael Istria - EBM WebSourcing
@@ -41,12 +42,15 @@ public class TestDragNDrop extends SWTBotGefTestCase {
 
 		SWTBotMenu newMenu = this.bot.menu("File").menu("New");
 		newMenu.menu("Croquis").click();
-		this.bot.text(0).setText("TestEIPFile");
-		this.bot.text(1).setText("TestEIPChain");
+		this.bot.text(0).setText("TestEIPChain");
+		this.bot.text(1).setText("TestEIPFile");
 		this.bot.button("Finish").click();
 
 		SWTBotGefEditor eipEditor = this.bot.gefEditor(this.bot.activeEditor().getTitle());
-		new DndUtil( this.bot.activeShell().display ).dragAndDrop(toDrag, eipEditor.getSWTBotGefViewer().rootEditPart());
+		
+		SWTBotGefFigureCanvas canvas = SWTBotGefUtil.getCanvas(eipEditor.getSWTBotGefViewer());
+		
+		toDrag.dragAndDrop(canvas);
 
 		Assert.assertNotSame("No edit part created", 0, eipEditor.getEditPart(suDesc.getEndpoint().replace("Endpoint", "Service")));
 

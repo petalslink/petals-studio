@@ -20,7 +20,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Test;
 
-import com.ebmwebsourcing.petals.tests.common.ContextMenuHelper;
 import com.ebmwebsourcing.petals.tests.common.SUCreator;
 import com.ebmwebsourcing.petals.tests.common.SUDesc;
 
@@ -38,10 +37,9 @@ public class TestProjectsActions extends SWTBotEclipseTestCase {
 
 		SWTBotTree tree = this.bot.tree(1);
 		final SWTBotTreeItem item = tree.getTreeItem("Service Units").getNode(su.getProjectName());
-		item.select();
-
-		ContextMenuHelper.clickContextMenu(tree, "Petals", "Add Java Nature");
-		ContextMenuHelper.clickContextMenu(tree, "Configure Build Path...");
+		item.contextMenu("Petals").menu("Add Java Nature").click();
+		item.contextMenu("Configure Build Path...").click();
+		
 		this.bot.shell("Properties for " + su.getProjectName());
 		Assert.assertEquals("Java Build Path", this.bot.tree().selection().get(0).get(0));
 		this.bot.button("Cancel").click();
