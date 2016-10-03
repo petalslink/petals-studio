@@ -48,6 +48,14 @@ Petals Link is a registered trademark of Linagora
          version="0.0.0"
          unpack="false"/>
 
+   <includes
+         id="org.eclipse.m2e.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.m2e.logback.feature"
+         version="0.0.0"/>
+
    <plugin
          id="org.eclipse.ui.ide"
          download-size="0"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Eclipse 3.7 - Indigo" sequenceNumber="24">
+<?pde version="3.8"?><target name="Eclipse 3.7 - Indigo" sequenceNumber="25">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.2.1.201402241301"/>
@@ -41,6 +41,8 @@
 <unit id="org.eclipse.wst.server_ui.feature.feature.group" version="3.3.2.v20111026_1748-7B79FBdAtJcez0EONePJUSNPjBC42"/>
 <unit id="org.eclipse.wst.ws_core.feature.feature.group" version="3.3.1.v201108230355-7L7RFi8FGtGd-thsz0z0rQwh2766"/>
 <unit id="org.eclipse.wst.ws_ui.feature.feature.group" version="3.3.2.v201112142348-7I7AFg1EtEoVFjz-98J1iuhhBz-uuWclgZtNHnEN"/>
+<unit id="org.eclipse.m2e.feature.feature.group" version="1.0.200.20111228-1245"/>
+<unit id="org.eclipse.m2e.logback.feature.feature.group" version="1.0.200.20111228-1245"/>
 <repository location="http://download.eclipse.org/releases/indigo/"/>
 </location>
 </locations>
