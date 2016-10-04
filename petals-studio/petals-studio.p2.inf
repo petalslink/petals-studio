@@ -12,14 +12,4 @@ instructions.configure=\
 	addRepository(type:0,name:Petals Studio 1.4,location:http${#58}//download.petalslink.com/petals-studio/files/PetalsStudio_1.4/updates/);\
 	addRepository(type:1,name:Petals Studio 1.4,location:http${#58}//download.petalslink.com/petals-studio/files/PetalsStudio_1.4/updates/);\
 	addRepository(type:0,name:Eclipse Indigo,location:http${#58}//download.eclipse.org/releases/indigo/);\
-	addRepository(type:1,name:Eclipse Indigo,location:http${#58}//download.eclipse.org/releases/indigo/);\
-	addRepository(type:0,name:FindBugs,location:http${#58}//findbugs.cs.umd.edu/eclipse/);\
-	addRepository(type:1,name:FindBugs,location:http${#58}//findbugs.cs.umd.edu/eclipse/);\
-	addRepository(type:0,name:PMD,location:http${#58}//pmd.sf.net/eclipse/);\
-	addRepository(type:1,name:PMD,location:http${#58}//pmd.sf.net/eclipse/);\
-	addRepository(type:0,name:Subclipse,location:http${#58}//subclipse.tigris.org/update_1.6.x);\
-	addRepository(type:1,name:Subclipse,location:http${#58}//subclipse.tigris.org/update_1.6.x);\
-	addRepository(type:0,name:CheckStyle,location:http${#58}//eclipse-cs.sf.net/update/);\
-	addRepository(type:1,name:CheckStyle,location:http${#58}//eclipse-cs.sf.net/update/);\
-	addRepository(type:0,name:JIRA,location:http${#58}//update.atlassian.com/atlassian-eclipse-plugin/e3.5/);\
-	addRepository(type:1,name:JIRA,location:http${#58}//update.atlassian.com/atlassian-eclipse-plugin/e3.5/);
+	addRepository(type:1,name:Eclipse Indigo,location:http${#58}//download.eclipse.org/releases/indigo/);
