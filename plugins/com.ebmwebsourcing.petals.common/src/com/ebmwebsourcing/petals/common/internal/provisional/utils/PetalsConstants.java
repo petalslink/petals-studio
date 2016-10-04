@@ -12,6 +12,8 @@
 
 package com.ebmwebsourcing.petals.common.internal.provisional.utils;
 
+import org.eclipse.osgi.service.resolver.VersionRange;
+
 import com.ebmwebsourcing.petals.common.internal.PetalsCommonPlugin;
 
 /**
@@ -98,7 +100,7 @@ public final class PetalsConstants {
 	/**
 	 * The default version of the Petals Maven plug-in.
 	 */
-	public static final String DEFAULT_PETALS_MAVEN_PLUGIN = "2.1.2";
+	public static final String DEFAULT_PETALS_MAVEN_PLUGIN = "3.0.0";
 
 	/**
 	 * The default version for Maven projects.

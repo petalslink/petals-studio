@@ -67,7 +67,7 @@
 		<plugins>
 			<plugin>
 				<groupId>org.ow2.petals</groupId>
-				<artifactId>maven-petals-plugin</artifactId>
+				<artifactId><%= bean.getPetalsMavenPluginName() %></artifactId>
 				<version><%= bean.getPetalsMavenPluginVersion() %></version>
 				<extensions>true</extensions>
 				<configuration>

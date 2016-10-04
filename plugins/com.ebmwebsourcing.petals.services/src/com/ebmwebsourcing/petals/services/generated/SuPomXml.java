@@ -51,9 +51,9 @@ public class SuPomXml {
   protected final String TEXT_17 = "</artifactId>" + NL + "\t\t\t<groupId>";
   protected final String TEXT_18 = "</groupId>" + NL + "\t\t\t<version>";
   protected final String TEXT_19 = "</version>" + NL + "\t\t\t<scope>provided</scope>" + NL + "\t\t</dependency>";
-  protected final String TEXT_20 = NL + "\t</dependencies>" + NL + "\t" + NL + "\t<build>" + NL + "\t\t<plugins>" + NL + "\t\t\t<plugin>" + NL + "\t\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t\t<artifactId>maven-petals-plugin</artifactId>" + NL + "\t\t\t\t<version>";
-  protected final String TEXT_21 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "\t" + NL + "\t<!--" + NL + "\t<repositories>" + NL + "\t\t<repository>" + NL + "\t\t\t<id>petals-link</id>" + NL + "\t\t\t<url>http://maven.petalslink.com/public/</url>" + NL + "\t\t</repository>" + NL + "\t</repositories>" + NL + "\t-->" + NL + "</project>";
-  protected final String TEXT_22 = NL;
+  protected final String TEXT_20 = NL + "\t</dependencies>" + NL + "\t" + NL + "\t<build>" + NL + "\t\t<plugins>" + NL + "\t\t\t<plugin>" + NL + "\t\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t\t<artifactId>";
+  protected final String TEXT_21 = "</artifactId>" + NL + "\t\t\t\t<version>";
+  protected final String TEXT_22 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "\t" + NL + "\t<!--" + NL + "\t<repositories>" + NL + "\t\t<repository>" + NL + "\t\t\t<id>petals-link</id>" + NL + "\t\t\t<url>http://maven.petalslink.com/public/</url>" + NL + "\t\t</repository>" + NL + "\t</repositories>" + NL + "\t-->" + NL + "</project>" + NL;
 
 	 public String generate( Object argument )
   {
@@ -118,8 +118,9 @@ public class SuPomXml {
     stringBuffer.append(TEXT_19);
      } 
     stringBuffer.append(TEXT_20);
-    stringBuffer.append( bean.getPetalsMavenPluginVersion() );
+    stringBuffer.append( bean.getPetalsMavenPluginName() );
     stringBuffer.append(TEXT_21);
+    stringBuffer.append( bean.getPetalsMavenPluginVersion() );
     stringBuffer.append(TEXT_22);
     return stringBuffer.toString();
   }

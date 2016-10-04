@@ -48,10 +48,10 @@ public class SaPomXml {
   protected final String TEXT_14 = "<dependency>" + NL + "\t\t\t<artifactId>";
   protected final String TEXT_15 = "</artifactId>" + NL + "\t\t\t<groupId>";
   protected final String TEXT_16 = "</groupId>" + NL + "\t\t\t<version>";
-  protected final String TEXT_17 = "</version>" + NL + "\t\t\t<type>jbi-service-unit</type>" + NL + "\t\t</dependency>" + NL + "\t\t";
-  protected final String TEXT_18 = NL + "\t</dependencies>" + NL + "\t" + NL + "\t<build>" + NL + "\t\t<plugins>" + NL + "\t\t\t<plugin>" + NL + "\t\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t\t<artifactId>maven-petals-plugin</artifactId>" + NL + "\t\t\t\t<version>";
-  protected final String TEXT_19 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "\t" + NL + "\t<!--" + NL + "\t<repositories>" + NL + "\t\t<repository>" + NL + "\t\t\t<id>petals-link</id>" + NL + "\t\t\t<url>http://maven.petalslink.com/public/</url>" + NL + "\t\t</repository>" + NL + "\t</repositories>" + NL + "\t-->" + NL + "</project>";
-  protected final String TEXT_20 = NL;
+  protected final String TEXT_17 = "</version>" + NL + "\t\t\t<type>jbi-service-unit</type>" + NL + "\t\t</dependency>" + NL;
+  protected final String TEXT_18 = "\t</dependencies>" + NL + "\t" + NL + "\t<build>" + NL + "\t\t<plugins>" + NL + "\t\t\t<plugin>" + NL + "\t\t\t\t<groupId>org.ow2.petals</groupId>" + NL + "\t\t\t\t<artifactId>";
+  protected final String TEXT_19 = "</artifactId>" + NL + "\t\t\t\t<version>";
+  protected final String TEXT_20 = "</version>" + NL + "\t\t\t\t<extensions>true</extensions>" + NL + "\t\t\t\t<configuration>" + NL + "\t\t\t\t\t<updateJBIXml>true</updateJBIXml>" + NL + "\t\t\t\t</configuration>" + NL + "\t\t\t</plugin>" + NL + "\t\t</plugins>" + NL + "\t</build>" + NL + "\t" + NL + "\t<!--" + NL + "\t<repositories>" + NL + "\t\t<repository>" + NL + "\t\t\t<id>petals-link</id>" + NL + "\t\t\t<url>http://maven.petalslink.com/public/</url>" + NL + "\t\t</repository>" + NL + "\t</repositories>" + NL + "\t-->" + NL + "</project>" + NL;
 
 	 public String generate( Object argument )
   {
@@ -112,8 +112,9 @@ public class SaPomXml {
     stringBuffer.append(TEXT_17);
      } 
     stringBuffer.append(TEXT_18);
-    stringBuffer.append( bean.getPetalsMavenPluginVersion() );
+    stringBuffer.append( bean.getPetalsMavenPluginName() );
     stringBuffer.append(TEXT_19);
+    stringBuffer.append( bean.getPetalsMavenPluginVersion() );
     stringBuffer.append(TEXT_20);
     return stringBuffer.toString();
   }

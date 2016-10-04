@@ -243,7 +243,8 @@ public final class PetalsServicePomManager {
 		tplContent = tplContent.replaceAll( "\\$\\{PETALS_GroupId\\}", mavenBean.getGroupId());
 		tplContent = tplContent.replaceAll( "\\$\\{PETALS_Version\\}", mavenBean.getVersion());
 		tplContent = tplContent.replaceAll( "\\$\\{PETALS_Description\\}", mavenBean.getDescription());
-
+		
+		tplContent = tplContent.replaceAll( "\\$\\{PETALS_PetalsMavenPluginName\\}", mavenBean.getPetalsMavenPluginName());
 		tplContent = tplContent.replaceAll( "\\$\\{PETALS_PetalsMavenPluginVersion\\}", mavenBean.getPetalsMavenPluginVersion());
 		tplContent = tplContent.replaceAll( "\\$\\{PETALS_ComponentName\\}", mavenBean.getComponentName());
 		tplContent = tplContent.replaceAll( "\\$\\{PETALS_ComponentVersion\\}", mavenBean.getComponentVersion());

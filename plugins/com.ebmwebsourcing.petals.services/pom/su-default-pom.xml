@@ -34,7 +34,7 @@
 		<plugins>
 			<plugin>
 				<groupId>org.ow2.petals</groupId>
-				<artifactId>maven-petals-plugin</artifactId>
+				<artifactId>${PETALS_PetalsMavenPluginName}</artifactId>
 				<version>${PETALS_PetalsMavenPluginVersion}</version>
 				<extensions>true</extensions>
 				<configuration>

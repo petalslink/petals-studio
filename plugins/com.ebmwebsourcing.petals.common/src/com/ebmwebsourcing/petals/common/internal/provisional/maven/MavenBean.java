@@ -15,6 +15,8 @@ package com.ebmwebsourcing.petals.common.internal.provisional.maven;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osgi.framework.Version;
+
 import com.ebmwebsourcing.petals.common.internal.provisional.preferences.PreferencesManager;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.PetalsConstants;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.StringUtils;
@@ -193,6 +195,16 @@ public class MavenBean {
 		this.version = version;
 	}
 
+	/**
+	 * @return the petalsMavenPluginName
+	 */
+	public final String getPetalsMavenPluginName() {
+		if (new Version("3.0.0").compareTo(new Version(getPetalsMavenPluginVersion())) <= 0) {
+			return "petals-maven-plugin";
+		} else {
+			return "maven-petals-plugin";
+		}
+	}
 
 	/**
 	 * @return the petalsMavenPluginVersion
