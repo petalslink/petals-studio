@@ -46,6 +46,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpsTruststorePassword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpsKeystoreFile"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/httpsKeystorePassword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapProvides/wsaTo"/>
     </genClasses>
     <genClasses ecoreClass="soap.ecore#//SoapConsumes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute soap.ecore#//SoapConsumes/soapServiceName"/>

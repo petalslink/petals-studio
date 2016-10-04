@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2011-2013, Linagora
+ * Copyright (c) 2011-2016, Linagora
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -38,7 +38,7 @@ public class SoapFactoryImpl extends EFactoryImpl implements SoapFactory {
 	 */
 	public static SoapFactory init() {
 		try {
-			SoapFactory theSoapFactory = (SoapFactory)EPackage.Registry.INSTANCE.getEFactory("http://petals.ow2.org/components/soap/version-4"); 
+			SoapFactory theSoapFactory = (SoapFactory)EPackage.Registry.INSTANCE.getEFactory(SoapPackage.eNS_URI);
 			if (theSoapFactory != null) {
 				return theSoapFactory;
 			}

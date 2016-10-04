@@ -3,7 +3,7 @@
 
 <!--
  <copyright>
-	 Copyright (c) 2008-2013, Linagora
+	 Copyright (c) 2008-2016, Linagora
 
 	 All rights reserved. This program and the accompanying materials
  	 are made available under the terms of the Eclipse Public License v1.0
@@ -51,6 +51,14 @@
                id="Mail 3.4"
                namespace="http://petals.ow2.org/components/mail/version-3"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.mail.v34.MailProvideWizard34">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.mail.v35.MailDescription35"
+               consumesExtensionWizard="com.ebmwebsourcing.petals.services.mail.v35.MailConsumesWizard35"
+               editorExtension="com.ebmwebsourcing.petals.services.mail.editor.MailEditorContribution"
+               id="Mail 3.5"
+               namespace="http://petals.ow2.org/components/mail/version-3"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.mail.v35.MailProvideWizard35">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>

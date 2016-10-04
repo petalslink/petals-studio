@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2011-2013, Linagora
+ * Copyright (c) 2011-2016, Linagora
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -171,15 +171,6 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * @generated
 	 */
 	public EAttribute getSoapProvides_WsaReplyTo() {
-		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getSoapProvides_WsaFrom() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -188,7 +179,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_WsaFaultTo() {
+	public EAttribute getSoapProvides_WsaFrom() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -197,7 +188,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_SoapVersion() {
+	public EAttribute getSoapProvides_WsaFaultTo() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -206,7 +197,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ChunkedMode() {
+	public EAttribute getSoapProvides_SoapVersion() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -215,7 +206,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_SynchonousTimeout() {
+	public EAttribute getSoapProvides_ChunkedMode() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -224,7 +215,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_CleanupTransport() {
+	public EAttribute getSoapProvides_SynchonousTimeout() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -233,7 +224,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_Mode() {
+	public EAttribute getSoapProvides_CleanupTransport() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -242,7 +233,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyHost() {
+	public EAttribute getSoapProvides_Mode() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -251,7 +242,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyPort() {
+	public EAttribute getSoapProvides_ProxyHost() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -260,7 +251,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyUser() {
+	public EAttribute getSoapProvides_ProxyPort() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -269,7 +260,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyPassword() {
+	public EAttribute getSoapProvides_ProxyUser() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -278,7 +269,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_ProxyDomain() {
+	public EAttribute getSoapProvides_ProxyPassword() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -287,7 +278,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HeadersFilter() {
+	public EAttribute getSoapProvides_ProxyDomain() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -296,7 +287,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_InjectHeaders() {
+	public EAttribute getSoapProvides_HeadersFilter() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -305,7 +296,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HeadersToInject() {
+	public EAttribute getSoapProvides_InjectHeaders() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -314,7 +305,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HttpBasicAuthUsername() {
+	public EAttribute getSoapProvides_HeadersToInject() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -323,7 +314,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HttpBasicAuthPassword() {
+	public EAttribute getSoapProvides_HttpBasicAuthUsername() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -332,7 +323,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_EnableCompatibilityFor() {
+	public EAttribute getSoapProvides_HttpBasicAuthPassword() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -341,7 +332,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_EnableWsa() {
+	public EAttribute getSoapProvides_EnableCompatibilityFor() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -350,7 +341,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HttpsTruststoreFile() {
+	public EAttribute getSoapProvides_EnableWsa() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -359,7 +350,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HttpsTruststorePassword() {
+	public EAttribute getSoapProvides_HttpsTruststoreFile() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -368,7 +359,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HttpsKeystoreFile() {
+	public EAttribute getSoapProvides_HttpsTruststorePassword() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(23);
 	}
 
@@ -377,8 +368,26 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSoapProvides_HttpsKeystorePassword() {
+	public EAttribute getSoapProvides_HttpsKeystoreFile() {
 		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(24);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_HttpsKeystorePassword() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(25);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSoapProvides_WsaTo() {
+		return (EAttribute)soapProvidesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -645,6 +654,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		// Create classes and their features
 		soapProvidesEClass = createEClass(SOAP_PROVIDES);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__ADDRESS);
+		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__WSA_TO);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__WSA_REPLY_TO);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__WSA_FROM);
 		createEAttribute(soapProvidesEClass, SOAP_PROVIDES__WSA_FAULT_TO);
@@ -741,6 +751,7 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(soapProvidesEClass, SoapProvides.class, "SoapProvides", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSoapProvides_Address(), theXMLTypePackage.getString(), "address", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSoapProvides_WsaTo(), theXMLTypePackage.getString(), "wsaTo", null, 1, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_WsaReplyTo(), theXMLTypePackage.getString(), "wsaReplyTo", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_WsaFrom(), theXMLTypePackage.getString(), "wsaFrom", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSoapProvides_WsaFaultTo(), theXMLTypePackage.getString(), "wsaFaultTo", null, 0, 1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -834,6 +845,14 @@ public class SoapPackageImpl extends EPackageImpl implements SoapPackage {
 			 "namespace", "##targetNamespace",
 			 "kind", "element"
 		   });		
+		addAnnotation
+		  (getSoapProvides_WsaTo(), 
+		   source, 
+		   new String[] {
+			 "group", "#group:0",
+			 "namespace", "##targetNamespace",
+			 "kind", "element"
+		   });	
 		addAnnotation
 		  (getSoapProvides_WsaReplyTo(), 
 		   source, 

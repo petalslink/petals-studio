@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2011-2013, Linagora
+ * Copyright (c) 2011-2016, Linagora
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapProvidesImpl#getAddress <em>Address</em>}</li>
+ *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapProvidesImpl#getWsaTo <em>Wsa To</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapProvidesImpl#getWsaReplyTo <em>Wsa Reply To</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapProvidesImpl#getWsaFrom <em>Wsa From</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.impl.SoapProvidesImpl#getWsaFaultTo <em>Wsa Fault To</em>}</li>
@@ -92,6 +93,35 @@ public class SoapProvidesImpl extends CDK5ProvidesImpl implements SoapProvides {
 	 * @ordered
 	 */
 	protected boolean addressESet;
+
+	/**
+	 * The default value of the '{@link #getWsaTo() <em>Wsa To</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWsaTo()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String WSA_TO_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getWsaTo() <em>Wsa To</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWsaTo()
+	 * @generated
+	 * @ordered
+	 */
+	protected String wsaTo = WSA_TO_EDEFAULT;
+
+	/**
+	 * This is true if the Wsa To attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean wsaToESet;
 
 	/**
 	 * The default value of the '{@link #getWsaReplyTo() <em>Wsa Reply To</em>}' attribute.
@@ -1283,11 +1313,59 @@ public class SoapProvidesImpl extends CDK5ProvidesImpl implements SoapProvides {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getWsaTo() {
+		return wsaTo;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setWsaTo(String newWsaTo) {
+		String oldWsaTo = wsaTo;
+		wsaTo = newWsaTo;
+		boolean oldWsaToESet = wsaToESet;
+		wsaToESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SoapPackage.SOAP_PROVIDES__WSA_TO, oldWsaTo, wsaTo, !oldWsaToESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetWsaTo() {
+		String oldWsaTo = wsaTo;
+		boolean oldWsaToESet = wsaToESet;
+		wsaTo = WSA_TO_EDEFAULT;
+		wsaToESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, SoapPackage.SOAP_PROVIDES__WSA_TO, oldWsaTo, WSA_TO_EDEFAULT, oldWsaToESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetWsaTo() {
+		return wsaToESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SoapPackage.SOAP_PROVIDES__ADDRESS:
 				return getAddress();
+			case SoapPackage.SOAP_PROVIDES__WSA_TO:
+				return getWsaTo();
 			case SoapPackage.SOAP_PROVIDES__WSA_REPLY_TO:
 				return getWsaReplyTo();
 			case SoapPackage.SOAP_PROVIDES__WSA_FROM:
@@ -1350,6 +1428,9 @@ public class SoapProvidesImpl extends CDK5ProvidesImpl implements SoapProvides {
 		switch (featureID) {
 			case SoapPackage.SOAP_PROVIDES__ADDRESS:
 				setAddress((String)newValue);
+				return;
+			case SoapPackage.SOAP_PROVIDES__WSA_TO:
+				setWsaTo((String)newValue);
 				return;
 			case SoapPackage.SOAP_PROVIDES__WSA_REPLY_TO:
 				setWsaReplyTo((String)newValue);
@@ -1438,6 +1519,9 @@ public class SoapProvidesImpl extends CDK5ProvidesImpl implements SoapProvides {
 			case SoapPackage.SOAP_PROVIDES__ADDRESS:
 				unsetAddress();
 				return;
+			case SoapPackage.SOAP_PROVIDES__WSA_TO:
+				unsetWsaTo();
+				return;
 			case SoapPackage.SOAP_PROVIDES__WSA_REPLY_TO:
 				setWsaReplyTo(WSA_REPLY_TO_EDEFAULT);
 				return;
@@ -1524,6 +1608,8 @@ public class SoapProvidesImpl extends CDK5ProvidesImpl implements SoapProvides {
 		switch (featureID) {
 			case SoapPackage.SOAP_PROVIDES__ADDRESS:
 				return isSetAddress();
+			case SoapPackage.SOAP_PROVIDES__WSA_TO:
+				return isSetWsaTo();
 			case SoapPackage.SOAP_PROVIDES__WSA_REPLY_TO:
 				return WSA_REPLY_TO_EDEFAULT == null ? wsaReplyTo != null : !WSA_REPLY_TO_EDEFAULT.equals(wsaReplyTo);
 			case SoapPackage.SOAP_PROVIDES__WSA_FROM:
@@ -1588,6 +1674,8 @@ public class SoapProvidesImpl extends CDK5ProvidesImpl implements SoapProvides {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (address: ");
 		if (addressESet) result.append(address); else result.append("<unset>");
+		result.append(", wsaTo: ");
+		if (wsaToESet) result.append(wsaTo); else result.append("<unset>");
 		result.append(", wsaReplyTo: ");
 		result.append(wsaReplyTo);
 		result.append(", wsaFrom: ");

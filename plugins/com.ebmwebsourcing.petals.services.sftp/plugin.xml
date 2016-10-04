@@ -3,7 +3,7 @@
 
 <!--
  <copyright>
-	 Copyright (c) 2008-2013, Linagora
+	 Copyright (c) 2008-2016, Linagora
 
 	 All rights reserved. This program and the accompanying materials
  	 are made available under the terms of the Eclipse Public License v1.0
@@ -53,6 +53,13 @@
                id="SFTP 1.5"
                namespace="http://petals.ow2.org/components/sftp/version-1"
                providesExtensionWizard="com.ebmwebsourcing.petals.services.sftp.wizards.SftpProvidesWizard15">
+         </ComponentVersionSupport>
+         <ComponentVersionSupport
+               componentVersionDescription="com.ebmwebsourcing.petals.services.sftp.SftpDescription16"
+               editorExtension="com.ebmwebsourcing.petals.services.sftp.editor.SftpEditorContribution"
+               id="SFTP 1.6"
+               namespace="http://petals.ow2.org/components/sftp/version-1"
+               providesExtensionWizard="com.ebmwebsourcing.petals.services.sftp.wizards.SftpProvidesWizard16">
          </ComponentVersionSupport>
       </ComponentSupport>
    </extension>
