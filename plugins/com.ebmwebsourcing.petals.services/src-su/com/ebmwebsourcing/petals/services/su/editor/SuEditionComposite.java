@@ -671,7 +671,19 @@ public class SuEditionComposite extends SashForm implements ISharedEdition {
 
 		this.componentContributions = null;
 		if( this.selectedEndpoint != null ) {
-			ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findComponentDescription( this.selectedEndpoint );
+			Properties projectProperties = PetalsSPPropertiesManager.getProperties( getEditedFile().getProject());
+			String suTypeVersion = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_VERSION, "" );
+			String componentName = projectProperties.getProperty( PetalsSPPropertiesManager.COMPONENT_NAME, "" );
+			
+			// first let's try with the project configuration
+			ComponentVersionDescription componentDesc = ExtensionManager.INSTANCE.findDescriptionByComponentNameAndVersion( componentName, suTypeVersion );
+			
+			if (componentDesc == null) {
+				// if none is found (or if there is no project configuration file or no correct data in it)
+				// let's rely on the namespaces
+				componentDesc = ExtensionManager.INSTANCE.findComponentDescription( this.selectedEndpoint );
+			}
+			
 			if( componentDesc != null ) {
 				EditorContributionSupport support = componentDesc.createNewExtensionSupport();
 				if( support != null )
