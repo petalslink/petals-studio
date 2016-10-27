@@ -12,6 +12,7 @@
  
 package com.ebmwebsourcing.petals.services.soap.v44;
 
+import com.ebmwebsourcing.petals.services.soap.editor.SoapConsumesEditorContribution;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.EditorContributionSupport;
 import com.ebmwebsourcing.petals.services.su.editor.extensibility.JbiEditorDetailsContribution;
 
@@ -27,6 +28,6 @@ public class SoapEditorContribution44 extends EditorContributionSupport {
 
 	@Override
 	protected JbiEditorDetailsContribution getConsumesContribution() {
-		return new SoapConsumesEditorContribution44();
+		return new SoapConsumesEditorContribution();
 	}
 }

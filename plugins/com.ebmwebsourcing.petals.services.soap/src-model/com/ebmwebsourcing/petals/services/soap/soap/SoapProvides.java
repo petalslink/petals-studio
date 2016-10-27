@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2011-2016, Linagora
+ * Copyright (c) 2011-2013, Linagora
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,7 +23,6 @@ import com.ebmwebsourcing.petals.services.cdk.cdk5.CDK5Provides;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getAddress <em>Address</em>}</li>
- *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaTo <em>Wsa To</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaReplyTo <em>Wsa Reply To</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaFrom <em>Wsa From</em>}</li>
  *   <li>{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaFaultTo <em>Wsa Fault To</em>}</li>
@@ -873,59 +872,5 @@ public interface SoapProvides extends CDK5Provides {
 	 * @generated
 	 */
 	void setHttpsKeystorePassword(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Wsa To</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Wsa To</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Wsa To</em>' attribute.
-	 * @see #isSetWsaTo()
-	 * @see #unsetWsaTo()
-	 * @see #setWsaTo(String)
-	 * @see com.ebmwebsourcing.petals.services.soap.soap.SoapPackage#getSoapProvides_WsaTo()
-	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true" derived="true"
-	 *        extendedMetaData="group='#group:0' namespace='##targetNamespace' kind='element'"
-	 * @generated
-	 */
-	String getWsaTo();
-
-	/**
-	 * Sets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaTo <em>Wsa To</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Wsa To</em>' attribute.
-	 * @see #isSetWsaTo()
-	 * @see #unsetWsaTo()
-	 * @see #getWsaTo()
-	 * @generated
-	 */
-	void setWsaTo(String value);
-
-	/**
-	 * Unsets the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaTo <em>Wsa To</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetWsaTo()
-	 * @see #getWsaTo()
-	 * @see #setWsaTo(String)
-	 * @generated
-	 */
-	void unsetWsaTo();
-
-	/**
-	 * Returns whether the value of the '{@link com.ebmwebsourcing.petals.services.soap.soap.SoapProvides#getWsaTo <em>Wsa To</em>}' attribute is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Wsa To</em>' attribute is set.
-	 * @see #unsetWsaTo()
-	 * @see #getWsaTo()
-	 * @see #setWsaTo(String)
-	 * @generated
-	 */
-	boolean isSetWsaTo();
 
 } // SoapProvides

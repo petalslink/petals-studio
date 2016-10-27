@@ -20,24 +20,19 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import com.ebmwebsourcing.petals.common.internal.provisional.emf.EObjectUIHelper;
 import com.ebmwebsourcing.petals.common.internal.provisional.utils.SwtFactory;
 import com.ebmwebsourcing.petals.services.soap.soap.SoapPackage;
-import com.ebmwebsourcing.petals.services.soap.soap.SoapVersion;
-import com.ebmwebsourcing.petals.services.su.extensions.SuWizardSettings;
-import com.ebmwebsourcing.petals.services.su.wizards.pages.SimpleFeatureListSuWizardPage;
+import com.ebmwebsourcing.petals.services.soap.v41.SoapProvidesWizardPage41;
 
 /**
  * @author Victor Noel - Linagora
  */
-public class SoapProvidesWizardPage44 extends SimpleFeatureListSuWizardPage {
-
-	private String oldSoapVersion, oldSoapAddress;
-
+public class SoapProvidesWizardPage44 extends SoapProvidesWizardPage41 {
 
 	/**
 	 * Constructor.
 	 */
 	public SoapProvidesWizardPage44() {
 		super(
-			SoapPackage.Literals.SOAP_PROVIDES__WSA_TO,
+			SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
 			SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
 			SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
 			SoapPackage.Literals.SOAP_PROVIDES__MODE
@@ -54,39 +49,8 @@ public class SoapProvidesWizardPage44 extends SimpleFeatureListSuWizardPage {
 
 		FormToolkit tk = new FormToolkit(getShell().getDisplay());
 		EObjectUIHelper.generateWidgets(getNewlyCreatedEndpoint(), tk, res, null, this.dbc, false,
-			SoapPackage.Literals.SOAP_PROVIDES__WSA_TO,
+			SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
 			SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
 			SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE);
-	}
-
-	@Override
-	public void setVisible( boolean visible ) {
-
-		if( visible ) {
-			boolean refresh = false;
-			SuWizardSettings settings = getWizard().getSettings();
-			if( this.oldSoapAddress == null || this.oldSoapAddress.equals( settings.soapAddress )) {
-				this.oldSoapAddress = settings.soapAddress;
-				refresh = true;
-			}
-
-			if( this.oldSoapVersion == null || this.oldSoapVersion.equals( settings.soapVersion )) {
-				this.oldSoapVersion = settings.soapVersion;
-				refresh = true;
-			}
-
-			if( refresh ) {
-				getNewlyCreatedEndpoint().eSet( SoapPackage.Literals.SOAP_PROVIDES__WSA_TO, settings.soapAddress );
-				SoapVersion soapVersion = null;
-				if( "1.1".equals( settings.soapVersion ))
-					soapVersion = SoapVersion.SOAP_11;
-				else if( "1.2".equals( settings.soapVersion ))
-					soapVersion = SoapVersion.SOAP_12;
-
-				getNewlyCreatedEndpoint().eSet( SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION, soapVersion );
-			}
-		}
-
-		super.setVisible( visible );
 	}
 }

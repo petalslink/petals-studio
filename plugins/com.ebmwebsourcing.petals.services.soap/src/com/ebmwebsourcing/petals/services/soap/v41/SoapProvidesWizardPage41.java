@@ -13,6 +13,7 @@
 package com.ebmwebsourcing.petals.services.soap.v41;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -36,13 +37,17 @@ public class SoapProvidesWizardPage41 extends SimpleFeatureListSuWizardPage {
 	 * Constructor.
 	 */
 	public SoapProvidesWizardPage41() {
-		super(
+		this(
 			SoapPackage.Literals.SOAP_PROVIDES__ADDRESS,
 			SoapPackage.Literals.SOAP_PROVIDES__SOAP_VERSION,
 			SoapPackage.Literals.SOAP_PROVIDES__CHUNKED_MODE,
 			SoapPackage.Literals.SOAP_PROVIDES__CLEANUP_TRANSPORT,
 			SoapPackage.Literals.SOAP_PROVIDES__MODE
 			);
+	}
+	
+	protected SoapProvidesWizardPage41(EStructuralFeature... features) {
+		super(features);
 	}
 
 

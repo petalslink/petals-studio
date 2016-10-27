@@ -12,31 +12,16 @@
  
 package com.ebmwebsourcing.petals.services.soap.v44;
 
-import com.ebmwebsourcing.petals.services.soap.SoapDescription;
+import com.ebmwebsourcing.petals.services.soap.v41.SoapDescription41;
 
 
 /**
  * @author Victor Noel - Linagora
  */
-public class SoapDescription44 extends SoapDescription {
+public class SoapDescription44 extends SoapDescription41 {
 
 	@Override
 	public String getComponentVersion() {
 		return "4.4.2";
-	}
-
-	@Override
-	public boolean isProvide() {
-		return true;
-	}
-
-	@Override
-	public boolean isConsume() {
-		return true;
-	}
-
-	@Override
-	public boolean isProxy() {
-		return false;
 	}
 }
